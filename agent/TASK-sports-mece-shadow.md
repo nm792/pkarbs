@@ -23,7 +23,7 @@ Once a day, run:
 and commit `reports/sports-mece/YYYY-MM-DD.md` with:
 - the simulator output lines;
 - runs.jsonl line count, and the number of distinct events with a run;
-- the top 5 runs by `(1 - cost0) * size0`, with title, duration and `dur`;
+- the top 5 runs by `(1 - cost0) * size0`, with title and `dur` (seconds the gap stayed open);
 - any `secondsDelay` values seen on in-play events other than 0, 1 or 3;
 - uptime and any errors from the logger output (ws errors, gamma errors, books errors).
 For `--one-way`, use the measured one-way latency from the server to clob.polymarket.com (half a
