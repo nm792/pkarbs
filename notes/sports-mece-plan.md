@@ -27,18 +27,24 @@ Source: handoff brief from the temperature project (22 Oct sampler, 11:39-20:50Z
   London VPS. Need: where that node runs and whether this project can reach it.
 
 ## Phase 1: measure the delay (read-only, cheap)
-- For each in-play negRisk match, read GET clob.polymarket.com/clob-markets/{condition_id} at kickoff,
-  every few minutes in play, and after full time. Record any delay/seconds fields and when they switch on.
-- Output: D per market (replaces the unconfirmed 1 s / 3 s).
+- Found 23 Oct: gamma exposes `secondsDelay` on each market. Snapshot at 04:45Z (mostly pre-game):
+  soccer 1 s on every market type, esports 1 s or 3 s, MLB 0, NHL 1 on some markets, most NBA/NFL unset.
+- shadow/shadow_logger.py re-records it on every refresh, so changes at kickoff or in play are kept.
+- Still to confirm: that `secondsDelay` is the delay the matching engine actually applies.
 
 ## Phase 2: Nautilus round trip (the MFW 10-order speed test)
 - Shadow-safe variant (no fill risk): post-only limit orders priced far from the touch on a liquid market,
   then cancel. Measures sign -> ack -> book-visible -> cancel-ack. 10 orders, tiny size.
 - These are still real orders on the wallet, so they run only with Nick's explicit go-ahead.
+- Blocked as of 23 Oct: the new Polymarket account is waiting for bot-access activation.
 - Not testable without fills: how the delay window behaves for a marketable order. Phase 3 models that.
 - Need from Nick: the MFW test script/results, and where the Nautilus node lives.
 
 ## Phase 3: multi-day shadow sampling (no orders)
+- Built 23 Oct: shadow/shadow_logger.py and shadow/shadow_sim.py (see shadow/README.md). Tested in the
+  Composio sandbox on 46 events / 580 books (pre-game, as nothing was in play at 05:00Z). All books rebuilt,
+  and pre-game costs were 1.027-1.05, which matches the handover. The simulator's partial-fill/unwind path was checked
+  on a synthetic case. Needs an always-on host to run for days.
 - Nautilus (or livesports.py) subscribes to WebSocket books for every leg of every in-play non-augmented
   negRisk match. Log full top-of-book plus depth to the needed size, with exchange and local timestamps.
 - On each detection (sum of leg asks + fees < 1 at size S), simulate:
