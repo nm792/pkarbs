@@ -86,6 +86,7 @@ def discover(tags, window_h, lead_h=0.0):
                         "name": m.get("groupItemTitle") or m.get("question"),
                         "fee_rate": (m.get("feeSchedule") or {}).get("rate", 0.0) if m.get("feesEnabled") else 0.0,
                         "fee_exp": (m.get("feeSchedule") or {}).get("exponent", 1),
+                        "rebate_rate": (m.get("feeSchedule") or {}).get("rebateRate", 0.0) if m.get("feesEnabled") else 0.0,
                         "seconds_delay": m.get("secondsDelay"),
                         "tick": m.get("orderPriceMinTickSize"),
                         "min_size": m.get("orderMinSize"),
@@ -123,8 +124,9 @@ class Book:
 
 
 class Logger:
-    def __init__(self, out, tags, min_edge, window_h, lead_h):
+    def __init__(self, out, tags, min_edge, window_h, lead_h, max_taker_rebate=0.0):
         self.out, self.tags, self.min_edge, self.window_h, self.lead_h = out, tags, min_edge, window_h, lead_h
+        self.max_taker_rebate = max_taker_rebate
         os.makedirs(out, exist_ok=True)
         self.events = {}         # event_id -> info
         self.asset_event = {}    # yes token -> event_id
@@ -188,25 +190,30 @@ class Logger:
             return
         n = len(ev["legs"])
         for side in ("yes", "no"):
-            cost, size, quotes = 0.0, float("inf"), []
+            cost, px, fee_sum, size, quotes = 0.0, 0.0, 0.0, float("inf"), []
             for leg in ev["legs"]:
                 b = self.books.get(leg["yes"])
                 p = (b.best_ask() if side == "yes" else b.best_bid()) if b else None
                 if p is None:
                     break
-                fee = leg["fee_rate"] * (p * (1 - p)) ** leg.get("fee_exp", 1)  # same for YES at p and NO at 1 - p
+                fee = leg["fee_rate"] * (p * (1 - p)) ** leg.get("fee_exp", 1)
+                px += (p if side == "yes" else 1 - p)
+                fee_sum += fee
                 cost += (p if side == "yes" else 1 - p) + fee
                 lvl = b.asks if side == "yes" else b.bids
                 size = min(size, lvl[p])
-                quotes.append([p, lvl[p]])  # YES ask (yes side) or YES bid (no side)
+                quotes.append([p, lvl[p]])
             else:
                 payout = 1 if side == "yes" else n - 1
                 edge = payout - cost
+                edge_full = payout - px - fee_sum
+                edge_relaxed = payout - px - (1 - self.max_taker_rebate) * fee_sum
                 run = self.runs.get((eid, side))
-                if edge > self.min_edge:
+                if edge_relaxed > self.min_edge:
                     if run is None:
                         self.runs[(eid, side)] = {
                             "event": eid, "side": side, "title": ev["title"], "t0": recv, "cost0": cost,
+                            "px0": px, "fee0": fee_sum, "edge_full_fee": 1 if edge_full > 0 else 0,
                             "payout": payout, "size0": size, "quotes0": quotes,
                             "assets": [leg["yes"] for leg in ev["legs"]], "n_markets": ev.get("n_markets"),
                             "min_cost": cost, "max_edge_usd": edge * size, "updates": 1}
@@ -216,7 +223,6 @@ class Logger:
                         run["max_edge_usd"] = max(run["max_edge_usd"], edge * size)
                     continue
             self.close_run(recv, eid, side)
-
     def close_run(self, recv, eid, side=None):
         for sd in ("yes", "no") if side is None else (side,):
             run = self.runs.pop((eid, sd), None)

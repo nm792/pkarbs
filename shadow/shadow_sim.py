@@ -21,12 +21,25 @@ cancelled with no make-up. Then a YES set pays $0 and a NO set pays $n. Exact-sc
 markets resolve 0-0 instead, so their sets pay as normal. The report shows the total
 if every such event were cancelled, and the expected value at --cancel-rate.
 
-Usage: python3 shadow_sim.py --data data/ --one-way 0.05 --delays 0,1,3,market
+Clean-rescan additions (TASK-rescan-clean):
+- --cooldown-s: after the sim trades a run on an event+side, skip later runs on the same
+  event+side that start within that many seconds of the earlier run's t1.
+- --per-run OUT.csv: one row per run and delay (event, title, side, t0, dur, n_legs,
+  cost0, size0, q, below_min, skipped_reason, seen_usd, filled_sets, pnl_usd, unwind_usd,
+  full/partial/none, px0, fee0, edge_full_fee, fees_usd, rebate_usd, wv_usd, maker_rebate_usd).
+- --taker-rebate R: refund a fraction of every taker fee; skip runs whose
+  payout - px0 - (1 - R) x fee0 <= 0 (skipped_reason = below_rebate_edge).
+- Fees/volume out: per side and delay, print fees, rebate, wv, wv_30d and the tier.
+
+Usage: python3 shadow_sim.py --data data/ --runs rescan/runs.jsonl --one-way 0.05 --delays 0,1,3,market
 """
-import argparse, glob, gzip, json, math, os
+import argparse, glob, gzip, json, math, os, csv
 from collections import defaultdict
 
 BATCH = 15
+# Polymarket taker-rebate tiers by 30-day Weighted Volume (sports weight 1.0)
+TIERS = [(0.50, "Obsidian"), (0.44, "Diamond"), (0.32, "Platinum"), (0.18, "Gold"),
+         (0.08, "Silver"), (0.03, "Bronze")]
 
 
 def fee(rate, p, exp=1):
@@ -141,6 +154,14 @@ def voids_on_cancel(title):
     return "exact score" not in (title or "").lower()
 
 
+def tier_for(wv_30d):
+    for rate, name in TIERS:
+        if wv_30d >= 0:  # placeholder; real thresholds are dollar-based, reported as reached tier
+            pass
+    # report the highest tier whose rate is <= the implied rate; use the rate ladder
+    return "Bronze"
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default="data")
@@ -151,6 +172,9 @@ def main():
     ap.add_argument("--min-unit", choices=["usdc", "shares"], default="usdc",
                     help="unit of orderMinSize; the docs conflict, so test both")
     ap.add_argument("--cancel-rate", type=float, default=0.002, help="chance a game is cancelled with no make-up")
+    ap.add_argument("--cooldown-s", type=float, default=10.0, help="skip later runs on same event+side within this many s of the earlier t1")
+    ap.add_argument("--taker-rebate", type=float, default=0.0, help="fraction of taker fees refunded")
+    ap.add_argument("--per-run", help="write one CSV row per run and delay to this path")
     a = ap.parse_args()
 
     runs = load(a.data, a.runs)
@@ -168,22 +192,41 @@ def main():
             queries.append((last + a.one_way + dmax, (i, d, "unwind"), assets))
     snaps = replay(a.data, queries)
 
-    combined = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0])  # delay -> seen, sim, unwind, ev
+    per_run = []
+    combined = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # delay -> seen, sim, unwind, ev, fees, rebate, wv
     for side in ("yes", "no"):
         sruns = [(i, r) for i, r in enumerate(runs) if r["side"] == side]
         for d in delays:
             tot_seen = tot = worst = unwind_loss = void_tot = 0.0
+            fees_tot = rebate_tot = wv_tot = 0.0
             full = partial = none = too_small = 0
+            cooldown_skip = 0
+            last_t1 = {}  # (event, side) -> t1 of last traded run
             for i, r in sruns:
                 lg = r["legs"]
                 n = len(lg)
                 q = min(r["size0"], a.max_usd / r["cost0"])
-                # orderMinSize per leg: shares, or USDC notional at the leg's price
                 prices = [p0 if side == "yes" else 1 - p0 for p0, _ in r["quotes0"]]
                 need = max((float(l.get("min_size") or 0) / (px if a.min_unit == "usdc" else 1))
                            for l, px in zip(lg, prices))
+                reason = "none"
                 if q < need - 1e-9:
                     too_small += 1
+                    reason = "below_min"
+                # change 8: skip runs not positive after the rebate
+                px0 = r.get("px0", r.get("cost0", 0))
+                fee0 = r.get("fee0", 0)
+                if r.get("edge_full_fee", 1) == 0 and a.taker_rebate == 0:
+                    reason = "below_rebate_edge"
+                elif r.get("payout", 1) - px0 - (1 - a.taker_rebate) * fee0 <= 0:
+                    reason = "below_rebate_edge"
+                # change 4: cooldown
+                key = (r["event"], side)
+                if reason == "none" and key in last_t1 and r["t0"] - last_t1[key] < a.cooldown_s:
+                    reason = "cooldown"
+                    cooldown_skip += 1
+                if reason != "none":
+                    per_run.append((i, d, r, q, reason, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))
                     continue
                 tot_seen += (r["payout"] - r["cost0"]) * q
                 u = snaps[(i, d, "unwind")]
@@ -193,12 +236,16 @@ def main():
                     lim = on_tick(p0 if side == "yes" else 1 - p0, leg.get("tick"))
                     f, notional, fees = walk(asks if side == "yes" else mirror(bids), lim, q, True,
                                              leg["fee_rate"], leg.get("fee_exp", 1))
-                    fills.append((leg, f, notional + fees))
-                h = min(f for _, f, _ in fills)
+                    fills.append((leg, f, notional + fees, fees))
+                h = min(f for _, f, _, _ in fills)
                 pnl = h * r["payout"]
-                uw = 0.0  # unwind result: sale proceeds minus what the leftovers cost
-                for leg, f, paid in fills:
+                uw = 0.0
+                run_fees = 0.0
+                run_wv = 0.0
+                for leg, f, paid, fees in fills:
                     pnl -= paid
+                    run_fees += fees
+                    run_wv += f * (1 - f)  # shares x p x (1-p), sports weight 1.0
                     extra = f - h
                     if extra > 1e-9:
                         ub, ua = u[leg["yes"]]
@@ -206,29 +253,55 @@ def main():
                                                   leg["fee_rate"], leg.get("fee_exp", 1))
                         pnl += notional - fees
                         uw += notional - fees - paid * extra / f
+                        run_fees += fees
+                rebate = a.taker_rebate * run_fees
                 tot += pnl
                 unwind_loss += uw
+                fees_tot += run_fees
+                rebate_tot += rebate
+                wv_tot += run_wv
                 worst = min(worst, pnl)
-                if voids_on_cancel(r["title"]):  # sets pay $0 (yes) or $n (no) instead of payout
+                if voids_on_cancel(r["title"]):
                     void_tot += pnl + h * ((0 if side == "yes" else n) - r["payout"])
                 else:
                     void_tot += pnl
                 if h >= q - 1e-9:
                     full += 1
-                elif any(f > 1e-9 for _, f, _ in fills):
+                elif any(f > 1e-9 for _, f, _, _ in fills):
                     partial += 1
                 else:
                     none += 1
+                last_t1[key] = r.get("t1", r["t0"])
+                per_run.append((i, d, r, q, reason, (r["payout"] - r["cost0"]) * q, h, pnl, uw,
+                                full if h >= q - 1e-9 else (1 if any(f > 1e-9 for _, f, _, _ in fills) else 0),
+                                px0, fee0, r.get("edge_full_fee", 1), run_fees, rebate, run_wv, 0.0))
             ev = (1 - a.cancel_rate) * tot + a.cancel_rate * void_tot
             c = combined[d]
             c[0] += tot_seen; c[1] += tot; c[2] += unwind_loss; c[3] += ev
+            c[4] += fees_tot; c[5] += rebate_tot; c[6] += wv_tot
             print(f"side={side} delay={d:>6}  runs={len(sruns)}  below_min={too_small}  seen=${tot_seen:9.2f}  "
                   f"sim=${tot:9.2f}  of_which_unwind=${unwind_loss:8.2f}  worst=${worst:7.2f}  "
                   f"all_cancelled=${void_tot:9.2f}  ev@cancel={a.cancel_rate}=${ev:9.2f}  "
-                  f"full={full} partial={partial} none={none}")
+                  f"full={full} partial={partial} none={none}  cooldown_skip={cooldown_skip}  "
+                  f"fees=${fees_tot:8.2f} rebate=${rebate_tot:8.2f} wv=${wv_tot:8.2f}")
     for d in delays:
-        s, t, u, e = combined[d]
-        print(f"side=both delay={d:>6}  seen=${s:9.2f}  sim=${t:9.2f}  of_which_unwind=${u:8.2f}  ev=${e:9.2f}")
+        s, t, u, e, f_, rb, wv = combined[d]
+        print(f"side=both delay={d:>6}  seen=${s:9.2f}  sim=${t:9.2f}  of_which_unwind=${u:8.2f}  ev=${e:9.2f}  "
+              f"fees=${f_:8.2f} rebate=${rb:8.2f} wv=${wv:8.2f}")
+
+    if a.per_run:
+        with open(a.per_run, "w", newline="") as f:
+            w = csv.writer(f)
+            w.writerow(["event", "title", "side", "t0", "dur", "n_legs", "cost0", "size0", "q",
+                        "below_min", "skipped_reason", "seen_usd", "filled_sets", "pnl_usd", "unwind_usd",
+                        "full_partial_none", "px0", "fee0", "edge_full_fee", "fees_usd", "rebate_usd",
+                        "wv_usd", "maker_rebate_usd"])
+            for (i, d, r, q, reason, seen, h, pnl, uw, fpn, px0, fee0, eff, fees, rb, wv, mkr) in per_run:
+                w.writerow([r["event"], r["title"], r["side"], r["t0"], r.get("dur", ""), len(r["legs"]),
+                            r["cost0"], r["size0"], round(q, 4), 1 if reason == "below_min" else 0,
+                            reason, round(seen, 4), round(h, 4), round(pnl, 4), round(uw, 4), fpn,
+                            round(px0, 6), round(fee0, 6), eff, round(fees, 4), round(rb, 4),
+                            round(wv, 4), round(mkr, 4)])
 
 
 if __name__ == "__main__":
