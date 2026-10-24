@@ -97,20 +97,33 @@ def load(data, runs_path=None):
     return runs
 
 
-def replay(data, queries):
-    """queries: list of (t, key, assets). Returns {key: {asset: (bids, asks)}} snapshots."""
+def replay(data, queries, gap_s=5.0):
+    """queries: list of (t, key, assets). Returns (snaps, seeded_at) where snaps[key][asset]
+    is (bids, asks) at the query time and seeded_at[key][asset] is whether the leg was seeded
+    (a full book message arrived after the last gap reset). Books reset when the receive time
+    jumps by more than gap_s; a leg is unseeded until a full book message arrives."""
     want = sorted(queries, key=lambda q: q[0])
     books = defaultdict(lambda: [{}, {}, 0])  # bids, asks, last exchange ts
-    snaps, qi = {}, 0
+    seeded = defaultdict(lambda: {})          # asset -> last full-book recv time
+    snaps, seeded_at, qi = {}, {}, 0
+    last_r = None
     for path in sorted(glob.glob(os.path.join(data, "raw-*.jsonl.gz"))):
         for line in read_lines(path):
             try:
                 rec = json.loads(line)
             except ValueError:  # partial last line of a file still being written
                 continue
-            while qi < len(want) and want[qi][0] < rec["r"]:
+            r = rec["r"]
+            # change 1: receive-time jump resets every book and unseeds every leg
+            if last_r is not None and r - last_r > gap_s:
+                for b in books.values():
+                    b[0], b[1], b[2] = {}, {}, 0
+                seeded.clear()
+            last_r = r
+            while qi < len(want) and want[qi][0] < r:
                 t, key, assets = want[qi]
                 snaps[key] = {a: (dict(books[a][0]), dict(books[a][1])) for a in assets}
+                seeded_at[key] = {a: (seeded.get(a) is not None) for a in assets}
                 qi += 1
             msgs = rec["m"] if isinstance(rec["m"], list) else [rec["m"]]
             for m in msgs:
@@ -122,6 +135,7 @@ def replay(data, queries):
                     b[2] = int(m.get("timestamp", 0))
                     b[0] = {float(x["price"]): float(x["size"]) for x in m.get("bids", [])}
                     b[1] = {float(x["price"]): float(x["size"]) for x in m.get("asks", [])}
+                    seeded[m["asset_id"]] = r  # full book re-seeds the leg
                 elif et == "price_change":
                     for c in m.get("price_changes") or m.get("changes") or []:
                         b = books[c.get("asset_id") or m.get("asset_id")]
@@ -134,9 +148,8 @@ def replay(data, queries):
                             side[p] = s
     for t, key, assets in want[qi:]:
         snaps[key] = {a: (dict(books[a][0]), dict(books[a][1])) for a in assets}
-    return snaps
-
-
+        seeded_at[key] = {a: (seeded.get(a) is not None) for a in assets}
+    return snaps, seeded_at
 def leg_delay(leg, d):
     return (leg.get("seconds_delay") or 0) if d == "market" else float(d)
 
@@ -173,6 +186,7 @@ def main():
                     help="unit of orderMinSize; the docs conflict, so test both")
     ap.add_argument("--cancel-rate", type=float, default=0.002, help="chance a game is cancelled with no make-up")
     ap.add_argument("--cooldown-s", type=float, default=10.0, help="skip later runs on same event+side within this many s of the earlier t1")
+    ap.add_argument("--gap-s", type=float, default=5.0, help="receive-time jump that resets every book and unseeds every leg")
     ap.add_argument("--taker-rebate", type=float, default=0.0, help="fraction of taker fees refunded")
     ap.add_argument("--per-run", help="write one CSV row per run and delay to this path")
     a = ap.parse_args()
@@ -190,7 +204,7 @@ def main():
                 last = max(last, tm)
             dmax = max(leg_delay(l, d) for l in r["legs"])
             queries.append((last + a.one_way + dmax, (i, d, "unwind"), assets))
-    snaps = replay(a.data, queries)
+    snaps, seeded_at = replay(a.data, queries, a.gap_s)
 
     per_run = []
     combined = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # delay -> seen, sim, unwind, ev, fees, rebate, wv
@@ -201,6 +215,8 @@ def main():
             fees_tot = rebate_tot = wv_tot = 0.0
             full = partial = none = too_small = 0
             cooldown_skip = 0
+            unseeded_skip = 0
+            crossed_checks = 0
             last_t1 = {}  # (event, side) -> t1 of last traded run
             for i, r in sruns:
                 lg = r["legs"]
@@ -225,18 +241,33 @@ def main():
                 if reason == "none" and key in last_t1 and r["t0"] - last_t1[key] < a.cooldown_s:
                     reason = "cooldown"
                     cooldown_skip += 1
+                # change 1: skip runs on unseeded legs (no full book after the last gap reset)
+                if reason == "none":
+                    for k, leg in enumerate(lg):
+                        if not seeded_at.get((i, d, "match", k), {}).get(leg["yes"], False):
+                            reason = "unseeded"
+                            unseeded_skip += 1
+                            break
                 if reason != "none":
                     per_run.append((i, d, r, q, reason, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))
                     continue
                 tot_seen += (r["payout"] - r["cost0"]) * q
                 u = snaps[(i, d, "unwind")]
                 fills = []
+                crossed = 0
                 for k, (leg, (p0, _)) in enumerate(zip(lg, r["quotes0"])):
                     bids, asks = snaps[(i, d, "match", k)][leg["yes"]]
+                    # change 2: a crossed leg counts as unfilled
+                    if bids and asks and max(bids) >= min(asks):
+                        crossed += 1
+                        fills.append((leg, 0.0, 0.0, 0.0))
+                        continue
                     lim = on_tick(p0 if side == "yes" else 1 - p0, leg.get("tick"))
                     f, notional, fees = walk(asks if side == "yes" else mirror(bids), lim, q, True,
                                              leg["fee_rate"], leg.get("fee_exp", 1))
                     fills.append((leg, f, notional + fees, fees))
+                if crossed:
+                    crossed_checks += 1
                 h = min(f for _, f, _, _ in fills)
                 pnl = h * r["payout"]
                 uw = 0.0
@@ -245,7 +276,9 @@ def main():
                 for leg, f, paid, fees in fills:
                     pnl -= paid
                     run_fees += fees
-                    run_wv += f * (1 - f)  # shares x p x (1-p), sports weight 1.0
+                    if f > 0:
+                        p = (paid - fees) / f  # notional / shares = avg price
+                        run_wv += f * p * (1 - p)  # shares x p x (1-p), sports weight 1.0
                     extra = f - h
                     if extra > 1e-9:
                         ub, ua = u[leg["yes"]]
@@ -282,7 +315,7 @@ def main():
             print(f"side={side} delay={d:>6}  runs={len(sruns)}  below_min={too_small}  seen=${tot_seen:9.2f}  "
                   f"sim=${tot:9.2f}  of_which_unwind=${unwind_loss:8.2f}  worst=${worst:7.2f}  "
                   f"all_cancelled=${void_tot:9.2f}  ev@cancel={a.cancel_rate}=${ev:9.2f}  "
-                  f"full={full} partial={partial} none={none}  cooldown_skip={cooldown_skip}  "
+                  f"full={full} partial={partial} none={none}  cooldown_skip={cooldown_skip} unseeded_skip={unseeded_skip} crossed={crossed_checks}  "
                   f"fees=${fees_tot:8.2f} rebate=${rebate_tot:8.2f} wv=${wv_tot:8.2f}")
     for d in delays:
         s, t, u, e, f_, rb, wv = combined[d]

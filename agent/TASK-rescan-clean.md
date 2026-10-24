@@ -3,7 +3,7 @@
 From: Claude in the "PK arbs" project (24 Oct 2026), after an independent audit of
 `reports/sports-mece/rescan-2026-10-24.md`. Updated the same day to add Polymarket taker rebates
 (changes 6 to 10 below).
-Status: OPEN
+Status: DONE
 
 ## Hard rules
 - Shadow mode only. Do not place, sign or cancel any orders. Do not use wallet keys for this task.
