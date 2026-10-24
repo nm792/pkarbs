@@ -5,7 +5,11 @@ Finds live, non-augmented negRisk sports events on gamma, streams every leg's
 book from the public market WebSocket, and writes:
   OUT/raw-YYYYmmddHH.jsonl.gz  every WS message, prefixed with local receive time
   OUT/events.jsonl             leg lists, fee rates and secondsDelay snapshots
-  OUT/runs.jsonl               each period where sum(asks)+fees < 1 - MIN_EDGE
+  OUT/runs.jsonl               each period where a full set is underpriced on either side:
+                               yes: buy every YES at the ask, pays 1; edge = 1 - sum(ask + fee)
+                               no:  buy every NO, pays n - 1; the NO book mirrors the YES book
+                                    (NO ask = 1 - YES bid), so edge = sum(YES bid - fee) - 1
+                               Only events whose leg list is complete (no closed or missing leg).
 
 Usage: python3 shadow_logger.py --out data/ [--tags sports] [--minutes 0]
 Needs: pip install websockets
@@ -62,7 +66,8 @@ def discover(tags, window_h, lead_h=0.0):
             for ev in page.get("events", []):
                 if not ev.get("negRisk") or ev.get("negRiskAugmented"):
                     continue
-                legs = [m for m in ev.get("markets", [])
+                markets = ev.get("markets", [])
+                legs = [m for m in markets
                         if m.get("active") and not m.get("closed") and m.get("acceptingOrders", True)]
                 if len(legs) < 2:
                     continue
@@ -71,11 +76,16 @@ def discover(tags, window_h, lead_h=0.0):
                     continue
                 out[str(ev["id"])] = {
                     "id": str(ev["id"]), "title": ev.get("title"), "sport": (ev.get("sport") or {}).get("sport") if isinstance(ev.get("sport"), dict) else (ev.get("sport") or tag), "start": start,
+                    # a closed or missing leg breaks the "exactly one leg pays" property
+                    "n_markets": len(markets), "complete": len(legs) == len(markets),
+                    "closed_legs": [m.get("groupItemTitle") or m.get("question") for m in markets if m not in legs],
                     "legs": [{
                         "cid": m["conditionId"],
                         "yes": json.loads(m["clobTokenIds"])[0],
+                        "no": json.loads(m["clobTokenIds"])[1],
                         "name": m.get("groupItemTitle") or m.get("question"),
                         "fee_rate": (m.get("feeSchedule") or {}).get("rate", 0.0) if m.get("feesEnabled") else 0.0,
+                        "fee_exp": (m.get("feeSchedule") or {}).get("exponent", 1),
                         "seconds_delay": m.get("secondsDelay"),
                         "tick": m.get("orderPriceMinTickSize"),
                         "min_size": m.get("orderMinSize"),
@@ -119,7 +129,7 @@ class Logger:
         self.events = {}         # event_id -> info
         self.asset_event = {}    # yes token -> event_id
         self.books = {}          # yes token -> Book
-        self.runs = {}           # event_id -> open run
+        self.runs = {}           # (event_id, side) -> open run
         self.raw_hour, self.raw_f = None, None
         self.ws_tasks = []
         self.n_msgs = 0
@@ -173,37 +183,49 @@ class Logger:
         ev = self.events.get(eid)
         if not ev:
             return
-        cost, size, quotes = 0.0, float("inf"), []
-        for leg in ev["legs"]:
-            b = self.books.get(leg["yes"])
-            a = b.best_ask() if b else None
-            if a is None:
-                self.close_run(recv, eid)
-                return
-            fee = leg["fee_rate"] * a * (1 - a)
-            cost += a + fee
-            size = min(size, b.asks[a])
-            quotes.append([a, b.asks[a]])
-        run = self.runs.get(eid)
-        if cost < 1 - self.min_edge:
-            if run is None:
-                self.runs[eid] = {"event": eid, "title": ev["title"], "t0": recv, "cost0": cost,
-                                  "size0": size, "quotes0": quotes, "min_cost": cost, "max_edge_usd": (1 - cost) * size,
-                                  "updates": 1}
-            else:
-                run["updates"] += 1
-                run["min_cost"] = min(run["min_cost"], cost)
-                run["max_edge_usd"] = max(run["max_edge_usd"], (1 - cost) * size)
-        else:
+        if not ev.get("complete", True):
             self.close_run(recv, eid)
+            return
+        n = len(ev["legs"])
+        for side in ("yes", "no"):
+            cost, size, quotes = 0.0, float("inf"), []
+            for leg in ev["legs"]:
+                b = self.books.get(leg["yes"])
+                p = (b.best_ask() if side == "yes" else b.best_bid()) if b else None
+                if p is None:
+                    break
+                fee = leg["fee_rate"] * (p * (1 - p)) ** leg.get("fee_exp", 1)  # same for YES at p and NO at 1 - p
+                cost += (p if side == "yes" else 1 - p) + fee
+                lvl = b.asks if side == "yes" else b.bids
+                size = min(size, lvl[p])
+                quotes.append([p, lvl[p]])  # YES ask (yes side) or YES bid (no side)
+            else:
+                payout = 1 if side == "yes" else n - 1
+                edge = payout - cost
+                run = self.runs.get((eid, side))
+                if edge > self.min_edge:
+                    if run is None:
+                        self.runs[(eid, side)] = {
+                            "event": eid, "side": side, "title": ev["title"], "t0": recv, "cost0": cost,
+                            "payout": payout, "size0": size, "quotes0": quotes,
+                            "assets": [leg["yes"] for leg in ev["legs"]], "n_markets": ev.get("n_markets"),
+                            "min_cost": cost, "max_edge_usd": edge * size, "updates": 1}
+                    else:
+                        run["updates"] += 1
+                        run["min_cost"] = min(run["min_cost"], cost)
+                        run["max_edge_usd"] = max(run["max_edge_usd"], edge * size)
+                    continue
+            self.close_run(recv, eid, side)
 
-    def close_run(self, recv, eid):
-        run = self.runs.pop(eid, None)
-        if run:
-            run["t1"] = recv
-            run["dur"] = round(recv - run["t0"], 3)
-            self.append("runs.jsonl", run)
-            print(f"run {run['title'][:40]!r} dur={run['dur']}s edge0=${(1-run['cost0'])*run['size0']:.2f}", flush=True)
+    def close_run(self, recv, eid, side=None):
+        for sd in ("yes", "no") if side is None else (side,):
+            run = self.runs.pop((eid, sd), None)
+            if run:
+                run["t1"] = recv
+                run["dur"] = round(recv - run["t0"], 3)
+                self.append("runs.jsonl", run)
+                print(f"run {sd} {run['title'][:40]!r} dur={run['dur']}s "
+                      f"edge0=${(run['payout'] - run['cost0']) * run['size0']:.2f}", flush=True)
 
     # ---- WS ----
     async def stream(self, assets):
@@ -295,7 +317,7 @@ class Logger:
         rs.cancel()
         for task in self.ws_tasks:
             task.cancel()
-        for eid in list(self.runs):
+        for eid, _ in list(self.runs):
             self.close_run(now(), eid)
         if self.raw_f:
             self.raw_f.close()
