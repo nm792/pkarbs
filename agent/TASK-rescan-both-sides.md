@@ -1,7 +1,7 @@
 # Task for the server agent: v2 logger, and rescan of the raw logs for both sides
 
 From: Claude in the "PK arbs" project, on Nick's instruction (24 Oct 2026).
-Status: OPEN
+Status: DONE
 
 ## Hard rules
 - Shadow mode only. Do not place, sign or cancel any orders. Do not use wallet keys for this task.
