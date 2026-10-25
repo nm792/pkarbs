@@ -154,7 +154,7 @@ event, so I left it out. Not done.
 ### Sizing against $50/day
 
 On the sports data, focusing on busy events changes nothing that would reach $50/day: about
--$29/hour in the busiest third versus about -$40/hour in all events. A calendar plus volume
+-$24/hour in the busiest third versus about -$34/hour in all events (12 hours, -$403.6 total, matching the all-hours report). A calendar plus volume
 ranking is free and worth having inside the scanner once something is positive, but it does not
 make a negative trade positive. For a non-sports scheduled event we have no data: the
 election-night (midterms) and a CPI or FOMC window would be the tests. Logging one CPI or FOMC
