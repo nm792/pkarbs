@@ -248,7 +248,7 @@ def corrupt_restart(tmp, verbose):
     ok = p.returncode == 0 and any(r["event"] == "E2" and abs(r["dur"] - 0.5) < 1e-3 for r in runs)
     gate("G0 truncated gzip member then a new one: reader recovers the new member", ok,
          f"exit {p.returncode}, runs {[(r['event'], r['dur']) for r in runs]}, "
-         f"{(p.stdout.strip().splitlines() or [''])[-2][-60:]}")
+         f"{(p.stdout.strip().splitlines() or [''])[-1][-60:]}")
 
 
 def synthetic(verbose):
