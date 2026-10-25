@@ -1,0 +1,527 @@
+[
+ {
+  "id": "GOVPARTYAZ-26:D",
+  "candidate": "Katie Hobbs",
+  "kalshi": "GOVPARTYAZ-26-D",
+  "pm_slug": "arizona-governor-winner-2026",
+  "pm_yes": "48368039124533504674394545622809320495392482760644292167644042386014017726777",
+  "pm_no": "2523036761393218729489135332182856159698268685360641264822465280431935747282",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is inaugurated as the governor of Arizona pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYAZ-26:R",
+  "candidate": "Andy Biggs",
+  "kalshi": "GOVPARTYAZ-26-R",
+  "pm_slug": "arizona-governor-winner-2026",
+  "pm_yes": "18859933834391393264997730047904836599784455493762567366530805521273388590339",
+  "pm_no": "88124433300559247959309048268928728970816174095213461359357515260826164605193",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is inaugurated as the governor of Arizona pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYFL-26:D",
+  "candidate": "David Jolly",
+  "kalshi": "GOVPARTYFL-26-D",
+  "pm_slug": "florida-governor-winner-2026",
+  "pm_yes": "45666577334498374671436529469006420565255125221309505855441517627481607414492",
+  "pm_no": "83106526449876874573813297184176954494008138834292248374570211745966785088569",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is inaugurated as the governor of Florida pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYFL-26:R",
+  "candidate": "Byron Donalds",
+  "kalshi": "GOVPARTYFL-26-R",
+  "pm_slug": "florida-governor-winner-2026",
+  "pm_yes": "107409796822153809778143872196236532785178617102787858261374110829112218839748",
+  "pm_no": "47371207337429105795077789605234118169598966393033859219795208509845903311456",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is inaugurated as the governor of Florida pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYGA-26:D",
+  "candidate": "Keisha Lance Bottoms",
+  "kalshi": "GOVPARTYGA-26-D",
+  "pm_slug": "georgia-governor-winner-2026",
+  "pm_yes": "59980150909931986777748227027020522224275707387562276219060223816867188565245",
+  "pm_no": "29426800815897155175757951733656404312185134543823956306564757069451562558732",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is inaugurated as the governor of Georgia pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYGA-26:R",
+  "candidate": "Rick Jackson",
+  "kalshi": "GOVPARTYGA-26-R",
+  "pm_slug": "georgia-governor-winner-2026",
+  "pm_yes": "17555504943162344098534978138053308162738914357892515623100381936995379845407",
+  "pm_no": "53502088681539225888217182746120417070419934602682782293991096287838014660594",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is inaugurated as the governor of Georgia pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYMI-26:D",
+  "candidate": "Jocelyn Benson",
+  "kalshi": "GOVPARTYMI-26-D",
+  "pm_slug": "michigan-governor-winner-2026",
+  "pm_yes": "63517706574758177502492185078056756527324898714284142778693046697324148388357",
+  "pm_no": "24313213949676763118562588141459255175279390673486982872182407528149814471441",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is inaugurated as the governor of Michigan pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYMI-26:R",
+  "candidate": "John James",
+  "kalshi": "GOVPARTYMI-26-R",
+  "pm_slug": "michigan-governor-winner-2026",
+  "pm_yes": "3091929947863726371877226324959784580013579280794631063604653957812689085396",
+  "pm_no": "113314550423744773607951568238874281430587441567297387737553364413695224215541",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is inaugurated as the governor of Michigan pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYNV-26:D",
+  "candidate": "Aaron Ford",
+  "kalshi": "GOVPARTYNV-26-D",
+  "pm_slug": "nevada-governor-winner-2026",
+  "pm_yes": "1246864710804983890692377994891598401616546411512113588399830364959833951829",
+  "pm_no": "63105785868222491666410116782074992901361520126431203229953017216126863105293",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is inaugurated as the governor of Nevada pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYNV-26:R",
+  "candidate": "Joe Lombardo",
+  "kalshi": "GOVPARTYNV-26-R",
+  "pm_slug": "nevada-governor-winner-2026",
+  "pm_yes": "26514162544090965098284473937422427465088569867873952479707540387314217381282",
+  "pm_no": "76313209944639250426806286965492886883353059598478633315707597639545615999446",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is inaugurated as the governor of Nevada pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYOH-26:D",
+  "candidate": "Amy Acton",
+  "kalshi": "GOVPARTYOH-26-D",
+  "pm_slug": "ohio-governor-winner-2026",
+  "pm_yes": "63255709540320761353971859526848930870803944190764324681913735372035438815215",
+  "pm_no": "16976595754865702888942253430173145813500518669245701188211359895815715104826",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is inaugurated as the governor of Ohio pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYOH-26:R",
+  "candidate": "Vivek Ramaswamy",
+  "kalshi": "GOVPARTYOH-26-R",
+  "pm_slug": "ohio-governor-winner-2026",
+  "pm_yes": "3104629708171062356498135654472461762731791851667035051301931240755518332250",
+  "pm_no": "104526794566859391085042814952967251260974275524059793655101271789052995794634",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is inaugurated as the governor of Ohio pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYTX-26:D",
+  "candidate": "Gina Hinojosa",
+  "kalshi": "GOVPARTYTX-26-D",
+  "pm_slug": "texas-governor-winner-2026",
+  "pm_yes": "48232987449750988261789196083999659380058157021032932634331257492238853387252",
+  "pm_no": "72484470323457781490418074887818414956328925259630173408815876344351328006429",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is inaugurated as the governor of Texas pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYTX-26:R",
+  "candidate": "Greg Abbott",
+  "kalshi": "GOVPARTYTX-26-R",
+  "pm_slug": "texas-governor-winner-2026",
+  "pm_yes": "54743173400191373818547682740700297683169841200363505623023527116388816282328",
+  "pm_no": "1866695229821909795321299492017203124655045093500207568743162324352894510180",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is inaugurated as the governor of Texas pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYWI-26:D",
+  "candidate": "David Crowley",
+  "kalshi": "GOVPARTYWI-26-D",
+  "pm_slug": "wisconsin-governor-winner-2026",
+  "pm_yes": "47540146623620182724372695903724852067595146419459482790641441152489267651664",
+  "pm_no": "9425494630420524762356091484606706289169789796333686976670441967109493832767",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is inaugurated as the governor of Wisconsin pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "GOVPARTYWI-26:R",
+  "candidate": "Tom Tiffany",
+  "kalshi": "GOVPARTYWI-26-R",
+  "pm_slug": "wisconsin-governor-winner-2026",
+  "pm_yes": "110568426700454908727813010666782278712329569099119457880819387703511785225289",
+  "pm_no": "94997938472772845981621371346408480728260037625129184428077443070579239724265",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is inaugurated as the governor of Wisconsin pursuant to the 2026 election, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATEGA-26:R",
+  "candidate": "Mike Collins",
+  "kalshi": "SENATEGA-26-R",
+  "pm_slug": "georgia-senate-election-winner",
+  "pm_yes": "43777191461245536274027792855557351629362906569064322165760098912770293918104",
+  "pm_no": "61124290990237905740819218004087985253159695156484630843664573685734418084158",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is sworn in as a Senator of Georgia for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATEGA-26:D",
+  "candidate": "Jon Ossoff",
+  "kalshi": "SENATEGA-26-D",
+  "pm_slug": "georgia-senate-election-winner",
+  "pm_yes": "21024219148268989748704207701411444044468128261642675917026452687231462203167",
+  "pm_no": "35836144845762083734936716777818582913796871841916057482479347577598882811767",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is sworn in as a Senator of Georgia for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATEIA-26:R",
+  "candidate": "Ashley Hinson",
+  "kalshi": "SENATEIA-26-R",
+  "pm_slug": "iowa-senate-election-winner",
+  "pm_yes": "107844449523890311740907586041395758413047559802389895859202256336422357556837",
+  "pm_no": "45697952169290210733788647908439282215277461482653377209044144054693714912010",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is sworn in as a Senator of Iowa for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATEIA-26:D",
+  "candidate": "Josh Turek",
+  "kalshi": "SENATEIA-26-D",
+  "pm_slug": "iowa-senate-election-winner",
+  "pm_yes": "90689690530039118737607894922148077480097700217322320781526913496162509181445",
+  "pm_no": "105412116375859456386463067772529895223931027977055063584054608854983174999392",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is sworn in as a Senator of Iowa for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATEKS-26:R",
+  "candidate": "Roger Marshall",
+  "kalshi": "SENATEKS-26-R",
+  "pm_slug": "kansas-senate-election-winner",
+  "pm_yes": "18131974965869813060047290511060211742274666573066200470724290584768041211203",
+  "pm_no": "99954012845363784422380244269243499000117818896422626871954380344984773420508",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is sworn in as a Senator of Kansas for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATEKS-26:D",
+  "candidate": "Adam Hamilton",
+  "kalshi": "SENATEKS-26-D",
+  "pm_slug": "kansas-senate-election-winner",
+  "pm_yes": "75079868093228966915894372964099062660587490227046756021175661325867722540666",
+  "pm_no": "37327444084035787269854507880662541101916131726641992937390933740081521292625",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is sworn in as a Senator of Kansas for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATEME-26:R",
+  "candidate": "Susan Collins",
+  "kalshi": "SENATEME-26-R",
+  "pm_slug": "maine-senate-election-winner",
+  "pm_yes": "2142948285506077695096498341598672159464223074468931276310105532825810210121",
+  "pm_no": "43295283577056639281694071578249936735369407445693289764095672178175084599787",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is sworn in as a Senator of Maine for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATEME-26:D",
+  "candidate": "Troy Jackson",
+  "kalshi": "SENATEME-26-D",
+  "pm_slug": "maine-senate-election-winner",
+  "pm_yes": "7589880081658059374445882095611024032084645048848237404312287942463647821549",
+  "pm_no": "6136336712352911156426560180855478229745540927722899997193789497766196705020",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is sworn in as a Senator of Maine for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATEMI-26:R",
+  "candidate": "Mike Rogers",
+  "kalshi": "SENATEMI-26-R",
+  "pm_slug": "michigan-senate-election-winner",
+  "pm_yes": "1046980875306043125128331871114794349002409233139736033870402475326170083426",
+  "pm_no": "71610581811588451243087930916572592402913705975252472987256607890992191263885",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is sworn in as a Senator of Michigan for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATEMI-26:D",
+  "candidate": "Abdul El-Sayed",
+  "kalshi": "SENATEMI-26-D",
+  "pm_slug": "michigan-senate-election-winner",
+  "pm_yes": "71772627544132140586824126381855151743830987860593343955509593715269534710061",
+  "pm_no": "64025664961497419708095468282573682984741903075312816516046832361290996190088",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is sworn in as a Senator of Michigan for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATEMN-26:R",
+  "candidate": "Michele Tafoya",
+  "kalshi": "SENATEMN-26-R",
+  "pm_slug": "minnesota-senate-election-winner",
+  "pm_yes": "70179930004460104520571721963263381325865077807861641105900318902168490512539",
+  "pm_no": "6282889705019268501830975677564258188191770886711457649647605609853326924852",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is sworn in as a Senator of Minnesota for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATEMN-26:D",
+  "candidate": "Peggy Flanagan",
+  "kalshi": "SENATEMN-26-D",
+  "pm_slug": "minnesota-senate-election-winner",
+  "pm_yes": "5210147086444382339849101722545511095151948730486562412029285471203011774407",
+  "pm_no": "31436003141911636826257012170104365274669938022228084492450613161428480917013",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic (DFL) party is sworn in as a Senator of Minnesota for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATENC-26:R",
+  "candidate": "Michael Whatley",
+  "kalshi": "SENATENC-26-R",
+  "pm_slug": "north-carolina-senate-election-winner",
+  "pm_yes": "62831517509825405761763142539845746280269675872170259538293560849475982647892",
+  "pm_no": "66273785459475184474276423059036741814958495126134511275805524603240865775761",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is sworn in as a Senator of North Carolina for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATENC-26:D",
+  "candidate": "Roy Cooper",
+  "kalshi": "SENATENC-26-D",
+  "pm_slug": "north-carolina-senate-election-winner",
+  "pm_yes": "107151098936186723859677628536733880558851060002514795735761427447010628440047",
+  "pm_no": "111394826590193310622075208085123253955586587501538476190057516703346418362600",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is sworn in as a Senator of North Carolina for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATENE-26:R",
+  "candidate": "Pete Ricketts",
+  "kalshi": "SENATENE-26-R",
+  "pm_slug": "nebraska-senate-election-winner",
+  "pm_yes": "92576281548134350814800877416860562553699794074017301653635964206220838638047",
+  "pm_no": "20545755397554366279105844241414821565747450256261992143596340747510834590543",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is sworn in as a Senator of Nebraska for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATENH-26:R",
+  "candidate": "John E. Sununu",
+  "kalshi": "SENATENH-26-R",
+  "pm_slug": "new-hampshire-senate-election-winner",
+  "pm_yes": "62227089537100115269143206481757249285124282589590263790284791475153705872216",
+  "pm_no": "58757590052289479996371632351141005979216013605386057994994985198930000872621",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is sworn in as a Senator of New Hampshire for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATENH-26:D",
+  "candidate": "Chris Pappas",
+  "kalshi": "SENATENH-26-D",
+  "pm_slug": "new-hampshire-senate-election-winner",
+  "pm_yes": "82410058691149830741200014405570918770267839390767234397030380747995715352939",
+  "pm_no": "28709552853916742051233428360468180906283732902940871675642481670799666825242",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is sworn in as a Senator of New Hampshire for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATETX-26:R",
+  "candidate": "Ken Paxton",
+  "kalshi": "SENATETX-26-R",
+  "pm_slug": "texas-senate-election-winner",
+  "pm_yes": "21265207456609426291246075480390336499088453711419597084147957999650569091884",
+  "pm_no": "9846414914422486942750462555692240718767368950832862364324602361738794436048",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Republican party is sworn in as a Senator of Texas for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ },
+ {
+  "id": "SENATETX-26:D",
+  "candidate": "James Talarico",
+  "kalshi": "SENATETX-26-D",
+  "pm_slug": "texas-senate-election-winner",
+  "pm_yes": "15290572385458522370285732869432740297199321382471116558439914335588167718663",
+  "pm_no": "25172545206000541692667496253531562288536270988826888609620735617040533835056",
+  "pm_fee_rate": 0,
+  "basis": {
+   "kalshi": "If a representative of the Democratic party is sworn in as a Senator of Texas for the term beginning in 2027, then the market resolves to Yes.",
+   "pm": "Winner of the 2026 election per state authorities / consensus reporting (event description).",
+   "divergence": "Kalshi pays on who is sworn in for the 2027 term (or early on media consensus); PM on election winner. Diverges if the winner dies/withdraws/is not seated. A divergence loses both legs."
+  },
+  "reviewed": "auto-matched by surname 2026-10-25; Kalshi rules_primary read; PM wording not re-read per race"
+ }
+]
