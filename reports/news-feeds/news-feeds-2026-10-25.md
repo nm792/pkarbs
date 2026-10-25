@@ -102,3 +102,68 @@ Sources:
 - [Crypto Briefing on Polymarket repricing lag](https://cryptobriefing.com/polymarket-repricing-lag-80-minutes/) (secondary, not opened)
 - [Benzinga Pro pricing tracker](https://subger.com/en/service/benzinga-pro-sub) (secondary)
 - Our data: /mnt/project-files/sports-mece/intragame-edges-2026-10-25.md (branch claude/project-thread-fzn6mu), reports/sports-mece/all-hours-2026-10-25.md
+
+---
+
+## Addendum (12:40Z): "choose where to scan", not "be faster"
+
+Nick's reframe: if we know a big stimulus is coming and volume in those contracts is rising,
+larger gaps that can fill at scale are more likely there, so the calendar should decide where
+the scanner looks.
+
+### A. Does more activity mean bigger, deeper, fillable gaps? (measured on our 12-hour shadow)
+
+Data: `reports/sports-mece/hours/*/per-run-*.csv` (24 Oct 21Z to 25 Oct 08Z), 533 gap runs on
+93 in-play soccer events, each run at delay 0 and at the real 1 s delay. Events split into
+thirds by how many gap runs they produced (a proxy for how busy the book was; it is ex post,
+see C).
+
+| Third (31 events each) | Gap runs | Median size at the gap (shares) | Edge per run at delay 0 | Seen $ at delay 0 | Sets traded | Full fills at 1 s | P&L at 1 s |
+|---|---|---|---|---|---|---|---|
+| Busiest | 414 (78%) | 14.8 | $0.38 | $79.0 | 48 | 8 | **-$287.1** |
+| Middle | 88 | 12.5 | $0.18 | $14.5 | 15 | 1 | -$106.8 |
+| Quietest | 31 | 10.0 | $0.46 | $3.5 | 3 | 1 | -$9.7 |
+
+**[ours, measured]** Busy events do hold most of the gaps (78% of runs, 82% of seen $), and
+size at the gap is a little larger (median 14.8 vs 10-12.5 shares, +20-50%). But the loss
+per traded set at 1 s is about the same (-$6.0 busy, -$7.1 middle, -$3.2 quiet). Pointing the
+scanner at busy events would give more of the same trade, not a better one: the sign stays
+negative.
+
+### B. Would priority polling raise executable size per alert?
+
+- **Sports (Polymarket):** no. The logger already takes every book update over the WebSocket,
+  so every gap is seen. What loses money is the 1 s order delay, not missed gaps. **[ours]**
+- **Cross-venue and Kalshi (REST polling):** in principle yes, but the 20 Oct pass found quotes
+  unchanged across two passes 25 minutes apart (193/195 kept). Polling faster is not what
+  limits us there either; the gap is negative after fees. **[ours]**
+- Where it could matter: scheduled spikes on markets we only poll (Kalshi CPI/FOMC, election
+  night). There, volume and spread both jump at the release second, and the makers who
+  reprice are faster than a 1 s taker **[estimate]**. A calendar that raises the polling rate
+  for those windows costs nothing, but I can't size the gain without data from a release
+  window.
+
+### C. What this does not measure
+
+Run counts are known only after the fact. The useful version needs a signal we have
+*beforehand*: event volume, `volume24hr`, time to kickoff, league. That needs gamma metadata
+for these 93 events, a cheap public pull. The remote sandbox used for earlier public pulls
+failed on every call today, and pulling it through the page fetcher costs about 20 KB per
+event, so I left it out. Not done.
+
+### Sizing against $50/day
+
+On the sports data, focusing on busy events changes nothing that would reach $50/day: about
+-$29/hour in the busiest third versus about -$40/hour in all events. A calendar plus volume
+ranking is free and worth having inside the scanner once something is positive, but it does not
+make a negative trade positive. For a non-sports scheduled event we have no data: the
+election-night (midterms) and a CPI or FOMC window would be the tests. Logging one CPI or FOMC
+release on Kalshi or Polymarket (public trades or prices) is a desk-sized check.
+
+**Confidence 6/10** that calendar or volume targeting does not lift P&L to the bar (the sports
+result is measured; whether we can rank events in advance, and non-sports, are estimates). To
+reach 9:
+(1) gamma volume and kickoff for the 93 events, to check whether ranking in advance matches the
+after-the-fact split;
+(2) public trades and price history around one CPI or FOMC release and one big match kickoff, to
+measure depth and gap size in the event window against quiet hours.
