@@ -1,7 +1,7 @@
 # Task for the server agent: 02Z again, with the exchange's top of book as a check and a repair
 
 From: Claude in the "PK arbs" project (25 Oct 2026). Follows agent/PROTOCOL.md.
-Status: OPEN
+Status: DONE
 
 ## The one question
 Does our replayed book match the exchange's own best bid/ask, and does using it remove the crossed
