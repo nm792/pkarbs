@@ -1,0 +1,1769 @@
+[
+{
+"id": "1166131",
+"title": "GV CD San Jos\u00e9 vs. Club Blooming",
+"start": "2026-10-24T19:00:00Z",
+"series": "bolivia-1",
+"volume": 5039.1313390000005,
+"liq": null,
+"created": "2026-10-10T19:02:00.94523Z",
+"oi": 3206.099772,
+"score": "2-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 19:00:00+00"
+]
+},
+{
+"id": "1170913",
+"title": "Denver Summit FC vs. Racing Louisville FC",
+"start": "2026-10-24T22:30:00Z",
+"series": "soccer-nwsl",
+"volume": 1605.7943089999999,
+"liq": null,
+"created": "2026-10-11T13:46:02.970619Z",
+"oi": 1516.1136609999999,
+"score": "6-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 22:30:00+00"
+]
+},
+{
+"id": "1170917",
+"title": "Angel City FC vs. Bay FC",
+"start": "2026-10-25T01:45:00Z",
+"series": "soccer-nwsl",
+"volume": 3262.361922,
+"liq": null,
+"created": "2026-10-11T13:47:58.478017Z",
+"oi": 2225.308091,
+"score": "2-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:45:00+00"
+]
+},
+{
+"id": "1171433",
+"title": "Columbus Crew vs. Toronto FC",
+"start": "2026-10-24T19:30:00Z",
+"series": "mls-2025",
+"volume": 472133.6552999999,
+"liq": null,
+"created": "2026-10-11T16:02:55.77018Z",
+"oi": 342303.890545,
+"score": "4-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 19:30:00+00"
+]
+},
+{
+"id": "1171439",
+"title": "New York Red Bulls vs. Inter Miami CF",
+"start": "2026-10-24T21:30:00Z",
+"series": "mls-2025",
+"volume": 602375.329017,
+"liq": null,
+"created": "2026-10-11T16:02:55.807954Z",
+"oi": 471102.1948,
+"score": "2-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 21:30:00+00"
+]
+},
+{
+"id": "1171446",
+"title": "D.C. United SC vs. FC Cincinnati - Halftime Result",
+"start": "2026-10-24T23:30:00Z",
+"series": "mls-2025",
+"volume": 414.5,
+"liq": 0,
+"created": "2026-10-11T16:02:55.807948Z",
+"oi": 404.5,
+"score": "0-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:30:00+00"
+]
+},
+{
+"id": "1171453",
+"title": "Atlanta United FC vs. Chicago Fire FC",
+"start": "2026-10-24T23:30:00Z",
+"series": "mls-2025",
+"volume": 116610.52300400002,
+"liq": null,
+"created": "2026-10-11T16:02:55.861024Z",
+"oi": 103612.244669,
+"score": "2-3",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:30:00+00"
+]
+},
+{
+"id": "1171459",
+"title": "Orlando City SC vs. New York City FC",
+"start": "2026-10-24T23:30:00Z",
+"series": "mls-2025",
+"volume": 56290.796829,
+"liq": null,
+"created": "2026-10-11T16:02:55.850272Z",
+"oi": 37568.859706999996,
+"score": "2-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:30:00+00"
+]
+},
+{
+"id": "1171461",
+"title": "Orlando City SC vs. New York City FC - Halftime Result",
+"start": "2026-10-24T23:30:00Z",
+"series": "mls-2025",
+"volume": 5043.176514,
+"liq": null,
+"created": "2026-10-11T16:02:55.888559Z",
+"oi": 3015.6751860000004,
+"score": "2-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:30:00+00"
+]
+},
+{
+"id": "1171465",
+"title": "Philadelphia Union vs. New England Revolution",
+"start": "2026-10-24T23:30:00Z",
+"series": "mls-2025",
+"volume": 403400.0433060001,
+"liq": null,
+"created": "2026-10-11T16:02:55.888475Z",
+"oi": 345263.137719,
+"score": "1-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:30:00+00"
+]
+},
+{
+"id": "1171468",
+"title": "Philadelphia Union vs. New England Revolution - Second Half Result",
+"start": "2026-10-24T23:30:00Z",
+"series": "mls-2025",
+"volume": 160,
+"liq": 0,
+"created": "2026-10-11T16:02:55.888482Z",
+"oi": 80,
+"score": "1-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:30:00+00"
+]
+},
+{
+"id": "1171471",
+"title": "FC Dallas vs. San Jose Earthquakes",
+"start": "2026-10-25T00:30:00Z",
+"series": "mls-2025",
+"volume": 45751.164258000004,
+"liq": null,
+"created": "2026-10-11T16:02:55.889242Z",
+"oi": 28451.342362999996,
+"score": "3-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 00:30:00+00"
+]
+},
+{
+"id": "1171476",
+"title": "Houston Dynamo vs. Minnesota United FC",
+"start": "2026-10-25T00:30:00Z",
+"series": "mls-2025",
+"volume": 26151.784642,
+"liq": null,
+"created": "2026-10-11T16:02:55.888516Z",
+"oi": 23326.917199000003,
+"score": "0-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 00:30:00+00"
+]
+},
+{
+"id": "1171481",
+"title": "Colorado Rapids SC vs. Vancouver Whitecaps FC",
+"start": "2026-10-25T01:30:00Z",
+"series": "mls-2025",
+"volume": 44813.451913,
+"liq": null,
+"created": "2026-10-11T16:02:55.889601Z",
+"oi": 32595.735231,
+"score": "1-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:30:00+00"
+]
+},
+{
+"id": "1171486",
+"title": "Sporting Kansas City vs. Austin FC",
+"start": "2026-10-25T00:30:00Z",
+"series": "mls-2025",
+"volume": 142255.345151,
+"liq": null,
+"created": "2026-10-11T16:02:55.889571Z",
+"oi": 118775.02529900002,
+"score": "1-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 00:30:00+00"
+]
+},
+{
+"id": "1171491",
+"title": "Real Salt Lake vs. St. Louis City SC",
+"start": "2026-10-25T01:30:00Z",
+"series": "mls-2025",
+"volume": 557933.4514760001,
+"liq": null,
+"created": "2026-10-11T16:02:55.796175Z",
+"oi": 501768.168389,
+"score": "3-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:30:00+00"
+]
+},
+{
+"id": "1171492",
+"title": "Real Salt Lake vs. St. Louis City SC - Halftime Result",
+"start": "2026-10-25T01:30:00Z",
+"series": "mls-2025",
+"volume": 9152.376225,
+"liq": null,
+"created": "2026-10-11T16:02:55.889591Z",
+"oi": 7512.515772000001,
+"score": "3-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:30:00+00"
+]
+},
+{
+"id": "1171496",
+"title": "Portland Timbers vs. Charlotte FC",
+"start": "2026-10-25T02:30:00Z",
+"series": "mls-2025",
+"volume": 88850.74905,
+"liq": null,
+"created": "2026-10-11T16:02:55.889998Z",
+"oi": 60890.88734100001,
+"score": "3-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 02:30:00+00"
+]
+},
+{
+"id": "1171498",
+"title": "Portland Timbers vs. Charlotte FC - Second Half Result",
+"start": "2026-10-25T02:30:00Z",
+"series": "mls-2025",
+"volume": null,
+"liq": 0,
+"created": "2026-10-11T16:02:55.807928Z",
+"oi": null,
+"score": "3-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 02:30:00+00"
+]
+},
+{
+"id": "1171501",
+"title": "San Diego FC vs. Seattle Sounders FC",
+"start": "2026-10-25T02:30:00Z",
+"series": "mls-2025",
+"volume": 296619.253654,
+"liq": null,
+"created": "2026-10-11T16:02:55.890237Z",
+"oi": 201321.591345,
+"score": "2-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 02:30:00+00"
+]
+},
+{
+"id": "1171502",
+"title": "San Diego FC vs. Seattle Sounders FC - Halftime Result",
+"start": "2026-10-25T02:30:00Z",
+"series": "mls-2025",
+"volume": 4995.824292,
+"liq": null,
+"created": "2026-10-11T16:02:55.765686Z",
+"oi": 3391.5642919999996,
+"score": "2-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 02:30:00+00"
+]
+},
+{
+"id": "1171710",
+"title": "Club Le\u00f3n FC vs. Deportivo Toluca FC",
+"start": "2026-10-24T23:00:00Z",
+"series": "mex-2025",
+"volume": 116721.111917,
+"liq": null,
+"created": "2026-10-11T16:47:35.540516Z",
+"oi": 79767.436044,
+"score": "1-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:00:00+00"
+]
+},
+{
+"id": "1171714",
+"title": "CF Monterrey vs. CD Guadalajara",
+"start": "2026-10-25T01:00:00Z",
+"series": "mex-2025",
+"volume": 282445.52339300007,
+"liq": null,
+"created": "2026-10-11T16:47:35.540579Z",
+"oi": 245233.245945,
+"score": "0-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:00:00+00"
+]
+},
+{
+"id": "1171718",
+"title": "Pumas de la UNAM vs. Tigres de la UANL",
+"start": "2026-10-25T03:10:00Z",
+"series": "mex-2025",
+"volume": 391700.938776,
+"liq": null,
+"created": "2026-10-11T16:47:35.423263Z",
+"oi": 328627.657338,
+"score": "1-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 03:10:00+00"
+]
+},
+{
+"id": "1171948",
+"title": "CA Talleres vs. CSyD Defensa y Justicia",
+"start": "2026-10-24T20:00:00Z",
+"series": "primera-divisin-argentina",
+"volume": 42690.11396799999,
+"liq": null,
+"created": "2026-10-11T17:31:39.829097Z",
+"oi": 34277.961366,
+"score": "1-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 20:00:00+00"
+]
+},
+{
+"id": "1171951",
+"title": "CA San Lorenzo de Almagro vs. CA Newell's Old Boys",
+"start": "2026-10-24T22:15:00Z",
+"series": "primera-divisin-argentina",
+"volume": 47552.663756,
+"liq": null,
+"created": "2026-10-11T17:31:39.824236Z",
+"oi": 41659.442049,
+"score": "0-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 22:15:00+00"
+]
+},
+{
+"id": "1171954",
+"title": "CA Rosario Central vs. CA Hurac\u00e1n",
+"start": "2026-10-25T01:30:00Z",
+"series": "primera-divisin-argentina",
+"volume": 166145.648831,
+"liq": null,
+"created": "2026-10-11T17:31:39.947356Z",
+"oi": 107796.397291,
+"score": "2-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:30:00+00"
+]
+},
+{
+"id": "1171995",
+"title": "Gil Vicente FC vs. FC Porto",
+"start": "2026-10-24T19:30:00Z",
+"series": "primeira-liga",
+"volume": 193959.350042,
+"liq": null,
+"created": "2026-10-11T17:46:13.845858Z",
+"oi": 89095.322694,
+"score": "0-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 19:30:00+00"
+]
+},
+{
+"id": "1172638",
+"title": "O'Higgins FC vs. CD Cobresal",
+"start": "2026-10-24T23:00:00Z",
+"series": "primera-division",
+"volume": 13736.481167,
+"liq": null,
+"created": "2026-10-11T19:02:33.42755Z",
+"oi": 12002.903917,
+"score": "1-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:00:00+00"
+]
+},
+{
+"id": "1172640",
+"title": "Mirassol FC vs. S\u00e3o Paulo FC",
+"start": "2026-10-24T19:30:00Z",
+"series": "brazil-serie-a",
+"volume": 135239.87416300003,
+"liq": null,
+"created": "2026-10-11T19:02:33.427607Z",
+"oi": 76540.993669,
+"score": "1-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 19:30:00+00"
+]
+},
+{
+"id": "1172643",
+"title": "Cusco FC vs. CS Cristal",
+"start": "2026-10-24T20:15:00Z",
+"series": "liga-1",
+"volume": 4762.821983000001,
+"liq": null,
+"created": "2026-10-11T19:02:33.427622Z",
+"oi": 2288.038773,
+"score": "3-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 20:15:00+00"
+]
+},
+{
+"id": "1172655",
+"title": "Am\u00e9rica de Cali vs. C\u00facuta Deportivo FC",
+"start": "2026-10-24T23:05:00Z",
+"series": "primera-a",
+"volume": 24518.886388,
+"liq": null,
+"created": "2026-10-11T19:02:33.427763Z",
+"oi": 19110.220357000002,
+"score": "3-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:05:00+00"
+]
+},
+{
+"id": "1172664",
+"title": "EC Vit\u00f3ria vs. CA Paranaense",
+"start": "2026-10-24T19:30:00Z",
+"series": "brazil-serie-a",
+"volume": 88857.980763,
+"liq": null,
+"created": "2026-10-11T19:02:33.427561Z",
+"oi": 69774.70147,
+"score": "1-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 19:30:00+00"
+]
+},
+{
+"id": "1172680",
+"title": "Club Universitario de Deportes vs. ADC Juan Pablo II College",
+"start": "2026-10-25T01:30:00Z",
+"series": "liga-1",
+"volume": 22215.328131000002,
+"liq": null,
+"created": "2026-10-11T19:02:33.435079Z",
+"oi": 17559.955123999996,
+"score": "3-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:30:00+00"
+]
+},
+{
+"id": "1172683",
+"title": "Club Independiente Petrolero vs. Club ABB",
+"start": "2026-10-24T23:30:00Z",
+"series": "bolivia-1",
+"volume": 2407.825972,
+"liq": null,
+"created": "2026-10-11T19:02:33.446692Z",
+"oi": 879.452276,
+"score": "4-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:30:00+00"
+]
+},
+{
+"id": "1172689",
+"title": "Once Caldas vs. Deportivo Pereira",
+"start": "2026-10-25T01:15:00Z",
+"series": "primera-a",
+"volume": 44895.871424,
+"liq": null,
+"created": "2026-10-11T19:02:33.50189Z",
+"oi": 33432.643756,
+"score": "1-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:15:00+00"
+]
+},
+{
+"id": "1172690",
+"title": "S\u00e3o Bernardo FC vs. Vila Nova FC",
+"start": "2026-10-24T19:30:00Z",
+"series": "brazil-serie-b",
+"volume": 12482.017666,
+"liq": null,
+"created": "2026-10-11T19:02:33.5018Z",
+"oi": 8357.525625,
+"score": "3-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 19:30:00+00"
+]
+},
+{
+"id": "1172707",
+"title": "CR Vasco da Gama vs. SC Corinthians Paulista",
+"start": "2026-10-24T21:30:00Z",
+"series": "brazil-serie-a",
+"volume": 163095.008704,
+"liq": null,
+"created": "2026-10-11T19:02:33.478352Z",
+"oi": 99520.3593,
+"score": "3-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 21:30:00+00"
+]
+},
+{
+"id": "1172728",
+"title": "CR Vasco da Gama vs. SC Corinthians Paulista - First Team to Score",
+"start": "2026-10-24T21:30:00Z",
+"series": "brazil-serie-a",
+"volume": 21.40625,
+"liq": 0,
+"created": "2026-10-11T19:02:33.414315Z",
+"oi": 11.40625,
+"score": "3-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 21:30:00+00"
+]
+},
+{
+"id": "1172731",
+"title": "SE Palmeiras vs. Red Bull Bragantino",
+"start": "2026-10-24T21:30:00Z",
+"series": "brazil-serie-a",
+"volume": 145199.353542,
+"liq": null,
+"created": "2026-10-11T19:02:33.418214Z",
+"oi": 79299.42796,
+"score": "2-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 21:30:00+00"
+]
+},
+{
+"id": "1172734",
+"title": "SE Palmeiras vs. Red Bull Bragantino - Halftime Result",
+"start": "2026-10-24T21:30:00Z",
+"series": "brazil-serie-a",
+"volume": 17692.49515,
+"liq": null,
+"created": "2026-10-11T19:02:33.501977Z",
+"oi": 10203.710845,
+"score": "2-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 21:30:00+00"
+]
+},
+{
+"id": "1172738",
+"title": "Associa\u00e7\u00e3o Chapecoense de Futebol vs. Fluminense FC",
+"start": "2026-10-24T22:30:00Z",
+"series": "brazil-serie-a",
+"volume": 236960.76357099996,
+"liq": null,
+"created": "2026-10-11T19:02:33.416827Z",
+"oi": 165977.51809700002,
+"score": "2-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 22:30:00+00"
+]
+},
+{
+"id": "1172739",
+"title": "AA Ponte Preta vs. Fortaleza EC",
+"start": "2026-10-24T21:30:00Z",
+"series": "brazil-serie-b",
+"volume": 194445.11513700004,
+"liq": null,
+"created": "2026-10-11T19:02:33.418317Z",
+"oi": 88810.956386,
+"score": "2-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 21:30:00+00"
+]
+},
+{
+"id": "1172740",
+"title": "Associa\u00e7\u00e3o Chapecoense de Futebol vs. Fluminense FC - Halftime Result",
+"start": "2026-10-24T22:30:00Z",
+"series": "brazil-serie-a",
+"volume": 1817.545121,
+"liq": null,
+"created": "2026-10-11T19:02:33.418608Z",
+"oi": 1613.87056,
+"score": "2-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 22:30:00+00"
+]
+},
+{
+"id": "1172742",
+"title": "AA Ponte Preta vs. Fortaleza EC - Halftime Result",
+"start": "2026-10-24T21:30:00Z",
+"series": "brazil-serie-b",
+"volume": 1034.4468949999998,
+"liq": null,
+"created": "2026-10-11T19:02:33.418344Z",
+"oi": 868.066551,
+"score": "2-2",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 21:30:00+00"
+]
+},
+{
+"id": "1172746",
+"title": "Santos FC vs. EC Bahia",
+"start": "2026-10-25T01:00:00Z",
+"series": "brazil-serie-a",
+"volume": 483009.04026299994,
+"liq": null,
+"created": "2026-10-11T19:02:33.502246Z",
+"oi": 184767.51325299998,
+"score": "1-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:00:00+00"
+]
+},
+{
+"id": "1172784",
+"title": "Nagoya Grampus vs. Yokohama F\u00b7Marinos",
+"start": "2026-10-25T05:00:00Z",
+"series": "japan-j-league",
+"volume": 185832.565462,
+"liq": null,
+"created": "2026-10-11T19:16:31.059259Z",
+"oi": 169090.28775,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 05:00:00+00"
+]
+},
+{
+"id": "1172788",
+"title": "Cerezo \u014csaka vs. JEF United Ichihara Chiba",
+"start": "2026-10-25T06:00:00Z",
+"series": "japan-j-league",
+"volume": 51573.757840000006,
+"liq": null,
+"created": "2026-10-11T19:16:31.058584Z",
+"oi": 40376.482219,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 06:00:00+00"
+]
+},
+{
+"id": "1172789",
+"title": "Cerezo \u014csaka vs. JEF United Ichihara Chiba - Halftime Result",
+"start": "2026-10-25T06:00:00Z",
+"series": "japan-j-league",
+"volume": 619.713881,
+"liq": 0,
+"created": "2026-10-11T19:16:31.058709Z",
+"oi": 559.850886,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 06:00:00+00"
+]
+},
+{
+"id": "1172792",
+"title": "Urawa Red Diamonds vs. V-Varen Nagasaki",
+"start": "2026-10-25T06:00:00Z",
+"series": "japan-j-league",
+"volume": 49933.818418,
+"liq": null,
+"created": "2026-10-11T19:16:31.059271Z",
+"oi": 41326.864864,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 06:00:00+00"
+]
+},
+{
+"id": "1172796",
+"title": "FC T\u014dky\u014d vs. FC Mito Holly Hock",
+"start": "2026-10-25T07:00:00Z",
+"series": "japan-j-league",
+"volume": 139594.218162,
+"liq": null,
+"created": "2026-10-11T19:16:31.059959Z",
+"oi": 91239.78497400001,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 07:00:00+00"
+]
+},
+{
+"id": "1172800",
+"title": "Kawasaki Frontale vs. Fagiano Okayama",
+"start": "2026-10-25T07:00:00Z",
+"series": "japan-j-league",
+"volume": 66378.87829299999,
+"liq": null,
+"created": "2026-10-11T19:16:30.950611Z",
+"oi": 50631.56302,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 07:00:00+00"
+]
+},
+{
+"id": "1172801",
+"title": "Kawasaki Frontale vs. Fagiano Okayama - Halftime Result",
+"start": "2026-10-25T07:00:00Z",
+"series": "japan-j-league",
+"volume": 3803.3393710000005,
+"liq": null,
+"created": "2026-10-11T19:16:30.973539Z",
+"oi": 2942.889371,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 07:00:00+00"
+]
+},
+{
+"id": "1173291",
+"title": "Wellington Phoenix FC vs. Central Coast Mariners FC",
+"start": "2026-10-25T02:00:00Z",
+"series": "a-league-soccer",
+"volume": 40958.652281,
+"liq": null,
+"created": "2026-10-11T20:31:31.331497Z",
+"oi": 22916.13633,
+"score": "2-0",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 02:00:00+00"
+]
+},
+{
+"id": "1173296",
+"title": "Sydney FC vs. Adelaide United FC",
+"start": "2026-10-25T04:00:00Z",
+"series": "a-league-soccer",
+"volume": 46127.075923,
+"liq": null,
+"created": "2026-10-11T20:31:31.331152Z",
+"oi": 25485.700299,
+"score": "2-1",
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 04:00:00+00"
+]
+},
+{
+"id": "1173549",
+"title": "Blaublitz Akita vs. FC Imabari",
+"start": "2026-10-25T05:00:00Z",
+"series": "japan-j2-league",
+"volume": 2804.782538,
+"liq": null,
+"created": "2026-10-11T21:16:01.701079Z",
+"oi": 2487.984417,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 05:00:00+00"
+]
+},
+{
+"id": "1173561",
+"title": "\u014cita Trinita vs. Ventforet K\u014dfu",
+"start": "2026-10-25T05:00:00Z",
+"series": "japan-j2-league",
+"volume": 20885.748374999996,
+"liq": null,
+"created": "2026-10-11T21:17:59.893458Z",
+"oi": 19357.806552000002,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 05:00:00+00"
+]
+},
+{
+"id": "1173564",
+"title": "Montedio Yamagata vs. Tegevajaro Miyazaki",
+"start": "2026-10-25T05:00:00Z",
+"series": "japan-j2-league",
+"volume": 14239.244453000001,
+"liq": null,
+"created": "2026-10-11T21:17:59.948722Z",
+"oi": 13893.594754000002,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 05:00:00+00"
+]
+},
+{
+"id": "1173567",
+"title": "Iwaki FC vs. J\u00fabilo Iwata",
+"start": "2026-10-25T06:00:00Z",
+"series": "japan-j2-league",
+"volume": 19662.254921000003,
+"liq": null,
+"created": "2026-10-11T21:17:59.948838Z",
+"oi": 17306.456405,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 06:00:00+00"
+]
+},
+{
+"id": "1208244",
+"title": "LDU Quito vs. CSD Macara",
+"start": "2026-10-24T21:30:00Z",
+"series": "ecu1-games",
+"volume": 16727.340798,
+"liq": null,
+"created": "2026-10-17T23:53:28.39356Z",
+"oi": 11022.047995,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 21:30:00+00"
+]
+},
+{
+"id": "1209922",
+"title": "Venados FC vs. Alacranes de Durango",
+"start": "2026-10-24T23:00:00Z",
+"series": "mex2-games",
+"volume": 7222.429839,
+"liq": 17824.37418,
+"created": "2026-10-18T06:13:24.840348Z",
+"oi": 3990.1881160000003,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:00:00+00"
+]
+},
+{
+"id": "1209925",
+"title": "Jaiba Brava vs. Club Atletico La Paz",
+"start": "2026-10-25T01:00:00Z",
+"series": "mex2-games",
+"volume": 1176.3402809999998,
+"liq": null,
+"created": "2026-10-18T06:13:24.840442Z",
+"oi": 909.076759,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:00:00+00"
+]
+},
+{
+"id": "1209926",
+"title": "Jaiba Brava vs. Club Atletico La Paz - Halftime Result",
+"start": "2026-10-25T01:00:00Z",
+"series": "mex2-games",
+"volume": 15,
+"liq": 0,
+"created": "2026-10-18T06:13:24.840456Z",
+"oi": null,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:00:00+00"
+]
+},
+{
+"id": "1209950",
+"title": "Charleston Battery vs. Indy Eleven",
+"start": "2026-10-24T22:00:00Z",
+"series": "uslc",
+"volume": 3378.743009,
+"liq": null,
+"created": "2026-10-18T06:23:24.373114Z",
+"oi": 2069.7850829999998,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 22:00:00+00"
+]
+},
+{
+"id": "1209954",
+"title": "Hartford Athletic vs. Rhode Island FC",
+"start": "2026-10-24T23:00:00Z",
+"series": "uslc",
+"volume": 621.463168,
+"liq": null,
+"created": "2026-10-18T06:23:24.370663Z",
+"oi": 605.4731680000001,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:00:00+00"
+]
+},
+{
+"id": "1209962",
+"title": "El Paso Locomotive FC vs. New Mexico United",
+"start": "2026-10-25T01:00:00Z",
+"series": "uslc",
+"volume": 1437.868303,
+"liq": null,
+"created": "2026-10-18T06:23:24.372676Z",
+"oi": 1118.987803,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:00:00+00"
+]
+},
+{
+"id": "1209963",
+"title": "El Paso Locomotive FC vs. New Mexico United - Halftime Result",
+"start": "2026-10-25T01:00:00Z",
+"series": "uslc",
+"volume": 4.318182,
+"liq": 0,
+"created": "2026-10-18T06:23:24.373355Z",
+"oi": null,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:00:00+00"
+]
+},
+{
+"id": "1209966",
+"title": "San Antonio FC vs. Orange County SC",
+"start": "2026-10-25T00:30:00Z",
+"series": "uslc",
+"volume": 1337.4283679999999,
+"liq": null,
+"created": "2026-10-18T06:23:24.370193Z",
+"oi": 671.154928,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 00:30:00+00"
+]
+},
+{
+"id": "1209970",
+"title": "Monterey Bay FC vs. Las Vegas Lights",
+"start": "2026-10-25T02:00:00Z",
+"series": "uslc",
+"volume": 2325.1960289999997,
+"liq": null,
+"created": "2026-10-18T06:23:24.375233Z",
+"oi": 1729.122679,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 02:00:00+00"
+]
+},
+{
+"id": "1209974",
+"title": "Phoenix Rising FC vs. Lexington SC",
+"start": "2026-10-25T02:00:00Z",
+"series": "uslc",
+"volume": 1766.0037740000002,
+"liq": null,
+"created": "2026-10-18T06:23:24.375773Z",
+"oi": 344.46430699999996,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 02:00:00+00"
+]
+},
+{
+"id": "1209978",
+"title": "Sacramento Republic FC vs. Oakland Roots SC",
+"start": "2026-10-25T02:00:00Z",
+"series": "uslc",
+"volume": 5838.964414,
+"liq": null,
+"created": "2026-10-18T06:23:24.375399Z",
+"oi": 3998.610283,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 02:00:00+00"
+]
+},
+{
+"id": "1209979",
+"title": "Sacramento Republic FC vs. Oakland Roots SC - Halftime Result",
+"start": "2026-10-25T02:00:00Z",
+"series": "uslc",
+"volume": 5,
+"liq": null,
+"created": "2026-10-18T06:23:24.376305Z",
+"oi": 5,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 02:00:00+00"
+]
+},
+{
+"id": "1212103",
+"title": "Busan IPark vs. Gyeongnam FC",
+"start": "2026-10-25T05:00:00Z",
+"series": "kor2-games",
+"volume": 881.05957,
+"liq": null,
+"created": "2026-10-18T14:51:27.776254Z",
+"oi": 835.80957,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 05:00:00+00"
+]
+},
+{
+"id": "1214331",
+"title": "CD Mineros de Zacatecas vs. Leones Negros UDEG",
+"start": "2026-10-25T01:00:00Z",
+"series": "mex2-games",
+"volume": 817.552365,
+"liq": null,
+"created": "2026-10-18T21:13:23.157183Z",
+"oi": 805.224865,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:00:00+00"
+]
+},
+{
+"id": "1214863",
+"title": "CA Colegiales vs. Atletico de Rafaela",
+"start": "2026-10-24T23:00:00Z",
+"series": "argpn-games",
+"volume": 31448.41043,
+"liq": null,
+"created": "2026-10-18T23:43:22.677981Z",
+"oi": 29472.698035,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:00:00+00"
+]
+},
+{
+"id": "1217807",
+"title": "Nacional Asuncion vs. Sportivo Trinidense",
+"start": "2026-10-24T20:00:00Z",
+"series": "par1-games",
+"volume": 9723.827658999999,
+"liq": null,
+"created": "2026-10-19T13:39:23.128038Z",
+"oi": 8258.993961,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 20:00:00+00"
+]
+},
+{
+"id": "1217817",
+"title": "CS 2 de Mayo vs. Recoleta FC",
+"start": "2026-10-24T22:30:00Z",
+"series": "par1-games",
+"volume": 7506.551434999999,
+"liq": null,
+"created": "2026-10-19T13:39:23.131635Z",
+"oi": 6379.862609,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 22:30:00+00"
+]
+},
+{
+"id": "1221984",
+"title": "Quilmes AC vs. San Martin de Tucuman",
+"start": "2026-10-24T20:00:00Z",
+"series": "argpn-games",
+"volume": 11834.830764,
+"liq": null,
+"created": "2026-10-20T05:42:55.250816Z",
+"oi": 9241.519705,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 20:00:00+00"
+]
+},
+{
+"id": "1221987",
+"title": "Club Ciudad de Bolivar vs. Colon de Santa Fe",
+"start": "2026-10-25T00:00:00Z",
+"series": "argpn-games",
+"volume": 10466.886549,
+"liq": null,
+"created": "2026-10-20T05:44:56.075568Z",
+"oi": 8224.823078,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 00:00:00+00"
+]
+},
+{
+"id": "1222436",
+"title": "Deportivo Maldonado vs. Danubio FC",
+"start": "2026-10-24T22:00:00Z",
+"series": "uru1-games",
+"volume": 3013.265163,
+"liq": null,
+"created": "2026-10-20T07:20:57.528783Z",
+"oi": 2589.528786,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 22:00:00+00"
+]
+},
+{
+"id": "1224425",
+"title": "CSD Dorados Sinaloa vs. Piratas Veracruz",
+"start": "2026-10-25T01:00:00Z",
+"series": "mex2-games",
+"volume": 7883.858110000001,
+"liq": null,
+"created": "2026-10-20T16:13:40.519993Z",
+"oi": 7408.443589,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:00:00+00"
+]
+},
+{
+"id": "1224426",
+"title": "CSD Dorados Sinaloa vs. Piratas Veracruz - Halftime Result",
+"start": "2026-10-25T01:00:00Z",
+"series": "mex2-games",
+"volume": 82.89865499999999,
+"liq": null,
+"created": "2026-10-20T16:13:40.519514Z",
+"oi": 82.898655,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 01:00:00+00"
+]
+},
+{
+"id": "1224889",
+"title": "Cultural Leonesa vs. Pontevedra CF",
+"start": "2026-10-24T19:00:00Z",
+"series": "es3-games",
+"volume": 937.581493,
+"liq": null,
+"created": "2026-10-20T18:05:40.611005Z",
+"oi": 792.009151,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 19:00:00+00"
+]
+},
+{
+"id": "1230384",
+"title": "Arema FC vs. Dewa United",
+"start": "2026-10-25T08:30:00Z",
+"series": "idn1-games",
+"volume": 15800.445211000002,
+"liq": 66256.83916,
+"created": "2026-10-21T16:29:11.092087Z",
+"oi": 12282.961388,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 08:30:00+00"
+]
+},
+{
+"id": "1231744",
+"title": "Caracas FC vs. Deportivo Tachira",
+"start": "2026-10-24T22:00:00Z",
+"series": "ven1-games",
+"volume": 7558.742502,
+"liq": null,
+"created": "2026-10-21T20:51:10.595312Z",
+"oi": 5676.621954,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 22:00:00+00"
+]
+},
+{
+"id": "1232056",
+"title": "Deportes Quindio vs. Tigres FC",
+"start": "2026-10-24T20:30:00Z",
+"series": "col2-games",
+"volume": 2315.4517250000004,
+"liq": null,
+"created": "2026-10-21T22:23:08.909543Z",
+"oi": 1905.663948,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 20:30:00+00"
+]
+},
+{
+"id": "1232065",
+"title": "Bogota FC vs. CD Real Santander",
+"start": "2026-10-24T20:30:00Z",
+"series": "col2-games",
+"volume": 3502.012893,
+"liq": null,
+"created": "2026-10-21T22:25:08.040076Z",
+"oi": 3066.351325,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 20:30:00+00"
+]
+},
+{
+"id": "1234744",
+"title": "Loudoun United FC vs. Brooklyn FC",
+"start": "2026-10-24T21:00:00Z",
+"series": "uslc",
+"volume": 5173.226742,
+"liq": null,
+"created": "2026-10-22T11:23:11.168507Z",
+"oi": 3460.789724,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 21:00:00+00"
+]
+},
+{
+"id": "1234748",
+"title": "Louisville City FC vs. Detroit City FC",
+"start": "2026-10-24T23:00:00Z",
+"series": "uslc",
+"volume": 1450.066329,
+"liq": null,
+"created": "2026-10-22T11:23:11.169566Z",
+"oi": 1207.993748,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:00:00+00"
+]
+},
+{
+"id": "1234752",
+"title": "Pittsburgh Riverhounds vs. Birmingham Legion FC",
+"start": "2026-10-24T23:00:00Z",
+"series": "uslc",
+"volume": 2737.179869,
+"liq": null,
+"created": "2026-10-22T11:23:11.169383Z",
+"oi": 1732.250207,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:00:00+00"
+]
+},
+{
+"id": "1234753",
+"title": "Pittsburgh Riverhounds vs. Birmingham Legion FC - Halftime Result",
+"start": "2026-10-24T23:00:00Z",
+"series": "uslc",
+"volume": null,
+"liq": 0,
+"created": "2026-10-22T11:23:11.169624Z",
+"oi": null,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 23:00:00+00"
+]
+},
+{
+"id": "1236056",
+"title": "San Luis de Quillota vs. Deportes Recoleta",
+"start": "2026-10-24T20:30:00Z",
+"series": "chl2-games",
+"volume": 1969.671482,
+"liq": null,
+"created": "2026-10-22T17:13:14.14616Z",
+"oi": 1224.508467,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-24 20:30:00+00"
+]
+},
+{
+"id": "1240672",
+"title": "Reilac Shiga FC vs. Zweigen Kanazawa",
+"start": "2026-10-25T05:00:00Z",
+"series": "ja3-games",
+"volume": 2366.864004,
+"liq": null,
+"created": "2026-10-23T13:40:21.059323Z",
+"oi": 2285.3954839999997,
+"score": null,
+"rewards": [
+50,
+50,
+50
+],
+"gst": [
+"2026-10-25 05:00:00+00"
+]
+}
+]

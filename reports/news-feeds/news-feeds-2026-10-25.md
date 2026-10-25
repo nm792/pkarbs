@@ -167,3 +167,96 @@ reach 9:
 after-the-fact split;
 (2) public trades and price history around one CPI or FOMC release and one big match kickoff, to
 measure depth and gap size in the event window against quiet hours.
+
+---
+
+## Addendum 2 (13:05Z): the two open checks, run
+
+Data access: the Composio sandbox failed on every call again ("Failed to execute bash command in
+sandbox", 5 tries, 12:15-12:30Z), and this container's proxy refuses Polymarket hosts. Pulled
+instead through the TinyFish page fetcher, which writes large responses to disk:
+gamma `/events?id=...` for the 93 matches, and data-api `/v2/trades?event_id=..&limit=500`
+for release events. Scripts and inputs: `reports/news-feeds/scripts/`.
+
+### Check 1: can we pick the busy matches before kick-off? **[measured]**
+
+Target: the 31 matches (of 93) with the most gap runs in the 12-hour shadow (78% of runs).
+Pick 31 matches with each rule and count how many are in the busy third.
+
+| Rule (31 picks) | Known before kick-off? | Busy matches caught | Share of all gap runs | P&L at 1 s on picks |
+|---|---|---|---|---|
+| Random pick (10,000 draws) | yes | 10.3 on average (95th pct 14) | 33% (95th pct 45%) | n/a |
+| Minutes of the match inside the scan window | yes | 15 | 48% | -$261 |
+| League prior: median volume of other matches in the same league | yes | 16 | 50% | -$157 |
+| League prior x minutes in window | yes | 15 | 49% | -$188 |
+| Total match volume | **no** (includes in-play volume) | 22 | 67% | -$311 |
+| Busiest third itself | no | 31 | 78% | -$286 |
+
+- Pre-game rules do better than random, a little above the random 95th percentile: they catch
+  about half the gaps where a random pick catches a third. MLS (18 matches, 143 runs) and
+  Brazil Serie A (9, 109) are where the gaps were.
+- Total volume catches more (22/31), but most of it trades in play, so it is not known before
+  kick-off. True pre-game volume would mean paging all trades before kick-off for each match
+  (data-api has no windowed volume route); not pulled.
+- Every pick still loses at the 1 s delay. Ranking changes where the losses happen, not the sign.
+
+### Check 2: scheduled releases on Polymarket **[measured, 4 release days]**
+
+Each release market's public trades by seconds after the official time. "Pickoff edge" is
+profit to the takers who hit quotes still resting at pre-release prices, valued at the
+settled outcome. That is the stale-gap pool a release creates. Timestamps are on-chain
+settlement times, a few seconds after the match, so "0-10 s" means the first few seconds.
+
+| Release (official time) | Polymarket event | Notional, first 30 s | Pickoff edge 0-10 s | 11-30 s | 31-300 s |
+|---|---|---|---|---|---|
+| Sep CPI, 14 Oct 12:30Z | Annual CPI | $14.1k | $219 | $428 | $0 |
+| | Monthly CPI | $3.5k | $222 | $87 | $0 |
+| | Core CPI MoM | $11.9k | **$4,707** | **$2,142** | $0 |
+| Aug CPI, 11 Sep 12:30Z | Core CPI MoM | $2.0k | $257 | $1 | $0 |
+| | Core CPI YoY | $1.8k | $118 | $0 | $0 |
+| FOMC, 16 Sep 18:00Z | Fed decision | $33.5k | $199 | $229 | $101 |
+| Sep jobs, 2 Oct 12:30Z | Payrolls | inconclusive (could not infer the winners for most brackets) | | | |
+
+What this shows:
+- **Volume spikes 20-100x at the release second.** For example, annual CPI did $736 in the
+  half hour before and $15.1k in the half hour after, almost all of it in the first 30 s.
+- **The release creates real gaps, and they are gone within about 30 s.** Nothing after
+  30 s except FOMC ($101).
+- **The size is lumpy.** One release (Sep core CPI) held $6.8k because a resting ask at 0.32
+  on the winning bracket ("0.3%") kept being bought from +8 s to +20 s, 4,000+ shares. The
+  other five events held $0.1-0.6k each.
+- Before the release: no leak. Trades in the 10 minutes before were small ($0-100 each) and
+  at pre-release prices.
+- This is a speed race again: whoever reads the number first (BLS posts at 8:30:00 ET) takes
+  it. These markets have no sports delay **[estimate: `secondsDelay` was set only on sports
+  markets in our earlier reads]**. The first fills settle at +6-8 s, so the fastest takers
+  matched within a few seconds.
+
+### Sizing against $50/day **[estimate]**
+
+- Scheduled US macro releases with Polymarket markets: CPI 12, jobs 12, FOMC 8, plus PPI and
+  others, so about 35-40 per year.
+- Pool per release day from this sample: median about $0.4-0.7k, one outlier at $7.8k.
+- If we caught 10-30% of the 0-10 s pool with a sub-second taker that reads the release
+  source directly: about $40-200 per release, or roughly **$5-20/day averaged over a year**.
+  It comes in a few lumpy days, and the fastest bots already take most of it.
+- It needs no paid feed: the BLS, BEA and Fed pages and the calendar file are free. It does need
+  a parser per release and a pre-armed order per bracket. The losing risk is a parse error at
+  release time, which is a catastrophic-loss risk.
+
+### Updated recommendation
+
+1. Sports: don't use calendar or league ranking to rescue the in-play set arb. It picks about
+   half the gaps from a third of the matches, but they still lose at 1 s (measured).
+2. Scheduled macro releases are where Nick's thesis holds: volume and executable gaps both jump
+   at a known second. It is a small, lumpy, speed-bound pool (about $5-20/day, estimated),
+   below the bar on its own. It is the most promising lead in this thread. The next desk step,
+   no server: run the same trade scan over the last 12 months of CPI, jobs, FOMC and PPI
+   events to get a real distribution per release, and check how many of the first fills went to
+   one wallet (data-api rows carry the taker wallet).
+
+**Confidence:** Check 1 **8/10** (measured; one 12-hour sample; true pre-game volume not pulled).
+Check 2 **6/10** on the size (4 release days, high variance, timestamps are settlement times,
+winners inferred from post-release prices, jobs inconclusive). To reach 9: (a) 12 months of
+release events through the same script, about 40 fetches; (b) one bounded live test that times
+our order against a release (needs Nick's go-ahead and the Polymarket account active).
