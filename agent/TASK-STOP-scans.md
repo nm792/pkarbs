@@ -1,7 +1,7 @@
 # Task for the server agent: STOP all scans now and free the RAM (do this first)
 
 From: Claude in the "PK arbs" project, on Nick's instruction (25 Oct 2026, 02:01Z).
-Status: OPEN
+Status: DONE
 Priority: do this before any other task in agent/.
 
 ## What to do
