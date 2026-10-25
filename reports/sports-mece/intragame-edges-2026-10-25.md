@@ -107,3 +107,34 @@ markout to mid at 10 s and 60 s, after adding the maker rebate?
 
 Not proposed: more logging or new hours. D (related markets) can be tested later from public prints
 the same way as above without the server.
+
+## Addendum (07:30Z): maker upper bound, and the server job is withdrawn
+
+Nick asked why simulate a break-even maker. Upper bound from the same public prints instead
+(computed on real prints unless marked estimate; 80 games over 6.04 days):
+
+- In-play volume: 3.74M shares/day in quiet play, 0.22M/day within -5..+60 s of a shock (5.8%).
+- Effective spread is 1 tick (median 1.0c between opposite-side trades within 5 s, 7,926 pairs). The
+  last-trade markout already includes that half-spread, so in quiet play makers earned about 0.5c of
+  spread and gave about all of it back to informed flow: **-0.017c per share** (share-weighted).
+- Maker rebate, 15% of the 0.05·p(1-p) taker fee at the traded prices: **+0.061c per share** (estimate;
+  prices sit far from 0.5 in play, so p(1-p) is small). The whole in-play rebate pool for these 80 games
+  is about $2,570/day, shared by every maker.
+- Goal losses: 5.8% x 2.36c = 0.137c per quiet share if never cancelled; 0.027c at an 80% cancel rate.
+
+| Case | Edge per share | Maker fills/day for $50 | Share of all quiet in-play volume |
+|---|---|---|---|
+| Perfect cancel, share-weighted | +0.044c | 114k | 3.0% |
+| 80% cancel, share-weighted | +0.017c | 290k | 7.8% |
+| No cancel, share-weighted | -0.093c | never | - |
+| Perfect cancel, trade-weighted (+0.15c) | +0.21c | 24k | 0.6% |
+
+The last row is the only one that looks easy, and it is not reachable: it weights the many small,
+uninformed trades, but a quote at the back of the queue is filled mostly by large trades that sweep
+the level, which are the informed ones. EPL liquidity rewards ($100/day per leg) only count while our
+quote rests; the in-play two hours are about 1/12 of a day, so 3 legs x $100 / 12 is about $25 per
+match, about $36/day across roughly 10 EPL matches a week, and only if we took the whole pool (estimate).
+
+**Verdict: negative.** Reaching $50/day needs 3-8% of all in-play maker volume on the busiest leagues
+with near-perfect cancels, for under 0.05c per share. The proposed server job is withdrawn and this line
+is closed. (Resting for rewards before kickoff is a different strategy and is not covered here.)
