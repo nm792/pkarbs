@@ -101,4 +101,4 @@ Sources:
 - [Sportradar sports data](https://sportradar.com/betting-gaming/products/betting/sports-data/?lang=en-us)
 - [Crypto Briefing on Polymarket repricing lag](https://cryptobriefing.com/polymarket-repricing-lag-80-minutes/) (secondary, not opened)
 - [Benzinga Pro pricing tracker](https://subger.com/en/service/benzinga-pro-sub) (secondary)
-- Our data: reports/sports-mece/intragame-edges-2026-10-25.md, reports/sports-mece/all-hours-2026-10-25.md
+- Our data: /mnt/project-files/sports-mece/intragame-edges-2026-10-25.md (branch claude/project-thread-fzn6mu), reports/sports-mece/all-hours-2026-10-25.md
