@@ -93,3 +93,8 @@ root     2967244  0.6  3.9 691832 310860 ?       Ssl  03:13   0:18 /usr/bin/pyth
 === free -m ===
                total        used        free      shared  buff/cache   available
 Mem:            7746        4132        1052         344        3214        3613
+
+=== G2 failing run (detector quote != sim book at t0, 1 of 92) ===
+event 1171491, "Real Salt Lake vs. St. Louis City SC", side=yes, t0=1792894850.853, dur=0.42s
+detector quotes0: [[0.55, 315.18], [0.26, 500.0], [0.15, 500.0]]  (one leg differs from sim book at t0 by >1e-9 price or >1e-6 size)
+min_fill=1.0 (fills fine at delay 0); 0 runs with min_fill<0.95.
