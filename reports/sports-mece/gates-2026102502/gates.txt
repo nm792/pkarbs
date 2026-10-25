@@ -1,0 +1,95 @@
+'Real Salt Lake vs. St. Louis City SC - H' dur=0.144s edge0=$3.73
+run no 'Real Salt Lake vs. St. Louis City SC - H' dur=0.18s edge0=$0.60
+run no 'Real Salt Lake vs. St. Louis City SC - H' dur=0.375s edge0=$0.60
+run no 'Real Salt Lake vs. St. Louis City SC - H' dur=0.851s edge0=$0.60
+run no 'Real Salt Lake vs. St. Louis City SC - H' dur=0.046s edge0=$0.60
+run no 'Real Salt Lake vs. St. Louis City SC - H' dur=0.195s edge0=$0.40
+run yes 'Real Salt Lake vs. St. Louis City SC' dur=0.115s edge0=$1.28
+run no 'FC Dallas vs. San Jose Earthquakes' dur=0.532s edge0=$0.18
+run no 'FC Dallas vs. San Jose Earthquakes' dur=11.831s edge0=$0.00
+run yes 'Sporting Kansas City vs. Austin FC' dur=0.7s edge0=$17.36
+run yes 'Real Salt Lake vs. St. Louis City SC - H' dur=0.051s edge0=$0.00
+run no 'Angel City FC vs. Bay FC' dur=0.996s edge0=$0.51
+run yes 'Once Caldas vs. Deportivo Pereira' dur=0.971s edge0=$0.01
+run no 'San Antonio FC vs. Orange County SC' dur=0.393s edge0=$0.00
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.006s edge0=$0.01
+run no 'Houston Dynamo vs. Minnesota United FC' dur=2.1s edge0=$0.01
+run no 'Houston Dynamo vs. Minnesota United FC' dur=2.068s edge0=$0.01
+run yes 'Houston Dynamo vs. Minnesota United FC' dur=0.105s edge0=$2.41
+run yes 'Houston Dynamo vs. Minnesota United FC' dur=0.013s edge0=$0.04
+run yes 'Houston Dynamo vs. Minnesota United FC' dur=0.166s edge0=$0.02
+run yes 'Houston Dynamo vs. Minnesota United FC' dur=0.222s edge0=$0.06
+run yes 'Houston Dynamo vs. Minnesota United FC' dur=0.241s edge0=$0.57
+run yes 'Houston Dynamo vs. Minnesota United FC' dur=0.103s edge0=$0.89
+run yes 'Houston Dynamo vs. Minnesota United FC' dur=1.787s edge0=$1.24
+run yes 'Angel City FC vs. Bay FC' dur=1.06s edge0=$0.03
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.13s edge0=$0.01
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.103s edge0=$0.06
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.679s edge0=$0.01
+run no 'Houston Dynamo vs. Minnesota United FC' dur=1.707s edge0=$0.08
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.055s edge0=$0.08
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.07s edge0=$0.08
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.027s edge0=$0.08
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.067s edge0=$0.08
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.034s edge0=$0.08
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.027s edge0=$0.08
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.309s edge0=$0.30
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.039s edge0=$0.17
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.26s edge0=$1.19
+run no 'Houston Dynamo vs. Minnesota United FC' dur=0.338s edge0=$1.14
+run no 'Houston Dynamo vs. Minnesota United FC' dur=2.162s edge0=$1.14
+run yes 'CF Monterrey vs. CD Guadalajara' dur=0.161s edge0=$0.17
+run no 'Portland Timbers vs. Charlotte FC' dur=0.019s edge0=$0.69
+run no 'Jaiba Brava vs. Club Atletico La Paz' dur=0.014s edge0=$0.05
+run no 'Jaiba Brava vs. Club Atletico La Paz' dur=2.774s edge0=$0.05
+run no 'Jaiba Brava vs. Club Atletico La Paz' dur=1.144s edge0=$3.22
+run no 'Jaiba Brava vs. Club Atletico La Paz' dur=1.313s edge0=$4.01
+run yes 'Colorado Rapids SC vs. Vancouver Whiteca' dur=0.386s edge0=$0.08
+run yes 'Colorado Rapids SC vs. Vancouver Whiteca' dur=0.013s edge0=$0.38
+run yes 'Colorado Rapids SC vs. Vancouver Whiteca' dur=0.244s edge0=$0.08
+run yes 'Colorado Rapids SC vs. Vancouver Whiteca' dur=0.181s edge0=$0.62
+run yes 'Colorado Rapids SC vs. Vancouver Whiteca' dur=0.01s edge0=$0.04
+run yes 'Club Universitario de Deportes vs. ADC J' dur=0.287s edge0=$0.05
+run no 'Club Universitario de Deportes vs. ADC J' dur=0.97s edge0=$0.00
+run no 'Club Universitario de Deportes vs. ADC J' dur=4.591s edge0=$0.00
+run no 'Real Salt Lake vs. St. Louis City SC' dur=0.06s edge0=$0.86
+run no 'Real Salt Lake vs. St. Louis City SC' dur=0.097s edge0=$0.89
+run no 'Portland Timbers vs. Charlotte FC' dur=0.005s edge0=$0.07
+ Traceback (most recent call last):
+  File "/root/pkarbs/shadow/rescan.py", line 166, in <module>
+    main()
+    ~~~~^^
+  File "/root/pkarbs/shadow/rescan.py", line 104, in main
+    for line in read_lines(path):
+                ~~~~~~~~~~^^^^^^
+  File "/root/pkarbs/shadow/rescan.py", line 34, in read_lines
+    yield from f
+  File "/usr/lib/python3.14/gzip.py", line 360, in read1
+    return self._buffer.read1(size)
+           ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/compression/_common/_streams.py", line 68, in readinto
+    data = self.read(len(byte_view))
+  File "/usr/lib/python3.14/gzip.py", line 580, in read
+    uncompress = self._decompressor.decompress(b"", size)
+zlib.error: Error -3 while decompressing data: invalid block type
+
+hour 2026102502: 92 runs detected; rescan said: ["run no 'Real Salt Lake vs. St. Louis City SC' dur=0.06s edge0=$0.86", "run no 'Real Salt Lake vs. St. Louis City SC' dur=0.097s edge0=$0.89", "run no 'Portland Timbers vs. Charlotte FC' dur=0.005s edge0=$0.07"]
+FAIL  G2 detector quotes == sim book at t0  (1 of 92 runs differ)
+PASS  G2 delay-0 fill >= 95% on every leg, >= 95% of runs with dur > 0.05 s  (71 of 71 pass; all runs: 92 of 92)
+PASS  G3 no run opened on a crossed leg  (0 runs)
+PASS  G3 no run opened on an unseeded leg  (0 runs)
+PASS  G4 printed sim= equals CSV pnl_usd sum  (printed={('yes', '0'): 32.96, ('yes', 'market'): -29.83, ('no', '0'): 9.29, ('no', 'market'): -26.54})
+PASS  G4 rebate_usd == R x fees_usd  (rebate=1.3106 R*fees=1.3105)
+saved to reports/sports-mece/gates-2026102502/
+
+5 of 6 gates pass; FAILED: ['G2 detector quotes == sim book at t0']
+
+=== ps aux --sort=-rss | head -5 ===
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root     2659520  3.1  7.7 814400 612676 ?       SNsl 00:12   7:21 /usr/bin/python3 -W ignore /root/mm-books/rec_ws.py
+root     2951556 25.3  6.8 658888 539648 pts/2   Sl+  02:51  18:35 /usr/bin/python3 shadow/shadow_logger.py --out /mnt/HC_Volume_107257520/pkarbs/shadow/data-v2/
+root     3014913 50.8  5.6 519436 447924 ?       Sl   04:03   0:28 /root/polymarket-temperature-trading/venv/bin/python3 main.py
+root     2967244  0.6  3.9 691832 310860 ?       Ssl  03:13   0:18 /usr/bin/python3 -W ignore /root/mm-books/rec_ws_ff.py
+=== free -m ===
+               total        used        free      shared  buff/cache   available
+Mem:            7746        4132        1052         344        3214        3613

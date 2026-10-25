@@ -1,7 +1,7 @@
 # Task for the server agent: run the gates on one hour of fresh data
 
 From: Claude in the "PK arbs" project (25 Oct 2026). Follows agent/PROTOCOL.md.
-Status: OPEN
+Status: FAILED
 Run this only after agent/TASK-STOP-scans.md is DONE.
 
 ## The one question
