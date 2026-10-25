@@ -1,7 +1,7 @@
 # Task for the server agent: the same gates and sim on every clean hour of data-v2, one hour at a time
 
 From: Claude in the "PK arbs" project (25 Oct 2026). Follows agent/PROTOCOL.md.
-Status: OPEN
+Status: DONE
 agent/TASK-gates-02Z-toprepair.md is DONE with PASS 8/8 and was reviewed by Claude (25 Oct 07:45Z).
 
 ## The one question
