@@ -29,11 +29,23 @@ Clean-rescan additions (TASK-rescan-clean):
   full/partial/none, px0, fee0, edge_full_fee, fees_usd, rebate_usd, wv_usd, maker_rebate_usd).
 - --taker-rebate R: refund a fraction of every taker fee; skip runs whose
   payout - px0 - (1 - R) x fee0 <= 0 (skipped_reason = below_rebate_edge).
-- Fees/volume out: per side and delay, print fees, rebate, wv, wv_30d and the tier.
+- Fees/volume out: per side and delay, print fees, rebate and wv.
+
+Fill-check fixes (TASK-rescan-fillcheck):
+- replay() uses books.Replay, the same book replay as rescan.py (gap reset, seeding, per-change dedup).
+- The taker rebate is added to P&L. sim = hedged_sets + of_which_unwind + rebate, each dollar once:
+  hedged_sets is the complete sets filled at t0 prices held to payout; of_which_unwind is everything
+  done with the legs left over (dump or completion).
+- --partial dump|complete|best: on a partial fill, sell the extras at the bid, or buy the missing legs at
+  the ask (a full set is MECE, so completing it locks the payout), or per run whichever pays more.
+- CSV gains delay, t0_iso, partial_exit, a per-run full_partial_none (0 none, 1 partial, 2 full), and every
+  leg's best bid/ask at t0, match and unwind time plus its fill.
 
 Usage: python3 shadow_sim.py --data data/ --runs rescan/runs.jsonl --one-way 0.05 --delays 0,1,3,market
 """
 import argparse, glob, gzip, json, math, os, csv
+from datetime import datetime, timezone
+from books import Book, Replay
 from collections import defaultdict
 
 BATCH = 15
@@ -98,15 +110,18 @@ def load(data, runs_path=None):
 
 
 def replay(data, queries, gap_s=5.0):
-    """queries: list of (t, key, assets). Returns (snaps, seeded_at) where snaps[key][asset]
-    is (bids, asks) at the query time and seeded_at[key][asset] is whether the leg was seeded
-    (a full book message arrived after the last gap reset). Books reset when the receive time
-    jumps by more than gap_s; a leg is unseeded until a full book message arrives."""
+    """queries: list of (t, key, assets). Returns (snaps, seeded_at): snaps[key][asset] is (bids, asks)
+    after every record received at or before t, and seeded_at[key][asset] says whether the leg had a
+    full book since the last gap reset. Uses books.Replay, the same replay as rescan.py."""
     want = sorted(queries, key=lambda q: q[0])
-    books = defaultdict(lambda: [{}, {}, 0])  # bids, asks, last exchange ts
-    seeded = defaultdict(lambda: {})          # asset -> last full-book recv time
+    rp = Replay({}, gap_s=gap_s, create=True)
     snaps, seeded_at, qi = {}, {}, 0
-    last_r = None
+    empty = Book()
+
+    def take(t, key, assets):
+        snaps[key] = {x: (dict(rp.books.get(x, empty).bids), dict(rp.books.get(x, empty).asks)) for x in assets}
+        seeded_at[key] = {x: rp.is_seeded(x) for x in assets}
+
     for path in sorted(glob.glob(os.path.join(data, "raw-*.jsonl.gz"))):
         for line in read_lines(path):
             try:
@@ -114,42 +129,19 @@ def replay(data, queries, gap_s=5.0):
             except ValueError:  # partial last line of a file still being written
                 continue
             r = rec["r"]
-            # change 1: receive-time jump resets every book and unseeds every leg
-            if last_r is not None and r - last_r > gap_s:
-                for b in books.values():
-                    b[0], b[1], b[2] = {}, {}, 0
-                seeded.clear()
-            last_r = r
             while qi < len(want) and want[qi][0] < r:
-                t, key, assets = want[qi]
-                snaps[key] = {a: (dict(books[a][0]), dict(books[a][1])) for a in assets}
-                seeded_at[key] = {a: (seeded.get(a) is not None) for a in assets}
+                take(*want[qi])
                 qi += 1
-            msgs = rec["m"] if isinstance(rec["m"], list) else [rec["m"]]
-            for m in msgs:
-                et = m.get("event_type")
-                if et == "book":
-                    b = books[m["asset_id"]]
-                    if int(m.get("timestamp", 0)) < b[2]:
-                        continue
-                    b[2] = int(m.get("timestamp", 0))
-                    b[0] = {float(x["price"]): float(x["size"]) for x in m.get("bids", [])}
-                    b[1] = {float(x["price"]): float(x["size"]) for x in m.get("asks", [])}
-                    seeded[m["asset_id"]] = r  # full book re-seeds the leg
-                elif et == "price_change":
-                    for c in m.get("price_changes") or m.get("changes") or []:
-                        b = books[c.get("asset_id") or m.get("asset_id")]
-                        b[2] = max(b[2], int(m.get("timestamp", 0)))
-                        side = b[0] if c["side"].upper() == "BUY" else b[1]
-                        p, s = float(c["price"]), float(c["size"])
-                        if s == 0:
-                            side.pop(p, None)
-                        else:
-                            side[p] = s
-    for t, key, assets in want[qi:]:
-        snaps[key] = {a: (dict(books[a][0]), dict(books[a][1])) for a in assets}
-        seeded_at[key] = {a: (seeded.get(a) is not None) for a in assets}
+            if qi >= len(want):
+                break
+            rp.feed(r, rec["m"])
+        if qi >= len(want):
+            break
+    for q in want[qi:]:
+        take(*q)
     return snaps, seeded_at
+
+
 def leg_delay(leg, d):
     return (leg.get("seconds_delay") or 0) if d == "market" else float(d)
 
@@ -167,14 +159,6 @@ def voids_on_cancel(title):
     return "exact score" not in (title or "").lower()
 
 
-def tier_for(wv_30d):
-    for rate, name in TIERS:
-        if wv_30d >= 0:  # placeholder; real thresholds are dollar-based, reported as reached tier
-            pass
-    # report the highest tier whose rate is <= the implied rate; use the rate ladder
-    return "Bronze"
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default="data")
@@ -189,6 +173,9 @@ def main():
     ap.add_argument("--gap-s", type=float, default=5.0, help="receive-time jump that resets every book and unseeds every leg")
     ap.add_argument("--taker-rebate", type=float, default=0.0, help="fraction of taker fees refunded")
     ap.add_argument("--per-run", help="write one CSV row per run and delay to this path")
+    ap.add_argument("--partial", choices=["dump", "complete", "best"], default="dump",
+                    help="partial fill exit: sell extra legs at the bid, buy the missing legs at the ask, "
+                         "or per run whichever pays more (both priced on the same unwind-time book)")
     a = ap.parse_args()
 
     runs = load(a.data, a.runs)
@@ -196,6 +183,7 @@ def main():
     queries = []
     for i, r in enumerate(runs):
         assets = [l["yes"] for l in r["legs"]]
+        queries.append((r["t0"] + 1e-6, (i, "t0"), assets))
         for d in delays:
             last = 0.0
             for k, leg in enumerate(r["legs"]):
@@ -205,18 +193,15 @@ def main():
             dmax = max(leg_delay(l, d) for l in r["legs"])
             queries.append((last + a.one_way + dmax, (i, d, "unwind"), assets))
     snaps, seeded_at = replay(a.data, queries, a.gap_s)
+    max_legs = max((len(r["legs"]) for r in runs), default=0)
 
     per_run = []
-    combined = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # delay -> seen, sim, unwind, ev, fees, rebate, wv
+    combined = defaultdict(lambda: defaultdict(float))
     for side in ("yes", "no"):
         sruns = [(i, r) for i, r in enumerate(runs) if r["side"] == side]
         for d in delays:
-            tot_seen = tot = worst = unwind_loss = void_tot = 0.0
-            fees_tot = rebate_tot = wv_tot = 0.0
-            full = partial = none = too_small = 0
-            cooldown_skip = 0
-            unseeded_skip = 0
-            crossed_checks = 0
+            T = defaultdict(float)  # totals for this side and delay
+            worst = 0.0
             last_t1 = {}  # (event, side) -> t1 of last traded run
             for i, r in sruns:
                 lg = r["legs"]
@@ -225,116 +210,163 @@ def main():
                 prices = [p0 if side == "yes" else 1 - p0 for p0, _ in r["quotes0"]]
                 need = max((float(l.get("min_size") or 0) / (px if a.min_unit == "usdc" else 1))
                            for l, px in zip(lg, prices))
-                reason = "none"
+                px0 = r.get("px0", r["cost0"])
+                fee0 = r.get("fee0", 0.0)
+                row = {"i": i, "d": d, "r": r, "q": q, "reason": "none", "seen": 0.0, "h": 0.0, "pnl": 0.0,
+                       "uw": 0.0, "fpn": 0, "exit": "", "fees": 0.0, "rebate": 0.0, "wv": 0.0, "fills": [0.0] * n}
                 if q < need - 1e-9:
-                    too_small += 1
-                    reason = "below_min"
-                # change 8: skip runs not positive after the rebate
-                px0 = r.get("px0", r.get("cost0", 0))
-                fee0 = r.get("fee0", 0)
-                if r.get("edge_full_fee", 1) == 0 and a.taker_rebate == 0:
-                    reason = "below_rebate_edge"
+                    row["reason"] = "below_min"
+                    T["below_min"] += 1
                 elif r.get("payout", 1) - px0 - (1 - a.taker_rebate) * fee0 <= 0:
-                    reason = "below_rebate_edge"
-                # change 4: cooldown
-                key = (r["event"], side)
-                if reason == "none" and key in last_t1 and r["t0"] - last_t1[key] < a.cooldown_s:
-                    reason = "cooldown"
-                    cooldown_skip += 1
-                # change 1: skip runs on unseeded legs (no full book after the last gap reset)
-                if reason == "none":
-                    for k, leg in enumerate(lg):
-                        if not seeded_at.get((i, d, "match", k), {}).get(leg["yes"], False):
-                            reason = "unseeded"
-                            unseeded_skip += 1
-                            break
-                if reason != "none":
-                    per_run.append((i, d, r, q, reason, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))
+                    row["reason"] = "below_rebate_edge"  # at R=0 this is exactly edge_full_fee == 0
+                elif (r["event"], side) in last_t1 and r["t0"] - last_t1[(r["event"], side)] < a.cooldown_s:
+                    row["reason"] = "cooldown"
+                    T["cooldown_skip"] += 1
+                elif not all(seeded_at[(i, d, "match", k)][leg["yes"]] for k, leg in enumerate(lg)):
+                    row["reason"] = "unseeded"
+                    T["unseeded_skip"] += 1
+                if row["reason"] != "none":
+                    per_run.append(row)
                     continue
-                tot_seen += (r["payout"] - r["cost0"]) * q
+                row["seen"] = (r["payout"] - px0 - (1 - a.taker_rebate) * fee0) * q
                 u = snaps[(i, d, "unwind")]
-                fills = []
-                crossed = 0
+                useed = seeded_at[(i, d, "unwind")]
+                fills, crossed = [], 0
                 for k, (leg, (p0, _)) in enumerate(zip(lg, r["quotes0"])):
                     bids, asks = snaps[(i, d, "match", k)][leg["yes"]]
-                    # change 2: a crossed leg counts as unfilled
-                    if bids and asks and max(bids) >= min(asks):
+                    if bids and asks and max(bids) >= min(asks):  # crossed leg counts as unfilled
                         crossed += 1
-                        fills.append((leg, 0.0, 0.0, 0.0))
+                        fills.append([leg, 0.0, 0.0, 0.0])
                         continue
                     lim = on_tick(p0 if side == "yes" else 1 - p0, leg.get("tick"))
                     f, notional, fees = walk(asks if side == "yes" else mirror(bids), lim, q, True,
                                              leg["fee_rate"], leg.get("fee_exp", 1))
-                    fills.append((leg, f, notional + fees, fees))
-                if crossed:
-                    crossed_checks += 1
+                    fills.append([leg, f, notional, fees])
+                T["crossed"] += 1 if crossed else 0
+                buy_cost = sum(nt + fe for _, _, nt, fe in fills)
+                buy_fees = sum(fe for _, _, _, fe in fills)
+                wv = sum(f * (nt / f) * (1 - nt / f) for _, f, nt, _ in fills if f > 0)
                 h = min(f for _, f, _, _ in fills)
-                pnl = h * r["payout"]
-                uw = 0.0
-                run_fees = 0.0
-                run_wv = 0.0
-                for leg, f, paid, fees in fills:
-                    pnl -= paid
-                    run_fees += fees
-                    if f > 0:
-                        p = (paid - fees) / f  # notional / shares = avg price
-                        run_wv += f * p * (1 - p)  # shares x p x (1-p), sports weight 1.0
-                    extra = f - h
-                    if extra > 1e-9:
+                if any(not useed[leg["yes"]] for leg, f, _, _ in fills if f - h > 1e-9):
+                    T["unwind_unseeded"] += 1
+
+                def dump(sets, held):
+                    """Sell each leg's holding above `sets` at the unwind-time bid. Returns (proceeds, fees)."""
+                    pr = fs = 0.0
+                    for leg, f in held:
+                        extra = f - sets
+                        if extra > 1e-9:
+                            ub, ua = u[leg["yes"]]
+                            _, nt, fe = walk(ub if side == "yes" else mirror(ua), 0.0, extra, False,
+                                             leg["fee_rate"], leg.get("fee_exp", 1))
+                            pr += nt - fe
+                            fs += fe
+                    return pr, fs
+
+                # exit A: dump the extras
+                pr_a, fs_a = dump(h, [(leg, f) for leg, f, _, _ in fills])
+                pnl_a = h * r["payout"] - buy_cost + pr_a
+                fees_a = buy_fees + fs_a
+                # exit B: buy the missing legs up to the largest fill at the unwind-time ask, dump what is left over
+                top = max(f for _, f, _, _ in fills)
+                held, extra_cost, fs_b, wv_b = [], 0.0, 0.0, 0.0
+                for leg, f, _, _ in fills:
+                    g = nt = fe = 0.0
+                    if top - f > 1e-9:
                         ub, ua = u[leg["yes"]]
-                        s_, notional, fees = walk(ub if side == "yes" else mirror(ua), 0.0, extra, False,
-                                                  leg["fee_rate"], leg.get("fee_exp", 1))
-                        pnl += notional - fees
-                        uw += notional - fees - paid * extra / f
-                        run_fees += fees
+                        g, nt, fe = walk(ua if side == "yes" else mirror(ub), 1.0, top - f, True,
+                                         leg["fee_rate"], leg.get("fee_exp", 1))
+                        if g > 0:
+                            wv_b += g * (nt / g) * (1 - nt / g)
+                    held.append((leg, f + g))
+                    extra_cost += nt + fe
+                    fs_b += fe
+                h_b = min(x for _, x in held)
+                pr_b, fs_b2 = dump(h_b, held)
+                pnl_b = h_b * r["payout"] - buy_cost - extra_cost + pr_b
+                fees_b = buy_fees + fs_b + fs_b2
+                use_b = a.partial == "complete" or (a.partial == "best" and pnl_b > pnl_a + 1e-12)
+                if top - h <= 1e-9:
+                    use_b = False  # nothing partial
+                pnl, run_fees, sets = (pnl_b, fees_b, h_b) if use_b else (pnl_a, fees_a, h)
+                if use_b:
+                    wv += wv_b
                 rebate = a.taker_rebate * run_fees
-                tot += pnl
-                unwind_loss += uw
-                fees_tot += run_fees
-                rebate_tot += rebate
-                wv_tot += run_wv
+                pnl += rebate  # the taker rebate is part of P&L
+                # unwind_usd: P&L of everything that is not a complete set bought at t0 prices
+                hedged = h * r["payout"] - sum((nt + fe) * h / f for _, f, nt, fe in fills if f > 0)
+                uw = pnl - rebate - hedged
+                fpn = 2 if h >= q - 1e-9 else (1 if top > 1e-9 else 0)
+                T["full" if fpn == 2 else "partial" if fpn == 1 else "none"] += 1
+                T["seen"] += row["seen"]; T["sim"] += pnl; T["unwind"] += uw; T["hedged"] += hedged
+                T["fees"] += run_fees; T["rebate"] += rebate; T["wv"] += wv
+                T["exit_complete"] += 1 if use_b else 0
+                T["dump_total"] += pnl_a + a.taker_rebate * fees_a
+                T["complete_total"] += (pnl_b + a.taker_rebate * fees_b) if top - h > 1e-9 else (pnl_a + a.taker_rebate * fees_a)
                 worst = min(worst, pnl)
                 if voids_on_cancel(r["title"]):
-                    void_tot += pnl + h * ((0 if side == "yes" else n) - r["payout"])
+                    T["void"] += pnl + sets * ((0 if side == "yes" else n) - r["payout"])
                 else:
-                    void_tot += pnl
-                if h >= q - 1e-9:
-                    full += 1
-                elif any(f > 1e-9 for _, f, _, _ in fills):
-                    partial += 1
-                else:
-                    none += 1
-                last_t1[key] = r.get("t1", r["t0"])
-                per_run.append((i, d, r, q, reason, (r["payout"] - r["cost0"]) * q, h, pnl, uw,
-                                full if h >= q - 1e-9 else (1 if any(f > 1e-9 for _, f, _, _ in fills) else 0),
-                                px0, fee0, r.get("edge_full_fee", 1), run_fees, rebate, run_wv, 0.0))
-            ev = (1 - a.cancel_rate) * tot + a.cancel_rate * void_tot
-            c = combined[d]
-            c[0] += tot_seen; c[1] += tot; c[2] += unwind_loss; c[3] += ev
-            c[4] += fees_tot; c[5] += rebate_tot; c[6] += wv_tot
-            print(f"side={side} delay={d:>6}  runs={len(sruns)}  below_min={too_small}  seen=${tot_seen:9.2f}  "
-                  f"sim=${tot:9.2f}  of_which_unwind=${unwind_loss:8.2f}  worst=${worst:7.2f}  "
-                  f"all_cancelled=${void_tot:9.2f}  ev@cancel={a.cancel_rate}=${ev:9.2f}  "
-                  f"full={full} partial={partial} none={none}  cooldown_skip={cooldown_skip} unseeded_skip={unseeded_skip} crossed={crossed_checks}  "
-                  f"fees=${fees_tot:8.2f} rebate=${rebate_tot:8.2f} wv=${wv_tot:8.2f}")
+                    T["void"] += pnl
+                last_t1[(r["event"], side)] = r.get("t1", r["t0"])
+                row.update(h=sets, pnl=pnl, uw=uw, fpn=fpn, exit=("complete" if use_b else "dump") if fpn == 1 else "",
+                           fees=run_fees, rebate=rebate, wv=wv, fills=[f for _, f, _, _ in fills])
+                per_run.append(row)
+            ev = (1 - a.cancel_rate) * T["sim"] + a.cancel_rate * T["void"]
+            for k in ("seen", "sim", "hedged", "unwind", "fees", "rebate", "wv", "dump_total", "complete_total"):
+                combined[d][k] += T[k]
+            combined[d]["ev"] += ev
+            print(f"side={side} delay={d:>6}  runs={len(sruns)}  below_min={int(T['below_min'])}  seen=${T['seen']:9.2f}  "
+                  f"sim=${T['sim']:9.2f}  hedged_sets=${T['hedged']:8.2f}  of_which_unwind=${T['unwind']:8.2f}  "
+                  f"rebate=${T['rebate']:8.2f}  worst=${worst:7.2f}  "
+                  f"dump_total=${T['dump_total']:9.2f}  complete_total=${T['complete_total']:9.2f}  "
+                  f"all_cancelled=${T['void']:9.2f}  ev@cancel={a.cancel_rate}=${ev:9.2f}  "
+                  f"full={int(T['full'])} partial={int(T['partial'])} none={int(T['none'])} exit_complete={int(T['exit_complete'])}  "
+                  f"cooldown_skip={int(T['cooldown_skip'])} unseeded_skip={int(T['unseeded_skip'])} "
+                  f"unwind_unseeded={int(T['unwind_unseeded'])} crossed={int(T['crossed'])}  "
+                  f"fees=${T['fees']:8.2f} wv=${T['wv']:8.2f}")
     for d in delays:
-        s, t, u, e, f_, rb, wv = combined[d]
-        print(f"side=both delay={d:>6}  seen=${s:9.2f}  sim=${t:9.2f}  of_which_unwind=${u:8.2f}  ev=${e:9.2f}  "
-              f"fees=${f_:8.2f} rebate=${rb:8.2f} wv=${wv:8.2f}")
+        c = combined[d]
+        print(f"side=both delay={d:>6}  seen=${c['seen']:9.2f}  sim=${c['sim']:9.2f}  hedged_sets=${c['hedged']:8.2f}  "
+              f"of_which_unwind=${c['unwind']:8.2f}  rebate=${c['rebate']:8.2f}  dump_total=${c['dump_total']:9.2f}  "
+              f"complete_total=${c['complete_total']:9.2f}  ev=${c['ev']:9.2f}  fees=${c['fees']:8.2f} wv=${c['wv']:8.2f}")
 
     if a.per_run:
+        def quotes(key, assets):
+            out = []
+            for x in assets:
+                bids, asks = snaps[key][x] if key in snaps else ({}, {})
+                out += [max(bids) if bids else "", min(asks) if asks else ""]
+            return out
+
+        legcols = []
+        for k in range(max_legs):
+            legcols += [f"leg{k}_{w}" for w in ("bid_t0", "ask_t0", "bid_match", "ask_match", "bid_unwind",
+                                                  "ask_unwind", "filled")]
         with open(a.per_run, "w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["event", "title", "side", "t0", "dur", "n_legs", "cost0", "size0", "q",
+            w.writerow(["event", "title", "side", "delay", "t0", "t0_iso", "dur", "n_legs", "cost0", "size0", "q",
                         "below_min", "skipped_reason", "seen_usd", "filled_sets", "pnl_usd", "unwind_usd",
-                        "full_partial_none", "px0", "fee0", "edge_full_fee", "fees_usd", "rebate_usd",
-                        "wv_usd", "maker_rebate_usd"])
-            for (i, d, r, q, reason, seen, h, pnl, uw, fpn, px0, fee0, eff, fees, rb, wv, mkr) in per_run:
-                w.writerow([r["event"], r["title"], r["side"], r["t0"], r.get("dur", ""), len(r["legs"]),
-                            r["cost0"], r["size0"], round(q, 4), 1 if reason == "below_min" else 0,
-                            reason, round(seen, 4), round(h, 4), round(pnl, 4), round(uw, 4), fpn,
-                            round(px0, 6), round(fee0, 6), eff, round(fees, 4), round(rb, 4),
-                            round(wv, 4), round(mkr, 4)])
+                        "full_partial_none", "partial_exit", "px0", "fee0", "edge_full_fee", "fees_usd",
+                        "rebate_usd", "wv_usd", "maker_rebate_usd"] + legcols)
+            for x in per_run:
+                r, i, d = x["r"], x["i"], x["d"]
+                assets = [l["yes"] for l in r["legs"]]
+                t0q = quotes((i, "t0"), assets)
+                legs = []
+                for k, aid in enumerate(assets):
+                    mq = quotes((i, d, "match", k), [aid])
+                    uq = quotes((i, d, "unwind"), [aid])
+                    legs += [t0q[2 * k], t0q[2 * k + 1]] + mq + uq + [round(x["fills"][k], 4)]
+                legs += [""] * (len(legcols) - len(legs))
+                w.writerow([r["event"], r["title"], r["side"], d, r["t0"],
+                            datetime.fromtimestamp(r["t0"], timezone.utc).isoformat(timespec="milliseconds"),
+                            r.get("dur", ""), len(r["legs"]), r["cost0"], r["size0"], round(x["q"], 4),
+                            1 if x["reason"] == "below_min" else 0, x["reason"], round(x["seen"], 4),
+                            round(x["h"], 4), round(x["pnl"], 4), round(x["uw"], 4), x["fpn"], x["exit"],
+                            round(r.get("px0", r["cost0"]), 6), round(r.get("fee0", 0.0), 6),
+                            r.get("edge_full_fee", 1), round(x["fees"], 4), round(x["rebate"], 4),
+                            round(x["wv"], 4), 0.0] + legs)
 
 
 if __name__ == "__main__":

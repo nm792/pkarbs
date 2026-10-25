@@ -14,8 +14,8 @@ Clean-rescan additions (TASK-rescan-clean):
   starts after a missing/truncated one. Legs are marked unseeded and only re-seed on a full
   book message. No run opens, and no sim fills, on an unseeded leg.
 - Crossed-book check: a run is not opened/extended while any leg has best_bid >= best_ask.
-- Dedup: drop raw records that repeat (asset_id, exchange timestamp, hash); drop runs that
-  repeat (event, side, t0).
+- Dedup: per price change on (asset_id, exchange timestamp, hash) from the change entry, via
+  books.Replay, the same replay shadow_sim.py uses; drop runs that repeat (event, side, t0).
 - --max-taker-rebate: passed to Logger.check so runs open on the relaxed (post-rebate) edge.
 - rebate_rate: older events.jsonl lines lack it; fill 0.15 for sports legs with fee_rate 0.05.
 - Trade prints: count last_trade_price messages per raw hour file.
@@ -25,6 +25,7 @@ Usage: python3 rescan.py --data data/ --out rescan/ [--fetch-totals] [--gap-s 5]
 import argparse, glob, gzip, json, os
 from collections import defaultdict
 from shadow_logger import Book, Logger, get_json, GAMMA
+from books import Replay
 
 
 def read_lines(path):
@@ -90,36 +91,22 @@ def main():
                 lg.books.setdefault(leg["yes"], Book())
 
     ti, n_msgs = -1, 0
-    last_r = None
-    prev_path = None
-    resets = 0
-    skipped_s = 0.0
-    dedup_records = 0
+    rp = Replay(lg.books, gap_s=a.gap_s)  # same replay as shadow_sim.replay()
     dedup_runs = 0
     crossed_checks = 0
-    seen_records = set()
+    unseeded_checks = 0
     seen_runs = set()
     trade_prints = defaultdict(int)  # hour -> count
-    trade_legs = defaultdict(int)    # hour -> legs with any last_trade_price
+    r = None
 
     for path in sorted(glob.glob(os.path.join(a.data, "raw-*.jsonl.gz"))):
-        # change 1: a new file after a missing/truncated one resets the books
-        if prev_path is not None and os.path.basename(path) != os.path.basename(prev_path):
-            # detect a gap in the hour sequence (missing file)
-            pass
+        hour = os.path.basename(path).replace("raw-", "").replace(".jsonl.gz", "")
         for line in read_lines(path):
             try:
                 rec = json.loads(line)
             except ValueError:
                 continue
             r = rec["r"]
-            # change 1: receive-time jump resets every book
-            if last_r is not None and r - last_r > a.gap_s:
-                for b in lg.books.values():
-                    b.bids, b.asks, b.ts = {}, {}, 0
-                resets += 1
-                skipped_s += r - last_r
-            last_r = r
             while ti + 1 < len(times) and times[ti + 1] <= r:
                 ti += 1
                 found = snaps[times[ti]]
@@ -128,37 +115,30 @@ def main():
                 lg.events = found
                 lg.asset_event = {leg["yes"]: eid for eid, ev in found.items() for leg in ev["legs"]}
             msgs = rec["m"] if isinstance(rec["m"], list) else [rec["m"]]
-            for m in msgs:
-                n_msgs += 1
-                # change 10: count trade prints
-                if m.get("event_type") == "last_trade_price":
-                    hour = os.path.basename(path).replace("raw-", "").replace(".jsonl.gz", "")
-                    trade_prints[hour] += 1
-                    trade_legs[hour] += 1
-                # change 3: dedup raw records by (asset_id, timestamp, hash)
-                if m.get("event_type") in ("book", "price_change"):
-                    key = (m.get("asset_id"), m.get("timestamp"), m.get("hash"))
-                    if key in seen_records:
-                        dedup_records += 1
-                        continue
-                    seen_records.add(key)
-                touched = lg.apply(r, m)
-                for eid in {lg.asset_event.get(x) for x in touched or []}:
-                    # change 2: crossed-book check
-                    ev = lg.events.get(eid)
-                    if ev:
-                        crossed = False
-                        for leg in ev["legs"]:
-                            b = lg.books.get(leg["yes"])
-                            if b and b.best_bid() is not None and b.best_ask() is not None and b.best_bid() >= b.best_ask():
-                                crossed = True
-                                break
-                        if crossed:
-                            crossed_checks += 1
-                            lg.close_run(r, eid)
-                            continue
-                    lg.check(r, eid)
-        prev_path = path
+            n_msgs += len(msgs)
+            trade_prints[hour] += sum(1 for m in msgs if m.get("event_type") == "last_trade_price")
+            resets_before, prev_r = rp.resets, rp.last_r
+            touched = rp.feed(r, msgs)
+            if rp.resets != resets_before:  # books were cleared: close open runs at the last record before the gap
+                for eid, _ in list(lg.runs):
+                    lg.close_run(prev_r, eid)
+            for eid in {lg.asset_event.get(x) for x in touched} - {None}:
+                ev = lg.events.get(eid)
+                if not ev:
+                    continue
+                legs = [leg["yes"] for leg in ev["legs"]]
+                # no run while any leg lacks a full book since the last gap reset
+                if not all(rp.is_seeded(x) for x in legs):
+                    unseeded_checks += 1
+                    lg.close_run(r, eid)
+                    continue
+                # no run while any leg is crossed
+                if any(lg.books[x].best_bid() is not None and lg.books[x].best_ask() is not None
+                       and lg.books[x].best_bid() >= lg.books[x].best_ask() for x in legs):
+                    crossed_checks += 1
+                    lg.close_run(r, eid)
+                    continue
+                lg.check(r, eid)
     for eid, _ in list(lg.runs):
         lg.close_run(r, eid)
     # change 3: dedup runs by (event, side, t0)
@@ -177,8 +157,8 @@ def main():
             for run in keep:
                 f.write(json.dumps(run) + "\n")
     print("messages:", n_msgs, "runs written to", out_runs, flush=True)
-    print(f"resets={resets} skipped_s={skipped_s:.1f} dedup_records={dedup_records} "
-          f"dedup_runs={dedup_runs} crossed_checks={crossed_checks}", flush=True)
+    print(f"resets={rp.resets} skipped_s={rp.skipped_s:.1f} dedup_changes={rp.dups} "
+          f"dedup_runs={dedup_runs} crossed_checks={crossed_checks} unseeded_checks={unseeded_checks}", flush=True)
     print("trade_prints:", dict(trade_prints), flush=True)
 
 
