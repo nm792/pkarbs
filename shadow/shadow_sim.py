@@ -45,7 +45,7 @@ Usage: python3 shadow_sim.py --data data/ --runs rescan/runs.jsonl --one-way 0.0
 """
 import argparse, glob, gzip, json, math, os, csv
 from datetime import datetime, timezone
-from books import Book, Replay
+from books import Book, Replay, read_lines
 from collections import defaultdict
 
 BATCH = 15
@@ -70,15 +70,6 @@ def walk(levels, limit, qty, buy, rate=0.0, exp=1):
         notional += q * p
         fees += q * fee(rate, p, exp)
     return filled, notional, fees
-
-
-def read_lines(path):
-    """Yield lines from a gzip file, stopping quietly if the logger is still writing it."""
-    try:
-        with gzip.open(path, "rt") as f:
-            yield from f
-    except (EOFError, OSError):
-        return
 
 
 def mirror(levels):

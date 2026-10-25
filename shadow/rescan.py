@@ -25,15 +25,7 @@ Usage: python3 rescan.py --data data/ --out rescan/ [--fetch-totals] [--gap-s 5]
 import argparse, glob, gzip, json, os
 from collections import defaultdict
 from shadow_logger import Book, Logger, get_json, GAMMA
-from books import Replay
-
-
-def read_lines(path):
-    try:
-        with gzip.open(path, "rt") as f:
-            yield from f
-    except (EOFError, OSError) as e:  # open or truncated file
-        print("stopped reading", os.path.basename(path), repr(e), flush=True)
+from books import Replay, read_lines, CORRUPT
 
 
 def main():
@@ -98,6 +90,7 @@ def main():
     seen_runs = set()
     trade_prints = defaultdict(int)  # hour -> count
     r = None
+    seq = 0
 
     for path in sorted(glob.glob(os.path.join(a.data, "raw-*.jsonl.gz"))):
         hour = os.path.basename(path).replace("raw-", "").replace(".jsonl.gz", "")
@@ -107,6 +100,7 @@ def main():
             except ValueError:
                 continue
             r = rec["r"]
+            seq += 1  # parsed-record counter; test_gates.py replays to the same count
             while ti + 1 < len(times) and times[ti + 1] <= r:
                 ti += 1
                 found = snaps[times[ti]]
@@ -139,6 +133,8 @@ def main():
                     lg.close_run(r, eid)
                     continue
                 lg.check(r, eid)
+                for run in lg.runs.values():
+                    run.setdefault("seq0", seq)  # the record that opened the run
     for eid, _ in list(lg.runs):
         lg.close_run(r, eid)
     # change 3: dedup runs by (event, side, t0)
@@ -158,7 +154,8 @@ def main():
                 f.write(json.dumps(run) + "\n")
     print("messages:", n_msgs, "runs written to", out_runs, flush=True)
     print(f"resets={rp.resets} skipped_s={rp.skipped_s:.1f} dedup_changes={rp.dups} "
-          f"dedup_runs={dedup_runs} crossed_checks={crossed_checks} unseeded_checks={unseeded_checks}", flush=True)
+          f"dedup_runs={dedup_runs} crossed_checks={crossed_checks} unseeded_checks={unseeded_checks} "
+          f"corrupt_members_skipped={CORRUPT['skips']}", flush=True)
     print("trade_prints:", dict(trade_prints), flush=True)
 
 

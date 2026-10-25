@@ -10,6 +10,7 @@ Replay.feed(r, msgs) applies one raw record (receive time r, one or more WS/REST
 - A `book` older than the book's last exchange timestamp is ignored (a stale REST snapshot).
 Returns the assets touched by the record.
 """
+import re, zlib
 from collections import deque
 
 
@@ -101,3 +102,75 @@ class Replay:
                     b.ts = max(b.ts, ts)
                     touched.append(aid)
         return touched
+
+
+# start of a gzip member written by shadow_logger (gzip.open on raw-*.jsonl.gz stores the name, FLG=FNAME)
+HEADER = re.compile(rb"\x1f\x8b\x08\x08.{6}raw-", re.DOTALL)
+CORRUPT = {"skips": 0}  # truncated or corrupt gzip members skipped, across all files read
+
+
+def read_lines(path, chunk=1 << 16):
+    """Stream text lines from a raw-*.jsonl.gz file, surviving a broken member.
+
+    When the logger is killed mid-write and restarted, it appends a new gzip member after a
+    truncated one. gzip.open then fails ("invalid block type") or silently decodes the new
+    member as garbage, and the rest of the hour is lost. Here every member header (with the
+    raw- file name) is located in the compressed stream; a member that has not ended cleanly
+    when the next header starts is counted as truncated, its partial last line is dropped,
+    and reading resumes at the new member. A truncated last member (file still being
+    written) just ends the file."""
+    with open(path, "rb") as f:
+        data = f.read(chunk)
+        if not data:
+            return
+        d = zlib.decompressobj(31)
+        text = b""
+        start = 1  # search for the NEXT header, not the one the current member began with
+        eof_file = False
+        while True:
+            m = HEADER.search(data, start)
+            if m is None and not eof_file:
+                more = f.read(chunk)
+                if more:
+                    keep = max(0, len(data) - 16)  # a header may straddle the chunk edge
+                    feed, data = data[:keep], data[keep:] + more
+                    start = 0 if keep else start
+                else:
+                    eof_file = True
+                    feed, data = data, b""
+            elif m is None:
+                feed, data = data, b""
+            else:
+                feed, data = data[:m.start()], data[m.start():]
+            try:
+                out = d.decompress(feed) if feed else b""
+                bad = False
+            except zlib.error:
+                out, bad = b"", True
+            text += out
+            *lines, text = text.split(b"\n")
+            for line in lines:
+                yield line.decode("utf-8", "replace")
+            if m is not None:  # a new member starts at data[0]
+                if bad or not d.eof:
+                    CORRUPT["skips"] += 1
+                    text = b""
+                d = zlib.decompressobj(31)
+                start = 1
+                continue
+            if bad:
+                CORRUPT["skips"] += 1
+                text = b""
+                d = zlib.decompressobj(31)  # wait for the next header; feed nothing until then
+                while True:
+                    m2 = HEADER.search(data, 0)
+                    if m2 is not None:
+                        data, start = data[m2.start():], 1
+                        break
+                    more = f.read(chunk)
+                    if not more:
+                        return
+                    data = data[-16:] + more
+                continue
+            if eof_file and not data:
+                return
