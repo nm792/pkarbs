@@ -1,3 +1,6 @@
 __pycache__/
 *.pyc
 shadow/data/
+shadow/*.out
+shadow/*.out.*
+shadow/rescan-clean/
