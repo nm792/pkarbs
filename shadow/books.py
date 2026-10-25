@@ -28,7 +28,7 @@ class Book:
 
 
 class Replay:
-    def __init__(self, books, gap_s=5.0, create=False, dedup_window_s=60.0):
+    def __init__(self, books, gap_s=5.0, create=False, dedup_window_s=60.0, repair=True):
         self.books = books            # asset -> Book-like (bids, asks, ts)
         self.create = create          # add books for unknown assets (sim) or ignore them (detector)
         self.gap_s = gap_s
@@ -38,6 +38,14 @@ class Replay:
         self.resets = 0
         self.skipped_s = 0.0
         self.dups = 0
+        # exchange top of book: every price_change entry carries best_bid/best_ask after the change.
+        # repair drops our levels that the exchange says no longer exist (e.g. asks a trade consumed
+        # without a matching price_change), which otherwise linger and cross the book.
+        self.repair = repair
+        self.top_ex = {}          # asset -> (best_bid, best_ask) as last reported by the exchange
+        self.top_checks = 0
+        self.top_mismatch = 0     # entries where our top differed from the exchange's before repair
+        self.levels_dropped = 0
         self._keys, self._order = set(), deque()
 
     def _book(self, aid):
@@ -56,6 +64,29 @@ class Replay:
         self._order.append((r, key))
         return False
 
+    def _check_top(self, aid, b, c):
+        try:
+            xb, xa = float(c["best_bid"]), float(c["best_ask"])
+        except (KeyError, TypeError, ValueError):
+            self.top_ex.pop(aid, None)  # no exchange top for this change: the last one is out of date
+            return
+        self.top_ex[aid] = (xb, xa)
+        if aid not in self.seeded:
+            return
+        self.top_checks += 1
+        ob, oa = b.best_bid(), b.best_ask()
+        if (xb > 0 and (ob is None or abs(ob - xb) > 1e-9)) or (0 < xa < 1 and (oa is None or abs(oa - xa) > 1e-9)):
+            self.top_mismatch += 1
+        if self.repair:
+            if xb > 0:
+                for p in [p for p in b.bids if p > xb + 1e-9]:
+                    del b.bids[p]
+                    self.levels_dropped += 1
+            if 0 < xa < 1:
+                for p in [p for p in b.asks if p < xa - 1e-9]:
+                    del b.asks[p]
+                    self.levels_dropped += 1
+
     def is_seeded(self, aid):
         return aid in self.seeded
 
@@ -64,6 +95,7 @@ class Replay:
             for b in self.books.values():
                 b.bids, b.asks, b.ts = {}, {}, 0
             self.seeded.clear()
+            self.top_ex.clear()
             self.resets += 1
             self.skipped_s += r - self.last_r
         self.last_r = r
@@ -83,6 +115,7 @@ class Replay:
                 b.asks = {float(x["price"]): float(x["size"]) for x in m.get("asks", [])}
                 b.ts = ts
                 self.seeded.add(aid)
+                self.top_ex[aid] = (max(b.bids) if b.bids else 0.0, min(b.asks) if b.asks else 0.0)
                 touched.append(aid)
             elif et == "price_change":
                 for c in m.get("price_changes") or m.get("changes") or []:
@@ -100,6 +133,7 @@ class Replay:
                     else:
                         side[p] = s
                     b.ts = max(b.ts, ts)
+                    self._check_top(aid, b, c)
                     touched.append(aid)
         return touched
 

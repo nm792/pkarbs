@@ -52,8 +52,9 @@ def book(tok, r, asks, bids):
 def pc(ts_ms, changes):
     """New-format price_change: no message-level asset_id or hash."""
     return {"event_type": "price_change", "timestamp": str(ts_ms),
-            "price_changes": [{"asset_id": a, "side": sd, "price": str(p), "size": str(s), "hash": h}
-                              for a, sd, p, s, h in changes]}
+            "price_changes": [{"asset_id": c[0], "side": c[1], "price": str(c[2]), "size": str(c[3]), "hash": c[4],
+                               **({"best_bid": str(c[5]), "best_ask": str(c[6])} if len(c) == 7 else {})}
+                              for c in changes]}
 
 
 def fee(p):
@@ -63,7 +64,7 @@ def fee(p):
 def build_synthetic(d):
     """Five events, one per check. Records stay < 5 s apart except one deliberate 14 s gap."""
     evs = {"E1": ["a1", "a2", "a3"], "E2": ["b1", "b2", "b3"], "E3": ["c1", "c2", "c3"], "E4": ["d1", "d2", "d3"],
-           "E5": ["e1", "e2", "e3"], "E6": ["f1", "f2", "f3"]}
+           "E5": ["e1", "e2", "e3"], "E6": ["f1", "f2", "f3"], "E7": ["g1", "g2", "g3"]}
     with open(os.path.join(d, "events.jsonl"), "w") as f:
         for eid, toks in evs.items():
             f.write(json.dumps({"t": T - 100, "id": eid, "title": f"{eid} FC vs. Test FC", "complete": True,
@@ -98,6 +99,15 @@ def build_synthetic(d):
     recs.append((T + 24.5, [book(x, T + 24.5, {0.30: 100}, {0.20: 50}) for x in evs["E6"]]))
     recs.append((T + 24.5, pc(int((T + 24.5) * 1000), [("f2", "SELL", 0.30, 150, "h12")])))
     recs.append((T + 26.0, pc(int((T + 26) * 1000), [("d1", "BUY", 0.12, 50, "h11")])))
+    # E7 lingering level: g1 asks 0.30 and 0.45. A trade takes the 0.30 ask with no price_change for it;
+    # the next g1 change (a bid) reports best_ask 0.45, so 0.30 must go. Then g2 drops to 0.25: the set is
+    # 0.45 + 0.25 + 0.40 = 1.10 (no run). Without the repair, 0.30 + 0.25 + 0.40 = 0.95 opens a fake run.
+    recs.append((T + 27.0, [book("g1", T + 27, {0.30: 100, 0.45: 100}, {0.10: 50}),
+                            book("g2", T + 27, {0.40: 100}, {0.10: 50}), book("g3", T + 27, {0.40: 100}, {0.10: 50})]))
+    recs.append((T + 27.5, pc(int((T + 27.5) * 1000), [("g1", "BUY", 0.11, 50, "h13", 0.11, 0.45)])))
+    recs.append((T + 28.0, pc(int((T + 28) * 1000), [("g2", "SELL", 0.40, 0, "h14", 0.10, 0.25),
+                                                      ("g2", "SELL", 0.25, 100, "h15", 0.10, 0.25)])))
+    recs.append((T + 29.0, pc(int((T + 29) * 1000), [("d1", "BUY", 0.13, 50, "h16")])))
     with gzip.open(os.path.join(d, "raw-2026102500.jsonl.gz"), "wt") as f:
         for r, m in recs:
             f.write(json.dumps({"r": round(r, 3), "m": m}) + "\n")
@@ -105,7 +115,7 @@ def build_synthetic(d):
         "E1": (T, 2.0, 0.90 + 3 * fee(0.30), 100.0),
         "E2": (T + 3.5, 0.5, 0.20 + 0.30 + 0.40 + fee(0.20) + fee(0.30) + fee(0.40), 100.0),
         "E5": (T + 23.0, 0.5, 0.90 + 3 * fee(0.30), 100.0),
-        "E6": (T + 24.5, 1.5, 0.90 + 3 * fee(0.30), 100.0),
+        "E6": (T + 24.5, 4.5, 0.90 + 3 * fee(0.30), 100.0),
     }
     return expected
 
@@ -138,6 +148,7 @@ def same_book(data, runs_path, max_usd=500.0):
                 q.append((r["t0"] + 1e-6, (i, "t0", k), [lg["yes"]]))
     snaps, seeded = shadow_sim.replay(data, q, 5.0)
     # t0 book = state right after the record that opened the run, via the same shared replay
+    topm = {}  # run -> legs whose top at t0 differs from the exchange's last reported best bid/ask
     by_seq = defaultdict(list)
     for i, r in enumerate(runs):
         if "seq0" in r:
@@ -157,6 +168,12 @@ def same_book(data, runs_path, max_usd=500.0):
                         b = rp.books.get(lg["yes"])
                         snaps[(i, "t0", k)] = {lg["yes"]: (dict(b.bids) if b else {}, dict(b.asks) if b else {})}
                         seeded[(i, "t0", k)] = {lg["yes"]: rp.is_seeded(lg["yes"])}
+                        xb, xa = rp.top_ex.get(lg["yes"], (0.0, 0.0))
+                        ob = b.best_bid() if b else None
+                        oa = b.best_ask() if b else None
+                        bad = ((xb > 0 and (ob is None or abs(ob - xb) > 1e-9))
+                               or (0 < xa < 1 and (oa is None or abs(oa - xa) > 1e-9)))
+                        topm[i] = topm.get(i, 0) + (1 if bad else 0)
                 if seq >= last:
                     break
             if seq >= last:
@@ -182,7 +199,7 @@ def same_book(data, runs_path, max_usd=500.0):
             f, _, _ = shadow_sim.walk(ma if side == "yes" else shadow_sim.mirror(mb), lim, qty, True)
             fills.append(f / qty if qty else 0.0)
         rows.append({"event": r["event"], "title": r["title"], "side": side, "t0": r["t0"], "dur": r.get("dur", 0),
-                     "mismatch": mismatch, "crossed": crossed, "unseeded": unseeded, "min_fill": min(fills),
+                     "mismatch": mismatch, "crossed": crossed, "unseeded": unseeded, "min_fill": min(fills), "top_mismatch": topm.get(i, 0),
                      "quotes0": r["quotes0"]})
     return rows
 
@@ -273,6 +290,8 @@ def synthetic(verbose):
     gate("G1 no NO-side runs (NO sets cost > payout)", not no_runs, f"{len(no_runs)} NO runs")
     gate("G3 crossed book opens no run (E3)", not any(r["event"] == "E3" for r in runs))
     gate("G3 deltas after a gap reset open no run until a full book (E4)", not any(r["event"] == "E4" for r in runs))
+    gate("G5 a level the exchange's best_ask says is gone opens no run (E7)", not any(r["event"] == "E7" for r in runs),
+         f"{p.stdout.strip().splitlines()[-2][-90:]}")
 
     # G2 on whatever the detector produced
     rows = same_book(data, runs_path)
@@ -358,21 +377,34 @@ def real(data_dir, hour, totals, verbose, save=None):
          f"{len(long_) - len(bad)} of {len(long_)} pass; all runs: {sum(x['min_fill'] >= 0.95 for x in rows)} of {len(rows)}")
     gate("G3 no run opened on a crossed leg", all(x["crossed"] == 0 for x in rows), f"{sum(x['crossed'] > 0 for x in rows)} runs")
     gate("G3 no run opened on an unseeded leg", all(x["unseeded"] == 0 for x in rows), f"{sum(x['unseeded'] > 0 for x in rows)} runs")
+    gate("G5 at t0 every leg's top equals the exchange's last best_bid/best_ask", all(x["top_mismatch"] == 0 for x in rows),
+         f"{sum(x['top_mismatch'] > 0 for x in rows)} of {len(rows)} runs differ")
     for x in bad[:10]:
         print("  low fill:", x["event"], x["title"][:50], x["side"], round(x["t0"], 3), "dur", x["dur"],
               "min_fill", round(x["min_fill"], 3), "quotes0", x["quotes0"])
     p, printed, csv_rows = sim(data, runs_path, os.path.join(tmp, "hour.csv"), 0.03, verbose, delays="0,market")
     reconcile(printed, csv_rows, 0.03)
+    crossed_fills = 0
+    for r in csv_rows:
+        if r["skipped_reason"] != "none":
+            continue
+        for k in range(int(r["n_legs"])):
+            for w in ("match", "unwind"):
+                b, a_ = r.get(f"leg{k}_bid_{w}"), r.get(f"leg{k}_ask_{w}")
+                if b not in ("", None) and a_ not in ("", None) and float(b) >= float(a_):
+                    crossed_fills += 1
+    gate("G5 no traded run meets a crossed leg at match or unwind time", crossed_fills == 0, f"{crossed_fills} leg-times crossed")
     if save:
         os.makedirs(save, exist_ok=True)
         shutil.copy(runs_path, os.path.join(save, f"runs-{hour}.jsonl"))
         shutil.copy(os.path.join(tmp, "hour.csv"), os.path.join(save, f"per-run-{hour}.csv"))
         with open(os.path.join(save, f"fills-{hour}.csv"), "w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["event", "title", "side", "t0", "dur", "mismatch", "crossed", "unseeded", "min_fill", "quotes0"])
+            w.writerow(["event", "title", "side", "t0", "dur", "mismatch", "crossed", "unseeded", "top_mismatch",
+                        "min_fill", "quotes0"])
             for x in rows:
                 w.writerow([x["event"], x["title"], x["side"], x["t0"], x["dur"], x["mismatch"], x["crossed"],
-                            x["unseeded"], round(x["min_fill"], 4), json.dumps(x["quotes0"])])
+                            x["unseeded"], x["top_mismatch"], round(x["min_fill"], 4), json.dumps(x["quotes0"])])
         print("saved to", save)
     shutil.rmtree(tmp, ignore_errors=True)
 

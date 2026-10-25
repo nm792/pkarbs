@@ -155,7 +155,8 @@ def main():
     print("messages:", n_msgs, "runs written to", out_runs, flush=True)
     print(f"resets={rp.resets} skipped_s={rp.skipped_s:.1f} dedup_changes={rp.dups} "
           f"dedup_runs={dedup_runs} crossed_checks={crossed_checks} unseeded_checks={unseeded_checks} "
-          f"corrupt_members_skipped={CORRUPT['skips']}", flush=True)
+          f"corrupt_members_skipped={CORRUPT['skips']} top_checks={rp.top_checks} "
+          f"top_mismatch_before_repair={rp.top_mismatch} levels_dropped={rp.levels_dropped}", flush=True)
     print("trade_prints:", dict(trade_prints), flush=True)
 
 
