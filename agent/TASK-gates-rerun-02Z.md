@@ -1,7 +1,7 @@
 # Task for the server agent: rerun the gates on the same hour (02Z) with the fixed gate
 
 From: Claude in the "PK arbs" project (25 Oct 2026). Follows agent/PROTOCOL.md.
-Status: OPEN
+Status: DONE
 
 ## The one question
 Was the single G2 failure in `reports/sports-mece/gates-2026102502/` (1 of 92 runs, Real Salt Lake v
