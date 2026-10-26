@@ -255,7 +255,7 @@ quickly then. Since May the prints come in at +4-6 s, and how fast makers now ca
 
 **Kalshi has no release-second pool.** Its CPI, core CPI, payrolls, unemployment and Fed markets close
 1-5 minutes before the release (CPI and jobs at 12:25 or 12:29Z for a 12:30Z release; Fed decision at
-17:55 or 17:59Z for 18:00Z). On 13 Kalshi events checked (Aug-Sep 2026: KXCPI, KXCPIYOY, KXCPICORE,
+17:55 or 17:59Z for 18:00Z). On 14 Kalshi events checked (Aug-Sep 2026: KXCPI, KXCPIYOY, KXCPICORE,
 KXCPICOREYOY, KXPAYROLLS, KXU3, KXFEDDECISION, KXFED), there were 0 trades in the 5 minutes after the
 release. Kalshi has no PPI series. So Kalshi cannot change the verdict. Earlier Kalshi months use a
 different ticker format and were not checked, but the close-before-release rule looks like a design choice.
@@ -269,7 +269,7 @@ $50/day.
 |---|---|---|---|
 | Measured prints only (+0.2%) | $46.5k | $38 | fail |
 | Break-even | $60.8k (1.31× the prints) | $50 | just passes |
-| Middle: half the book bound on BLS releases, FOMC 1.5× | about $96k | about $79 | passes |
+| Middle: half the book bound (CPI 1.75×, jobs 1.85×, PPI 2.5×, FOMC 1.5×) | about $80k | about $65 | passes |
 | Upper bound: full book (CPI 3.5×, jobs 3.7×, PPI 5×, FOMC 2×) | about $146k | about $120 | passes |
 
 **Re-stated verdict:** the kill test passes **if at least 31% more stale depth was resting and reachable
