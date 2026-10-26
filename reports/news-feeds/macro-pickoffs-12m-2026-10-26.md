@@ -210,3 +210,79 @@ earlier check. The capture shares, and so the $/day, are estimates. To reach 9:
    first prints. That turns rows A-C into one measured row.
 3. Optional: matching time instead of block time for the first prints (from the CLOB, if Polymarket
    exposes it), to pin the "+6 s ≈ 1-3 s" conversion.
+
+---
+
+## Addendum (26 Oct, 06:00Z): Nick's depth point, and Kalshi
+
+Nick: "$38 is near enough because we typically undercount the depth at the ask." Tested on existing
+data plus public snapshots, desk only, no server, no orders. Scripts: `scripts/macro12m/small.py`,
+`book.py`, `kal.py`.
+
+### Where trade prints could undercount the pool (MECE)
+
+| Source | Effect on the pool | How checked |
+|---|---|---|
+| 1. One order filled across many wallets or makers | **None.** The pool sums every taker print, however it is split. | by construction |
+| 2. Prints under $10 dropped in the FOMC re-pull | **+0.2%** | **[measured]** on 7 CPI, PPI and jobs events (14 Oct, 10 Sep, 2 Oct 2026): $19 of $9,437 came from prints under $10 |
+| 3. Stale depth resting at the release but cancelled before anyone hit it | **Unknown; at most about 2-5× the printed pool on BLS releases** | **[estimate]** from live books, below. Public data has no historical order books, so this cannot be measured after the fact |
+
+Only item 3 matters, and only a bot faster than the makers' own cancels can reach it, so it can only
+change row A of the $/day table (fast, sub-second). Rows B and C are unchanged.
+
+### Bounding item 3 with today's books **[measured snapshot, estimated use]**
+
+For the next release of each family I took the live Polymarket book (26 Oct, 05:5xZ) and asked: if every
+resting order stayed through the release and was hit, what would takers earn? (Expected value, using the
+book's own mid as the probability; levels within 10c of the touch.)
+
+| Next release (Polymarket) | Full-book pool if nothing is cancelled | Printed pool on comparable past days | Ratio |
+|---|---|---|---|
+| Oct CPI, 4 events (11 Nov) | $6.3k | $1.8k median, $3.4k mean (last four 4-event CPI days) | 1.9-3.5× |
+| Oct jobs, 2 events (6 Nov) | $2.6k | about $0.7k (last five jobs days) | about 3.7× |
+| Oct PPI (14 Nov) | $0.5k | about $0.1k (last five PPI days) | about 5× |
+| FOMC (28 Oct) | $235k | $1.3k median | not usable: almost all of it is the 1-3% chance of a surprise against very large bids at 0.97+, which professional makers would pull |
+
+These are upper bounds: the books were read 2-3 weeks before the BLS releases, and makers usually thin
+their quotes in the minutes before a release. Some of the gap is depth pulled before the release
+(which nobody can hit), not depth cancelled after it.
+
+One piece of evidence points the other way, towards little missed depth before May: from October to
+April, stale quotes were still being taken 11-30 s after the release, so makers were not cancelling
+quickly then. Since May the prints come in at +4-6 s, and how fast makers now cancel is not visible.
+
+### Kalshi **[measured]**
+
+**Kalshi has no release-second pool.** Its CPI, core CPI, payrolls, unemployment and Fed markets close
+1-5 minutes before the release (CPI and jobs at 12:25 or 12:29Z for a 12:30Z release; Fed decision at
+17:55 or 17:59Z for 18:00Z). On 13 Kalshi events checked (Aug-Sep 2026: KXCPI, KXCPIYOY, KXCPICORE,
+KXCPICOREYOY, KXPAYROLLS, KXU3, KXFEDDECISION, KXFED), there were 0 trades in the 5 minutes after the
+release. Kalshi has no PPI series. So Kalshi cannot change the verdict. Earlier Kalshi months use a
+different ticker format and were not checked, but the close-before-release rule looks like a design choice.
+
+### Pool range with the adjustment, and the kill test again **[estimate]**
+
+Kill test as set: 30% capture of the net pool without the largest day, averaged over 365 days, must reach
+$50/day.
+
+| Case | Net pool without the largest day | $/day at 30% | Kill test |
+|---|---|---|---|
+| Measured prints only (+0.2%) | $46.5k | $38 | fail |
+| Break-even | $60.8k (1.31× the prints) | $50 | just passes |
+| Middle: half the book bound on BLS releases, FOMC 1.5× | about $96k | about $79 | passes |
+| Upper bound: full book (CPI 3.5×, jobs 3.7×, PPI 5×, FOMC 2×) | about $146k | about $120 | passes |
+
+**Re-stated verdict:** the kill test passes **if at least 31% more stale depth was resting and reachable
+at the release than what printed.** The live books say the depth is there weeks before a release (2-5× on
+BLS releases), so this is plausible, but it is not measured at the release second. And it only applies to
+a sub-second bot that beats the makers' cancels, while a 30% share for a new entrant is already the
+optimistic end. At our realistic speeds (rows B and C) nothing changes: about $3-21/day.
+
+So I'd move this from "kill" to **"unproven: passes only for a top-speed build and only if the hidden
+depth is real"**. Kalshi adds nothing.
+
+**Confidence 5/10** that the adjusted test passes; 8/10 that it does not pass at 1-3 s speed. To reach 9:
+record the full Polymarket book from 10 s before to 30 s after two or three releases (FOMC 28 Oct,
+jobs 6 Nov, CPI 11 Nov) and compare resting stale depth with what printed. It is read-only, needs no
+orders, and runs in the remote sandbox for 1 minute per release, not on our server. It needs Nick's
+go-ahead because it is live data capture.
