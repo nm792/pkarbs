@@ -90,3 +90,20 @@ event settles. v = 1 for the winning YES token, v = 0 for a losing one. Fee f(p)
 - 4 Hz polling cannot see orders placed and cancelled within 0.25 s. The WebSocket log is kept to check
   this later; it is not part of the pass/fail.
 - Three releases is a small sample. A pass is a reason to keep going, not a go-live signal.
+
+## Run log
+
+### FOMC, 28 Oct 2026: lost, no data (measured)
+
+- Started 17:47:35Z in the sandbox; clock check passed (local minus server 0.16-0.96 s).
+- At 18:04Z the process had made **0 polls**. `uptime` showed the sandbox had booted 1 minute earlier:
+  the sandbox is suspended when no call is open to it for a while, and the process slept through the
+  window. It woke after R+60 s, so it wrote nothing.
+- No S_pre or S_reach can be recovered after the fact. FOMC gives no number. This is the failure mode
+  listed above ("sandbox ... unreachable"), and the verdict now rests on jobs and CPI.
+- Check after the loss (measured): a 1 Hz background ticker ran with no gap while calls were open
+  back to back, including through one call that timed out at 60 s. So the process runs while calls keep
+  coming, and stops after some longer idle period (under 14 min; exact threshold not yet measured).
+- Fix for jobs and CPI: wake 15 min before R, start the capture, then keep a call open to the sandbox
+  at least every 50 s from R-3 min to R+2 min. The capture's own log is then checked for polls before R.
+  A dry run of this keep-awake routine is done before 6 Nov.
