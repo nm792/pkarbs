@@ -102,8 +102,10 @@ event settles. v = 1 for the winning YES token, v = 0 for a losing one. Fee f(p)
 - No S_pre or S_reach can be recovered after the fact. FOMC gives no number. This is the failure mode
   listed above ("sandbox ... unreachable"), and the verdict now rests on jobs and CPI.
 - Check after the loss (measured): a 1 Hz background ticker ran with no gap while calls were open
-  back to back, including through one call that timed out at 60 s. So the process runs while calls keep
-  coming, and stops after some longer idle period (under 14 min; exact threshold not yet measured).
-- Fix for jobs and CPI: wake 15 min before R, start the capture, then keep a call open to the sandbox
-  at least every 50 s from R-3 min to R+2 min. The capture's own log is then checked for polls before R.
+  back to back, including through one call that timed out at 60 s. Left idle, the ticker's last tick was
+  about 56 s after the last call ended (18:05:40Z call, last tick 18:06:36Z). It then froze, with no ticks
+  until the next call at 18:17Z, when it resumed where it was. So the sandbox freezes about 1 min after
+  the last call ends, and processes are paused, not killed.
+- Fix for jobs and CPI: wake 15 min before R, start the capture, then keep calls to the sandbox running back to
+  back (each one up to 55 s, gaps of a few seconds) from R-3 min to R+2 min. The capture's own log is then checked for polls before R.
   A dry run of this keep-awake routine is done before 6 Nov.
