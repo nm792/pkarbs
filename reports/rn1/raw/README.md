@@ -17,7 +17,9 @@ Files 1-6 are the exact files the 29 Oct note (`../rn1-analysis-2026-10-29.md`) 
 | 6 | `pos.json.gz` | `data-api.polymarket.com/positions?user=W&limit=500&sizeThreshold=1` (`pos.py`) | 29 Oct 02:04 | 500 | Open positions. **Truncated** at the 500 limit; not paged. |
 | 7 | `trades7d.tar.gz` | `data-api.polymarket.com/trades?user=W&takerOnly={true,false}&limit=500&start=a&end=b&offset=k`, 168 one-hour windows per flag, same bounds as #1 | 29 Oct 03:14 (re-pulled from this container; an identical 03:05 pull in the sandbox gave the same counts and dollars) | 72,771 all + 5,634 taker | One JSON file per (flag, hour): {start, end, takerOnly, pulled_at, log, rows}. Rows unmodified. Script: `../rn1-scripts/pull_trades7d.py`. No window needed splitting, no errors. **Maker/taker per fill:** a fill is taker if it appears in the `takerOnly=true` set (match on txHash, asset, size, price, timestamp; all 5,634 taker rows match a row in the all-fills set), otherwise maker. |
 
-Window for #1 and #7: `start=1792634632` (22 Oct 2026 02:03:52Z) to `end=1793239431` (29 Oct 02:03:51Z).
+| 8 | `onchain_orderfilled.tar.gz` (78 MB raw) | Polygon JSON-RPC `eth_getLogs` via `polygon.gateway.tenderly.co`, topics `[OrderFilled 0xd543adfd…d8ee, any, maker=rn1]`, no address filter, blocks 95,952,843-96,356,034 in 10k-block chunks (`../rn1-scripts/pull_onchain.py`) | 29 Oct 03:30 | 72,772 logs | One JSON file per chunk: {fromBlock, toBlock, rpc, filter, pulled_at, logs}; logs unmodified, plus `bounds.json`. Emitted by two exchange contracts: `0xe111180000d2663c0091e4f400237545b87b996b` (52,256) and `0xe2222d279d744050d28e00520010520000310f59` (20,516). Topics: orderHash, maker, taker; 7 data words (word 0 makerAssetId, 1 takerAssetId, 2 makerAmountFilled, 3 takerAmountFilled, 4 fee). **Role:** taker topic = the emitting contract means rn1's own taker order; any other taker means rn1's resting order was filled (maker). A sandbox pull at 03:25 gave identical counts. |
+
+Window for #1, #7 and #8 (block 95,952,843 has timestamp 1792634633, block 96,356,034 has 1793239430): `start=1792634632` (22 Oct 2026 02:03:52Z) to `end=1793239431` (29 Oct 02:03:51Z).
 
 ## Checks against the 29 Oct note
 | Note says | Raw data shows | Match? |
@@ -30,11 +32,12 @@ Window for #1 and #7: `start=1792634632` (22 Oct 2026 02:03:52Z) to `end=1793239
 | Lifetime $15.50M, trade +14.80M, fees -1.38M, maker reb +1.18M, taker reb +0.57M, rewards +0.33M, volume $692M, 5.07M fills | Last pnl point: 15,500,687 / 14,800,770 / -1,382,403 / 1,177,869 / 570,350 / 334,100 / 692,341,108 / 5,072,241 | Yes |
 | Window "21 Oct 02:00Z to 29 Oct 02:00Z", "21 to 28 Oct" | Data runs **22 Oct 02:04Z to 29 Oct 02:03Z** (168 h) | **No**: the note's window label is one day early |
 | Taker share 12.9% of dollars (83 h) | Over the full 7 days: 5,634 taker fills, $2,508,465 of $17,953,731 = **14.0%** of dollars, 7.7% of fills | **Differs** (different window; not explained here) |
+| (new) On-chain maker/taker vs `takerOnly` flag | Same 5,634 taker transactions in both, none in one only. On-chain taker share 13.97% of dollars ($2,508,465 taker vs $15,445,266 maker). 69,854 rn1 txs on-chain vs 69,853 in /trades; the extra one is `0x60a180cf…5608` | Yes (one tx gap not investigated) |
 | /trades all-fills count | 72,771 rows (72,748 unique) vs 72,749 activity TRADE rows | Near match; 23 duplicate rows in /trades, small residual difference not investigated |
 
 ## Gaps
 - Activity and trades cover only the 7 days above, not further back. `/activity` and `/trades` both accept start/end windows, so going back further is cheap (about 20 s per week of trades).
-- No on-chain order-filled events: the Goldsky orderbook subgraph still returned 429 at 03:04Z. Maker/taker comes from the `takerOnly` flag (#7), which is Polymarket's own field, not an on-chain check.
+- Goldsky subgraphs still return 429 (all of them, from the Composio sandbox). On-chain fills come from a public Polygon RPC instead (#8). Only logs with rn1 as `maker` were pulled; the counterparty legs of rn1's taker orders (rn1 as `taker` topic) were not.
 - No order book or price history for the traded markets, and no external odds feed.
 - `pos.json` truncated at 500.
 - Since 29 Oct 03:13Z this project's container can reach data-api and gamma-api.polymarket.com directly (Nick allowed them), so further pulls no longer need Composio.
