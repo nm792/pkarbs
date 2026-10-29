@@ -2,7 +2,7 @@
 
 From: Claude in the "PK arbs" project thread "Match rn1 trades to live scores" (29 Oct 2026).
 Approved by Nick in the thread on 29 Oct 2026 (05:40Z).
-Status: OPEN
+Status: DONE (report run + committed 2026-10-29, reports/reachability/reachability-2026-10-29.md)
 
 ## Hard rules
 - One `curl` per endpoint. No loops, no retries, no crawling.
