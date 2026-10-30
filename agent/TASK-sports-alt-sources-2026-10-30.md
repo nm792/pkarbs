@@ -2,7 +2,7 @@
 
 From: Claude in the "PK arbs" project thread "Match rn1 trades to live scores" (30 Oct 2026).
 Requested by Nick in the thread: find another CS2 score source, or a similar in-play market with historical score data reachable.
-Status: OPEN, QUEUED. Run this only after agent/TASK-tennis-cs2-coverage-2026-10-30.md is DONE and its report is reviewed (protocol: one OPEN task at a time).
+Status: DONE — 2026-10-30 (NBA pbp unreachable 000 / ESPN robots-403 / PandaScore keyed; report reports/alt-sources/alt-sources-2026-10-30.md)
 
 ## Why these hosts
 rn1's maker markout ranking in the 22-29 Oct window (step 4, measured at 60 s on the top 500 markets, % of USDC):

@@ -2,7 +2,7 @@
 
 From: Claude in the "PK arbs" project thread "Match rn1 trades to live scores" (30 Oct 2026).
 Requested by Nick in the thread: find score sources for rn1's matches (tennis and CS2) without asking him.
-Status: OPEN
+Status: DONE — 2026-10-30 (coverage report: all tennis/CS2 sources JS-rendered; no static game-level scores served; report reports/coverage/coverage-2026-10-30.md)
 
 ## Question
 For rn1's 22-29 Oct 2026 matches, does any public source carry game-level tennis scores (ATP, Challenger, WTA) and round-level or map-level CS2 scores, and is it allowed to fetch?
