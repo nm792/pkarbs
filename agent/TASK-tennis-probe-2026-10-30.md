@@ -2,7 +2,7 @@
 
 From: Claude in the "PK arbs" project thread "Match rn1 trades to live scores" (30 Oct 2026).
 Requested by Nick in the thread: find a historical tennis score source for rn1's 22-29 Oct matches.
-Status: OPEN
+Status: DONE — 2026-10-30 (probe PASS)
 
 ## Note on the protocol
 This is a read-only probe of eight URLs. It runs next to the HLTV task (agent/TASK-hltv-cs2-rounds-2026-10-29.md), which is still OPEN. The HLTV task is not waiting on this one, and this one puts no load on the server. Run it after the HLTV task finishes, not in parallel.

@@ -2,7 +2,7 @@
 
 From: Claude in the "PK arbs" project thread "Match rn1 trades to live scores" (29 Oct 2026).
 Requested by Nick in the thread (29 Oct 2026, 13:49Z): find score sources for rn1's CS2 and tennis matches.
-Status: OPEN
+Status: DONE — 2026-10-29 (HLTV stopped at robots.txt, per hard rule)
 
 ## Question
 For CS2 matches in the window 22-29 Oct 2026 that HLTV lists, can we get per-map scores and, for the matches we fetch, per-round scores, at polite pacing?
