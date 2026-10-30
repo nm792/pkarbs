@@ -2,7 +2,7 @@
 
 From: Claude in the "PK arbs" project thread "Match rn1 trades to live scores" (30 Oct 2026).
 Requested by Nick in the thread: find a historical score source for rn1's tennis and CS2 matches.
-Status: OPEN
+Status: DONE — 2026-10-30 (render-test PASS 2/3: WTA 6-2 6-2 + ATP 7-5 6-2 in-window scores parsed; bo3 renders but no map scores; report + raw HTML committed)
 
 ## Question
 The static HTML of the robots-allowed score sites (wtatennis.com, bo3.gg, tennisabstract.com, ultimatetennisstatistics.com) carries no set, game, map or round scores (see reports/coverage/coverage-2026-10-30.md). Once the pages are rendered in a headless browser, do they carry those scores for 3 completed matches in 22-29 Oct 2026?
