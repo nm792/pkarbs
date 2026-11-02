@@ -29,7 +29,7 @@ Each window is at most 2 h 45 min. Do not start a window until the previous one 
 ```
 systemd-run --scope -p MemoryMax=600M -p MemorySwapMax=0 nice -n 19 timeout 18000 python3 -u capture.py --window AB
 ```
-capture.py: Python with `websockets` (or stdlib) only. Three concurrent async tasks in ONE process: (a) sports WS reader, (b) CLOB WS reader with reconnect at most 3 times, (c) poll loop for ESPN every 30 s and trades every 10 s. Append JSON lines to scratch files `rugby/<window>_sports.jsonl`, `rugby/<window>_clob.jsonl`, `rugby/<window>_espn.jsonl`, `rugby/<window>_trades.jsonl`, and a `rugby/<window>_log.txt` with connection events, reconnects and HTTP status counts. Stop at the window end time.
+capture.py: Python with `websockets` (or stdlib) only. Four concurrent async tasks in ONE process: (a) sports WS reader, (b) CLOB WS reader with reconnect at most 3 times, (c) poll loop for ESPN every 30 s and trades every 10 s, (d) Rugbyrama widget poll every 15 s (per 'Added 2 Nov 2026'). Append JSON lines to scratch files `rugby/<window>_sports.jsonl`, `rugby/<window>_clob.jsonl`, `rugby/<window>_espn.jsonl`, `rugby/<window>_trades.jsonl`, and a `rugby/<window>_log.txt` with connection events, reconnects and HTTP status counts. Stop at the window end time.
 
 ## Outputs
 - Every 10 minutes, copy the four jsonl files and the log to /mnt/project-files/rugby/live-2026-11/.
