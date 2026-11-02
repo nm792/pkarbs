@@ -20,15 +20,14 @@ After each score change in a Top 14 match, how many seconds later does the Polym
 4. **Trades: REST** `GET https://data-api.polymarket.com/trades?market=<conditionId>&limit=100` every 10 s per market. Dedupe on transactionHash + timestamp + asset. Store new rows only. This is the after-match audit clock.
 
 ## Windows (one bounded run each, one process at a time)
-- A: 7 Nov, 13:15-16:00 UTC. 2 matches: RC Vannes v Bordeaux (13:30 UTC per gamma) and Toulouse v Clermont (13:30 UTC per Rugbyrama 61242). 12 tokens.
+- AB (merged, coordinator + Nick approval 2 Nov 15:50Z): 7 Nov, 13:15-18:05 UTC, ONE process, 6 matches (RC Vannes v Bordeaux 13:30 UTC per gamma; Toulouse v Clermont, 13:30 UTC per Rugbyrama 61242 and 15:35 UTC per gamma; Castres v Racing 92, Montpellier v Lyon, Pau v Perpignan, Toulon v Stade Francais at 15:35 UTC). Toulouse v Clermont is one entry, not two. Runtime limit 5 h (18000 s). Run with nice -n 19 and the same memory cap. Poll intervals unchanged. 36 tokens.
 - D: 8 Nov, 13:45-16:30 UTC. 1 match: Vannes v Bordeaux at 14:00 UTC per Rugbyrama 61243 (Sun 8 Nov 15:00 Paris). 6 tokens.
-- B: 7 Nov, 15:20-18:05 UTC. 5 matches (kickoff 15:35 UTC each per gamma startTime). 30 tokens.
 - C: 8 Nov, 19:50-22:35 UTC. 1 match (La Rochelle v Bayonne, kickoff 20:05 UTC). 6 tokens.
 Each window is at most 2 h 45 min. Do not start a window until the previous one is reviewed and its processes are gone.
 
 ## Procedure
 ```
-systemd-run --scope -p MemoryMax=600M -p MemorySwapMax=0 timeout 10500 python3 -u capture.py --window A
+systemd-run --scope -p MemoryMax=600M -p MemorySwapMax=0 nice -n 19 timeout 18000 python3 -u capture.py --window AB
 ```
 capture.py: Python with `websockets` (or stdlib) only. Three concurrent async tasks in ONE process: (a) sports WS reader, (b) CLOB WS reader with reconnect at most 3 times, (c) poll loop for ESPN every 30 s and trades every 10 s. Append JSON lines to scratch files `rugby/<window>_sports.jsonl`, `rugby/<window>_clob.jsonl`, `rugby/<window>_espn.jsonl`, `rugby/<window>_trades.jsonl`, and a `rugby/<window>_log.txt` with connection events, reconnects and HTTP status counts. Stop at the window end time.
 
@@ -63,7 +62,8 @@ Purpose: record when each score event first appears on the Rugbyrama match widge
   - 61238 La Rochelle v Bayonne, Sun 8 Nov 21:05 Paris (20:05 UTC)
   - 61243 Vannes v Bordeaux-Bègles, Sun 8 Nov 15:00 Paris (14:00 UTC)
 - Window times are now derived from Polymarket gamma startTime (2 Nov 16:00Z), with 15 min padding before and 2.5 h after kickoff. Both sources list the same 7 fixtures. They agree on kickoff time for 4 of the 5 matches at 15:35 UTC on 7 Nov, and disagree on the other two (below).
-- UNRESOLVED CONFLICT (2 matches). Rugbyrama 61242 Toulouse v Clermont shows 14:30 Paris (13:30 UTC) on Sat 7 Nov; gamma shows 15:35 UTC. Rugbyrama 61243 Vannes v Bordeaux-Begles is on Sun 8 Nov 15:00 Paris (14:00 UTC); gamma has it on Sat 7 Nov 13:30 UTC. Coordinator decision (2 Nov 15:47Z): cover both sources. Window A includes Toulouse v Clermont at 13:30 UTC, and window D covers Vannes v Bordeaux at 14:00 UTC on 8 Nov. Window B keeps Toulouse v Clermont at 15:35 UTC per gamma.
+- UNRESOLVED CONFLICT (2 matches). Rugbyrama 61242 Toulouse v Clermont shows 14:30 Paris (13:30 UTC) on Sat 7 Nov; gamma shows 15:35 UTC. Rugbyrama 61243 Vannes v Bordeaux-Begles is on Sun 8 Nov 15:00 Paris (14:00 UTC); gamma has it on Sat 7 Nov 13:30 UTC. Approved 2 Nov 15:50Z: windows A and B are merged into window AB (see Windows).
+Coordinator decision (2 Nov 15:47Z): cover both sources. Window A includes Toulouse v Clermont at 13:30 UTC, and window D covers Vannes v Bordeaux at 14:00 UTC on 8 Nov. Window B keeps Toulouse v Clermont at 15:35 UTC per gamma.
 - OPEN OVERLAP: windows A (13:15-16:00 UTC, 7 Nov) and B (15:20-18:05 UTC, 7 Nov) overlap by 40 min. Protocol rule 2 forbids overlapping jobs, so they cannot run as written. The coordinator must choose: shorten A, or move B's start. Do not run A or B until this is resolved.
 - Gamma start times must be re-checked on 6 Nov, because Polymarket often fixes them before kickoff.
 - Failure rules: a poll that returns non-200 or a parse error is logged, not fatal. Three consecutive failures on one match mean that match's Rugbyrama clock is marked FAILED for the report. It does not fail the window's score/price gates.
