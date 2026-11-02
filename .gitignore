@@ -4,3 +4,4 @@ shadow/data/
 shadow/*.out
 shadow/*.out.*
 shadow/rescan-clean/
+rugby_probe.py
