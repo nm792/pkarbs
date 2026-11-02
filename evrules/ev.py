@@ -63,6 +63,43 @@ class Limits:
 
 
 @dataclass
+class StageCaps:
+    """Hard $ caps for live trading, applied ON TOP of Limits (the smaller wins).
+    Nick 2 Nov: live starts at tiny amounts. Moving up a stage needs a
+    human review of paper + live results; code never promotes itself."""
+    name: str
+    max_order_usd: float
+    max_market_usd: float
+    max_match_usd: float
+    max_open_usd: float
+    daily_stop_usd: float
+
+
+STAGES = {
+    'paper':  None,                                              # Limits only, no real money
+    'live_1': StageCaps('live_1', 5, 10, 20, 50, 20),            # first live week
+    'live_2': StageCaps('live_2', 25, 50, 100, 250, 75),         # after review of live_1
+    'live_3': StageCaps('live_3', 100, 200, 400, 1500, 300),     # = full $10k Limits
+}
+
+
+def apply_stage(lim: 'Limits', stage: str) -> 'Limits':
+    """Return Limits shrunk to the stage's $ caps (fractions of bankroll)."""
+    c = STAGES[stage]
+    if c is None:
+        return lim
+    B = lim.bankroll
+    return Limits(bankroll=B, kelly_frac=lim.kelly_frac,
+                  max_order_frac=min(lim.max_order_frac, c.max_order_usd / B),
+                  max_market_frac=min(lim.max_market_frac, c.max_market_usd / B),
+                  max_match_frac=min(lim.max_match_frac, c.max_match_usd / B),
+                  max_open_frac=min(lim.max_open_frac, c.max_open_usd / B),
+                  daily_stop_frac=min(lim.daily_stop_frac, c.daily_stop_usd / B),
+                  max_depth_take=lim.max_depth_take, min_price=lim.min_price, max_price=lim.max_price,
+                  max_feed_age_s=lim.max_feed_age_s)
+
+
+@dataclass
 class SportRule:
     name: str
     min_edge_taker: float             # $ per share after fees
@@ -126,7 +163,7 @@ def decide_taker(q, best_bid, bid_size, best_ask, ask_size, rule: SportRule,
     sh = caps[binding]
     if sh < 5:   # Polymarket minimum order is 5 shares on most books
         return Decision('none', edge=e, reason=f'size {sh:.1f} too small ({binding} cap)')
-    return Decision(side, px, round(sh, 1), e, reason=f'edge {e:.3f} >= {need:.3f}; size cap {binding}',
+    return Decision(side, px, math.floor(sh * 10) / 10, e, reason=f'edge {e:.3f} >= {need:.3f}; size cap {binding}',
                     detail=caps)
 
 
