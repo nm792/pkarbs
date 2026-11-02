@@ -1,7 +1,9 @@
-# server-member heartbeat (pkarbs / default claude/project-thread-vg2ckg)
-
-- round: 2026-11-02T15:1xZ (server-member dispatch)
-- cs2-ws-logger: RUNNING (cs2-logger.service; keep-all messages applied; capturing all sports incl cricket). Not waiting-on-Nick.
-- lol-live-capture: task picked up, windows start 22:00Z 3 Nov — no action this round.
-- sports-mece-shadow: logger RUNNING (pid 2951556, 8d 14h uptime, data-v2 82 GB). 7-day capture COMPLETE (6,742 runs / 1,314 events). Daily sim BLOCKED on reviewer code-change grant (bounded-load flag for shadow_sim.py, OOM on 3.5 GB events.jsonl) — WAITING-ON-NICK, raised in prior from_agent + reports 10-30..11-02. No new button raised; grant pending, then sim re-runs.
-- No cost/code-change/merge/restart asked this round beyond the standing sim-bound grant.
+# heartbeat · pkarbs · server-member dispatch
+round: 2026-11-02T15:33Z
+state: alive
+open:
+- cricket-capture-approved: DONE + LIVE — keep-all edit applied to cs2-logger.service (ExecMainStartTimestamp 2026-11-02 14:10:02Z, service active, timeout 43200, MemoryMax=512M); cricket frames captured (43 at 14:48Z, all-league tagged per-line in /root/cs2logger/out/cs2_frames.jsonl). Nick-approved 14:35Z (recorded inbox); no further approval needed.
+- rugby-top14-capture (2026-11-07): harness built (capture.py) + CLOB ws probe CONNECTS; windows A/B/C 7-8 Nov scheduled; outbox+status pushed.
+- TASK-cricket-npl-live-2026-11-03 (Nepal PL): due TOMORROW 3 Nov; spec file empty stub on origin — capture scheduled, not yet due.
+errors: none
+waiting_for_nick: none
