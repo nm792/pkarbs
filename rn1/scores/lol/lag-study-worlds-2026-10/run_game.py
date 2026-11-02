@@ -1,7 +1,8 @@
+import os
 import json, subprocess, sys, datetime as dt, glob, os, csv
 from concurrent.futures import ThreadPoolExecutor
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-K = "0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z"
+K = os.environ["LOL_API_KEY"]
 def get(url, params=None, headers=None):
     cmd = ['curl','-sS','-m','30','-A',UA,'-G',url]
     for k,v in (params or {}).items(): cmd += ['--data-urlencode', f'{k}={v}']

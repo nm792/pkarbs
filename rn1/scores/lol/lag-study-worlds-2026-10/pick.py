@@ -1,5 +1,6 @@
+import os
 import json, glob, re
-K = "0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z"
+K = os.environ["LOL_API_KEY"]
 sched = []
 for f in ['/tmp/sched_0.json'] + sorted(glob.glob('/tmp/sched_[0-9].json')):
     sched += json.load(open(f))['data']['schedule']['events']
