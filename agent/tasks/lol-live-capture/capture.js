@@ -1,0 +1,72 @@
+// Live LoL capture: Riot livestats frames (every 10 s) and Polymarket CLOB book top-of-book (every 1 s, REST).
+// No npm deps (Node 22 global fetch). Usage: node capture.js <config.json> <label> <minutesBefore> <minutesAfter> <outDir>
+// Window: scheduled_start_utc - minutesBefore .. + minutesAfter. Exits at the end of the window or on SIGTERM.
+// Frames are deduped on rfc460Timestamp; book rows are written only when the top of book changes.
+// Clocks: recv_ms (local receive time) is the only clock on the book side. Livestats keeps the feed's own timestamp.
+const fs = require('fs');
+const path = require('path');
+const [, , CFG, LABEL, BEFORE = '90', AFTER = '150', OUT = process.env.HOME + '/lolcap/out'] = process.argv;
+const cfg = JSON.parse(fs.readFileSync(CFG, 'utf8')).find((m) => m.label === LABEL);
+if (!cfg) { console.error('no label ' + LABEL); process.exit(2); }
+fs.mkdirSync(OUT, { recursive: true });
+const FRAMES = path.join(OUT, `${LABEL}_frames.jsonl`), BOOKS = path.join(OUT, `${LABEL}_books.jsonl`), LOG = path.join(OUT, `${LABEL}_capture.log`);
+const log = (m) => fs.appendFileSync(LOG, new Date().toISOString() + ' ' + m + '\n');
+const start = Date.parse(cfg.scheduled_start_utc) - BEFORE * 60000;
+const end = Date.parse(cfg.scheduled_start_utc) + AFTER * 60000;
+const UA = 'Mozilla/5.0 (X11; Linux x86_64) pkarbs-lol-capture';
+const seenFrame = new Set();
+const lastBook = {};
+let stop = false;
+process.on('SIGTERM', () => { log('SIGTERM'); stop = true; });
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function pollFrames() {
+  while (!stop && Date.now() < end) {
+    const t0 = Date.now();
+    try {
+      const r = await fetch(`https://feed.lolesports.com/livestats/v1/window/${cfg.game1_id}`, { headers: { 'User-Agent': UA } });
+      if (r.status === 200) {
+        const w = await r.json();
+        for (const f of w.frames || []) {
+          if (seenFrame.has(f.rfc460Timestamp)) continue;
+          seenFrame.add(f.rfc460Timestamp);
+          fs.appendFileSync(FRAMES, JSON.stringify({ recv_ms: Date.now(), ...f }) + '\n');
+        }
+      } else if (r.status !== 204 && r.status !== 404) log('frames status ' + r.status);
+    } catch (e) { log('frames error ' + e.message); }
+    await sleep(Math.max(0, 10000 - (Date.now() - t0)));
+  }
+}
+
+async function pollBooks() {
+  const tokens = cfg.pm_tokens.slice(0, 2);
+  let backoff = 0;
+  while (!stop && Date.now() < end) {
+    const t0 = Date.now();
+    for (let i = 0; i < tokens.length; i++) {
+      try {
+        const r = await fetch(`https://clob.polymarket.com/book?token_id=${tokens[i]}`, { headers: { 'User-Agent': UA } });
+        if (r.status === 429) { backoff = Math.min(backoff * 2 + 2000, 30000); log('429 backoff ' + backoff); await sleep(backoff); }
+        else if (r.status === 200) {
+          backoff = 0;
+          const b = await r.json();
+          const top = { bid: b.bids?.[0]?.price ?? null, bid_size: b.bids?.[0]?.size ?? null, ask: b.asks?.[0]?.price ?? null, ask_size: b.asks?.[0]?.size ?? null, hash: b.hash ?? null };
+          const key = JSON.stringify(top);
+          if (lastBook[tokens[i]] !== key) {
+            lastBook[tokens[i]] = key;
+            fs.appendFileSync(BOOKS, JSON.stringify({ recv_ms: Date.now(), outcome: cfg.pm_outcomes[i], token: tokens[i], ...top }) + '\n');
+          }
+        } else log('book status ' + r.status + ' ' + tokens[i].slice(0, 10));
+      } catch (e) { log('book error ' + e.message); }
+    }
+    await sleep(Math.max(0, 1000 - (Date.now() - t0)));
+  }
+}
+
+(async () => {
+  const wait = start - Date.now();
+  log(`start ${LABEL} window ${new Date(start).toISOString()} .. ${new Date(end).toISOString()}`);
+  if (wait > 0) { log(`waiting ${Math.round(wait / 1000)} s`); await sleep(Math.min(wait, 2 * 3600 * 1000)); }
+  await Promise.all([pollFrames(), pollBooks()]);
+  log('done');
+})();
