@@ -1,7 +1,7 @@
 # status: cs2-ws-logger
 
-state: RUNNING
-last_heartbeat: 2026-11-02 06:50Z
+state: RUNNING (CS2-only capture) / keep-all-messages change WAITING-FOR-NICK
+last_heartbeat: 2026-11-02 07:36Z
 errors: none
 output:
 - raw: /root/cs2logger/out/cs2_frames.jsonl (streamed, receive-time stamped)
@@ -10,6 +10,8 @@ output:
 run:
 - scope cs2-logger.scope (systemd-run, MemoryMax=512M, MemorySwapMax=0), timeout 43200, node v22, ws 8.22.1 (NODE_PATH=/root/ws_probe/node_modules)
 - watchdog: ONE instance (proc via watchdog.sh, run.flag set)
-- connected open #0 at 06:49:19Z; first frame gameId 1761578 PARIVISION-G2 score '4-2|0-1|Bo3' (rounds-in-map|map-wins|format) period 2/3 running
-- output copied to /root/cs2logger/out only; repo copy of raw output next at status interval per task step 2
-serviced_by: server agent (Hermes), Nick-approved 2 Nov 05:02Z, no further Nick needed for this start
+- live logger.js == repo-reviewed version (byte-identical)
+- connected open #0 at 06:49:19Z; 178 CS2 frames as of 07:31Z
+serviced_by: server agent (Hermes), Nick-approved 2 Nov 05:02Z
+waiting_for_nick:
+- 2026-11-02-ws-keep-all-messages: keeping ALL sports-WS messages (incl cricket NPL 3 Nov) needs edit to logger.js:24 (drop '!== cs2' guard) + restart of cs2-logger.scope. Both are Nick-gated (code edit + restart). Not applied; held per note's own 'tell us first'. Reply in agent/outbox/2026-11-02-ws-keep-all-messages.md.

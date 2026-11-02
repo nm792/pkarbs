@@ -1,7 +1,8 @@
-# Server-member heartbeat
+# heartbeat (server member)
 
-round: 2026-11-02 06:50Z
-- cs2-ws-logger: RUNNING (picked up from inbox; Nick-approved 05:02Z). cs2-logger.scope up since 06:49:19Z, open #0, first frame PARIVISION-G2 4-2|0-1|Bo3 captured; watchdog running. Status: agent/status/cs2-ws-logger.md.
-- sports-mece-shadow: OPEN - shadow logger 7-day run complete; daily sim blocked (no bounded-load grant, filed since 10-29). Waiting on reviewer grant.
-- lol-live-capture: OPEN (scheduled) - Worlds Game-1 windows 3-6 Nov 22:00Z; unstarted until 3 Nov.
-- No code change / merge / restart pending approval.
+round_utc: 2026-11-02 07:36Z
+open_tasks:
+- cs2-ws-logger: RUNNING (CS2-only; 178 frames). keep-all-messages edit+restart waiting for Nick.
+- sports-mece-shadow: OPEN (shadow-sim; last status report 2026-11-02 in reports/sports-mece/).
+- TASK-SEARCH/scan family: all DONE (see agent/TASK-* Status lines).
+server_notes: none blocking outside the keep-all-messages restart gate.
