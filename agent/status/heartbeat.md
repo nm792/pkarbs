@@ -1,6 +1,6 @@
 # pkarbs heartbeat
 
-Alive. Round 2026-11-02T22:47Z UTC.
+Alive. Round 2026-11-02T23:00Z UTC.
 
 - cricket-npl-live: PICKED UP, dry-run PASS; windows A 3 Nov 06:30Z / B 10:30Z scheduled (systemd-run, 300M).
 - rugby-top14-capture: PREPARED; windows AB 7 Nov, D+C 8 Nov one-at-a-time; AB waits on coordinator 6 Nov gamma re-check.
