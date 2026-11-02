@@ -46,3 +46,22 @@ Every figure is measured from captured messages. Estimates are labelled as estim
 - Thin rugby markets: many matches had $0 volume two days before kickoff. Quiet windows are a result, not a failure.
 - Whether the sports WS carries Top 14 at all is not yet known. The window report decides it.
 - The CLOB WS was refused from the sandbox on 2 Nov (403). Whether it connects from the server is what the first window tests.
+
+## Added 2 Nov 2026 (Nick approved, 15:44Z): Rugbyrama widget poll as an extra score clock
+Purpose: record when each score event first appears on the Rugbyrama match widget. It is a first-seen clock, not a broadcast time. First test: does the widget update live during a match? If it never changes during play, say so in the report. Nothing else in this task depends on it.
+
+- Endpoint (GET, honest User-Agent `pkarbs-research/1.0 (contact nm@delphic.co)`): `https://www.rugbyrama.fr/idalgo/cache/page/rugby_widget_match.php?refMatch=<id>`
+- Poll every 15 s while the match is between kickoff minus 30 min and full time plus 15 min. Run it inside capture.py as a fourth async task, in the same process and memory cap. Do not start a separate process.
+- Store the raw HTML response with the local receive timestamp in `rugby/<window>_rugbyrama.jsonl` (one line per poll: time, refMatch, status, size, body). Parse the event list (game minute, event text, running score). An event's first-seen time is the first poll whose parsed list contains it. Log first-seen times in `rugby/<window>_rugbyrama_events.jsonl`.
+- Match IDs (from rugbyrama.fr results pages, checked 2 Nov 2026). Kickoffs are Paris time (UTC+1 until 25 Oct; UTC+1 in November too):
+  - 61242 Stade Toulousain v Clermont, Sat 7 Nov 14:30 Paris (13:30 UTC)
+  - 61237 Castres v Racing 92, Sat 7 Nov 16:35 Paris (15:35 UTC)
+  - 61239 Montpellier v Lyon, Sat 7 Nov 16:35 Paris (15:35 UTC)
+  - 61240 Pau v Perpignan, Sat 7 Nov 16:35 Paris (15:35 UTC)
+  - 61241 Toulon v Stade Français, Sat 7 Nov 16:35 Paris (15:35 UTC)
+  - 61238 La Rochelle v Bayonne, Sun 8 Nov 21:05 Paris (20:05 UTC)
+  - 61243 Vannes v Bordeaux-Bègles, Sun 8 Nov 15:00 Paris (14:00 UTC)
+- Discrepancy to fix before the run: the windows above say window A is RC Vannes v Bordeaux at 13:30 UTC on 7 Nov, and window B has 5 matches at 15:35 UTC. Rugbyrama shows the 13:30 UTC match on 7 Nov is Stade Toulousain v Clermont (61242), Vannes v Bordeaux is on Sun 8 Nov at 14:00 UTC (61243), and only 4 matches kick off at 15:35 UTC on 7 Nov. Do not run the windows until the config JSON matches these fixtures. Report the discrepancy and wait for the coordinator's decision.
+- Failure rules: a poll that returns non-200 or a parse error is logged, not fatal. Three consecutive failures on one match mean that match's Rugbyrama clock is marked FAILED for the report. It does not fail the window's score/price gates.
+- Pass/fail for this clock is separate: PASS if at least one event's first-seen time was recorded during play. FAIL if the widget was polled for the whole match and no event appeared (report which match). Any lag figure is "first-seen at a 15 s poll", never "broadcast latency".
+- Copy the Rugbyrama files to /mnt/project-files/rugby/live-2026-11/ with the other outputs.
