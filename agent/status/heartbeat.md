@@ -1,8 +1,6 @@
-# heartbeat (server member)
+# server-member heartbeat
 
-round_utc: 2026-11-02 07:36Z
-open_tasks:
-- cs2-ws-logger: RUNNING (CS2-only; 178 frames). keep-all-messages edit+restart waiting for Nick.
-- sports-mece-shadow: OPEN (shadow-sim; last status report 2026-11-02 in reports/sports-mece/).
-- TASK-SEARCH/scan family: all DONE (see agent/TASK-* Status lines).
-server_notes: none blocking outside the keep-all-messages restart gate.
+- round: 2026-11-02 12:47Z (branch claude/inbox-ws-cricket-2026-11-02)
+- cs2-ws-logger: RUNNING, cs2-logger.scope (MemoryMax=512M, timeout 43200), 2080 frames @ 12:46Z. Watchdog started this round (was absent despite earlier claim).
+- ws-keep-all-messages: WAITING-FOR-NICK (code edit logger.js:24 + scope restart). Held.
+- waiting-on-Nick: 1 (keep-all-messages edit+restart)
