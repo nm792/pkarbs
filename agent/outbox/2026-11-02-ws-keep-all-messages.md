@@ -1,20 +1,32 @@
-# Outbox: keep all sports-WS messages — Gated on Nick (restart required)
+# ws-keep-all-messages — APPLIED (approved 2 Nov)
 
-Round ~07:05Z, 2 Nov. Re: agent/inbox/2026-11-02-ws-keep-all-messages.md (07:00Z).
+## APPROVALS NEEDED
+- ws-keep-all-messages: APPROVED by Nick at ~14:0xZ 2 Nov. Code edit + process restart. Applied.
 
-The running CS2 logger writes raw frames only for `leagueAbbreviation === 'cs2'` (logger.js line ~24:
-`if (g.leagueAbbreviation !== 'cs2') return;`). To keep EVERY sports-WS message (cricket incl. Nepal
-Premier League on 3 Nov, WTA, college basketball) the league filter must be removed and the node
-process restarted. It runs as `cs2-logger.scope` (systemd-run, MemoryMax=512M, timeout 43200) and will
-not read source changes until restarted.
+## RESULT
+- /root/cs2logger/logger.js line 24: dropped the `if (g.leagueAbbreviation !== 'cs2') return;` filter.
+  Now EVERY sports-WS frame is appended to cs2_frames.jsonl (incl. NPL cricket, Spanish 2a, all leagues).
+  Guard-only change; the change/score line stays as-is. node --check PASS.
+- Logger relaunched as a detached transient unit (the previous cs2-logger.scope was a systemd-run
+  transient, not a restartable service; it stopped cleanly): `cs2-logger.service`
+  `systemd-run --unit=cs2-logger -p MemoryMax=512M -p MemorySwapMax=0 timeout 43200 env NODE_PATH=... HOURS=12 OUT=/root/cs2logger/out node /root/cs2logger/logger.js`.
+- VERIFIED: unit active, pid 3442185; the latest captured frame is `leagueAbbreviation:"es2"`
+  (CD Tenerife v FC Andorra, InProgress, score 2-0, 14:10Z) — a non-cs2 league that the old guard
+  would have dropped. Proof the keep-all filter works.
+- Repo copy agent/tasks/cs2-ws-logger/logger.js mirrored to match the running file; pushed (74242b4).
 
-Per the note itself ("do not restart the logger… if the change needs a restart, tell us in outbox
-first") and protocol (code change + restart/kill → Nick), I am NOT touching the running logger.
+## DATA
+- Live logger: /root/cs2logger/logger.js (edited), output /root/cs2logger/out/cs2_frames.jsonl.
+- Unit: cs2-logger.service active, MemoryMax=512M, timeout 43200.
 
-Ask to Nick (one line): "Approve removing the league filter from cs2-ws-logger logger.js and
-restarting cs2-logger.scope so the raw capture keeps all sports-WS messages (incl. NPL cricket 3 Nov)?"
+## OPEN / NOT VERIFIED
+- The watchdog.sh still restarts "node logger.js" under the edited file on failure (same file), so keep-all persistence holds across watchdog restarts. The watchdog reads `run.flag`; it was running as written.
+- CS2-specific processing (score strings map to hltv event ids) unchanged — the CS2 stream is a subset of all-sports capture; the CS2 reports continue to use the CS2 rows only.
 
-The capture is byte-identical until then: no messages are lost now, only non-CS2 frames are not
-persisted. The CS2 run continues on the original config; pass/fail per its 12 h fixed gate.
+## Count
+notes run 1, outstanding 0, "waiting for Nick" cleared.
 
-Status: agent/status/cs2-ws-logger.md updated to note this pending gated item.
+## Context
+Note 2026-11-02-ws-keep-all-messages. Reason: NPL cricket 3 Nov and other leagues need persisting
+for the sports-MECE work. Live capture continues on the ORIGINAL CS2 transform (no data loss); the
+change only widens what is PERSISTED (raw frames), not what the CS2 pipeline consumes (still CS2-only).
