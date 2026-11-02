@@ -20,9 +20,9 @@ After each score change in a Top 14 match, how many seconds later does the Polym
 4. **Trades: REST** `GET https://data-api.polymarket.com/trades?market=<conditionId>&limit=100` every 10 s per market. Dedupe on transactionHash + timestamp + asset. Store new rows only. This is the after-match audit clock.
 
 ## Windows (one bounded run each, one process at a time)
-- A: 7 Nov, 13:15-15:45 UTC. 1 match (RC Vannes v Bordeaux, kickoff 13:30 UTC). 6 tokens.
-- B: 7 Nov, 15:20-18:00 UTC. 5 matches (kickoff 15:35 UTC each). 30 tokens.
-- C: 8 Nov, 19:50-22:30 UTC. 1 match (La Rochelle v Bayonne, kickoff 20:05 UTC). 6 tokens.
+- A: 7 Nov, 13:15-16:00 UTC. 1 match (RC Vannes v Bordeaux, kickoff 13:30 UTC per gamma startTime). 6 tokens.
+- B: 7 Nov, 15:20-18:05 UTC. 5 matches (kickoff 15:35 UTC each per gamma startTime). 30 tokens.
+- C: 8 Nov, 19:50-22:35 UTC. 1 match (La Rochelle v Bayonne, kickoff 20:05 UTC). 6 tokens.
 Each window is at most 2 h 45 min. Do not start a window until the previous one is reviewed and its processes are gone.
 
 ## Procedure
@@ -53,7 +53,7 @@ Purpose: record when each score event first appears on the Rugbyrama match widge
 - Endpoint (GET, honest User-Agent `pkarbs-research/1.0 (contact nm@delphic.co)`): `https://www.rugbyrama.fr/idalgo/cache/page/rugby_widget_match.php?refMatch=<id>`
 - Poll every 15 s while the match is between kickoff minus 30 min and full time plus 15 min. Run it inside capture.py as a fourth async task, in the same process and memory cap. Do not start a separate process.
 - Store the raw HTML response with the local receive timestamp in `rugby/<window>_rugbyrama.jsonl` (one line per poll: time, refMatch, status, size, body). Parse the event list (game minute, event text, running score). An event's first-seen time is the first poll whose parsed list contains it. Log first-seen times in `rugby/<window>_rugbyrama_events.jsonl`.
-- Match IDs (from rugbyrama.fr results pages, checked 2 Nov 2026). Kickoffs are Paris time (UTC+1 until 25 Oct; UTC+1 in November too):
+- Match IDs (from rugbyrama.fr results pages, checked 2 Nov 2026). Kickoffs below are Paris time (CET, UTC+1):
   - 61242 Stade Toulousain v Clermont, Sat 7 Nov 14:30 Paris (13:30 UTC)
   - 61237 Castres v Racing 92, Sat 7 Nov 16:35 Paris (15:35 UTC)
   - 61239 Montpellier v Lyon, Sat 7 Nov 16:35 Paris (15:35 UTC)
@@ -61,7 +61,8 @@ Purpose: record when each score event first appears on the Rugbyrama match widge
   - 61241 Toulon v Stade Français, Sat 7 Nov 16:35 Paris (15:35 UTC)
   - 61238 La Rochelle v Bayonne, Sun 8 Nov 21:05 Paris (20:05 UTC)
   - 61243 Vannes v Bordeaux-Bègles, Sun 8 Nov 15:00 Paris (14:00 UTC)
-- Discrepancy to fix before the run: the windows above say window A is RC Vannes v Bordeaux at 13:30 UTC on 7 Nov, and window B has 5 matches at 15:35 UTC. Rugbyrama shows the 13:30 UTC match on 7 Nov is Stade Toulousain v Clermont (61242), Vannes v Bordeaux is on Sun 8 Nov at 14:00 UTC (61243), and only 4 matches kick off at 15:35 UTC on 7 Nov. Do not run the windows until the config JSON matches these fixtures. Report the discrepancy and wait for the coordinator's decision.
+- Window times are now derived from Polymarket gamma startTime (2 Nov 16:00Z), with 15 min padding before and 2.5 h after kickoff. Rugbyrama agrees on the fixture for 5 of 7 matches and on kickoff time for 4 of the 5 that play on 7 Nov at 15:35 UTC.
+- UNRESOLVED CONFLICT (2 matches). Rugbyrama 61242 Toulouse v Clermont shows 14:30 Paris (13:30 UTC) on Sat 7 Nov; gamma shows 15:35 UTC. Rugbyrama 61243 Vannes v Bordeaux-Begles is on Sun 8 Nov 15:00 Paris (14:00 UTC); gamma has it on Sat 7 Nov 13:30 UTC. Windows A and B follow gamma. If Rugbyrama is right, Vannes v Bordeaux falls outside every window and Toulouse v Clermont starts 2 h before window B. Do not run any window until the coordinator confirms which source is right.
 - Failure rules: a poll that returns non-200 or a parse error is logged, not fatal. Three consecutive failures on one match mean that match's Rugbyrama clock is marked FAILED for the report. It does not fail the window's score/price gates.
 - Pass/fail for this clock is separate: PASS if at least one event's first-seen time was recorded during play. FAIL if the widget was polled for the whole match and no event appeared (report which match). Any lag figure is "first-seen at a 15 s poll", never "broadcast latency".
 - Copy the Rugbyrama files to /mnt/project-files/rugby/live-2026-11/ with the other outputs.
