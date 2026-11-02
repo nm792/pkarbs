@@ -30,6 +30,38 @@
      ]
     }
    ]
+  },
+  {
+   "ticker": "rutopft-tou2-asm-2026-11-07",
+   "title": "Top 14: Toulouse vs ASM Clermont Auvergne",
+   "kickoffUTC": "2026-11-07T13:30:00Z",
+   "markets": [
+    {
+     "question": "Will Toulouse win?",
+     "conditionId": "0x11aa70c1894dc68e3384a01cad2161c80c7f7fc0524f7768e8850fc7fb550461",
+     "clobTokenIds": [
+      "104818505468536230372500763907065528058522514896858920034512862660028599569495",
+      "43617494051006582638614857699900496430159405210446523365036282013587015729434"
+     ]
+    },
+    {
+     "question": "Will the match end in a draw?",
+     "conditionId": "0x22507987592f3f72756cf7e74cfbe32827f3b6ec18b39fa03fb9fb70bbb79c1f",
+     "clobTokenIds": [
+      "78967394431819083789050350294658151926790174221331602216766267590503428611489",
+      "102409561869416250554648496987093228437565960577068833204422688342765575621307"
+     ]
+    },
+    {
+     "question": "Will ASM Clermont Auvergne win?",
+     "conditionId": "0x21fa82be0a0f7459213d4c11a271db50db6c63fd785093bce8db97e4cde749f7",
+     "clobTokenIds": [
+      "19187025619177239014404148107252863294107659188019977020842445674824233348299",
+      "110014695278943428476930909600699868592995876234401969224721696661378989182321"
+     ]
+    }
+   ],
+   "note": "Rugbyrama 61242 time (13:30 UTC); Polymarket has 15:35 and it is also in window B"
   }
  ],
  "B": [
@@ -220,6 +252,40 @@
      ]
     }
    ]
+  }
+ ],
+ "D": [
+  {
+   "ticker": "rutopft-rc-bor-2026-11-07",
+   "title": "Top 14: RC Vannes vs Union Bordeaux Begles",
+   "kickoffUTC": "2026-11-08T14:00:00Z",
+   "markets": [
+    {
+     "question": "Will RC Vannes win?",
+     "conditionId": "0xa7d3ba682a893a1d245bb16f46e1c07be452c737cfeb329dba5a1f8efa3e9c8b",
+     "clobTokenIds": [
+      "114509060010813569998156657023929063832382226226340750315800503506963945957580",
+      "115243464646816199000440836350929975629225895391007190202672182758857458169104"
+     ]
+    },
+    {
+     "question": "Will the match end in a draw?",
+     "conditionId": "0x4ab0ca3d9baa8a526cc68a385999b195966ee254500932ed96dcebf9e6313a32",
+     "clobTokenIds": [
+      "41272947121594735979607729903478017969898592551423954617510273507515882403241",
+      "29730574293746691461709027226152269372603170372595780181465533187963331222453"
+     ]
+    },
+    {
+     "question": "Will Union Bordeaux Begles win?",
+     "conditionId": "0x60feec29cc9c7b6dfd2cb1d121aa47380ee85595fd4eb7657d27059c34577a3a",
+     "clobTokenIds": [
+      "1664442138562436850525435444647420816687589735960151224570521960568849706792",
+      "64101267414393317373370727641559866787850930104578792789228832814257177310894"
+     ]
+    }
+   ],
+   "note": "Rugbyrama 61243 time (Sun 8 Nov 15:00 Paris); Polymarket has 7 Nov 13:30 and it is also in window A"
   }
  ]
 }
