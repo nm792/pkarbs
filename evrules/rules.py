@@ -62,8 +62,10 @@ def fair(sport, before, after, anchor):
     raise ValueError(sport)
 
 
-def on_event(sport, before, after, anchor_mid, book, lim=ev.Limits(), **pos):
-    """book = dict(bid, bid_size, ask, ask_size, feed_age_s)."""
+def on_event(sport, before, after, anchor_mid, book, lim=ev.Limits(), stage='paper', **pos):
+    """book = dict(bid, bid_size, ask, ask_size, feed_age_s).
+    stage: 'paper' (default), 'live_1' ($5/order, $20/day stop), 'live_2', 'live_3'."""
+    lim = ev.apply_stage(lim, stage)
     if anchor_mid is None or not 0.02 < anchor_mid < 0.98:
         return ev.Decision('none', reason='no usable anchor')
     q = fair(sport, before, after, anchor_mid)

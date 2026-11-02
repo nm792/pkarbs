@@ -46,6 +46,17 @@ def test_rugby():
     assert q[0] > 0.6
 
 
+def test_live_stage():
+    r = rules.RULES['lol']
+    lim = ev.apply_stage(ev.Limits(), 'live_1')
+    d = ev.decide_taker(0.70, 0.49, 1000, 0.50, 1000, r, lim)
+    assert d.action == 'buy' and d.shares * 0.5125 <= 5.0 + 1e-6
+    d = ev.decide_taker(0.70, 0.49, 1000, 0.50, 1000, r, lim, day_pnl=-21)
+    assert d.action == 'none'
+    d = ev.decide_taker(0.70, 0.49, 1000, 0.50, 1000, r, lim, open_pos=50)
+    assert d.action == 'none'
+
+
 def test_maker_quotes():
     b, a = ev.maker_quotes(0.5, rules.RULES['cs2'])
     assert b is not None and a is not None and b < 0.5 < a
