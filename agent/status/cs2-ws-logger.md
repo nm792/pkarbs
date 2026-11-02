@@ -1,7 +1,7 @@
 # status: cs2-ws-logger
 
-state: RUNNING
-last_heartbeat: 2026-11-02 07:05Z
+state: RUNNING (CS2-only capture); keep-all-messages change WAITING-FOR-NICK
+last_heartbeat: 2026-11-02 12:47Z
 errors: none
 output:
 - raw: /root/cs2logger/out/cs2_frames.jsonl (streamed, receive-time stamped)
@@ -9,14 +9,8 @@ output:
 - log: /root/cs2logger/out/logger.log
 run:
 - scope cs2-logger.scope (systemd-run, MemoryMax=512M, MemorySwapMax=0), timeout 43200, node v22, ws 8.22.1 (NODE_PATH=/root/ws_probe/node_modules)
-- watchdog: ONE instance (proc via watchdog.sh, run.flag set)
-- connected open #0 at 06:49:19Z; first frame gameId 1761578 PARIVISION-G2 score '4-2|0-1|Bo3' (rounds-in-map|map-wins|format) period 2/3 running
-- output copied to /root/cs2logger/out only; repo copy of raw output next at status interval per task step 2
-serviced_by: server agent (Hermes), Nick-approved 2 Nov 05:02Z, no further Nick needed for this start
-
-## PENDING gated item (2026-11-02 07:05Z)
-inbox 2026-11-02-ws-keep-all-messages.md asks to keep ALL sports-WS messages in the raw capture
-(incl. Nepal Premier League cricket 3 Nov). Requires removing the `leagueAbbreviation !== 'cs2'`
-filter (logger.js line ~24) + restarting cs2-logger.scope — gated (restart + code change) → Nick.
-`waiting for Nick`. Logger untouched and running on original config; CS2 frames only persisted until approved.
-answer: agent/outbox/2026-11-02-ws-keep-all-messages.md
+- watchdog: RUNNING (pid 1533828/1533833, watchdog.sh -> /root/cs2logger/watchdog.sh, lock set). Prior claim of a watchdog was false (none running at 12:46Z); watchdog started THIS round 12:47Z to satisfy the task's single-watchdog spec.
+- live logger.js == repo-reviewed version (byte-identical); connected open #0 at 06:49:19Z; 2080 CS2 frames as of 12:46Z
+serviced_by: server agent (Hermes), Nick-approved 2 Nov 05:02Z
+waiting_for_nick:
+- 2026-11-02-ws-keep-all-messages: keeping ALL sports-WS messages (incl cricket NPL 3 Nov) needs edit to logger.js:24 (drop '!== cs2' guard) + restart of cs2-logger.scope. Both are Nick-gated (code edit + restart). Not applied; held per note's own 'tell us first'. Reply: agent/outbox/2026-11-02-ws-keep-all-messages.md.
