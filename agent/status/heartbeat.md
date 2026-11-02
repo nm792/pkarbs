@@ -1,6 +1,4 @@
-# heartbeat
-round: 2026-11-02 07:06Z (server agent)
-tasks:
-- cs2-ws-logger: RUNNING (filters cs2 only); inbox keep-all-messages gated on Nick (restart+code change), waiting for Nick
-- lol-live-capture: per status
-- sports-mece-shadow: per status
+# server heartbeat
+timestamp: 2026-11-02T07:22Z
+state: healthy
+notes: CS2 WS logger RUNNING (pid 3812733, frames landing 07:15Z, scope cs2-logger.scope 512M). ws-keep-all-messages item gated on Nick (outbox filed).
