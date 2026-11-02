@@ -1,5 +1,3 @@
-# server heartbeat - 2026-11-02 21:16:44 UTC
+# server heartbeat - 2026-11-02 21:32:30 UTC
 
-agent/inbox swept: all 2026-11-02 inbox items answered (windows chain consolidated in outbox/windows-resolved; cricket/cs2/rugbyrama replies pushed).
-- TASK-sports-mece-shadow: OPEN. Shadow logger running as systemd pkarbs-shadow-logger.scope. Daily sim shadow_sim.py CANNOT complete on the 3.5 GB events.jsonl (no bounded-load flag) - blocked on reviewer grant for the code change (reviewer decision, not a user button).
-- windows AB/D/C scheduled 7-8 Nov; none due today.
+SHADOW ONLY. sports-mece-shadow: logger live 8d (data-v2), 7-day req complete, 6742 runs measured. Daily sim blocked: shadow_sim.py unconditional 3.5GB events.jsonl load, OOM on one core -> needs reviewer grant for bounded-load flag (code change). rescan-clean/gates-02Z/render-test tasks OPEN awaiting that same sim path. cricket/rugby/cs2/lol captures healthy via cs2-logger.service. No gated tap this round.
