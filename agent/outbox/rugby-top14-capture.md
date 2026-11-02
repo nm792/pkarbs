@@ -5,7 +5,7 @@ Task: agent/tasks/TASK-rugby-top14-capture-2026-11-07.md. Status: OPEN -> being 
 
 ## What I can run (and have run today)
 1. **capture.py written** (agent/tasks/rugby-top14-capture.py, py 3, websockets-only, one bounded
-   process per window A/B/C, MemoryMax=600M/swap0 via the task's systemd-run wrapper, timeout
+   process per window AB/D/C, MemoryMax=600M/swap0 via the task's systemd-run wrapper, timeout
    10500). Three concurrent async tasks: sports WS (rutopft filter), CLOB market WS (reconnect max
    3, REST 5 s fallback), ESPN 30 s + trades 10 s polls. Outputs rugby/<win>_{sports,clob,espn,
    trades}.jsonl + <win>_log.txt; 10-min copy to /mnt/project-files/rugby/live-2026-11/.
@@ -20,7 +20,7 @@ Task: agent/tasks/TASK-rugby-top14-capture-2026-11-07.md. Status: OPEN -> being 
    in-window.
 
 ## What I cannot run yet (by design, not a miss)
-The three capture windows are 7 Nov 13:15Z / 7 Nov 15:20Z / 8 Nov 19:50Z. Those are bounded
+The three capture windows are AB 7 Nov 13:15-18:05Z / D 8 Nov 13:45-16:30Z / C 8 Nov 19:50-22:35Z. Those are bounded
 in-repo runs I will start on schedule under the same systemd-run wrapper. Each window after the
 prior is reviewed and its process gone (task rule). No restart, no kill, no code change pending
 on Nick.
