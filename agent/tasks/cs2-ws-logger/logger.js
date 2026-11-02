@@ -21,7 +21,7 @@ function connect() {
     if (s === 'ping') { ws.send('pong'); return; }
     const now = Date.now();
     let g; try { g = JSON.parse(s); } catch { return; }
-    if (g.leagueAbbreviation !== 'cs2') return;
+    // keep ALL sports-WS messages (note: no league filter) — ws-keep-all-messages approved 2 Nov
     fs.appendFileSync(RAW, JSON.stringify({ recv_ms: now, recv_iso: new Date(now).toISOString(), ...g }) + '\n');
     const key = String(g.gameId), prev = last[key];
     if (prev !== g.score) {
