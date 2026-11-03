@@ -21,7 +21,7 @@ def sim(G, M, d, fair, E, cancel=3):
         rt, m60 = M.at(T), M.at(T + 60)
         if tok == 1: rt, m60 = 1 - rt, 1 - m60
         out = 1.0 if (G['win0'] == (tok == 0)) else 0.0
-        rows.append(dict(usd=q * b, em1=q * (m60 - b), pnl=q * (out - b), reb=q * S.REB * b * (1 - b)))
+        rows.append(dict(T=T, tok=tok, b=b, q=q, usd=q * b, em1=q * (m60 - b), pnl=q * (out - b), reb=q * S.REB * b * (1 - b)))
     return rows
 def main():
     import io, contextlib
