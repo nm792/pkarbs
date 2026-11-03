@@ -1,7 +1,7 @@
-# server-member heartbeat
-round: 2026-11-03T05:40Z
-- cs2-ws-logger: RUNNING, logger pid 3497389, tail 05:35Z. Hourly committed copies refreshed this round: rn1/scores/cs2/server-2026-11/ frames 53,859 (newest 05:35:15Z), changes 20,772, logger.log. gzip -t OK.
-- cs2 count-mismatch + restart-proof inboxes answered (outbox 03:04Z, corrected counts).
-- cricket-npl-live: PREP, window A 06:30Z (not open yet) — launch when due per TASK. rugby-top14 capture: 7-8 Nov, not due.
-- sports-mece-shadow: RUNNING (bounded sim proc 3272310, ~258 MB); report due on exit.
-- nothing waiting on Nick (no cost/code/merge/restart-kill).
+# pkarbs heartbeat
+round: 2026-11-03T10:35Z UTC (server-member dispatch)
+- cricket-npl-live: WINDOW B RUNNING (id 1558594, start 10:30Z, pid 1488751/1488752, etime growing; event rows begin at 10:45Z match start). Window A DONE 10:20Z (250 rows).
+- sports-mece-shadow: RUNNING shadow_sim.py pid 1213534 (--days 9 --one-way 0.05 --per-run /root/sports-mece-shadow-per-run.csv, since 08:16Z). Bounded-load --limit fix applied+approved.
+- cs2-ws-logger: RUNNING (node pid watchdog); keep-all-messages WAITING-FOR-NICK (code edit restart gated); outbox pushed.
+- lol-live-capture: prep done (NTP confirmed 06:05Z); TES-IG window 20:30Z time-gated.
+- rugby-top14 windows 7-8 Nov prepared.

@@ -3,7 +3,7 @@
 // Window: scheduled_start_utc - minutesBefore .. + minutesAfter. Exits at the end of the window or on SIGTERM.
 // Frames are deduped on rfc460Timestamp; book rows are written only when the top of book changes.
 // Clocks: recv_ms (local receive time) is the only clock on the book side. Livestats keeps the feed's own timestamp.
-// 3 Nov: frames polled every FRAME_POLL_MS (default 2000) for ALL game ids of the series (cfg.game_ids, else game1_id),
+// 3 Nov: book rows keep 15 price levels per side (queue depth at our resting bid). Frames polled every FRAME_POLL_MS (default 2000) for ALL game ids of the series (cfg.game_ids, else game1_id),
 // and every poll writes a line to <label>_polls.jsonl {recv_ms, game, status, newest_ts, n} so the feed delay
 // (recv_ms - newest frame timestamp) is measured with ~2 s resolution. Host clock must be NTP-synced (logged at start).
 const fs = require('fs');
@@ -62,7 +62,9 @@ async function pollBooks() {
         else if (r.status === 200) {
           backoff = 0;
           const b = await r.json();
-          const top = { bid: b.bids?.[0]?.price ?? null, bid_size: b.bids?.[0]?.size ?? null, ask: b.asks?.[0]?.price ?? null, ask_size: b.asks?.[0]?.size ?? null, hash: b.hash ?? null };
+          const lv = (a, desc) => (a || []).map((x) => [+x.price, +x.size]).sort((p, q) => desc ? q[0] - p[0] : p[0] - q[0]).slice(0, 15);
+          const bids = lv(b.bids, true), asks = lv(b.asks, false);
+          const top = { bid: bids[0]?.[0] ?? null, bid_size: bids[0]?.[1] ?? null, ask: asks[0]?.[0] ?? null, ask_size: asks[0]?.[1] ?? null, bids, asks, hash: b.hash ?? null };
           const key = JSON.stringify(top);
           if (lastBook[tokens[i]] !== key) {
             lastBook[tokens[i]] = key;

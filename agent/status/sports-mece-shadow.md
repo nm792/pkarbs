@@ -1,19 +1,17 @@
 # Status: sports-mece-shadow
 
-State: OPEN -> RUNNING (full 7-day bounded sim in flight, read-only replay)
-Last heartbeat: 2026-11-03T00:48Z
-Output: /mnt/HC_Volume_107257520/pkarbs/shadow/data-v2/ (raw); runs.jsonl growing (00:48Z); status under agent/status/
+State: RUNNING (bounded re-run in flight, read-only replay, --per-run persisted)
+Last heartbeat: 2026-11-03T08:2xZ
+Output CSV: /root/sports-mece-shadow-per-run.csv (root fs, 8.9G free; shadow vol 100% full)
 
-## What is done
-- Shadow logger (shadow/shadow_logger.py) ran 8+ days. 7-day requirement COMPLETE (6,742 runs / 1,314 events).
-- **Bounded-load fix APPLIED + VERIFIED (2 Nov, Nick-approved):** shadow_sim.py now takes --limit N / --days D; line 81 no longer loads the 3.7 GB events.jsonl unconditionally. Verified live: --limit 200 exit 0, ~40 MB RSS. Revert: shadow_sim.py.pre-bounded.
-- **Concurrency resolved (2-3 Nov):** redundant duplicate sims killed earlier turn; exactly ONE bounded sim running now.
-
-## In flight
-- Full 7-day shadow-sim run (proc 3272310 + bash 3272307, `--data data-v2 --one-way 0.05 --delays 0,1,3,market --max-usd 500 --days 9`), started 2026-11-03 00:28Z, running ~100% CPU, RSS ~258 MB (under 400 MB cap), runs.jsonl updating (00:48Z). Will post the report to agent/outbox when it exits.
-
-## Next
-- When the sim exits: write the results report to agent/outbox/shadow-sim-report.md and update this status to DONE.
-
-## Errors
-- Previous sim attempts OOM'd on the full 3.7 GB events.jsonl (no bound). Resolved by the fix above.
+## 2026-11-03 morning
+- Prior full 7-day run (00:28-06:58Z) EXITED cleanly but without --per-run, so numeric
+  P&L/edge was unrecoverable from disk (ran to stdout of departed session; runs.jsonl 7,784
+  rows is source data, not results).
+- Re-run launched 08:16Z: pid 1213534, `--data
+  /mnt/HC_Volume_107257520/pkarbs/shadow/data-v2 --one-way 0.05 --delays 0,1,3,market
+  --max-usd 500 --days 9 --per-run /root/sports-mece-shadow-per-run.csv`.
+- Bounded load verified: RSS ~65 MB, single process, no OOM. Log /root/sports-mece-resim.log
+  (empty while iterating 7,784 runs x 4 delays; CSV written as it progresses).
+- DISK: /mnt/HC_Volume_107257520 is 100% full (0 avail) — CSV redirected to /root fs.
+- Next on completion: post agent/outbox/shadow-sim-report.md from the per-run CSV.

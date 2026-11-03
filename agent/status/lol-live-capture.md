@@ -1,7 +1,7 @@
 # Status: lol-live-capture (Worlds 3-6 Nov 2026)
 
 State: OPEN (scheduled) — ready, not yet runnable
-Last heartbeat: 2026-11-02 06:35Z
+Last heartbeat: 2026-11-03 06:05Z (NTP sync confirmed for TES-IG feed-delay capture)
 
 ## Task
 Within each of the four Game-1 windows (22:00Z each, 3-6 Nov: TES-IG, GEN-LYON, DK-BLG, T1-KC), measure how much later the Polymarket Game-1 winner price moves after each Riot livestats event, on the book (1 s REST polls) and on trades.
@@ -18,3 +18,7 @@ Within each of the four Game-1 windows (22:00Z each, 3-6 Nov: TES-IG, GEN-LYON, 
 
 ## Next
 - Bootle capture for TES-IG on 3 Nov ~20:30Z (90 min before 22:00Z). Copy outputs to /mnt/project-files/rn1/scores/lol/live-2026-11/ every 10 min; post status to the thread every 10 min; never go silent.
+
+## 2026-11-03 07:3xZ sweep
+- timedatectl: System clock synchronized: yes; NTP service: active (confirmed for TES-IG 20:30Z window).
+- capture.js merged per 06:06Z update (2s polls for all five game ids; live-2026-11/feed_delay.py analysis; 15 bids/asks depth levels). Ready for TES-IG window 20:30Z.
