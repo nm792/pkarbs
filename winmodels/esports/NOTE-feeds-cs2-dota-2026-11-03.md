@@ -14,3 +14,7 @@
 - Model: rounds to 13, Bo3 maps, map strength from the pre-match price. Jump fit beta 0.07 (R2 0.04, 246 rounds): one round moves the price far less than a simple model says.
 - Rule (bid mkt x 0.975 on the side that should rise >= 1c but hasn't, 30 s window, corrected fills): filled $124-343 in total over 3-5 games across variants. 1-min edge -0.8% to +1.6%; lost to result in every variant. Far too thin to judge either way.
 - Games needed: ~100 with round data (the LoL holdout was 93-174). At ~45% round coverage: PGL Major Singapore 25 Nov-13 Dec (~100 matches) gives ~45; BLAST Rivals 10-11 Nov a few more; reaching ~100 needs the Jan events (BLAST Bounty 11-24 Jan, IEM Krakow 27 Jan-7 Feb).
+
+## Capture 2 (06:50-07:45Z, raw/wscap/ws_raw_20261103T0650Z.jsonl)
+- FaZe v Team Falcons: round scores came through (17 changes, map 1 to 3-12). MOUZ v BetBoom: 55 min of 20 s heartbeats, no round scores. Dota 2 Direborn v Yangon Galacticos: 120 s cadence, no changes. Confirms round data is intermittent even for tier-1.
+- Round changes land on the 20 s heartbeat grid (gaps 40, 80, 120 s...), so a round can reach us up to ~20 s after it ends, even though the 2 Nov median vs price was +0.4 s.
