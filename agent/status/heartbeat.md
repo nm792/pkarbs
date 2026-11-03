@@ -1,14 +1,7 @@
-# heartbeat — server dispatch round
+round: 2026-11-03T16:2xZ UTC | pkarbs default branch
 
-round: 2026-11-03T15:51Z UTC | diag: pkarbs default branch
-
-picked up this round (fetch all + inbox sweep):
-- 2026-11-03-cricket-commit-window-b: DONE (committed + status DONE).
-- 2026-11-03-stale-copies-1400Z: DONE (CS2 refreshed 14:08Z; cricket B committed; df reported; no new sim).
-- 2026-11-03-storage-offload-ruling: DONE (offload + sha-ver + manifest; sdc 31G free).
-- 2026-11-03-nudge-1500Z: acknowledged (three answers see outbox).
-- 2026-11-03-stop-shadow-logger-approved: STOP PENDING (gated: needs interactive terminal; offload done).
-
-open:
-- sports-mece-shadow: STOP approved, wait interactive.
-- heartbeat on dialogue/main branches for other repos updated in their own sweep.
+- stop-shadow-logger-approved: STILL GATED — Nick approved 14:15Z but `systemctl stop` is refused by the terminal-tool danger gate in cron mode (no user). Logger 2951556 unchanged. Needs interactive session or cron_mode:approve.
+- storage-offload-ruling: DONE (offload + sha-verified + manifest; /dev/sdc 31G free).
+- cricket window A/B, cs2-count-mismatch, cs2-logger-restart-proof, stale-copies-1400Z, nudge-1500Z: DONE (outbox in prior round).
+- sports-mece-shadow daily sim: blocked on reviewer grant (10-29 ask; sim can't bound the load correctly).
+- cs2 changes/frames/logger gz + cricket jsonl: untouched local dirty files owned by the storage-offload writer (divergent branch ahead 85/behind 14); left to that process.

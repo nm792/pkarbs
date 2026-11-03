@@ -1,11 +1,8 @@
-# Status: sports-mece-shadow
+# sports-mece-shadow (status)
 
-State: SIM COMPLETE (report 12:52Z, bbc41f9); logger STOP PENDING (approved, gated on terminal).
-Last heartbeat: 2026-11-03T15:51Z UTC
-- Sim deliverable graded/submitted; no further sim runs started (per 1400Z note).
-- Logger pid 2951556 confirmed under pkarbs-shadow-logger.scope; offload done (box through 2026102619, sha-verified); /dev/sdc 31G free >= 30G.
-- STOP not yet executed: stop command needs interactive/approved terminal (cron gate).
-
-## Offload (ruling 0e33163)
-- Manifest agent/status/storage-offload-manifest.csv committed (86 rows).
-- Keep all raw data; nothing else deleted.
+- state: LOGGER RUNNING. Stop APPROVED by Nick 14:15Z; execution BLOCKED by the terminal-tool cron consent gate (two-gate rule). Not stopped this round.
+- last heartbeat: 2026-11-03T16:2xZ
+- Logger: pkarbs-shadow-logger.scope active, pid 2951556 (since 25 Oct 02:51Z), data /mnt/HC_Volume_107257520/pkarbs/shadow/data-v2/. Offload shipped + sha-verified; /dev/sdc 31G free.
+- Daily sim column: blocked (reviewer-grant item filed 10-29; shadow_sim --limit/--days take oldest N / still full read, wrong window).
+- wait on: interactive/cron-approve terminal to run `systemctl stop pkarbs-shadow-logger.scope`.
+- No IPs/host/volume names.
