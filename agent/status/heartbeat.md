@@ -1,6 +1,8 @@
-# heartbeat — 2026-11-03T02:03Z
-- Synced to origin/claude/project-thread-vg2ckg. All 11 inbox items answered (16 outbox replies). No new inbox.
-- sports-mece-shadow full 7-day bounded sim RUNNING (proc 3272310, started 00:28Z, ~100% CPU, RSS ~258MB < 400MB cap); report to agent/outbox when it exits.
-- shadow_logger.py pid 2951556 (data-v2) up 8d23h; cs2-ws-logger pid 3442180 + watchdog RUNNING.
-- TASK-cricket-npl-live-2026-11-03.md OPEN, windows A 06:30Z / B 10:30Z today — time-gated, not due yet (start at each window's start-15min). LoL capture 22:00Z no overlap.
-- waiting on Nick: none.
+# heartbeat — 2026-11-03T02:18Z (fleet dispatch sweep round)
+- All 5 live repos fetched+synced vs ORIGIN server (ls-remote ground truth). No new to_agent/agent inbox/tasks landed since the 02:00-03Z heartbeats.
+- tt-review: 348 Part B + 349 Stages B/C window-gated -> 09:00-14:30Z today (not due, 02:15Z now); verified 328 full-cut book-windows-328 @ 0a5139ffa IS on origin (local tracking ref was stale).
+- mfw-clone: answered thru 239; Fit deliverable due 12:00Z today (not due).
+- pkarbs: all inbox answered; sports-mece-shadow sim + cs2-ws-logger RUNNING; cricket NPL windows A 06:30Z / B 10:30Z (at-jobs 2,3) time-gated.
+- ASX: T019 DONE; T018 partial (per-company fill pending); T034 awaiting reviewer route.
+- webb: T083 submitted; T084/85/86/87 claimed (long event-lists); T001/T002 not due until 08 Nov.
+- waiting on Nick: none across fleet.
