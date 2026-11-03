@@ -1,10 +1,8 @@
 # pkarbs heartbeat (server-member dispatch)
-2026-11-03T22:47Z
+2026-11-03T23:16Z
 
 Open tasks / state (default claude/project-thread-vg2ckg):
-- cricket-npl-live: DONE (window A/B committed).
-- cs2-ws-logger: live via watchdog.
-- sports-mece shadow: LOGGER RUNNING (pid 2951556); stop Nick-approved 14:15Z but execution BLOCKED by headless terminal-consent gate (cannot clear stop/restart in cron).
-- daily sim column: blocked on reviewer-grant (shadow_sim --limit/--days), filed 10-29.
-- LOL live capture: scheduled 22:00Z.
-HEAD == origin (CONFIRMED on origin refs).
+- All 21 agent/inbox/ items 2026-11-02/03 have outbox replies (REPLIED — verified on origin refs).
+- Inbox/outbox matched clean this round; no new unanswered items.
+- Other project-thread-* branches remain open inbox space (none new since last heartbeat).
+HEAD == origin/default (CONFIRMED on origin refs).
