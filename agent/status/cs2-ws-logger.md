@@ -1,18 +1,26 @@
 # status: cs2-ws-logger
 
-state: RUNNING (ALL sports-WS messages captured, incl. cricket) -- keep-all applied 2 Nov 14:0xZ
-last_heartbeat: 2026-11-03 02:50Z
-errors: none
-## 3 Nov 2026-11-03 02:50Z -- restart-proof reply (inbox 2026-11-03-cs2-logger-restart-proof)
-- Run hit its `timeout 43200` limit ~02:10:02Z 3 Nov; watchdog respawned it.
-- NEW PID: 3497389 `node /root/cs2logger/logger.js`, ExecMainStartTimestamp **2026-11-03 02:11:12Z**, VmRSS ~56 MB (MemoryMax=512M / MemorySwapMax=0 via systemd-run wrapper; single process, watchdog respawn).
-- Gap between old run end (~02:10:02Z) and new start (02:11:12Z): ~70 s (watchdog respawn, no command-line change).
-- cs2_frames.jsonl: 46,257 lines total, **7,647 lines with receive time >= 2026-11-03T02:10:00Z** (post-restart tail live). Newest recv_iso 2026-11-03T02:46:33Z at copy.
+state: RUNNING (logger pid 3497389 alive; watchdog respawn active). Unit itself = failed (timeout 43200 hit 02:10Z) but watchdog keeps logger alive.
+last_heartbeat: 2026-11-03 03:04Z
+errors: none (see count correction below)
+
+## 3 Nov 2026-11-03 03:04Z -- corrected report (inboxes count-mismatch + restart-proof)
+- systemd unit cs2-logger.service ActiveState=**failed**, ExecMainStartTimestamp 02 Nov 14:10:02Z
+  (original timeout-43200 run; NRestarts=0 — it is NOT restarting via systemd).
+- Live logger: PID **3497389** `node /root/cs2logger/logger.js`, respawned ~02:11:12Z by watchdog
+  (bash /root/cs2logger/watchdog.sh pid 1533833, tracked background job). Gap old-end~02:10:02Z to
+  new-start~02:11:12Z ≈ 70 s. No command-line/config change.
+- **Count correction (committed file is authoritative):** committed cs2_frames.jsonl.gz was
+  46,438 lines; recv_iso >= 2026-11-03T02:10:00Z = **3,661**; newest 02:48:31.770Z. My earlier
+  7,647 was a miscount from the live mid-append tail — now corrected, reviewer's count confirmed.
+- **Committed copies refreshed this round** (was stale since ~02:48Z): cs2_frames 47,438 lines /
+  newest 03:02:10Z / >=02:10Z = 4,661; cs2_changes 17,660; logger.log 12. gzip -t OK. Pushed.
 output:
-- raw: /root/cs2logger/out/cs2_frames.jsonl (all leagues, per-line leagueAbbreviation tag), cs2_changes.jsonl, logger.log
-- repo copy (gzipped, this round): rn1/scores/cs2/server-2026-11/{cs2_frames,cs2_changes,logger}.jsonl.gz / logger.log.gz (commit on claude/project-thread-vg2ckg)
+- raw: /root/cs2logger/out/cs2_frames.jsonl, cs2_changes.jsonl, logger.log (append-only, live)
+- repo (gzipped, this round): rn1/scores/cs2/server-2026-11/{cs2_frames,cs2_changes}.jsonl.gz, logger.log.gz
 run:
-- service cs2-logger.service (systemd-run, MemoryMax=512M, MemorySwapMax=0, timeout 43200), watchdog pid stays; logger pid 3497389.
-- logger.js == repo version (byte-identical); keep-all guard removed; Frame mix: cs2=2900, cricket=43, dota2=256, atp=225, mlbb=113 (as of earlier read).
-serviced_by: server agent (Hermes), Nick-approved (2 Nov 05:02Z task + 14:35Z edit+restart)
-waiting_for_nick: none (restart-proof answered; copy committed)
+- logger pid 3497389 (watchdog-spawned), unit failed (expected, timeout), next timeout ~14:10Z 3 Nov
+  when watchdog respawns again.
+- logger.js == repo version; keep-all guard removed; Frame mix includes cs2/cricket/dota2/atp/mlbb.
+serviced_by: server agent (Hermes), Nick-approved restart 2 Nov 14:35Z
+waiting_for_nick: none
