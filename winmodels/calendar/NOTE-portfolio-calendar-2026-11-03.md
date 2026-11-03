@@ -81,3 +81,29 @@ Confidence 5/10: the volumes are now measured, but the profit rate is not. To re
 | Rugby World Cup 2027 | 1 Oct-13 Nov 2027, 48 matches | $6-18M ($128k per match, up to 3x for a global event) | $200-650 total, about $5-15/day |
 
 Only RWC 2023 had one market on Polymarket ($7.8k), so there is no direct comparable. The profit column uses LoL's yield. In markets with no rn1 we could take a larger share of fills; even at 1% of volume and 1% net (rn1's maker margin), RWC 2027 would give 1% x 1% x $6-18M = $600-1,800 total. Rugby stays a capability build (models, feeds, timing) for these events, not a profit line.
+
+## Addendum 3 Nov 06:20Z: three horizons (event dates from web sources; volume = measured Polymarket volume for the same month last season)
+Polymarket lists each match only 1-3 days ahead, so "has markets" is inferred from last season: every tier-1 CS2, Dota 2 and LoL event had match markets.
+
+**H1, now (Nov 2026)**
+- LoL Worlds: QFs 3-6 Nov, semis 7-8 Nov, final 14 Nov (Barclays Center). Nov 2025 LoL volume $79M.
+- CS2: PGL Major Singapore 25 Nov-13 Dec (playoffs 10-13 Dec), plus IEM Beijing and BLAST Rivals Hong Kong in Nov (dates unconfirmed). Nov 2025 CS2 $37M, Dec $64M.
+- Dota 2: PGL event 3-15 Nov, BLAST Slam 17-29 Nov, DreamLeague S30 2-13 Dec. Nov 2025 Dota $21M, Dec $32M.
+- NHL in season (84 games, 29 Sep-10 Apr). Nov 2025 $146M (rn1 present). Rugby Top 14 capture 7-8 Nov.
+
+**H2, next 3 months (Dec 2026-Feb 2027)**
+- LoL off-season after 14 Nov. In 2026 the leagues restarted mid-Jan (LCK Cup and LPL 14 Jan, LEC 17 Jan, LCS 24 Jan; the LTA was dropped for 2026). 2027 dates are not announced; mid-Jan is expected. Last season: Dec $37M (low month), Jan $120M, Feb $209M.
+- CS2 Jan-Feb 2027 (provisional, single source): BLAST Bounty 11-24 Jan (Malta), PGL Bucharest 17-24 Jan, IEM Krakow 27 Jan-7 Feb, PGL Cluj-Napoca 13-21 Feb. Last season Jan $66M, Feb $147M.
+- Dota 2: FISSURE 9-17 Jan reported; PGL's first 2027 event 2-14 Mar. Thin in Jan-Feb (last season Jan $17M, Feb $56M).
+- Cricket: BBL|16 runs 12 Dec 2026-26 Jan 2027 (opener in Chennai, final on Australia Day). On Polymarket, BBL 2025-26 shows only $8k, but WBBL Oct 2026 traded $667k over 32 games (~$21k/game), so BBL|16 might reach ~$2-4M total (estimate).
+- NHL: in season throughout. All-Star 5-6 Feb, Stadium Series 20 Feb. Last season Dec $158M, Jan $227M, Feb $81M (Olympic break in Feb 2026; no break in 2027).
+- Six Nations 2027: Feb-Mar (~$1.2-2.5M).
+- **Weakest month: December** (LoL off; CS2 Major helps until 13 Dec; then holidays).
+
+**H3, 2027**
+- AFL: round 1 17-21 Mar, Grand Final 3 Oct. Volume small now; Nick expects growth. Build the model offline before March.
+- IPL (Mar-May), the one large cricket window.
+- LoL: First Stand, MSI (Europe) and Worlds (Korea), reported, not confirmed.
+- Rugby World Cup: 1 Oct-13 Nov 2027 (~$6-18M estimate).
+
+Sources: Wikipedia (Worlds 2026 final); Strafe and esportsadvocate (2026 league starts); sheepesports and The Kallang (PGL Major Singapore); Hotspawn (CS2 2027 events); PGL press and dota2.ru/ESL (Dota 2); NewsX and Flashscore (BBL|16); NHL.com and ESPN (NHL 2026-27); afl.com.au (AFL 2027).
