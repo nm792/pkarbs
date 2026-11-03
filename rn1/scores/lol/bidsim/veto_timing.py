@@ -11,6 +11,7 @@ S.Q = 500; d = 0.025
 xs, betas = S.beta_logo()
 beta = {k: float(np.mean([b[k] for b in betas.values()])) for k in S.KEYS}
 print('event betas (logit per unit, mean of LOGO fits):', {k: round(v, 3) for k, v in beta.items()})
+MAXGAP = float(__import__('os').environ.get('FILL_MAX_GAP', 'nan'))   # corrected fill rule (fillcheck note 3 Nov): skip prints > MAXGAP below our bid
 def run(G, M, ff, veto=None, timing=False, pull=True):
     W = []
     for (st, en, sb, sa) in G['evs']:
@@ -40,6 +41,9 @@ def run(G, M, ff, veto=None, timing=False, pull=True):
                 if f0 < b0 - veto: on0 = False
                 if (1 - f0) < b1 - veto: on1 = False
         tok = None
+        if MAXGAP == MAXGAP:
+            if sell0 and (b0 - ph) / b0 > MAXGAP: on0 = False
+            if (not sell0) and (b1 - (1 - ph)) / b1 > MAXGAP: on1 = False
         if sell0 and on0 and ph < b0 - 1e-9: tok, b = 0, b0
         if (not sell0) and on1 and (1 - ph) < b1 - 1e-9: tok, b = 1, b1
         if tok is None: continue
@@ -57,21 +61,22 @@ def run(G, M, ff, veto=None, timing=False, pull=True):
             else: ev = (0.0, 0.0)
         rows.append((q * b, q * (m60 - b), q * (out - b), q * S.REB * b * (1 - b), ev))
     return rows
-cfgs = [('no filter, pull30', {}), ('no filter, no pull', dict(pull=False))] + \
-       [(f'veto E={int(E*100)}%, pull30', dict(veto=E)) for E in (0, 0.02, 0.05, 0.10)] + \
-       [('timing: pull hurt side only', dict(timing=True)), ('timing + veto E=5%', dict(timing=True, veto=0.05))]
-rng = np.random.default_rng(0); out = []
-print(f"{'variant':30}{'games':>6}{'$filled':>10}{'1min%':>7}{'res%':>7}{'res$':>9}{'res$ 90% (series)':>22}{'res$ ex top5 ser':>18}")
-for name, kw in cfgs:
-    per = {}
-    for gid, (G, M, ff, x, fb) in B.GAMES.items():
-        r = run(G, M, ff, **kw)
-        if r:
-            a = np.array([z[:4] for z in r]).sum(0); s = per.setdefault(x['match_id'], np.zeros(4)); s += a
-    P = np.array(list(per.values())); u = P[:, 0].sum(); res = P[:, 2] + P[:, 3]
-    bs = [res[rng.integers(0, len(res), len(res))].sum() for _ in range(3000)]
-    ex5 = np.sort(res)[:-5].sum()
-    out.append(dict(variant=name, series=len(P), usd=u, m1=100 * (P[:, 1] + P[:, 3]).sum() / u, res=100 * res.sum() / u, res_usd=res.sum(), ci=list(np.percentile(bs, [5, 95])), ex_top5=ex5))
-    print(f"{name:30}{len(P):>6}{u:>10.0f}{100*(P[:,1]+P[:,3]).sum()/u:>7.2f}{100*res.sum()/u:>7.2f}{res.sum():>9.0f}{f'[{np.percentile(bs,5):.0f}, {np.percentile(bs,95):.0f}]':>22}{ex5:>18.0f}")
-print('games', len(B.GAMES))
-json.dump(out, open(os.path.join(HERE, 'out_veto_timing.json'), 'w'), indent=1, default=float)
+if __name__ == '__main__':
+    cfgs = [('no filter, pull30', {}), ('no filter, no pull', dict(pull=False))] + \
+           [(f'veto E={int(E*100)}%, pull30', dict(veto=E)) for E in (0, 0.02, 0.05, 0.10)] + \
+           [('timing: pull hurt side only', dict(timing=True)), ('timing + veto E=5%', dict(timing=True, veto=0.05))]
+    rng = np.random.default_rng(0); out = []
+    print(f"{'variant':30}{'games':>6}{'$filled':>10}{'1min%':>7}{'res%':>7}{'res$':>9}{'res$ 90% (series)':>22}{'res$ ex top5 ser':>18}")
+    for name, kw in cfgs:
+        per = {}
+        for gid, (G, M, ff, x, fb) in B.GAMES.items():
+            r = run(G, M, ff, **kw)
+            if r:
+                a = np.array([z[:4] for z in r]).sum(0); s = per.setdefault(x['match_id'], np.zeros(4)); s += a
+        P = np.array(list(per.values())); u = P[:, 0].sum(); res = P[:, 2] + P[:, 3]
+        bs = [res[rng.integers(0, len(res), len(res))].sum() for _ in range(3000)]
+        ex5 = np.sort(res)[:-5].sum()
+        out.append(dict(variant=name, series=len(P), usd=u, m1=100 * (P[:, 1] + P[:, 3]).sum() / u, res=100 * res.sum() / u, res_usd=res.sum(), ci=list(np.percentile(bs, [5, 95])), ex_top5=ex5))
+        print(f"{name:30}{len(P):>6}{u:>10.0f}{100*(P[:,1]+P[:,3]).sum()/u:>7.2f}{100*res.sum()/u:>7.2f}{res.sum():>9.0f}{f'[{np.percentile(bs,5):.0f}, {np.percentile(bs,95):.0f}]':>22}{ex5:>18.0f}")
+    print('games', len(B.GAMES))
+    json.dump(out, open(os.path.join(HERE, 'out_veto_timing.json'), 'w'), indent=1, default=float)

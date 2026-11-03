@@ -4,6 +4,7 @@ Same fills/P&L as sim_bids.py. Games: all loaded by bt_many.load (frame winner =
 import os, sys, json, numpy as np, pandas as pd
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import bt_many as B, sim_bids as S
+MAXGAP = float(__import__('os').environ.get('FILL_MAX_GAP', 'nan'))   # corrected fill rule (fillcheck note 3 Nov): skip prints > MAXGAP below our bid
 def sim(G, M, d, fair, E, cancel=3):
     fills = []
     for (T, _, ph, sell0, sz) in G['pr']:
@@ -12,6 +13,9 @@ def sim(G, M, d, fair, E, cancel=3):
         if mk is None or not (0.05 <= mk <= 0.95): continue
         if cancel is not None and any(st + cancel <= T < st + 30 for (st, _, _, _) in G['evs']): continue
         b0, b1 = mk * (1 - d), (1 - mk) * (1 - d)
+        if MAXGAP == MAXGAP:
+            if sell0 and (b0 - ph) / b0 > MAXGAP: continue
+            if (not sell0) and (b1 - (1 - ph)) / b1 > MAXGAP: continue
         f0 = fair(T, mk) if fair else None
         if fair and f0 is None: continue
         if sell0 and ph < b0 - 1e-9 and (f0 is None or f0 - b0 >= E): fills.append((T, 0, b0, min(sz, S.Q)))

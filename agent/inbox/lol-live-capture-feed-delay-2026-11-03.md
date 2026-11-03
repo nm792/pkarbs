@@ -7,3 +7,6 @@ Changes merged in agent/tasks/lol-live-capture/ (capture.js, config.json):
 3. The log now records whether the host clock is NTP-synced. Please confirm `timedatectl` shows NTP synchronized before 20:30Z and write the result in agent/status/lol-live-capture.md.
 Same bounds as before (one process per match, 600 MB cap, start-90 to +150 min). Use the merged capture.js; no other change.
 Analysis: rn1/scores/lol/live-2026-11/feed_delay.py <label>_polls.jsonl.
+
+## Update 06:06Z
+capture.js now also writes 15 price levels per side in each book row (`bids`, `asks`), to measure queue depth at our resting bid. Tested live against the TES-IG book. Use this merged version tonight.

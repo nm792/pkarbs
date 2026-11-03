@@ -32,11 +32,13 @@ def run(G, M, LAG, WIN, minj=0.01):
         b = mk * (1 - d) if tok == 0 else (1 - mk) * (1 - d)
         px = ph if tok == 0 else 1 - ph
         if px >= b - 1e-9: continue
+        if MAXGAP == MAXGAP and (b - px) / b > MAXGAP: continue
         q = min(sz, S.Q); rt, m60 = M.at(T), M.at(T + 60)
         if tok == 1: rt, m60 = 1 - rt, 1 - m60
         out = 1.0 if (G['win0'] == (tok == 0)) else 0.0
         rows.append((q * b, q * (m60 - b), q * (out - b), q * S.REB * b * (1 - b)))
     return rows
+MAXGAP = float(__import__('os').environ.get('FILL_MAX_GAP', 'nan'))   # corrected fill rule (fillcheck note 3 Nov): skip prints > MAXGAP below our bid
 rng = np.random.default_rng(0)
 def report(name, sel, LAG, WIN):
     per = {}
