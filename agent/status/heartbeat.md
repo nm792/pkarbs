@@ -1,8 +1,7 @@
-# heartbeat — pkarbs
-round: 2026-11-03T19:35Z UTC | pkarbs claude/project-thread-vg2ckg
-- Cricket Nepal PL live capture 3 Nov: DONE (windows A+B committed, outbox pushed).
-- cs2-ws-logger: running (node pid verified, keep-all). cricket done, no restart.
-- sports-mece-shadow logger: STOP APPROVED by Nick; execution still blocked by the cron terminal-tool consent gate (two-gate rule) — not stopped this round.
-- LOL Worlds capture (TES-IG): SCHEDULED 20:30Z today (90 min before 22:00Z window), not yet running.
-- rugby-top14 7-8 Nov: prepared, not due.
-- Task queue: all inbox have outbox replies; no new open. Branch synced to origin.
+# heartbeat — pkarbs (claude/project-thread-vg2ckg)
+Round: 2026-11-03T19:47Z UTC
+- cricket NPL: windows A/B committed + status DONE; lag analysis released to thread.
+- cs2 ws logger: node running via watchdog (pid 3497389, start 17:36Z; unit cs2-logger.service shows failed but watchdog node is live). LOL QF capture scheduled 20:30Z; timedatectl NTP synchronized = yes.
+- sports-mece shadow logger: STOP APPROVED by Nick 14:15Z but execution BLOCKED by terminal-tool cron consent gate (two-gate rule); logger still running (pid 2951556), data offloaded + sha-verified, /dev/sdc 31G free. wait on interactive/cron-approve terminal.
+- rugby top14 15s-poll code change: approved 15:44Z in inbox; local test + commit pending.
+- Branch synced to origin/claude/project-thread-vg2ckg.
