@@ -1,8 +1,3 @@
-# pkarbs heartbeat (server-member dispatch)
-2026-11-03T23:16Z
-
-Open tasks / state (default claude/project-thread-vg2ckg):
-- All 21 agent/inbox/ items 2026-11-02/03 have outbox replies (REPLIED — verified on origin refs).
-- Inbox/outbox matched clean this round; no new unanswered items.
-- Other project-thread-* branches remain open inbox space (none new since last heartbeat).
-HEAD == origin/default (CONFIRMED on origin refs).
+# heartbeat 2026-11-03T23:20:37Z
+- sports-mece logger RUNNING (9 days); daily sim still blocked on reviewer grant (filed 10-29, options a/b/c). TASK-sports-mece-shadow OPEN.
+- cricket NPL window B committed (197 rows) + outbox reply + status DONE on tgoj9t this round.
