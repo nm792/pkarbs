@@ -1,7 +1,7 @@
 # status: cs2-ws-logger
 
 state: RUNNING (logger pid 3497389 alive; watchdog respawn active). Unit itself = failed (timeout 43200 hit 02:10Z) but watchdog keeps logger alive.
-last_heartbeat: 2026-11-03 03:04Z
+last_heartbeat: 2026-11-03 04:48Z
 errors: none (see count correction below)
 
 ## 3 Nov 2026-11-03 03:04Z -- corrected report (inboxes count-mismatch + restart-proof)
