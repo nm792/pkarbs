@@ -1,18 +1,18 @@
 {
  "gold_only": {
-  "brier": 0.1724,
-  "logloss": 0.5085
+  "brier": 0.1727,
+  "logloss": 0.5081
  },
  "logit": {
-  "brier": 0.1626,
-  "logloss": 0.483
+  "brier": 0.1545,
+  "logloss": 0.4626
  },
  "gbm": {
-  "brier": 0.1898,
-  "logloss": 0.5761
+  "brier": 0.161,
+  "logloss": 0.4843
  },
  "constant": {
-  "brier": 0.2439,
-  "logloss": 0.6809
+  "brier": 0.2469,
+  "logloss": 0.6869
  }
 }

@@ -6,3 +6,7 @@ list2024.log
 t1.txt
 test_ids.txt
 __pycache__/
+raw/pm/gamma_lol_events_closed.json
+raw/bt/
+*.log
+all_ids_rev.txt

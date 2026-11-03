@@ -26,7 +26,7 @@ for slug, lid in LEAGUES.items():
         for e in s['events']:
             if e.get('type')=='match' and e['state']=='completed' and e['startTime']>=SINCE:
                 matches.append({'league':slug,'start':e['startTime'],'match_id':e['match']['id'],
-                  'teams':[(t['code'],t['result']['gameWins'] if t.get('result') else None) for t in e['match']['teams']]})
+                  'teams':[(t['code'],t['result']['gameWins'] if t.get('result') else None) for t in e['match']['teams']],'names':[t['name'] for t in e['match']['teams']]})
                 n+=1
         if not s['events'] or min(e['startTime'] for e in s['events']) < SINCE or not s['pages'].get('older'): break
         tok = s['pages']['older']
