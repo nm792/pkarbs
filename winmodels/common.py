@@ -57,13 +57,16 @@ def prints(tr):
     pr.sort()
     return pr
 
+MID_AGE = 120; MID_MODE = 'pair'     # 'pair' = avg of last bid-side and ask-side print (both within MID_AGE s); 'last' = last print
 class Mid:
     def __init__(s, pr):
+        if MID_MODE == 'last':
+            s.t = [p[0] for p in pr]; s.m = [p[2] for p in pr]; return
         s.t = [p[0] for p in pr]; lb = la = None; s.m = []
         for p in pr:
             if p[3]: lb = p
             else: la = p
-            if lb and la and abs(lb[0] - la[0]) <= 120 and lb[2] <= la[2] + 0.005 and la[2] - lb[2] < 0.10:
+            if lb and la and abs(lb[0] - la[0]) <= MID_AGE and lb[2] <= la[2] + 0.005 and la[2] - lb[2] < 0.10:
                 s.m.append((lb[2] + la[2]) / 2)
             else:
                 s.m.append(p[2])
@@ -71,9 +74,10 @@ class Mid:
         i = bisect.bisect_left(s.t, T) - 1
         return s.m[i] if i >= 0 else None
 
-def sim(pr, M, t0, t1, fair, win0, E, evs=(), lag=10, reb=0.0, d=D, gate=True, sevs=(), pull_s=30):
+def sim(pr, M, t0, t1, fair, win0, E, evs=(), lag=10, reb=0.0, d=D, gate=True, sevs=(), pull_s=30, max_gap=None):
     """fair(T) -> model prob of token0 (None = no model -> no bid when gating). evs = event times.
     Returns per-fill rows. gate=False: bid on every print (market-only baseline)."""
+    if max_gap is None and os.environ.get('FILL_MAX_GAP'): max_gap = float(os.environ['FILL_MAX_GAP'])
     ev = sorted(evs); fills = []; sevs = sorted(sevs); st_ = [x[0] for x in sevs]
     for (T, _, ph, sell0, sz) in pr:
         if not (t0 <= T <= t1): continue
@@ -89,6 +93,9 @@ def sim(pr, M, t0, t1, fair, win0, E, evs=(), lag=10, reb=0.0, d=D, gate=True, s
         b0, b1 = mk * (1 - d), (1 - mk) * (1 - d)
         f0 = fair(T) if gate else None
         if gate and f0 is None: continue
+        if max_gap is not None:                           # corrected rule: a print far below our bid means the book had already
+            if sell0 and (b0 - ph) / b0 > max_gap: continue    # moved; a book-watching bot would have re-pegged first
+            if (not sell0) and (b1 - (1 - ph)) / b1 > max_gap: continue
         if sell0 and 0 not in hurt and ph < b0 - 1e-9 and (not gate or f0 - b0 >= E): fills.append((T, 0, b0, min(sz, Q)))
         if (not sell0) and 1 not in hurt and (1 - ph) < b1 - 1e-9 and (not gate or (1 - f0) - b1 >= E): fills.append((T, 1, b1, min(sz, Q)))
     rows = []

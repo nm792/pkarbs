@@ -30,7 +30,7 @@ def prep():
 def fair_at(g, m, row):
     _, per, clk, h, a = row; fr = B.frac(SP, per, clk); rem = 1 - fr
     return B.prob(m, h, a, g['mu'] * rem, math.sqrt(B.V(SP, 'Vm', fr)), g['tau'] * rem, math.sqrt(B.V(SP, 'Vt', fr)))
-def run_game(g, lag, pull, E_, veto):
+def run_game(g, lag, pull, E_, veto, max_gap=None):
     E = g['E']; tl = E['tl']; tt = [r[0] for r in tl]; out = []
     for m, pr, M in g['mk']:
         sev = []
@@ -48,7 +48,7 @@ def run_game(g, lag, pull, E_, veto):
             v = fc.get(i)
             if v is None: v = fc[i] = fair_at(g, m, tl[i])
             return v
-        r = C.sim(pr, M, E['t0'], E['t1'], fair if veto else None, m['win0'], E_, (), lag, m['reb'], gate=veto, sevs=sev, pull_s=pull or 30)
+        r = C.sim(pr, M, E['t0'], E['t1'], fair if veto else None, m['win0'], E_, (), lag, m['reb'], gate=veto, sevs=sev, pull_s=pull or 30, max_gap=max_gap)
         out.append([sum(z[k] for z in r) for k in ('usd', 'em1', 'pnl', 'reb')])
     return np.sum(out, axis=0) if out else np.zeros(4)
 if __name__ == '__main__':
