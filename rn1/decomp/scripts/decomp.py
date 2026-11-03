@@ -10,9 +10,10 @@ import gzip,json,glob,os,sys,bisect,collections
 act,metaf,tdir=sys.argv[1:4]; cdirs=sys.argv[4:]
 A=json.load(gzip.open(act)); meta=json.load(gzip.open(metaf))
 tr=[r for r in A if r['type']=='TRADE']
+def K5(r): return (r['transactionHash'],r['asset'],round(float(r['size']),4),round(float(r['price']),6),int(r['timestamp']))
 taker=set()
 for f in glob.glob(tdir+'/true_*.json'):
-  for r in json.load(open(f))['rows']: taker.add((r['transactionHash'],r['asset'],r['size'],r['price'],r['timestamp']))
+  for r in json.load(open(f))['rows']: taker.add(K5(r))
 hist={}
 for d in cdirs:
   for f in glob.glob(d+'/*.json'):
@@ -51,7 +52,7 @@ for r in tr:
   if m0 is None: skip['no_mid_usd']+=s*p; skip['no_mid_pnl']+=s*(pay[tok]-p); continue
   P=pay[tok]
   v=dict(usd=s*p,pnl=s*(P-p),entry=s*(m0-p),move1=s*(m60-m0),move10=s*(m600-m60),hold=s*(P-m600),n=1)
-  role='taker' if (r['transactionHash'],tok,r['size'],r['price'],t) in taker else 'maker'
+  role='taker' if K5(r) in taker else 'maker'
   sp=sport(r.get('eventSlug') or r.get('slug') or '')
   pb='p<0.2' if p<0.2 else 'p0.2-0.4' if p<0.4 else 'p0.4-0.6' if p<0.6 else 'p0.6-0.8' if p<0.8 else 'p>=0.8'
   for key in ['ALL','role:'+role,'sport:'+sp,f'sport_role:{sp}:{role}',f'price:{pb}',f'cs2_price:{pb}' if sp=='cs2' else None]:
