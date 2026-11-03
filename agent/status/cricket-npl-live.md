@@ -1,6 +1,8 @@
 # agent/status/cricket-npl-live
-state: PREP — window A (id 1558593, Biratnagar Kings v Janakpur Bolts) not yet open; starts 2026-11-03 06:30Z, 255 min. Window B (id 1558594) 10:30Z, 255 min.
-- logger script evrules/live_pbp_logger.py present on origin, py_compile OK.
-- launch command per task: systemd-run --scope -p MemoryMax=300M -p MemorySwapMax=0 timeout 15600 python3 -m evrules.live_pbp_logger cricket <id> --minutes 255 --every 5 --out <cricket dir> --share <cricket dir>/share
-- nothing to run yet this round (window opens 06:30Z); will be launched as a tracked bound capture when due.
-heartbeat: 2026-11-03T04:20Z
+
+state: RUNNING — window A (id 1558593, Biratnagar Kings v Janakpur Bolts) live since 06:30Z,
+255 min; window B (id 1558594) due 10:30Z, 255 min.
+- procs: 450231 (timeout wrapper) / 450232 (live_pbp_logger), started 06:30Z, etime growing.
+- out /root/cricket-live, share /root/cricket-live/share.
+- After window A ends, launch window B via the same systemd-run/scope wrapper; never overlap.
+heartbeat: 2026-11-03T08:2xZ
