@@ -1,0 +1,30 @@
+nba games 338 sd remaining margin at start 14.68 total 18.68 drift weight (should be ~1) [0.99, 0.94, 0.95] [1.0, 1.0, 0.99]
+nfl games 90 sd remaining margin at start 12.64 total 12.71 drift weight (should be ~1) [1.17, 1.08, 1.03] [1.05, 1.07, 1.08]
+cfb games 12 sd remaining margin at start 12.8 total 15.16 drift weight (should be ~1) [1.66, 1.66, 1.74] [0.98, 0.97, 1.01]
+nhl games 300 sd remaining margin at start 158.45 total 2.35 drift weight (should be ~1) [0.0, 0.0, 0.01] [0.8, 1.0, 1.26]
+NBA games 78 markets 2707
+plain                            games  78 $fill   3118392 1min  -7.22% [np.float64(-7.56), np.float64(-6.9)]  result   -8.4% [np.float64(-11.99), np.float64(-4.94)] $ -261827 | ex-top5 1min -7.24% result -12.03% $-344230
+guard lag0 pull15                games  78 $fill   1903681 1min   -5.6% [np.float64(-5.94), np.float64(-5.3)]  result  -7.09% [np.float64(-12.0), np.float64(-2.46)] $ -134885 | ex-top5 1min -5.69% result -11.72% $-201018
+guard lag0 pull30                games  78 $fill   1514157 1min  -5.33% [np.float64(-5.7), np.float64(-4.98)]  result  -7.42% [np.float64(-12.95), np.float64(-2.2)] $ -112419 | ex-top5 1min -5.45% result -12.61% $-172025
+guard lag3 pull15                games  78 $fill   2041286 1min  -6.32% [np.float64(-6.71), np.float64(-5.96)]  result  -7.87% [np.float64(-12.49), np.float64(-3.48)] $ -160561 | ex-top5 1min -6.36% result -12.35% $-227361
+guard lag3 pull30                games  78 $fill   1621351 1min  -6.05% [np.float64(-6.46), np.float64(-5.65)]  result  -8.45% [np.float64(-13.66), np.float64(-3.39)] $ -136938 | ex-top5 1min -6.22% result -13.37% $-196324
+guard lag10 pull15               games  78 $fill   2586626 1min  -6.92% [np.float64(-7.23), np.float64(-6.62)]  result  -8.56% [np.float64(-12.35), np.float64(-4.91)] $ -221531 | ex-top5 1min -6.96% result -12.32% $-292114
+guard lag10 pull30               games  78 $fill   2096714 1min  -6.75% [np.float64(-7.11), np.float64(-6.39)]  result  -9.34% [np.float64(-13.66), np.float64(-5.25)] $ -195900 | ex-top5 1min -6.81% result -13.66% $-259474
+veto E0 lag0                     games  78 $fill   1088176 1min  -2.72% [np.float64(-3.14), np.float64(-2.29)]  result -13.44% [np.float64(-22.09), np.float64(-4.16)] $ -146206 | ex-top5 1min -2.89% result -20.77% $-205914
+guard+veto E0 lag0 pull30        games  78 $fill    669013 1min  -2.07% [np.float64(-2.61), np.float64(-1.5)]  result -12.49% [np.float64(-20.81), np.float64(-3.56)] $  -83558 | ex-top5 1min -2.34% result -20.52% $-122743
+veto E2 lag0                     games  78 $fill    863290 1min  -2.36% [np.float64(-2.84), np.float64(-1.87)]  result -13.82% [np.float64(-23.34), np.float64(-3.76)] $ -119273 | ex-top5 1min -2.48% result -21.49% $-167343
+guard+veto E2 lag0 pull30        games  78 $fill    551976 1min  -1.81% [np.float64(-2.4), np.float64(-1.17)]  result -13.12% [np.float64(-22.27), np.float64(-3.3)] $  -72433 | ex-top5 1min -2.08% result -21.26% $-104679
+veto E5 lag0                     games  78 $fill    581304 1min  -1.81% [np.float64(-2.46), np.float64(-1.11)]  result -14.74% [np.float64(-25.51), np.float64(-3.4)] $  -85699 | ex-top5 1min -1.92% result -23.95% $-122889
+guard+veto E5 lag0 pull30        games  78 $fill    399727 1min  -1.37% [np.float64(-2.17), np.float64(-0.5)]  result -13.66% [np.float64(-24.12), np.float64(-2.29)] $  -54587 | ex-top5 1min -1.63% result -22.59% $-79528
+veto E0 lag3                     games  78 $fill   1146908 1min  -3.55% [np.float64(-4.07), np.float64(-3.04)]  result -13.93% [np.float64(-22.3), np.float64(-5.02)] $ -159783 | ex-top5 1min -3.77% result -21.12% $-220694
+guard+veto E0 lag3 pull30        games  78 $fill    735123 1min  -3.33% [np.float64(-4.0), np.float64(-2.65)]  result -13.42% [np.float64(-21.37), np.float64(-4.8)] $  -98656 | ex-top5 1min -3.68% result -21.24% $-140161
+veto E2 lag3                     games  78 $fill    922547 1min  -3.34% [np.float64(-3.95), np.float64(-2.75)]  result -14.39% [np.float64(-23.56), np.float64(-4.57)] $ -132729 | ex-top5 1min -3.57% result -22.02% $-183273
+guard+veto E2 lag3 pull30        games  78 $fill    611854 1min  -3.24% [np.float64(-4.03), np.float64(-2.47)]  result -14.08% [np.float64(-22.92), np.float64(-4.47)] $  -86119 | ex-top5 1min -3.61% result -22.08% $-121276
+veto E5 lag3                     games  78 $fill    632138 1min   -3.1% [np.float64(-3.97), np.float64(-2.28)]  result -15.65% [np.float64(-26.18), np.float64(-4.42)] $  -98923 | ex-top5 1min -3.31% result -24.53% $-137941
+guard+veto E5 lag3 pull30        games  78 $fill    447509 1min  -3.09% [np.float64(-4.17), np.float64(-2.02)]  result -15.08% [np.float64(-25.15), np.float64(-3.93)] $  -67477 | ex-top5 1min -3.31% result -23.7% $-94980
+veto E0 lag10                    games  78 $fill   1394501 1min  -4.66% [np.float64(-5.11), np.float64(-4.21)]  result -15.01% [np.float64(-22.51), np.float64(-7.05)] $ -209316 | ex-top5 1min -4.87% result -21.31% $-271053
+guard+veto E0 lag10 pull30       games  78 $fill   1023952 1min   -4.6% [np.float64(-5.11), np.float64(-4.1)]  result -15.56% [np.float64(-22.83), np.float64(-7.72)] $ -159369 | ex-top5 1min -4.82% result -22.14% $-205489
+veto E2 lag10                    games  78 $fill   1153483 1min   -4.6% [np.float64(-5.12), np.float64(-4.09)]  result -15.66% [np.float64(-24.18), np.float64(-6.79)] $ -180637 | ex-top5 1min -4.85% result -22.68% $-237376
+guard+veto E2 lag10 pull30       games  78 $fill    862621 1min  -4.61% [np.float64(-5.19), np.float64(-4.02)]  result -16.52% [np.float64(-24.64), np.float64(-7.61)] $ -142547 | ex-top5 1min -4.84% result -23.56% $-184614
+veto E5 lag10                    games  78 $fill    832935 1min  -4.59% [np.float64(-5.3), np.float64(-3.91)]  result -16.18% [np.float64(-26.26), np.float64(-5.47)] $ -134787 | ex-top5 1min -4.85% result -24.56% $-183640
+guard+veto E5 lag10 pull30       games  78 $fill    640251 1min  -4.73% [np.float64(-5.54), np.float64(-3.97)]  result -17.37% [np.float64(-27.03), np.float64(-6.96)] $ -111188 | ex-top5 1min -5.03% result -25.35% $-146836
