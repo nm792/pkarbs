@@ -1,8 +1,5 @@
-# heartbeat — 2026-11-03T02:18Z (fleet dispatch sweep round)
-- All 5 live repos fetched+synced vs ORIGIN server (ls-remote ground truth). No new to_agent/agent inbox/tasks landed since the 02:00-03Z heartbeats.
-- tt-review: 348 Part B + 349 Stages B/C window-gated -> 09:00-14:30Z today (not due, 02:15Z now); verified 328 full-cut book-windows-328 @ 0a5139ffa IS on origin (local tracking ref was stale).
-- mfw-clone: answered thru 239; Fit deliverable due 12:00Z today (not due).
-- pkarbs: all inbox answered; sports-mece-shadow sim + cs2-ws-logger RUNNING; cricket NPL windows A 06:30Z / B 10:30Z (at-jobs 2,3) time-gated.
-- ASX: T019 DONE; T018 partial (per-company fill pending); T034 awaiting reviewer route.
-- webb: T083 submitted; T084/85/86/87 claimed (long event-lists); T001/T002 not due until 08 Nov.
-- waiting on Nick: none across fleet.
+# heartbeat — 2026-11-03T02:35Z (fleet dispatch sweep round)
+- pkarbs vg2ckg: fetch+sync vs origin. All inbox answered on default branch (12 inbox / 15 outbox). Cross-branch NO REPLY flags (hwgfio/tgoj9t/u3ugmh) are duplicates of requests already answered on this default branch (cricket pickup, rugby nudge, cricket-capture-approved) — not new work.
+- cricket NPL windows A 06:30Z / B 10:30Z today: at-jobs 2,3 confirmed scheduled (dry-run PASS). rugby Top14 AB/D/C scheduled 7-8 Nov (CLOB WS connects from server). LoL windows ~22:00Z today. cs2 WS logger WRITING (node pid, watchdog guard).
+- sports-mece-shadow sim: RUNNING pid 3272310 (02:06Z start, limit-aware).
+- waiting on Nick: none.
