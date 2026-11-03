@@ -1,0 +1,102 @@
+offload start 2026-11-03T14:25:07Z cutoff=1793543107
+offload start 2026-11-03T14:27:59Z cutoff=1793543279
+offload start 2026-11-03T14:29:57Z cutoff=1793543397
+offload start 2026-11-03T14:31:29Z cutoff=1793543489
+offload start 2026-11-03T14:31:46Z cutoff=1793543506
+moved rescan-data/raw-2026102315.jsonl.gz (155281868B) freed=0GB moved=1
+HB 2026-11-03T14:31:51Z moved=1 freed=0GB mism=0 0 avail
+moved rescan-data/raw-2026102316.jsonl.gz (414223464B) freed=0GB moved=2
+moved rescan-data/raw-2026102318.jsonl.gz (932954305B) freed=1GB moved=3
+moved rescan-data/raw-2026102319.jsonl.gz (1134558400B) freed=2GB moved=4
+moved rescan-data/raw-2026102322.jsonl.gz (165615983B) freed=2GB moved=5
+moved rescan-data/raw-2026102323.jsonl.gz (215885177B) freed=3GB moved=6
+moved rescan-data/raw-2026102400.jsonl.gz (226800691B) freed=3GB moved=7
+moved data/bad/raw-2026102401.jsonl.gz (200081201B) freed=3GB moved=8
+moved rescan-data/raw-2026102402.jsonl.gz (177319594B) freed=3GB moved=9
+moved rescan-data/raw-2026102403.jsonl.gz (133494122B) freed=3GB moved=10
+moved data/bad/raw-2026102404.jsonl.gz (111540387B) freed=3GB moved=11
+moved data/bad/raw-2026102406.jsonl.gz (497046664B) freed=4GB moved=12
+moved data-v2/raw-2026102406.jsonl.gz (3810284B) freed=4GB moved=13
+moved rescan-data/events.jsonl (176394641B) freed=4GB moved=14
+moved rescan-data/raw-2026102405.jsonl.gz (607406314B) freed=5GB moved=15
+moved data-v2/raw-2026102407.jsonl.gz (387922242B) freed=5GB moved=16
+moved data-v2/raw-2026102408.jsonl.gz (348493038B) freed=5GB moved=17
+moved data-v2/raw-2026102409.jsonl.gz (202590255B) freed=6GB moved=18
+moved data-v2/raw-2026102410.jsonl.gz (296858253B) freed=6GB moved=19
+moved data-v2/raw-2026102411.jsonl.gz (825242049B) freed=7GB moved=20
+moved data-v2/raw-2026102412.jsonl.gz (920392754B) freed=8GB moved=21
+moved data-v2/raw-2026102413.jsonl.gz (831864651B) freed=8GB moved=22
+moved data-v2/raw-2026102414.jsonl.gz (1212780632B) freed=10GB moved=23
+moved data-v2/raw-2026102415.jsonl.gz (1297009814B) freed=11GB moved=24
+moved data-v2/raw-2026102416.jsonl.gz (985459613B) freed=12GB moved=25
+offload start 2026-11-03T14:37:51Z cutoff=1793543871
+moved data-v2/raw-2026102418.jsonl.gz (567057400B) freed=0GB moved=1
+HB 2026-11-03T14:38:02Z moved=1 freed=0GB mism=0 12G avail
+moved data-v2/raw-2026102419.jsonl.gz (840131563B) freed=1GB moved=2
+moved data-v2/raw-2026102420.jsonl.gz (729022337B) freed=2GB moved=3
+moved data-v2/raw-2026102421.jsonl.gz (489155954B) freed=2GB moved=4
+moved data-v2/raw-2026102422.jsonl.gz (509186336B) freed=3GB moved=5
+moved data-v2/raw-2026102423.jsonl.gz (596766138B) freed=3GB moved=6
+moved data-v2/raw-2026102500.jsonl.gz (442215655B) freed=4GB moved=7
+moved data-v2/raw-2026102501.jsonl.gz (563258410B) freed=4GB moved=8
+moved data-v2/raw-2026102502.jsonl.gz (489030340B) freed=5GB moved=9
+moved data-v2/raw-2026102503.jsonl.gz (412151832B) freed=5GB moved=10
+moved data-v2/raw-2026102504.jsonl.gz (297160240B) freed=5GB moved=11
+moved data-v2/raw-2026102505.jsonl.gz (540906587B) freed=6GB moved=12
+moved data-v2/raw-2026102506.jsonl.gz (408269187B) freed=6GB moved=13
+moved data-v2/raw-2026102507.jsonl.gz (280367385B) freed=7GB moved=14
+moved data-v2/raw-2026102508.jsonl.gz (228789313B) freed=7GB moved=15
+moved data-v2/raw-2026102509.jsonl.gz (129565191B) freed=7GB moved=16
+moved data-v2/raw-2026102510.jsonl.gz (138017956B) freed=7GB moved=17
+moved data-v2/raw-2026102511.jsonl.gz (640820133B) freed=8GB moved=18
+moved data-v2/raw-2026102512.jsonl.gz (894168383B) freed=9GB moved=19
+moved data-v2/raw-2026102513.jsonl.gz (1148069013B) freed=10GB moved=20
+moved data-v2/raw-2026102514.jsonl.gz (1243197526B) freed=11GB moved=21
+moved data-v2/raw-2026102515.jsonl.gz (1080263538B) freed=12GB moved=22
+moved data-v2/raw-2026102516.jsonl.gz (1134270087B) freed=13GB moved=23
+offload start 2026-11-03T14:42:35Z cutoff=1793544155
+moved data-v2/raw-2026102517.jsonl.gz (988592064B) freed=14GB moved=24
+moved data-v2/raw-2026102518.jsonl.gz (790439516B) freed=0GB moved=1
+HB 2026-11-03T14:42:50Z moved=1 freed=0GB mism=0 26G avail
+moved data-v2/raw-2026102519.jsonl.gz (779314797B) freed=15GB moved=25
+moved data-v2/raw-2026102520.jsonl.gz (798395747B) freed=1GB moved=2
+moved data-v2/raw-2026102521.jsonl.gz (533570777B) freed=16GB moved=26
+moved data-v2/raw-2026102522.jsonl.gz (288080732B) freed=1GB moved=3
+moved data-v2/raw-2026102523.jsonl.gz (426190027B) freed=16GB moved=27
+moved data-v2/raw-2026102523.jsonl.gz (426190027B) freed=2GB moved=4
+moved data-v2/raw-2026102600.jsonl.gz (337217095B) freed=2GB moved=5
+moved data-v2/raw-2026102600.jsonl.gz (337217095B) freed=16GB moved=28
+moved data-v2/raw-2026102602.jsonl.gz (196254787B) freed=17GB moved=29
+moved data-v2/raw-2026102601.jsonl.gz (363132239B) freed=3GB moved=6
+rsync-fail data-v2/raw-2026102601.jsonl.gz
+moved data-v2/raw-2026102604.jsonl.gz (52961517B) freed=17GB moved=30
+moved data-v2/raw-2026102603.jsonl.gz (95481829B) freed=3GB moved=7
+rsync-fail data-v2/raw-2026102603.jsonl.gz
+moved data-v2/raw-2026102605.jsonl.gz (14069217B) freed=3GB moved=8
+moved data-v2/raw-2026102605.jsonl.gz (14069217B) freed=17GB moved=31
+moved data-v2/raw-2026102606.jsonl.gz (5607863B) freed=3GB moved=9
+moved data-v2/raw-2026102606.jsonl.gz (5607863B) freed=17GB moved=32
+moved data-v2/raw-2026102607.jsonl.gz (414480B) freed=3GB moved=10
+moved data-v2/raw-2026102607.jsonl.gz (414480B) freed=17GB moved=33
+moved data-v2/raw-2026102612.jsonl.gz (118315099B) freed=3GB moved=11
+moved data-v2/raw-2026102613.jsonl.gz (116339862B) freed=17GB moved=34
+rsync-fail data-v2/raw-2026102613.jsonl.gz
+moved data-v2/raw-2026102614.jsonl.gz (106801034B) freed=17GB moved=35
+moved data-v2/raw-2026102615.jsonl.gz (130102136B) freed=3GB moved=12
+rsync-fail data-v2/raw-2026102615.jsonl.gz
+moved data-v2/raw-2026102616.jsonl.gz (269769905B) freed=17GB moved=36
+moved data-v2/raw-2026102616.jsonl.gz (269769905B) freed=3GB moved=13
+moved data-v2/raw-2026102617.jsonl.gz (342636676B) freed=17GB moved=37
+moved data-v2/raw-2026102618.jsonl.gz (387652805B) freed=4GB moved=14
+rsync-fail data-v2/raw-2026102618.jsonl.gz
+target reached: 32479657984B free
+offload end 2026-11-03T14:44:16Z moved=37 freed=17GB mism=0 skipped=4
+moved data-v2/raw-2026102619.jsonl.gz (388323465B) freed=4GB moved=15
+target reached: 32867868672B free
+offload end 2026-11-03T14:44:22Z moved=15 freed=4GB mism=0 skipped=1
+offload start 2026-11-03T14:47:48Z cutoff=1793544468
+target reached: 32866177024B free
+offload end 2026-11-03T14:47:48Z moved=0 freed=0GB mism=0 skipped=0
+offload start 2026-11-03T14:47:49Z cutoff=1793544469
+target reached: 32866177024B free
+offload end 2026-11-03T14:47:49Z moved=0 freed=0GB mism=0 skipped=0
