@@ -1,22 +1,19 @@
 # Status: sports-mece-shadow
 
-State: OPEN -> UNBLOCKED (bounded sim run verified); full-window sim next
-Last heartbeat: 2026-11-02 ~15:5xZ
-Output: shadow/data/ + /mnt/HC_Volume_107257520/pkarbs/shadow/data-v2/ (raw); status files under agent/status/
+State: OPEN -> RUNNING (full 7-day bounded sim in flight, read-only replay)
+Last heartbeat: 2026-11-03T00:48Z
+Output: /mnt/HC_Volume_107257520/pkarbs/shadow/data-v2/ (raw); runs.jsonl growing (00:48Z); status under agent/status/
 
 ## What is done
 - Shadow logger (shadow/shadow_logger.py) ran 8+ days. 7-day requirement COMPLETE (6,742 runs / 1,314 events).
-- **Bounded-load fix APPLIED + VERIFIED (2 Nov, Nick-approved):** shadow_sim.py now takes --limit N /
-  --days D; line 81 no longer loads the 3.7 GB events.jsonl unconditionally; runs outside the loaded
-  slice are dropped, not crashed. Verified live on data-v2: `--limit 200` exit 0, ~40 MB RSS, full
-  per-delay report lines. Revert: shadow_sim.py.pre-bounded.
+- **Bounded-load fix APPLIED + VERIFIED (2 Nov, Nick-approved):** shadow_sim.py now takes --limit N / --days D; line 81 no longer loads the 3.7 GB events.jsonl unconditionally. Verified live: --limit 200 exit 0, ~40 MB RSS. Revert: shadow_sim.py.pre-bounded.
+- **Concurrency resolved (2-3 Nov):** redundant duplicate sims killed earlier turn; exactly ONE bounded sim running now.
+
+## In flight
+- Full 7-day shadow-sim run (proc 3272310 + bash 3272307, `--data data-v2 --one-way 0.05 --delays 0,1,3,market --max-usd 500 --days 9`), started 2026-11-03 00:28Z, running ~100% CPU, RSS ~258 MB (under 400 MB cap), runs.jsonl updating (00:48Z). Will post the report to agent/outbox when it exits.
 
 ## Next
-- Run the daily sim over the completed 7-day window (single bounded run, `--days`, read-only replay)
-  and produce the report. This is the last unblocked step.
+- When the sim exits: write the results report to agent/outbox/shadow-sim-report.md and update this status to DONE.
 
 ## Errors
 - Previous sim attempts OOM'd on the full 3.7 GB events.jsonl (no bound). Resolved by the fix above.
-
-## Long-term (outside this task)
-- sports-mece live scoring stays separate; shadow only until scored.
