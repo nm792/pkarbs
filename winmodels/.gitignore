@@ -5,3 +5,5 @@ raw/us/trades/
 raw/soccer/gamma_events.json.gz
 raw/us/gamma_events.json.gz
 __pycache__/
+raw/esports/trades/
+raw/esports/gamma_events_2026-11-02_03.json.gz
