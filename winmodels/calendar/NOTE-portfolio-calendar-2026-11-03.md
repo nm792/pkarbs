@@ -1,14 +1,31 @@
-# Sports portfolio: estimated $/day by month, Nov 2026 - Oct 2027 (3 Nov 2026)
+# Sports portfolio: estimated $/day by month (3 Nov 2026)
 
-**Bottom line.** These figures assume every sport earns what LoL earns per dollar of Polymarket volume. On that assumption the portfolio clears $500/day in every month, even without NFL and tennis (December is lowest, ~$525). But only LoL has a per-game profit at all, and it is simulated. NBA, the one other sport tested, did **not** carry LoL's edge through to the result. So read this table as "what each sport would add if the LoL rule works there", not as an expected profit.
+**Bottom line.** These figures assume every sport earns what LoL earns per dollar of Polymarket volume. The volumes are what Polymarket actually traded in the same month over the last 12 months. On that basis the portfolio falls short of $500/day in **Nov, Dec and Mar** ($340-414/day). It clears $500 from Apr to Oct, peaking at about $1,900. Without NFL and tennis, where rn1 already trades, it also falls short in Jan (barely) and Mar. Polymarket volume grew strongly over the year (CS2 Oct 2026 was 9x Nov 2025), so next year's weak months will probably be higher than last year's. But only LoL has a per-game profit, and it is simulated. NBA, the one other sport tested, did **not** carry the edge through to the result. So read this as "what each sport would add if the LoL rule works there".
+
+## $/day by month, last 12 months of measured Polymarket volume x LoL yield
+| Sport | 2025-11 | 2025-12 | 2026-01 | 2026-02 | 2026-03 | 2026-04 | 2026-05 | 2026-06 | 2026-07 | 2026-08 | 2026-09 | 2026-10 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| LoL | 95 | 43 | 139 | 269 | 86 | 386 | 380 | 190 | 494 | 596 | 360 | 379 |
+| CS2 | 44 | 74 | 76 | 189 | 82 | 229 | 222 | 347 | 207 | 317 | 282 | 398 |
+| Dota 2 | 26 | 37 | 19 | 72 | 35 | 151 | 164 | 101 | 140 | 370 | 160 | 215 |
+| NFL | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 25 | 342 | 356 |
+| NHL | 176 | 184 | 264 | 103 | 109 | 230 | 71 | 20 | 0 | 0 | 5 | 67 |
+| Tennis (ATP+WTA) | 69 | 4 | 61 | 259 | 80 | 403 | 456 | 508 | 333 | 569 | 593 | 507 |
+| Cricket (intl) | 0 | 1 | 4 | 50 | 20 | 4 | 5 | 18 | 19 | 3 | 8 | 15 |
+| Cricket (IPL) | 0 | 0 | 0 | 0 | 0 | 80 | 95 | 14 | 0 | 0 | 0 | 0 |
+| Rugby | 0 | 0 | 0 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| **Total** | **410** | **343** | **563** | **945** | **414** | **1,484** | **1,393** | **1,200** | **1,192** | **1,880** | **1,750** | **1,937** |
+| Without NFL and tennis | 341 | 339 | 502 | 686 | 334 | 1,081 | 937 | 692 | 859 | 1,287 | 814 | 1,074 |
+
+NFL shows 0 before Aug 2026 because Polymarket's current NFL series has no events before that date (a data gap, not a real zero). The 2025 season ran Sep-Feb at roughly $340-360/day on this yield. The data and script are in calendar/monthly_volume_2025-11_2026-10.json and pull_monthly.py.
 
 ## How the numbers are built
 - **$/day = yield x Polymarket volume per day x season factor.**
 - **Yield (estimate):** about $60 profit per LoL game (LoL thread, the level Nick accepts) x about 3 games per series, divided by $5.0M of volume per LoL series = **0.0036% of volume**. This is simulated, in-sample, and from before the fill-rule fix. The LoL thread is rerunning it with corrected fills.
 - **Volume per day (measured):** Polymarket events by league, 22 Oct-2 Nov 2026, in `winmodels/rank/`. It includes pre-game volume; NBA in-play is about 45% of the total.
-- **Season factor (estimate):** volume in each month compared with late October, taken from usual season calendars, not measured: LoL Worlds ends mid-Nov, off-season in Dec, MSI in Jul, Worlds in Oct; NFL Sep-early Feb; NHL Oct-Jun; tennis off-season in Dec; IPL Mar-May; Six Nations Feb-Mar; Rugby World Cup Oct 2027.
+- **Season factor (estimate, earlier version only):** volume in each month compared with late October, taken from usual season calendars, not measured: LoL Worlds ends mid-Nov, off-season in Dec, MSI in Jul, Worlds in Oct; NFL Sep-early Feb; NHL Oct-Jun; tennis off-season in Dec; IPL Mar-May; Six Nations Feb-Mar; Rugby World Cup Oct 2027.
 
-## $/day by month (estimate)
+## Earlier version: season guesses applied to late-Oct 2026 volume (kept for comparison)
 | Sport | Nov | Dec | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | LoL | 309 | 31 | 186 | 248 | 248 | 248 | 186 | 248 | 371 | 248 | 248 | 619 |
@@ -22,7 +39,7 @@
 | **Total** | **1,833** | **984** | **1,648** | **1,525** | **1,591** | **1,598** | **1,657** | **1,687** | **1,600** | **1,464** | **1,896** | **2,285** |
 | Without NFL and tennis | 1,116 | **525** | 702 | 979 | 1,074 | 1,133 | 1,089 | 1,067 | 1,032 | 947 | 1,012 | 1,361 |
 
-Months below $500: none on these assumptions. December is the weak month: LoL is off, tennis is off, and esports slow down.
+On late-Oct volume, no month is below $500 and December is the weakest. The measured table above is the better basis.
 
 ## What this does not show
 - **Whether the edge exists outside LoL.** In NBA, the event-only rule tested on held-out games made +1-4% at 1 minute with a 0-3 s feed, but lost to the result and filled only about $200 per game. CS2 and Dota 2 cannot be tested yet, because our logged score feed is too slow and sparse (a raw websocket capture to check this is running, 3 Nov 05:46-06:46Z).
@@ -30,4 +47,4 @@ Months below $500: none on these assumptions. December is the weak month: LoL is
 - **rn1 already competes in tennis (3.6-6.7% share) and NFL (1.9%).** NFL was dropped on 2 Nov after score-timing tests showed no effect.
 - **Capacity:** the yield assumes our fills grow with volume, without moving the price or the queue.
 
-Confidence 4/10. To reach 9 we need: (1) the LoL rerun with corrected fills, giving a real per-game profit; (2) held-out results for CS2 and Dota 2 on a fast feed; (3) volume measured month by month from Polymarket's history instead of season guesses (this is pullable from gamma by series and month).
+Confidence 5/10: the volumes are now measured, but the profit rate is not. To reach 9 we need: (1) the LoL rerun with corrected fills, giving a real per-game profit; (2) held-out results for CS2 and Dota 2 on a fast feed.
