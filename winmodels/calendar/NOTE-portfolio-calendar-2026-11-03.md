@@ -68,3 +68,16 @@ On late-Oct volume, no month is below $500 and December is the weakest. The meas
 - **Capacity:** the yield assumes our fills grow with volume, without moving the price or the queue.
 
 Confidence 5/10: the volumes are now measured, but the profit rate is not. To reach 9 we need: (1) the LoL rerun with corrected fills, giving a real per-game profit; (2) held-out results for CS2 and Dota 2 on a fast feed.
+
+## Addendum 3 Nov 06:05Z: AFL and rugby tournaments (measured volume, gamma API)
+**AFL.** Polymarket listed AFL only from 8 Aug 2026 (series 12563; AFLW 12564), so it covered the end of the season and finals only. AFL men: 36 games, $126k total; one game took $96k (North Melbourne v Geelong, 8 Aug), the rest $0.4-9k each. AFLW: 101 games, $8k total. No Grand Final or premiership market found. At the LoL yield (0.0036% of volume) that is about $0.10 per game, so AFL does not fill March unless volume grows 100x+. rn1's share was not checked (the activity API timed out); it does not change the answer at this size.
+
+**Rugby by competition, Jan-Oct 2026** (sum of event volume, by listing month): Six Nations $1.15M (9 matches with volume, about $128k per match; 6 later-round events show $0), Super Rugby Pacific $0.49M, Top 14 $0.45M, Champions Cup $0.28M, Premiership $0.19M, URC $0.17M, NZ v SA series $0.07M. The Rugby Championship series has no events. Total about $2.8M.
+
+**Tournament line (estimate, scaled from Six Nations 2026):**
+| Event | Dates | Volume estimate | Our profit at LoL yield |
+|---|---|---|---|
+| Six Nations 2027 | Feb-Mar 2027, 15 matches | $1.2-2.5M (2026 level up to 2x growth) | $40-90 total |
+| Rugby World Cup 2027 | 1 Oct-13 Nov 2027, 48 matches | $6-18M ($128k per match, up to 3x for a global event) | $200-650 total, about $5-15/day |
+
+Only RWC 2023 had one market on Polymarket ($7.8k), so there is no direct comparable. The profit column uses LoL's yield. In markets with no rn1 we could take a larger share of fills; even at 1% of volume and 1% net (rn1's maker margin), RWC 2027 would give 1% x 1% x $6-18M = $600-1,800 total. Rugby stays a capability build (models, feeds, timing) for these events, not a profit line.
