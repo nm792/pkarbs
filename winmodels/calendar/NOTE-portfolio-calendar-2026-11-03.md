@@ -2,6 +2,26 @@
 
 **Bottom line.** These figures assume every sport earns what LoL earns per dollar of Polymarket volume. The volumes are what Polymarket actually traded in the same month over the last 12 months. On that basis the portfolio falls short of $500/day in **Nov, Dec and Mar** ($340-414/day). It clears $500 from Apr to Oct, peaking at about $1,900. Without NFL and tennis, where rn1 already trades, it also falls short in Jan (barely) and Mar. Polymarket volume grew strongly over the year (CS2 Oct 2026 was 9x Nov 2025), so next year's weak months will probably be higher than last year's. But only LoL has a per-game profit, and it is simulated. NBA, the one other sport tested, did **not** carry the edge through to the result. So read this as "what each sport would add if the LoL rule works there".
 
+## Update 05:55Z: range from the LoL rerun with corrected fills
+The LoL thread reran with fills within 1% of the bid and a 2 s delay. In-sample: 473 games, $150k filled, +$22.7k to result, about **$48/game**. Holdout: +$13.3k over 174 games, about **$76/game**. These replace the $60/game assumption as a low/high range. Yield per $ of volume is still scaled by an assumed $1.67M of Polymarket volume per LoL game, which is the Worlds level. Ordinary-league games trade less, so the true yield per $ is probably higher, and so are these figures.
+
+| Month | All sports, low ($48/game) | High ($76/game) | Without NFL and tennis, low | High |
+|---|---|---|---|---|
+| 2025-11 | 328 | 519 | 272 | 431 |
+| 2025-12 | 275 | 435 | 272 | 430 |
+| 2026-01 | 450 | 713 | 402 | 636 |
+| 2026-02 | 756 | 1,197 | 549 | 869 |
+| 2026-03 | 331 | 524 | 267 | 422 |
+| 2026-04 | 1,187 | 1,879 | 864 | 1,369 |
+| 2026-05 | 1,114 | 1,764 | 750 | 1,187 |
+| 2026-06 | 960 | 1,520 | 554 | 877 |
+| 2026-07 | 954 | 1,510 | 688 | 1,089 |
+| 2026-08 | 1,504 | 2,382 | 1,030 | 1,630 |
+| 2026-09 | 1,400 | 2,216 | 652 | 1,032 |
+| 2026-10 | 1,549 | 2,453 | 859 | 1,360 |
+
+Average over the 12 months: all sports $901-1,426/day; without NFL and tennis $596-944/day. Months below $500 on the low case: Nov, Dec, Jan, Mar (and Nov, Dec, Mar on the high case too, apart from Nov all-sports at $519 and Mar at $524). The table below uses $60/game per sport.
+
 ## $/day by month, last 12 months of measured Polymarket volume x LoL yield
 | Sport | 2025-11 | 2025-12 | 2026-01 | 2026-02 | 2026-03 | 2026-04 | 2026-05 | 2026-06 | 2026-07 | 2026-08 | 2026-09 | 2026-10 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
