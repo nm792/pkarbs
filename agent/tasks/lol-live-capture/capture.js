@@ -30,7 +30,13 @@ async function pollFrames() {
     const t0 = Date.now();
     await Promise.all(GAMES.map(async (gid) => {
       try {
-        const r = await fetch(`https://feed.lolesports.com/livestats/v1/window/${gid}`, { headers: { 'User-Agent': UA } });
+        // Live games: without startingTime the feed returns the FIRST frames of the game. It rejects (400) a startingTime
+        // newer than ~50 s, so ask for the newest accepted 10 s boundary (measured 3 Nov: newest frame 50-60 s old).
+        let r, st = Math.floor((Date.now() - 50000) / 10000) * 10000;
+        for (let k = 0; k < 3; k++, st -= 10000) {
+          r = await fetch(`https://feed.lolesports.com/livestats/v1/window/${gid}?startingTime=${new Date(st).toISOString().slice(0, 19)}Z`, { headers: { 'User-Agent': UA } });
+          if (r.status !== 400) break;
+        }
         const recv = Date.now();
         let newest = null, n = 0;
         if (r.status === 200) {

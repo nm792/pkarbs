@@ -1,0 +1,10 @@
+frame winner vs Polymarket resolution: {'ok': 832, 'bad': 59}
+set        cap series games $fill/game  1min% res$/game   res$ 90% (series)
+in         500    135   341         51   8.96       0.1          [-10, 9]/g
+HOLDOUT    500    235   495         66   8.27      11.4          [-1, 26]/g
+all        500    370   836         60   8.51       6.8          [-2, 16]/g
+in        2000    135   341         80   8.70      -6.8         [-30, 14]/g
+HOLDOUT   2000    235   495        113   8.38       9.1         [-14, 32]/g
+all       2000    370   836        100   8.49       2.6         [-14, 19]/g
+
+[exited with code 0]
