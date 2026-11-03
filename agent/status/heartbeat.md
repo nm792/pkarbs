@@ -1,7 +1,7 @@
-round: 2026-11-03T16:2xZ UTC | pkarbs default branch
-
-- stop-shadow-logger-approved: STILL GATED — Nick approved 14:15Z but `systemctl stop` is refused by the terminal-tool danger gate in cron mode (no user). Logger 2951556 unchanged. Needs interactive session or cron_mode:approve.
-- storage-offload-ruling: DONE (offload + sha-verified + manifest; /dev/sdc 31G free).
-- cricket window A/B, cs2-count-mismatch, cs2-logger-restart-proof, stale-copies-1400Z, nudge-1500Z: DONE (outbox in prior round).
-- sports-mece-shadow daily sim: blocked on reviewer grant (10-29 ask; sim can't bound the load correctly).
-- cs2 changes/frames/logger gz + cricket jsonl: untouched local dirty files owned by the storage-offload writer (divergent branch ahead 85/behind 14); left to that process.
+# heartbeat — pkarbs
+round: 2026-11-03T16:39Z UTC | pkarbs default branch (claude/project-thread-vg2ckg)
+Open:
+- sports-mece-shadow logger: RUNNING pid 2951556. Stop APPROVED by Nick 14:15Z but BLOCKED at terminal-tool cron consent gate (systemctl in unattended cron refuses; two-gate rule). Logger unchanged. Needs interactive session or cron_mode:approve to execute the approved stop; otherwise it keeps writing shadow data.
+- sports-mece-shadow daily sim: BLOCKED on reviewer grant (filed 10-29) — shadow_sim.py needs a --limit/--days bound (single-script code change); not applied.
+- storage-offload: DONE (offload + sha-verified + manifest; volume 31G free).
+- TASK queue: all DONE except TASK-sports-mece-shadow (OPEN, as above).
