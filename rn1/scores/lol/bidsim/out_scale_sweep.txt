@@ -1,0 +1,50 @@
+model: logistic on 1994 games; 281 backtest matches excluded
+frame winner vs Polymarket resolution: {'ok': 644, 'bad': 51}
+event betas (logit per unit, mean of LOGO fits): {'kills': 0.284, 'towers': 0.0, 'dragons': 0.126, 'barons': 0.023, 'inhibs': 0.051, 'gold': 0.401}
+set / lag / window                  ser    $fill  1min%      1min 90%   res%    res$ res$ 90% (series)  ex top5
+in-sample lag 2s win 10s            110    47838  15.48   [12.4,18.8]  15.19    7265      [1720,12815]     2235
+in-sample lag 2s win 30s            118    95057  11.37    [8.9,13.9]   9.92    9431      [1597,17101]     2378
+in-sample lag 2s win 60s            120   135635   7.90     [6.1,9.8]   3.27    4437     [-4385,13609]    -1826
+in-sample lag 5s win 30s            117    80168   9.30    [6.7,11.9]   9.77    7832       [383,15445]      863
+in-sample lag 10s win 30s           112    56904   5.31     [2.8,7.7]   1.12     639      [-4370,5460]    -2324
+in-sample lag 10s win 60s           119   109483   2.22     [0.7,3.7]  -5.46   -5983     [-13407,1588]   -10651
+in-sample lag 20s win 60s           118    90225  -0.32    [-2.1,1.4]  -9.02   -8135     [-15369,-762]   -12721
+HOLDOUT lag 2s win 10s              140    68101  16.56   [12.3,21.3]  17.21   11723      [3790,20410]     3487
+HOLDOUT lag 2s win 30s              156   137858  12.59   [10.1,15.5]  14.55   20063      [8787,31666]     9652
+HOLDOUT lag 2s win 60s              157   187892  10.37    [8.2,12.7]   8.58   16119      [1438,31266]     4076
+HOLDOUT lag 5s win 30s              154   116338  11.08    [8.6,13.9]  11.76   13679      [3869,24100]     5353
+HOLDOUT lag 10s win 30s             146    81826   7.89    [5.7,10.4]  10.90    8920      [1909,16847]     2261
+HOLDOUT lag 10s win 60s             153   154846   4.72     [2.8,6.9]   3.79    5875     [-5480,17518]    -2969
+HOLDOUT lag 20s win 60s             144   123972   2.48     [0.3,4.6]   2.30    2845     [-7128,13231]    -4292
+all lag 2s win 10s                  248   115939  16.11   [13.2,19.4]  16.38   18988      [9249,29381]    10338
+all lag 2s win 30s                  270   232915  12.09   [10.3,14.0]  12.66   29494     [15712,43379]    18572
+all lag 2s win 60s                  272   323527   9.33    [7.8,11.0]   6.35   20555      [3652,38044]     8308
+all lag 5s win 30s                  267   196506  10.35    [8.5,12.4]  10.95   21512      [8952,34366]    12141
+all lag 10s win 30s                 255   138730   6.83     [5.1,8.6]   6.89    9559       [713,18514]     2901
+all lag 10s win 60s                 269   264329   3.69     [2.5,5.0]  -0.04    -108    [-13429,14335]    -8951
+all lag 20s win 60s                 260   214197   1.30    [-0.2,2.7]  -2.47   -5290     [-17940,7598]   -12427
+games loaded 644 holdout 345
+setting                                          set games  $fill/g  1min%  res$/g p5 res$/g  worst g
+base: win 30 s, cap 500, minj 1c             holdout   345      400  12.59    58.2      -509    -1426
+base: win 30 s, cap 500, minj 1c                 all   644      362  12.09    45.8      -420    -1574
+win 60 s                                     holdout   345      545  10.37    46.7      -651    -1569
+win 60 s                                         all   644      502   9.33    31.9      -596    -1800
+win 120 s                                    holdout   345      689   8.93    34.6      -864    -2014
+win 120 s                                        all   644      650   7.67    22.1      -783    -2014
+cap 1000                                     holdout   345      547  12.98    85.6      -739    -2560
+cap 1000                                         all   644      499  12.33    65.6      -620    -2560
+cap 2000                                     holdout   345      692  13.43   123.8      -962    -4211
+cap 2000                                         all   644      645  12.59    94.7      -836    -4211
+no cap (within 1% of bid)                    holdout   345      926  13.30   113.3     -1105   -14795
+no cap (within 1% of bid)                        all   644      938  12.88   143.7     -1017   -14795
+minj 0.5c                                    holdout   345      409  12.43    59.7      -509    -1426
+minj 0.5c                                        all   644      374  11.83    47.2      -403    -1574
+minj 2c                                      holdout   345      380  12.65    55.5      -519    -1426
+minj 2c                                          all   644      334  12.56    45.7      -421    -1426
+win 60 + no cap                              holdout   345     1289  10.25    85.7     -1611   -14795
+win 60 + no cap                                  all   644     1303   9.47   118.2     -1435   -14795
+win 60 + no cap + loss limit $500/series     holdout   345     1142  10.09    87.6     -1389   -14795
+win 60 + no cap + loss limit $500/series         all   644     1109   9.68   119.3     -1211   -14795
+win 60 + no cap + loss limit $1000/series    holdout   345     1226  10.31    97.7     -1458   -14795
+win 60 + no cap + loss limit $1000/series        all   644     1206   9.69   123.2     -1288   -14795
+games 644 holdout 345
