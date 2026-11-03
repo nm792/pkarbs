@@ -43,7 +43,7 @@ Fill-check fixes (TASK-rescan-fillcheck):
 
 Usage: python3 shadow_sim.py --data data/ --runs rescan/runs.jsonl --one-way 0.05 --delays 0,1,3,market
 """
-import argparse, glob, gzip, json, math, os, csv
+import argparse, glob, gzip, json, math, os, csv, time
 from datetime import datetime, timezone
 from books import Book, Replay, read_lines
 from collections import defaultdict
@@ -76,24 +76,38 @@ def mirror(levels):
     return {round(1 - p, 6): s for p, s in levels.items()}
 
 
-def load(data, runs_path=None):
+def load(data, runs_path=None, limit=None, days=None, now=None):
     legs, by_token = {}, {}
+    cutoff = (now - days * 86400.0) if (days and now) else None
+    n_ev = 0
     for line in open(os.path.join(data, "events.jsonl")):
         ev = json.loads(line)
+        if limit is not None and n_ev >= limit:
+            break
+        n_ev += 1
         legs[ev["id"]] = ev["legs"]
         for leg in ev["legs"]:
             by_token[leg["yes"]] = leg
     runs_path = runs_path or os.path.join(data, "runs.jsonl")
     runs = [json.loads(l) for l in open(runs_path)] if os.path.exists(runs_path) else []
+    if cutoff is not None:
+        runs = [r for r in runs if r.get("t0", 0) >= cutoff]
     old = 0
+    kept = []
     for r in runs:
         r.setdefault("side", "yes")
         r.setdefault("payout", 1)
         if "assets" in r:
+            if limit is not None and not all(x in by_token for x in r["assets"]):
+                continue  # bounded load: drop runs whose legs are outside the loaded events slice
             r["legs"] = [by_token[x] for x in r["assets"]]  # leg list as it was at t0
         else:  # first-logger runs: the leg list at t0 is unknown, use rescan.py instead
+            if r.get("event") not in legs:
+                continue  # bounded load: the run's event is outside the loaded slice
             r["legs"] = legs[r["event"]]
             old += 1
+        kept.append(r)
+    runs = kept
     if old:
         print(f"warning: {old} runs have no leg list from t0; quotes may pair with the wrong legs. "
               f"Use rescan.py output (--runs).")
@@ -164,12 +178,16 @@ def main():
     ap.add_argument("--gap-s", type=float, default=5.0, help="receive-time jump that resets every book and unseeds every leg")
     ap.add_argument("--taker-rebate", type=float, default=0.0, help="fraction of taker fees refunded")
     ap.add_argument("--per-run", help="write one CSV row per run and delay to this path")
+    ap.add_argument("--limit", type=int, default=None, help="max events to load from events.jsonl (bounded-load; the full file is ~3.5 GB)")
+    ap.add_argument("--days", type=float, default=None, help="only runs with t0 within this many days of --now (default: now)")
+    ap.add_argument("--now", type=float, default=None, help="reference time for --days, epoch seconds (default: time.time())")
     ap.add_argument("--partial", choices=["dump", "complete", "best"], default="dump",
                     help="partial fill exit: sell extra legs at the bid, buy the missing legs at the ask, "
                          "or per run whichever pays more (both priced on the same unwind-time book)")
     a = ap.parse_args()
 
-    runs = load(a.data, a.runs)
+    runs = load(a.data, a.runs, limit=a.limit, days=a.days,
+                now=a.now if a.now is not None else (time.time()))
     delays = a.delays.split(",")
     queries = []
     for i, r in enumerate(runs):
