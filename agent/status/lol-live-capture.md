@@ -1,7 +1,7 @@
 # Status: lol-live-capture (Worlds 3-6 Nov 2026)
 
 State: OPEN (scheduled) — ready, not yet runnable
-Last heartbeat: 2026-11-02 06:35Z
+Last heartbeat: 2026-11-03 06:05Z (NTP sync confirmed for TES-IG feed-delay capture)
 
 ## Task
 Within each of the four Game-1 windows (22:00Z each, 3-6 Nov: TES-IG, GEN-LYON, DK-BLG, T1-KC), measure how much later the Polymarket Game-1 winner price moves after each Riot livestats event, on the book (1 s REST polls) and on trades.
