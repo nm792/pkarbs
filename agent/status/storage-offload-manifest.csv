@@ -2,3 +2,4 @@ path,bytes,sha256,box_path,copied_at
 rescan-data/raw-2026102317.jsonl.gz,508110621,8c0b45a3a937315a389a18ffcee167e88e71c507340e3e3c798c22a2e2d956bd,pkarbs/shadow/rescan-data/raw-2026102317.jsonl.gz,2026-11-03T14:20:56Z
 rescan-data/raw-2026102320.jsonl.gz,557650962,113c1ed76c02bfeb9ed12c4b780e448ef53cb50e125f631ab3536e2a84202d69,pkarbs/shadow/rescan-data/raw-2026102320.jsonl.gz,2026-11-03T14:23:24Z
 rescan-data/raw-2026102321.jsonl.gz,201160758,eed095f7c62a794c84ab9b070241d28a2dbeca3ef1afcf20bd4995b62551e65b,pkarbs/shadow/rescan-data/raw-2026102321.jsonl.gz,2026-11-03T14:24:30Z
+rescan-data/raw-2026102311.jsonl.gz,28060751,e964a6973b07b95767e61fb0cc673429fb953ebd7c10068038da3753f498e58a,pkarbs/shadow/rescan-data/raw-2026102311.jsonl.gz,2026-11-03T14:25:08Z
