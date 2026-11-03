@@ -127,7 +127,7 @@ def fair_fn2(G, M, beta, max_win=10, caught=0.7, k=1.0):
         return None
     return f
 
-def sim(G, M, d, mode='mkt', cancel=None, strict=False, fairf=None):
+def sim(G, M, d, mode='mkt', cancel=None, strict=False, fairf=None, pull_hurt=False):
     fills = []
     for (T, _, ph, sell0, sz) in G['pr']:
         if not (G['t0'] <= T <= G['t1']): continue
@@ -136,7 +136,16 @@ def sim(G, M, d, mode='mkt', cancel=None, strict=False, fairf=None):
         r1 = 1 - ref; inwin = False
         if mode in ('fair', 'min'):
             fv = fairf(T)
-            if isinstance(fv, tuple):
+            if isinstance(fv, tuple) and mode == 'min':
+                # RULE: never above market. Model may only lower (or pull) bids.
+                inwin = True
+                fk = min(max(fv[0], 0.01), 0.99)
+                if pull_hurt:
+                    ref, r1 = (ref, None) if fv[1] > 0 else (None, r1)
+                else:
+                    ref, r1 = min(ref, fk), min(r1, 1 - fk)
+                fv = None
+            elif isinstance(fv, tuple):
                 inwin = True
                 fk, sg = fv; fk = min(max(fk, 0.01), 0.99)
                 ref, r1 = (fk, None) if sg > 0 else (None, 1 - fk)
@@ -147,13 +156,16 @@ def sim(G, M, d, mode='mkt', cancel=None, strict=False, fairf=None):
                 if mode == 'fair': ref, r1 = fv, 1 - fv
                 else: ref, r1 = min(ref, fv), min(1 - ref, 1 - fv)   # model may only LOWER our bids
         if cancel is not None and not inwin and any(st + cancel <= T < st + 30 for (st, _, _, _) in G['evs']): continue
+        mk = M.at(T - QDELAY)
         if sell0:
             if ref is None: continue
-            b = ref * (1 - d); hit = ph < b - 1e-9 if strict else ph <= b + 1e-9
+            b = ref * (1 - d)
+            if mode in ('mkt', 'min'): assert b <= mk * (1 - d) + 1e-9; hit = ph < b - 1e-9 if strict else ph <= b + 1e-9
             if hit: fills.append((T, 0, b, min(sz, Q), inwin))
         else:
             if r1 is None: continue
             b = r1 * (1 - d); p1 = 1 - ph
+            if mode in ('mkt', 'min'): assert b <= (1 - mk) * (1 - d) + 1e-9
             hit = p1 < b - 1e-9 if strict else p1 <= b + 1e-9
             if hit: fills.append((T, 1, b, min(sz, Q), inwin))
     rows = []

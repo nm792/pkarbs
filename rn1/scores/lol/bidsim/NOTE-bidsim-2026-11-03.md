@@ -34,3 +34,15 @@ Per game (cancel 3 s, d 2.5%), entry+1-min: -0.9%, +8.3%, +1.8%, -3.6%, +2.3%, -
 - Mid is from prints (1 s timestamps), not the book. Real book captures (QFs 3-6 Nov) will replace it.
 - Event cancel assumes we see livestats at the frame timestamp; real feed delay is unmeasured.
 - 6 games, Game 1 only. Confidence 5/10.
+
+## Rerun 3 Nov 04:30Z: all bids at or below market (asserted in code)
+Rule: bid = min(market, model fair) x (1 - d). The model may only lower or pull bids, never raise them. Table: `out_below_market.txt`. The v1/v2 runs above bid above market on the favoured side, which is not rn1's strategy, so ignore them as rn1 tests.
+d = 2.5%, % of $ filled (entry + 1-min = price 1 min later minus our price):
+| setup | fills | $ filled | entry | 1-min | entry+1-min | games positive | rebate (est) |
+|---|---|---|---|---|---|---|---|
+| market only, never pull | 4,805 | $115k | +0.86% | -7.06% | -6.2% | 0/6 | +0.37% |
+| market only, pull 30 s after event (+3 s) | 2,087 | $43k | +1.79% | -0.58% | +1.2% | 3/6 | +0.41% |
+| model lowers hurt-side bid, never pull | 4,110 | $94k | +1.66% | -4.08% | -2.4% | 0/6 | +0.37% |
+| model pulls hurt-side bid, never pull | 3,958 | $90k | +1.11% | -2.80% | -1.7% | 0/6 | +0.37% |
+| model lowers hurt side + pull 30 s (+3 s) | 2,329 | $49k | +2.70% | -1.38% | +1.3% | 4/6 | +0.40% |
+Best: model lowers the hurt side, plus a 30 s pull: +1.3% + ~0.4% rebate to 1 min, about $640 + $200 on $49k over 6 games. That is close to rn1's profile (2.5% entry, 1.6% adverse). It is still positive in only 4 of 6 games. Confidence 5/10.
