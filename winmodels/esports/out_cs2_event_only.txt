@@ -1,0 +1,35 @@
+beta 0.07 R2 0.04059157855282025 n_events 246
+lag+0 W10: games 1 $fill 50 1min -1.12% [np.float64(-1.12), np.float64(0.0)] result -99.62% $-50 ex-top5 -99.62%
+lag+0 W30: games 3 $fill 124 1min 0.51% [np.float64(-1.12), np.float64(2.96)] result -99.6% $-123 ex-top5 -99.6%
+    ('Counter-Strike: Legacy vs TheMongolz (BO3) - ', 31, 1, -31)
+    ('Counter-Strike: FURIA vs FaZe (BO3) - IEM Bei', 0, 0, 0)
+    ('Counter-Strike: Natus Vincere vs Team Falcons', 0, 0, 0)
+    ('Counter-Strike: MOUZ vs TYLOO (BO3) - IEM Bei', 0, 0, 0)
+    ('Counter-Strike: 9z vs BetBoom Team (BO3) - IE', 0, 0, 0)
+    ('Counter-Strike: Aurora Gaming vs Liquid (BO3)', 42, 0, -42)
+    ('Counter-Strike: PARIVISION vs G2 (BO3) - IEM ', 50, -1, -50)
+    ('Counter-Strike: HAVU vs Nordic Valor (BO3) - ', 0, 0, 0)
+    ('Counter-Strike: KUUSAMO.gg vs BOJONG (BO3) - ', 0, 0, 0)
+    ('Counter-Strike: Pandaric eSports vs BLUEJAYS.', 0, 0, 0)
+    ('Counter-Strike: Playing Ducks vs Huskies eSpo', 0, 0, 0)
+    ('Counter-Strike: Leo Team vs Saint Sinners (BO', 0, 0, 0)
+    ('Counter-Strike: ex-ENCE vs SINQU (BO3) - NODW', 0, 0, 0)
+    ('Counter-Strike: megoshort vs Falcons Force (B', 0, 0, 0)
+    ('Counter-Strike: DNK vs Wingman (BO3) - Exort ', 0, 0, 0)
+    ('Counter-Strike: Liquid vs PARIVISION (BO3) - ', 0, 0, 0)
+lag+2 W10: games 1 $fill 50 1min -1.12% [np.float64(-1.12), np.float64(0.0)] result -99.62% $-50 ex-top5 -99.62%
+lag+2 W30: games 3 $fill 124 1min 0.51% [np.float64(-1.12), np.float64(2.96)] result -99.6% $-123 ex-top5 -99.6%
+/home/user/pkarbs/winmodels/common.py:114: RuntimeWarning: invalid value encountered in scalar divide
+  em = 100 * (P[:, 1] + P[:, 3]).sum() / u; pn = 100 * (P[:, 2] + P[:, 3]).sum() / u
+lag+5 W10: games 0 $fill 0 1min nan% [np.float64(0.0), np.float64(0.0)] result nan% $0 ex-top5 0.0%
+lag+5 W30: games 2 $fill 74 1min 1.62% [np.float64(0.0), np.float64(2.96)] result -99.58% $-73 ex-top5 -99.58%
+lag+10 W10: games 1 $fill 42 1min 0.64% [np.float64(0.0), np.float64(0.64)] result -99.57% $-42 ex-top5 -99.57%
+lag+10 W30: games 2 $fill 74 1min 1.62% [np.float64(0.0), np.float64(2.96)] result -99.58% $-73 ex-top5 -99.58%
+0.07 0.0 lag 0 games 3 fill 127 1min -0.72 result -99.59 usd -127
+0.07 0.0 lag 5 games 2 fill 77 1min -0.46 result -99.57 usd -76
+0.07 0.003 lag 0 games 3 fill 124 1min 0.51 result -99.6 usd -123
+0.07 0.003 lag 5 games 2 fill 74 1min 1.62 result -99.58 usd -73
+0.3 0.01 lag 0 games 3 fill 124 1min 0.51 result -99.6 usd -123
+0.3 0.01 lag 5 games 2 fill 74 1min 1.62 result -99.58 usd -73
+1.0 0.01 lag 0 games 5 fill 343 1min 0.06 result -66.54 usd -228
+1.0 0.01 lag 5 games 5 fill 262 1min -0.84 result -94.38 usd -248
