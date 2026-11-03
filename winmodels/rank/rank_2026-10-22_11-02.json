@@ -1,0 +1,1019 @@
+[
+{
+"prefix": "nba",
+"events": 159,
+"with_live_feed": 159,
+"pm_volume_m": 339.26,
+"rn1_bought_m": 0.314,
+"rn1_share_pct": 0.09,
+"volume_without_rn1_m": 338.94
+},
+{
+"prefix": "lol",
+"events": 35,
+"with_live_feed": 35,
+"pm_volume_m": 175.38,
+"rn1_bought_m": 0.058,
+"rn1_share_pct": 0.03,
+"volume_without_rn1_m": 175.32
+},
+{
+"prefix": "cs2",
+"events": 484,
+"with_live_feed": 484,
+"pm_volume_m": 121.17,
+"rn1_bought_m": 4.625,
+"rn1_share_pct": 3.82,
+"volume_without_rn1_m": 116.55
+},
+{
+"prefix": "nfl",
+"events": 93,
+"with_live_feed": 67,
+"pm_volume_m": 115.43,
+"rn1_bought_m": 2.178,
+"rn1_share_pct": 1.89,
+"volume_without_rn1_m": 113.25
+},
+{
+"prefix": "atp",
+"events": 702,
+"with_live_feed": 702,
+"pm_volume_m": 90.91,
+"rn1_bought_m": 3.26,
+"rn1_share_pct": 3.59,
+"volume_without_rn1_m": 87.65
+},
+{
+"prefix": "dota2",
+"events": 78,
+"with_live_feed": 78,
+"pm_volume_m": 80.91,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 80.91
+},
+{
+"prefix": "epl",
+"events": 207,
+"with_live_feed": 188,
+"pm_volume_m": 65.07,
+"rn1_bought_m": 1.602,
+"rn1_share_pct": 2.46,
+"volume_without_rn1_m": 63.47
+},
+{
+"prefix": "wta",
+"events": 246,
+"with_live_feed": 246,
+"pm_volume_m": 55.51,
+"rn1_bought_m": 3.736,
+"rn1_share_pct": 6.73,
+"volume_without_rn1_m": 51.77
+},
+{
+"prefix": "cfb",
+"events": 316,
+"with_live_feed": 316,
+"pm_volume_m": 52.01,
+"rn1_bought_m": 1.33,
+"rn1_share_pct": 2.56,
+"volume_without_rn1_m": 50.69
+},
+{
+"prefix": "lal",
+"events": 205,
+"with_live_feed": 187,
+"pm_volume_m": 51.12,
+"rn1_bought_m": 1.354,
+"rn1_share_pct": 2.65,
+"volume_without_rn1_m": 49.76
+},
+{
+"prefix": "sea",
+"events": 304,
+"with_live_feed": 276,
+"pm_volume_m": 47.66,
+"rn1_bought_m": 1.902,
+"rn1_share_pct": 3.99,
+"volume_without_rn1_m": 45.75
+},
+{
+"prefix": "bun",
+"events": 131,
+"with_live_feed": 114,
+"pm_volume_m": 21.25,
+"rn1_bought_m": 0.707,
+"rn1_share_pct": 3.33,
+"volume_without_rn1_m": 20.54
+},
+{
+"prefix": "nhl",
+"events": 78,
+"with_live_feed": 78,
+"pm_volume_m": 20.9,
+"rn1_bought_m": 0.088,
+"rn1_share_pct": 0.42,
+"volume_without_rn1_m": 20.81
+},
+{
+"prefix": "mls",
+"events": 471,
+"with_live_feed": 427,
+"pm_volume_m": 18.53,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 18.53
+},
+{
+"prefix": "uel",
+"events": 137,
+"with_live_feed": 119,
+"pm_volume_m": 16.5,
+"rn1_bought_m": 0.618,
+"rn1_share_pct": 3.75,
+"volume_without_rn1_m": 15.88
+},
+{
+"prefix": "fl1",
+"events": 185,
+"with_live_feed": 168,
+"pm_volume_m": 15.71,
+"rn1_bought_m": 0.712,
+"rn1_share_pct": 4.53,
+"volume_without_rn1_m": 15.0
+},
+{
+"prefix": "ufc",
+"events": 29,
+"with_live_feed": 29,
+"pm_volume_m": 13.34,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 13.34
+},
+{
+"prefix": "mlb",
+"events": 66,
+"with_live_feed": 61,
+"pm_volume_m": 11.05,
+"rn1_bought_m": 0.154,
+"rn1_share_pct": 1.4,
+"volume_without_rn1_m": 10.89
+},
+{
+"prefix": "bra",
+"events": 106,
+"with_live_feed": 106,
+"pm_volume_m": 9.77,
+"rn1_bought_m": 0.299,
+"rn1_share_pct": 3.06,
+"volume_without_rn1_m": 9.47
+},
+{
+"prefix": "efl",
+"events": 47,
+"with_live_feed": 47,
+"pm_volume_m": 9.5,
+"rn1_bought_m": 0.407,
+"rn1_share_pct": 4.28,
+"volume_without_rn1_m": 9.09
+},
+{
+"prefix": "spl",
+"events": 109,
+"with_live_feed": 108,
+"pm_volume_m": 9.18,
+"rn1_bought_m": 0.217,
+"rn1_share_pct": 2.36,
+"volume_without_rn1_m": 8.96
+},
+{
+"prefix": "mex",
+"events": 174,
+"with_live_feed": 173,
+"pm_volume_m": 8.82,
+"rn1_bought_m": 0.259,
+"rn1_share_pct": 2.94,
+"volume_without_rn1_m": 8.56
+},
+{
+"prefix": "arg",
+"events": 104,
+"with_live_feed": 104,
+"pm_volume_m": 7.08,
+"rn1_bought_m": 0.224,
+"rn1_share_pct": 3.17,
+"volume_without_rn1_m": 6.85
+},
+{
+"prefix": "tur",
+"events": 86,
+"with_live_feed": 86,
+"pm_volume_m": 6.58,
+"rn1_bought_m": 0.224,
+"rn1_share_pct": 3.4,
+"volume_without_rn1_m": 6.36
+},
+{
+"prefix": "por",
+"events": 83,
+"with_live_feed": 83,
+"pm_volume_m": 6.49,
+"rn1_bought_m": 0.339,
+"rn1_share_pct": 5.23,
+"volume_without_rn1_m": 6.15
+},
+{
+"prefix": "dfb",
+"events": 80,
+"with_live_feed": 67,
+"pm_volume_m": 6.3,
+"rn1_bought_m": 0.225,
+"rn1_share_pct": 3.58,
+"volume_without_rn1_m": 6.08
+},
+{
+"prefix": "col",
+"events": 95,
+"with_live_feed": 95,
+"pm_volume_m": 6.17,
+"rn1_bought_m": 0.219,
+"rn1_share_pct": 3.54,
+"volume_without_rn1_m": 5.95
+},
+{
+"prefix": "ere",
+"events": 105,
+"with_live_feed": 105,
+"pm_volume_m": 5.84,
+"rn1_bought_m": 0.179,
+"rn1_share_pct": 3.07,
+"volume_without_rn1_m": 5.66
+},
+{
+"prefix": "acle",
+"events": 75,
+"with_live_feed": 75,
+"pm_volume_m": 5.59,
+"rn1_bought_m": 0.187,
+"rn1_share_pct": 3.34,
+"volume_without_rn1_m": 5.41
+},
+{
+"prefix": "wnba",
+"events": 5,
+"with_live_feed": 5,
+"pm_volume_m": 5.47,
+"rn1_bought_m": 0.015,
+"rn1_share_pct": 0.28,
+"volume_without_rn1_m": 5.46
+},
+{
+"prefix": "itf",
+"events": 2100,
+"with_live_feed": 0,
+"pm_volume_m": 5.44,
+"rn1_bought_m": 0.085,
+"rn1_share_pct": 1.57,
+"volume_without_rn1_m": 5.36
+},
+{
+"prefix": "crint",
+"events": 205,
+"with_live_feed": 0,
+"pm_volume_m": 5.26,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 5.26
+},
+{
+"prefix": "bl2",
+"events": 106,
+"with_live_feed": 106,
+"pm_volume_m": 4.62,
+"rn1_bought_m": 0.164,
+"rn1_share_pct": 3.56,
+"volume_without_rn1_m": 4.46
+},
+{
+"prefix": "elc",
+"events": 142,
+"with_live_feed": 142,
+"pm_volume_m": 3.59,
+"rn1_bought_m": 0.115,
+"rn1_share_pct": 3.21,
+"volume_without_rn1_m": 3.47
+},
+{
+"prefix": "jap",
+"events": 118,
+"with_live_feed": 118,
+"pm_volume_m": 3.54,
+"rn1_bought_m": 0.176,
+"rn1_share_pct": 4.98,
+"volume_without_rn1_m": 3.37
+},
+{
+"prefix": "val",
+"events": 56,
+"with_live_feed": 56,
+"pm_volume_m": 3.04,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 3.04
+},
+{
+"prefix": "aus",
+"events": 70,
+"with_live_feed": 70,
+"pm_volume_m": 3.01,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 3.01
+},
+{
+"prefix": "itsb",
+"events": 179,
+"with_live_feed": 179,
+"pm_volume_m": 2.64,
+"rn1_bought_m": 0.126,
+"rn1_share_pct": 4.75,
+"volume_without_rn1_m": 2.52
+},
+{
+"prefix": "idn1",
+"events": 105,
+"with_live_feed": 105,
+"pm_volume_m": 2.59,
+"rn1_bought_m": 0.118,
+"rn1_share_pct": 4.56,
+"volume_without_rn1_m": 2.47
+},
+{
+"prefix": "col1",
+"events": 99,
+"with_live_feed": 99,
+"pm_volume_m": 2.53,
+"rn1_bought_m": 0.098,
+"rn1_share_pct": 3.89,
+"volume_without_rn1_m": 2.43
+},
+{
+"prefix": "swe",
+"events": 105,
+"with_live_feed": 105,
+"pm_volume_m": 2.14,
+"rn1_bought_m": 0.062,
+"rn1_share_pct": 2.92,
+"volume_without_rn1_m": 2.08
+},
+{
+"prefix": "es2",
+"events": 107,
+"with_live_feed": 107,
+"pm_volume_m": 2.07,
+"rn1_bought_m": 0.084,
+"rn1_share_pct": 4.04,
+"volume_without_rn1_m": 1.99
+},
+{
+"prefix": "nor",
+"events": 92,
+"with_live_feed": 92,
+"pm_volume_m": 1.99,
+"rn1_bought_m": 0.062,
+"rn1_share_pct": 3.11,
+"volume_without_rn1_m": 1.93
+},
+{
+"prefix": "cdr",
+"events": 200,
+"with_live_feed": 200,
+"pm_volume_m": 1.95,
+"rn1_bought_m": 0.082,
+"rn1_share_pct": 4.18,
+"volume_without_rn1_m": 1.87
+},
+{
+"prefix": "bel1",
+"events": 100,
+"with_live_feed": 100,
+"pm_volume_m": 1.93,
+"rn1_bought_m": 0.093,
+"rn1_share_pct": 4.83,
+"volume_without_rn1_m": 1.84
+},
+{
+"prefix": "lib",
+"events": 6,
+"with_live_feed": 6,
+"pm_volume_m": 1.77,
+"rn1_bought_m": 0.062,
+"rn1_share_pct": 3.48,
+"volume_without_rn1_m": 1.7
+},
+{
+"prefix": "bra2",
+"events": 68,
+"with_live_feed": 68,
+"pm_volume_m": 1.63,
+"rn1_bought_m": 0.063,
+"rn1_share_pct": 3.88,
+"volume_without_rn1_m": 1.57
+},
+{
+"prefix": "bkcba",
+"events": 40,
+"with_live_feed": 40,
+"pm_volume_m": 1.61,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 1.61
+},
+{
+"prefix": "scop",
+"events": 83,
+"with_live_feed": 83,
+"pm_volume_m": 1.57,
+"rn1_bought_m": 0.061,
+"rn1_share_pct": 3.85,
+"volume_without_rn1_m": 1.51
+},
+{
+"prefix": "euroleague",
+"events": 29,
+"with_live_feed": 29,
+"pm_volume_m": 1.53,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 1.53
+},
+{
+"prefix": "den",
+"events": 65,
+"with_live_feed": 65,
+"pm_volume_m": 1.4,
+"rn1_bought_m": 0.074,
+"rn1_share_pct": 5.29,
+"volume_without_rn1_m": 1.32
+},
+{
+"prefix": "per1",
+"events": 84,
+"with_live_feed": 84,
+"pm_volume_m": 1.32,
+"rn1_bought_m": 0.024,
+"rn1_share_pct": 1.79,
+"volume_without_rn1_m": 1.29
+},
+{
+"prefix": "acl2",
+"events": 44,
+"with_live_feed": 44,
+"pm_volume_m": 1.15,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 1.15
+},
+{
+"prefix": "chi",
+"events": 43,
+"with_live_feed": 43,
+"pm_volume_m": 1.14,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 1.14
+},
+{
+"prefix": "el1",
+"events": 178,
+"with_live_feed": 176,
+"pm_volume_m": 1.14,
+"rn1_bought_m": 0.077,
+"rn1_share_pct": 6.77,
+"volume_without_rn1_m": 1.06
+},
+{
+"prefix": "kor",
+"events": 68,
+"with_live_feed": 68,
+"pm_volume_m": 1.06,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 1.06
+},
+{
+"prefix": "uwcl",
+"events": 45,
+"with_live_feed": 45,
+"pm_volume_m": 1.01,
+"rn1_bought_m": 0.063,
+"rn1_share_pct": 6.2,
+"volume_without_rn1_m": 0.95
+},
+{
+"prefix": "sui",
+"events": 60,
+"with_live_feed": 60,
+"pm_volume_m": 1.0,
+"rn1_bought_m": 0.029,
+"rn1_share_pct": 2.86,
+"volume_without_rn1_m": 0.97
+},
+{
+"prefix": "fr2",
+"events": 95,
+"with_live_feed": 95,
+"pm_volume_m": 0.98,
+"rn1_bought_m": 0.037,
+"rn1_share_pct": 3.74,
+"volume_without_rn1_m": 0.94
+},
+{
+"prefix": "bkkbl",
+"events": 19,
+"with_live_feed": 19,
+"pm_volume_m": 0.95,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.95
+},
+{
+"prefix": "grc",
+"events": 43,
+"with_live_feed": 43,
+"pm_volume_m": 0.91,
+"rn1_bought_m": 0.086,
+"rn1_share_pct": 9.5,
+"volume_without_rn1_m": 0.82
+},
+{
+"prefix": "egy1",
+"events": 50,
+"with_live_feed": 50,
+"pm_volume_m": 0.88,
+"rn1_bought_m": 0.02,
+"rn1_share_pct": 2.31,
+"volume_without_rn1_m": 0.86
+},
+{
+"prefix": "pol",
+"events": 75,
+"with_live_feed": 75,
+"pm_volume_m": 0.87,
+"rn1_bought_m": 0.044,
+"rn1_share_pct": 5.12,
+"volume_without_rn1_m": 0.82
+},
+{
+"prefix": "aut",
+"events": 60,
+"with_live_feed": 60,
+"pm_volume_m": 0.86,
+"rn1_bought_m": 0.05,
+"rn1_share_pct": 5.79,
+"volume_without_rn1_m": 0.81
+},
+{
+"prefix": "lva1",
+"events": 40,
+"with_live_feed": 40,
+"pm_volume_m": 0.81,
+"rn1_bought_m": 0.014,
+"rn1_share_pct": 1.71,
+"volume_without_rn1_m": 0.79
+},
+{
+"prefix": "bknbl",
+"events": 13,
+"with_live_feed": 13,
+"pm_volume_m": 0.78,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.78
+},
+{
+"prefix": "bul",
+"events": 48,
+"with_live_feed": 48,
+"pm_volume_m": 0.78,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.78
+},
+{
+"prefix": "ja2",
+"events": 80,
+"with_live_feed": 80,
+"pm_volume_m": 0.75,
+"rn1_bought_m": 0.033,
+"rn1_share_pct": 4.38,
+"volume_without_rn1_m": 0.71
+},
+{
+"prefix": "nlc",
+"events": 144,
+"with_live_feed": 144,
+"pm_volume_m": 0.73,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.73
+},
+{
+"prefix": "bol1",
+"events": 60,
+"with_live_feed": 60,
+"pm_volume_m": 0.73,
+"rn1_bought_m": 0.038,
+"rn1_share_pct": 5.28,
+"volume_without_rn1_m": 0.69
+},
+{
+"prefix": "brco",
+"events": 12,
+"with_live_feed": 12,
+"pm_volume_m": 0.7,
+"rn1_bought_m": 0.015,
+"rn1_share_pct": 2.14,
+"volume_without_rn1_m": 0.69
+},
+{
+"prefix": "qat1",
+"events": 48,
+"with_live_feed": 48,
+"pm_volume_m": 0.67,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.67
+},
+{
+"prefix": "chi1",
+"events": 60,
+"with_live_feed": 60,
+"pm_volume_m": 0.66,
+"rn1_bought_m": 0.029,
+"rn1_share_pct": 4.42,
+"volume_without_rn1_m": 0.63
+},
+{
+"prefix": "gre1",
+"events": 60,
+"with_live_feed": 60,
+"pm_volume_m": 0.65,
+"rn1_bought_m": 0.049,
+"rn1_share_pct": 7.56,
+"volume_without_rn1_m": 0.6
+},
+{
+"prefix": "rou1",
+"events": 74,
+"with_live_feed": 74,
+"pm_volume_m": 0.64,
+"rn1_bought_m": 0.033,
+"rn1_share_pct": 5.1,
+"volume_without_rn1_m": 0.61
+},
+{
+"prefix": "argpn",
+"events": 132,
+"with_live_feed": 132,
+"pm_volume_m": 0.63,
+"rn1_bought_m": 0.015,
+"rn1_share_pct": 2.41,
+"volume_without_rn1_m": 0.61
+},
+{
+"prefix": "tur2",
+"events": 95,
+"with_live_feed": 95,
+"pm_volume_m": 0.61,
+"rn1_bought_m": 0.024,
+"rn1_share_pct": 3.94,
+"volume_without_rn1_m": 0.59
+},
+{
+"prefix": "ned2",
+"events": 64,
+"with_live_feed": 64,
+"pm_volume_m": 0.59,
+"rn1_bought_m": 0.036,
+"rn1_share_pct": 6.03,
+"volume_without_rn1_m": 0.55
+},
+{
+"prefix": "cze1",
+"events": 84,
+"with_live_feed": 84,
+"pm_volume_m": 0.54,
+"rn1_bought_m": 0.051,
+"rn1_share_pct": 9.48,
+"volume_without_rn1_m": 0.49
+},
+{
+"prefix": "fin1",
+"events": 40,
+"with_live_feed": 40,
+"pm_volume_m": 0.51,
+"rn1_bought_m": 0.023,
+"rn1_share_pct": 4.56,
+"volume_without_rn1_m": 0.48
+},
+{
+"prefix": "swe2",
+"events": 70,
+"with_live_feed": 70,
+"pm_volume_m": 0.49,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.49
+},
+{
+"prefix": "kaz1",
+"events": 80,
+"with_live_feed": 80,
+"pm_volume_m": 0.46,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.46
+},
+{
+"prefix": "srb",
+"events": 70,
+"with_live_feed": 70,
+"pm_volume_m": 0.44,
+"rn1_bought_m": 0.029,
+"rn1_share_pct": 6.57,
+"volume_without_rn1_m": 0.41
+},
+{
+"prefix": "par1",
+"events": 48,
+"with_live_feed": 48,
+"pm_volume_m": 0.42,
+"rn1_bought_m": 0.018,
+"rn1_share_pct": 4.23,
+"volume_without_rn1_m": 0.4
+},
+{
+"prefix": "irl1",
+"events": 75,
+"with_live_feed": 75,
+"pm_volume_m": 0.4,
+"rn1_bought_m": 0.008,
+"rn1_share_pct": 2.14,
+"volume_without_rn1_m": 0.39
+},
+{
+"prefix": "mex2",
+"events": 64,
+"with_live_feed": 64,
+"pm_volume_m": 0.39,
+"rn1_bought_m": 0.002,
+"rn1_share_pct": 0.47,
+"volume_without_rn1_m": 0.39
+},
+{
+"prefix": "bl3",
+"events": 60,
+"with_live_feed": 60,
+"pm_volume_m": 0.39,
+"rn1_bought_m": 0.019,
+"rn1_share_pct": 4.99,
+"volume_without_rn1_m": 0.37
+},
+{
+"prefix": "isp",
+"events": 65,
+"with_live_feed": 65,
+"pm_volume_m": 0.38,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.38
+},
+{
+"prefix": "serc",
+"events": 236,
+"with_live_feed": 236,
+"pm_volume_m": 0.38,
+"rn1_bought_m": 0.004,
+"rn1_share_pct": 1.05,
+"volume_without_rn1_m": 0.37
+},
+{
+"prefix": "hr1",
+"events": 59,
+"with_live_feed": 59,
+"pm_volume_m": 0.37,
+"rn1_bought_m": 0.013,
+"rn1_share_pct": 3.55,
+"volume_without_rn1_m": 0.36
+},
+{
+"prefix": "ecu1",
+"events": 70,
+"with_live_feed": 70,
+"pm_volume_m": 0.36,
+"rn1_bought_m": 0.009,
+"rn1_share_pct": 2.4,
+"volume_without_rn1_m": 0.35
+},
+{
+"prefix": "enl",
+"events": 136,
+"with_live_feed": 136,
+"pm_volume_m": 0.36,
+"rn1_bought_m": 0.007,
+"rn1_share_pct": 1.87,
+"volume_without_rn1_m": 0.36
+},
+{
+"prefix": "el2",
+"events": 150,
+"with_live_feed": 150,
+"pm_volume_m": 0.35,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.35
+},
+{
+"prefix": "rus",
+"events": 60,
+"with_live_feed": 60,
+"pm_volume_m": 0.35,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.35
+},
+{
+"prefix": "ukr1",
+"events": 40,
+"with_live_feed": 40,
+"pm_volume_m": 0.34,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.34
+},
+{
+"prefix": "nor2",
+"events": 75,
+"with_live_feed": 75,
+"pm_volume_m": 0.33,
+"rn1_bought_m": 0.008,
+"rn1_share_pct": 2.39,
+"volume_without_rn1_m": 0.32
+},
+{
+"prefix": "atc",
+"events": 42,
+"with_live_feed": 42,
+"pm_volume_m": 0.33,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.33
+},
+{
+"prefix": "isr",
+"events": 48,
+"with_live_feed": 48,
+"pm_volume_m": 0.32,
+"rn1_bought_m": 0.012,
+"rn1_share_pct": 3.84,
+"volume_without_rn1_m": 0.31
+},
+{
+"prefix": "uzb1",
+"events": 70,
+"with_live_feed": 70,
+"pm_volume_m": 0.31,
+"rn1_bought_m": 0.017,
+"rn1_share_pct": 5.27,
+"volume_without_rn1_m": 0.3
+},
+{
+"prefix": "bkjpn",
+"events": 46,
+"with_live_feed": 46,
+"pm_volume_m": 0.3,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.3
+},
+{
+"prefix": "kor2",
+"events": 64,
+"with_live_feed": 64,
+"pm_volume_m": 0.3,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.3
+},
+{
+"prefix": "nwsl",
+"events": 96,
+"with_live_feed": 96,
+"pm_volume_m": 0.3,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.3
+},
+{
+"prefix": "wsl",
+"events": 70,
+"with_live_feed": 70,
+"pm_volume_m": 0.28,
+"rn1_bought_m": 0.015,
+"rn1_share_pct": 5.31,
+"volume_without_rn1_m": 0.27
+},
+{
+"prefix": "est1",
+"events": 56,
+"with_live_feed": 56,
+"pm_volume_m": 0.27,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.27
+},
+{
+"prefix": "chi2",
+"events": 64,
+"with_live_feed": 64,
+"pm_volume_m": 0.27,
+"rn1_bought_m": 0.01,
+"rn1_share_pct": 3.87,
+"volume_without_rn1_m": 0.26
+},
+{
+"prefix": "cbb",
+"events": 4,
+"with_live_feed": 4,
+"pm_volume_m": 0.26,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.26
+},
+{
+"prefix": "bkligend",
+"events": 18,
+"with_live_feed": 18,
+"pm_volume_m": 0.26,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.26
+},
+{
+"prefix": "svk1",
+"events": 87,
+"with_live_feed": 85,
+"pm_volume_m": 0.25,
+"rn1_bought_m": 0.008,
+"rn1_share_pct": 3.06,
+"volume_without_rn1_m": 0.25
+},
+{
+"prefix": "ven1",
+"events": 60,
+"with_live_feed": 60,
+"pm_volume_m": 0.24,
+"rn1_bought_m": 0.013,
+"rn1_share_pct": 5.56,
+"volume_without_rn1_m": 0.22
+},
+{
+"prefix": "mar1",
+"events": 64,
+"with_live_feed": 64,
+"pm_volume_m": 0.24,
+"rn1_bought_m": 0.007,
+"rn1_share_pct": 2.94,
+"volume_without_rn1_m": 0.23
+},
+{
+"prefix": "uru1",
+"events": 60,
+"with_live_feed": 60,
+"pm_volume_m": 0.23,
+"rn1_bought_m": 0.012,
+"rn1_share_pct": 5.3,
+"volume_without_rn1_m": 0.22
+},
+{
+"prefix": "tha1",
+"events": 52,
+"with_live_feed": 52,
+"pm_volume_m": 0.22,
+"rn1_bought_m": 0.014,
+"rn1_share_pct": 6.64,
+"volume_without_rn1_m": 0.2
+},
+{
+"prefix": "khl",
+"events": 45,
+"with_live_feed": 45,
+"pm_volume_m": 0.21,
+"rn1_bought_m": 0.0,
+"rn1_share_pct": 0.0,
+"volume_without_rn1_m": 0.21
+}
+]

@@ -1,0 +1,314 @@
+[
+ {
+  "sport": "lol",
+  "phase": "in-play",
+  "cls": "ALL",
+  "fills": 783,
+  "usd": 58865,
+  "entry_pct": 1.83,
+  "m1_pct": -2.89,
+  "ruleA_share": 0.135,
+  "ruleB_share": 0.935
+ },
+ {
+  "sport": "lol",
+  "phase": "in-play",
+  "cls": "taker avg ABOVE rn1 price (sweep)",
+  "fills": 51,
+  "usd": 8130,
+  "entry_pct": 3.35,
+  "m1_pct": 0.4,
+  "ruleA_share": 0.0,
+  "ruleB_share": 0.0
+ },
+ {
+  "sport": "lol",
+  "phase": "in-play",
+  "cls": "taker print AT rn1 price",
+  "fills": 644,
+  "usd": 40425,
+  "entry_pct": 1.62,
+  "m1_pct": -2.49,
+  "ruleA_share": 0.028,
+  "ruleB_share": 1.0
+ },
+ {
+  "sport": "lol",
+  "phase": "in-play",
+  "cls": "taker print BELOW rn1 price",
+  "fills": 88,
+  "usd": 10310,
+  "entry_pct": 1.43,
+  "m1_pct": -7.07,
+  "ruleA_share": 1.0,
+  "ruleB_share": 1.0
+ },
+ {
+  "sport": "lol",
+  "phase": "pre-game",
+  "cls": "ALL",
+  "fills": 11,
+  "usd": 424,
+  "entry_pct": -1.5,
+  "m1_pct": -4.04,
+  "ruleA_share": 0.273,
+  "ruleB_share": 0.909
+ },
+ {
+  "sport": "lol",
+  "phase": "pre-game",
+  "cls": "taker avg ABOVE rn1 price (sweep)",
+  "fills": 1,
+  "usd": 95,
+  "entry_pct": -2.63,
+  "m1_pct": -5.41,
+  "ruleA_share": 0.0,
+  "ruleB_share": 0.0
+ },
+ {
+  "sport": "lol",
+  "phase": "pre-game",
+  "cls": "taker print AT rn1 price",
+  "fills": 9,
+  "usd": 242,
+  "entry_pct": 0.25,
+  "m1_pct": -2.15,
+  "ruleA_share": 0.222,
+  "ruleB_share": 1.0
+ },
+ {
+  "sport": "lol",
+  "phase": "pre-game",
+  "cls": "taker print BELOW rn1 price",
+  "fills": 1,
+  "usd": 87,
+  "entry_pct": -5.13,
+  "m1_pct": -7.84,
+  "ruleA_share": 1.0,
+  "ruleB_share": 1.0
+ },
+ {
+  "sport": "nba",
+  "phase": "in-play",
+  "cls": "ALL",
+  "fills": 1655,
+  "usd": 101292,
+  "entry_pct": 0.96,
+  "m1_pct": -0.23,
+  "ruleA_share": 0.102,
+  "ruleB_share": 0.946
+ },
+ {
+  "sport": "nba",
+  "phase": "in-play",
+  "cls": "taker avg ABOVE rn1 price (sweep)",
+  "fills": 89,
+  "usd": 6097,
+  "entry_pct": 4.49,
+  "m1_pct": 0.41,
+  "ruleA_share": 0.0,
+  "ruleB_share": 0.0
+ },
+ {
+  "sport": "nba",
+  "phase": "in-play",
+  "cls": "taker print AT rn1 price",
+  "fills": 1439,
+  "usd": 81237,
+  "entry_pct": 0.3,
+  "m1_pct": -0.26,
+  "ruleA_share": 0.029,
+  "ruleB_share": 1.0
+ },
+ {
+  "sport": "nba",
+  "phase": "in-play",
+  "cls": "taker print BELOW rn1 price",
+  "fills": 127,
+  "usd": 13958,
+  "entry_pct": 3.23,
+  "m1_pct": -0.33,
+  "ruleA_share": 1.0,
+  "ruleB_share": 1.0
+ },
+ {
+  "sport": "nba",
+  "phase": "pre-game",
+  "cls": "ALL",
+  "fills": 2029,
+  "usd": 133694,
+  "entry_pct": 0.74,
+  "m1_pct": -0.09,
+  "ruleA_share": 0.073,
+  "ruleB_share": 0.993
+ },
+ {
+  "sport": "nba",
+  "phase": "pre-game",
+  "cls": "taker avg ABOVE rn1 price (sweep)",
+  "fills": 14,
+  "usd": 1558,
+  "entry_pct": 2.15,
+  "m1_pct": 0.68,
+  "ruleA_share": 0.0,
+  "ruleB_share": 0.0
+ },
+ {
+  "sport": "nba",
+  "phase": "pre-game",
+  "cls": "taker print AT rn1 price",
+  "fills": 1919,
+  "usd": 120949,
+  "entry_pct": 0.72,
+  "m1_pct": -0.04,
+  "ruleA_share": 0.028,
+  "ruleB_share": 1.0
+ },
+ {
+  "sport": "nba",
+  "phase": "pre-game",
+  "cls": "taker print BELOW rn1 price",
+  "fills": 96,
+  "usd": 11187,
+  "entry_pct": 0.73,
+  "m1_pct": -0.75,
+  "ruleA_share": 1.0,
+  "ruleB_share": 1.0
+ },
+ {
+  "sport": "soccer",
+  "phase": "in-play",
+  "cls": "ALL",
+  "fills": 29081,
+  "usd": 5484508,
+  "entry_pct": 1.57,
+  "m1_pct": 0.62,
+  "ruleA_share": 0.042,
+  "ruleB_share": 0.946
+ },
+ {
+  "sport": "soccer",
+  "phase": "in-play",
+  "cls": "taker avg ABOVE rn1 price (sweep)",
+  "fills": 1581,
+  "usd": 605712,
+  "entry_pct": 2.95,
+  "m1_pct": 2.14,
+  "ruleA_share": 0.0,
+  "ruleB_share": 0.0
+ },
+ {
+  "sport": "soccer",
+  "phase": "in-play",
+  "cls": "taker print AT rn1 price",
+  "fills": 26865,
+  "usd": 4367590,
+  "entry_pct": 1.52,
+  "m1_pct": 0.56,
+  "ruleA_share": 0.022,
+  "ruleB_share": 1.0
+ },
+ {
+  "sport": "soccer",
+  "phase": "in-play",
+  "cls": "taker print BELOW rn1 price",
+  "fills": 635,
+  "usd": 511205,
+  "entry_pct": 0.39,
+  "m1_pct": -0.74,
+  "ruleA_share": 1.0,
+  "ruleB_share": 1.0
+ },
+ {
+  "sport": "soccer",
+  "phase": "pre-game",
+  "cls": "ALL",
+  "fills": 535,
+  "usd": 622404,
+  "entry_pct": 2.04,
+  "m1_pct": 0.82,
+  "ruleA_share": 0.058,
+  "ruleB_share": 0.727
+ },
+ {
+  "sport": "soccer",
+  "phase": "pre-game",
+  "cls": "taker avg ABOVE rn1 price (sweep)",
+  "fills": 146,
+  "usd": 251628,
+  "entry_pct": 2.72,
+  "m1_pct": 1.1,
+  "ruleA_share": 0.0,
+  "ruleB_share": 0.0
+ },
+ {
+  "sport": "soccer",
+  "phase": "pre-game",
+  "cls": "taker print AT rn1 price",
+  "fills": 362,
+  "usd": 302754,
+  "entry_pct": 1.55,
+  "m1_pct": 0.8,
+  "ruleA_share": 0.011,
+  "ruleB_share": 1.0
+ },
+ {
+  "sport": "soccer",
+  "phase": "pre-game",
+  "cls": "taker print BELOW rn1 price",
+  "fills": 27,
+  "usd": 68022,
+  "entry_pct": 1.76,
+  "m1_pct": -0.06,
+  "ruleA_share": 1.0,
+  "ruleB_share": 1.0
+ },
+ {
+  "sport": "lol",
+  "phase": "in-play",
+  "cls": "ruleA fills from other prints, 60 s before real fill",
+  "fills": 3526,
+  "usd": 96605,
+  "m1_pct": -1.18
+ },
+ {
+  "sport": "lol",
+  "phase": "pre-game",
+  "cls": "ruleA fills from other prints, 60 s before real fill",
+  "fills": 10,
+  "usd": 295,
+  "m1_pct": -4.27
+ },
+ {
+  "sport": "nba",
+  "phase": "in-play",
+  "cls": "ruleA fills from other prints, 60 s before real fill",
+  "fills": 2396,
+  "usd": 37499,
+  "m1_pct": -0.33
+ },
+ {
+  "sport": "nba",
+  "phase": "pre-game",
+  "cls": "ruleA fills from other prints, 60 s before real fill",
+  "fills": 1314,
+  "usd": 28705,
+  "m1_pct": 0.1
+ },
+ {
+  "sport": "soccer",
+  "phase": "in-play",
+  "cls": "ruleA fills from other prints, 60 s before real fill",
+  "fills": 51189,
+  "usd": 1583667,
+  "m1_pct": 0.39
+ },
+ {
+  "sport": "soccer",
+  "phase": "pre-game",
+  "cls": "ruleA fills from other prints, 60 s before real fill",
+  "fills": 244,
+  "usd": 5379,
+  "m1_pct": 1.24
+ }
+]

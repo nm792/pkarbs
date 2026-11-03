@@ -1,0 +1,7 @@
+# big raw files live in /mnt/project-files/winmodels/raw/ (tarballs)
+raw/M.pkl
+raw/soccer/trades/
+raw/us/trades/
+raw/soccer/gamma_events.json.gz
+raw/us/gamma_events.json.gz
+__pycache__/
