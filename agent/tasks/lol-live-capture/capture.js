@@ -3,12 +3,17 @@
 // Window: scheduled_start_utc - minutesBefore .. + minutesAfter. Exits at the end of the window or on SIGTERM.
 // Frames are deduped on rfc460Timestamp; book rows are written only when the top of book changes.
 // Clocks: recv_ms (local receive time) is the only clock on the book side. Livestats keeps the feed's own timestamp.
+// 3 Nov: frames polled every FRAME_POLL_MS (default 2000) for ALL game ids of the series (cfg.game_ids, else game1_id),
+// and every poll writes a line to <label>_polls.jsonl {recv_ms, game, status, newest_ts, n} so the feed delay
+// (recv_ms - newest frame timestamp) is measured with ~2 s resolution. Host clock must be NTP-synced (logged at start).
 const fs = require('fs');
 const path = require('path');
 const [, , CFG, LABEL, BEFORE = '90', AFTER = '150', OUT = process.env.HOME + '/lolcap/out'] = process.argv;
 const cfg = JSON.parse(fs.readFileSync(CFG, 'utf8')).find((m) => m.label === LABEL);
 if (!cfg) { console.error('no label ' + LABEL); process.exit(2); }
 fs.mkdirSync(OUT, { recursive: true });
+const POLLS = path.join(OUT, `${LABEL}_polls.jsonl`), FRAME_POLL_MS = +(process.env.FRAME_POLL_MS || 2000);
+const GAMES = cfg.game_ids || [cfg.game1_id];
 const FRAMES = path.join(OUT, `${LABEL}_frames.jsonl`), BOOKS = path.join(OUT, `${LABEL}_books.jsonl`), LOG = path.join(OUT, `${LABEL}_capture.log`);
 const log = (m) => fs.appendFileSync(LOG, new Date().toISOString() + ' ' + m + '\n');
 const start = Date.parse(cfg.scheduled_start_utc) - BEFORE * 60000;
@@ -23,18 +28,25 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function pollFrames() {
   while (!stop && Date.now() < end) {
     const t0 = Date.now();
-    try {
-      const r = await fetch(`https://feed.lolesports.com/livestats/v1/window/${cfg.game1_id}`, { headers: { 'User-Agent': UA } });
-      if (r.status === 200) {
-        const w = await r.json();
-        for (const f of w.frames || []) {
-          if (seenFrame.has(f.rfc460Timestamp)) continue;
-          seenFrame.add(f.rfc460Timestamp);
-          fs.appendFileSync(FRAMES, JSON.stringify({ recv_ms: Date.now(), ...f }) + '\n');
-        }
-      } else if (r.status !== 204 && r.status !== 404) log('frames status ' + r.status);
-    } catch (e) { log('frames error ' + e.message); }
-    await sleep(Math.max(0, 10000 - (Date.now() - t0)));
+    await Promise.all(GAMES.map(async (gid) => {
+      try {
+        const r = await fetch(`https://feed.lolesports.com/livestats/v1/window/${gid}`, { headers: { 'User-Agent': UA } });
+        const recv = Date.now();
+        let newest = null, n = 0;
+        if (r.status === 200) {
+          const w = await r.json();
+          for (const f of w.frames || []) {
+            n++; if (!newest || f.rfc460Timestamp > newest) newest = f.rfc460Timestamp;
+            const k = gid + f.rfc460Timestamp;
+            if (seenFrame.has(k)) continue;
+            seenFrame.add(k);
+            fs.appendFileSync(FRAMES, JSON.stringify({ recv_ms: recv, game_id: gid, ...f }) + '\n');
+          }
+        } else if (r.status !== 204 && r.status !== 404) log('frames status ' + r.status + ' ' + gid);
+        if (r.status === 200) fs.appendFileSync(POLLS, JSON.stringify({ recv_ms: recv, sent_ms: t0, game: gid, status: r.status, newest_ts: newest, n }) + '\n');
+      } catch (e) { log('frames error ' + gid + ' ' + e.message); }
+    }));
+    await sleep(Math.max(0, FRAME_POLL_MS - (Date.now() - t0)));
   }
 }
 
@@ -65,6 +77,8 @@ async function pollBooks() {
 
 (async () => {
   const wait = start - Date.now();
+  try { log('clock: ' + require('child_process').execSync('timedatectl show -p NTPSynchronized --value 2>/dev/null || echo unknown').toString().trim()); } catch (e) { log('clock: unknown'); }
+  log(`games ${GAMES.join(',')} frame poll ${FRAME_POLL_MS} ms`);
   log(`start ${LABEL} window ${new Date(start).toISOString()} .. ${new Date(end).toISOString()}`);
   if (wait > 0) { log(`waiting ${Math.round(wait / 1000)} s`); await sleep(Math.min(wait, 2 * 3600 * 1000)); }
   await Promise.all([pollFrames(), pollBooks()]);
