@@ -1,8 +1,7 @@
 # agent/status/cricket-npl-live
 
-state: RUNNING — window A (id 1558593, Biratnagar Kings v Janakpur Bolts) live since 06:30Z,
-255 min; window B (id 1558594) due 10:30Z, 255 min.
-- procs: 450231 (timeout wrapper) / 450232 (live_pbp_logger), started 06:30Z, etime growing.
+state: WINDOW B RUNNING — A finished 10:20Z.
+- Window A (id 1558593) DONE: 250 ball-event rows, 06:48-10:20Z, file cricket_1558593_20261103T0630Z.jsonl (66 KB). Logger writes ball events only, so 15-min pre-match start is silent by design.
+- Window B (id 1558594, Lumbini Lions v Pokhara Avengers) RUNNING since 10:30Z: pid 1488751 (timeout wrapper) / 1488752 (live_pbp_logger), etime growing. Match starts 10:45Z (ESPN); 0 rows so far expected until ball events begin.
 - out /root/cricket-live, share /root/cricket-live/share.
-- After window A ends, launch window B via the same systemd-run/scope wrapper; never overlap.
-heartbeat: 2026-11-03T08:2xZ
+heartbeat: 2026-11-03T10:35Z UTC
