@@ -1,4 +1,7 @@
-# pkarbs heartbeat — claude/project-thread-vg2ckg
-round: 2026-11-03T07:55:39Z
-- Cricket NPL window A (ids 1558593) LIVE: at-job 2 fired 06:30Z, logger running (PIDs 450231/232), file cricket_1558593 jsonl 87 rows, newest row 2026-11-03T07:55:39Z, feed healthy. Window B at-job 3 (10:30Z) kills A first.
-- sports-mece shadow: status file on origin.
+# pkarbs heartbeat
+round: 2026-11-03T08:00Z (server-member dispatch)
+- cricket-npl-live: RUNNING windows A (id 1558593, started 06:30Z, jsonl growing; pid 450231/450232) + B due 10:30Z; report after each match.
+- sports-mece-shadow: sim EXITED 06:58Z, results not recoverable (no --per-run); bounded re-run with --per-run queued.
+- cs2-ws-logger: RUNNING (shadow_logger 9d). status files kept current.
+- holds: none waiting for Nick this round.
+
