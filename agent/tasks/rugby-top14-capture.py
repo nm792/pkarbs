@@ -29,7 +29,7 @@ LIVE = "/mnt/project-files/rugby/live-2026-11"
 SPORTS_WS = "wss://sports-api.polymarket.com/ws"
 CLOB_WS = "wss://ws-subscriptions-clob.polymarket.com/ws/market"
 ESPN = "https://site.api.espn.com/apis/site/v2/sports/rugby/270559/scoreboard"
-TRADES = "https://data-api.polymarket.com/trades"
+TRADES = "https://data-api.polymarket.com/v2/trades"  # v1 /trades retired 3 Nov 2026
 BOOK = "https://clob.polymarket.com/book"
 RUGBYRAMA = "https://www.rugbyrama.fr/idalgo/cache/page/rugby_widget_match.php"
 RR_MATCHES = {
@@ -123,10 +123,10 @@ async def poll_trades(trades_f, log, markets):
             cond = m.get("conditionId")
             if not cond: continue
             try:
-                st, body = http_get(f"{TRADES}?market={cond}&limit=100", timeout=12)
-                rows = json.loads(body)
+                st, body = http_get(f"{TRADES}?condition={cond}&limit=100", timeout=12)
+                rows = json.loads(body).get("data", [])  # v2: {data, pagination}, newest first
                 for r in rows:
-                    key = (r.get("transactionHash"), r.get("timestamp"), r.get("asset"))
+                    key = (r.get("transaction_hash"), r.get("timestamp"), r.get("token_id"), r.get("size"), r.get("price"))
                     if key not in seen:
                         seen.add(key)
                         _record(trades_f, {"recv_ms": int(time.time()*1000), "conditionId": cond, **r})
