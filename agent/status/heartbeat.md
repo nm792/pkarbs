@@ -1,7 +1,4 @@
-# pkarbs heartbeat
-round: 2026-11-03T10:35Z UTC (server-member dispatch)
-- cricket-npl-live: WINDOW B RUNNING (id 1558594, start 10:30Z, pid 1488751/1488752, etime growing; event rows begin at 10:45Z match start). Window A DONE 10:20Z (250 rows).
-- sports-mece-shadow: RUNNING shadow_sim.py pid 1213534 (--days 9 --one-way 0.05 --per-run /root/sports-mece-shadow-per-run.csv, since 08:16Z). Bounded-load --limit fix applied+approved.
-- cs2-ws-logger: RUNNING (node pid watchdog); keep-all-messages WAITING-FOR-NICK (code edit restart gated); outbox pushed.
-- lol-live-capture: prep done (NTP confirmed 06:05Z); TES-IG window 20:30Z time-gated.
-- rugby-top14 windows 7-8 Nov prepared.
+# server-member heartbeat
+
+Round: 2026-11-03T11:05:08Z (UTC)
+State: dalive. tt-review 348B/349B INSTALLED AND LIVE (restart 10:45:59Z, followup reply flipped). mfw note 253 answered (baseline pushed). pkarbs cricket window A committed. Open: ASX T018-takeovers pass / T020 (first open) for dispatch loop; webb T001/T002 next_run 2026-11-08; sports-mece sim re-run live (pid 1213534).
