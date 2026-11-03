@@ -16,7 +16,7 @@ def fit(r, offs=range(-1800, 1801, 15)):
     sc = np.array(sc)
     if not np.isfinite(sc).any(): return None
     i = int(np.nanargmax(sc)); return dict(match_id=r['match_id'], off=list(offs)[i], corr=float(sc[i]), first=M.pr[0][0] - t0 if hasattr(M, 'pr') else None)
-R = sorted(json.load(open('matched.json')), key=lambda r: -r['vol'])[:150]
+R = sorted(json.load(open('matched.json')), key=lambda r: -r['vol'])[:int(__import__('os').environ.get('N','150'))]
 out = [f for f in map(fit, R) if f]
 o = np.array([f['off'] for f in out]); c = np.array([f['corr'] for f in out])
 print('games', len(out), 'corr median', round(float(np.median(c)), 2), 'offset pct', np.percentile(o, [10, 25, 50, 75, 90]))

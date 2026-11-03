@@ -23,3 +23,15 @@ Per game (holdout, 0-5 s): ~$200 filled, ~$35-50 net to result. Sim, first-in-qu
 ## What this does not settle
 - **Live feed speed.** "Lag" here is measured from when the market reacted, not from a feed we can buy. Free live Dota data (OpenDota /api/live) carries a 120 s spectator delay; tournament broadcasts are also delayed. Whether our feed is ahead of or behind the market's broadcast is unmeasured: needs a live capture (poll OpenDota live every 5 s on pro games alongside prices) during the next tier-1 events (BLAST Slam 17-29 Nov, DreamLeague 2-13 Dec).
 - Alignment error (median 9 s) blurs the 0-10 s lags.
+
+## Update: all 1,280 matched games (out_event_only_oos_all.txt, out_placebo_all.txt)
+- Alignment: 1,085 games aligned; split-half error median 12 s (44% within 10 s, p90 124 s). Betas (train 738 games): kill 2.5c, tower 1.2c, barracks 3.3c, Roshan 1.5c per net event.
+- Leak-controlled (offset from first half, rule on second half), 10 s window:
+| Set | Lag | Games | $ filled | 1-min [90%] | To result [90% $] | Ex top 5 |
+|---|---|---|---|---|---|---|
+| Holdout (from 1 Oct) | 0 s | 166 | $18.2k | +3.8% [+1.7, +6.0] | +16.7%, $3.1k [+1.4k, +4.7k] | +11.7% |
+| Holdout | 5 s | 149 | $17.1k | +3.4% [+1.3, +5.8] | +14.3%, $2.4k [+1.0k, +3.9k] | +7.9% |
+| Holdout | 10 s | 142 | $14.6k | +4.0% [+1.9, +6.0] | +12.7%, $1.9k [+0.4k, +3.5k] | +3.9% |
+| All | 0 s, W30 | 650 | $100k | +3.5% [+2.6, +4.4] | +13.0%, $13.0k [+8.3k, +17.7k] | +10.0% |
+- Lag sweep (all, W10): 1-min edge +4.3% (0 s), +2.4% (20 s), +1.2% (30 s), -0.6% (60 s), +0.4% (120 s). To-result stays ~+10-12% even at 60-300 s lag: the market under-reacts to events for minutes, so holding to the game result may pay even with OpenDota's 120 s-delayed live feed (lag 120: +10.8% to result, ex-top5 +7.6%, 333 games). Negative lags (bidding before the event) are lookahead, shown only as a check.
+- Size (estimate): second-half-only results ~$15/game; whole game roughly double, ~$25-35/game. At October's ~18 Polymarket Dota games/day that is ~$450-600/day, before queue position and capacity limits. Sim, first-in-queue, 100-share cap per print.

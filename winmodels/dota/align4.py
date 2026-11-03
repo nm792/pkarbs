@@ -13,7 +13,7 @@ def refine(M, t0, ev, sgn, c):
     return list(offs)[int(np.argmax(sc))], max(sc)
 coarse = {f['match_id']: f for f in json.load(open('align3.json'))}
 if __name__ == '__main__':
-    R = sorted(json.load(open('matched.json')), key=lambda r: -r['vol'])[:150]
+    R = sorted(json.load(open('matched.json')), key=lambda r: -r['vol'])[:int(__import__('os').environ.get('N','150'))]
     out = []
     for r in R:
         c = coarse.get(r['match_id'])
