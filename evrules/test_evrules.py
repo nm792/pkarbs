@@ -57,6 +57,13 @@ def test_live_stage():
     assert d.action == 'none'
 
 
+def test_cricket_late_chase_blocked():
+    b = dict(innings=2, runs=150, wkts=5, balls=100, target=170)
+    a = dict(innings=2, runs=156, wkts=5, balls=101, target=170)
+    d = rules.on_event('cricket', b, a, 0.5, dict(bid=0.5, bid_size=500, ask=0.51, ask_size=500))
+    assert d.action == 'none'
+
+
 def test_maker_quotes():
     b, a = ev.maker_quotes(0.5, rules.RULES['cs2'])
     assert b is not None and a is not None and b < 0.5 < a

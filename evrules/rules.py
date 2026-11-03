@@ -16,6 +16,7 @@ import json, math, os
 from evrules import ev, cs2, cricket, rugby
 
 _HERE = os.path.dirname(__file__)
+CRICKET_LAST_CHASE_BALL = 90   # balls bowled in innings 2 after which we stop (see eval_cricket_live)
 
 RULES = {
     # LoL: LOGO event test, median abs error 3.8c (naive 5.0c); 86% direction
@@ -68,6 +69,9 @@ def on_event(sport, before, after, anchor_mid, book, lim=ev.Limits(), stage='pap
     lim = ev.apply_stage(lim, stage)
     if anchor_mid is None or not 0.02 < anchor_mid < 0.98:
         return ev.Decision('none', reason='no usable anchor')
+    if sport == 'cricket' and after.get('innings') == 2 and after.get('balls', 0) >= CRICKET_LAST_CHASE_BALL:
+        # 3 Nov live test (NPL): model over-reacted badly in the last 5 overs of the chase
+        return ev.Decision('none', reason='cricket: no trades after over 15 of the chase')
     q = fair(sport, before, after, anchor_mid)
     if q is None:
         return ev.Decision('none', reason='event not tradeable (between maps / full time)')
