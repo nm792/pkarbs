@@ -1,7 +1,9 @@
 # agent/status/cricket-npl-live
 
-state: WINDOW B RUNNING — A finished 10:20Z.
-- Window A (id 1558593) DONE: 250 ball-event rows, 06:48-10:20Z, file cricket_1558593_20261103T0630Z.jsonl (66 KB). Logger writes ball events only, so 15-min pre-match start is silent by design.
-- Window B (id 1558594, Lumbini Lions v Pokhara Avengers) RUNNING since 10:30Z: pid 1488751 (timeout wrapper) / 1488752 (live_pbp_logger), etime growing. Match starts 10:45Z (ESPN); 0 rows so far expected until ball events begin.
-- out /root/cricket-live, share /root/cricket-live/share.
-heartbeat: 2026-11-03T10:35Z UTC
+state: DONE — 2026-11-03.
+- Window A (id 1558593): DONE. 250 ball-event rows, 06:48-10:20Z, committed rn1/scores/cricket/live-2026-11-03/cricket_1558593_20261103T0630Z.jsonl (9206929).
+- Window B (id 1558594, Lumbini Lions v Pokhara Avengers): DONE. 197 ball-event rows, 10:30Z-14:05Z, committed rn1/scores/cricket/live-2026-11-03/cricket_1558594_20261103T1030Z.jsonl this round.
+- Cleanup: no live live_pbp_logger process remains (checked this round); free ~3.8 GiB.
+- Pass/fail: both windows ran start-minus-15min→result and stopped naturally; complete data files. Poll-success not derivable from jsonl (logger writes ball events only); thread does lag analysis.
+- Trades: pulled by the thread (data-api v2), not the server member.
+heartbeat: 2026-11-03T23:20Z UTC
