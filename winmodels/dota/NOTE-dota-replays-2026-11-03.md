@@ -35,3 +35,8 @@ Per game (holdout, 0-5 s): ~$200 filled, ~$35-50 net to result. Sim, first-in-qu
 | All | 0 s, W30 | 650 | $100k | +3.5% [+2.6, +4.4] | +13.0%, $13.0k [+8.3k, +17.7k] | +10.0% |
 - Lag sweep (all, W10): 1-min edge +4.3% (0 s), +2.4% (20 s), +1.2% (30 s), -0.6% (60 s), +0.4% (120 s). To-result stays ~+10-12% even at 60-300 s lag: the market under-reacts to events for minutes, so holding to the game result may pay even with OpenDota's 120 s-delayed live feed (lag 120: +10.8% to result, ex-top5 +7.6%, 333 games). Negative lags (bidding before the event) are lookahead, shown only as a check.
 - Size (estimate): second-half-only results ~$15/game; whole game roughly double, ~$25-35/game. At October's ~18 Polymarket Dota games/day that is ~$450-600/day, before queue position and capacity limits. Sim, first-in-queue, 100-share cap per print.
+
+## Live feed census (OpenDota /api/live, polled every 10 s, 13:45-15:42Z 3 Nov; raw: winmodels/raw/odlive_20261103.jsonl in shared folder)
+- 9 league games seen, 2 leagues. EPL Masters 2026 (league 19944; OG v LEGION, CyberHero v Nemiga; Polymarket lists this league): delay 900 s. League 18631 (no team names): delay 10 s.
+- OpenDota refreshes each live game about every 100 s (median gap between distinct last_update_time values), so the real lag is the delay plus ~50-100 s.
+- So on EPL Masters the free live feed is ~16 min behind: useless. Need the census on tier-1 events (BLAST Slam 17-29 Nov, DreamLeague 2-13 Dec) before relying on it.
