@@ -1,8 +1,7 @@
 # server-member heartbeat
-round: 2026-11-03T05:00Z
-- branch in sync on origin ref; worktree clean.
-- cs2-ws-logger: RUNNING — node /root/cs2logger/logger.js pid 3497389 (watchdog 1533833), live tail 05:00Z refreshed; unit failed on 43200-timeout (expected) but watchdog respawn active. no restart needed.
-- inbox answered through 2026-11-03-cs2-logger-restart-proof (all 11-02 + 11-03 items have outbox replies).
-- TASK-cricket-npl-live-2026-11-03: window A 06:30Z upcoming (logger not yet started; ~90 min out).
-- TASK-sports-mece-shadow: OPEN; sim column pending reviewer grant (filed 10-29).
-- nothing awaiting a Nick cost/code/merge/restart tap.
+round: 2026-11-03T05:40Z
+- cs2-ws-logger: RUNNING, logger pid 3497389, tail 05:35Z. Hourly committed copies refreshed this round: rn1/scores/cs2/server-2026-11/ frames 53,859 (newest 05:35:15Z), changes 20,772, logger.log. gzip -t OK.
+- cs2 count-mismatch + restart-proof inboxes answered (outbox 03:04Z, corrected counts).
+- cricket-npl-live: PREP, window A 06:30Z (not open yet) — launch when due per TASK. rugby-top14 capture: 7-8 Nov, not due.
+- sports-mece-shadow: RUNNING (bounded sim proc 3272310, ~258 MB); report due on exit.
+- nothing waiting on Nick (no cost/code/merge/restart-kill).
