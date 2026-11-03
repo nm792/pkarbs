@@ -1,0 +1,6 @@
+nba orientation check (first number = logger home): agree 0 disagree 12
+nba score changes 1043  cumulative signed move (c) at -50s:-0.02 -40s:-0.05 -30s:0.10 -20s:0.11 -10s:0.06 0s:1.24 10s:1.98 20s:2.19 30s:2.33 40s:2.46 50s:2.48 60s:2.45
+cs2 orientation check (first number = logger home): agree 14 disagree 0
+cs2 score changes 128  cumulative signed move (c) at -50s:0.22 -40s:0.40 -30s:0.77 -20s:1.28 -10s:1.80 0s:2.52 10s:2.89 20s:3.23 30s:3.33 40s:3.81 50s:3.94 60s:4.00
+dota2 orientation check (first number = logger home): agree 6 disagree 0
+dota2 score changes 55  cumulative signed move (c) at -50s:0.04 -40s:0.30 -30s:0.53 -20s:0.33 -10s:0.61 0s:1.23 10s:1.73 20s:2.55 30s:3.01 40s:3.30 50s:3.54 60s:3.15
