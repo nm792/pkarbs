@@ -16,11 +16,11 @@ def run(G, M, ff, veto=None, timing=False, pull=True):
     for (st, en, sb, sa) in G['evs']:
         z = sum(beta[k] * (sa[k] - sb[k]) for k in ['kills', 'towers', 'dragons', 'barons', 'inhibs'])
         anc = M.at(st - 1)
-        if anc is None: W.append((st, 0)); continue
+        if anc is None: W.append((st, 0, 0.0, None)); continue
         a = anc if G['blue0'] else 1 - anc; a = min(max(a, .02), .98)
         jb = 1 / (1 + math.exp(-(math.log(a / (1 - a)) + z))) - a          # predicted move of blue
         j0 = jb if G['blue0'] else -jb
-        W.append((st, 1 if j0 >= 0.04 else (-1 if j0 <= -0.04 else 0)))
+        W.append((st, 1 if j0 >= 0.04 else (-1 if j0 <= -0.04 else 0), j0, anc))
     rows = []
     for (T, _, ph, sell0, sz) in G['pr']:
         if not (G['t0'] <= T <= G['t1']): continue
@@ -28,7 +28,7 @@ def run(G, M, ff, veto=None, timing=False, pull=True):
         if mk is None or not (0.05 <= mk <= 0.95): continue
         on0 = on1 = True
         if pull:
-            act = [s for (st, s) in W if st + 3 <= T < st + 30]
+            act = [s for (st, s, _, _) in W if st + 3 <= T < st + 30]
             if act:
                 if timing and all(s != 0 for s in act) and len(set(act)) == 1:
                     on0, on1 = (True, False) if act[0] > 0 else (False, True)
@@ -46,7 +46,16 @@ def run(G, M, ff, veto=None, timing=False, pull=True):
         q = min(sz, S.Q); rt, m60 = M.at(T), M.at(T + 60)
         if tok == 1: rt, m60 = 1 - rt, 1 - m60
         out = 1.0 if (G['win0'] == (tok == 0)) else 0.0
-        rows.append((q * b, q * (m60 - b), q * (out - b), q * S.REB * b * (1 - b)))
+        rec = [w for w in W if w[0] <= T < w[0] + 30]
+        ev = None
+        if rec:
+            st, _, j0, anc = rec[-1]
+            if anc is not None:
+                pj = j0 if tok == 0 else -j0
+                rm = (mk - anc) if tok == 0 else (anc - mk)      # market move of our token, anchor -> fill
+                ev = (pj, rm)
+            else: ev = (0.0, 0.0)
+        rows.append((q * b, q * (m60 - b), q * (out - b), q * S.REB * b * (1 - b), ev))
     return rows
 cfgs = [('no filter, pull30', {}), ('no filter, no pull', dict(pull=False))] + \
        [(f'veto E={int(E*100)}%, pull30', dict(veto=E)) for E in (0, 0.02, 0.05, 0.10)] + \
@@ -58,7 +67,7 @@ for name, kw in cfgs:
     for gid, (G, M, ff, x, fb) in B.GAMES.items():
         r = run(G, M, ff, **kw)
         if r:
-            a = np.array(r).sum(0); s = per.setdefault(x['match_id'], np.zeros(4)); s += a
+            a = np.array([z[:4] for z in r]).sum(0); s = per.setdefault(x['match_id'], np.zeros(4)); s += a
     P = np.array(list(per.values())); u = P[:, 0].sum(); res = P[:, 2] + P[:, 3]
     bs = [res[rng.integers(0, len(res), len(res))].sum() for _ in range(3000)]
     ex5 = np.sort(res)[:-5].sum()
