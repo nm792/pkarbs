@@ -53,7 +53,8 @@ def load(x):
         if start is not None and T - last > 10:
             evs.append((start, last, sb, s)); start = None
         prev = s
-    return dict(pr=pr, t0=t0, t1=t1, win0=win0, evs=evs, blue0=g['blue_is_outcome0'])
+    fst = [(F.ts(f['rfc460Timestamp']), F.state(f)) for f in ing]
+    return dict(pr=pr, t0=t0, t1=t1, win0=win0, evs=evs, blue0=g['blue_is_outcome0'], fst=fst)
 
 class Mid:
     def __init__(s, pr):
@@ -97,33 +98,82 @@ def fair_fn(G, M, beta):
         return None
     return f
 
-def sim(G, M, d, mode='mkt', cancel=None, strict=False, fairf=None):
+def fair_fn2(G, M, beta, max_win=10, caught=0.7, k=1.0):
+    """Corrected use of the jump model (v2, 3 Nov). fair = pre-event mid + model jump,
+    using only the state seen DET_LAG s earlier (no lookahead inside a cluster),
+    and only until the market has made `caught` of the predicted move or
+    max_win s after the event. Outside those windows fair = None (use mid)."""
+    ft = [a for a, _ in G['fst']]
+    def st_at(T):
+        i = bisect.bisect_right(ft, T) - 1
+        return G['fst'][max(i, 0)][1]
+    W = []
+    for (st, en, sb, sa) in G['evs']:
+        anc = M.at(st - 1)
+        if anc is None or not (0.02 < anc < 0.98): continue
+        W.append((st, sb, anc))
+    def f(T):
+        for st, sb, anc in W:
+            if st + DET_LAG <= T < st + max_win:
+                s = st_at(T - DET_LAG)
+                a = anc if G['blue0'] else 1 - anc
+                z = math.log(a / (1 - a)) + sum(beta[k] * (s[k] - sb[k]) / (1000.0 if k == 'gold' else 1) for k in KEYS)
+                fb = 1 / (1 + math.exp(-z)); f0 = fb if G['blue0'] else 1 - fb
+                m = M.at(T - QDELAY)
+                pred = f0 - anc
+                if abs(pred) < 0.01 or m is None: return None
+                if (m - anc) / pred >= caught: return None   # market has caught up
+                return (anc + k * pred, 1 if pred > 0 else -1)   # bid part of the jump on the side it favours; other side pulled
+        return None
+    return f
+
+def sim(G, M, d, mode='mkt', cancel=None, strict=False, fairf=None, pull_hurt=False):
     fills = []
     for (T, _, ph, sell0, sz) in G['pr']:
         if not (G['t0'] <= T <= G['t1']): continue
         ref = M.at(T - QDELAY)
         if ref is None or not (0.05 <= ref <= 0.95): continue
-        r1 = 1 - ref
+        r1 = 1 - ref; inwin = False
         if mode in ('fair', 'min'):
             fv = fairf(T)
+            if isinstance(fv, tuple) and mode == 'min':
+                # RULE: never above market. Model may only lower (or pull) bids.
+                inwin = True
+                fk = min(max(fv[0], 0.01), 0.99)
+                if pull_hurt:
+                    ref, r1 = (ref, None) if fv[1] > 0 else (None, r1)
+                else:
+                    ref, r1 = min(ref, fk), min(r1, 1 - fk)
+                fv = None
+            elif isinstance(fv, tuple):
+                inwin = True
+                fk, sg = fv; fk = min(max(fk, 0.01), 0.99)
+                ref, r1 = (fk, None) if sg > 0 else (None, 1 - fk)
+                fv = None
             if fv is not None:
+                inwin = True
                 fv = min(max(fv, 0.01), 0.99)
                 if mode == 'fair': ref, r1 = fv, 1 - fv
                 else: ref, r1 = min(ref, fv), min(1 - ref, 1 - fv)   # model may only LOWER our bids
-        if cancel is not None and any(st + cancel <= T < st + 30 for (st, _, _, _) in G['evs']): continue
+        if cancel is not None and not inwin and any(st + cancel <= T < st + 30 for (st, _, _, _) in G['evs']): continue
+        mk = M.at(T - QDELAY)
         if sell0:
-            b = ref * (1 - d); hit = ph < b - 1e-9 if strict else ph <= b + 1e-9
-            if hit: fills.append((T, 0, b, min(sz, Q)))
+            if ref is None: continue
+            b = ref * (1 - d)
+            if mode in ('mkt', 'min'): assert b <= mk * (1 - d) + 1e-9; hit = ph < b - 1e-9 if strict else ph <= b + 1e-9
+            if hit: fills.append((T, 0, b, min(sz, Q), inwin))
         else:
+            if r1 is None: continue
             b = r1 * (1 - d); p1 = 1 - ph
+            if mode in ('mkt', 'min'): assert b <= (1 - mk) * (1 - d) + 1e-9
             hit = p1 < b - 1e-9 if strict else p1 <= b + 1e-9
-            if hit: fills.append((T, 1, b, min(sz, Q)))
+            if hit: fills.append((T, 1, b, min(sz, Q), inwin))
     rows = []
-    for (T, tok, b, q) in fills:
+    for (T, tok, b, q, inwin) in fills:
         rt = M.at(T); m60 = M.at(T + 60); m300 = M.at(T + 300)
         if tok == 1: rt, m60, m300 = 1 - rt, 1 - m60, 1 - m300
         out = 1.0 if (G['win0'] == (tok == 0)) else 0.0
-        rows.append(dict(q=q, usd=q * b, entry=q * (rt - b), m1=q * (m60 - rt), m5=q * (m300 - m60), rest=q * (out - m300),
+        rows.append(dict(win=inwin, q=q, usd=q * b, entry=q * (rt - b), m1=q * (m60 - rt), m5=q * (m300 - m60), rest=q * (out - m300),
                          pnl=q * (out - b), reb=q * REB * b * (1 - b)))
     return rows
 
