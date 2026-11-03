@@ -82,6 +82,8 @@ def load(data, runs_path=None, limit=None, days=None, now=None):
     n_ev = 0
     for line in open(os.path.join(data, "events.jsonl")):
         ev = json.loads(line)
+        if cutoff is not None and (ev.get("t") or 0) < cutoff:
+            continue  # bounded load by recency: skip events logged before the window
         if limit is not None and n_ev >= limit:
             break
         n_ev += 1
