@@ -8,3 +8,9 @@
   - Steam Web API (GetLiveLeagueGames): blocked by proxy; needs a key; same spectator delay.
   - HLTV scorebot: 403 (Cloudflare). bo3.gg API and Liquipedia: blocked by proxy. GRID: paid (403). PandaScore free tier: no rounds.
 - Result: no free CS2/Dota 2 feed is faster than the price. CS2 tier-1 round data from the PM WS is usable for measuring, not for a speed edge.
+
+## CS2 event-only rule, LoL style (cs2_event_only.py, out_cs2_event_only.txt), 07:10Z
+- Data: CS2 games 2-3 Nov with Polymarket round scores in our logs AND match-winner trades: 6 (Legacy-TheMongolz, MOUZ-TYLOO, Aurora-Liquid, PARIVISION-G2, megoshort-Falcons Force, Liquid-PARIVISION). Round data reached us for 7 of the 16 CS2 games the logger saw live; it is intermittent, not tier-based (NaVi-Falcons and FURIA-FaZe had none).
+- Model: rounds to 13, Bo3 maps, map strength from the pre-match price. Jump fit beta 0.07 (R2 0.04, 246 rounds): one round moves the price far less than a simple model says.
+- Rule (bid mkt x 0.975 on the side that should rise >= 1c but hasn't, 30 s window, corrected fills): filled $124-343 in total over 3-5 games across variants. 1-min edge -0.8% to +1.6%; lost to result in every variant. Far too thin to judge either way.
+- Games needed: ~100 with round data (the LoL holdout was 93-174). At ~45% round coverage: PGL Major Singapore 25 Nov-13 Dec (~100 matches) gives ~45; BLAST Rivals 10-11 Nov a few more; reaching ~100 needs the Jan events (BLAST Bounty 11-24 Jan, IEM Krakow 27 Jan-7 Feb).
