@@ -31,3 +31,17 @@ Sim on real trades, first-in-queue, 100-share cap. Whole game ~2x second half (e
 - Yellow Submarine v NaVi G1 (EPL Masters): Polymarket G1 price moved 0.28 -> 0.62 between 11:24 and 11:37Z while Valve still showed pre-horn (horn at 11:35:55Z on Valve, 0-0 kills to 11:37). Consistent with OpenDota's 900 s delay tag on this league: Valve is roughly 10-15 min behind the market.
 - So on today's Polymarket-listed leagues Valve's free feed is 300-900 s behind the price. Lag sweep at >= 180 s: about $0 per game. No edge from the free feed on these leagues.
 - Caveat: GetLiveGames 'time' is lobby time (incl. draft), not a delay tag. Per-game delay = Valve game end vs price reaching 0.99.
+
+## All Polymarket series on 4 Nov (server capture to 18:17Z, livelag/lag.py; out: livelag/out_lag_server_2026-11-04.json)
+Valve game end (game_state 6) minus Polymarket game-winner price reaching 0.99, and minus PM sports WS map-score change:
+| Game | League | Valve - price | Valve - PM WS |
+|---|---|---|---|
+| PuckChamp v Inner Circle G1 | Asgard | 299 s | 246 s |
+| Zero Tenacity v angry birds G1 | Asgard | 298 s | 221 s |
+| Zero Tenacity v angry birds G2 | Asgard | 301 s | 135 s |
+| Spirit Academy v Xipto G1 | Asgard | 956 s | 677 s |
+| Yellow Submarine v NaVi G1 | EPL Masters | 978 s | 857 s |
+| OG v GamerLegion (series market) | EPL Masters | 1463 s | 860 s |
+| CyberHero v HULIGANI G1 | EPL Masters | 1094 s | 772 s |
+| Xipto v Synapse G1 (cloud capture) | Esports Pro Circuit | 899 s | 586 s |
+In-game kill/tower events (23 timed): Valve median 346 s after the price (p10-p90 245-424 s). No Polymarket-listed game today had a short delay; Media Eleague games dropped out of Valve's feed mid-game. Verdict: free Valve feed is 5-16 min behind on every Polymarket Dota league seen; ~$0/game. Games after 18:17Z (Allied v Lynx, Cooman v Stray) not in the repo copy.
