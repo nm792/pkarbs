@@ -1,0 +1,2072 @@
+[
+{
+"league": "nba",
+"name": "NBA",
+"sport": "Basketball",
+"total": 27684280.864716116,
+"inplay": 13786771.870628625,
+"share": 0.498,
+"sampled": 37
+},
+{
+"league": "lol",
+"name": "LoL",
+"sport": "Esports",
+"total": 11700201.11799387,
+"inplay": 10155774.57041868,
+"share": 0.868,
+"sampled": 36
+},
+{
+"league": "cs2",
+"name": "CS2",
+"sport": "Esports",
+"total": 11080441.47044086,
+"inplay": 8720307.437236957,
+"share": 0.787,
+"sampled": 39
+},
+{
+"league": "nfl",
+"name": "NFL",
+"sport": "American football",
+"total": 8837163.298509134,
+"inplay": 5576250.0413592635,
+"share": 0.631,
+"sampled": 36
+},
+{
+"league": "atp",
+"name": "ATP Tour",
+"sport": "Tennis",
+"total": 8549819.005712923,
+"inplay": 7831634.209233037,
+"share": 0.916,
+"sampled": 39
+},
+{
+"league": "dota2",
+"name": "Dota 2",
+"sport": "Esports",
+"total": 6048212.454194797,
+"inplay": 5800235.743572811,
+"share": 0.959,
+"sampled": 35
+},
+{
+"league": "ucl",
+"name": "UEFA Champions League",
+"sport": "Soccer",
+"total": 6023016.496174467,
+"inplay": 2746495.522255557,
+"share": 0.456,
+"sampled": 35
+},
+{
+"league": "wta",
+"name": "WTA Tour",
+"sport": "Tennis",
+"total": 5556440.903093865,
+"inplay": 5000796.812784479,
+"share": 0.9,
+"sampled": 39
+},
+{
+"league": "epl",
+"name": "Premier League",
+"sport": "Soccer",
+"total": 4532611.518798867,
+"inplay": 1958088.1761211106,
+"share": 0.432,
+"sampled": 35
+},
+{
+"league": "cfb",
+"name": "College Football",
+"sport": "American football",
+"total": 3665799.7440663995,
+"inplay": 1986863.4612839888,
+"share": 0.542,
+"sampled": 36
+},
+{
+"league": "lal",
+"name": "LaLiga",
+"sport": "Soccer",
+"total": 3586138.348934665,
+"inplay": 1961617.6768672618,
+"share": 0.547,
+"sampled": 34
+},
+{
+"league": "sea",
+"name": "Serie A",
+"sport": "Soccer",
+"total": 3421921.029452132,
+"inplay": 2282421.3266445724,
+"share": 0.667,
+"sampled": 35
+},
+{
+"league": "nhl",
+"name": "NHL",
+"sport": "Ice hockey",
+"total": 1966222.711115267,
+"inplay": 538745.0228455832,
+"share": 0.274,
+"sampled": 12
+},
+{
+"league": "bun",
+"name": "Bundesliga",
+"sport": "Soccer",
+"total": 1416475.4091206002,
+"inplay": 866882.9503818073,
+"share": 0.612,
+"sampled": 11
+},
+{
+"league": "mls",
+"name": "MLS",
+"sport": "Soccer",
+"total": 1415805.034156534,
+"inplay": 1126980.807188601,
+"share": 0.796,
+"sampled": 12
+},
+{
+"league": "mlb",
+"name": "MLB",
+"sport": "Baseball",
+"total": 1322651.8680334664,
+"inplay": 876918.1885061882,
+"share": 0.663,
+"sampled": 11
+},
+{
+"league": "uel",
+"name": "UEFA Europa League",
+"sport": "Soccer",
+"total": 1099983.7815234002,
+"inplay": 639090.5770650955,
+"share": 0.581,
+"sampled": 12
+},
+{
+"league": "fl1",
+"name": "Ligue 1",
+"sport": "Soccer",
+"total": 1082801.9498089338,
+"inplay": 638853.1503872708,
+"share": 0.59,
+"sampled": 12
+},
+{
+"league": "ufc",
+"name": "UFC",
+"sport": "MMA / boxing",
+"total": 889245.7346423332,
+"inplay": 775422.2806081146,
+"share": 0.872,
+"sampled": 10
+},
+{
+"league": "mex",
+"name": "Liga MX",
+"sport": "Soccer",
+"total": 795197.4946311335,
+"inplay": 579698.9735860963,
+"share": 0.729,
+"sampled": 12
+},
+{
+"league": "bra",
+"name": "Brasileir\u00e3o S\u00e9rie A",
+"sport": "Soccer",
+"total": 723437.3503675336,
+"inplay": 625773.3080679165,
+"share": 0.865,
+"sampled": 12
+},
+{
+"league": "spl",
+"name": "Saudi Pro League",
+"sport": "Soccer",
+"total": 706648.2458202669,
+"inplay": 660009.4615961293,
+"share": 0.934,
+"sampled": 12
+},
+{
+"league": "afcl",
+"name": "AFC Champions League Elite",
+"sport": "Soccer",
+"total": 656155.5008158667,
+"inplay": 568886.8192073564,
+"share": 0.867,
+"sampled": 12
+},
+{
+"league": "efl",
+"name": "EFL CUP",
+"sport": "Soccer",
+"total": 633007.3536373335,
+"inplay": 248771.88997947206,
+"share": 0.393,
+"sampled": 11
+},
+{
+"league": "por",
+"name": "Primeira Liga",
+"sport": "Soccer",
+"total": 558251.0918936001,
+"inplay": 419246.57001209364,
+"share": 0.751,
+"sampled": 11
+},
+{
+"league": "arg",
+"name": "Liga Profesional de F\u00fatbol",
+"sport": "Soccer",
+"total": 545840.5216829333,
+"inplay": 432305.6931728832,
+"share": 0.792,
+"sampled": 12
+},
+{
+"league": "crint",
+"name": "International",
+"sport": "Cricket",
+"total": 494088.0559528668,
+"inplay": 439244.28174209857,
+"share": 0.889,
+"sampled": 12
+},
+{
+"league": "wnba",
+"name": "WNBA",
+"sport": "Basketball",
+"total": 456340.0500516,
+"inplay": 367353.740291538,
+"share": 0.805,
+"sampled": 7
+},
+{
+"league": "tur",
+"name": "S\u00fcper Lig",
+"sport": "Soccer",
+"total": 446577.2238312667,
+"inplay": 288488.8865949983,
+"share": 0.646,
+"sampled": 11
+},
+{
+"league": "dfb",
+"name": "DFB-Pokal",
+"sport": "Soccer",
+"total": 420177.1601256668,
+"inplay": 231097.43806911676,
+"share": 0.55,
+"sampled": 12
+},
+{
+"league": "col",
+"name": "UEFA Conference League",
+"sport": "Soccer",
+"total": 411554.75630246656,
+"inplay": 123054.8721344375,
+"share": 0.299,
+"sampled": 12
+},
+{
+"league": "ere",
+"name": "Eredivisie",
+"sport": "Soccer",
+"total": 389444.86385740025,
+"inplay": 190827.9832901261,
+"share": 0.49,
+"sampled": 11
+},
+{
+"league": "itf",
+"name": "ITF",
+"sport": "Tennis",
+"total": 354421.3664044664,
+"inplay": 300549.3187109875,
+"share": 0.848,
+"sampled": 12
+},
+{
+"league": "j1100",
+"name": "J1 League",
+"sport": "Soccer",
+"total": 345529.05404733337,
+"inplay": 290244.40539976,
+"share": 0.84,
+"sampled": 12
+},
+{
+"league": "elc",
+"name": "EFL Championship",
+"sport": "Soccer",
+"total": 340541.35239700007,
+"inplay": 163800.39050295702,
+"share": 0.481,
+"sampled": 12
+},
+{
+"league": "col1",
+"name": "Categor\u00eda Primera A",
+"sport": "Soccer",
+"total": 313280.2907715334,
+"inplay": 211777.47656155657,
+"share": 0.676,
+"sampled": 12
+},
+{
+"league": "bl2",
+"name": "2. Bundesliga",
+"sport": "Soccer",
+"total": 307997.73088933324,
+"inplay": 219910.3798549839,
+"share": 0.714,
+"sampled": 12
+},
+{
+"league": "es2",
+"name": "LaLiga2",
+"sport": "Soccer",
+"total": 247163.67254120004,
+"inplay": 165599.66060260404,
+"share": 0.67,
+"sampled": 12
+},
+{
+"league": "val",
+"name": "Valorant",
+"sport": "Esports",
+"total": 225208.77601766668,
+"inplay": 162375.52750873766,
+"share": 0.721,
+"sampled": 11
+},
+{
+"league": "idn1",
+"name": "Indonesia Liga 1",
+"sport": "Soccer",
+"total": 218089.14616513334,
+"inplay": 209147.49117236288,
+"share": 0.959,
+"sampled": 12
+},
+{
+"league": "aus",
+"name": "A-League Men",
+"sport": "Soccer",
+"total": 200815.4062016666,
+"inplay": 163664.55605435825,
+"share": 0.815,
+"sampled": 12
+},
+{
+"league": "itsb",
+"name": "Serie B",
+"sport": "Soccer",
+"total": 176140.19329913336,
+"inplay": 82962.03104389181,
+"share": 0.471,
+"sampled": 12
+},
+{
+"league": "swe",
+"name": "Allsvenskan",
+"sport": "Soccer",
+"total": 161849.86477113323,
+"inplay": 69271.74212204502,
+"share": 0.428,
+"sampled": 12
+},
+{
+"league": "lib",
+"name": "Copa Libertadores",
+"sport": "Soccer",
+"total": 160234.4037382,
+"inplay": 120336.0372073882,
+"share": 0.751,
+"sampled": 10
+},
+{
+"league": "egy1",
+"name": "Egyptian Premier League",
+"sport": "Soccer",
+"total": 154602.5036214666,
+"inplay": 140379.0732882917,
+"share": 0.908,
+"sampled": 11
+},
+{
+"league": "bkcba",
+"name": "CBA",
+"sport": "Basketball",
+"total": 146661.73159459996,
+"inplay": 103689.84423738216,
+"share": 0.707,
+"sampled": 10
+},
+{
+"league": "bra2",
+"name": "Brasileir\u00e3o S\u00e9rie B",
+"sport": "Soccer",
+"total": 139653.33536926674,
+"inplay": 134486.16196060387,
+"share": 0.963,
+"sampled": 12
+},
+{
+"league": "nor",
+"name": "Eliteserien",
+"sport": "Soccer",
+"total": 132574.63004706666,
+"inplay": 75434.96449678093,
+"share": 0.569,
+"sampled": 12
+},
+{
+"league": "cdr",
+"name": "Copa del Rey",
+"sport": "Soccer",
+"total": 129841.88278106666,
+"inplay": 116727.85262017892,
+"share": 0.899,
+"sampled": 12
+},
+{
+"league": "bel1",
+"name": "Belgium Pro League",
+"sport": "Soccer",
+"total": 128797.47593373334,
+"inplay": 60663.611164788395,
+"share": 0.471,
+"sampled": 11
+},
+{
+"league": "el1",
+"name": "League One",
+"sport": "Soccer",
+"total": 121480.95503246668,
+"inplay": 30977.643533279002,
+"share": 0.255,
+"sampled": 12
+},
+{
+"league": "j2100",
+"name": "J2 League",
+"sport": "Soccer",
+"total": 119902.76797900004,
+"inplay": 71462.04971548403,
+"share": 0.596,
+"sampled": 12
+},
+{
+"league": "sud",
+"name": "Copa Sudamericana",
+"sport": "Soccer",
+"total": 114903.31623886667,
+"inplay": 99736.07849533626,
+"share": 0.868,
+"sampled": 12
+},
+{
+"league": "euroleague",
+"name": "EuroLeague",
+"sport": "Basketball",
+"total": 108955.8913012,
+"inplay": 67988.4761719488,
+"share": 0.624,
+"sampled": 10
+},
+{
+"league": "den",
+"name": "Danish Superliga",
+"sport": "Soccer",
+"total": 104994.0144548,
+"inplay": 77170.600624278,
+"share": 0.735,
+"sampled": 12
+},
+{
+"league": "scop",
+"name": "Scottish Premiership",
+"sport": "Soccer",
+"total": 104946.11969980001,
+"inplay": 62233.0489819814,
+"share": 0.593,
+"sampled": 11
+},
+{
+"league": "per1",
+"name": "Liga 1",
+"sport": "Soccer",
+"total": 98830.45628720005,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "acl2",
+"name": "AFC Champions League Two",
+"sport": "Soccer",
+"total": 89539.80013553333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "fr2",
+"name": "Ligue 2",
+"sport": "Soccer",
+"total": 77758.23727400003,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "cbb",
+"name": "College Basketball",
+"sport": "Basketball",
+"total": 76169.61759099994,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "chi",
+"name": "Chinese Super League",
+"sport": "Soccer",
+"total": 76156.58087473335,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkkbl",
+"name": "KBL",
+"sport": "Basketball",
+"total": 75903.33778093333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "kor",
+"name": "K League 1",
+"sport": "Soccer",
+"total": 70399.24869506666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "pol",
+"name": "Ekstraklasa",
+"sport": "Soccer",
+"total": 67840.14601433331,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "uwcl",
+"name": "UEFA Women's Champions League",
+"sport": "Soccer",
+"total": 67563.51696113333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "sui",
+"name": "Swiss Super League",
+"sport": "Soccer",
+"total": 66509.16049146667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "grc",
+"name": "Greek Cup",
+"sport": "Soccer",
+"total": 60651.982938666675,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "fin1",
+"name": "Veikkausliiga",
+"sport": "Soccer",
+"total": 60055.83839666667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "ned2",
+"name": "Eerste Divisie",
+"sport": "Soccer",
+"total": 58319.14142253335,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "aut",
+"name": "Austria Bundesliga",
+"sport": "Soccer",
+"total": 57201.3600818,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bul",
+"name": "efbet Liga",
+"sport": "Soccer",
+"total": 55614.58188713334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bknbl",
+"name": "NBL",
+"sport": "Basketball",
+"total": 54580.73372453333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "lva1",
+"name": "Virsl\u012bga",
+"sport": "Soccer",
+"total": 53880.82026499999,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "argpn",
+"name": "Primera Nacional",
+"sport": "Soccer",
+"total": 53121.42680599998,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "rou1",
+"name": "SuperLiga",
+"sport": "Soccer",
+"total": 52429.091988733315,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "gre1",
+"name": "Greece Super League",
+"sport": "Soccer",
+"total": 52097.02842260001,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "chi1",
+"name": "Liga de Primera",
+"sport": "Soccer",
+"total": 51557.196909533326,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bol1",
+"name": "Bolivian Primera Divisi\u00f3n",
+"sport": "Soccer",
+"total": 50815.13965693333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "nlc",
+"name": "KNVB Beker",
+"sport": "Soccer",
+"total": 48525.32201626666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "brco",
+"name": "Copa do Brasil",
+"sport": "Soccer",
+"total": 46925.391882200005,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "tur2",
+"name": "Turkey 1. Lig",
+"sport": "Soccer",
+"total": 46710.20744359999,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "el2",
+"name": "League Two",
+"sport": "Soccer",
+"total": 45685.9229736667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "qat1",
+"name": "Qatar Stars League",
+"sport": "Soccer",
+"total": 44852.78726673333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "cricwcl",
+"name": "World Championship of Legends",
+"sport": "Cricket",
+"total": 44238.39839633333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "swe2",
+"name": "Superettan",
+"sport": "Soccer",
+"total": 43604.717367199984,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "cze1",
+"name": "Chance Liga",
+"sport": "Soccer",
+"total": 36068.65559566668,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "par1",
+"name": "Paraguay Primera Divisi\u00f3n",
+"sport": "Soccer",
+"total": 35983.04165166667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "ecu1",
+"name": "LigaPro Serie A",
+"sport": "Soccer",
+"total": 34777.00991593334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "ukr1",
+"name": "Ukrainian Premier League",
+"sport": "Soccer",
+"total": 32103.042301733327,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "rus",
+"name": "Russian Premier League",
+"sport": "Soccer",
+"total": 32046.633659533327,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "isr",
+"name": "Israeli Premier League",
+"sport": "Soccer",
+"total": 31712.493094666675,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "srb",
+"name": "Serbian SuperLiga",
+"sport": "Soccer",
+"total": 30702.0301562,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "kaz1",
+"name": "Kazakhstan Premier League",
+"sport": "Soccer",
+"total": 30694.681197199996,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "nor2",
+"name": "OBOS-ligaen",
+"sport": "Soccer",
+"total": 28126.75436326666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "serc",
+"name": "Serie C",
+"sport": "Soccer",
+"total": 26843.540092733336,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "irl1",
+"name": "League of Ireland Premier Division",
+"sport": "Soccer",
+"total": 26452.30015733333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "mex2",
+"name": "Liga de Expansi\u00f3n MX",
+"sport": "Soccer",
+"total": 26124.049510999994,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "ja3",
+"name": "J3 League",
+"sport": "Soccer",
+"total": 25987.44398073335,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bl3",
+"name": "3. Liga",
+"sport": "Soccer",
+"total": 25941.339738066665,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "isp",
+"name": "Indian Super League",
+"sport": "Soccer",
+"total": 25164.716932733325,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "hr1",
+"name": "Prva Liga",
+"sport": "Soccer",
+"total": 24607.881631200005,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "enl",
+"name": "National League",
+"sport": "Soccer",
+"total": 24171.553757866663,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkeurocup",
+"name": "EuroCup",
+"sport": "Basketball",
+"total": 23509.149102333326,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "atp-doubles",
+"name": "ATP Doubles",
+"sport": "Tennis",
+"total": 22760.97187366666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "est1",
+"name": "Premium Liiga",
+"sport": "Soccer",
+"total": 22661.33637753334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkjpn",
+"name": "B.League",
+"sport": "Basketball",
+"total": 22203.405389800002,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "atc",
+"name": "\u00d6FB Cup",
+"sport": "Soccer",
+"total": 22200.8062402,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "uzb1",
+"name": "Uzbekistan Super League",
+"sport": "Soccer",
+"total": 20966.573071666666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "kor2",
+"name": "K League 2",
+"sport": "Soccer",
+"total": 20206.856246733332,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "nwsl",
+"name": "NWSL",
+"sport": "Soccer",
+"total": 19841.0718656,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "tha1",
+"name": "Thai League 1",
+"sport": "Soccer",
+"total": 19454.364154333332,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "ven1",
+"name": "Venezuelan Primera Divisi\u00f3n",
+"sport": "Soccer",
+"total": 19275.337971333334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "wsl",
+"name": "Women's Super League",
+"sport": "Soccer",
+"total": 18861.92286833334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "col2",
+"name": "Categor\u00eda Primera B",
+"sport": "Soccer",
+"total": 17942.76414973334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "chi2",
+"name": "China League One",
+"sport": "Soccer",
+"total": 17740.463735400004,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "uru1",
+"name": "Uruguayan Primera Divisi\u00f3n",
+"sport": "Soccer",
+"total": 17379.13810006667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkligend",
+"name": "Liga ACB",
+"sport": "Basketball",
+"total": 17351.891353666666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "svk1",
+"name": "Nik\u00e9 liga",
+"sport": "Soccer",
+"total": 16880.163683666662,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "fpd",
+"name": "Liga FPD",
+"sport": "Soccer",
+"total": 16192.100740266664,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "khl",
+"name": "KHL",
+"sport": "Ice hockey",
+"total": 16022.526322066664,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "mar1",
+"name": "Botola Pro",
+"sport": "Soccer",
+"total": 15736.180038400003,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "wta-doubles",
+"name": "WTA Doubles",
+"sport": "Tennis",
+"total": 15459.0604412,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "pt2",
+"name": "Liga Portugal 2",
+"sport": "Soccer",
+"total": 15276.322592466673,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "gtm",
+"name": "Liga Nacional de Guatemala",
+"sport": "Soccer",
+"total": 14299.524701866665,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkfr1",
+"name": "Betclic \u00c9lite",
+"sport": "Basketball",
+"total": 13633.680477866666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "uslc",
+"name": "USL Championship",
+"sport": "Soccer",
+"total": 13252.046914733333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkbbl",
+"name": "Basketball Bundesliga",
+"sport": "Basketball",
+"total": 12018.733494266668,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "aze1",
+"name": "Azerbaijan Premier League",
+"sport": "Soccer",
+"total": 11869.805819133331,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bel2",
+"name": "Challenger Pro League",
+"sport": "Soccer",
+"total": 11162.33713966667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "es3",
+"name": "Primera Federaci\u00f3n",
+"sport": "Soccer",
+"total": 11069.723099066667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "slo",
+"name": "Slovenia PrvaLiga",
+"sport": "Soccer",
+"total": 10114.786915466664,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkseriea",
+"name": "Lega Basket Serie A",
+"sport": "Basketball",
+"total": 9674.509059400001,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "aze2",
+"name": "Azerbaijan First Division",
+"sport": "Soccer",
+"total": 9504.036711266666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "azec",
+"name": "Azerbaijan Cup",
+"sport": "Soccer",
+"total": 8952.2073464,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "hun",
+"name": "NB I",
+"sport": "Soccer",
+"total": 8951.386757999999,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "kbo",
+"name": "KBO",
+"sport": "Baseball",
+"total": 8738.184696066666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "npb",
+"name": "NPB",
+"sport": "Baseball",
+"total": 8019.124545333333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkbsl",
+"name": "Basketbol S\u00fcper Ligi",
+"sport": "Basketball",
+"total": 7560.944059866668,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "uwec",
+"name": "UEFA Women's Europa Cup",
+"sport": "Soccer",
+"total": 7334.972851933334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "cwbb",
+"name": "Women's College Basketball",
+"sport": "Basketball",
+"total": 6913.205821133332,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "ltu1",
+"name": "A Lyga",
+"sport": "Soccer",
+"total": 6858.587469733334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "nls",
+"name": "National League South",
+"sport": "Soccer",
+"total": 6572.004090533333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkcl",
+"name": "Basketball Champions League",
+"sport": "Basketball",
+"total": 6488.614200333335,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "r6siege",
+"name": "Rainbow Six Siege",
+"sport": "Esports",
+"total": 6387.185925533334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "blr1",
+"name": "Belarusian Premier League",
+"sport": "Soccer",
+"total": 6154.603739999998,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "isl1",
+"name": "Besta deild karla",
+"sport": "Soccer",
+"total": 6085.939395466665,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkaba",
+"name": "ABA League",
+"sport": "Basketball",
+"total": 6045.804218400001,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "canpl",
+"name": "Canadian Premier League",
+"sport": "Soccer",
+"total": 5903.311242533333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "idn2",
+"name": "Indonesia Liga 2",
+"sport": "Soccer",
+"total": 5542.319611266666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkisrsl",
+"name": "Israeli Basketball Premier League",
+"sport": "Basketball",
+"total": 5173.462027866667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "nln",
+"name": "National League North",
+"sport": "Soccer",
+"total": 4930.806856000002,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "chfa",
+"name": "China FA Cup",
+"sport": "Soccer",
+"total": 4914.787602199999,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "hok",
+"name": "Honor of Kings",
+"sport": "Esports",
+"total": 4531.891483266667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "chl2",
+"name": "Primera B (Chile)",
+"sport": "Soccer",
+"total": 4527.3075044,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "snhl",
+"name": "National League",
+"sport": "Soccer",
+"total": 4382.868271266666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "efa",
+"name": "FA Cup",
+"sport": "Soccer",
+"total": 4080.391118066667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "usoc",
+"name": "US Open Cup",
+"sport": "Soccer",
+"total": 3996.2018041999995,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkvtb",
+"name": "VTB United League",
+"sport": "Basketball",
+"total": 3884.79833,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "ahl",
+"name": "AHL",
+"sport": "Ice hockey",
+"total": 3778.538812333333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bknbb",
+"name": "NBB",
+"sport": "Basketball",
+"total": 3777.399697666667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "cehl",
+"name": "Czech Extraliga",
+"sport": "Soccer",
+"total": 3729.6666237333325,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "usl1",
+"name": "USL League One",
+"sport": "Soccer",
+"total": 3672.3697625333352,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "rueuchamp",
+"name": "European Rugby Champions Cup",
+"sport": "Rugby",
+"total": 3639.871294133334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "ow",
+"name": "Overwatch",
+"sport": "Esports",
+"total": 3346.865160466667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkarg",
+"name": "Liga Nacional de B\u00e1squet",
+"sport": "Basketball",
+"total": 3199.8946654000006,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "sclc",
+"name": "Scotland League Cup",
+"sport": "Soccer",
+"total": 3084.651158,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "cafcl",
+"name": "CAF Champions League",
+"sport": "Soccer",
+"total": 2833.605757333334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "setkameua",
+"name": "Setka Cup UA (M)",
+"sport": "Soccer",
+"total": 2768.909853466667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "liiga",
+"name": "Liiga",
+"sport": "Ice hockey",
+"total": 2757.2095896,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "pga",
+"name": "PGA",
+"sport": "Golf",
+"total": 2512.511738466667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "mlbb",
+"name": "Mobile Legends: Bang Bang",
+"sport": "Esports",
+"total": 2303.9419131999994,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkplk",
+"name": "PLK",
+"sport": "Basketball",
+"total": 2253.8328563333334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bklkl",
+"name": "LKL",
+"sport": "Basketball",
+"total": 2213.818129866667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "cricranji",
+"name": "Ranji Trophy",
+"sport": "Cricket",
+"total": 2118.2764946666666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "shl",
+"name": "SHL",
+"sport": "Ice hockey",
+"total": 2054.545940333333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "argcopa",
+"name": "Copa Argentina",
+"sport": "Soccer",
+"total": 1971.2784106666668,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "darts",
+"name": "Darts",
+"sport": "Darts",
+"total": 1932.8096465333333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "nirl1",
+"name": "NIFL Premiership",
+"sport": "Soccer",
+"total": 1805.7630165333335,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "canch",
+"name": "Canadian Championship",
+"sport": "Soccer",
+"total": 1734.9519876666666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "cfl",
+"name": "CFL",
+"sport": "American football",
+"total": 1583.1066101999997,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "dehl",
+"name": "DEL",
+"sport": "Soccer",
+"total": 1486.407554933334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "scoc",
+"name": "Scottish Cup",
+"sport": "Soccer",
+"total": 1459.841426733333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkkls",
+"name": "KLS",
+"sport": "Basketball",
+"total": 1331.1826661333334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "tpe1",
+"name": "Taiwan Football Premier League",
+"sport": "Soccer",
+"total": 1308.6685894666666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "saf1",
+"name": "South Africa Premiership",
+"sport": "Soccer",
+"total": 1111.3555683999998,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "csa",
+"name": "CSA T20 Challenge",
+"sport": "Soccer",
+"total": 1109.3784532666666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "rutopft",
+"name": "Top 14",
+"sport": "Soccer",
+"total": 751.3325335999999,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "wsl2",
+"name": "Women's Super League 2",
+"sport": "Soccer",
+"total": 596.8826846,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bra3",
+"name": "Brasileir\u00e3o S\u00e9rie C",
+"sport": "Soccer",
+"total": 495.50722693333336,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "cpbl",
+"name": "CPBL",
+"sport": "Soccer",
+"total": 462.08978420000005,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "she",
+"name": "Sheffield Shield",
+"sport": "Soccer",
+"total": 338.34571166666666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "hockeychl",
+"name": "Champions Hockey League",
+"sport": "Ice hockey",
+"total": 321.4032777333333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "bkligarg",
+"name": "Liga Argentina",
+"sport": "Basketball",
+"total": 252.68266666666668,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "cricjcl",
+"name": "JCL T20",
+"sport": "Cricket",
+"total": 251.7951683333333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "fro1",
+"name": "Betri deildin",
+"sport": "Soccer",
+"total": 243.0999704,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vbliguea",
+"name": "Ligue A",
+"sport": "Soccer",
+"total": 203.09992700000004,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "setkamecz",
+"name": "Setka Cup CZ (M)",
+"sport": "Soccer",
+"total": 181.08358286666663,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "sc2",
+"name": "StarCraft II",
+"sport": "Esports",
+"total": 166.8692854,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "dpwt",
+"name": "DP World Tour",
+"sport": "Soccer",
+"total": 159.04790906666668,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "setkamemd",
+"name": "Setka Cup MD (M)",
+"sport": "Soccer",
+"total": 133.24216226666664,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "mlp",
+"name": "Pickleball",
+"sport": "Soccer",
+"total": 131.6914819333333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "ruurc",
+"name": "United Rugby Championship",
+"sport": "Rugby",
+"total": 102.5737682,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "lpga",
+"name": "LPGA",
+"sport": "Golf",
+"total": 85.6846764,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vbefeler",
+"name": "Efeler Ligi",
+"sport": "Soccer",
+"total": 52.7842414,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vbligueb",
+"name": "Ligue B",
+"sport": "Soccer",
+"total": 44.69129233333334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "rueuchall",
+"name": "European Challenge Cup",
+"sport": "Soccer",
+"total": 44.282091466666664,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "ruprem",
+"name": "Premiership Rugby",
+"sport": "Rugby",
+"total": 41.4052442,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "aflw",
+"name": "AFL Women",
+"sport": "Soccer",
+"total": 39.138661066666664,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vbplusliga",
+"name": "PlusLiga",
+"sport": "Soccer",
+"total": 37.1814802,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "powerslap",
+"name": "Power Slap",
+"sport": "Soccer",
+"total": 35.360942666666666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vbligueaw",
+"name": "Ligue A Women",
+"sport": "Soccer",
+"total": 35.09186666666667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "wtt",
+"name": "WTT",
+"sport": "Soccer",
+"total": 34.84595153333334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vbsuperlega",
+"name": "SuperLega",
+"sport": "Soccer",
+"total": 25.150303333333333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vbcl",
+"name": "CEV Champions League",
+"sport": "Soccer",
+"total": 12.562000000000001,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vbbelligaa",
+"name": "Belgian Liga A",
+"sport": "Soccer",
+"total": 11.862213333333333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "hbbundesliga",
+"name": "Handball Bundesliga",
+"sport": "Handball",
+"total": 11.251499066666666,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "cycling",
+"name": "Cycling",
+"sport": "Soccer",
+"total": 6.666666666666667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "hbehfcl",
+"name": "EHF Champions League",
+"sport": "Soccer",
+"total": 4.47926,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vbbundesliga",
+"name": "Volleyball Bundesliga",
+"sport": "Volleyball",
+"total": 3.801393333333334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vbsvleague",
+"name": "SV.League",
+"sport": "Soccer",
+"total": 3.73096,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vb2bundesliga",
+"name": "2. Bundesliga",
+"sport": "Soccer",
+"total": 3.715786666666667,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "hbsuperliga",
+"name": "Superliga",
+"sport": "Soccer",
+"total": 0.41772153333333334,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "setkawoua",
+"name": "Setka Cup UA (W)",
+"sport": "Soccer",
+"total": 0.34788813333333335,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "hbhandbold",
+"name": "H\u00e5ndboldligaen",
+"sport": "Soccer",
+"total": 0.08130073333333333,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "hblnh",
+"name": "LNH Division 1",
+"sport": "Soccer",
+"total": 0.0,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "hbnbi",
+"name": "NB I",
+"sport": "Soccer",
+"total": 0.0,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "hbeliteserien",
+"name": "Eliteserien",
+"sport": "Soccer",
+"total": 0.0,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "hbasobal",
+"name": "Liga ASOBAL",
+"sport": "Soccer",
+"total": 0.0,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vbdivisao1",
+"name": "Portuguese I Divis\u00e3o",
+"sport": "Soccer",
+"total": 0.0,
+"inplay": null,
+"share": null,
+"sampled": 0
+},
+{
+"league": "vbsuperliga",
+"name": "Superliga S\u00e9rie A",
+"sport": "Soccer",
+"total": 0.0,
+"inplay": null,
+"share": null,
+"sampled": 0
+}
+]
