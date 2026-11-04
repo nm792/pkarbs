@@ -1,5 +1,8 @@
-# pkarbs heartbeat 20261104T1945Z
-- All inbox on vg2ckg answered (cs2-session-key-verify, run1/nudge answered); f92jdg worktree re-synced to origin (16-behind caught up; redundant staging cleared, /tmp backup kept).
-- cricket NPL task header flipped OPEN->DONE (both windows committed 2026-11-03; outbox replies filed).
-- hltv-scorebot Run 1 not run (reviewer drop-note 13:18Z); cs2/dota/lol loggers + rugby windows in per-task status.
-- Nothing waiting on Nick this round.
+# heartbeat 21:00Z round (2026-11-04)
+round: dispatch sweep — newest thread vg2ckg, origin-tip state
+
+- cs2-session-key-verify: answered KEY WORKS (signer 0xE38...77d, approvals missing SNX erc20) on all threads' outbox.
+- crossbet-reachability: answered FAIL 403 (Cloudflare block).
+- hltv-scorebot run1/nudge-1210Z: answered on gj2n29/vg2ckg.
+- All inbox items have replies; no new inbox since last heartbeat.
+- written 21:00Z 2026-11-04
