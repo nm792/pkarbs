@@ -46,6 +46,7 @@ for i, (k, s) in enumerate(sorted(SP.items(), key=lambda x: -x[1]['total']), 1):
 L += ['\n## By league (every league >= $0.1M/day; full list in adv_by_league.json)\n', '| # | League | Sport | Total $/day | In-play $/day | In-play share | Events sampled |', '|---|---|---|---|---|---|---|']
 for i, r in enumerate([r for r in rows if r['total'] >= 1e5], 1):
     L.append(f"| {i} | {r['name']} ({r['league']}) | {r['sport']} | ${r['total']/1e6:.2f}M | {'' if r['inplay'] is None else f'${r[chr(105)+chr(110)+chr(112)+chr(108)+chr(97)+chr(121)]/1e6:.2f}M'} | {'' if r['share'] is None else f'{r[chr(115)+chr(104)+chr(97)+chr(114)+chr(101)]:.0%}'} | {r['sampled'] or ''} |")
-open(f'{H}/ADV-2026-10-20_11-04.md', 'w').write('\n'.join(L) + '\n')
+# NOTE: the outrights/futures section (golf, rugby) at the end of the .md was appended by hand on 4 Nov; re-append if regenerating.
+open(f"{H}/ADV-2026-10-20_11-04.md", "w").write('\n'.join(L) + '\n')
 json.dump(rows, open(f'{H}/adv_by_league.json', 'w'), indent=0)
 print('\n'.join(L))
