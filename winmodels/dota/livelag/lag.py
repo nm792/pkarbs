@@ -78,11 +78,17 @@ for r in rows('rt_polls.jsonl'):
         _last[r['match_id']] = lt; delay[r['match_id']].append(lt - g)
 delay_tag = {m: st.median(v) for m, v in delay.items() if len(v) >= 3}
 res = {'matches': [], 'events': [], 'xcorr': {}, 'delay_tag_s': delay_tag}
+NAMES = {}
 for mid_, R in rt.items():
     R.sort(key=lambda r: r['recv_ms'])
-    tm = {t['team']: t for t in R[-1]['teams']}
+    R = [r for r in R if len(r['teams']) == 2]
+    if len(R) < 20: continue
+    named = [r for r in R if all(t['name'] for t in r['teams'])]  # names go blank after game end
+    if not named: continue
+    tm = {t['team']: t for t in named[-1]['teams']}
     if 2 not in tm or 3 not in tm: continue
     rad, dire = tm[2]['name'], tm[3]['name']
+    NAMES[mid_] = (rad, dire)
     ser = match_series([rad, dire])
     if not ser: continue
     s = ser[0]
@@ -214,7 +220,8 @@ ends = []
 for mid_, R in rt.items():
     fin = next((r for r in R if r.get('game_state') == 6), None)
     if not fin: continue
-    tm = {t['team']: t['name'] for t in fin['teams']}
+    if mid_ not in NAMES: continue
+    tm = {2: NAMES[mid_][0], 3: NAMES[mid_][1]}
     ser = match_series([tm.get(2), tm.get(3)])
     if not ser: continue
     tv = fin['recv_ms'] / 1000
@@ -223,7 +230,7 @@ for mid_, R in rt.items():
         if 'Game' not in m['q']: continue
         for r in raw.get(m['tokens'][0], []):
             t = r['recv_ms'] / 1000
-            if not (tv - 900 <= t <= tv + 120): continue
+            if not (tv - 1800 <= t <= tv + 120): continue
             if (r['bid'] is not None and r['bid'] >= 0.99) or (r['ask'] is not None and r['ask'] <= 0.01):
                 if best is None or t < best[0]: best = (t, m['q'])
                 break
@@ -233,7 +240,7 @@ for mid_, R in rt.items():
         sc = (g.get('score') or '').split('|')
         mp = sc[1] if len(sc) > 1 else None
         t = g['recv_ms'] / 1000
-        if prev is not None and mp != prev and tv - 900 <= t <= tv + 300: wst = t; break
+        if prev is not None and mp != prev and tv - 1800 <= t <= tv + 300: wst = t; break
         prev = mp
     e = {'match_id': mid_, 'label': ser[0]['label'], 'valve_end_t': tv, 'price_99_t': best and best[0], 'price_q': best and best[1],
          'valve_minus_price_s': (round(tv - best[0], 1) if best else None), 'pm_ws_score_t': wst,
