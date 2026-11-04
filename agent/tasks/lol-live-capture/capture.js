@@ -83,12 +83,55 @@ async function pollBooks() {
   }
 }
 
+
+// 4 Nov: Polymarket sports WS (wss://sports-api.polymarket.com/ws) carries LoL live as score "k-k|g-g|BoN".
+// Log every 'lol' message with local receive time to <label>_sportsws.jsonl (race it against livestats frames).
+const SPORTSWS = path.join(OUT, `${LABEL}_sportsws.jsonl`);
+function sportsWs() {
+  let WebSocket; try { WebSocket = require('ws'); } catch (e) { WebSocket = null; }
+  if (!WebSocket) {                                   // Node 22 built-in WebSocket (browser API) as fallback
+    if (!globalThis.WebSocket) { log('sportsws: no WebSocket available'); return; }
+    const go2 = () => {
+      if (stop || Date.now() > end) return;
+      const ws = new globalThis.WebSocket('wss://sports-api.polymarket.com/ws');
+      ws.addEventListener('open', () => log('sportsws open (builtin)'));
+      ws.addEventListener('message', (ev) => {
+        const s = String(ev.data); if (s === 'ping') { ws.send('pong'); return; }
+        let g; try { g = JSON.parse(s); } catch { return; }
+        if (g.leagueAbbreviation === 'lol') fs.appendFileSync(SPORTSWS, JSON.stringify({ recv_ms: Date.now(), ...g }) + '\n');
+      });
+      ws.addEventListener('close', () => setTimeout(go2, 3000));
+      ws.addEventListener('error', () => log('sportsws error (builtin)'));
+    };
+    go2(); return;
+  }
+  let wd;
+  const go = () => {
+    if (stop || Date.now() > end) return;
+    let agent; try { if (process.env.HTTPS_PROXY) { const { HttpsProxyAgent } = require('https-proxy-agent'); agent = new HttpsProxyAgent(process.env.HTTPS_PROXY); } } catch (e) {}
+    const ws = new WebSocket('wss://sports-api.polymarket.com/ws', { headers: { 'User-Agent': UA }, agent });
+    const bump = () => { clearTimeout(wd); wd = setTimeout(() => ws.terminate(), 60000); };
+    ws.on('open', () => { log('sportsws open'); bump(); });
+    ws.on('message', (d) => {
+      bump(); const s = d.toString();
+      if (s === 'ping') { ws.send('pong'); return; }
+      let g; try { g = JSON.parse(s); } catch { return; }
+      if (g.leagueAbbreviation === 'lol') fs.appendFileSync(SPORTSWS, JSON.stringify({ recv_ms: Date.now(), ...g }) + '\n');
+    });
+    ws.on('close', () => { clearTimeout(wd); setTimeout(go, 3000); });
+    ws.on('error', (e) => log('sportsws error ' + e.message));
+  };
+  go();
+}
+
 (async () => {
   const wait = start - Date.now();
   try { log('clock: ' + require('child_process').execSync('timedatectl show -p NTPSynchronized --value 2>/dev/null || echo unknown').toString().trim()); } catch (e) { log('clock: unknown'); }
   log(`games ${GAMES.join(',')} frame poll ${FRAME_POLL_MS} ms`);
   log(`start ${LABEL} window ${new Date(start).toISOString()} .. ${new Date(end).toISOString()}`);
   if (wait > 0) { log(`waiting ${Math.round(wait / 1000)} s`); await sleep(Math.min(wait, 2 * 3600 * 1000)); }
+  sportsWs();
   await Promise.all([pollFrames(), pollBooks()]);
+  process.exit(0);
   log('done');
 })();

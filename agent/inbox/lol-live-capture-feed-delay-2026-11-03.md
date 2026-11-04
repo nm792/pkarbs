@@ -13,3 +13,6 @@ capture.js now also writes 15 price levels per side in each book row (`bids`, `a
 
 ## Update 23:50Z (bug fix, please use for GEN-LYON / DK-BLG / T1-KC)
 capture.js polled the window endpoint without startingTime. For a live game that returns the FIRST frames of the game, not the latest, so tonight's TES-IG frames file only holds game-start frames. Fixed: it now asks for the newest startingTime the feed accepts (it returns 400 for anything newer than ~50 s). Measured from the cloud container at 23:45Z on TES-IG game 2: the newest frame available is 50-60 s old (median 55 s, n=43). A thread is capturing the rest of TES-IG from the cloud with the fixed script.
+
+## Update 4 Nov 02:30Z (for GEN-LYON 22:00Z and later)
+capture.js now also logs the Polymarket sports WebSocket (wss://sports-api.polymarket.com/ws), every 'lol' message with receive time, to <label>_sportsws.jsonl. It uses the `ws` module if present (as the cs2 logger does), else Node 22's built-in WebSocket. Please copy _sportsws.jsonl with the other outputs. This is the candidate faster LoL source; Nick wants it timed against the livestats feed tonight.
