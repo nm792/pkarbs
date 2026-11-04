@@ -69,7 +69,15 @@ def corr(a, b):
 
 TW = {0: 1, 1: 2}  # building type 0 tower, 1 barracks (Valve realtime schema); others (fort/ancient) counted separately
 
-res = {'matches': [], 'events': [], 'xcorr': {}}
+# spectator-delay tag: GetLiveGames 'time' (live clock) minus GetRealtimeStats game_time, sampled when 'time' updates
+delay = defaultdict(list); _last = {}
+for r in rows('rt_polls.jsonl'):
+    lt, g = r.get('live_time'), r.get('game_time')
+    if not lt or lt > 10 ** 6 or not g or g < 60: continue
+    if _last.get(r['match_id']) != lt:
+        _last[r['match_id']] = lt; delay[r['match_id']].append(lt - g)
+delay_tag = {m: st.median(v) for m, v in delay.items() if len(v) >= 3}
+res = {'matches': [], 'events': [], 'xcorr': {}, 'delay_tag_s': delay_tag}
 for mid_, R in rt.items():
     R.sort(key=lambda r: r['recv_ms'])
     tm = {t['team']: t for t in R[-1]['teams']}
@@ -85,6 +93,8 @@ for mid_, R in rt.items():
     for m in s['markets']:
         tok = m['tokens'][0]
         if tok not in bk: continue
+        spr = [a - b for t, _, b, a in bk[tok] if T[0] <= t <= T[-1]]
+        if not spr or st.median(spr) > 0.05: continue  # skip thin books
         o0 = m['outcomes'][0]
         sign = 1 if same(o0, rad) else (-1 if same(o0, dire) else 0)
         if sign == 0: continue
@@ -122,8 +132,8 @@ for mid_, R in rt.items():
     fg = [f_at(t) for t in grid]; pg = [prad(t) for t in grid]
     ok = all(p is not None for p in pg[60:])
     xc = {}
-    B = 6
-    for L in range(-120, 61, 2):
+    B = 30
+    for L in range(-480, 121, 15):
         a, b = [], []
         for i in range(60, len(grid) - B - 130, B):
             j = i + L
@@ -146,13 +156,13 @@ for mid_, R in rt.items():
         big = (dtw != 0 or drx != 0) or (abs(swing or 0) >= 2)
         if not big: continue
         sgn = (1 if (dtw + drx) > 0 else -1) if (dtw or drx) else (1 if swing > 0 else -1)
-        pa, pb = prad(te - 120), prad(te + 30)
+        pa, pb = prad(te - 480), prad(te + 30)
         if pa is None or pb is None: continue
         move = (pb - pa) * sgn
         tmv = None
         if move >= 0.02:
             half = pa + sgn * move / 2
-            for t in range(int(te - 120), int(te + 31)):
+            for t in range(int(te - 480), int(te + 31)):
                 p = prad(t)
                 if p is not None and (p - half) * sgn >= 0: tmv = t; break
         e = {'match_id': mid_, 'label': s['label'], 'q': m['q'], 't': te, 'kill_swing': swing, 'tower': dtw, 'rax': drx,
@@ -171,7 +181,7 @@ for mid_, R in rt.items():
             cross = t; break
     lags = [e['lag_s'] for e in out_ev if e['lag_s'] is not None]
     res['matches'].append({'match_id': mid_, 'radiant': rad, 'dire': dire, 'label': s['label'], 'paired': m['q'],
-        'corr_nw_price': round(c, 3), 'valve_rows': len(R), 'valve_first': t0, 'valve_last': fin,
+        'corr_nw_price': round(c, 3), 'delay_tag_s': delay_tag.get(mid_), 'valve_rows': len(R), 'valve_first': t0, 'valve_last': fin,
         'price_cross_90_10_t': cross, 'valve_last_minus_cross_s': (round(fin - cross, 1) if cross else None),
         'xcorr_peak_L_s': Lstar, 'xcorr_peak': xc.get(Lstar) if Lstar is not None else None,
         'events_big': len(out_ev), 'events_timed': len(lags),
