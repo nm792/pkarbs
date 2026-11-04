@@ -58,6 +58,29 @@ before Tm x 0.975. Old-price numbers below are rerun; new-price and lower-tier n
   ~$3-6 per game at 60 s with an unknown sign held longer. Estimate (not measured): under ~$50/day across lower-tier
   CS2, not distinguishable from zero on 2 fills. Lack of sellers, not the queue, is the blocker there.
 
+## Lower-tier update, full afternoon (added 20:55Z)
+Capture 14:33-~20:45Z (`raw/2026-11-04-lowtier/`; 12:35-14:33Z was lost to a script-name bug, PR #89), combined with
+the morning rows: **8 lower-tier games, 416 event rows** (CCT Europe/South America qualifiers, ESL Challenger League,
+United21; market volume $15k-126k per game vs ~$2M for the tier-1 games). Outputs `raw/2026-11-04-lowtier/out/combined_*.json`.
+
+| lower tier, 416 rows | value |
+|---|---|
+| queue at the new price when it first becomes placeable (median) | 31 sh (under 100 in 304 of 416) |
+| shares traded at the new price within 30 s, all 416 events | 2,068 sh (46 events had any) |
+| sports WS lag behind the price move (median) | 37 s |
+| slow bot (joins at WS update, mid x 0.975): shares ahead (median) | 102 sh |
+| prints at or below our price within 30 s | 10,020 sh in 44 events |
+| our fills after the queue | 23 of 416 events: 1,868 sh at 100-share cap, 5,145 sh at 500 cap |
+| markout at 60 s / 300 s, 100 cap | +$21.7 / +$1.7 total |
+| markout at 60 s / 300 s, 500 cap | +$17.3 / -$127.3 total |
+
+- Per event that is about +$0.04-0.05 at 60 s and $0 to -$0.31 at 5 minutes; about 52 events per game, so roughly
+  +$2-3 per game at 60 s and $0 to -$16 per game held 5 minutes.
+- $/day estimate (not measured): with ~8-15 lower-tier CS2 games a day with enough liquidity, about **$0/day**
+  (range roughly -$200 to +$40). The queue is short, but almost nobody sells into a bid 2.5% under the mid after the
+  move, and what does trade there tends to keep falling (negative 5-minute markout at the larger size).
+- This replaces the morning "under ~$50/day" estimate (based on 2 fills).
+
 ## Limits
 - 1 s polling: we can't see order within a second, or cancel/replace that nets to zero inside a second.
   Millisecond data needs the CLOB market WS (ws-subscriptions-clob.polymarket.com, not allowlisted here; Hermes could run it).
