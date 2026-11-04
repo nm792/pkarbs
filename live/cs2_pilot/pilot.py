@@ -259,8 +259,13 @@ class Pilot:
                         if bb is not None and ba is not None and ba > bb and ba - bb < CFG['MAX_SPREAD']:
                             m.mids.append((T, (bb + ba) / 2))
                     for m in mks: await s.manage(m, T)
+                    s.book_backoff = 0.0
                 except Exception as e:
                     s.log('error', where='books', err=repr(e))
+                    if '403' in repr(e) or '429' in repr(e):   # refused/rate limited: back off 2, 4, 8 .. 30 s
+                        s.book_backoff = min(30.0, max(2.0, 2 * getattr(s, 'book_backoff', 0.0)))
+                        s.log('backoff', where='books', sleep_s=s.book_backoff)
+                        await asyncio.sleep(s.book_backoff)
             await s.run_pending()
             await asyncio.sleep(max(0.05, CFG['BOOK_POLL'] - (now() - t0)))
 
