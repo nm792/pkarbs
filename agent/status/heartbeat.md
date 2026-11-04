@@ -1,3 +1,8 @@
-# heartbeat — 2026-11-04 17:38Z
-- dota-live-capture RUNNING. hltv-scorebot STOPPED per drop-note (run 2 = 6 Nov awaits approval). nba-feed-delay RUNNING. cs2-ws-logger RUNNING. cs2-pilot dry-run RUNNING. lol recurring 22:00Z. rugby prepared (7-8 Nov). cito-tennis WAITING FOR KEY.
-- waiting for Nick: cito-tennis logger (needs /etc/pkarbs/cito.env key).
+# pkarbs server heartbeat — 2026-11-04T18:22Z
+
+- dota-live-capture: RUNNING (pid 4050172), window 09:45–22:45Z, repo copy refreshed 18:22Z.
+- cs2-ws-logger: RUNNING (pid 426344), 134,910 frames; hourly copy via standing dispatch.
+- nba-feed-delay: capture window 5 Nov 00:00–03:30Z, not yet active (0 rows, correct pre-window). cs2-ws-logger carries Polymarket side through 06:45Z.
+- hltv-scorebot: STOPPED per reviewer drop-note 13:18Z; run 2 awaits its own note. Data preserved on disk + live/cs2_feeds/raw.
+- cs2-pilot: dry run; session-key verify answered in outbox (key works, approval gap flagged).
+- waiting for Nick: none new.
