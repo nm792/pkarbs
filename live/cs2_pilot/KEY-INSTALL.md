@@ -1,16 +1,25 @@
-# Trading key for the CS2 pilot: WITHDRAWN plan, see rule below
+# Trading key for the CS2 pilot: session key only
 
 **Rule (Nick, 4 Nov 2026 08:56Z): neither Claude nor Hermes nor the server may ever hold a key that can withdraw or
-drain the account.** The earlier version of this file (owner private key in /etc/pkarbs on the server) breaks that
-rule and must not be used. Do not put any account/owner private key on the server.
+drain the account.** No owner/account private key ever goes on the server, to Hermes, into chat, or into Git.
 
-## Planned design (not built yet; waiting for Nick's go-ahead)
-Polymarket Session Keys (docs: /trading/session-keys, beta): "A Session Key is a separate signer that a Deposit
+Mechanism: Polymarket Session Keys (docs /trading/session-keys): "A Session Key is a separate signer that a Deposit
 Wallet Owner authorizes to trade for a Deposit Wallet ... A Session Key cannot withdraw funds from the Deposit Wallet."
-1. Hermes generates a fresh session keypair on the server and publishes only its address.
-2. Nick authorizes that address from his own computer with his owner key (CLOB scope, expiry <= 180 days); the owner
-   key never leaves his machine. Revocable at any time.
-3. The pilot signs orders with the session key only.
-Prerequisites: a Deposit Wallet account (new accounts), a Builder API key (polymarket.com > Settings > API Keys), and,
-during the beta, session-key management enabled on that Builder key by builder@polymarket.com.
-Residual risk: a trade-only key can still lose money through bad trades; bounded by the $40 bot loss limit and the $50 balance.
+Nick confirmed 4 Nov that the account has Builder keys and session keys are authorised.
+
+## Steps
+1. **Nick** gives Hermes the deposit wallet address (public, like a bank account number; safe to share).
+2. **Hermes** (server, root): `python3 live/cs2_pilot/gen_session_key.py 0xDEPOSIT_WALLET` using the pilot venv.
+   It writes `/etc/pkarbs/pm-session.env` (dir 700, file 600) and prints only the session signer address.
+   Hermes reports that address in agent/outbox/cs2-pilot.md. Never print, copy or commit the file.
+3. **Nick**, on his own computer: `python3 -m pip install "polymarket-client==0.16.0"` then
+   `python3 authorize_session_key.py 0xSESSION_ADDRESS 0xDEPOSIT_WALLET` (file is in this folder). It asks for his
+   owner key and Builder key/secret/passphrase at hidden prompts, authorizes CLOB-only trading for that address,
+   and lists the wallet's session keys. Nothing is saved. Revoke any time with `--revoke`.
+4. **Go live** only after the dry-run report and Nick's explicit "go live" in chat. Hermes then restarts the pilot on
+   current main with `--mode live` and writes `OUT/LIVE_OK` on Nick's instruction. Pilot preflight halts if the key
+   file contains `POLYMARKET_PRIVATE_KEY` (owner key), lacks the session key, is group/other readable, the
+   geoblock check fails, or trading approvals are missing.
+
+Residual risk: a trade-only key can still lose money through bad trades; bounded by the $40 bot loss limit
+(5-share orders, $5/match) and the $50 balance. Revoking the session key stops all trading at once.
