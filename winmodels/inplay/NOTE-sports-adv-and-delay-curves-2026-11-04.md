@@ -21,6 +21,8 @@ Thread "Rank sports by in-play volume". Branch claude/project-thread-kg9dsj.
 - 0 s: +15% at 1 min, but only ~$3 filled/match. Flat or negative from 2 s.
 - Why so few fills: the game winner is certain and their price jumps ~3c at once, so sellers rarely print 2.5% under the market.
 - Server log snapshots (~30 s cadence) trail price onset by a median 37 s (games) and 27 s (sets).
-- Pending: true push delay of the stream, from the raw live capture raw/tennis/ws_2026-11-04T0725Z.jsonl (06:52-11:52Z 4 Nov).
+- Stream push delay: NOT measured. The raw live capture (raw/tennis/ws_2026-11-04T0725Z.jsonl) stopped at 07:15Z when this idle cloud container was suspended (13 tennis messages, 3 matches). A capture has to run on the server or in an active session.
+- Other thread (branch claude/project-thread-7f1y2j, live/cito_timing, 4 Nov 08:15-08:28Z): Cito's tennis WS (every point) gave game changes a median ~11 s before the PM stream (n=7, -9 to +26 s). Not yet timed against the price.
+- Verdict: at true event time (price onset) the rule fills ~$3/match and is flat from 2 s, so a faster feed cannot fix it. The limit is fills, not the feed.
 
 Confidence: ranking 8/10; NFL 6/10; tennis 5/10 (2 days, no serve information).
