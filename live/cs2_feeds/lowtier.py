@@ -6,9 +6,9 @@ fills = prints at or below our price in [R, R+30 s] beyond the shares resting ah
 vs result-free mid at R+300 s). Usage: lowtier.py QUEUEJSON CAPDIR [CAPDIR...]"""
 import json, sys, os, io, contextlib, statistics as st, collections
 qj = json.load(open(sys.argv[1])); dirs = sys.argv[2:]
-sys.argv = ['queue.py', '/tmp/_q_unused.json'] + dirs
+sys.argv = ['cs2_queue.py', '/tmp/_q_unused.json'] + dirs
 with contextlib.redirect_stdout(io.StringIO()):
-    exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'queue.py')).read())
+    exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cs2_queue.py')).read())
 def med(v):
     v = [x for x in v if x is not None]; return round(st.median(v), 1) if v else None
 def tokof(r):

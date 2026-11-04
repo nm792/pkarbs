@@ -9,7 +9,7 @@ Thread "Check if CS2 queue clears after events". Answer: **no**. Confidence 7/10
   - copies in `/mnt/project-files/cs2-feeds/2026-11-04*/`
 - Tier 1 (IEM Beijing): 76 event x rising-token rows (53 MongolZ-FURIA, 23 NaVi-Falcons). Events and the market
   move time Tm as in `analyze.py` (Tm = start of the largest 3 s mid step around the WS round update).
-- Scripts: `queue.py` (per-second size at our prices, cancels vs fills), `queue_detail.py` (when the new level becomes
+- Scripts: `cs2_queue.py` (per-second size at our prices, cancels vs fills), `queue_detail.py` (when the new level becomes
   placeable, no-event control), `queue_pos.py` (our queue position after joining, ladder-move signature).
   Outputs in `raw/2026-11-04-queue/out/`.
 

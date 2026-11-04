@@ -15,7 +15,7 @@ and we measure, second by second from Tm-30 s to Tm+30 s:
   - re-pricing signature: a cancel at P_old in a 1 s step where another bid level of the same token grows by the same
     amount (+-15%) in that step = most likely the same maker moving its order
   - at P_new: how many seconds after Tm the level stays nearly empty (< 100 sh, i.e. we would be at the front)
-Usage: queue.py OUTJSON CAPDIR [CAPDIR...]
+Usage: cs2_queue.py OUTJSON CAPDIR [CAPDIR...]
 """
 import json, sys, os, math, bisect, statistics as st, collections, glob, tarfile, gzip, io
 

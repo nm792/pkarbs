@@ -2,9 +2,9 @@
 """Print sample tier-1 rows with pre/post bid, ask, mid, both target prices (4 Nov 2026). Usage: audit_examples.py QUEUEJSON CAPDIR..."""
 import json, sys, os, io, contextlib, statistics as st, time
 qj = json.load(open(sys.argv[1])); dirs = sys.argv[2:]
-sys.argv = ['queue.py', '/tmp/_q_unused.json'] + dirs
+sys.argv = ['cs2_queue.py', '/tmp/_q_unused.json'] + dirs
 with contextlib.redirect_stdout(io.StringIO()):
-    exec(open('queue.py').read())
+    exec(open('cs2_queue.py').read())
 rs = [r for r in qj['rows'] if 'IEM' in r['title']]
 n_above = 0; moves = []; out = []
 for r in rs:

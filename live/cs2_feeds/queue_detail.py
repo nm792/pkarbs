@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Second-by-second detail behind queue.py (4 Nov 2026): when does the new price level become placeable as a maker
+"""Second-by-second detail behind cs2_queue.py (4 Nov 2026): when does the new price level become placeable as a maker
 (best ask above it) and how big is the queue there at that moment; plus a no-event control for churn at the
 2.5%-under-mid level. Usage: queue_detail.py QUEUEJSON CAPDIR [CAPDIR...]"""
 import json, sys, os, random, statistics as st, collections
 sys.argv = [sys.argv[0], '/dev/null'] + sys.argv[2:] if False else sys.argv
 qj = json.load(open(sys.argv[1])); dirs = sys.argv[2:]
-sys.argv = ['queue.py', '/tmp/_q_unused.json'] + dirs
+sys.argv = ['cs2_queue.py', '/tmp/_q_unused.json'] + dirs
 import io, contextlib
 with contextlib.redirect_stdout(io.StringIO()):
-    exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'queue.py')).read())
+    exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cs2_queue.py')).read())
 OF = qj['offsets_s']
 def med(v):
     v = [x for x in v if x is not None]; return round(st.median(v)) if v else None
