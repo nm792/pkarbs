@@ -32,3 +32,23 @@ websockets-overview, sandbox-environment, low-latency-feed-overview, pandascore.
   live/cs2_feeds/capture.py + analyze.py against PM books (need live.pandascore.co allowlisted only if we capture here).
 
 Confidence 8/10 (vendor docs, not measured; latency figure and price unknown until sales reply).
+
+## Break-even (added 11:10Z after Nick: live costs EUR 1,000, 1,700 or 3,400 a month)
+Assumes EUR 1 = USD 1.15 and 30 days; prices are per videogame, so CS2 + LoL is double.
+
+| Monthly price | One game title, $/day | CS2 + LoL, $/day |
+|---|---|---|
+| EUR 1,000 | ~$38 | ~$77 |
+| EUR 1,700 | ~$65 | ~$130 |
+| EUR 3,400 | ~$130 | ~$261 |
+
+What a faster feed would add (simulated, first in queue):
+- LoL: $43/game at 2 s vs $20/game at our 12 s feed = +$23/game. Needs ~2 games/day to pay EUR 1,000,
+  ~6/day for EUR 3,400. Worlds (to 14 Nov) has ~3-5 games on match days, then no LoL until ~mid Jan, so
+  a monthly plan bought now pays for about 10 days of games.
+- CS2: not measured. The live dry run got zero fills because ~3,400-4,000 shares already rest at our price
+  before the event (PR #63), so speed alone has not been shown to add anything.
+- The EUR 1,000+ plans are "stream-synced" (no faster than the stream that already moves the PM price) and
+  barred for betting use, so they would add ~$0. Only the quote-only Low Latency Feed could add the LoL figure.
+Verdict: don't buy a stream-synced plan. Only worth it if the Low Latency Feed is offered at <= ~EUR 1,000
+with a free trial, and even then only around LoL Worlds now / the LoL season from mid Jan.
