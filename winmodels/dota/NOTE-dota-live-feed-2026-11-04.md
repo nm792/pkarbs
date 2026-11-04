@@ -8,7 +8,7 @@
 | Steam Web API api.steampowered.com (GetTopLiveGame, GetRealtimeStats, GetLiveLeagueGames) | same as Valve rows | same | free key | 403 without key; blocked in sandbox |
 | OpenDota /api/live | scores, gold lead | delay 120-900 s + ~100 s refresh (3 Nov census) | free | yes |
 | Polymarket sports WS | Dota series: map score only ("000-000|1-0|Bo3"), kills 000-000 | ~120 s cadence (3 Nov) | free | yes |
-| GRID | official BLAST (incl. BLAST Slam) and ESL FACEIT (DreamLeague) data, exclusive | low latency (vendor claim) | quote only; Nick asked, no reply | 403 |
+| GRID | official BLAST (incl. BLAST Slam) and ESL FACEIT (DreamLeague) data, exclusive | low latency (vendor claim) | company clients only, fixed fee + revenue share; rejected by Nick 4 Nov | 403 |
 | PandaScore | Dota live WS, tier 1 | ~0.3 s "from stream" (vendor claim, CS2/LoL) | rejected 2 Nov (EUR 400-1000/game/month) | 403 on free tier |
 | Abios (via Bayes rights, Bayes insolvent), Oddin (B2B odds, uses GRID), LSports, Goalserve (~$5.1k package), Cito ($59/mo, source unknown) | odds/live data | unknown | quotes | not tested |
 | STRATZ, Datdota, Dotabuff, Liquipedia, cyberscore, hawk.live, dltv | various | unknown | free/paid | blocked by sandbox proxy |
