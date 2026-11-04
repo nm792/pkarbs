@@ -1,0 +1,32 @@
+matches 202 markets 610 maps 408 rounds 4478 train 101 holdout 101 holdout from 2026-10-16T17:30:00Z
+beta maps (0.5703482284789131, 0.40529472482102025, 2109) beta match (0.5575200688475291, 0.4032655406462219, 2673)
+WS minus market-reaction time on overlap maps: {'n': 360, 'maps': 18, 'median': 20.019999999999982, 'p10_p90': [3.9, 58.2]}
+lag profile 3904 [0.18, 0.4, 0.66, 0.91, 1.16, 1.48, 1.74, 2.05, 2.4, 2.8, 3.23, 3.71, 4.19, 4.58, 4.98, 5.3, 5.59, 5.82, 6.09, 6.29, 6.49, 6.65, 6.79, 6.92]
+event_only Q100 lag-10 all: $/match 2.8 [np.float64(-7.7), np.float64(14.0)] fill/match $133 1min 6.83% [np.float64(4.97), np.float64(9.02)] result 2.1% | maps 1min 7.77% $/m -6.4 | match 1min 5.36% $/m 9.2
+event_only Q100 lag-10 holdout: $/match -2.4 [np.float64(-16.6), np.float64(11.6)] fill/match $131 1min 6.14% [np.float64(3.39), np.float64(9.63)] result -1.84% | maps 1min 6.77% $/m -10.5 | match 1min 5.24% $/m 8.1
+event_only Q100 lag-5 all: $/match 4.2 [np.float64(-6.2), np.float64(15.1)] fill/match $130 1min 5.42% [np.float64(4.08), np.float64(6.88)] result 3.2% | maps 1min 5.43% $/m -3.2 | match 1min 5.41% $/m 7.3
+event_only Q100 lag-5 holdout: $/match -6.9 [np.float64(-23.4), np.float64(8.8)] fill/match $132 1min 4.35% [np.float64(2.59), np.float64(6.09)] result -5.24% | maps 1min 3.96% $/m -9.8 | match 1min 4.97% $/m 2.8
+event_only Q100 lag+0 all: $/match 2.7 [np.float64(-7.9), np.float64(12.6)] fill/match $125 1min 5.55% [np.float64(4.14), np.float64(6.98)] result 2.12% | maps 1min 5.79% $/m -3.7 | match 1min 5.18% $/m 6.3
+event_only Q100 lag+0 holdout: $/match -4.6 [np.float64(-20.9), np.float64(11.8)] fill/match $134 1min 4.66% [np.float64(2.87), np.float64(6.61)] result -3.47% | maps 1min 4.28% $/m -9.1 | match 1min 5.21% $/m 4.5
+event_only Q100 lag+5 all: $/match 1.5 [np.float64(-8.2), np.float64(11.7)] fill/match $116 1min 5.2% [np.float64(3.61), np.float64(6.76)] result 1.31% | maps 1min 5.15% $/m -2.5 | match 1min 5.28% $/m 4.0
+event_only Q100 lag+5 holdout: $/match -2.7 [np.float64(-18.4), np.float64(14.6)] fill/match $129 1min 4.17% [np.float64(1.89), np.float64(6.38)] result -2.07% | maps 1min 3.5% $/m -6.3 | match 1min 5.12% $/m 3.6
+event_only Q100 lag+10 all: $/match 6.0 [np.float64(-3.2), np.float64(15.2)] fill/match $111 1min 5.38% [np.float64(3.91), np.float64(6.97)] result 5.41% | maps 1min 5.64% $/m 1.7 | match 1min 5.0% $/m 4.3
+event_only Q100 lag+10 holdout: $/match 3.7 [np.float64(-11.2), np.float64(18.2)] fill/match $122 1min 5.82% [np.float64(3.72), np.float64(7.97)] result 3.05% | maps 1min 6.23% $/m 0.9 | match 1min 5.22% $/m 2.8
+event_only Q100 lag+20 all: $/match 8.6 [np.float64(-0.8), np.float64(17.9)] fill/match $106 1min 4.86% [np.float64(3.36), np.float64(6.46)] result 8.12% | maps 1min 4.37% $/m 6.4 | match 1min 5.66% $/m 2.2
+event_only Q100 lag+20 holdout: $/match 6.0 [np.float64(-7.4), np.float64(18.2)] fill/match $112 1min 5.05% [np.float64(3.08), np.float64(7.11)] result 5.4% | maps 1min 4.81% $/m 2.0 | match 1min 5.42% $/m 4.1
+event_only Q100 lag+30 all: $/match 1.8 [np.float64(-7.6), np.float64(11.3)] fill/match $99 1min 4.19% [np.float64(2.56), np.float64(5.91)] result 1.81% | maps 1min 3.89% $/m 3.4 | match 1min 4.69% $/m -1.6
+event_only Q100 lag+30 holdout: $/match 1.8 [np.float64(-11.8), np.float64(14.7)] fill/match $98 1min 3.76% [np.float64(1.37), np.float64(6.43)] result 1.8% | maps 1min 3.46% $/m 2.8 | match 1min 4.24% $/m -1.1
+event_only Q500 lag-10 all: $/match 6.4 [np.float64(-27.8), np.float64(38.2)] fill/match $360 1min 6.64% [np.float64(4.62), np.float64(8.85)] result 1.77% | maps 1min 7.53% $/m -11.5 | match 1min 5.1% $/m 17.8
+event_only Q500 lag-10 holdout: $/match -11.0 [np.float64(-60.6), np.float64(33.9)] fill/match $342 1min 5.55% [np.float64(2.39), np.float64(9.17)] result -3.21% | maps 1min 6.28% $/m -20.6 | match 1min 4.37% $/m 9.6
+event_only Q500 lag-5 all: $/match 7.7 [np.float64(-28.1), np.float64(39.2)] fill/match $357 1min 5.32% [np.float64(3.72), np.float64(7.04)] result 2.15% | maps 1min 5.38% $/m -5.8 | match 1min 5.2% $/m 13.5
+event_only Q500 lag-5 holdout: $/match -26.3 [np.float64(-75.9), np.float64(25.0)] fill/match $351 1min 4.07% [np.float64(1.68), np.float64(6.35)] result -7.51% | maps 1min 3.8% $/m -24.8 | match 1min 4.53% $/m -1.5
+event_only Q500 lag+0 all: $/match -0.5 [np.float64(-34.6), np.float64(31.1)] fill/match $339 1min 5.42% [np.float64(3.77), np.float64(7.02)] result -0.16% | maps 1min 5.58% $/m -16.0 | match 1min 5.14% $/m 15.5
+event_only Q500 lag+0 holdout: $/match -26.0 [np.float64(-79.0), np.float64(28.1)] fill/match $361 1min 4.11% [np.float64(1.75), np.float64(6.47)] result -7.21% | maps 1min 3.44% $/m -36.1 | match 1min 5.1% $/m 10.0
+event_only Q500 lag+5 all: $/match 1.0 [np.float64(-30.3), np.float64(34.0)] fill/match $317 1min 5.29% [np.float64(3.42), np.float64(7.14)] result 0.3% | maps 1min 5.0% $/m -8.8 | match 1min 5.74% $/m 9.8
+event_only Q500 lag+5 holdout: $/match -18.7 [np.float64(-71.0), np.float64(35.3)] fill/match $359 1min 3.89% [np.float64(1.1), np.float64(6.51)] result -5.21% | maps 1min 2.97% $/m -26.8 | match 1min 5.13% $/m 8.1
+event_only Q500 lag+10 all: $/match 10.4 [np.float64(-20.3), np.float64(40.2)] fill/match $300 1min 5.16% [np.float64(3.57), np.float64(6.8)] result 3.46% | maps 1min 5.09% $/m 4.4 | match 1min 5.27% $/m 5.9
+event_only Q500 lag+10 holdout: $/match -4.5 [np.float64(-51.7), np.float64(45.1)] fill/match $321 1min 5.58% [np.float64(3.19), np.float64(8.09)] result -1.4% | maps 1min 5.57% $/m -8.3 | match 1min 5.6% $/m 3.8
+event_only Q500 lag+20 all: $/match 16.0 [np.float64(-12.0), np.float64(45.5)] fill/match $273 1min 4.62% [np.float64(3.04), np.float64(6.19)] result 5.86% | maps 1min 3.78% $/m 16.6 | match 1min 6.02% $/m -0.6
+event_only Q500 lag+20 holdout: $/match 1.0 [np.float64(-36.3), np.float64(38.5)] fill/match $268 1min 4.56% [np.float64(2.46), np.float64(6.8)] result 0.37% | maps 1min 3.71% $/m -5.1 | match 1min 5.88% $/m 6.1
+event_only Q500 lag+30 all: $/match -0.8 [np.float64(-26.2), np.float64(26.1)] fill/match $256 1min 3.9% [np.float64(2.07), np.float64(5.82)] result -0.32% | maps 1min 3.35% $/m 10.2 | match 1min 4.86% $/m -11.0
+event_only Q500 lag+30 holdout: $/match -3.2 [np.float64(-38.2), np.float64(32.6)] fill/match $222 1min 2.85% [np.float64(0.29), np.float64(5.55)] result -1.44% | maps 1min 1.92% $/m 2.6 | match 1min 4.39% $/m -5.8
