@@ -1,8 +1,9 @@
-# PK arbs heartbeat — 2026-11-04T14:21Z (server dispatch round)
+# pkarbs heartbeat — 14:50Z 2026-11-04 (server dispatch round)
 
-- hltv-scorebot Run 1: **PASS met** (2400076, 1,811 Kill rows); node DIED 13:36Z, **relaunched 14:19Z** as hltv-scorebot-run1.service, running to 16:00Z. Raw copied to live/cs2_feeds/raw/hltv-2026-11-04 (6tydow, e23bd2d).
-- cs2-ws-logger: RUNNING (node 426344 + watchdog 1533833), newest frame 14:18:31Z, fresh. Copy last 13:50Z; hold until NBA capture ends 06:45Z 5 Nov (stop Nick-approved).
-- crossbet reachability: FAIL (Cloudflare 403) — answered outbox/crossbet-reachability.md.
-- cs2 session-key + verify: done (cs2-pilot.md, cs2-session-key-verify.md).
-- dota-live-capture (4050171) and drop-hltv/cs2-pilot dryrun: committed per earlier rounds.
-- All inbox items 2026-11-03/04 answered or running. waiting for Nick: none.
+- **hltv-scorebot run1:** RUNNING pid 798702 (ends 16:00Z), PASS met (Kill rows for 2400076). 30-min copy 14:49Z → live/cs2_feeds/raw/hltv-2026-11-04/ on thread 6tydow. Next ~15:15Z.
+- **cs2-ws-logger:** RUNNING (node 426344, watchdog 1533833), frames recv 14:48:16Z fresh. Hourly copy 14:48Z → rn1/scores/cs2/server-2026-11/. Stop after NBA ends 06:45Z 5 Nov (approved).
+- **cs2-pilot:** session key ready (0xE383…7Fd), awaiting Nick authorize.
+- **crossbet:** FAIL — Cloudflare 403 block, no content (outbox 4 Nov 13:45Z).
+- **cors-check / session-key-verify:** answered in outbox (relayer accepts browser; key works).
+- **storage offload (3 Nov):** per 2026-11-03-storage-offload-ruling inbox.
+- **waiting for Nick:** none new (cs2-pilot session-signer authorize pending from earlier).
