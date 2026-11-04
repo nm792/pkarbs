@@ -1,7 +1,1 @@
-# heartbeat 22:45Z round (2026-11-04) - claude/project-thread-vg2ckg
-round: dispatch sweep - origin-tip state
-- inbox: all 2026-11-04 items have outbox replies on origin (chain thread vg2ckg clean).
-- TASK-cricket-npl-live: DONE. TASK-rugby-top14-capture: OPEN, due 2026-11-07 (not yet).
-- cito-tennis-logger: WAITING FOR KEY (Nick's direct chat).
-- sports-mece sim grant: awaiting reviewer grant (reviewer decision, not Nick button).
-- written 22:45Z 2026-11-04
+round 2026-11-04T23:08Z — dispatch sweep. pkarbs thread vg2ckg: cs2 session-key verify answered read-only (signer 0xE383 authorized addr OK; is_fully_approved False — ERC20 to CLOB spender missing); GEN-LYON capture running; Dota/CS2 loggers heartbeat green. Synced.
