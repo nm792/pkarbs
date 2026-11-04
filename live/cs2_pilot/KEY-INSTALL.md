@@ -15,6 +15,10 @@ should only control the pilot's money.
 
 If you would rather use your main account, the steps are the same, but the server then holds a key to all of it.
 
+4. Arm the account for trading in the Polymarket app: after the deposit, buy $1 of anything and sell it back (or
+   accept the app's enable-trading prompt). That sets the wallet's trading approvals; the pilot checks them at start
+   and refuses to go live if any are missing. API credentials need no action: the pilot derives them from the key.
+
 ## 2. Put the key on the server (run these yourself over SSH, as root)
 ```bash
 sudo install -d -m 700 -o root -g root /etc/pkarbs
