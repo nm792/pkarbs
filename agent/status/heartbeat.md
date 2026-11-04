@@ -1,7 +1,6 @@
-# heartbeat — server member
-
-Round: 2026-11-04 22:02Z UTC
-- lol-live-capture: GEN-LYON capture RUNNING (started 22:02Z, books 10.6 KB). DK-BLG 5 Nov, T1-KC 6 Nov pending windows.
-- cs2-ws-logger: watchdog alive (pid), prior hourly copy pushed 03:59Z.
-- dota-live / hltv-scorebot / nba-feed-delay / cricket-npl: steady state per prior status files.
-- No blockers; nothing waiting on Nick.
+# heartbeat 22:15Z round (2026-11-04) - claude/project-thread-vg2ckg
+round: dispatch sweep - origin-tip state
+- inbox: all 2026-11-04 items have outbox replies (session-key-verify: key WORKS, signer matches Nick-authorized; erc20 approval gap on SNX flagged to reviewer for phase-2 live).
+- TASK files: cricket-npl-live, rugby-top14-capture (no Status header - legacy); cs2/dota live captures active under their task files.
+- No new inbox since 22:03Z round; tree clean on tip.
+- written 22:15Z 2026-11-04
