@@ -512,6 +512,11 @@ class Pilot:
         s.client = await AsyncSecureClient.create(private_key=env['POLYMARKET_PRIVATE_KEY'],
                                                   wallet=env.get('POLYMARKET_WALLET_ADDRESS') or None)
         del env
+        ap = await s.client.get_trading_approvals_state()
+        s.log('approvals', fully_approved=ap.is_fully_approved, missing=str(ap.missing))
+        if not ap.is_fully_approved:
+            s.log('halt', why='trading approvals missing: enable trading in the Polymarket app (one small manual trade) first')
+            return False
         bal = await s.client.get_balance_allowance(asset_type='COLLATERAL')
         s.log('live_ready', wallet=str(s.client.wallet), wallet_type=str(s.client.wallet_type), balance=str(bal.balance))
         await s.client.cancel_all()
