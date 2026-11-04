@@ -2,3 +2,4 @@ path,bytes,sha256,box_path,copied_at
 data-v2/events.jsonl,4116726331,b4713bb766e55ab8ffd6488b359dd6c95068f1f9e4652e0dec8c02343e3deb86,pkarbs/shadow/data-v2/events.jsonl,2026-11-04T00:58:51Z
 data-v2/raw-2026102620.jsonl.gz,469364577,36bdc7dd3a05bc507cb34ce361876abcf228480be5b4ea6ca3ff4da278e84142,pkarbs/shadow/data-v2/raw-2026102620.jsonl.gz,2026-11-04T00:59:00Z
 data-v2/raw-2026102621.jsonl.gz,336379674,19c08cfda178ffa1c1714b66610828b597f7be61a4ff10c3ad19ef8fb83349e0,pkarbs/shadow/data-v2/raw-2026102621.jsonl.gz,2026-11-04T00:59:07Z
+data-v2/raw-2026102622.jsonl.gz,232045644,68d417cb60903f0f906ff6b0ea8b720a4e69c23e821b5a4977a076ed8cf454bd,pkarbs/shadow/data-v2/raw-2026102622.jsonl.gz,2026-11-04T00:59:13Z
