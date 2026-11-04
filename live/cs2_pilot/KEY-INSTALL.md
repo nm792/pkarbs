@@ -1,48 +1,16 @@
-# Installing the Polymarket trading key for the CS2 pilot (Nick only)
+# Trading key for the CS2 pilot: WITHDRAWN plan, see rule below
 
-The key is never pasted into chat, Git, a PR, a Hermes inbox/outbox file, or a message. Only Nick handles it. Hermes and
-the pilot only ever see the file path `/etc/pkarbs/pm-pilot.env`.
+**Rule (Nick, 4 Nov 2026 08:56Z): neither Claude nor Hermes nor the server may ever hold a key that can withdraw or
+drain the account.** The earlier version of this file (owner private key in /etc/pkarbs on the server) breaks that
+rule and must not be used. Do not put any account/owner private key on the server.
 
-## 1. Use a separate Polymarket account just for the pilot (recommended)
-Anything running as root on the shared server can read a root-owned file, Hermes included. So the key on the server
-should only control the pilot's money.
-1. Create a new Polymarket account (a fresh email login) for the pilot.
-2. Deposit **$50** (Nick 4 Nov 07:27Z). Do not keep other funds there. The pilot's defaults fit inside it: 5 shares per
-   order (Polymarket's minimum), at most $5 per match, $40 hard total loss limit (flags `--share-cap`, `--match-cap`,
-   `--loss-limit`; the per-match cap can never exceed the loss limit).
-3. In that account, copy the **wallet address** from the profile menu, and export the **private key** from the
-   account settings ("Export private key"). Keep both on your own machine only for the next step.
-
-If you would rather use your main account, the steps are the same, but the server then holds a key to all of it.
-
-4. Arm the account for trading in the Polymarket app: after the deposit, buy $1 of anything and sell it back (or
-   accept the app's enable-trading prompt). That sets the wallet's trading approvals; the pilot checks them at start
-   and refuses to go live if any are missing. API credentials need no action: the pilot derives them from the key.
-
-## 2. Put the key on the server (run these yourself over SSH, as root)
-```bash
-sudo install -d -m 700 -o root -g root /etc/pkarbs
-sudo bash -c 'umask 077
-read -r -s -p "Polymarket private key (input hidden): " K; echo
-read -r -p "Polymarket wallet address (0x...): " W
-printf "POLYMARKET_PRIVATE_KEY=%s\nPOLYMARKET_WALLET_ADDRESS=%s\n" "$K" "$W" > /etc/pkarbs/pm-pilot.env
-unset K W'
-sudo chmod 600 /etc/pkarbs/pm-pilot.env
-sudo ls -l /etc/pkarbs/pm-pilot.env      # should show: -rw------- 1 root root ...
-```
-- `read -s` hides what you type, and the key never appears on a command line, so it is not saved in shell history.
-- The pilot refuses to start in live mode if the file is readable by anyone other than its owner.
-- Do not `cat` the file or copy it anywhere else.
-
-## 3. Go live (only after the dry-run report)
-Live trading needs all of these; the pilot checks each one at start and stays in dry mode otherwise:
-1. The dry-run gates in `agent/tasks/cs2-pilot.md` pass.
-2. The server passes Polymarket's region check (`https://polymarket.com/api/geoblock` returns `"blocked": false`).
-   If it does not, orders from the server are rejected and the pilot cannot run there.
-3. You write the approval file yourself: `sudo touch /root/cs2pilot/out/LIVE_OK`.
-
-## Stopping and revoking
-- Stop now (cancels every open order, exits): `sudo touch /root/cs2pilot/out/STOP`.
-- If the process dies, Polymarket cancels its open orders by itself within about 10-15 s (order heartbeat).
-- To revoke the key completely: withdraw the funds from the pilot account in the Polymarket app, then
-  `sudo shred -u /etc/pkarbs/pm-pilot.env`.
+## Planned design (not built yet; waiting for Nick's go-ahead)
+Polymarket Session Keys (docs: /trading/session-keys, beta): "A Session Key is a separate signer that a Deposit
+Wallet Owner authorizes to trade for a Deposit Wallet ... A Session Key cannot withdraw funds from the Deposit Wallet."
+1. Hermes generates a fresh session keypair on the server and publishes only its address.
+2. Nick authorizes that address from his own computer with his owner key (CLOB scope, expiry <= 180 days); the owner
+   key never leaves his machine. Revocable at any time.
+3. The pilot signs orders with the session key only.
+Prerequisites: a Deposit Wallet account (new accounts), a Builder API key (polymarket.com > Settings > API Keys), and,
+during the beta, session-key management enabled on that Builder key by builder@polymarket.com.
+Residual risk: a trade-only key can still lose money through bad trades; bounded by the $40 bot loss limit and the $50 balance.
