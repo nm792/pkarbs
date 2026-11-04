@@ -523,7 +523,11 @@ class Pilot:
         del env
         ap = await s.client.get_trading_approvals_state()
         s.log('approvals', fully_approved=ap.is_fully_approved, missing=str(ap.missing))
-        if not ap.is_fully_approved:
+        # Only the perps-deposit allowance is irrelevant to CLOB trading; every exchange/adapter allowance must be set.
+        perps = s.client._ctx.environment_config.perps_deposit_contract.lower()
+        missing = [a for a in (list(ap.missing.erc20) + list(ap.missing.erc1155))
+                   if getattr(a, 'spender', getattr(a, 'operator', '')).lower() != perps]
+        if missing:
             s.log('halt', why='trading approvals missing: enable trading in the Polymarket app (one small manual trade) first')
             return False
         bal = await s.client.get_balance_allowance(asset_type='COLLATERAL')
