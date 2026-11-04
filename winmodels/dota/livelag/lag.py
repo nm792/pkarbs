@@ -46,11 +46,18 @@ def price_at(series, t):
     i = bisect.bisect_right(series, (t, 9e9)) - 1
     return series[i][1] if i >= 0 else None
 
+def same(a, b):
+    a, b = norm(a), norm(b)
+    return bool(a) and bool(b) and (a == b or a in b or b in a)
+
 def match_series(names):
+    # question "Dota 2: A vs B - Game 1 Winner"; Valve names can carry suffixes ("Inner Circle x Insanity")
     out = []
     for s in cfg:
-        q = norm(s['markets'][0]['q'])
-        if all(n and norm(n) in q for n in names): out.append(s)
+        m = re.match(r'Dota 2: (.+?) vs (.+?)( \(BO\d\))? - ', s['markets'][0]['q'])
+        if not m: continue
+        a, b = m.group(1), m.group(2)
+        if (same(names[0], a) and same(names[1], b)) or (same(names[0], b) and same(names[1], a)): out.append(s)
     return out
 
 def corr(a, b):
@@ -78,8 +85,8 @@ for mid_, R in rt.items():
     for m in s['markets']:
         tok = m['tokens'][0]
         if tok not in bk: continue
-        o0 = norm(m['outcomes'][0])
-        sign = 1 if o0 == norm(rad) or o0 in norm(rad) or norm(rad) in o0 else (-1 if (o0 == norm(dire) or o0 in norm(dire) or norm(dire) in o0) else 0)
+        o0 = m['outcomes'][0]
+        sign = 1 if same(o0, rad) else (-1 if same(o0, dire) else 0)
         if sign == 0: continue
         ps = [price_at(bk[tok], t) for t in T]
         pr = [(p if sign == 1 else 1 - p) if p is not None else None for p in ps]
