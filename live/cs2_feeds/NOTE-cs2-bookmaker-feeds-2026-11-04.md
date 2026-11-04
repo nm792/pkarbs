@@ -38,3 +38,22 @@ Raw probe: raw/bookmaker-probe-2026-11-04/probe.txt (10:40Z, from the Claude clo
 ## Caveat carried from PR #63
 At mid-2.5% about 2.7-3.7k shares already rest BEFORE the event, so kill-level speed alone may not fix zero fills;
 any faster feed has to be re-checked against queue position at the price it lets us bid.
+
+## 4. Owls Insight (11:00Z, from its official Python SDK on PyPI; site not allowlisted, 7/10)
+Odds reseller, not game data. CS2 live = Pinnacle (and 1xBet) live odds relayed; CS2 history looks scoreboard-scraped.
+Live Pinnacle stream needs MVP plan or above + WebSocket (Hall of Fame or add-on). Prices not seen. Useful only if
+Pinnacle reprices mid-round on kills (unmeasured). Needs owlsinsight.com + api.owlsinsight.com allowlisted and a trial key.
+
+## 5. LSports (11:20Z, public pages via search; lsports.eu not allowlisted, 5/10)
+- B2B betting-data vendor (betting use is the product; sold to operators, expect company checks). Free trial advertised.
+- Esports: odds + stats across ~21-23 titles; claims "0-1 s" in-play latency and "100+ live sources" (i.e. aggregated,
+  not an official rights holder). Only CS item found is a 2022 CS:GO add-on; CS2 scope, kill-level events, and LoL/tennis
+  depth not published. No public price.
+- IEM data is GRID-exclusive, so LSports can be no faster than GRID-fed books or the stream for IEM. Tennis official
+  fast data is Stats Perform (WTA) / Sportradar (ATP). Correction 11:30Z: Cito's ~11 s lead was vs PM's sports stream; vs the PM PRICE
+  Cito points arrive a median 20 s AFTER the move (PR #68, 9 matches), and the tennis rule needs the point 5-10 s before.
+- Break-even (USD, 30 days): $1,000/mo = $33/day, $3,000/mo = $100/day. Measured/simulated gains from more speed:
+  LoL +$23/game (12 s -> 2 s, sim) = 1.5 games/day to cover $1k, 4-5/day for $3k, only until 14 Nov then none to mid Jan;
+  CS2 not shown (queue, PR #63); tennis needs a 0-1 s point feed (Cito is ~20 s late vs price), gain not yet in $ (9 matches).
+  LSports has no esports (Nick 11:23Z). For NBA (+$16-22/game sim, 5.5 s -> ~1 s, ~7 games/day) and tennis a free trial
+  is worth taking; NBA only if the free NBA S3 test (night of 4-5 Nov) fails. NHL/cricket ~$0. Verdict: trial only, no paid plan yet.

@@ -1,0 +1,50 @@
+{
+ "tier1": {
+  "rows": 188,
+  "games": 2,
+  "lag_s_median": 31.5,
+  "new_price_placeable_before_move": 38,
+  "new_price_q_then_median": 1997.5,
+  "slow_ahead_median": 3290.0,
+  "slow_prints30_total": 60752,
+  "slow_rows_with_prints": 35,
+  "cap100": {
+   "fill_rows": 8,
+   "shares": 800,
+   "usd_markout_60s": -46.0,
+   "usd_markout_300s": 24.0,
+   "usd_per_event_60s": -0.246
+  },
+  "cap500": {
+   "fill_rows": 8,
+   "shares": 4000,
+   "usd_markout_60s": -230.0,
+   "usd_markout_300s": 120.0,
+   "usd_per_event_60s": -1.23
+  }
+ },
+ "lower": {
+  "rows": 416,
+  "games": 8,
+  "lag_s_median": 37.0,
+  "new_price_placeable_before_move": 123,
+  "new_price_q_then_median": 40.4,
+  "slow_ahead_median": 101.8,
+  "slow_prints30_total": 10020,
+  "slow_rows_with_prints": 44,
+  "cap100": {
+   "fill_rows": 23,
+   "shares": 1868,
+   "usd_markout_60s": 21.7,
+   "usd_markout_300s": 1.7,
+   "usd_per_event_60s": 0.052
+  },
+  "cap500": {
+   "fill_rows": 23,
+   "shares": 5145,
+   "usd_markout_60s": 17.3,
+   "usd_markout_300s": -127.31,
+   "usd_per_event_60s": 0.042
+  }
+ }
+}

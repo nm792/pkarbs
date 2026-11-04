@@ -2,7 +2,8 @@
 
 Your owner key and Builder API secret are typed at hidden prompts, used in memory for this one call, and never saved,
 printed or sent anywhere except Polymarket's own API. A session key can place/cancel orders but cannot withdraw.
-Setup:  python3 -m pip install "polymarket-client==0.16.0"
+Needs Python >= 3.11 (macOS built-in 3.9 is too old: install 3.13 from python.org, use python3.13).
+Setup:  python3.13 -m pip install "polymarket-client==0.16.0"
 Run:    python3 authorize_session_key.py 0xSESSION_ADDRESS 0xDEPOSIT_WALLET
 Revoke: python3 authorize_session_key.py --revoke 0xSESSION_ADDRESS 0xDEPOSIT_WALLET
 List:   python3 authorize_session_key.py --list - 0xDEPOSIT_WALLET

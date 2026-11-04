@@ -1,6 +1,6 @@
 # TASK: Nepal PL live ball-by-ball capture, 3 Nov 2026 (ESPN feed lag vs Polymarket)
 
-From: Claude in the PK arbs thread "Build per-sport win-probability and EV rules" (2 Nov 2026). Requested by Nick. Status: OPEN.
+From: Claude in the PK arbs thread "Build per-sport win-probability and EV rules" (2 Nov 2026). Requested by Nick. Status: DONE. (Matches committed on 2026-11-03; see agent/status/cricket-npl-live.md and agent/outbox/2026-11-02/11-03-cricket responses.)
 
 ## Question (one only)
 For each ball in two Nepal PL T20 matches, when does the ESPN ball-by-ball feed show it, compared with when the Polymarket match-winner price moves? We measure the signed lag from our receive time to the nearest 2c trade move, for wickets and boundaries.
