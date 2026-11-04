@@ -9,7 +9,7 @@ Approved by Nick 4 Nov 2026 06:34Z. Rule and evidence: `winmodels/esports/bo3/NO
 | `model.py` | round model (pmap / series / betas from the backtest) |
 | `test_pilot.py` | offline tests, synthetic books with hand-checked answers + replay of a logged match |
 | `report.py` | summary of a run + the dry-run gates |
-| `KEY-INSTALL.md` | how Nick installs the trading key on the server (never via chat) |
+| `KEY-INSTALL.md` | key rule (no withdraw-capable key on the server) and the planned session-key design |
 | `../../agent/tasks/cs2-pilot.md` | server task for the dry run |
 
 ## Rule as coded

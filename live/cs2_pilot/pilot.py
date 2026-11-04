@@ -17,7 +17,7 @@ Caps (hard):
 
 Modes:
   --mode dry  (default): everything runs against live markets; orders are paper only (nothing is sent).
-  --mode live : real post-only orders. Needs PM_KEY_FILE (see KEY-INSTALL.md), a geoblock check that passes, the
+  --mode live : real post-only orders. Needs a trade-only session key in PM_KEY_FILE (see KEY-INSTALL.md), a geoblock check that passes, the
                 order heartbeat (auto-cancel if this process stops), and the file OUT/LIVE_OK (written by a person).
 
 Logs (OUT/pilot.jsonl, one JSON object per line, 'type' field): ws_score, event, window, order_place,
@@ -259,8 +259,13 @@ class Pilot:
                         if bb is not None and ba is not None and ba > bb and ba - bb < CFG['MAX_SPREAD']:
                             m.mids.append((T, (bb + ba) / 2))
                     for m in mks: await s.manage(m, T)
+                    s.book_backoff = 0.0
                 except Exception as e:
                     s.log('error', where='books', err=repr(e))
+                    if '403' in repr(e) or '429' in repr(e):   # refused/rate limited: back off 2, 4, 8 .. 30 s
+                        s.book_backoff = min(30.0, max(2.0, 2 * getattr(s, 'book_backoff', 0.0)))
+                        s.log('backoff', where='books', sleep_s=s.book_backoff)
+                        await asyncio.sleep(s.book_backoff)
             await s.run_pending()
             await asyncio.sleep(max(0.05, CFG['BOOK_POLL'] - (now() - t0)))
 
@@ -500,7 +505,7 @@ class Pilot:
             s.log('halt', why='geoblock check did not pass', geo=geo); return False
         if not os.path.exists(os.path.join(s.out, 'LIVE_OK')):
             s.log('halt', why='OUT/LIVE_OK missing: a person must approve live trading by writing this file'); return False
-        kf = os.environ.get('PM_KEY_FILE', '/etc/pkarbs/pm-pilot.env')
+        kf = os.environ.get('PM_KEY_FILE', '/etc/pkarbs/pm-session.env')
         st = os.stat(kf)
         if st.st_mode & 0o077:
             s.log('halt', why=f'{kf} is readable by group/others; chmod 600'); return False
@@ -508,10 +513,19 @@ class Pilot:
         for line in open(kf):
             if '=' in line and not line.strip().startswith('#'):
                 k, v = line.strip().split('=', 1); env[k.strip()] = v.strip().strip('"\'')
+        # Nick's rule (4 Nov 08:56Z): the server holds only a trade-only session key, never a key that can withdraw
+        if 'POLYMARKET_PRIVATE_KEY' in env or 'POLYMARKET_SESSION_PRIVATE_KEY' not in env:
+            s.log('halt', why='key file must hold only POLYMARKET_SESSION_PRIVATE_KEY + POLYMARKET_DEPOSIT_WALLET (no owner key)')
+            return False
         from polymarket import AsyncSecureClient
-        s.client = await AsyncSecureClient.create(private_key=env['POLYMARKET_PRIVATE_KEY'],
-                                                  wallet=env.get('POLYMARKET_WALLET_ADDRESS') or None)
+        s.client = await AsyncSecureClient.create(private_key=env['POLYMARKET_SESSION_PRIVATE_KEY'],
+                                                  wallet=env['POLYMARKET_DEPOSIT_WALLET'])
         del env
+        ap = await s.client.get_trading_approvals_state()
+        s.log('approvals', fully_approved=ap.is_fully_approved, missing=str(ap.missing))
+        if not ap.is_fully_approved:
+            s.log('halt', why='trading approvals missing: enable trading in the Polymarket app (one small manual trade) first')
+            return False
         bal = await s.client.get_balance_allowance(asset_type='COLLATERAL')
         s.log('live_ready', wallet=str(s.client.wallet), wallet_type=str(s.client.wallet_type), balance=str(bal.balance))
         await s.client.cancel_all()
