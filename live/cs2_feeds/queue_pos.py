@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Queue position after we join, and where the new queue comes from (4 Nov 2026).
-For each event row (queue.py output) we join at the new price P_new at the first second it is placeable as a maker
+For each event row (cs2_queue.py output) we join at the new price P_new at the first second it is placeable as a maker
 (best ask above it), with 5 shares. Shares ahead of us then shrink when the level loses size:
   optimistic: cancels hit the queue pro-rata (ahead shrinks by removed x ahead/size), fills come off the front
   pessimistic: cancels come from the back first, so ahead only shrinks when the level drops below it: ahead=min(ahead,size)
@@ -9,9 +9,9 @@ from the other bid levels of that token (same makers moving their orders up) ver
 Usage: queue_pos.py QUEUEJSON CAPDIR [CAPDIR...]"""
 import json, sys, os, io, contextlib, statistics as st
 qj = json.load(open(sys.argv[1])); dirs = sys.argv[2:]
-sys.argv = ['queue.py', '/tmp/_q_unused.json'] + dirs
+sys.argv = ['cs2_queue.py', '/tmp/_q_unused.json'] + dirs
 with contextlib.redirect_stdout(io.StringIO()):
-    exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'queue.py')).read())
+    exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cs2_queue.py')).read())
 def med(v):
     v = [x for x in v if x is not None]; return round(st.median(v), 1) if v else None
 res = {}
