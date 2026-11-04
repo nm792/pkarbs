@@ -10,3 +10,11 @@ Setup: Cito Scale plan (WS for CS2, LoL, tennis, UFC). Logged both feeds with ou
 | UFC | 0 | no fights | |
 
 Verdict: Cito is no use for CS2 speed. For tennis it is a little faster than PM and gives point-level data.
+
+## LoL update (GEN v LYON Worlds, game 1, 4 Nov 22:15-22:55Z, measured)
+Clock = Polymarket game-winner trades (data-api v2): first trade >= 2c from the median of trades 30-90 s before the PM score-stream kill time.
+- Cito usual source (`riot_live_window`, self-reported lagSeconds ~195): median **204 s after the price move** (n=9 kills, 193-226 s).
+- Cito fast source (`sheep_live`, lagSeconds 1) ran only in the first minutes of each game: 24 and 28 s after the price (n=2).
+- PM sports score WS: median 12.5 s after the price (n=11).
+Verdict: Cito is no use for LoL or CS2 speed. Recommendation to Nick: cancel unless the tennis backtest finds value before the 17 Nov money-back date.
+Raw: project folder cito-timing/lol_race1_2026-11-04.jsonl.gz, lol_trades_g1.json, lol_trades_g2.json.
