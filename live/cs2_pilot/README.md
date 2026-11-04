@@ -26,8 +26,8 @@ Approved by Nick 4 Nov 2026 06:34Z. Rule and evidence: `winmodels/esports/bo3/NO
 - Mid = live order-book mid (backtest used a trade-derived mid). Book polled every 1 s.
 
 ## Caps
-- $250 per match (filled cost + open orders), 1,000 shares per order.
-- Total: open exposure <= $500 + min(realized P&L, 0), so total loss can never pass $500; at -$500 realized the
+- $50 account (Nick 4 Nov 07:27Z): 5 shares per order (Polymarket minimum), $5 per match (filled cost + open orders).
+- Total: open exposure <= $40 + min(realized P&L, 0), so total loss can never pass $40; at -$40 realized the
   pilot halts (cancels all) and only tracks resolutions. State persists in `OUT/state.json`.
 - Live safety: post-only orders only; order heartbeat every 5 s (Polymarket cancels our orders if the process stops);
   cancel-all at start, stop and halt; `OUT/STOP` kill file; live mode refuses to start unless the region check passes,

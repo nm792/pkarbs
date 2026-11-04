@@ -7,7 +7,9 @@ the pilot only ever see the file path `/etc/pkarbs/pm-pilot.env`.
 Anything running as root on the shared server can read a root-owned file, Hermes included. So the key on the server
 should only control the pilot's money.
 1. Create a new Polymarket account (a fresh email login) for the pilot.
-2. Deposit about **$600** into it: the $500 loss limit plus room for fees/rounding. Do not keep other funds there.
+2. Deposit **$50** (Nick 4 Nov 07:27Z). Do not keep other funds there. The pilot's defaults fit inside it: 5 shares per
+   order (Polymarket's minimum), at most $5 per match, $40 hard total loss limit (flags `--share-cap`, `--match-cap`,
+   `--loss-limit`; the per-match cap can never exceed the loss limit).
 3. In that account, copy the **wallet address** from the profile menu, and export the **private key** from the
    account settings ("Export private key"). Keep both on your own machine only for the next step.
 

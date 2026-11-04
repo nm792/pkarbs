@@ -4,6 +4,7 @@ import asyncio, gzip, json, os, sys, tempfile, types
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import model as MD
 import pilot as P
+P.CFG.update(SHARE_CAP=1000, MATCH_CAP_USD=250.0, LOSS_LIMIT_USD=500.0)   # cap-logic tests use $250/$500; the $50 sizing has its own tests
 
 R = []
 def check(name, cond):
@@ -108,6 +109,18 @@ asyncio.run(P.Pilot.paper_fills(p, m, o, 104.0))
 check('paper naive fill = 100 (first two prints, capped at size)', abs(o['paper_naive'] - 100.0) < 1e-9)
 check('paper queue fill = 50 (150 ahead eaten first)', abs(o['paper_queue'] - 50.0) < 1e-9)
 check('print above our bid does not fill', all(not (k == 'paper_fill' and kw['print_px'] > 0.48) for k, kw in p.log_rows))
+
+
+# $50 pilot sizing: 5-share orders, $5 per match, $40 total
+p, g = pilot(); m = mk_market(); g.markets['match'] = m
+P.CFG.update(SHARE_CAP=5, MATCH_CAP_USD=5.0, LOSS_LIMIT_USD=40.0)
+set_book(m, 0.49, 0.51, 100.0); m.window = dict(eid='e6', R=130.0, j=0.04, base=0.50, end=160.0, tok=0)
+asyncio.run(p.manage(m, 131.0))
+check('$50 pilot: order is 5 shares ($2.40)', m.order is not None and m.order['size'] == 5)
+p.st['positions']['0xold'] = dict(gid=1, kind='map1', tokens=['a', 'b'], tok={'0': [5.0, 2.7]}); m.order = None
+asyncio.run(p.manage(m, 132.0))
+check('$50 pilot: per-match $5 cap blocks a second $2.40 order', m.order is None)
+P.CFG.update(SHARE_CAP=1000, MATCH_CAP_USD=250.0, LOSS_LIMIT_USD=500.0)
 
 # replay a logged match through on_score: no crash, events only on within-map rounds
 fn = os.path.join(HERE, '..', '..', 'rn1', 'scores', 'cs2', 'server-2026-11', 'cs2_changes.jsonl.gz')

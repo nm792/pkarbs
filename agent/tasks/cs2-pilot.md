@@ -19,7 +19,7 @@ PASS = 6 of 6. On FAIL report the failing gates with examples. Do not report P&L
 
 **Run (PROTOCOL.md rules 1-6):**
 ```bash
-cd <repo>/live/cs2_pilot && python3 test_pilot.py            # must print "28 of 28 tests pass"
+cd <repo>/live/cs2_pilot && python3 test_pilot.py            # must print "30 of 30 tests pass"
 python3 -m venv /root/cs2pilot/venv && /root/cs2pilot/venv/bin/pip install -q 'polymarket-client==0.16.0' 'websockets==15.0.1'
 mkdir -p /root/cs2pilot/out
 systemd-run --scope -p MemoryMax=512M -p MemorySwapMax=0 timeout 50400 \
