@@ -1,0 +1,408 @@
+{
+"s365_2026_4889297": {
+"slug": "atp-kumstat-harris-2026-11-03",
+"cond": "0x24fb10e5ddf9e6adc60c17dc048c80b85edd56d098582ef99163759981447bb0",
+"p1is0": true,
+"outcomes": "[\"Jan Kumstat\", \"Billy Harris\"]",
+"prices": "[\"1\", \"0\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T07:15:00Z"
+},
+"fs_tn5rWMpL": {
+"slug": "itf-efstat1-tsitsi2-2026-11-04",
+"cond": "0x0253b009de1c0e49d779a91745d228e7bdcae92b6884f245aa0d7fd4f0788e5d",
+"p1is0": true,
+"outcomes": "[\"Melios Efstathiou\", \"Pavlos Tsitsipas\"]",
+"prices": "[\"0.66\", \"0.34\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T07:30:00Z"
+},
+"fs_OYlMOvwe": {
+"slug": "itf-jones7-nurlan1-2026-11-04",
+"cond": "0xe0860566ee198a8ff5dbfa9b2ef31d61632471d2299975379aad388e714f63d9",
+"p1is0": true,
+"outcomes": "[\"Miles Jones\", \"Zangar Nurlanuly\"]",
+"prices": "[\"1\", \"0\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T07:30:00Z"
+},
+"fs_z7RbjShl": {
+"slug": "itf-krstaj1-xilas1-2026-11-04",
+"cond": "0x0e35a9810c3a9f02368f20a1a95bfde2df314bcdc464510255f4360a5b2788ba",
+"p1is0": true,
+"outcomes": "[\"Vuk Krstajic\", \"Ioannis Xilas\"]",
+"prices": "[\"0\", \"1\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T07:30:00Z"
+},
+"fs_xIjEQ08r": {
+"slug": "itf-wehnel1-pietri1-2026-11-04",
+"cond": "0x47318425db47b3554a6cf4ed8f342997f04b8a90c9969610b30ea620af322b1c",
+"p1is0": true,
+"outcomes": "[\"Kai Wehnelt\", \"Benjamin Pietri\"]",
+"prices": "[\"0.0005\", \"0.9995\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T07:30:00Z"
+},
+"fs_SOKTYxtS": {
+"slug": "itf-sato4-lu5-2026-11-04",
+"cond": "0xdbcbdaec750e1fccd4b0d23389ca66ee26a3db7a60c51ffe6b75f5ed0699a20c",
+"p1is0": true,
+"outcomes": "[\"Naho Sato\", \"Jia-Jing Lu\"]",
+"prices": "[\"0\", \"1\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T05:30:00Z"
+},
+"fs_IkqZvQKF": {
+"slug": "itf-arakaw2-negish1-2026-11-04",
+"cond": "0xa776b72d6d9b8a42358dbcdda725d9a4d33653d35c805913de324ca7412f32fd",
+"p1is0": true,
+"outcomes": "[\"Haruna Arakawa\", \"Yuzuha Negishi\"]",
+"prices": "[\"1\", \"0\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T02:00:00Z"
+},
+"fs_0xTCXsDk": {
+"slug": "itf-sato3-mushik1-2026-11-04",
+"cond": "0x80b2d9182e60115f763137a479903ca15394edef957ee77fe39ac966a2a16ce2",
+"p1is0": true,
+"outcomes": "[\"Himari Sato\", \"Mio Mushika\"]",
+"prices": "[\"0\", \"1\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T04:00:00Z"
+},
+"fs_QZbPZXrC": {
+"slug": "itf-llorca1-hennem1-2026-11-04",
+"cond": "0x2f7d9821fb04b4b3dc362606f2c4adea64130cc7abb9f0ae066299ec44375933",
+"p1is0": true,
+"outcomes": "[\"Lucia Cortez Llorca\", \"Caijsa Wilda Hennemann\"]",
+"prices": "[\"0.0005\", \"0.9995\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T07:00:00Z"
+},
+"fs_Cdh6VzxK": {
+"slug": "itf-golovi1-lombar1-2026-11-04",
+"cond": "0xbd84a02715c4e8f5f4c7bc290079eecee8ecc8c9e4f7c1e299acf4bd3ada1453",
+"p1is0": true,
+"outcomes": "[\"Maria Golovina\", \"Marta Lombardini\"]",
+"prices": "[\"1\", \"0\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T07:00:00Z"
+},
+"fs_dzkEOnJD": {
+"slug": "itf-foon1-tan1-2026-11-04",
+"cond": "0x01cf381538ff6b2f95860de204df0bbf1b3b2b44d89c8d4d63b7e054a745c73e",
+"p1is0": true,
+"outcomes": "[\"Astrid Lew Yan Foon\", \"Lucie Nguyen Tan\"]",
+"prices": "[\"0\", \"1\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T07:00:00Z"
+},
+"fs_YujybRVF": {
+"slug": "itf-stoyan1-oktiab1-2026-11-04",
+"cond": "0x7401941f6ff9c4a950eb0e82c9dd33395dc3aeeb391e990b1e43229643eca940",
+"p1is0": true,
+"outcomes": "[\"Antonia Stoyanov\", \"Alisa Oktiabreva\"]",
+"prices": "[\"0.0005\", \"0.9995\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T07:00:00Z"
+},
+"s365_2026_4889314": {
+"slug": "wta-gibson-sasnovi-2026-11-04",
+"cond": "0xd02d3d5c0369337d6d69c1b72025ec1d69b052a64cf9d165505898895af9f06f",
+"p1is0": true,
+"outcomes": "[\"Talia Gibson\", \"Aliaksandra Sasnovich\"]",
+"prices": "[\"0.76\", \"0.24\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T08:35:00Z"
+},
+"fs_KbVBehae": {
+"slug": "itf-tichac1-mazzol2-2026-11-04",
+"cond": "0x21da06885c9170de3648c208a57698b2026466dc821d0bec6bdbf0e61e3f1bdc",
+"p1is0": true,
+"outcomes": "[\"Eliska Tichackova\", \"Alessandra Mazzola\"]",
+"prices": "[\"0.3155\", \"0.6845\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T08:00:00Z"
+},
+"fs_ptVtle66": {
+"slug": "itf-hernan1-zielin1-2026-11-04",
+"cond": "0xe243a0409fefcc63a065bfc382ef796197fb622af78e79e100d333cf1bc40a50",
+"p1is0": true,
+"outcomes": "[\"Carles Hernandez\", \"Marcel Zielinski\"]",
+"prices": "[\"0.0005\", \"0.9995\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T08:30:00Z"
+},
+"fs_fgDM0YkC": {
+"slug": "itf-cordob1-gakhov1-2026-11-04",
+"cond": "0xdcc36739ea9152640cd6e518adcbc970a0cf8035f5739669ad40247c974b8527",
+"p1is0": true,
+"outcomes": "[\"Carles Cordoba\", \"Ivan Gakhov\"]",
+"prices": "[\"0.0005\", \"0.9995\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T08:30:00Z"
+},
+"fs_EFB64Gjm": {
+"slug": "itf-pieri2-hernan5-2026-11-04",
+"cond": "0xc814d332b3a78470944b9de46cbacf792dd43cd4b594e6a7a331dfa196eb0523",
+"p1is0": true,
+"outcomes": "[\"Samuele Pieri\", \"Sergio Planella Hernandez\"]",
+"prices": "[\"0.525\", \"0.475\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T08:30:00Z"
+},
+"fs_YcXbeEzo": {
+"slug": "itf-serran1-porras1-2026-11-04",
+"cond": "0xf7cf14e4c0c2c6a0b487d4ba3b7bb2aed4b6dda2c73d4f3a502f3f1f0982b49d",
+"p1is0": true,
+"outcomes": "[\"Alvaro Peiro Serrano\", \"Julio Cesar Porras\"]",
+"prices": "[\"0.0005\", \"0.9995\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T08:30:00Z"
+},
+"s365_2026_4889291": {
+"slug": "atp-doubles-bassdun-hopolj-2026-11-04",
+"cond": "0xe22373811af590f0dcb3bafe9a527d7172422d2f5f2b405925a12971e59c8775",
+"p1is0": true,
+"outcomes": "[\"Bass/Duncan\", \"Ho/Poljicak\"]",
+"prices": "[\"0\", \"1\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T08:00:00Z"
+},
+"fs_0xN6JPvA": {
+"slug": "itf-pedone1-serban2-2026-11-04",
+"cond": "0xa760542f068576a85daa891792442c41906501ef5469f6db1ce5daac462fc6bf",
+"p1is0": true,
+"outcomes": "[\"Giorgia Pedone\", \"Raluca Georgiana Serban\"]",
+"prices": "[\"0.0005\", \"0.9995\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T08:00:00Z"
+},
+"s365_2026_4889284": {
+"slug": "wta-liu-boulter-2026-11-03",
+"cond": "0x089a8c307bf98245bdc21516df7ebf4ca21a93d71a4581aa567c7d8d3e4d0203",
+"p1is0": true,
+"outcomes": "[\"Claire Liu\", \"Katie Boulter\"]",
+"prices": "[\"0.9995\", \"0.0005\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T08:45:00Z"
+},
+"fs_nNnYiuUh": {
+"slug": "itf-filip1-bertra2-2026-11-04",
+"cond": "0xde7f72fdf8604226961b85121e6e92658049e4a3bc81c17fa99e457cb7afe698",
+"p1is0": true,
+"outcomes": "[\"Jakub Filip\", \"Robin Bertrand\"]",
+"prices": "[\"0.0005\", \"0.9995\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T08:30:00Z"
+},
+"fs_rXU6l6N0": {
+"slug": "itf-gschwe1-wright1-2026-11-04",
+"cond": "0x05fbd56115756ce236c88b07ee0b8def6940901176d33871c52aac1d3fb57ad5",
+"p1is0": true,
+"outcomes": "[\"Jeremy Gschwendtner\", \"Michael Wright\"]",
+"prices": "[\"0.835\", \"0.165\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T08:30:00Z"
+},
+"s365_2026_4889327": {
+"slug": "wta-lansere-novak-2026-11-04",
+"cond": "0x0013966fc4d00b88a427811247f561fbf0c77f57033507f617cad2cdefaac862",
+"p1is0": true,
+"outcomes": "[\"Sofya Lansere\", \"Kristina Novak\"]",
+"prices": "[\"1\", \"0\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T09:05:00Z"
+},
+"s365_2026_4889449": {
+"slug": "atp-gill-walters-2026-11-04",
+"cond": "0x64895279d7e4eb19639ccbc5cb96b220ce00b26937e72d653b8a67dd13bc10bd",
+"p1is0": true,
+"outcomes": "[\"Felix Gill\", \"Marcus Walters\"]",
+"prices": "[\"0.895\", \"0.105\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T09:05:00Z"
+},
+"s365_2026_4889446": {
+"slug": "atp-rossi-bertola-2026-11-04",
+"cond": "0x7af925de8b0a2339e10dbfd0c7731ac535d66c0deaf2bbb65d2a131d50bfd872",
+"p1is0": true,
+"outcomes": "[\"Leonardo Rossi\", \"Remy Bertola\"]",
+"prices": "[\"0\", \"1\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T09:05:00Z"
+},
+"fs_ppPtOLR9": {
+"slug": "itf-park5-huang2-2026-11-04",
+"cond": "0x5ed611d25281ba34046c7f1fd63b78be17767cfaf9a7eb957805418c597c74ec",
+"p1is0": true,
+"outcomes": "[\"Sohyun Park\", \"Yujia Huang\"]",
+"prices": "[\"0\", \"1\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T04:30:00Z"
+},
+"fs_lzsRoYXa": {
+"slug": "itf-naito1-saito1-2026-11-04",
+"cond": "0xdfc5b89ebba2d4fff5959bfd48b45c167a2dc47b8e543800de6ad75af208468b",
+"p1is0": true,
+"outcomes": "[\"Yuki Naito\", \"Sara Saito\"]",
+"prices": "[\"0\", \"1\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T06:00:00Z"
+},
+"fs_tlWREHld": {
+"slug": "itf-swan1-ito1-2026-11-04",
+"cond": "0x1be2ce4e0feffaa2fa52d2937f8b4d70b8106873ad85393c546032432b3e9b11",
+"p1is0": true,
+"outcomes": "[\"Katie Swan\", \"Aoi Ito\"]",
+"prices": "[\"1\", \"0\"]",
+"reb": {
+"exponent": 1,
+"rate": 0.05,
+"takerOnly": true,
+"rebateRate": 0.15
+},
+"start": "2026-11-04T05:30:00Z"
+}
+}
