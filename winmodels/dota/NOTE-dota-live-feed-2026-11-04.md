@@ -25,3 +25,9 @@
 | 120 s | -0.4% | $4.3 |
 | 180 s | -2.3% | -$0.3 |
 Sim on real trades, first-in-queue, 100-share cap. Whole game ~2x second half (estimate); ~18 Polymarket Dota games/day (October).
+
+## Live measurement, 4 Nov (cloud capture, raw: /mnt/project-files/winmodels/raw/dotacap-cloud-2026-11-04/; thread "Time Valve's live Dota feed")
+- PuckChamp v Inner Circle G1 (Asgard): Polymarket G1 price hit 0.99 at 11:09:23Z, PM sports WS 1-0 at 11:10:16Z (+53 s), Valve game_state 6 at 11:14:23Z (+300 s). Cross-correlation of net-worth/kill lead vs price peaks at -285 s.
+- Yellow Submarine v NaVi G1 (EPL Masters): Polymarket G1 price moved 0.28 -> 0.62 between 11:24 and 11:37Z while Valve still showed pre-horn (horn at 11:35:55Z on Valve, 0-0 kills to 11:37). Consistent with OpenDota's 900 s delay tag on this league: Valve is roughly 10-15 min behind the market.
+- So on today's Polymarket-listed leagues Valve's free feed is 300-900 s behind the price. Lag sweep at >= 180 s: about $0 per game. No edge from the free feed on these leagues.
+- Caveat: GetLiveGames 'time' is lobby time (incl. draft), not a delay tag. Per-game delay = Valve game end vs price reaching 0.99.
