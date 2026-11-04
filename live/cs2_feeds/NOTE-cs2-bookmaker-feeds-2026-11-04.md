@@ -50,7 +50,10 @@ Pinnacle reprices mid-round on kills (unmeasured). Needs owlsinsight.com + api.o
   not an official rights holder). Only CS item found is a 2022 CS:GO add-on; CS2 scope, kill-level events, and LoL/tennis
   depth not published. No public price.
 - IEM data is GRID-exclusive, so LSports can be no faster than GRID-fed books or the stream for IEM. Tennis official
-  fast data is Stats Perform (WTA) / Sportradar (ATP); we already have Cito ~11 s ahead of PM per point.
+  fast data is Stats Perform (WTA) / Sportradar (ATP). Correction 11:30Z: Cito's ~11 s lead was vs PM's sports stream; vs the PM PRICE
+  Cito points arrive a median 20 s AFTER the move (PR #68, 9 matches), and the tennis rule needs the point 5-10 s before.
 - Break-even (USD, 30 days): $1,000/mo = $33/day, $3,000/mo = $100/day. Measured/simulated gains from more speed:
   LoL +$23/game (12 s -> 2 s, sim) = 1.5 games/day to cover $1k, 4-5/day for $3k, only until 14 Nov then none to mid Jan;
-  CS2 not shown (queue, PR #63); tennis not simulated and Cito already leads PM. Verdict: only a free trial is worth taking.
+  CS2 not shown (queue, PR #63); tennis needs a 0-1 s point feed (Cito is ~20 s late vs price), gain not yet in $ (9 matches).
+  LSports has no esports (Nick 11:23Z). For NBA (+$16-22/game sim, 5.5 s -> ~1 s, ~7 games/day) and tennis a free trial
+  is worth taking; NBA only if the free NBA S3 test (night of 4-5 Nov) fails. NHL/cricket ~$0. Verdict: trial only, no paid plan yet.
