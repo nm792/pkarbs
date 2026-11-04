@@ -19,5 +19,5 @@ read 4 Nov 12:20Z via TinyFish (gamescorekeeper.com and api.gamescorekeeper.com 
 ## Verdict
 - Dota: no use (no kill events; source is the delayed feed we already measured).
 - LoL: unlikely to beat the price; best public source is PM's own sports stream (12 s) and Riot's official feed is GRID-only.
-- CS2: the only possible value. If it is HLTV scorebot speed, kills arrive roughly when PM bots see them, so at best par with price, not ahead. And PR #63 showed a faster CS2 feed alone doesn't fix zero fills (queue rests at our price before the event).
+- CS2: the only possible value. If it is HLTV scorebot speed, kills arrive roughly when PM bots see them, so at best par with price, not ahead. (Correction 12:20Z: the later queue study found bots reprice within ~1 s of the event, so the queue is not stale and a feed AHEAD of the price would help; the queue is not a separate blocker. HLTV's own kill-vs-price delay is measured 4 Nov 13:00-16:00Z in thread "Time HLTV live scoreboard on CS2"; GSK's CS2 speed is likely the same.)
 - Worth one free-trial email at most, to time CS2 kills vs PM price on one match; not worth paying for. Confidence 6/10.
