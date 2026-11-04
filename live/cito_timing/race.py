@@ -28,6 +28,8 @@ def cito_sse(game):
                              stream=True, timeout=(10, 40), verify=CA)
             w({'src': f'cito_{game}_sse_open', 'rt': time.time(), 'code': r.status_code,
                'delay_hdr': r.headers.get('X-Cito-Data-Delay-Seconds'), 'tier': r.headers.get('X-Cito-Tier')})
+            if 'event-stream' not in r.headers.get('content-type', ''):
+                w({'src': f'cito_{game}_sse_notlive', 'rt': time.time(), 'body': r.text[:200]}); time.sleep(60); continue
             ev = None
             for line in r.iter_lines(decode_unicode=True):
                 if time.time() > END: break
@@ -35,6 +37,16 @@ def cito_sse(game):
                 if line.startswith('event:'): ev = line[6:].strip()
                 elif line.startswith('data:'): w({'src': f'cito_{game}', 'rt': time.time(), 'ev': ev, 'd': line[5:].strip()})
         except Exception as e: w({'src': f'cito_{game}_err', 'rt': time.time(), 'e': str(e)[:200]}); time.sleep(3)
+def cito_poll(game, every=5.0):
+    # REST cross-check of the push feed: /<game>/live every `every` s (costs 1 request each).
+    url = f'https://api.citoapi.com/api/v1/{game}/live'; s = requests.Session()
+    while time.time() < END:
+        t = time.time()
+        try:
+            r = s.get(url, headers={'x-api-key': K, 'User-Agent': 'pkarbs-research/1.0'}, timeout=10, verify=CA)
+            w({'src': f'cito_{game}_rest', 'rt': time.time(), 'lat': time.time() - t, 'd': r.text})
+        except Exception as e: w({'src': f'cito_{game}_rest_err', 'rt': time.time(), 'e': str(e)[:160]})
+        time.sleep(max(0, every - (time.time() - t)))
 def cito_ws(game):
     url = f'wss://api.citoapi.com/api/v1/{game}/live/ws'
     while time.time() < END:
@@ -42,6 +54,7 @@ def cito_ws(game):
             ws = websocket.create_connection(url, header=['x-api-key: ' + K, 'User-Agent: pkarbs-research/1.0'],
                                              sslopt={'ca_certs': CA} if CA is not True else None, timeout=20)
             w({'src': f'cito_{game}_ws_open', 'rt': time.time()})
+            ws.send(json.dumps({'action': 'subscribe', 'rooms': ['all']}))
             while time.time() < END:
                 try: m = ws.recv()
                 except websocket.WebSocketTimeoutException: continue
@@ -49,5 +62,6 @@ def cito_ws(game):
         except Exception as e:
             w({'src': f'cito_{game}_ws_err', 'rt': time.time(), 'e': str(e)[:160]}); time.sleep(60)
 ts = [threading.Thread(target=pm)] + [threading.Thread(target=cito_sse, args=(g,)) for g in GAMES] + \
-     [threading.Thread(target=cito_ws, args=(g,)) for g in GAMES]
+     [threading.Thread(target=cito_ws, args=(g,)) for g in GAMES + os.environ.get('CITO_WS_ONLY', '').split(',') if g] + \
+     [threading.Thread(target=cito_poll, args=(g,)) for g in GAMES if g in os.environ.get('CITO_POLL', '').split(',')]
 [t.start() for t in ts]; [t.join() for t in ts]
