@@ -232,7 +232,8 @@ for mid_, R in rt.items():
             t = r['recv_ms'] / 1000
             if not (tv - 1800 <= t <= tv + 120): continue
             if (r['bid'] is not None and r['bid'] >= 0.99) or (r['ask'] is not None and r['ask'] <= 0.01):
-                if best is None or t < best[0]: best = (t, m['q'])
+                # most recent game resolution before Valve's end = this game's market
+                if best is None or t > best[0]: best = (t, m['q'])
                 break
     wst = None; prev = None
     for g in ws:
