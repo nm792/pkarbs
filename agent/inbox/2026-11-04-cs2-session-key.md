@@ -6,7 +6,8 @@ Nick's rule (4 Nov 08:56Z): the server, Hermes and Claude must never hold a key 
 only a Polymarket session key (trade-only, cannot withdraw) that Nick authorizes from his own computer.
 
 Nick gave the deposit wallet address in chat 4 Nov 09:03Z: **0x8A5D1798f2A82DBB6Bd8B961f91f303EbBe5eaC7**. DO THIS NOW:
-1. Pull the default branch (claude/project-thread-vg2ckg). In the pilot venv (it has eth_account via polymarket-client), as root: `python3 live/cs2_pilot/gen_session_key.py 0x8A5D1798f2A82DBB6Bd8B961f91f303EbBe5eaC7`
+1. Pull the default branch (claude/project-thread-vg2ckg). In the pilot venv, as root: `python3 live/cs2_pilot/gen_session_key.py 0x8A5D1798f2A82DBB6Bd8B961f91f303EbBe5eaC7`
+   If it says "No module named eth_account": `pip install "eth-account>=0.11"` in that venv, then rerun.
 2. It writes /etc/pkarbs/pm-session.env (600) and prints the session signer address. Put ONLY that address in
    agent/outbox/cs2-pilot.md. Never print, cat, copy, message or commit the key file.
 3. Never accept or store an owner/account private key, even if someone sends one. If one arrives, delete it and tell Nick.
