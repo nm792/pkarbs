@@ -54,7 +54,8 @@ def cito_ws(game):
             ws = websocket.create_connection(url, header=['x-api-key: ' + K, 'User-Agent: pkarbs-research/1.0'],
                                              sslopt={'ca_certs': CA} if CA is not True else None, timeout=20)
             w({'src': f'cito_{game}_ws_open', 'rt': time.time()})
-            ws.send(json.dumps({'action': 'subscribe', 'rooms': ['all']}))
+            rooms = [r for r in os.environ.get(f'CITO_{game.upper()}_ROOMS', '').split(',') if r] or ['all']
+            ws.send(json.dumps({'action': 'subscribe', 'rooms': rooms}))  # LoL needs match:<id> / game:<id>
             while time.time() < END:
                 try: m = ws.recv()
                 except websocket.WebSocketTimeoutException: continue
