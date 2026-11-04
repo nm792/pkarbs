@@ -22,3 +22,7 @@ Within each of the four Game-1 windows (22:00Z each, 3-6 Nov: TES-IG, GEN-LYON, 
 ## 2026-11-03 07:3xZ sweep
 - timedatectl: System clock synchronized: yes; NTP service: active (confirmed for TES-IG 20:30Z window).
 - capture.js merged per 06:06Z update (2s polls for all five game ids; live-2026-11/feed_delay.py analysis; 15 bids/asks depth levels). Ready for TES-IG window 20:30Z.
+
+## 2026-11-04 02:36Z (inbox 2026-11-04 items 2 + 3)
+- TES-IG (3 Nov 20:30Z window): capture found in shared folder /mnt/project-files/rn1/scores/lol/live-2026-11/tesig/ (books 789 KB, frames, polls, capture.log). Committed to rn1/scores/lol/live-2026-11/server-TES-IG/ in this repo.
+- GEN-LYON (4 Nov ~20:30Z window): capture.js on disk (agent/tasks/lol-live-capture/capture.js, mtime 2026-11-04T00:00Z) CARRIES the PR#39 startingTime fix — confirmed. Copy output to rn1/scores/lol/live-2026-11/server-GEN-LYON/ every 10 min during the window.

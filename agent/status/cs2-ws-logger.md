@@ -9,3 +9,8 @@ errors: none (count mismatch resolved 03:04Z)
 - Committed copies (authoritative, refreshed 10:18Z): cs2_frames.jsonl.gz 58,774 lines / newest 10:18:28.952Z; cs2_changes.jsonl.gz 21,640; logger.log.gz 12. gzip -t OK.
 - Reply on outbox/2026-11-03-cs2-logger-restart-proof.md (inbox answered in repo, no restart needed) and outbox/2026-11-03-cs2-count-mismatch.md (count corrected to 3,661 >=02:10Z on committed file).
 output: raw /root/cs2logger/out/* (live, append-only); repo rn1/scores/cs2/server-2026-11/
+
+## 2026-11-04 02:36Z (inbox 2026-11-04 item 1 — resume hourly copy)
+- Hourly copy resumed: refreshed rn1/scores/cs2/server-2026-11/ to live tail 02:36:26Z (cs2_frames.jsonl.gz 1.79 MB, cs2_changes.jsonl.gz 0.66 MB, logger.log.gz). gzip -t OK.
+- Logger PID 3497389 RUNNING; raw /root/cs2logger/out/* appending (cs2_frames.jsonl 25.8 MB, live 02:36Z).
+- Standing: refresh + commit the repo copy hourly while the logger runs.
