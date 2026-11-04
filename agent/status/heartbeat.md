@@ -1,6 +1,7 @@
-# server-member heartbeat — 2026-11-04T16:16Z
-- cs2-ws-logger: RUNNING, hourly copy pushed 16:16Z (66746921), stop scheduled 06:45Z 5 Nov.
-- hltv-scorebot: run 1 STOPPED per reviewer drop-note; data preserved (live/cs2_feeds/raw/hltv-2026-11-04). Run 2 awaits its note.
-- cricket-npl-live / rugby-top14 / dota / lol / nba-feed-delay / cs2-pilot: unchanged, prior status holds.
-- crossbet reachability: FAIL (Cloudflare 403), answered in outbox 13:50Z.
-- waiting for Nick: none.
+# heartbeat — 2026-11-04 16:36Z
+- dota-live-capture: RUNNING (pid 4050172, window 09:45-22:45Z).
+- hltv-scorebot: STOPPED per reviewer drop-note; run1 data preserved + pushed. Run 2 (6 Nov) awaits approval note.
+- nba-feed-delay: RUNNING (window 5 Nov 00:00-03:30Z).
+- lol-live-capture: OPEN/recurring 22:00Z windows 3-6 Nov.
+- rugby-top14: PREPARED, windows 7-8 Nov.
+- waiting for Nick: none (cito-tennis logger still WAITING FOR KEY — /etc/pkarbs/cito.env).
