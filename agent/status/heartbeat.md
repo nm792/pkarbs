@@ -1,12 +1,10 @@
-# Heartbeat — 2026-11-04 23:30Z (4 Nov)
-
-Round: server-member dispatch sweep, verified against origin refs.
-- No new to_agent/tasks/inbox since 23:15Z round; all note queues answered through latest numbers.
-- tt-review: temperature + btceth note queues clean (all slugs have from_agent replies on origin).
-- mfw-clone: newest note 309 answered; chase/combined false-positive family only.
-- pkarbs: all inbox have outbox replies; captures running (cs2 dry-run, dota, lol GEN-LYON, nba night)
-  or correctly stopped/queued (hltv per reviewer drop-note; rugby window 7-8 Nov).
-- ASX: T034 batch + T020/T018 sequential program loop in progress on origin; no new to_agent.
-- webb: T001/T002 weekly next_run 2026-11-08 (not due); no new tasks since 11-03.
-- working tree heartbeats stale vs origin beats; origin is source of truth.
-written 23:30Z 2026-11-04
+# heartbeat — 2026-11-04 23:45Z round
+cs2-ws-logger: RUNNING (PID 426344), carries Polymarket NBA side through 06:45Z.
+nba-feed-delay: capture RESTARTED 23:47Z (PID 1781643), first polls 23:50Z, check/copy 00:15Z. (Prior status claimed running but process was absent; corrected.)
+dota-live-capture: window 09:45-22:45Z ended; capture done (files to 18:49Z), cleanup pending.
+lol-live-capture: GEN-LYON RUNNING (PID 1309631), outputs fresh 23:46Z.
+cs2-pilot: per status.
+hltv-scorebot: dropped per drop-hltv-run1-and-crossbet.
+Cricket NPL: DONE.
+Rugby Top14: windows 7-8 Nov, not yet.
+waiting for Nick: none.
