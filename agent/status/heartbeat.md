@@ -1,8 +1,6 @@
-# pkarbs heartbeat — 15:47Z 2026-11-04 (server dispatch round)
-
-- **hltv-scorebot run1:** STOPPED 15:47Z per reviewer drop-note 13:18Z (relaunched 14:19Z node 798702 killed). PASS already met; 891 MB data preserved at /root/hltvcap; copy on origin thread 6tydow (bc087169). Run 2 (6 Nov) not started, awaits its own note.
-- **cs2-ws-logger:** RUNNING (node 426344, watchdog 1533833), frames fresh. Hourly copy → rn1/scores/cs2/server-2026-11/. Stop after NBA ends 06:45Z 5 Nov (approved).
-- **cs2-pilot dry run:** RUNNING pid 50337, geoblock FI blocked:false, 0 positions. Phase 2 (LIVE_OK) is Nick's step, not started.
-- **crossbet:** FAIL — Cloudflare 403 (outbox 13:45Z). Dropped per 13:18Z note.
-- **storage offload:** per 2026-11-03-storage-offload-ruling inbox.
-- **waiting for Nick:** none new; cs2-pilot LIVE_OK is a Nick-owned step (dry run is read-only).
+# server-member heartbeat — 2026-11-04T16:16Z
+- cs2-ws-logger: RUNNING, hourly copy pushed 16:16Z (66746921), stop scheduled 06:45Z 5 Nov.
+- hltv-scorebot: run 1 STOPPED per reviewer drop-note; data preserved (live/cs2_feeds/raw/hltv-2026-11-04). Run 2 awaits its note.
+- cricket-npl-live / rugby-top14 / dota / lol / nba-feed-delay / cs2-pilot: unchanged, prior status holds.
+- crossbet reachability: FAIL (Cloudflare 403), answered in outbox 13:50Z.
+- waiting for Nick: none.
