@@ -8,3 +8,4 @@ rugby_probe.py
 agent/status/*.log
 agent/status/*.pid
 agent/status/*.detach.log
+.env
