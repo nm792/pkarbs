@@ -34,12 +34,21 @@ Thread "Check if CS2 queue clears after events". Answer: **no**. Confidence 7/10
    fits bots moving whole ladders up with the mid. It is a signature, not proof.
 
 ## What it means
-- A speed edge of "the first few seconds" doesn't exist at 1 s resolution: the queue at the new price is there in the
-  same snapshot the price becomes reachable. Getting in front would need sub-second reaction to the market itself
-  (or a kill feed that beats the market), and our best CS2 feed is ~16 s behind the price.
+- At our current feed speed (sports WS a median 31 s behind the price on these tier-1 rows), or at any speed level
+  with the price, the queue blocks us: the new level is re-stacked in the same 1 s snapshot it becomes reachable.
+- A feed AHEAD of the price helps less than it seems: in 62 of 76 tier-1 rows the new price sits at or above the best
+  ask before the move, so a maker-only bid can't rest there until the ask moves (the same moment the bots re-stack;
+  who wins that race is sub-second and unmeasured). In the other 14 rows the new price is already a resting level with
+  a median 2,044 sh on it before the move.
 - Even when churn moves us to the front, very few prints reach the level. Tier-1 CS2 maker fills at mid-2.5% stay
   near zero for a 5-share order behind ~2,500 shares.
-- Lower tiers (CCT etc.) have ~45 shares at the new price when it becomes placeable, so the queue is not the blocker there.
+- Lower tiers (3 games: ILLYRIANS-Bebop and megoshort-Honvéd (CCT qualifier), BRUTE SQ-ICP (United21); 79 rows; `lowtier.py`, `out/lowtier.json`): median 50 sh at the new
+  price when it becomes placeable (under 100 in 52 of 79); only 756 sh printed there in 30 s across all 79 events (9
+  rows had any). Sports WS lag vs the price: median 41.5 s. Slow bot at our current feed (join at R, mid(R) x 0.975):
+  205 sh ahead, 768 sh printed at or below our price in 30 s (4 rows), fills beyond the queue in 2 of 79 events
+  (200 sh at cap 100, 581 at cap 500). Markout +$8.5/+$17.8 at 60 s, +$1/-$29 at 300 s. That's ~$0.1-0.2 per event,
+  ~$3-6 per game at 60 s with an unknown sign held longer. Estimate (not measured): under ~$50/day across lower-tier
+  CS2, not distinguishable from zero on 2 fills. Lack of sellers, not the queue, is the blocker there.
 
 ## Limits
 - 1 s polling: we can't see order within a second, or cancel/replace that nets to zero inside a second.
