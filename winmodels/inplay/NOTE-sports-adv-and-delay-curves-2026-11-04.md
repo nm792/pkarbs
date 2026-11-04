@@ -37,3 +37,12 @@ Nick: reacting to game ends is reacting to what the market already priced. Redon
   - From Cito receipt: 0-10 s $55 filled/match, +5.6% at 1 min ($3/match), 90% range spans zero; 20 s loses.
   - From price onset ("true" time proxy): 0, 2, 5, 10, 20 s -> zero fills. 5-10 s BEFORE onset -> $22 filled/match, +16% at 1 min ($3.5/match).
 - Verdict: the edge only exists if we know the point before the market starts to react, i.e. courtside/official-data speed (seconds). Cito (scraped scores) is ~20 s too slow. Confidence 4/10: only 9 matches in 1 hour.
+
+### 4b. Rerun on the bigger Cito capture (15:30Z): race4 + cito-timing/tennis 10:55-15:20Z
+- 118 Cito matches, 84 matched to Polymarket, 38 usable (37 had under 30 trades, mostly ITF; 5 unresolved). 8,015 point events.
+- Model at price onset: predicted jump vs actual 30 s move beta 1.05, corr 0.75 (1,035 points with |jump| >= 2c).
+- Cito arrives a median 27.5 s after the price starts to move (IQR 6.6-44 s).
+- Delay curve (500 cap, W 30 s, min jump 1c, fixed in advance):
+  - From Cito receipt, 0-10 s: $150-200 filled/match, 1 min ~0% (-0.1%, 90% -5 to +6%), result +10% but the 90% range is -29% to +67%. No edge.
+  - From price onset (true-time proxy): -10 s $16/match, +14% at 1 min (90% 9-25%) = $2.2/match; 0 s $8/match, +7% (4-21%) = $0.6/match; 2-5 s $3-4/match.
+- Verdict: the point model is right and the edge is real at the market's reaction time, but fills at market - 2.5% around the point are $8-16 per match, about $1-2 per match at 1 min even with a perfect feed. Cito is ~28 s too slow to get even that. Confidence 6/10.
