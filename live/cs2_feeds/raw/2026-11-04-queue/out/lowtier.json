@@ -27,7 +27,7 @@
   "rows": 79,
   "games": 3,
   "lag_s_median": 41.5,
-  "new_price_placeable_before_move": 29,
+  "new_price_placeable_before_move": 28,
   "new_price_q_then_median": 75.0,
   "slow_ahead_median": 205.0,
   "slow_prints30_total": 768,

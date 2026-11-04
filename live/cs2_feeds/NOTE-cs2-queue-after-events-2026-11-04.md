@@ -13,16 +13,22 @@ Thread "Check if CS2 queue clears after events". Answer: **no**. Confidence 7/10
   placeable, no-event control), `queue_pos.py` (our queue position after joining, ladder-move signature).
   Outputs in `raw/2026-11-04-queue/out/`.
 
-## Two prices we could bid at (both maker, mid - 2.5%)
+## Two prices we could bid at (both maker, mid x 0.975, i.e. 2.5% RELATIVE, floored to the 1c tick)
+Tm = start of the largest 3 s rise in the token's mid in [WS update - 75 s, WS update + 5 s]. Mid = (best bid + best
+ask)/2 of that token's own book in one 1 s snapshot (YES and NO books mirror exactly: NO bid = 1 - YES ask).
+
+**Fix 12:45Z (PR #84):** the old price was computed from the median mid 45-90 s before the WS update (inherited from
+`analyze.py`), not the live mid. In some rows that put it at the ask or far under the market. Now it is the mid 2 s
+before Tm x 0.975. Old-price numbers below are rerun; new-price and lower-tier numbers did not use it and are unchanged.
 | tier 1, medians over 76 rows | -10 s | -2 s | Tm | +2 s | +3 s | +5 s | +10 s | +30 s |
 |---|---|---|---|---|---|---|---|---|
-| size at OLD price (pre-event mid x 0.975) | 2,548 | 2,394 | 2,102 | 1,975 | 2,066 | 1,692 | 1,756 | 1,561 |
+| size at OLD price (mid 2 s before the move x 0.975) | 3,152 | 3,267 | 2,998 | 2,385 | 1,625 | 1,488 | 1,500 | 1,384 |
 | size at NEW price (post-move mid x 0.975) | 0 | 0 | 0 | 0 | 2,718 | 3,475 | 3,444 | 3,570 |
 
-1. **Old price:** 49% of the size there 10 s before the move is still there at +5 s, 44% at +30 s (no-event control:
-   94% after 15 s, 89% after 40 s). So events do trigger cancels, but half the queue stays. Of 737k shares removed
-   in -10..+30 s, 6.5k (0.9%) were fills; the rest were cancels. 37% of cancelled size reappeared at another bid
-   level of the same token in the same second (looks like re-pricing).
+1. **Old price** (median 1 tick under the best bid): 51% of the size there 10 s before the move is still there at
+   +5 s, 47% at +30 s (no-event control: 96% after 15 s, 91% after 40 s). So events do trigger cancels, but half the
+   queue stays. Of 860k shares removed in -10..+30 s, 2.2k (0.3%) were fills; the rest were cancels. 37% of
+   cancelled size reappeared at another bid level of the same token in the same second (looks like re-pricing).
 2. **New price:** it becomes placeable as a maker (best ask above it) a median 3 s after Tm. At the first 1 s snapshot
    when it is placeable, a median **2,522 shares** already rest there (25th percentile 858). It was under 100
    shares in only 6 of 76 rows. The queue forms in the same second the market moves.
@@ -36,8 +42,10 @@ Thread "Check if CS2 queue clears after events". Answer: **no**. Confidence 7/10
 ## What it means
 - At our current feed speed (sports WS a median 31 s behind the price on these tier-1 rows), or at any speed level
   with the price, the queue blocks us: the new level is re-stacked in the same 1 s snapshot it becomes reachable.
-- A feed AHEAD of the price helps less than it seems: in 62 of 76 tier-1 rows the new price sits at or above the best
-  ask before the move, so a maker-only bid can't rest there until the ask moves (the same moment the bots re-stack;
+- A feed AHEAD of the price helps less than it seems. Our rule always bids 2.5% under the LIVE market, so before the
+  move a fast bot bids the old price (behind ~3,300 sh). The post-move price (2.5% under where the market is about to
+  go) is above the pre-move best ask in 62 of 76 tier-1 rows (median move 5c, spread 1c, so it is above the ask
+  whenever the move exceeds ~2.5% + half a cent); a maker-only bid can't rest there until the ask moves (the same moment the bots re-stack;
   who wins that race is sub-second and unmeasured). In the other 14 rows the new price is already a resting level with
   a median 2,044 sh on it before the move.
 - Even when churn moves us to the front, very few prints reach the level. Tier-1 CS2 maker fills at mid-2.5% stay

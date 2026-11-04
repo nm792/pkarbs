@@ -6,7 +6,7 @@ Events and market reaction time Tm are found exactly as in analyze.py (rising to
 largest 3 s mid step in [R-75 s, R+5 s]).
 
 For each event x rising token, two prices we could bid at (both maker, 2.5% under mid):
-  P_old = pre-event mid x 0.975   (a fast bot that bids before the market moves)
+  P_old = mid 2 s before the move x 0.975   (a fast bot that bids before the market moves)
   P_new = mid at Tm+6 s x 0.975   (a bot that bids right after the market moves)
 and we measure, second by second from Tm-30 s to Tm+30 s:
   - size resting at P_old and at P_new
@@ -105,9 +105,10 @@ for e in events:
             a, b = mid(t, R + ms - 3000), mid(t, R + ms)
             if a is not None and b is not None and b - a > best: best, Tm = b - a, R + ms - 3000
         if Tm is None or best < max(0.01, mv / 3): continue
-        m6 = mid(t, Tm + 6000)
-        if m6 is None: continue
-        P_old = floor_t(m0 * 0.975); P_new = floor_t(m6 * 0.975)
+        m6 = mid(t, Tm + 6000); mb = mid(t, Tm - 2000)   # mb: mid just before the move (same 1 s snapshot as its bid/ask)
+        if m6 is None or mb is None: continue
+        # fix 4 Nov 12:45Z: P_old was the median mid 45-90 s before R x 0.975, which can sit far from the live mid
+        P_old = floor_t(mb * 0.975); P_new = floor_t(m6 * 0.975)
         q_old = [size_at(t, Tm + o * 1000, P_old) for o in OFFS]
         q_new = [size_at(t, Tm + o * 1000, P_new) for o in OFFS]
         bb = [(at(t, Tm + o * 1000) or (0, 0, None))[2] for o in OFFS]
@@ -136,7 +137,7 @@ for e in events:
         for o, v in zip(OFFS, q_new):
             if o < 0: continue
             if v is None or v >= 100: front = o; break
-        rows.append(dict(gid=g, title=gid_names.get(g, '')[:60], kind=kind, Tm=Tm, R=R, move=round(mv, 3), mid_pre=round(m0, 3),
+        rows.append(dict(gid=g, title=gid_names.get(g, '')[:60], kind=kind, Tm=Tm, R=R, move=round(mv, 3), mid_pre=round(m0, 3), mid_m2=round(mb, 3),
                          mid_6=round(m6, 3), P_old=P_old, P_new=P_new, q_old=q_old, q_new=q_new, bb=bb,
                          old_removed=round(rem), old_added=round(add), old_filled=round(fil), old_cancelled=round(canc),
                          old_cancel_reprice_match=round(repr_), new_front_s=front,
