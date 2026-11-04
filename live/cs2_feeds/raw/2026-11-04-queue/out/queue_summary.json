@@ -1,0 +1,281 @@
+{
+ "events": 118,
+ "all": {
+  "rows": 155,
+  "old_q_-30": 305.0,
+  "new_q_-30": 0.0,
+  "old_q_-10": 290.1,
+  "new_q_-10": 0.0,
+  "old_q_-5": 270.0,
+  "new_q_-5": 0.0,
+  "old_q_-2": 250.0,
+  "new_q_-2": 0.0,
+  "old_q_+0": 250.0,
+  "new_q_+0": 0.0,
+  "old_q_+2": 350.3,
+  "new_q_+2": 0.0,
+  "old_q_+5": 380.0,
+  "new_q_+5": 380.0,
+  "old_q_+10": 365.8,
+  "new_q_+10": 415.0,
+  "old_q_+20": 356.2,
+  "new_q_+20": 440.0,
+  "old_q_+30": 294.3,
+  "new_q_+30": 400.0,
+  "old_rows_q-10_ge100": 106,
+  "old_share_left_at_+5": 0.49,
+  "old_share_left_at_+30": 0.44,
+  "old_removed_sum": 776905,
+  "old_added_sum": 771145,
+  "old_filled_sum": 6529,
+  "old_cancelled_sum": 770376,
+  "old_cancel_reprice_match_sum": 281861,
+  "old_filled_share_of_removed": 0.008,
+  "old_reprice_share_of_cancels": 0.366,
+  "new_front_s_median": 3,
+  "new_front_s_dist": [
+   [
+    3,
+    56
+   ],
+   [
+    2,
+    21
+   ],
+   [
+    0,
+    19
+   ],
+   [
+    1,
+    10
+   ],
+   [
+    4,
+    10
+   ],
+   [
+    null,
+    8
+   ],
+   [
+    6,
+    8
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    9,
+    4
+   ],
+   [
+    8,
+    3
+   ],
+   [
+    10,
+    3
+   ],
+   [
+    13,
+    2
+   ],
+   [
+    11,
+    1
+   ],
+   [
+    21,
+    1
+   ],
+   [
+    16,
+    1
+   ],
+   [
+    20,
+    1
+   ],
+   [
+    12,
+    1
+   ]
+  ],
+  "new_empty_at_Tm_rows": 136,
+  "new_half_s_median": 4
+ },
+ "tier1": {
+  "rows": 76,
+  "old_q_-30": 2763.2,
+  "new_q_-30": 0.0,
+  "old_q_-10": 2547.8,
+  "new_q_-10": 0.0,
+  "old_q_-5": 2327.8,
+  "new_q_-5": 0.0,
+  "old_q_-2": 2394.0,
+  "new_q_-2": 0.0,
+  "old_q_+0": 2102.2,
+  "new_q_+0": 0.0,
+  "old_q_+2": 1974.5,
+  "new_q_+2": 0.0,
+  "old_q_+5": 1691.6,
+  "new_q_+5": 3475.1,
+  "old_q_+10": 1755.5,
+  "new_q_+10": 3443.9,
+  "old_q_+20": 1641.1,
+  "new_q_+20": 3293.8,
+  "old_q_+30": 1560.5,
+  "new_q_+30": 3570.2,
+  "old_rows_q-10_ge100": 59,
+  "old_share_left_at_+5": 0.49,
+  "old_share_left_at_+30": 0.44,
+  "old_removed_sum": 737391,
+  "old_added_sum": 734151,
+  "old_filled_sum": 6508,
+  "old_cancelled_sum": 730883,
+  "old_cancel_reprice_match_sum": 267606,
+  "old_filled_share_of_removed": 0.009,
+  "old_reprice_share_of_cancels": 0.366,
+  "new_front_s_median": 3.0,
+  "new_front_s_dist": [
+   [
+    3,
+    41
+   ],
+   [
+    2,
+    12
+   ],
+   [
+    0,
+    12
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    4,
+    2
+   ]
+  ],
+  "new_empty_at_Tm_rows": 64,
+  "new_half_s_median": 4.0
+ },
+ "other": {
+  "rows": 79,
+  "old_q_-30": 139.6,
+  "new_q_-30": 0.0,
+  "old_q_-10": 137.2,
+  "new_q_-10": 0.0,
+  "old_q_-5": 151.7,
+  "new_q_-5": 0.0,
+  "old_q_-2": 131.1,
+  "new_q_-2": 0.0,
+  "old_q_+0": 75.0,
+  "new_q_+0": 0.0,
+  "old_q_+2": 96.9,
+  "new_q_+2": 10.0,
+  "old_q_+5": 86.0,
+  "new_q_+5": 128.5,
+  "old_q_+10": 115.0,
+  "new_q_+10": 186.6,
+  "old_q_+20": 85.0,
+  "new_q_+20": 169.4,
+  "old_q_+30": 95.0,
+  "new_q_+30": 200.0,
+  "old_rows_q-10_ge100": 47,
+  "old_share_left_at_+5": 0.5,
+  "old_share_left_at_+30": 0.46,
+  "old_removed_sum": 39514,
+  "old_added_sum": 36994,
+  "old_filled_sum": 21,
+  "old_cancelled_sum": 39493,
+  "old_cancel_reprice_match_sum": 14255,
+  "old_filled_share_of_removed": 0.001,
+  "old_reprice_share_of_cancels": 0.361,
+  "new_front_s_median": 3,
+  "new_front_s_dist": [
+   [
+    3,
+    15
+   ],
+   [
+    2,
+    9
+   ],
+   [
+    null,
+    8
+   ],
+   [
+    4,
+    8
+   ],
+   [
+    1,
+    7
+   ],
+   [
+    0,
+    7
+   ],
+   [
+    9,
+    4
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    8,
+    3
+   ],
+   [
+    10,
+    3
+   ],
+   [
+    13,
+    2
+   ],
+   [
+    11,
+    1
+   ],
+   [
+    21,
+    1
+   ],
+   [
+    16,
+    1
+   ],
+   [
+    20,
+    1
+   ],
+   [
+    12,
+    1
+   ]
+  ],
+  "new_empty_at_Tm_rows": 72,
+  "new_half_s_median": 4
+ }
+}
