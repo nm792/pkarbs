@@ -203,3 +203,41 @@ res['pooled']['xcorr_mean'] = dict(sorted(px.items()))
 for mm in res['matches']: print(json.dumps(mm))
 print(json.dumps({k: v for k, v in res['pooled'].items() if k != 'xcorr_mean'}))
 if OUTP: json.dump(res, open(OUTP, 'w'), indent=1)
+
+# ---- Game-end anchor (cleanest delay measure): Valve's first game_state 6 row vs the Game-N winner price
+# first reaching >=0.97 (or <=0.03) and vs Polymarket sports WS map-score change, all in our receive time.
+raw = defaultdict(list)
+for r in rows('books.jsonl'):
+    raw[r['token']].append(r)
+ws = rows('sportsws.jsonl')
+ends = []
+for mid_, R in rt.items():
+    fin = next((r for r in R if r.get('game_state') == 6), None)
+    if not fin: continue
+    tm = {t['team']: t['name'] for t in fin['teams']}
+    ser = match_series([tm.get(2), tm.get(3)])
+    if not ser: continue
+    tv = fin['recv_ms'] / 1000
+    best = None
+    for m in ser[0]['markets']:
+        if 'Game' not in m['q']: continue
+        for r in raw.get(m['tokens'][0], []):
+            t = r['recv_ms'] / 1000
+            if not (tv - 900 <= t <= tv + 120): continue
+            if (r['bid'] is not None and r['bid'] >= 0.99) or (r['ask'] is not None and r['ask'] <= 0.01):
+                if best is None or t < best[0]: best = (t, m['q'])
+                break
+    wst = None; prev = None
+    for g in ws:
+        if not (same(g.get('homeTeam'), tm.get(2)) or same(g.get('homeTeam'), tm.get(3))): continue
+        sc = (g.get('score') or '').split('|')
+        mp = sc[1] if len(sc) > 1 else None
+        t = g['recv_ms'] / 1000
+        if prev is not None and mp != prev and tv - 900 <= t <= tv + 300: wst = t; break
+        prev = mp
+    e = {'match_id': mid_, 'label': ser[0]['label'], 'valve_end_t': tv, 'price_99_t': best and best[0], 'price_q': best and best[1],
+         'valve_minus_price_s': (round(tv - best[0], 1) if best else None), 'pm_ws_score_t': wst,
+         'valve_minus_ws_s': (round(tv - wst, 1) if wst else None)}
+    ends.append(e); print('END', json.dumps(e))
+res['game_end'] = ends
+if OUTP: json.dump(res, open(OUTP, 'w'), indent=1)
