@@ -8,9 +8,11 @@ Rule (same as winmodels/esports/bo3/bo3bt.py event_only, NOTE-cs2-bo3-backtest-2
   Within-map round events only: map-end updates reach the WS minutes late, so they are not traded.
 
 Caps (hard):
-  - per match: filled cost + open order value <= MATCH_CAP_USD ($250)
+  - Nick 4 Nov 07:27Z: $50 account, tiny increments. Defaults: 5 shares per order (Polymarket minimum), $5 per match,
+    $40 total loss limit. Flags --share-cap, --match-cap, --loss-limit.
+  - per match: filled cost + open order value <= MATCH_CAP_USD
   - whole pilot: open exposure (unresolved filled cost + open orders) <= LOSS_LIMIT_USD + min(realized P&L, 0),
-    so the worst case total loss can never pass $500. Realized P&L <= -$500 halts the pilot (cancel all, stop).
+    so the worst case total loss can never pass the limit. Realized P&L <= -limit halts the pilot (cancel all, stop).
   - state (positions, realized P&L) persists in OUT/state.json so a restart cannot reset the limit.
 
 Modes:
@@ -37,7 +39,7 @@ CS2_SERIES = '10310'
 TIER1 = ['iem ', 'esl pro league', 'blast', 'pgl', 'major', 'starladder', 'thunderpick', 'fissure', 'esports world cup',
          'perfect world', 'cs asia', 'skyesports masters']
 
-CFG = dict(W=30.0, PRE=30.0, D=0.025, MINJ=0.01, E=0.01, SHARE_CAP=1000, MATCH_CAP_USD=250.0, LOSS_LIMIT_USD=500.0,
+CFG = dict(W=30.0, PRE=30.0, D=0.025, MINJ=0.01, E=0.01, SHARE_CAP=5, MATCH_CAP_USD=5.0, LOSS_LIMIT_USD=40.0,
            MIN_EVENT_VOL=20000.0, BOOK_POLL=1.0, TRADES_POLL=2.0, DISCOVER=300.0, RESOLVE_POLL=300.0,
            MAX_SPREAD=0.10, MID_LO=0.05, MID_HI=0.95, HOURS=12.0)
 
@@ -535,5 +537,9 @@ if __name__ == '__main__':
     ap.add_argument('--mode', choices=['dry', 'live'], default='dry')
     ap.add_argument('--out', default=os.path.expanduser('~/cs2pilot/out'))
     ap.add_argument('--hours', type=float, default=CFG['HOURS'])
+    ap.add_argument('--share-cap', type=float, default=CFG['SHARE_CAP'], help='max shares per order (5 = Polymarket minimum)')
+    ap.add_argument('--match-cap', type=float, default=CFG['MATCH_CAP_USD'], help='max $ per match (fills + open orders)')
+    ap.add_argument('--loss-limit', type=float, default=CFG['LOSS_LIMIT_USD'], help='hard total loss limit in $')
     a = ap.parse_args(); CFG['HOURS'] = a.hours
+    CFG['LOSS_LIMIT_USD'] = a.loss_limit; CFG['SHARE_CAP'] = a.share_cap; CFG['MATCH_CAP_USD'] = min(a.match_cap, a.loss_limit)
     asyncio.run(Pilot(a).main())
