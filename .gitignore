@@ -1,6 +1,14 @@
 __pycache__/
 *.pyc
+shadow/data/
+shadow/*.out
+shadow/*.out.*
+shadow/rescan-clean/
+rugby_probe.py
+agent/status/*.log
+agent/status/*.pid
+agent/status/*.detach.log
+.env
 node_modules/
 *.new
 *.gz.new
-.runtime_pre/
