@@ -3,8 +3,8 @@
 Owner thread: "Run Cito setup and time feeds" (branch claude/project-thread-7f1y2j). Written 4 Nov 2026. Requested by the
 tennis thread for its point-level backtest.
 
-**Status: WAITING FOR KEY.** Do not start until `/etc/pkarbs/cito.env` exists (Nick installs it himself per
-`live/cito_timing/KEY-INSTALL-CITO.md`). Never print, copy, commit or message the key.
+**Status: WAITING FOR KEY.** Do not start until `/etc/pkarbs/cito.env` exists. Nick sends the key to Hermes in his direct chat;
+Hermes installs it per `live/cito_timing/KEY-INSTALL-CITO.md`. Never print, copy, commit or message the key.
 
 ## Question (one only)
 Does the Cito tennis WebSocket (room "all") deliver every POINT_UPDATE for live ATP/WTA/Challenger/ITF matches over a
