@@ -140,21 +140,23 @@ for sp in MW:
         if n:
             pk = max(agg, key=agg.get); lead = dict(matches=n, book_lead_s=-pk, peak_corr=round(agg[pk] / n, 3), corr_at_0=round(agg[0] / n, 3),
                 corr_book_first_5s=round(agg[-5] / n, 3), corr_book_later_5s=round(agg[5] / n, 3), placebo_peak_corr=round(max(plc.values()) / n, 3) if plc else None)
-        rows = []
-        for k in range(40):
-            rng = np.random.default_rng(k); P = []
-            for g in G:
-                E = []
-                for e in triggers(g['books'][bk]):
-                    m0 = g['M'].at(e['on'] - 2)
-                    if m0 is None or not (0.03 < m0 < 0.97): continue
-                    l = float(rng.choice(LAT)); E.append(dict(e, m0=m0, lag=l, skip=l > 0.3))
-                P.append(run_ev(g, E, 5))
-            s = C.summarize(P, rng=np.random.default_rng(k), nb=400); nG = len(G)
-            rows.append((s['net_result_usd'] / nG, s['ci_result_usd'][0] / nG, s['ci_result_usd'][1] / nG, s.get('ex_top5_result_usd', 0) / nG, sum(1 for p in P if p[0] > 0)))
-        a = np.median(np.array(rows, float), axis=0)
-        res[f'{sp}/{bk}'] = dict(lead=lead, backtest=dict(matches=len(G), per_match=round(a[0], 2), ci90=[round(a[1], 2), round(a[2], 2)],
-                                 ex_top5_per_match=round(a[3], 2), matches_filled=int(a[4]), matches_per_day_in_sample=round(len(G) / days, 1),
-                                 per_day_in_sample=round(a[0] * len(G) / days, 0)))
+        bt = {}
+        for gname, thr in (('no_guard', 1e9), ('guard_0.3s', 0.3)):
+            rows = []
+            for k in range(40):
+                rng = np.random.default_rng(k); P = []
+                for g in G:
+                    E = []
+                    for e in triggers(g['books'][bk]):
+                        m0 = g['M'].at(e['on'] - 2)
+                        if m0 is None or not (0.03 < m0 < 0.97): continue
+                        l = float(rng.choice(LAT)); E.append(dict(e, m0=m0, lag=l, skip=l > thr))
+                    P.append(run_ev(g, E, 5))
+                s = C.summarize(P, rng=np.random.default_rng(k), nb=400); nG = len(G)
+                rows.append((s['net_result_usd'] / nG, s['ci_result_usd'][0] / nG, s['ci_result_usd'][1] / nG, s.get('ex_top5_result_usd', 0) / nG, sum(1 for p in P if p[0] > 0)))
+            a = np.median(np.array(rows, float), axis=0)
+            bt[gname] = dict(matches=len(G), per_match=round(a[0], 2), ci90=[round(a[1], 2), round(a[2], 2)], ex_top5_per_match=round(a[3], 2),
+                             matches_filled=int(a[4]), matches_per_day_in_sample=round(len(G) / days, 1), per_day_in_sample=round(a[0] * len(G) / days, 0))
+        res[f'{sp}/{bk}'] = dict(lead=lead, backtest=bt)
         print(sp, bk, json.dumps(res[f'{sp}/{bk}']), flush=True)
 json.dump(res, open(f'{HERE}/out_multi_lead.json', 'w'), indent=1)
