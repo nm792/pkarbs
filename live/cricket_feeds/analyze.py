@@ -98,7 +98,7 @@ def main():
             if os.path.exists(p):
                 tr = json.load(open(p)); tr = tr.get('data', tr) if isinstance(tr, dict) else tr
                 trades[tk] = sorted((float(x['timestamp']), float(x['price']), float(x['size'])) for x in tr
-                                    if str(x.get('asset')) == tk)
+                                    if str(x.get('token_id', x.get('asset'))) == tk)
         bat_first = None; first_total = None; prev_R = None; prev_state = {}
         for r in rows:
             inn = r.get('inn')
