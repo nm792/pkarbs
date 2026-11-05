@@ -13,7 +13,8 @@ import common as C
 OP = sys.argv[1]; PROBE = '--probe' in sys.argv
 MW = json.loads(os.environ.get('MW', '{}'))     # sport -> winner market id (filled after --probe)
 def ts(s): return dt.datetime.fromisoformat(str(s).replace('Z', '+00:00').replace(' ', 'T')).timestamp()
-def toks(s): return [w for w in re.sub(r'[^a-z0-9 ]', ' ', str(s).lower().replace(',', ' ')).split() if len(w) > 2]
+STOP = {'rugby', 'union', 'club', 'women', 'the', 'win', 'will', 'vs', 'championship', 'premiership', 'united', 'cricket', 'match', 'series', 'test', 'trophy', 'league'}
+def toks(s): return [w for w in re.sub(r'[^a-z0-9 ]', ' ', str(s).lower().replace(',', ' ')).split() if len(w) > 2 and w not in STOP]
 def same(a, b):
     A, B = set(toks(a)), set(toks(b))
     return bool(A & B) or any(x[:4] == y[:4] for x in A for y in B if len(x) > 4 and len(y) > 4)
@@ -31,7 +32,7 @@ if PROBE:
     sys.exit()
 
 LAT = np.array([float(r.split(',')[1]) for r in open(os.path.join(os.path.dirname(HERE), 'agent/outbox/nautilus-order-latency-2026-11-05.csv')).read().splitlines()[1:] if r.split(',')[1]])
-PM = {sp: json.load(gzip.open(f'{HERE}/raw/multi/gamma_{sp}.json.gz')) for sp in MW}
+PM = {sp: [e for e in json.load(gzip.open(f'{HERE}/raw/multi/gamma_{sp}.json.gz')) if not (sp == 'rugby' and e['slug'].startswith('rus-'))] for sp in MW}
 
 def book_ser(b, mkt, flip):
     m = b['markets'].get(mkt)
@@ -75,9 +76,17 @@ for f in files:
         try: es = ts(e['startTime'])
         except Exception: continue
         if abs(es - st) > 12 * 3600: continue
+        tt = e.get('title') or ''
         for m in e['markets']:
             o = json.loads(m['outcomes'])
             if len(o) != 2: continue
+            if o == ['Yes', 'No']:        # team-win market ("Will X win?"): Yes = X wins; needs both teams in the event title
+                q = m.get('question') or ''
+                if 'draw' in q.lower() or not (same(fx['participant1Name'], tt) and same(fx['participant2Name'], tt)): continue
+                a = same(fx['participant1Name'], q); b = same(fx['participant2Name'], q)
+                if a and not b: hit = (e, m, False); break
+                if b and not a: hit = (e, m, True); break
+                continue
             if same(fx['participant1Name'], o[0]) and same(fx['participant2Name'], o[1]): hit = (e, m, False); break
             if same(fx['participant1Name'], o[1]) and same(fx['participant2Name'], o[0]): hit = (e, m, True); break
         if hit: break

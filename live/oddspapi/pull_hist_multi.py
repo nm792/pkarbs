@@ -2,7 +2,7 @@
 """Pull OddsPapi historical odds (Pinnacle, bet365, 1xbet) for past matches of other sports:
 NBA, NHL, NFL, cricket, rugby, LoL, CS2, Dota. Read-only, standard library only.
 
-Usage: ODDSPAPI_KEY=... python3 pull_hist_multi.py OUTDIR [--from ISO] [--to ISO] [--cap N] [--total N]
+Usage: ODDSPAPI_KEY=... python3 pull_hist_multi.py OUTDIR [--from ISO] [--to ISO] [--cap N] [--total N] [--sports a,b]
 Default window 2026-10-16 .. 2026-11-05 in 7-day fixture windows (API needs < 10 days).
 Cost: /v4/historical-odds is FREE. Billable: 1 account check + 1 bookmakers + 1 fixtures call
 per sport per window (8 sports x 3 windows = 24). Aborts if the account shows < 60 requests left.
@@ -30,6 +30,7 @@ def main(argv, fetch=None):
     opt = lambda k, d: argv[argv.index(k) + 1] if k in argv else d
     frm, to = opt("--from", "2026-10-16T00:00:00Z"), opt("--to", "2026-11-05T00:00:00Z")
     cap, total = int(opt("--cap", 60)), int(opt("--total", 480))
+    only = set(opt("--sports", "").split(",")) - {""}
     key = os.environ.get("ODDSPAPI_KEY") or open(os.path.expanduser("~/.oddspapi_key")).read().strip()
     os.makedirs(os.path.join(out, "hist"), exist_ok=True)
     log(out, ev="start", frm=frm, to=to, cap=cap, total=total)
@@ -48,6 +49,7 @@ def main(argv, fetch=None):
         log(out, ev="fail", why="bookmakers", st=st); return 2
     fixtures = []
     for sid, lab, kws in SPORTS:
+        if only and lab not in only: continue
         keep = []
         for a, b in windows(frm, to):
             st, fx = get("fixtures", key, fetch, sportId=sid, **{"from": a, "to": b})
@@ -61,7 +63,7 @@ def main(argv, fetch=None):
                 if "simulated" in slug or "women" in slug and lab in ("nba", "nhl", "nfl"): continue
                 if kws and not any(k in slug for k in kws): continue
                 keep.append(f)
-        keep.sort(key=lambda f: f.get("startTime", ""), reverse=True)   # most recent first
+        keep.sort(key=lambda f: f.get("startTime", ""), reverse=("--oldest" not in argv))   # most recent first (or oldest with --oldest)
         log(out, ev="fixtures", sport=lab, finished_kept=len(keep), taking=min(cap, len(keep)))
         fixtures += [(lab, f) for f in keep[:cap]]
     fixtures = fixtures[:total]
