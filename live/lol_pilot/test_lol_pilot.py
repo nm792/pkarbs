@@ -66,12 +66,12 @@ async def main_tests():
     w = [kw for t, kw in p.rows if t == 'window']
     check('home kill opens window on home token (o0=home)', len(w) == 1 and w[0]['tok'] == 0 and abs(w[0]['j'] - 0.0705) < 1e-3)
     o = m.order
-    check('bid = floor(0.50 x 0.975) = 0.48', o is not None and abs(o['price'] - 0.48) < 1e-9)
+    check('bid = 0.50 x 0.975 = 0.4875 rounded up = 0.49', o is not None and abs(o['price'] - 0.49) < 1e-9)
     check('bid below best ask', o['price'] < m.book[0][1])
     check('size = 5 shares (cap)', o['size'] == 5)
     p, g, m = await scenario(o0_home=False)
     w = [kw for t, kw in p.rows if t == 'window']
-    check('home kill buys token 1 when outcome 0 is away', w and w[0]['tok'] == 1 and m.order and abs(m.order['price'] - 0.48) < 1e-9)
+    check('home kill buys token 1 when outcome 0 is away', w and w[0]['tok'] == 1 and m.order and abs(m.order['price'] - 0.49) < 1e-9)
     p, g, m = await scenario(mid_now=0.58)
     check('no bid when price already moved by the jump', m.order is None and not [1 for t, _ in p.rows if t == 'order_place'])
     p, g, m = await scenario(mid=0.98)
@@ -81,11 +81,11 @@ async def main_tests():
     # E rule: fair - bid >= 1c always holds at d=2.5% when jump >= 1c and mid unmoved; check a moved-but-not-fully case
     p, g, m = await scenario(mid_now=0.55)
     o = m.order
-    check('partially moved: bid = floor(0.55 x 0.975) = 0.53 and fair 0.5705 - 0.53 >= E', o and abs(o['price'] - 0.53) < 1e-9)
+    check('partially moved: bid = 0.55 x 0.975 = 0.536 up = 0.54, fair 0.5705 - 0.54 >= E', o and abs(o['price'] - 0.54) < 1e-9)
     # caps: $5 per match
     p, g, m = await scenario()
     p.st['positions']['0xg1'] = dict(gid=7, kind='game1', tokens=['T0', 'T1'], tok={'0': [9.0, 4.5]})
-    check('match cap leaves no room for another 5-share order', p.room(7) < 5 * 0.48)
+    check('match cap leaves no room for another 5-share order', p.room(7) < 5 * 0.49)
 
 
 def replay(race, trades):
@@ -138,8 +138,8 @@ if os.path.exists(race) and os.path.exists(trades):
     for kw in pl[:8]:
         print(f"   bid {kw['outcome']} {kw['price']:.2f} x {kw['size']:.0f}, mid0 {kw['mid0']:.3f}, {kw['lag_since_event']:.0f} s after WS")
     check('replay: kill events seen', len(ev) >= 5)
-    check('replay: every bid <= token mid x 0.975 and below best ask',
-          all(kw['price'] <= (kw['mid0'] if kw['tok'] == 0 else 1 - kw['mid0']) * 0.975 + 1e-9 and kw['price'] < kw['best_ask'] for kw in pl))
+    check('replay: every bid >= token mid x 0.975 (never lower), < mid + under best ask',
+          all(kw['price'] >= (kw['mid0'] if kw['tok'] == 0 else 1 - kw['mid0']) * 0.975 - 1e-9 and kw['price'] < kw['best_ask'] for kw in pl))
 else:
     print('replay files not found, replay skipped')
 n = sum(ok for _, ok in R); print(f"{n} of {len(R)} tests pass")

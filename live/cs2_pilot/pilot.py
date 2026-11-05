@@ -2,7 +2,7 @@
 
 Rule (same as winmodels/esports/bo3/bo3bt.py event_only, NOTE-cs2-bo3-backtest-2026-11-04.md):
   After a round score change on the Polymarket sports WebSocket, for W=30 s, rest a post-only (maker) BUY at
-  market mid x (1 - 0.025), rounded down to the tick, on the side whose model jump (beta x model move) is >= 1c and
+  market mid x (1 - 0.025), rounded UP to the tick (never below market - 2.5%), on the side whose model jump (beta x model move) is >= 1c and
   has not yet shown in the mid since 30 s before the event. Never at or above the best ask. Hold to result.
   Markets: Match Winner and the Map k Winner of the map in play, top-tier CS2 events only.
   Within-map round events only: map-end updates reach the WS minutes late, so they are not traded.
@@ -67,6 +67,11 @@ async def aget(url, body=None):
 
 def floor_tick(p, tick):
     return round(math.floor(p / tick + 1e-9) * tick, 6)
+
+
+def ceil_tick(p, tick):
+    # Nick's rule: bid at market - 2.5%, never lower -> round UP to the tick (the cross check below keeps it under the ask)
+    return round(math.ceil(p / tick - 1e-6) * tick, 6)
 
 
 # ---------------------------------------------------------------- state
@@ -287,7 +292,7 @@ class Pilot:
         elif w['j'] < 0 and w['base'] - mk >= -w['j']: why = 'already moved'
         tok = w['tok']; mt = mk if tok == 0 else (1 - mk if mk is not None else None)
         if why is None:
-            price = floor_tick(mt * (1 - CFG['D']), m.tick)
+            price = ceil_tick(mt * (1 - CFG['D']), m.tick)
             best_ask = m.book.get(tok, (None, None, None))[1]
             fair = (w['base'] + w['j']) if tok == 0 else 1 - (w['base'] + w['j'])
             if best_ask is not None and price >= best_ask - 1e-9: why = 'would cross'

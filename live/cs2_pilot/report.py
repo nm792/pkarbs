@@ -13,7 +13,7 @@ places = by['order_place']; cancels = by['order_cancel']; fills = by['fill']; pf
 fd = [r['delay_s'] for r in by['feed_delay'] if r.get('delay_s') is not None]
 fd_agree = [r for r in by['feed_delay'] if r.get('agrees') is not None]
 cross = [r for r in places if r.get('best_ask') is not None and r['price'] >= r['best_ask'] - 1e-9]
-over = [r for r in places if r.get('mid0') is not None and r['price'] > (r['mid0'] if r['tok'] == 0 else 1 - r['mid0']) * 0.975 + 1e-9]
+over = [r for r in places if r.get('mid0') is not None and r['price'] < (r['mid0'] if r['tok'] == 0 else 1 - r['mid0']) * 0.975 - 1e-9]   # below market - 2.5% breaks Nick's rule
 real_usd = sum(r['usd'] for r in fills if r['real']); paper_usd = sum(r['usd'] for r in fills if not r['real'])
 pn = sum(r['naive'] for r in pf); pq = sum(r['queue'] for r in pf)
 placed_sh = sum(r['size'] for r in places)
@@ -44,14 +44,14 @@ if fd:
 res = by['resolve']
 print(f"resolved markets {len(res)}, realized P&L ${sum(r['pnl'] for r in res):+.2f}; halts {[r['why'] for r in by['halt']]}")
 print(f"errors by place: {dict(errs)}")
-print("rule checks: bids at/above best ask:", len(cross), "| bids above mid x 0.975:", len(over))
+print("rule checks: bids at/above best ask:", len(cross), "| bids below mid x 0.975:", len(over))
 
 # dry-run gates (fixed in agent/tasks/cs2-pilot.md before the run)
 book_err = errs.get('books', 0); n_poll = max(1, len(by['queue']) + len(by['window']))
 gates = [('geoblock check recorded and not blocked', bool(geo) and geo.get('blocked') is False),
          ('>= 20 within-map round events on tier-1 matches', len(by['event']) >= 20),
          ('>= 10 windows opened', len(by['window']) >= 10),
-         ('no bid at/above best ask or above mid x 0.975', not cross and not over),
+         ('no bid at/above best ask or below mid x 0.975', not cross and not over),
          ('feed delay measured on >= 10 events', len(fd) >= 10),
          ('no crash (no error in main)', errs.get('main', 0) == 0)]
 for name, ok in gates: print(('PASS ' if ok else 'FAIL ') + name)

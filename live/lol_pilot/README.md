@@ -14,8 +14,8 @@ same order handling, caps, kill file, heartbeat, paper fills, markouts and repor
 - Trigger: kill-count change on the Polymarket sports WS (`homeKills-awayKills|games|BoN`), net kill change for home dk != 0.
 - Jump: P(home wins game) = sigmoid(logit(base) + 0.284 x dk) - base; base = book mid 30 s before the WS update
   (WS shows kills ~12.5 s after the price moves, so base must predate it).
-- If |jump| >= 1c and the mid has not moved by the jump: for 30 s rest a post-only BUY at token mid x 0.975 (floored to
-  1c), only on the rising side, only if fair - bid >= 1c, never at/above the best ask. Hold to resolution.
+- If |jump| >= 1c and the mid has not moved by the jump: for 30 s rest a post-only BUY at token mid x 0.975 (rounded UP to
+  1c, never below market - 2.5%), only on the rising side, only if fair - bid >= 1c, never at/above the best ask. Hold to resolution.
 - Markets: `Game k Winner` of the game in play, Worlds/MSI events only. Not traded: Match Winner, handicaps, props.
 
 ## Caps
