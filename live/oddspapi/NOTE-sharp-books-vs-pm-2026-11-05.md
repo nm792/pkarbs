@@ -49,3 +49,19 @@ Same backtest at 0 / 0.1 / 0.25 / 0.5 s from the OddsPapi timestamp (`out_pin_tr
 - bet365 trigger, 5 s: 0-0.1 s gives $10/match (90% -$2 to +$26), but ex-top-5 -99%, so it all comes from a few matches. 10 s gives ~$5; 30 s gives ~$0.
 - Every range still spans zero. Fills are trade-based with no queue (optimistic). The tennis 1 s book logger (PR #113) will give queue position.
 - **What now limits speed is getting the Pinnacle update.** The OddsPapi timestamp is when OddsPapi has it (~1 s after Pinnacle by their claim). We would only get it that fast over their WebSocket, which is the paid B2B plan (price unknown). The free REST odds endpoint has a 500 ms cooldown per call, one fixture per call, so with 20 live matches each refreshes about every 10 s, which is far too slow. Pinnacle's own API is closed to the public; resellers (SharpAPI Pinnacle tier $399/mo, PinnWire) state no latency.
+
+## Addendum 3 (5 Nov 04:45Z): backtest at MEASURED Nautilus order latency
+
+Source: Hermes read existing Nautilus live Polymarket logs on the server (runs 21-22 Oct, `/root/030_live.log`, `/root/034_live.log`), no new orders. `agent/outbox/2026-11-05-nautilus-order-latency.md` + CSV.
+- submit -> OrderAccepted: n=30, median 0.206 s, p90 1.281 s, max 3.8 s. cancel -> OrderCanceled: median 0.126 s, p90 0.318 s.
+- Server -> clob.polymarket.com/time: connect 2.4 ms median, full round trip 66 ms median. So the network is fast; most of the 0.2 s is signing/adapter/venue time, and the p90 tail is long.
+
+Re-run (`out_pin_trigger_meas.json`, latency counted from the OddsPapi `createdAt`, i.e. assumes ZERO extra delay receiving the Pinnacle move, which is optimistic):
+
+| trigger | bid window | 0.2 s (median) | 1.3 s (p90) |
+| --- | --- | --- | --- |
+| Pinnacle | 5 s | $1.82/match [-3.9, +9.9], ex-top5 -99.5% | -$1.44/match |
+| Pinnacle | 10 s | $1.76/match [-4.0, +9.9] | -$1.52/match |
+| bet365 | 5 s | $10.5/match [-1.6, +26.5], ex-top5 -99.6% | $4.5/match [-5.9, +20.8] |
+
+Verdict unchanged: at our measured order speed there is no robust edge. Every range spans zero and dropping the top 5 matches wipes out the result. Any delay in receiving the Pinnacle move adds directly to these latencies and makes it worse. 7/10. The queue-aware re-run needs the tennis 1 s book logger, which Hermes is holding for Nick's Go (disk rule).
