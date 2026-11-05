@@ -52,10 +52,10 @@ set_book(m, 0.49, 0.51, 100.0)
 m.window = dict(eid='e1', R=130.0, j=0.04, base=0.50, end=160.0, tok=0)
 asyncio.run(p.manage(m, 131.0))
 o = m.order
-check('bid placed on token0 at mid*0.975 floored', o is not None and abs(o['price'] - 0.48) < 1e-9)
+check('bid placed on token0 at mid*0.975 rounded up (0.4875 -> 0.49)', o is not None and abs(o['price'] - 0.49) < 1e-9)
 check('bid below best ask (never cross)', o['price'] < 0.51)
-check('size capped by $250 per match', o['size'] == 520 and o['size'] * o['price'] <= 250)
-check('queue ahead = level size at our price (0 here)', o['ahead0'] == 0.0)
+check('size capped by $250 per match', o['size'] == 510 and o['size'] * o['price'] <= 250)
+check('queue ahead = level size at our price (100 at 0.49 here)', o['ahead0'] == 100.0)
 # mid moves by >= j: cancel
 set_book(m, 0.54, 0.56, 132.0)
 asyncio.run(p.manage(m, 132.0))
@@ -71,7 +71,7 @@ p, g = pilot(); m = mk_market(); g.markets['match'] = m
 set_book(m, 0.59, 0.61, 100.0)
 m.window = dict(eid='e2', R=130.0, j=-0.03, base=0.60, end=160.0, tok=1)
 asyncio.run(p.manage(m, 131.0))
-check('token1 bid = (1-mid)*0.975 floored', m.order is not None and abs(m.order['price'] - 0.39) < 1e-9 and m.order['tok'] == 1)
+check('token1 bid = (1-mid)*0.975 = 0.39 exactly', m.order is not None and abs(m.order['price'] - 0.39) < 1e-9 and m.order['tok'] == 1)
 
 # global loss limit: realized -400 leaves $100 of room
 p, g = pilot(); m = mk_market(); g.markets['match'] = m; p.st['realized'] = -400.0

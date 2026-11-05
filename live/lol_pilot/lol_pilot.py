@@ -2,7 +2,7 @@
 
 Rule (= rn1/scores/lol/bidsim/kills_only.py, the backtest of what the free Polymarket sports WS can show):
   After a kill-count change on the Polymarket sports WebSocket (score 'homeKills-awayKills|homeGames-awayGames|BoN'),
-  for W=30 s, rest a post-only BUY at the token's book mid x (1 - 0.025), floored to the tick, on the side whose model
+  for W=30 s, rest a post-only BUY at the token's book mid x (1 - 0.025), rounded UP to the tick (never below market - 2.5%), on the side whose model
   jump is >= 1c and has not yet shown in the mid since 30 s before the WS update. Never at or above the best ask.
   Place only when fair - bid >= E (fair = base mid + jump). Hold to resolution. Position-taking, not market making.
   Jump: P(home wins game) = sigmoid(logit(base) + 0.284 x net kill change for home), base = mid 30 s before the WS
