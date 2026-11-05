@@ -1,10 +1,7 @@
-# heartbeat - 2026-11-05 12:20 UTC
-
-Server-member dispatch round 2026-11-05T12:20Z.
-
-- tennis-books: HARD-STOP 12:18Z (root 4.9G<5.0G). Scope killed; committed data split 2 parts (965,778 rows); raw deleted; root reclaimed to 5.9G free/84pct. NO restart without new note.
-- oddspapi-hist re-run-2: committed 958e702 (outbox/2026-11-05-oddspapi-hist.md).
-- oddspapi-multi2: submitted 08:54Z (149 hist_ok).
-- cricket-feeds: still running (not stopped).
-- sports-mece-shadow: STOPPED 4 Nov, not restarted.
-last heartbeat: 2026-11-05T12:20Z UTC
+# heartbeat — 2026-11-05 12:35 UTC
+Round 2026-11-05T12:35Z.
+- Tennis-books: RESTARTED 12:33Z on HC volume (ruling 12:40Z step 4; HC 21G free >= 20G), writing /mnt/HC_Volume_107247271/tennis-books, stop limits adapted, hourly gzip+commit, stop ~21:30Z. See agent/status/tennis-books.md.
+- root /: 5.9 -> 7.1 GB free this round (hltv run1 committed data + apt + tmp_pack). breakdown at agent/outbox/2026-11-05-root-disk-breakdown.md. 12 GB before 20:00Z target NOT yet met (needs moving a multi-GB repo/worktree dir to HC).
+- oddspapi-hist/multi/multi2/tennis-nov5: DONE/SUBMITTED (all committed). nautilus latency answered.
+- cricket-feeds: RUNNING (main / consumer, leave running per ruling).
+- waiting for Nick: none new.
