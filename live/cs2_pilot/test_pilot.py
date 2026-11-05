@@ -54,8 +54,8 @@ asyncio.run(p.manage(m, 131.0))
 o = m.order
 check('bid placed on token0 at mid*0.975 rounded up (0.4875 -> 0.49)', o is not None and abs(o['price'] - 0.49) < 1e-9)
 check('bid below best ask (never cross)', o['price'] < 0.51)
-check('size capped by $250 per match', o['size'] == 520 and o['size'] * o['price'] <= 250)
-check('queue ahead = level size at our price (0 here)', o['ahead0'] == 0.0)
+check('size capped by $250 per match', o['size'] == 510 and o['size'] * o['price'] <= 250)
+check('queue ahead = level size at our price (100 at 0.49 here)', o['ahead0'] == 100.0)
 # mid moves by >= j: cancel
 set_book(m, 0.54, 0.56, 132.0)
 asyncio.run(p.manage(m, 132.0))
