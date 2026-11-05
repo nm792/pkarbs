@@ -1,0 +1,446 @@
+{
+ "nba/pinnacle": {
+  "lead": {
+   "matches": 54,
+   "book_lead_s": 1,
+   "peak_corr": 0.314,
+   "corr_at_0": 0.301,
+   "corr_book_first_5s": 0.155,
+   "corr_book_later_5s": 0.059,
+   "placebo_peak_corr": 0.005
+  },
+  "backtest": {
+   "no_guard": {
+    "matches": 54,
+    "per_match": -133.52,
+    "ci90": [
+     -238.1,
+     -46.08
+    ],
+    "ex_top5_per_match": -159.19,
+    "matches_filled": 48,
+    "matches_per_day_in_sample": 7.6,
+    "per_day_in_sample": -1012.0
+   },
+   "guard_0.3s": {
+    "matches": 54,
+    "per_match": -121.57,
+    "ci90": [
+     -227.22,
+     -38.15
+    ],
+    "ex_top5_per_match": -146.74,
+    "matches_filled": 45,
+    "matches_per_day_in_sample": 7.6,
+    "per_day_in_sample": -921.0
+   }
+  }
+ },
+ "nba/bet365": {
+  "lead": {
+   "matches": 54,
+   "book_lead_s": -1,
+   "peak_corr": 0.229,
+   "corr_at_0": 0.223,
+   "corr_book_first_5s": 0.061,
+   "corr_book_later_5s": 0.103,
+   "placebo_peak_corr": 0.005
+  },
+  "backtest": {
+   "no_guard": {
+    "matches": 54,
+    "per_match": -97.72,
+    "ci90": [
+     -164.89,
+     -35.81
+    ],
+    "ex_top5_per_match": -117.73,
+    "matches_filled": 37,
+    "matches_per_day_in_sample": 7.6,
+    "per_day_in_sample": -741.0
+   },
+   "guard_0.3s": {
+    "matches": 54,
+    "per_match": -88.65,
+    "ci90": [
+     -153.64,
+     -31.55
+    ],
+    "ex_top5_per_match": -107.21,
+    "matches_filled": 34,
+    "matches_per_day_in_sample": 7.6,
+    "per_day_in_sample": -672.0
+   }
+  }
+ },
+ "nhl/pinnacle": {
+  "lead": {
+   "matches": 56,
+   "book_lead_s": -45,
+   "peak_corr": 0.199,
+   "corr_at_0": 0.022,
+   "corr_book_first_5s": 0.042,
+   "corr_book_later_5s": 0.006,
+   "placebo_peak_corr": 0.011
+  },
+  "backtest": {
+   "no_guard": {
+    "matches": 56,
+    "per_match": -0.95,
+    "ci90": [
+     -2.88,
+     0.29
+    ],
+    "ex_top5_per_match": -1.09,
+    "matches_filled": 3,
+    "matches_per_day_in_sample": 6.9,
+    "per_day_in_sample": -7.0
+   },
+   "guard_0.3s": {
+    "matches": 56,
+    "per_match": -0.95,
+    "ci90": [
+     -2.95,
+     0.29
+    ],
+    "ex_top5_per_match": -1.09,
+    "matches_filled": 3,
+    "matches_per_day_in_sample": 6.9,
+    "per_day_in_sample": -7.0
+   }
+  }
+ },
+ "nhl/bet365": {
+  "lead": {
+   "matches": 55,
+   "book_lead_s": -18,
+   "peak_corr": 0.014,
+   "corr_at_0": 0.004,
+   "corr_book_first_5s": 0.008,
+   "corr_book_later_5s": 0.004,
+   "placebo_peak_corr": 0.006
+  },
+  "backtest": {
+   "no_guard": {
+    "matches": 55,
+    "per_match": -1.95,
+    "ci90": [
+     -5.85,
+     0.0
+    ],
+    "ex_top5_per_match": -1.95,
+    "matches_filled": 1,
+    "matches_per_day_in_sample": 6.8,
+    "per_day_in_sample": -13.0
+   },
+   "guard_0.3s": {
+    "matches": 55,
+    "per_match": -1.95,
+    "ci90": [
+     -5.85,
+     0.0
+    ],
+    "ex_top5_per_match": -1.95,
+    "matches_filled": 1,
+    "matches_per_day_in_sample": 6.8,
+    "per_day_in_sample": -13.0
+   }
+  }
+ },
+ "nfl/pinnacle": {
+  "lead": {
+   "matches": 41,
+   "book_lead_s": 1,
+   "peak_corr": 0.103,
+   "corr_at_0": 0.098,
+   "corr_book_first_5s": 0.059,
+   "corr_book_later_5s": 0.045,
+   "placebo_peak_corr": 0.01
+  },
+  "backtest": {
+   "no_guard": {
+    "matches": 41,
+    "per_match": 28.29,
+    "ci90": [
+     -4.16,
+     64.93
+    ],
+    "ex_top5_per_match": -12.05,
+    "matches_filled": 17,
+    "matches_per_day_in_sample": 2.5,
+    "per_day_in_sample": 70.0
+   },
+   "guard_0.3s": {
+    "matches": 41,
+    "per_match": 23.13,
+    "ci90": [
+     -7.56,
+     57.48
+    ],
+    "ex_top5_per_match": -12.11,
+    "matches_filled": 13,
+    "matches_per_day_in_sample": 2.5,
+    "per_day_in_sample": 58.0
+   }
+  }
+ },
+ "nfl/bet365": {
+  "lead": {
+   "matches": 41,
+   "book_lead_s": 9,
+   "peak_corr": 0.001,
+   "corr_at_0": -0.0,
+   "corr_book_first_5s": 0.001,
+   "corr_book_later_5s": -0.0,
+   "placebo_peak_corr": 0.001
+  },
+  "backtest": {
+   "no_guard": {
+    "matches": 41,
+    "per_match": 0.0,
+    "ci90": [
+     0.0,
+     0.0
+    ],
+    "ex_top5_per_match": 0.0,
+    "matches_filled": 0,
+    "matches_per_day_in_sample": 2.5,
+    "per_day_in_sample": 0.0
+   },
+   "guard_0.3s": {
+    "matches": 41,
+    "per_match": 0.0,
+    "ci90": [
+     0.0,
+     0.0
+    ],
+    "ex_top5_per_match": 0.0,
+    "matches_filled": 0,
+    "matches_per_day_in_sample": 2.5,
+    "per_day_in_sample": 0.0
+   }
+  }
+ },
+ "lol/pinnacle": {
+  "lead": {
+   "matches": 35,
+   "book_lead_s": 3,
+   "peak_corr": 0.067,
+   "corr_at_0": 0.04,
+   "corr_book_first_5s": 0.059,
+   "corr_book_later_5s": 0.025,
+   "placebo_peak_corr": 0.008
+  },
+  "backtest": {
+   "no_guard": {
+    "matches": 35,
+    "per_match": 48.13,
+    "ci90": [
+     -202.3,
+     248.07
+    ],
+    "ex_top5_per_match": -92.2,
+    "matches_filled": 29,
+    "matches_per_day_in_sample": 1.7,
+    "per_day_in_sample": 84.0
+   },
+   "guard_0.3s": {
+    "matches": 35,
+    "per_match": 29.53,
+    "ci90": [
+     -199.31,
+     210.01
+    ],
+    "ex_top5_per_match": -105.59,
+    "matches_filled": 28,
+    "matches_per_day_in_sample": 1.7,
+    "per_day_in_sample": 51.0
+   }
+  }
+ },
+ "lol/bet365": {
+  "lead": {
+   "matches": 22,
+   "book_lead_s": -60,
+   "peak_corr": 0.006,
+   "corr_at_0": -0.001,
+   "corr_book_first_5s": -0.007,
+   "corr_book_later_5s": 0.002,
+   "placebo_peak_corr": 0.006
+  },
+  "backtest": {
+   "no_guard": {
+    "matches": 24,
+    "per_match": 0.0,
+    "ci90": [
+     0.0,
+     0.0
+    ],
+    "ex_top5_per_match": 0.0,
+    "matches_filled": 0,
+    "matches_per_day_in_sample": 1.2,
+    "per_day_in_sample": 0.0
+   },
+   "guard_0.3s": {
+    "matches": 24,
+    "per_match": 0.0,
+    "ci90": [
+     0.0,
+     0.0
+    ],
+    "ex_top5_per_match": 0.0,
+    "matches_filled": 0,
+    "matches_per_day_in_sample": 1.2,
+    "per_day_in_sample": 0.0
+   }
+  }
+ },
+ "cs2/pinnacle": {
+  "lead": {
+   "matches": 18,
+   "book_lead_s": 4,
+   "peak_corr": 0.195,
+   "corr_at_0": 0.098,
+   "corr_book_first_5s": 0.177,
+   "corr_book_later_5s": 0.016,
+   "placebo_peak_corr": 0.01
+  },
+  "backtest": {
+   "no_guard": {
+    "matches": 18,
+    "per_match": 7.14,
+    "ci90": [
+     -23.44,
+     37.83
+    ],
+    "ex_top5_per_match": -19.64,
+    "matches_filled": 7,
+    "matches_per_day_in_sample": 3.5,
+    "per_day_in_sample": 25.0
+   },
+   "guard_0.3s": {
+    "matches": 18,
+    "per_match": 16.83,
+    "ci90": [
+     -20.47,
+     55.83
+    ],
+    "ex_top5_per_match": -15.14,
+    "matches_filled": 6,
+    "matches_per_day_in_sample": 3.5,
+    "per_day_in_sample": 59.0
+   }
+  }
+ },
+ "cs2/bet365": {
+  "lead": {
+   "matches": 8,
+   "book_lead_s": 35,
+   "peak_corr": 0.022,
+   "corr_at_0": 0.001,
+   "corr_book_first_5s": 0.0,
+   "corr_book_later_5s": 0.004,
+   "placebo_peak_corr": 0.009
+  },
+  "backtest": {
+   "no_guard": {
+    "matches": 9,
+    "per_match": 0.0,
+    "ci90": [
+     0.0,
+     0.0
+    ],
+    "ex_top5_per_match": 0.0,
+    "matches_filled": 0,
+    "matches_per_day_in_sample": 1.8,
+    "per_day_in_sample": 0.0
+   },
+   "guard_0.3s": {
+    "matches": 9,
+    "per_match": 0.0,
+    "ci90": [
+     0.0,
+     0.0
+    ],
+    "ex_top5_per_match": 0.0,
+    "matches_filled": 0,
+    "matches_per_day_in_sample": 1.8,
+    "per_day_in_sample": 0.0
+   }
+  }
+ },
+ "dota/pinnacle": {
+  "lead": {
+   "matches": 32,
+   "book_lead_s": 3,
+   "peak_corr": 0.052,
+   "corr_at_0": 0.033,
+   "corr_book_first_5s": 0.047,
+   "corr_book_later_5s": 0.013,
+   "placebo_peak_corr": 0.009
+  },
+  "backtest": {
+   "no_guard": {
+    "matches": 32,
+    "per_match": 46.33,
+    "ci90": [
+     5.3,
+     102.34
+    ],
+    "ex_top5_per_match": -3.47,
+    "matches_filled": 11,
+    "matches_per_day_in_sample": 2.3,
+    "per_day_in_sample": 108.0
+   },
+   "guard_0.3s": {
+    "matches": 32,
+    "per_match": 41.23,
+    "ci90": [
+     2.14,
+     95.58
+    ],
+    "ex_top5_per_match": -3.38,
+    "matches_filled": 9,
+    "matches_per_day_in_sample": 2.3,
+    "per_day_in_sample": 96.0
+   }
+  }
+ },
+ "dota/bet365": {
+  "lead": {
+   "matches": 6,
+   "book_lead_s": 47,
+   "peak_corr": 0.004,
+   "corr_at_0": 0.002,
+   "corr_book_first_5s": 0.0,
+   "corr_book_later_5s": 0.002,
+   "placebo_peak_corr": 0.011
+  },
+  "backtest": {
+   "no_guard": {
+    "matches": 14,
+    "per_match": 0.0,
+    "ci90": [
+     0.0,
+     0.0
+    ],
+    "ex_top5_per_match": 0.0,
+    "matches_filled": 0,
+    "matches_per_day_in_sample": 1.0,
+    "per_day_in_sample": 0.0
+   },
+   "guard_0.3s": {
+    "matches": 14,
+    "per_match": 0.0,
+    "ci90": [
+     0.0,
+     0.0
+    ],
+    "ex_top5_per_match": 0.0,
+    "matches_filled": 0,
+    "matches_per_day_in_sample": 1.0,
+    "per_day_in_sample": 0.0
+   }
+  }
+ }
+}
