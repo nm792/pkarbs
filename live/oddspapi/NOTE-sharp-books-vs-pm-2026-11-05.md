@@ -94,3 +94,9 @@ Reading:
 - Guard B adds nothing, because the sim already never fills once PM has moved half the jump.
 - Guard C must be set at about 0.5 s: a signal 1 s old loses money with any guard.
 - None of this fixes the main problem. Every 90% range still spans zero, and without the top 5 matches every version loses about $1.5-2.4/match. Fills ignore the queue (optimistic) and PM trades have 1 s timestamps. 7/10.
+
+## Addendum 5: queue-aware tennis backtest (5 Nov, recorded PM 1 s books + OddsPapi history 5 Nov)
+Script winmodels/tennis/hist/queue_sim.py, output out_queue_sim.json. Only 7 matches overlap the recorder window (05:32-08:52Z) and have Pinnacle history (6 with bet365): FAR BELOW 20, anecdotal.
+- Pinnacle trigger, bid at mid-2.5% (tick), queue ahead = displayed size at our level, 5 s window, 500 sh cap: ~124 orders, 0 fills at 0.2 s, 1.3 s ack, measured-ack draws and with the 0.3 s guard. $0/match. With queue position the bid at -2.5% is never reached inside 5 s.
+- bet365 trigger: 2-3 fills in 6 matches, all losers (-$61/match, sample too small, ex-top-5 meaningless).
+- Hermes' 5 Nov OddsPapi pull gave 25 files (target 30), 4 had no odds. Re-run when the recorder has more finished matches with Pinnacle.
