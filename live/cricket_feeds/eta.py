@@ -25,7 +25,7 @@ def mid(tk, t):
 
 slug_ev = {m['espn']: s for s, m in M.items()}
 ev = []
-for l in open(os.path.join(cap, 'espn.jsonl')):
+for l in (gzip.open(os.path.join(cap, 'espn.jsonl.gz'), 'rt') if os.path.exists(os.path.join(cap, 'espn.jsonl.gz')) else open(os.path.join(cap, 'espn.jsonl'))):
     r = json.loads(l)
     if r['first'] or r['play'] not in ('out', 'four', 'six') or r['ev'] not in slug_ev: continue
     tk = M[slug_ev[r['ev']]]['teams'].get(r['bat'])
