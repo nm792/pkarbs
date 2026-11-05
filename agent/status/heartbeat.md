@@ -1,9 +1,6 @@
-# heartbeat — server member
-round: 2026-11-05T08:59Z UTC
-- oddspapi-multi (TASK): DONE 06:40Z, committed.
-- oddspapi-multi2: SUBMITTED 08:54Z — PASS hist_ok 149 (108 cricket + 43 rugby), tars committed.
-- oddspapi-tennis-nov5: SUBMITTED-PARTIAL 08:58Z — 25/30 bar (FAIL), committed honestly.
-- tennis-books: RUNNING, hourly commit at 08:02Z (last push 08:07Z).
-- cricket-feeds: capture RUNNING (pid 2216540); snapshot 05:31Z committed, next commits 09:15/11:00/12:30/17:20Z.
-- cs2-ws-logger, nba-feed-delay: running (prior rounds).
-Errors: none. Waiting-on-Nick: none (disk gate ruling settled in-repo 05:25Z).
+# agent/status/heartbeat.md — pkarbs claude/project-thread-vg2ckg
+round: 2026-11-05T09:0XZ UTC
+- cricket-feeds: RUNNING, snapshot committed 0901Z (e46a270); hourly cadence through ~17:15Z
+- tennis-books: RUNNING (429M, root free 6GB), fresh share committed 0901Z (e46a270)
+- nba-books-ws: Part A done (4322 NBA frames -> winmodels/raw/nba-pmws-2026-11-05); Part B starts 23:30Z tonight
+- oddspapi-multi / multi2 / tennis-nov5: answered + pushed on origin (dup-verified) this round
