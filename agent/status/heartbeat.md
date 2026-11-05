@@ -1,10 +1,7 @@
-# heartbeat - 2026-11-05 12:20 UTC
+# agent/status/heartbeat.md
 
-Server-member dispatch round 2026-11-05T12:20Z.
-
-- tennis-books: HARD-STOP 12:18Z (root 4.9G<5.0G). Scope killed; committed data split 2 parts (965,778 rows); raw deleted; root reclaimed to 5.9G free/84pct. NO restart without new note.
-- oddspapi-hist re-run-2: committed 958e702 (outbox/2026-11-05-oddspapi-hist.md).
-- oddspapi-multi2: submitted 08:54Z (149 hist_ok).
-- cricket-feeds: still running (not stopped).
-- sports-mece-shadow: STOPPED 4 Nov, not restarted.
-last heartbeat: 2026-11-05T12:20Z UTC
+Round 2026-11-05T13:51Z (UTC):
+- ALL PROJECTS PAUSED (Nick 13:06Z / note 381) until root+vol >=15G twice; 382 step1 stopped cricket-feeds capture 13:49Z (no respawn).
+- cricket-feeds inboxes 0525/0805/1235 + start all have outbox replies; data committed to 12:00Z run.
+- tennis-books/oddspapi-multi/multi2/tennis-nov5 disk-gate closed by 381 (answer C: blocked until lift); tasks stay queued, not started.
+- nothing new started under pause.
