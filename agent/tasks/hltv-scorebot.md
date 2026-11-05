@@ -1,4 +1,4 @@
-# TASK: HLTV scorebot kill-feed timing vs Polymarket price (OPEN, run 1 today)
+# TASK: HLTV scorebot kill-feed timing vs Polymarket price (CANCELLED 5 Nov 00:40Z: run on Nick's Mac instead; HLTV ~2-3.5 min late, see live/cs2_feeds/NOTE-hltv-scorebot-timing-2026-11-04.md. Do not run run 1 or run 2.)
 
 Owner thread: "Time HLTV live scoreboard on CS2" (branch claude/project-thread-6tydow). Written 4 Nov 2026 ~11:55Z.
 Nick approved scraping HLTV's live scoreboard with an open-source client (4 Nov 11:31Z). The Claude sandbox is blocked by

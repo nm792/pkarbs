@@ -41,3 +41,47 @@ Caveat: the margin-variance model (params.json) was fit on 2025-26 ESPN score pa
 - Outputs: out_nba_delay_curve.json, out_nba_delay_hist.json, out_ws_vs_espn.json
 
 Confidence 7/10. The sign at 0-5 s is firm on 429 games. Size is optimistic because it assumes first in queue (LoL queue check suggests fills may be overstated), and the 2026 sample disagrees held to result.
+
+## Live feed delays, 5 Nov 00:00-02:50Z (added 5 Nov 02:55Z; live_delay.py, sandbox poll of 10 games)
+Every figure is measured against the NBA official `timeActual` (ms) of the play that set each new score.
+- **Polymarket sports WS: median 5.8 s** (p10 3.6 s; n 24 on the same games tonight). This matches the 5.5 s from 3 Nov (n 1,743), so it is the fastest free feed.
+- **NBA liveData S3 play-by-play: median 8.3 s** (p10 4.3, p25 6.0, p75 10.9; n 582 score changes, 10 games). The file is republished every ~8-22 s and reaches us ~0.2 s after its Last-Modified time. On the same scores it is a median 3.1 s behind the PM WS, and ahead of it only 25% of the time.
+- **ESPN summary API: median 37.8 s** (p10 24.7, p90 56.4; n 610). Too slow. This is why its historical wallclock looks "true time" while its live delivery is not.
+- Verdict: the best free feed is the PM sports WS at ~5.5 s, the 5 s row of the curve: **~+$17.5/game held, ~$125/day (sim, 500 cap, first in queue)**. The 0-2 s rows (+$33-40/game) need a sub-2 s feed. The only candidate is Sportradar/Genius direct (paid; Polymarket's own source), which is outside the no-paid-feeds rule.
+- Raw: winmodels/raw/nbacap-2026-11-05-local/ (nba_actions, espn_plays, polls, pmws). The server capture (agent/status/nba-feed-delay.md) continues to 06:45Z.
+
+## Update 5 Nov 07:30Z: delays vs the PRICE, queue, and tick-correct $/game (Nick's rules)
+Scripts: price_vs_play.py, queue_check.py, mid_vs_book.py, nba_delay_hist_tick.py. Outputs: out_price_vs_play_*.json, out_queue_check.*, out_mid_vs_book.json, out_nba_delay_hist_tick.json.
+
+**1. When does the price move after the official play (NBA `timeActual`)?** Trade-derived mid, 1 s, signed move after each score change:
+| games | scores | 20% of the 60 s move | 50% | 80% |
+|---|---|---|---|---|
+| 3 Nov slate (15) | 1,359 | +3 s | +6 s | +16 s |
+| 4-5 Nov slate (14) | 1,236 | +3 s | +7 s | +27 s |
+
+**2. Each feed vs the price** (delay vs play = receipt minus `timeActual`; "vs price" = minus the +6/+7 s half-move time; negative = we hear it before the price is half-moved):
+| feed | n | delay vs play | vs price half-move | move already done at receipt |
+|---|---|---|---|---|
+| Polymarket sports WS | 1,320 (3 Nov), 32 (4-5 Nov) | 5.0 s, 5.2 s | -1.0 s, -1.8 s | 38%, 46% |
+| NBA liveData play-by-play (S3) | 1,109 | 7.8 s | +0.8 s | 42% |
+| ESPN summary | 610 | 37.8 s | +31 s | ~100% |
+(Earlier 5.5/5.8 s figures were against ESPN's whole-second wallclock; these use the NBA's ms time.) NBA is unlike CS2: the Polymarket stream arrives while the price is still moving, not after it. Caveat: price timing uses trade mids. In the only 1 s book window (5 min, late game, 31 events) the book mid moved slower (50% of the 30 s move at +16 s), so this needs the full-night books before I call it settled.
+
+**3. Queue, from 5 min of 1 s books** (4 Nov slate, 22 tokens, 4,363 snapshots, all late-game; the sandbox was cut at 02:57Z): market tick is 0.001, spread median 1.0c; our bid at mid x 0.975 sits 0.6c below the best bid. Shares resting ahead of it: median 6,324 (12.6 clips of 500), p25 849, p75 67k, p90 206k. Only 26-37% of the time (mid 0.05-0.6) is it under 500 shares, 13% at mid 0.6-0.8, 0% above 0.8. Paper bids every 5 s: price traded through the bid within 30 s in 27% of cases (39% in 60 s), inflated because it is the late game. The sim's trade-mid differs from the book mid by a median 0.5c (p90 2.0c): its bid sat above the real best bid in 28% of snapshots (we would be first in line) and at or above the real best ask in 6.6% (a live post-only bid must skip those).
+
+**4. $/game, queue-safe** (429 games of 2025-26, 500 cap, held to result; bid rounded down to the real 0.001 tick; fills only when a print trades strictly through our price, which fills us by price priority whatever the queue; at-level prints, which need the queue ahead consumed, are not counted):
+| delay | $/game (net) | 90% range per game | $/day (7.2 games) |
+|---|---|---|---|
+| 0 s | +25.6 | +9.8 to +42.2 | ~$184 |
+| 2 s | +20.2 | +7.6 to +32.2 | ~$145 |
+| 5 s | +9.6 | -0.4 to +18.9 | ~$69 |
+| 10 s | +2.9 | -7.4 to +12.7 | ~$21 |
+| 20 s | +9.6 | -3.4 to +23.1 | noise |
+| 30 s / 60 s | -6.4 / -4.7 | spans zero | negative |
+100-share cap: +8.4, +5.7, +3.0, +0.2 per game at 0/2/5/10 s. **This corrects my earlier table** (+39.8/+32.9/+17.5 at 0/2/5 s), which used unrounded bids; rounding to the real tick removes prints at our own level. The Polymarket stream (5 s, 38-46% of the move already done) therefore earns ~$10/game (~$70/day); a feed under 2 s would earn ~$20 (~$145/day). Still sim: first in line for the trades-through path, trade-mid prices, ESPN-fitted margin model.
+
+**5. Sub-2 s NBA feed, what it costs** (web search 5 Nov, vendor quotes private, treat as unverified): Sportradar NBA Push API (play-by-play over HTTP streaming) and its in-play incident feeds: no public price; third-party posts say custom contracts from about $10k/month for odds feeds. Genius Sports/BetGenius: no price found. SportsDataIO: partly self-serve, rest by sales. Goalserve lists "NBA/NCAA live data" at $250/month and claims max 1 s for in-play odds (not shown for NBA play-by-play). balldontlie All-Access listed at $499.99/month. None has a published NBA latency; ask for a measured one and a 1-week trial. Nick is asking vendors.
+
+**6. Next:** agent/tasks/nba-books-ws.md asks the server for full-night 1 s books and the Polymarket WS NBA frames on 5-6 Nov, so queue and book-mid price timing can be done on 14 games instead of 5 minutes.
+
+Confidence 6/10. Firm: the price takes ~6-7 s to half-move and the Polymarket stream beats that; the ranking of feeds. Not firm: the $ level (sim, trade-mid prices, no historical books) and the book-mid timing.

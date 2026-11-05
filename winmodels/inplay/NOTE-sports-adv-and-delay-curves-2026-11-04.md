@@ -46,3 +46,25 @@ Nick: reacting to game ends is reacting to what the market already priced. Redon
   - From Cito receipt, 0-10 s: $150-200 filled/match, 1 min ~0% (-0.1%, 90% -5 to +6%), result +10% but the 90% range is -29% to +67%. No edge.
   - From price onset (true-time proxy): -10 s $16/match, +14% at 1 min (90% 9-25%) = $2.2/match; 0 s $8/match, +7% (4-21%) = $0.6/match; 2-5 s $3-4/match.
 - Verdict: the point model is right and the edge is real at the market's reaction time, but fills at market - 2.5% around the point are $8-16 per match, about $1-2 per match at 1 min even with a perfect feed. Cito is ~28 s too slow to get even that. Confidence 6/10.
+
+### 4c. Full-day rerun (5 Nov 00:50Z): race4 + cito-timing/tennis 10:55Z 4 Nov - 00:xxZ 5 Nov
+- Counts: 206 Cito matches; 161 matched to Polymarket; 56 had under 30 trades, 4 too few points, 2 unresolved -> 99 usable (161-56-4-2). 22,431 point events. (Earlier 38 = 84-37-4-5; the 4 and 5 were left out of my first message.)
+- Model at price onset: beta 1.02, corr 0.74 (3,098 points). Cito arrives a median 26 s after the price starts to move (IQR 7-44 s).
+- True-time (onset) delay curve, 500 cap, W 30 s: 0 s $7.8 filled/match, +12% at 1 min, held to result +12% (90% -43 to +49%) = $0.94/match; +5 s $5.6/match, result -18%; +10 s $6.0, +39%; +20 s $4.1, +20%; +30 s $5.9, -10%. All result ranges span zero.
+- Longer bids (W 120 s, bid stays until the next point): $25-47 filled/match, held to result +46-62% (~$15-21/match) with 90% ranges above zero at 0, 5, 20, 30 s. BUT only 21 of 99 matches get any fill, and without the top 5 matches it loses (-12% to -42%). Not robust.
+- By event type (onset 0 s, W 30): fills under $4/match for every type (break points $0.1, game points $3.7, holds $1.9, breaks/sets ~$0).
+- Placebo (bid the opposite side): 10-15x more fills ($28k vs $0.8k), -3 to -7% at 1 min, ~0 to result. After a point, sellers dump the side that just lost; almost nobody sells the side that just won 2.5% under the market.
+- Verdict: the model is right, but the 2.5%-under bid on the rising side almost never fills in tennis; the visible profit comes from about 5 matches. Best honest estimate ~$1/match (~$70/day at 70 matches), not distinguishable from zero. Confidence 6/10.
+
+## 5. Tennis on historical matches, trade-only (5 Nov 01:20Z; tennis/hist/)
+Nick: "why not just use historical matches?" No point feed exists for past matches (api.sofascore.com returns 403 to us), so events come from the trades.
+- Data: gamma ATP + WTA singles moneylines starting 5 Oct - 2 Nov (2,010 events; raw/tennis/hist/). 1,895 usable (35 under 30 prints, 23 few in-play prints, 57 unresolved). 61 usable matches/day. 1.05M trades.
+- Events: every mid move >= 2c within 20 s (one per 40 s), onset = first print covering 20% of the move (same definition as section 4). 76,811 moves, 41 per match.
+- Side = direction of the move. That is oracle side choice, so returns are an upper bound (the point model gets the side right with corr 0.74, beta 1.0 at onset). Fills are a TRADE-BASED ESTIMATE: a print selling the rising side at most 1% under our bid (mid x 0.975) fills us, 500-share cap, queue ignored (optimistic).
+- Check vs the 99 Cito-timed matches (CAL=1, 92 matched): this method gives $4.4 filled/match and $0.43/match at 0 s, against $7.8 and $0.94 from the point model. Same order, a bit lower.
+- Delay curve, W 30 s (bid lives 30 s), held to result, per match with 90% range:
+  - 5 s BEFORE onset: $17.6 filled, +22.5%, $3.97 ($1.6-6.6)
+  - 0 s (instant of the market's move): $6.9 filled, +29%, $1.99 ($0.6-3.6); ex-top5 +12.8%
+  - 2 s: $1.29 (-0.0 to 2.6); 5 s: $0.08 (-1.1 to 1.1); 10 s: -$0.63; 20 s: $0.42; 30 s: -$0.35
+- W 120 s: 0 s $4.26/match ($0.7-7.8), 2 s $3.03 (-0.8 to 7.3), 5 s $1.68 (-2.6 to 6.1), 10 s and later negative (30 s -$8.8, range below zero).
+- Verdict: confirms section 4c on 19x the matches. With a perfect zero-delay feed tennis is worth ~$2/match at W 30 (~$120/day at 61 ATP/WTA matches/day), up to ~$4/match at W 120 (~$260/day), and this is an upper bound (oracle side, no queue). By 5 s after the market starts to move it is ~0; every feed we have is 26 s+ behind the price. Tennis is not worth pursuing unless a feed reaches the point at or before the market's reaction. Confidence 7/10.

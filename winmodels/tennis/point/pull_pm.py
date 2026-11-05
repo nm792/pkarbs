@@ -23,7 +23,8 @@ for f in sys.argv[1:]:
     for l in gzip.open(f, 'rt'):
         d = json.loads(l)
         if d['src'] != 'cito_tennis_ws': continue
-        m = json.loads(d['m'])
+        try: m = json.loads(d['m'])
+        except Exception: continue
         if m.get('type') != 'POINT_UPDATE': continue
         x = m['data']; C.setdefault(x['match_id'], (x['player1']['name'], x['player2']['name'], d['rt']))
 match = {}

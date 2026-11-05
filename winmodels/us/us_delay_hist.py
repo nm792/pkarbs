@@ -17,14 +17,15 @@ from scipy.optimize import minimize_scalar
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.dirname(HERE)); sys.path.insert(0, HERE)
 import common as C
 SP = sys.argv[1] if len(sys.argv) > 1 else 'nfl'
-SPLIT = {'nfl': 1761955200}[SP]            # 2025-11-01T00:00Z: train = Sep-Oct 2025, test = Nov 2025-Jan 2026
+YEAR = os.environ.get('YEAR', '')          # '' = 2025 season; '26' = 2026 season to date (nfl/s1_hist_nfl26.py)
+SPLIT = {'': {'nfl': 1761955200}, '26': {'nfl': 1791158400}}[YEAR][SP]   # 2025: train Sep-Oct, test Nov-Jan; 2026: train before 5 Oct 2026, test 5 Oct-3 Nov
 TAU = {'nfl': 45.0}[SP]
 REAL = C.RAW
 tmp = tempfile.mkdtemp(); os.makedirs(f'{tmp}/us'); os.makedirs(f'{tmp}/us_bt')
-os.symlink(f'{REAL}/us_{SP}_hist/gamma_events.json.gz', f'{tmp}/us/gamma_events.json.gz')
-os.symlink(f'{REAL}/us_{SP}_hist/match.json', f'{tmp}/us/match_pm_espn.json')
-os.symlink(f'{REAL}/us_{SP}_hist/trades', f'{tmp}/us/trades')
-os.symlink(f'{REAL}/us_hist/{SP}', f'{tmp}/us_bt/{SP}')
+os.symlink(f'{REAL}/us_{SP}{YEAR}_hist/gamma_events.json.gz', f'{tmp}/us/gamma_events.json.gz')
+os.symlink(f'{REAL}/us_{SP}{YEAR}_hist/match.json', f'{tmp}/us/match_pm_espn.json')
+os.symlink(f'{REAL}/us_{SP}{YEAR}_hist/trades', f'{tmp}/us/trades')
+os.symlink(f'{REAL}/us_hist{YEAR}/{SP}', f'{tmp}/us_bt/{SP}')
 import backtest as B
 C.RAW = tmp
 B.SPORTS = [SP]
@@ -141,9 +142,9 @@ print('LOCKED on train at delay 0:', L, 'train 1min', best['net_1min_pct'], '% r
 out = dict(sport=SP, event_time=EVT, lag_vs_wallclock=LAGINFO, shift=SHIFT, beta=beta, locked=L, n_train=len(train), n_test=len(test), train_grid=res, curve=[])
 for Q in (100, 500):
     for nm, gs in (('test', test), ('all', games)):
-        for lag in (0, 2, 5, 10, 20, 30, 60):
+        for lag in (0, 2, 5, 10, 20, 30, 60, 120, 300):
             s = C.summarize([run(g, lag, L['W'], L['minj'], L['caught'], Q) for g in gs])
             row = dict(set=nm, cap=Q, delay=lag, games=len(gs), per_game_usd=round(s['net_result_usd'] / len(gs), 1), **s); out['curve'].append(row)
             print(f"{nm:>4} cap{Q:>4} delay{lag:>3}s: games {len(gs)} filled ${s['usd']:>7} (${s['usd']/len(gs):.0f}/game) 1min {s['net_1min_pct']:>6}% {s['ci_1min']} "
                   f"result {s['net_result_pct']:>6}% {s['ci_result']} ${s['net_result_usd']:>6} (${row['per_game_usd']}/game, 90% {s['ci_result_usd']}) ex-top5 {s['ex_top5_result_pct']}%", flush=True)
-json.dump(out, open(os.path.join(HERE, f'out_{SP}_delay_hist_{EVT}.json'), 'w'), indent=1, default=float)
+json.dump(out, open(os.path.join(HERE, f'out_{SP}{YEAR}_delay_hist_{EVT}.json'), 'w'), indent=1, default=float)
