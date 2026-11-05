@@ -65,3 +65,32 @@ Re-run (`out_pin_trigger_meas.json`, latency counted from the OddsPapi `createdA
 | bet365 | 5 s | $10.5/match [-1.6, +26.5], ex-top5 -99.6% | $4.5/match [-5.9, +20.8] |
 
 Verdict unchanged: at our measured order speed there is no robust edge. Every range spans zero and dropping the top 5 matches wipes out the result. Any delay in receiving the Pinnacle move adds directly to these latencies and makes it worse. 7/10. The queue-aware re-run needs the tennis 1 s book logger, which Hermes is holding for Nick's Go (disk rule).
+
+## Addendum 4 (5 Nov 05:00Z): failsafe guards for slow orders
+
+Nick: "Can we not failsafe this? ... the slow orders lose $1.40 per match." Script `winmodels/tennis/hist/guard_sim.py`, output `out_guard_sim.json`. Each signal's order latency is drawn from the 30 measured Nautilus submit->ack times (40 random draws; figures are medians across draws).
+
+What the venue and Nautilus allow:
+- GTD expiry can't serve as a fast guard. Polymarket requires expiry at least 3 minutes ahead, in whole seconds, and expires orders 1 minute early.
+- The guard has to be an explicit cancel. Measured Nautilus cancel->OrderCanceled: median 0.13 s, p90 0.32 s, max 2.4 s.
+- Resting post-only bids are not held by the sports taker delay.
+
+Guards tested: A = cancel if no ack within N s; B = on ack, cancel if PM has already moved >= f of the jump our way; C = skip the signal if it is already R s old when we send.
+
+| Pinnacle trigger, 5 s window | $/match | 90% range | ex-top-5 |
+| --- | --- | --- | --- |
+| no guard (real latency mix) | 1.87 | -3.7 to +10.2 | -$2.4/match |
+| A 0.8 s | 2.12 | -3.7 to +10.3 | -$2.0 |
+| A 0.5 s | 2.21 | -3.6 to +10.3 | -$1.9 |
+| A 0.3 s | 2.44 | -3.4 to +10.5 | -$1.9 |
+| A 0.5 s + B (0.5 or 0.25) | 2.21 | same as A | -$1.9 |
+| A + B, signal 0.5 s old | 1.97 | -3.7 to +10.2 | -$2.4 |
+| A + B, signal 1.0 s old | -1.44 | -4.7 to +0.7 | -$1.9 |
+
+bet365 trigger, 5 s window: $9.4 with no guard, $10.1-10.3 with A at 0.3-0.8 s (90% range -1.8 to +25.8), still -$1.5/match without the top 5.
+
+Reading:
+- Guard A works as intended. It removes the slow-order losses (20-30% of signals are cancelled) and lifts Pinnacle from $1.9 to $2.2-2.4/match.
+- Guard B adds nothing, because the sim already never fills once PM has moved half the jump.
+- Guard C must be set at about 0.5 s: a signal 1 s old loses money with any guard.
+- None of this fixes the main problem. Every 90% range still spans zero, and without the top 5 matches every version loses about $1.5-2.4/match. Fills ignore the queue (optimistic) and PM trades have 1 s timestamps. 7/10.
