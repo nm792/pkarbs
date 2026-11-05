@@ -54,6 +54,27 @@ for D in sys.argv[1:]:
             k = (r['play'].get('awayScore'), r['play'].get('homeScore'))
             g = goals.setdefault(k, {}); g.setdefault('espn', r['recv_ms'] / 1000)
             if r['play'].get('wallclock'): g.setdefault('espn_wall', ts(r['play']['wallclock']))
+        last = None
+        for r in espn:
+            if r['id'] != gid or r['kind'] != 'state': continue
+            sc = dict(r['score']); k = (int(sc.get('away') or 0), int(sc.get('home') or 0))
+            if last is not None and k != last and sum(k) > sum(last): goals.setdefault(k, {}).setdefault('espn_score', r['recv_ms'] / 1000)
+            last = k
+        # ESPN wallclock of each goal from the final summary (fetched after the game; cached in DIR/espn_final_<id>.json)
+        if s.get('espn'):
+            fn = f"{D}/espn_final_{s['espn']}.json"
+            if not os.path.exists(fn):
+                try:
+                    import urllib.request
+                    req = urllib.request.Request(f"https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event={s['espn']}", headers={'User-Agent': 'Mozilla/5.0'})
+                    d = json.loads(urllib.request.urlopen(req, timeout=20).read())
+                    if (d.get('header') or {}).get('competitions', [{}])[0].get('status', {}).get('type', {}).get('completed'): json.dump(d, open(fn, 'w'))
+                    else: d = None
+                except Exception: d = None
+            else: d = json.load(open(fn))
+            for p in (d or {}).get('plays') or []:
+                if p.get('scoringPlay') and p.get('wallclock'):
+                    goals.setdefault((p.get('awayScore'), p.get('homeScore')), {})['espn_wall'] = ts(p['wallclock'])
         pm = [w for w in ws if w.get('homeTeam') and str(w.get('gameId')) == str(m['gid'])]; lastt = None
         for w in pm:
             try: tot = sum(int(z) for z in w['score'].split('-'))
@@ -70,7 +91,7 @@ for D in sys.argv[1:]:
             elif sum(k) == 1: home_scored = k[1] == 1
             if home_scored is None: continue
             tok = tok_home if home_scored else tok_away; B = book.get(tok, [])
-            feeds = [g[x] for x in ('nhl_play', 'nhl_score', 'espn', 'pm_ws') if x in g]
+            feeds = [g[x] for x in ('nhl_play', 'nhl_score', 'espn', 'espn_score', 'pm_ws') if x in g]
             ref = g.get('espn_wall') or (min(feeds) if feeds else None)
             if ref is None or not B: continue
             bt = [b[0] for b in B]
@@ -78,7 +99,7 @@ for D in sys.argv[1:]:
                 i = bisect.bisect_right(bt, T) - 1; return B[i][1] if i >= 0 else None
             pa, pb = mid(ref - 120), mid(ref + 120)
             row = dict(dir=os.path.basename(D.rstrip('/')), game=m['slug'], score=f'{k[0]}-{k[1]}', home_scored=home_scored, period=g.get('period'), tip=g.get('tip'),
-                       **{x: g.get(x) for x in ('nhl_play', 'nhl_score', 'espn', 'espn_wall', 'pm_ws')})
+                       **{x: g.get(x) for x in ('nhl_play', 'nhl_score', 'espn', 'espn_score', 'espn_wall', 'pm_ws')})
             if pa is None or pb is None or pb - pa < 0.02:
                 row['note'] = 'price move < 2c or no book'; rows.append(row); continue
             on = half = None
@@ -87,7 +108,7 @@ for D in sys.argv[1:]:
                 if on is None and x >= 0.2: on = b[0]
                 if x >= 0.5: half = b[0]; break
             row.update(pre=round(pa, 3), post=round(pb, 3), onset=on, half=half)
-            for x in ('nhl_play', 'nhl_score', 'espn', 'espn_wall', 'pm_ws'):
+            for x in ('nhl_play', 'nhl_score', 'espn', 'espn_score', 'espn_wall', 'pm_ws'):
                 if g.get(x) and on:
                     row[f'{x}_minus_onset'] = round(g[x] - on, 1)
                     mm = mid(g[x]); row[f'{x}_moved'] = round((mm - pa) / (pb - pa), 2) if mm is not None else None
@@ -95,10 +116,20 @@ for D in sys.argv[1:]:
                     if i >= 0:
                         bid = round(B[i][1] * 0.975, 3); row[f'{x}_depth_at_bid'] = round(sum(sz for p, sz in B[i][4] if p >= bid - 1e-9))
             rows.append(row)
+# same goal seen in two capture runs: keep the row with a price onset (earliest feed arrival)
+best = {}
+for r in rows:
+    k = (r['game'], r['score']); o = best.get(k)
+    if o is None or (r.get('onset') and not o.get('onset')): best[k] = r
+rows = list(best.values())
+# onset more than 20 s before ESPN's own goal stamp = a different price move (penalty, etc.): flag, leave out of summary
+for r in rows:
+    if r.get('espn_wall_minus_onset') is not None and r['espn_wall_minus_onset'] > 20: r['note'] = 'onset not this goal (>20 s before ESPN stamp)'
+    if any(isinstance(v, (int, float)) and k.endswith('_minus_onset') and not (-30 < v < 300) for k, v in r.items()): r['note'] = 'same score reached twice (review/disallowed goal): feeds mixed'
 out = dict(rows=rows, summary={})
-for x in ('nhl_play', 'nhl_score', 'espn', 'espn_wall', 'pm_ws'):
-    v = np.array([r[f'{x}_minus_onset'] for r in rows if r.get(f'{x}_minus_onset') is not None])
-    mv = np.array([r[f'{x}_moved'] for r in rows if r.get(f'{x}_moved') is not None])
+for x in ('nhl_play', 'nhl_score', 'espn', 'espn_score', 'espn_wall', 'pm_ws'):
+    v = np.array([r[f'{x}_minus_onset'] for r in rows if r.get(f'{x}_minus_onset') is not None and not r.get('note')])
+    mv = np.array([r[f'{x}_moved'] for r in rows if r.get(f'{x}_moved') is not None and not r.get('note')])
     if len(v): out['summary'][x] = dict(n=len(v), median=float(np.median(v)), p10=float(np.percentile(v, 10)), p90=float(np.percentile(v, 90)),
                                          moved_median=float(np.median(mv)) if len(mv) else None)
 print(json.dumps(out['summary'], indent=1))
