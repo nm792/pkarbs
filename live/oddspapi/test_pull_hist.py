@@ -11,13 +11,16 @@ def fake(ep, params):
     if ep == "sports":
         return 200, [{"sportId": 12, "slug": "tennis", "sportName": "Tennis"},
                      {"sportId": 17, "slug": "counter-strike", "sportName": "Counter-Strike"},
-                     {"sportId": 10, "slug": "soccer", "sportName": "Soccer"}]
+                     {"sportId": 10, "slug": "soccer", "sportName": "Soccer"},
+                     {"sportId": 25, "slug": "table-tennis", "sportName": "Table Tennis"}]
     if ep == "bookmakers":
         return 200, [{"slug": "pinnacle", "liveOdds": True}, {"slug": "bet365", "liveOdds": True},
                      {"slug": "1xbet", "liveOdds": False}, {"slug": "ggbet", "liveOdds": True}]
     if ep == "fixtures":
-        return 200, [{"fixtureId": f"f{params['sportId']}a", "statusId": 2, "hasOdds": True},
-                     {"fixtureId": f"f{params['sportId']}b", "statusId": 0, "hasOdds": True}]
+        return 200, [{"fixtureId": f"f{params['sportId']}a", "statusId": 2, "hasOdds": False},
+                     {"fixtureId": f"f{params['sportId']}b", "statusId": 0, "hasOdds": True},
+                     {"fixtureId": f"f{params['sportId']}c", "statusId": 2, "hasOdds": True,
+                      "participant1Name": "Alcaraz, Carlos (Srl)", "participant2Name": "X (Srl)"}]
     if ep == "historical-odds":
         return 200, {"fixtureId": params["fixtureId"], "bookmakers": {}}
 
