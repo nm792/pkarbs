@@ -24,3 +24,10 @@ analyze.py simulates the rule at T0 + 0/5/10/20/30/60 s, with T0 = ESPN receipt 
 ## Next
 - More matches resolved (Thunder v Scorchers, NPL x2, WBBL 6 Nov) before reading any delay curve.
 - Faster feed: Decimal Data is Cricket Australia's exclusive betting data partner (in-venue scouts, BBL/WBBL); free feeds are ~30 s behind the price.
+
+## Faster-feed leads (web research 5 Nov, vendor claims, none tested)
+- Decimal Data: Cricket Australia's exclusive betting data partner to 2031 (BBL, WBBL, domestic, home internationals), in-venue access and 120+ analysts (sportcal report). No public API, latency or price. Needs a sales email; a likely corporate-only model like GRID.
+- Statscore ScoutsFeed: lists cricket; venue-sourced feed advertised at 1-2 s, TV-sourced 3-6 s, and its own docs call the 7-15 s TV-sourced type unsuitable for bookmakers. Delivery via AMQP/RabbitMQ or JSON. Price unpublished. Worth an email, and a trial request.
+- Goalserve: cricket live-score plan $125 per month ($550 six months, $1,000 twelve months); ball-by-ball in the feature list; claims "within a second of action"; no websocket mention. The source of that data (TV or venue) is not stated, so it may be as late as ESPN. Test with a one-month plan only after a free-trial request.
+- Roanuz: websocket push plus webhooks (unofficial doc); latency and price not found.
+Test method for any of them: record the vendor feed alongside books.jsonl and run eta.py with the vendor events instead of ESPN; the question is whether half the move happens after the vendor's event, not before.
