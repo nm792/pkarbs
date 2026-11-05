@@ -41,7 +41,8 @@ TIER1 = ['iem ', 'esl pro league', 'blast', 'pgl', 'major', 'starladder', 'thund
 
 CFG = dict(W=30.0, PRE=30.0, D=0.025, MINJ=0.01, E=0.01, SHARE_CAP=5, MATCH_CAP_USD=5.0, LOSS_LIMIT_USD=40.0,
            MIN_EVENT_VOL=20000.0, BOOK_POLL=1.0, TRADES_POLL=2.0, DISCOVER=300.0, RESOLVE_POLL=300.0,
-           MAX_SPREAD=0.10, MID_LO=0.05, MID_HI=0.95, HOURS=12.0)
+           MAX_SPREAD=0.10, MID_LO=0.05, MID_HI=0.95, HOURS=12.0,
+           ACK_TIMEOUT=0.0, MAX_SIGNAL_AGE=0.0)   # guards (0 = off): cancel an order the venue acks later than ACK_TIMEOUT s; skip placing when the event is older than MAX_SIGNAL_AGE s
 
 
 def now(): return time.time()
@@ -320,7 +321,12 @@ class Pilot:
         bb, ba, _ = m.book.get(tok, (None, None, None))
         o = dict(id=None, eid=w['eid'], tok=tok, token=m.tokens[tok], price=price, size=float(size), filled=0.0,
                  paper_naive=0.0, paper_queue=0.0, ahead0=ahead, ahead=ahead, placed=T)
+        age = T - w['R']
+        if CFG.get('MAX_SIGNAL_AGE') and age > CFG['MAX_SIGNAL_AGE']:
+            s.log('skip_stale', eid=w['eid'], kind=m.kind, age=round(age, 3), max_age=CFG['MAX_SIGNAL_AGE']); return
+        ack_s = None
         if s.mode == 'live':
+            t_sub = now()
             try:
                 r = await s.client.place_limit_order(token_id=m.tokens[tok], price=str(price), size=str(size), side='BUY',
                                                      post_only=True)
@@ -328,7 +334,7 @@ class Pilot:
                 s.log('order_reject', eid=w['eid'], kind=m.kind, err=repr(e)); return
             if not getattr(r, 'ok', False):
                 s.log('order_reject', eid=w['eid'], kind=m.kind, code=getattr(r, 'code', None), msg=getattr(r, 'message', None)); return
-            o['id'] = r.order_id
+            ack_s = now() - t_sub; o['id'] = r.order_id
             if getattr(r, 'status', None) not in ('live', None):
                 s.log('warn', what='order not resting', status=str(r.status), id=r.order_id)
         else:
@@ -337,7 +343,10 @@ class Pilot:
         s.st['matches'].setdefault(str(m.gid), m.gid)
         s.log('order_place', id=o['id'], eid=w['eid'], gid=m.gid, kind=m.kind, cond=m.cond, tok=tok, outcome=m.outcomes[tok],
               price=price, size=size, usd=round(price * size, 2), mid0=m.mid(), best_bid=bb, best_ask=ba, ahead=ahead,
-              lag_since_event=round(T - w['R'], 2))
+              lag_since_event=round(T - w['R'], 2), ack_s=None if ack_s is None else round(ack_s, 4))
+        if ack_s is not None and CFG.get('ACK_TIMEOUT') and ack_s > CFG['ACK_TIMEOUT']:
+            s.log('ack_timeout', id=o['id'], eid=w['eid'], kind=m.kind, ack_s=round(ack_s, 4), limit=CFG['ACK_TIMEOUT'])
+            await s.cancel(m, 'ack timeout')
 
     async def cancel(s, m, why):
         o = m.order
