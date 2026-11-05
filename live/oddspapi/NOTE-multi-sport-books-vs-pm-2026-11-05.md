@@ -35,3 +35,9 @@ bet365 in LoL, CS2, Dota, NFL, NHL: no fills (too little data).
 5. The practical limit is unchanged: we only get Pinnacle live through OddsPapi's paid websocket (B2B plan); free REST is 0.5 s per fixture, too slow for a 3 s lead.
 
 Files: winmodels/multi_lead.py, winmodels/out_multi_lead.json, live/oddspapi/pull_hist_multi.py, rn1/scores/oddspapi/multi-2026-11-05/.
+
+## Addendum: cricket and rugby (Hermes multi2 pull, 8-31 Oct; 5 Nov 09:20Z)
+- Cricket: 26 PM-matched matches (Pinnacle covers only 4, bet365 24). FLAG: Pinnacle < 20 matches, no verdict.
+- Lead vs PM price: Pinnacle peak corr 0.008 vs placebo 0.03 (no signal). bet365 peak 0.015 at -9 s (book AFTER PM), placebo 0.008 (weak). No bookmaker lead.
+- Backtest at measured order speed, bet365 (24 matches, 8 filled): no guard $18.9/match [-15, +73], ex-top-5 -$8.7; with 0.3 s guard $12.5/match [-15, +51], ex-top-5 -$7.9; ~$54-83/day in sample at 4.4 matches/day. Ex-top-5 negative = a few matches carry it. Pinnacle: 0 fills.
+- Rugby: 0 matches. PM has no rugby union moneyline markets in the window (its "rugby" series are Russian football `rus-` slugs); the Pro D2 / World Cup fixtures OddsPapi has are not listed on PM. Untestable until Top 14 (7-8 Nov) markets exist on PM.
