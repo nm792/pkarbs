@@ -1,0 +1,19 @@
+{
+ "rows": [
+  {
+   "dir": "nhl1",
+   "game": "nhl-chi-fla-2026-11-04",
+   "score": "0-1",
+   "home_scored": true,
+   "period": 1,
+   "tip": "04:43",
+   "nhl_play": 1793839596.839,
+   "nhl_score": null,
+   "espn": 1793839596.921,
+   "espn_wall": 1793839500.0,
+   "pm_ws": null,
+   "note": "price move < 2c or no book"
+  }
+ ],
+ "summary": {}
+}
