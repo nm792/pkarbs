@@ -42,3 +42,10 @@ Nick: "why do we need 5-10 seconds and not 2?" Script `winmodels/tennis/hist/pin
   - Pinnacle, bid lives 30 s: -$4.9 to -$17/match at every latency.
   - bet365, 10 s: 0.5 s $5.55 (90% -$9.0 to +$23.4), 1.5 s -$0.24, 3 s +$2.41, 5 s -$3.45; ex-top-5 -99% throughout. 30 s: about $0 or negative.
 - **Verdict:** a 2 s lead is real but not enough to make money. Fills at market - 2.5% are $2-16/match, and every result range spans zero (the best is ~$1.8/match = ~$110/day at 61 matches/day, all from 5 matches). Live access needs OddsPapi's paid B2B WebSocket, and realistic latency (1.5 s+) is negative. No tennis order books were recorded, so queue position is not modelled; that makes these numbers optimistic. Confidence 6/10.
+
+## Addendum 2 (5 Nov 04:20Z): order placement ~0 (Nautilus, Nick)
+Same backtest at 0 / 0.1 / 0.25 / 0.5 s from the OddsPapi timestamp (`out_pin_trigger_ms.json`). PM trades have 1 s timestamps, so differences under 1 s are only roughly resolved.
+- Pinnacle trigger, bid lives 5-10 s: 0-0.1 s gives **$2.5-2.6/match** (90% -$2.5 to +$10.6; 8-10 of 50 matches fill; ex-top-5 -45%). 0.25-0.5 s gives $1.8. 30 s bids lose.
+- bet365 trigger, 5 s: 0-0.1 s gives $10/match (90% -$2 to +$26), but ex-top-5 -99%, so it all comes from a few matches. 10 s gives ~$5; 30 s gives ~$0.
+- Every range still spans zero. Fills are trade-based with no queue (optimistic). The tennis 1 s book logger (PR #113) will give queue position.
+- **What now limits speed is getting the Pinnacle update.** The OddsPapi timestamp is when OddsPapi has it (~1 s after Pinnacle by their claim). We would only get it that fast over their WebSocket, which is the paid B2B plan (price unknown). The free REST odds endpoint has a 500 ms cooldown per call, one fixture per call, so with 20 live matches each refreshes about every 10 s, which is far too slow. Pinnacle's own API is closed to the public; resellers (SharpAPI Pinnacle tier $399/mo, PinnWire) state no latency.

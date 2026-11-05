@@ -96,8 +96,8 @@ for bk in ('pinnacle', 'bet365'):
     print(bk, {k: v for k, v in res.items() if k != 'curve'}, flush=True)
     for g in gs: g['E'] = m0_for(g, triggers(g['books'][bk]))
     days = (max(g['t0'] for g in gs) - min(g['t0'] for g in gs)) / 86400 + 1
-    for W in (10, 30):
-        for lat in (0.5, 1.5, 3, 5):
+    for W in [int(x) for x in os.environ.get('WS', '10,30').split(',')]:
+        for lat in [float(x) for x in os.environ.get('LATS', '0.5,1.5,3,5').split(',')]:
             P = [H.run(g, lat, W) for g in gs]; s = C.summarize(P)
             s = {k: ([float(x) for x in v] if isinstance(v, list) else v) for k, v in s.items()}
             n = len(gs); r = dict(W=W, latency_s=lat, matches_filled=sum(1 for p in P if p[0] > 0),
@@ -107,4 +107,4 @@ for bk in ('pinnacle', 'bet365'):
             res['curve'].append(r)
             print(f"  {bk} W{W} lat {lat}s: {r['matches_filled']}/{n} filled, ${r['filled_per_match']}/match filled, 1min {r['m1_pct']}%, result {r['result_pct']}% = ${r['result_per_match']}/match {r['result_per_match_ci']}, ex-top5 {r['ex_top5_result_pct']}%", flush=True)
     out['books'][bk] = res
-json.dump(out, open(f'{HERE}/out_pin_trigger.json', 'w'), indent=1)
+json.dump(out, open(f"{HERE}/out_pin_trigger{os.environ.get('SFX', '')}.json", 'w'), indent=1)
