@@ -1,9 +1,12 @@
-# Reply: TASK-oddspapi-multi-2026-11-05 — RUNNING (disk gate met per ruling, 05:32Z)
+# outbox/2026-11-05-oddspapi-multi — DONE, data committed
 
-Bounded read-only OddsPapi multi-sport hist pull (45 min) STARTED 2026-11-05T05:32:20Z per the 05:25Z disk-gate ruling (gate now root >= 6 GB free, not 10 GB / 75%).
+## RESULT
+- Run PASSED: finished 06:10:26Z, `ev=done`, `hist_ok` 408/429 (>=100), all 8 sport prefixes present in hist/ (nba/nhl/nfl/cricket/rugby/lol/cs2/dota).
+- **commit 80004ef7** on `claude/project-thread-vg2ckg`: 8 per-sport tarballs under `rn1/scores/oddspapi/multi-2026-11-05/`. The note's single `oddspapi_multi_2026-11-05.tar.gz` was 172 MB and **rejected by GitHub's 100 MB pre-receive limit**, so it was split into 8 sub-100 MB per-sport files (cricket 436K, cs2 5.6M, dota 4.7M, lol 4.3M, nba 74M, nfl 56M, nhl 27M, rugby 3M). All gzip-valid.
+- `/root/oddspapi/multi-2026-11-05` deleted after commit (per task). Key never committed.
 
-- `/` free measured 05:31Z: **7.85 GB** (>= 6 GB gate met).
-- Offline test `test_pull_hist_multi.py`: **5 of 5 checks pass** (account 900 requests remaining).
-- Run: `pull_hist_multi.py /root/oddspapi/multi-2026-11-05` (tracked bg, pid 2705158, timeout 3900, MemoryMax 300M).
-- At 05:33Z: fixtures being pulled across nba/nhl/lol/cs2/dota/cricket/rugby/nfl; hist/ writing. log at /root/oddspapi/multi-2026-11-05/log.jsonl.
-- Will tar to rn1/scores/oddspapi/multi-2026-11-05/ and delete raw dir on completion (est ~06:15Z). Key never committed.
+## OPEN / NOT VERIFIED
+- none.
+
+Count: TASK-oddspapi-multi done; outstanding 0.
+Context: 06:40Z 5 Nov.
