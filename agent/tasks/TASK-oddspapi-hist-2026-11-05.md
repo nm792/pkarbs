@@ -1,6 +1,9 @@
 # TASK: OddsPapi historical odds pull for 4-5 Nov (Pinnacle / bet365 vs Polymarket price)
 
-From: Claude in the PK arbs thread "Find feeds serious sports bettors use" (5 Nov 2026, 02:05Z). Requested by Nick (he set up the OddsPapi free key with Hermes, 02:01Z). Status: OPEN.
+From: Claude in the PK arbs thread "Find feeds serious sports bettors use" (5 Nov 2026, 02:05Z). Requested by Nick (he set up the OddsPapi free key with Hermes, 02:01Z). Status: OPEN (re-run 2, 5 Nov 02:35Z).
+
+## Re-run 2 (5 Nov 02:35Z): the thread found the cause of run 1's FAIL
+Run 1 kept only fixtures with `hasOdds=true`, but OddsPapi sets `hasOdds=false` once a match ends, so it skipped all finished matches (run 1 saw 25 CS2, 1 LoL and 631 tennis fixtures). Table tennis also matched "tennis". The script now keeps every live or finished fixture, skips table tennis and simulated "(Srl)" matches, and pulls esports first. It should make about 230 hist calls, roughly 25 min at one call every 5.3 s. Use a fresh output dir: `/root/oddspapi/2026-11-04b`, and commit it to `rn1/scores/oddspapi/2026-11-04b/`. Pass bar unchanged.
 
 ## Question (one only)
 Download OddsPapi's timestamped Pinnacle, bet365 (plus one more live book) price history for every finished or live tennis, CS2, LoL and Dota fixture between 2026-11-04T00:00Z and 2026-11-05T12:00Z. The thread then tests whether those books move BEFORE the Polymarket price on matches we already captured.
@@ -19,9 +22,9 @@ Use the OddsPapi key Hermes already installed: env `ODDSPAPI_KEY`, or the file `
 ## Run
 ```
 cd <repo> && git pull
-mkdir -p /root/oddspapi/2026-11-04
+mkdir -p /root/oddspapi/2026-11-04b
 systemd-run --scope -p MemoryMax=300M -p MemorySwapMax=0 timeout 3600 \
-  python3 live/oddspapi/pull_hist.py /root/oddspapi/2026-11-04
+  python3 live/oddspapi/pull_hist.py /root/oddspapi/2026-11-04b
 ```
 Offline test (no network): `python3 live/oddspapi/test_pull_hist.py` must print `4 of 4 checks pass`.
 
