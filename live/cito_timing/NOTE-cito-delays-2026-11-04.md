@@ -18,3 +18,8 @@ Clock = Polymarket game-winner trades (data-api v2): first trade >= 2c from the 
 - PM sports score WS: median 12.5 s after the price (n=11).
 Verdict: Cito is no use for LoL or CS2 speed. Recommendation to Nick: cancel unless the tennis backtest finds value before the 17 Nov money-back date.
 Raw: project folder cito-timing/lol_race1_2026-11-04.jsonl.gz, lol_trades_g1.json, lol_trades_g2.json.
+
+## Against the price, all sports (5 Nov update)
+- CS2 (MOUZ v PARIVISION map 2, Mirage; Polymarket Map 2 Winner trades, move >= 1.5c): Cito 188-200 s after the price move on 6 clean rounds (median ~193 s); PM score WS median 8 s (3-29 s). 4 more rounds unmeasurable (price already >96%). Trades: project folder cito-timing/cs2_trades_mouz_prv_map2.json.
+- Tennis (tennis thread, PR #68, 9 matches / 846 points): Cito message a median 20.5 s AFTER the price starts moving (IQR 3-43 s); price-fitted point model has no predictive value left from Cito receipt (corr 0.05 vs 0.73 from price onset).
+- Written feedback for Cito: project folder cito-timing/Cito-feedback-by-sport-2026-11-05.md. Cito cancelled and refunded 5 Nov.

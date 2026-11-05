@@ -13,6 +13,7 @@ import gzip, json, os, sys, time, urllib.parse, urllib.request
 HOST = "https://api.oddspapi.io"
 UA = "pkarbs-oddspapi-hist/1.0"
 SPORT_KEYS = ("tennis", "counter", "cs2", "csgo", "league of legends", "league-of-legends", "dota")
+SKIP_SPORT = ("table",)  # table tennis matched "tennis"; skip it
 WANT_BOOKS = ["pinnacle", "bet365"]
 EXTRA_BOOKS = ["1xbet", "ggbet", "sbobet", "betway"]  # first one that exists with liveOdds
 COOLDOWN = {"historical-odds": 5.3, "fixtures": 2.2, "sports": 1.1, "bookmakers": 1.1}
@@ -77,7 +78,8 @@ def main(argv, fetch=None):
     extra = next((s for s in EXTRA_BOOKS if s in slugs and slugs[s].get("liveOdds")), None)
     blist = [b for b in WANT_BOOKS if b in slugs] + ([extra] if extra else [])
     log(out, ev="books", use=blist, missing=[b for b in WANT_BOOKS if b not in slugs])
-    chosen = [s for s in sports if any(k in (s.get("sportName", "") + " " + s.get("slug", "")).lower() for k in SPORT_KEYS)]
+    chosen = [s for s in sports if any(k in (s.get("sportName", "") + " " + s.get("slug", "")).lower() for k in SPORT_KEYS)
+              and not any(k in s.get("slug", "").lower() for k in SKIP_SPORT)]
     log(out, ev="sports", chosen=[(s["sportId"], s["slug"]) for s in chosen], n_all=len(sports))
 
     fixtures = []
@@ -86,9 +88,14 @@ def main(argv, fetch=None):
         save(os.path.join(out, f"fixtures_{s['slug']}.json.gz"), fx)
         if st != 200:
             log(out, ev="fixtures_err", sport=s["slug"], st=st, body=str(fx)[:300]); continue
-        keep = [f for f in fx if f.get("statusId") in (1, 2) and f.get("hasOdds")]
+        # Finished fixtures report hasOdds=False (live odds gone) but still have history,
+        # so keep every live/finished fixture. Skip simulated "(Srl)" matches.
+        keep = [f for f in fx if f.get("statusId") in (1, 2)
+                and "(srl)" not in (str(f.get("participant1Name")) + str(f.get("participant2Name"))).lower()]
         log(out, ev="fixtures", sport=s["slug"], n=len(fx), live_or_done_with_odds=len(keep))
         fixtures += keep
+    # esports first (fewest, most important), then tennis
+    fixtures.sort(key=lambda f: 0 if "esport" in str(f.get("sportName", "")).lower() or f.get("sportId") in (16, 17, 18) else 1)
     fixtures = fixtures[:maxfx]
 
     ok = 0

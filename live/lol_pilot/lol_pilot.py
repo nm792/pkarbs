@@ -192,6 +192,8 @@ if __name__ == '__main__':
     ap.add_argument('--share-cap', type=float, default=CFG['SHARE_CAP'])
     ap.add_argument('--match-cap', type=float, default=CFG['MATCH_CAP_USD'])
     ap.add_argument('--loss-limit', type=float, default=CFG['LOSS_LIMIT_USD'])
-    a = ap.parse_args(); CFG['HOURS'] = a.hours
+    ap.add_argument('--ack-timeout', type=float, default=0.0, help='live only: cancel an order acked later than this (s); 0 = off')
+    ap.add_argument('--max-signal-age', type=float, default=0.0, help='skip placing when the WS kill update is older than this (s); 0 = off')
+    a = ap.parse_args(); CFG['HOURS'] = a.hours; CFG['ACK_TIMEOUT'] = a.ack_timeout; CFG['MAX_SIGNAL_AGE'] = a.max_signal_age
     CFG['LOSS_LIMIT_USD'] = a.loss_limit; CFG['SHARE_CAP'] = a.share_cap; CFG['MATCH_CAP_USD'] = min(a.match_cap, a.loss_limit)
     asyncio.run(Pilot(a).main())
