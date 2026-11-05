@@ -1,0 +1,2654 @@
+{
+"nhl-col-buf-2025-10-13": {
+"sport": "nhl",
+"espn_id": "401802390"
+},
+"nhl-tb-bos-2025-10-13": {
+"sport": "nhl",
+"espn_id": "401802391"
+},
+"nhl-nsh-ott-2025-10-13": {
+"sport": "nhl",
+"espn_id": "401802392"
+},
+"nhl-wpg-nyi-2025-10-13": {
+"sport": "nhl",
+"espn_id": "401802393"
+},
+"nhl-det-tor-2025-10-13": {
+"sport": "nhl",
+"espn_id": "401802394"
+},
+"nhl-fla-phi-2025-10-13": {
+"sport": "nhl",
+"espn_id": "401802395"
+},
+"nhl-nj-cbj-2025-10-13": {
+"sport": "nhl",
+"espn_id": "401802396"
+},
+"nhl-stl-van-2025-10-13": {
+"sport": "nhl",
+"espn_id": "401802397"
+},
+"nhl-lak-min-2025-10-13": {
+"sport": "nhl",
+"espn_id": "401802398"
+},
+"nhl-utah-chi-2025-10-13": {
+"sport": "nhl",
+"espn_id": "401802399"
+},
+"nhl-nyr-tor-2025-10-16": {
+"sport": "nhl",
+"espn_id": "401802412"
+},
+"nhl-nsh-mon-2025-10-16": {
+"sport": "nhl",
+"espn_id": "401802413"
+},
+"nhl-sea-ott-2025-10-16": {
+"sport": "nhl",
+"espn_id": "401802414"
+},
+"nhl-fla-nj-2025-10-16": {
+"sport": "nhl",
+"espn_id": "401802415"
+},
+"nhl-edm-nyi-2025-10-16": {
+"sport": "nhl",
+"espn_id": "401802416"
+},
+"nhl-wpg-phi-2025-10-16": {
+"sport": "nhl",
+"espn_id": "401802417"
+},
+"nhl-col-cbj-2025-10-16": {
+"sport": "nhl",
+"espn_id": "401802418"
+},
+"nhl-van-dal-2025-10-16": {
+"sport": "nhl",
+"espn_id": "401802419"
+},
+"nhl-bos-las-2025-10-16": {
+"sport": "nhl",
+"espn_id": "401802420"
+},
+"nhl-car-ana-2025-10-16": {
+"sport": "nhl",
+"espn_id": "401802421"
+},
+"nhl-pit-lak-2025-10-16": {
+"sport": "nhl",
+"espn_id": "401802422"
+},
+"nhl-van-wsh-2025-10-19": {
+"sport": "nhl",
+"espn_id": "401802440"
+},
+"nhl-edm-det-2025-10-19": {
+"sport": "nhl",
+"espn_id": "401802441"
+},
+"nhl-ana-chi-2025-10-19": {
+"sport": "nhl",
+"espn_id": "401802442"
+},
+"nhl-bos-utah-2025-10-19": {
+"sport": "nhl",
+"espn_id": "401802443"
+},
+"nhl-min-nj-2025-10-22": {
+"sport": "nhl",
+"espn_id": "401802459"
+},
+"nhl-det-buf-2025-10-22": {
+"sport": "nhl",
+"espn_id": "401802460"
+},
+"nhl-mon-cal-2025-10-22": {
+"sport": "nhl",
+"espn_id": "401802461"
+},
+"nhl-nyi-phi-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802478"
+},
+"nhl-col-bos-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802479"
+},
+"nhl-ana-tb-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802480"
+},
+"nhl-las-fla-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802481"
+},
+"nhl-utah-min-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802482"
+},
+"nhl-buf-tor-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802483"
+},
+"nhl-stl-det-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802484"
+},
+"nhl-cbj-pit-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802485"
+},
+"nhl-ott-wsh-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802486"
+},
+"nhl-mon-van-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802487"
+},
+"nhl-lak-nsh-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802488"
+},
+"nhl-car-dal-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802489"
+},
+"nhl-edm-sea-2025-10-25": {
+"sport": "nhl",
+"espn_id": "401802490"
+},
+"nhl-pit-phi-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802501"
+},
+"nhl-cal-tor-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802502"
+},
+"nhl-cbj-buf-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802503"
+},
+"nhl-ana-fla-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802504"
+},
+"nhl-nyi-bos-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802505"
+},
+"nhl-las-car-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802506"
+},
+"nhl-tb-nsh-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802507"
+},
+"nhl-wpg-min-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802508"
+},
+"nhl-det-stl-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802509"
+},
+"nhl-wsh-dal-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802510"
+},
+"nhl-ott-chi-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802511"
+},
+"nhl-nj-col-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802512"
+},
+"nhl-utah-edm-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802513"
+},
+"nhl-nyr-van-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802514"
+},
+"nhl-mon-sea-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802515"
+},
+"nhl-lak-sj-2025-10-28": {
+"sport": "nhl",
+"espn_id": "401802516"
+},
+"nhl-col-las-2025-10-31": {
+"sport": "nhl",
+"espn_id": "401802529"
+},
+"nhl-nyi-wsh-2025-10-31": {
+"sport": "nhl",
+"espn_id": "401802530"
+},
+"nhl-det-ana-2025-10-31": {
+"sport": "nhl",
+"espn_id": "401802531"
+},
+"nhl-pit-tor-2025-11-03": {
+"sport": "nhl",
+"espn_id": "401802550"
+},
+"nhl-edm-stl-2025-11-03": {
+"sport": "nhl",
+"espn_id": "401802551"
+},
+"nhl-van-nsh-2025-11-03": {
+"sport": "nhl",
+"espn_id": "401802552"
+},
+"nhl-chi-sea-2025-11-03": {
+"sport": "nhl",
+"espn_id": "401802553"
+},
+"nhl-ott-bos-2025-11-06": {
+"sport": "nhl",
+"espn_id": "401802569"
+},
+"nhl-stl-buf-2025-11-06": {
+"sport": "nhl",
+"espn_id": "401802570"
+},
+"nhl-mon-nj-2025-11-06": {
+"sport": "nhl",
+"espn_id": "401802571"
+},
+"nhl-wsh-pit-2025-11-06": {
+"sport": "nhl",
+"espn_id": "401802572"
+},
+"nhl-min-car-2025-11-06": {
+"sport": "nhl",
+"espn_id": "401802573"
+},
+"nhl-phi-nsh-2025-11-06": {
+"sport": "nhl",
+"espn_id": "401802574"
+},
+"nhl-ana-dal-2025-11-06": {
+"sport": "nhl",
+"espn_id": "401802575"
+},
+"nhl-tb-las-2025-11-06": {
+"sport": "nhl",
+"espn_id": "401802576"
+},
+"nhl-fla-lak-2025-11-06": {
+"sport": "nhl",
+"espn_id": "401802577"
+},
+"nhl-nyr-tb-2025-11-12": {
+"sport": "nhl",
+"espn_id": "401802616"
+},
+"nhl-edm-phi-2025-11-12": {
+"sport": "nhl",
+"espn_id": "401802617"
+},
+"nhl-buf-utah-2025-11-12": {
+"sport": "nhl",
+"espn_id": "401802618"
+},
+"nhl-nj-chi-2025-11-12": {
+"sport": "nhl",
+"espn_id": "401802619"
+},
+"nhl-tb-fla-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802634"
+},
+"nhl-ana-min-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802635"
+},
+"nhl-bos-mon-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802636"
+},
+"nhl-lak-ott-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802637"
+},
+"nhl-buf-det-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802638"
+},
+"nhl-nj-wsh-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802639"
+},
+"nhl-edm-car-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802640"
+},
+"nhl-nyr-cbj-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802641"
+},
+"nhl-tor-chi-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802642"
+},
+"nhl-las-stl-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802643"
+},
+"nhl-phi-dal-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802644"
+},
+"nhl-wpg-cal-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802645"
+},
+"nhl-sj-sea-2025-11-15": {
+"sport": "nhl",
+"espn_id": "401802646"
+},
+"nhl-stl-tor-2025-11-18": {
+"sport": "nhl",
+"espn_id": "401802658"
+},
+"nhl-sea-det-2025-11-18": {
+"sport": "nhl",
+"espn_id": "401802659"
+},
+"nhl-nj-tb-2025-11-18": {
+"sport": "nhl",
+"espn_id": "401802660"
+},
+"nhl-nyi-dal-2025-11-18": {
+"sport": "nhl",
+"espn_id": "401802661"
+},
+"nhl-cbj-wpg-2025-11-18": {
+"sport": "nhl",
+"espn_id": "401802662"
+},
+"nhl-cal-chi-2025-11-18": {
+"sport": "nhl",
+"espn_id": "401802663"
+},
+"nhl-nyr-las-2025-11-18": {
+"sport": "nhl",
+"espn_id": "401802664"
+},
+"nhl-utah-sj-2025-11-18": {
+"sport": "nhl",
+"espn_id": "401802665"
+},
+"nhl-chi-buf-2025-11-21": {
+"sport": "nhl",
+"espn_id": "401802682"
+},
+"nhl-min-pit-2025-11-21": {
+"sport": "nhl",
+"espn_id": "401802683"
+},
+"nhl-car-wpg-2025-11-21": {
+"sport": "nhl",
+"espn_id": "401802684"
+},
+"nhl-bos-lak-2025-11-21": {
+"sport": "nhl",
+"espn_id": "401802685"
+},
+"nhl-phi-tb-2025-11-24": {
+"sport": "nhl",
+"espn_id": "401802704"
+},
+"nhl-det-nj-2025-11-24": {
+"sport": "nhl",
+"espn_id": "401802705"
+},
+"nhl-stl-nyr-2025-11-24": {
+"sport": "nhl",
+"espn_id": "401802706"
+},
+"nhl-cbj-wsh-2025-11-24": {
+"sport": "nhl",
+"espn_id": "401802707"
+},
+"nhl-fla-nsh-2025-11-24": {
+"sport": "nhl",
+"espn_id": "401802708"
+},
+"nhl-las-utah-2025-11-24": {
+"sport": "nhl",
+"espn_id": "401802709"
+},
+"nhl-ott-lak-2025-11-24": {
+"sport": "nhl",
+"espn_id": "401802710"
+},
+"nhl-wsh-nyi-2025-11-30": {
+"sport": "nhl",
+"espn_id": "401802753"
+},
+"nhl-ana-chi-2025-11-30": {
+"sport": "nhl",
+"espn_id": "401802754"
+},
+"nhl-cal-car-2025-11-30": {
+"sport": "nhl",
+"espn_id": "401802755"
+},
+"nhl-ott-dal-2025-11-30": {
+"sport": "nhl",
+"espn_id": "401802756"
+},
+"nhl-dal-nj-2025-12-03": {
+"sport": "nhl",
+"espn_id": "401802772"
+},
+"nhl-wpg-mon-2025-12-03": {
+"sport": "nhl",
+"espn_id": "401802773"
+},
+"nhl-buf-phi-2025-12-03": {
+"sport": "nhl",
+"espn_id": "401802774"
+},
+"nhl-utah-ana-2025-12-03": {
+"sport": "nhl",
+"espn_id": "401802775"
+},
+"nhl-wsh-sj-2025-12-03": {
+"sport": "nhl",
+"espn_id": "401802776"
+},
+"nhl-col-nyr-2025-12-06": {
+"sport": "nhl",
+"espn_id": "401802792"
+},
+"nhl-cbj-fla-2025-12-06": {
+"sport": "nhl",
+"espn_id": "401802793"
+},
+"nhl-nj-bos-2025-12-07": {
+"sport": "nhl",
+"espn_id": "401802794"
+},
+"nhl-mon-tor-2025-12-07": {
+"sport": "nhl",
+"espn_id": "401802795"
+},
+"nhl-stl-ott-2025-12-07": {
+"sport": "nhl",
+"espn_id": "401802796"
+},
+"nhl-nyi-tb-2025-12-07": {
+"sport": "nhl",
+"espn_id": "401802797"
+},
+"nhl-nsh-car-2025-12-07": {
+"sport": "nhl",
+"espn_id": "401802798"
+},
+"nhl-utah-cal-2025-12-07": {
+"sport": "nhl",
+"espn_id": "401802799"
+},
+"nhl-chi-lak-2025-12-07": {
+"sport": "nhl",
+"espn_id": "401802800"
+},
+"nhl-wpg-edm-2025-12-07": {
+"sport": "nhl",
+"espn_id": "401802801"
+},
+"nhl-min-van-2025-12-07": {
+"sport": "nhl",
+"espn_id": "401802802"
+},
+"nhl-det-sea-2025-12-07": {
+"sport": "nhl",
+"espn_id": "401802803"
+},
+"nhl-tb-mon-2025-12-10": {
+"sport": "nhl",
+"espn_id": "401802817"
+},
+"nhl-nj-ott-2025-12-10": {
+"sport": "nhl",
+"espn_id": "401802818"
+},
+"nhl-las-nyi-2025-12-10": {
+"sport": "nhl",
+"espn_id": "401802819"
+},
+"nhl-sj-phi-2025-12-10": {
+"sport": "nhl",
+"espn_id": "401802820"
+},
+"nhl-ana-pit-2025-12-10": {
+"sport": "nhl",
+"espn_id": "401802821"
+},
+"nhl-cbj-car-2025-12-10": {
+"sport": "nhl",
+"espn_id": "401802822"
+},
+"nhl-bos-stl-2025-12-10": {
+"sport": "nhl",
+"espn_id": "401802823"
+},
+"nhl-dal-wpg-2025-12-10": {
+"sport": "nhl",
+"espn_id": "401802824"
+},
+"nhl-buf-edm-2025-12-10": {
+"sport": "nhl",
+"espn_id": "401802825"
+},
+"nhl-col-nsh-2025-12-10": {
+"sport": "nhl",
+"espn_id": "401802826"
+},
+"nhl-chi-stl-2025-12-13": {
+"sport": "nhl",
+"espn_id": "401802844"
+},
+"nhl-sea-utah-2025-12-13": {
+"sport": "nhl",
+"espn_id": "401802845"
+},
+"nhl-fla-tb-2025-12-16": {
+"sport": "nhl",
+"espn_id": "401802865"
+},
+"nhl-ana-nyr-2025-12-16": {
+"sport": "nhl",
+"espn_id": "401802866"
+},
+"nhl-ott-wpg-2025-12-16": {
+"sport": "nhl",
+"espn_id": "401802867"
+},
+"nhl-nsh-stl-2025-12-16": {
+"sport": "nhl",
+"espn_id": "401802868"
+},
+"nhl-lak-dal-2025-12-16": {
+"sport": "nhl",
+"espn_id": "401802869"
+},
+"nhl-edm-bos-2025-12-18": {
+"sport": "nhl",
+"espn_id": "401802885"
+},
+"nhl-phi-buf-2025-12-18": {
+"sport": "nhl",
+"espn_id": "401802886"
+},
+"nhl-chi-mon-2025-12-18": {
+"sport": "nhl",
+"espn_id": "401802887"
+},
+"nhl-pit-ott-2025-12-18": {
+"sport": "nhl",
+"espn_id": "401802888"
+},
+"nhl-lak-tb-2025-12-18": {
+"sport": "nhl",
+"espn_id": "401802889"
+},
+"nhl-tor-wsh-2025-12-18": {
+"sport": "nhl",
+"espn_id": "401802890"
+},
+"nhl-min-cbj-2025-12-18": {
+"sport": "nhl",
+"espn_id": "401802891"
+},
+"nhl-nyr-stl-2025-12-18": {
+"sport": "nhl",
+"espn_id": "401802892"
+},
+"nhl-sea-cal-2025-12-18": {
+"sport": "nhl",
+"espn_id": "401802893"
+},
+"nhl-dal-sj-2025-12-18": {
+"sport": "nhl",
+"espn_id": "401802894"
+},
+"nhl-wsh-det-2025-12-21": {
+"sport": "nhl",
+"espn_id": "401802913"
+},
+"nhl-col-min-2025-12-21": {
+"sport": "nhl",
+"espn_id": "401802914"
+},
+"nhl-ott-bos-2025-12-21": {
+"sport": "nhl",
+"espn_id": "401802915"
+},
+"nhl-buf-nj-2025-12-21": {
+"sport": "nhl",
+"espn_id": "401802916"
+},
+"nhl-mon-pit-2025-12-21": {
+"sport": "nhl",
+"espn_id": "401802917"
+},
+"nhl-nyr-nsh-2025-12-21": {
+"sport": "nhl",
+"espn_id": "401802918"
+},
+"nhl-tor-dal-2025-12-21": {
+"sport": "nhl",
+"espn_id": "401802919"
+},
+"nhl-wpg-utah-2025-12-21": {
+"sport": "nhl",
+"espn_id": "401802920"
+},
+"nhl-las-edm-2025-12-21": {
+"sport": "nhl",
+"espn_id": "401802921"
+},
+"nhl-nyr-nyi-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802939"
+},
+"nhl-bos-buf-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802940"
+},
+"nhl-ott-tor-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802941"
+},
+"nhl-tb-fla-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802942"
+},
+"nhl-wsh-nj-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802943"
+},
+"nhl-det-car-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802944"
+},
+"nhl-min-wpg-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802945"
+},
+"nhl-nsh-stl-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802946"
+},
+"nhl-chi-dal-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802947"
+},
+"nhl-ana-lak-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802948"
+},
+"nhl-edm-cal-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802949"
+},
+"nhl-sj-van-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802950"
+},
+"nhl-col-las-2025-12-27": {
+"sport": "nhl",
+"espn_id": "401802951"
+},
+"nhl-nj-tor-2025-12-30": {
+"sport": "nhl",
+"espn_id": "401802968"
+},
+"nhl-mon-fla-2025-12-30": {
+"sport": "nhl",
+"espn_id": "401802969"
+},
+"nhl-car-pit-2025-12-30": {
+"sport": "nhl",
+"espn_id": "401802970"
+},
+"nhl-nyi-chi-2025-12-30": {
+"sport": "nhl",
+"espn_id": "401802971"
+},
+"nhl-phi-van-2025-12-30": {
+"sport": "nhl",
+"espn_id": "401802972"
+},
+"nhl-las-stl-2026-01-02": {
+"sport": "nhl",
+"espn_id": "401802991"
+},
+"nhl-nyr-fla-2026-01-02": {
+"sport": "nhl",
+"espn_id": "401802992"
+},
+"nhl-sea-van-2026-01-02": {
+"sport": "nhl",
+"espn_id": "401802993"
+},
+"nhl-min-ana-2026-01-02": {
+"sport": "nhl",
+"espn_id": "401802994"
+},
+"nhl-utah-nyr-2026-01-05": {
+"sport": "nhl",
+"espn_id": "401803013"
+},
+"nhl-ana-wsh-2026-01-05": {
+"sport": "nhl",
+"espn_id": "401803014"
+},
+"nhl-det-ott-2026-01-05": {
+"sport": "nhl",
+"espn_id": "401803015"
+},
+"nhl-sea-cal-2026-01-05": {
+"sport": "nhl",
+"espn_id": "401803016"
+},
+"nhl-min-lak-2026-01-05": {
+"sport": "nhl",
+"espn_id": "401803017"
+},
+"nhl-cal-bos-2026-01-08": {
+"sport": "nhl",
+"espn_id": "401803033"
+},
+"nhl-fla-mon-2026-01-08": {
+"sport": "nhl",
+"espn_id": "401803034"
+},
+"nhl-van-det-2026-01-08": {
+"sport": "nhl",
+"espn_id": "401803035"
+},
+"nhl-buf-nyr-2026-01-08": {
+"sport": "nhl",
+"espn_id": "401803036"
+},
+"nhl-tor-phi-2026-01-08": {
+"sport": "nhl",
+"espn_id": "401803037"
+},
+"nhl-nj-pit-2026-01-08": {
+"sport": "nhl",
+"espn_id": "401803038"
+},
+"nhl-ana-car-2026-01-08": {
+"sport": "nhl",
+"espn_id": "401803039"
+},
+"nhl-nyi-nsh-2026-01-08": {
+"sport": "nhl",
+"espn_id": "401803040"
+},
+"nhl-edm-wpg-2026-01-08": {
+"sport": "nhl",
+"espn_id": "401803041"
+},
+"nhl-ott-col-2026-01-08": {
+"sport": "nhl",
+"espn_id": "401803042"
+},
+"nhl-cbj-las-2026-01-08": {
+"sport": "nhl",
+"espn_id": "401803043"
+},
+"nhl-min-sea-2026-01-08": {
+"sport": "nhl",
+"espn_id": "401803044"
+},
+"nhl-nj-wpg-2026-01-11": {
+"sport": "nhl",
+"espn_id": "401803062"
+},
+"nhl-pit-bos-2026-01-11": {
+"sport": "nhl",
+"espn_id": "401803063"
+},
+"nhl-wsh-nsh-2026-01-11": {
+"sport": "nhl",
+"espn_id": "401803064"
+},
+"nhl-cbj-utah-2026-01-11": {
+"sport": "nhl",
+"espn_id": "401803065"
+},
+"nhl-las-sj-2026-01-11": {
+"sport": "nhl",
+"espn_id": "401803066"
+},
+"nhl-sea-nj-2026-01-14": {
+"sport": "nhl",
+"espn_id": "401803086"
+},
+"nhl-phi-buf-2026-01-14": {
+"sport": "nhl",
+"espn_id": "401803087"
+},
+"nhl-ott-nyr-2026-01-14": {
+"sport": "nhl",
+"espn_id": "401803088"
+},
+"nhl-las-lak-2026-01-14": {
+"sport": "nhl",
+"espn_id": "401803089"
+},
+"nhl-min-buf-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803105"
+},
+"nhl-nyr-phi-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803106"
+},
+"nhl-nyi-cal-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803107"
+},
+"nhl-sea-utah-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803108"
+},
+"nhl-mon-ott-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803109"
+},
+"nhl-car-nj-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803110"
+},
+"nhl-cbj-pit-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803111"
+},
+"nhl-fla-wsh-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803112"
+},
+"nhl-tor-wpg-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803113"
+},
+"nhl-bos-chi-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803114"
+},
+"nhl-edm-van-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803115"
+},
+"nhl-nsh-las-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803116"
+},
+"nhl-lak-ana-2026-01-17": {
+"sport": "nhl",
+"espn_id": "401803117"
+},
+"nhl-min-mon-2026-01-20": {
+"sport": "nhl",
+"espn_id": "401803131"
+},
+"nhl-sj-tb-2026-01-20": {
+"sport": "nhl",
+"espn_id": "401803132"
+},
+"nhl-ott-cbj-2026-01-20": {
+"sport": "nhl",
+"espn_id": "401803133"
+},
+"nhl-bos-dal-2026-01-20": {
+"sport": "nhl",
+"espn_id": "401803134"
+},
+"nhl-buf-nsh-2026-01-20": {
+"sport": "nhl",
+"espn_id": "401803135"
+},
+"nhl-stl-wpg-2026-01-20": {
+"sport": "nhl",
+"espn_id": "401803136"
+},
+"nhl-nj-edm-2026-01-20": {
+"sport": "nhl",
+"espn_id": "401803137"
+},
+"nhl-nyr-lak-2026-01-20": {
+"sport": "nhl",
+"espn_id": "401803138"
+},
+"nhl-las-tor-2026-01-23": {
+"sport": "nhl",
+"espn_id": "401803153"
+},
+"nhl-tb-chi-2026-01-23": {
+"sport": "nhl",
+"espn_id": "401803154"
+},
+"nhl-stl-dal-2026-01-23": {
+"sport": "nhl",
+"espn_id": "401803155"
+},
+"nhl-phi-col-2026-01-23": {
+"sport": "nhl",
+"espn_id": "401803156"
+},
+"nhl-wsh-cal-2026-01-23": {
+"sport": "nhl",
+"espn_id": "401803157"
+},
+"nhl-nj-van-2026-01-23": {
+"sport": "nhl",
+"espn_id": "401803158"
+},
+"nhl-nyr-sj-2026-01-23": {
+"sport": "nhl",
+"espn_id": "401803159"
+},
+"nhl-ana-sea-2026-01-23": {
+"sport": "nhl",
+"espn_id": "401803160"
+},
+"nhl-utah-tb-2026-01-26": {
+"sport": "nhl",
+"espn_id": "401803176"
+},
+"nhl-bos-nyr-2026-01-26": {
+"sport": "nhl",
+"espn_id": "401803177"
+},
+"nhl-nyi-phi-2026-01-26": {
+"sport": "nhl",
+"espn_id": "401803178"
+},
+"nhl-ana-edm-2026-01-26": {
+"sport": "nhl",
+"espn_id": "401803180"
+},
+"nhl-phi-bos-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803194"
+},
+"nhl-lak-buf-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803195"
+},
+"nhl-col-mon-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803196"
+},
+"nhl-wsh-det-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803197"
+},
+"nhl-wpg-tb-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803198"
+},
+"nhl-nsh-nj-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803199"
+},
+"nhl-nyi-nyr-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803200"
+},
+"nhl-chi-pit-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803201"
+},
+"nhl-utah-car-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803202"
+},
+"nhl-fla-stl-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803203"
+},
+"nhl-cal-min-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803204"
+},
+"nhl-sj-edm-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803205"
+},
+"nhl-ana-van-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803206"
+},
+"nhl-dal-las-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803207"
+},
+"nhl-tor-sea-2026-01-29": {
+"sport": "nhl",
+"espn_id": "401803208"
+},
+"nhl-bos-tb-2026-02-01": {
+"sport": "nhl",
+"espn_id": "401803224"
+},
+"nhl-lak-car-2026-02-01": {
+"sport": "nhl",
+"espn_id": "401803225"
+},
+"nhl-las-ana-2026-02-01": {
+"sport": "nhl",
+"espn_id": "401803226"
+},
+"nhl-bos-fla-2026-02-04": {
+"sport": "nhl",
+"espn_id": "401803244"
+},
+"nhl-chi-cbj-2026-02-04": {
+"sport": "nhl",
+"espn_id": "401803245"
+},
+"nhl-mon-wpg-2026-02-04": {
+"sport": "nhl",
+"espn_id": "401803246"
+},
+"nhl-min-nsh-2026-02-04": {
+"sport": "nhl",
+"espn_id": "401803247"
+},
+"nhl-sj-col-2026-02-04": {
+"sport": "nhl",
+"espn_id": "401803248"
+},
+"nhl-det-utah-2026-02-04": {
+"sport": "nhl",
+"espn_id": "401803249"
+},
+"nhl-stl-dal-2026-02-04": {
+"sport": "nhl",
+"espn_id": "401803250"
+},
+"nhl-edm-cal-2026-02-04": {
+"sport": "nhl",
+"espn_id": "401803251"
+},
+"nhl-van-las-2026-02-04": {
+"sport": "nhl",
+"espn_id": "401803252"
+},
+"nhl-sea-lak-2026-02-04": {
+"sport": "nhl",
+"espn_id": "401803253"
+},
+"nhl-buf-nj-2026-02-25": {
+"sport": "nhl",
+"espn_id": "401803261"
+},
+"nhl-phi-wsh-2026-02-25": {
+"sport": "nhl",
+"espn_id": "401803262"
+},
+"nhl-tor-tb-2026-02-25": {
+"sport": "nhl",
+"espn_id": "401803263"
+},
+"nhl-sea-dal-2026-02-25": {
+"sport": "nhl",
+"espn_id": "401803264"
+},
+"nhl-col-utah-2026-02-25": {
+"sport": "nhl",
+"espn_id": "401803265"
+},
+"nhl-wpg-van-2026-02-25": {
+"sport": "nhl",
+"espn_id": "401803266"
+},
+"nhl-las-lak-2026-02-25": {
+"sport": "nhl",
+"espn_id": "401803267"
+},
+"nhl-edm-ana-2026-02-25": {
+"sport": "nhl",
+"espn_id": "401803268"
+},
+"nhl-pit-nyr-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803285"
+},
+"nhl-bos-phi-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803286"
+},
+"nhl-edm-sj-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803287"
+},
+"nhl-nyi-cbj-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803288"
+},
+"nhl-chi-col-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803289"
+},
+"nhl-ott-tor-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803290"
+},
+"nhl-wsh-mon-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803291"
+},
+"nhl-buf-tb-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803292"
+},
+"nhl-det-car-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803293"
+},
+"nhl-nj-stl-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803294"
+},
+"nhl-cal-lak-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803295"
+},
+"nhl-nsh-dal-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803296"
+},
+"nhl-van-sea-2026-02-28": {
+"sport": "nhl",
+"espn_id": "401803297"
+},
+"nhl-pit-bos-2026-03-03": {
+"sport": "nhl",
+"espn_id": "401803310"
+},
+"nhl-las-buf-2026-03-03": {
+"sport": "nhl",
+"espn_id": "401803311"
+},
+"nhl-fla-nj-2026-03-03": {
+"sport": "nhl",
+"espn_id": "401803312"
+},
+"nhl-utah-wsh-2026-03-03": {
+"sport": "nhl",
+"espn_id": "401803313"
+},
+"nhl-nsh-cbj-2026-03-03": {
+"sport": "nhl",
+"espn_id": "401803314"
+},
+"nhl-chi-wpg-2026-03-03": {
+"sport": "nhl",
+"espn_id": "401803315"
+},
+"nhl-dal-cal-2026-03-03": {
+"sport": "nhl",
+"espn_id": "401803316"
+},
+"nhl-ott-edm-2026-03-03": {
+"sport": "nhl",
+"espn_id": "401803317"
+},
+"nhl-tb-min-2026-03-03": {
+"sport": "nhl",
+"espn_id": "401803318"
+},
+"nhl-col-ana-2026-03-03": {
+"sport": "nhl",
+"espn_id": "401803319"
+},
+"nhl-mon-sj-2026-03-03": {
+"sport": "nhl",
+"espn_id": "401803320"
+},
+"nhl-fla-det-2026-03-06": {
+"sport": "nhl",
+"espn_id": "401803334"
+},
+"nhl-col-dal-2026-03-06": {
+"sport": "nhl",
+"espn_id": "401803335"
+},
+"nhl-van-chi-2026-03-06": {
+"sport": "nhl",
+"espn_id": "401803336"
+},
+"nhl-car-edm-2026-03-06": {
+"sport": "nhl",
+"espn_id": "401803337"
+},
+"nhl-mon-ana-2026-03-06": {
+"sport": "nhl",
+"espn_id": "401803338"
+},
+"nhl-min-las-2026-03-06": {
+"sport": "nhl",
+"espn_id": "401803339"
+},
+"nhl-stl-sj-2026-03-06": {
+"sport": "nhl",
+"espn_id": "401803340"
+},
+"nhl-nyr-phi-2026-03-09": {
+"sport": "nhl",
+"espn_id": "401803359"
+},
+"nhl-cal-wsh-2026-03-09": {
+"sport": "nhl",
+"espn_id": "401803360"
+},
+"nhl-utah-chi-2026-03-09": {
+"sport": "nhl",
+"espn_id": "401803361"
+},
+"nhl-ott-van-2026-03-09": {
+"sport": "nhl",
+"espn_id": "401803362"
+},
+"nhl-sj-bos-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803378"
+},
+"nhl-wsh-buf-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803379"
+},
+"nhl-ana-tor-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803380"
+},
+"nhl-det-tb-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803381"
+},
+"nhl-cbj-fla-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803382"
+},
+"nhl-cal-nj-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803383"
+},
+"nhl-stl-car-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803384"
+},
+"nhl-edm-dal-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803385"
+},
+"nhl-phi-min-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803386"
+},
+"nhl-nyr-wpg-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803387"
+},
+"nhl-chi-utah-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803388"
+},
+"nhl-nsh-van-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803389"
+},
+"nhl-pit-las-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803390"
+},
+"nhl-col-sea-2026-03-12": {
+"sport": "nhl",
+"espn_id": "401803391"
+},
+"nhl-stl-wpg-2026-03-15": {
+"sport": "nhl",
+"espn_id": "401803408"
+},
+"nhl-sj-ott-2026-03-15": {
+"sport": "nhl",
+"espn_id": "401803409"
+},
+"nhl-ana-mon-2026-03-15": {
+"sport": "nhl",
+"espn_id": "401803410"
+},
+"nhl-tor-min-2026-03-15": {
+"sport": "nhl",
+"espn_id": "401803411"
+},
+"nhl-nsh-edm-2026-03-15": {
+"sport": "nhl",
+"espn_id": "401803412"
+},
+"nhl-fla-sea-2026-03-15": {
+"sport": "nhl",
+"espn_id": "401803413"
+},
+"nhl-nj-nyr-2026-03-18": {
+"sport": "nhl",
+"espn_id": "401803428"
+},
+"nhl-pit-car-2026-03-18": {
+"sport": "nhl",
+"espn_id": "401803429"
+},
+"nhl-ott-wsh-2026-03-18": {
+"sport": "nhl",
+"espn_id": "401803430"
+},
+"nhl-dal-col-2026-03-18": {
+"sport": "nhl",
+"espn_id": "401803431"
+},
+"nhl-stl-cal-2026-03-18": {
+"sport": "nhl",
+"espn_id": "401803432"
+},
+"nhl-phi-ana-2026-03-18": {
+"sport": "nhl",
+"espn_id": "401803433"
+},
+"nhl-wpg-pit-2026-03-21": {
+"sport": "nhl",
+"espn_id": "401803450"
+},
+"nhl-las-nsh-2026-03-21": {
+"sport": "nhl",
+"espn_id": "401803451"
+},
+"nhl-dal-min-2026-03-21": {
+"sport": "nhl",
+"espn_id": "401803452"
+},
+"nhl-buf-lak-2026-03-21": {
+"sport": "nhl",
+"espn_id": "401803453"
+},
+"nhl-phi-sj-2026-03-21": {
+"sport": "nhl",
+"espn_id": "401803454"
+},
+"nhl-sea-cbj-2026-03-21": {
+"sport": "nhl",
+"espn_id": "401803455"
+},
+"nhl-nyi-mon-2026-03-21": {
+"sport": "nhl",
+"espn_id": "401803456"
+},
+"nhl-tor-ott-2026-03-21": {
+"sport": "nhl",
+"espn_id": "401803457"
+},
+"nhl-stl-van-2026-03-21": {
+"sport": "nhl",
+"espn_id": "401803458"
+},
+"nhl-bos-det-2026-03-21": {
+"sport": "nhl",
+"espn_id": "401803459"
+},
+"nhl-tb-edm-2026-03-21": {
+"sport": "nhl",
+"espn_id": "401803460"
+},
+"nhl-tor-bos-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803471"
+},
+"nhl-car-mon-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803472"
+},
+"nhl-ott-det-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803473"
+},
+"nhl-sea-fla-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803474"
+},
+"nhl-chi-nyi-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803475"
+},
+"nhl-cbj-phi-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803476"
+},
+"nhl-col-pit-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803477"
+},
+"nhl-min-tb-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803478"
+},
+"nhl-wsh-stl-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803479"
+},
+"nhl-sj-nsh-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803480"
+},
+"nhl-nj-dal-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803481"
+},
+"nhl-las-wpg-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803482"
+},
+"nhl-edm-utah-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803483"
+},
+"nhl-lak-cal-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803484"
+},
+"nhl-ana-van-2026-03-24": {
+"sport": "nhl",
+"espn_id": "401803485"
+},
+"nhl-det-buf-2026-03-27": {
+"sport": "nhl",
+"espn_id": "401803501"
+},
+"nhl-chi-nyr-2026-03-27": {
+"sport": "nhl",
+"espn_id": "401803502"
+},
+"nhl-pit-nyi-2026-03-30": {
+"sport": "nhl",
+"espn_id": "401803524"
+},
+"nhl-cal-col-2026-03-30": {
+"sport": "nhl",
+"espn_id": "401803525"
+},
+"nhl-van-las-2026-03-30": {
+"sport": "nhl",
+"espn_id": "401803526"
+},
+"nhl-tor-ana-2026-03-30": {
+"sport": "nhl",
+"espn_id": "401803527"
+},
+"nhl-stl-sj-2026-03-30": {
+"sport": "nhl",
+"espn_id": "401803528"
+},
+"nhl-buf-ott-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803542"
+},
+"nhl-pit-tb-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803543"
+},
+"nhl-bos-fla-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803544"
+},
+"nhl-wsh-nj-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803545"
+},
+"nhl-mon-nyr-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803546"
+},
+"nhl-det-phi-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803547"
+},
+"nhl-cbj-car-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803548"
+},
+"nhl-wpg-dal-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803549"
+},
+"nhl-van-min-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803550"
+},
+"nhl-chi-edm-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803551"
+},
+"nhl-cal-las-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803552"
+},
+"nhl-tor-sj-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803553"
+},
+"nhl-utah-sea-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803554"
+},
+"nhl-nsh-lak-2026-04-02": {
+"sport": "nhl",
+"espn_id": "401803555"
+},
+"nhl-min-det-2026-04-05": {
+"sport": "nhl",
+"espn_id": "401803573"
+},
+"nhl-fla-pit-2026-04-05": {
+"sport": "nhl",
+"espn_id": "401803574"
+},
+"nhl-bos-phi-2026-04-05": {
+"sport": "nhl",
+"espn_id": "401803575"
+},
+"nhl-car-ott-2026-04-05": {
+"sport": "nhl",
+"espn_id": "401803576"
+},
+"nhl-nj-mon-2026-04-05": {
+"sport": "nhl",
+"espn_id": "401803577"
+},
+"nhl-wsh-nyr-2026-04-05": {
+"sport": "nhl",
+"espn_id": "401803578"
+},
+"nhl-stl-col-2026-04-05": {
+"sport": "nhl",
+"espn_id": "401803579"
+},
+"nhl-buf-nyr-2026-04-08": {
+"sport": "nhl",
+"espn_id": "401803595"
+},
+"nhl-wsh-tor-2026-04-08": {
+"sport": "nhl",
+"espn_id": "401803596"
+},
+"nhl-edm-sj-2026-04-08": {
+"sport": "nhl",
+"espn_id": "401803597"
+},
+"nhl-tb-bos-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803612"
+},
+"nhl-ott-nyi-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803613"
+},
+"nhl-wsh-pit-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803614"
+},
+"nhl-edm-lak-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803615"
+},
+"nhl-nj-det-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803616"
+},
+"nhl-stl-chi-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803617"
+},
+"nhl-min-nsh-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803618"
+},
+"nhl-nyr-dal-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803619"
+},
+"nhl-car-utah-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803620"
+},
+"nhl-fla-tor-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803621"
+},
+"nhl-cbj-mon-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803622"
+},
+"nhl-phi-wpg-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803623"
+},
+"nhl-cal-sea-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803624"
+},
+"nhl-las-col-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803625"
+},
+"nhl-van-sj-2026-04-11": {
+"sport": "nhl",
+"espn_id": "401803626"
+},
+"nhl-nj-bos-2026-04-14": {
+"sport": "nhl",
+"espn_id": "401803643"
+},
+"nhl-car-nyi-2026-04-14": {
+"sport": "nhl",
+"espn_id": "401803644"
+},
+"nhl-mon-phi-2026-04-14": {
+"sport": "nhl",
+"espn_id": "401803645"
+},
+"nhl-wsh-cbj-2026-04-14": {
+"sport": "nhl",
+"espn_id": "401803646"
+},
+"nhl-ana-min-2026-04-14": {
+"sport": "nhl",
+"espn_id": "401803647"
+},
+"nhl-wpg-utah-2026-04-14": {
+"sport": "nhl",
+"espn_id": "401803648"
+},
+"nhl-col-cal-2026-04-14": {
+"sport": "nhl",
+"espn_id": "401803649"
+},
+"nhl-pit-stl-2026-04-14": {
+"sport": "nhl",
+"espn_id": "401803650"
+},
+"nhl-lak-van-2026-04-14": {
+"sport": "nhl",
+"espn_id": "401803651"
+},
+"nhl-chi-buf-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401891776"
+},
+"nhl-sea-cal-2026-10-01": {
+"sport": "nhl",
+"espn_id": "401891777"
+},
+"nhl-fla-ana-2026-10-04": {
+"sport": "nhl",
+"espn_id": "401891778"
+},
+"nhl-stl-chi-2026-10-06": {
+"sport": "nhl",
+"espn_id": "401891779"
+},
+"nhl-buf-cbj-2026-10-01": {
+"sport": "nhl",
+"espn_id": "401891781"
+},
+"nhl-stl-dal-2026-10-02": {
+"sport": "nhl",
+"espn_id": "401891782"
+},
+"nhl-nyr-det-2026-10-02": {
+"sport": "nhl",
+"espn_id": "401891803"
+},
+"nhl-min-fla-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401891805"
+},
+"nhl-fla-lak-2026-10-06": {
+"sport": "nhl",
+"espn_id": "401891806"
+},
+"nhl-mon-wpg-2026-10-25": {
+"sport": "nhl",
+"espn_id": "401891807"
+},
+"nhl-bos-min-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401891814"
+},
+"nhl-car-mon-2026-10-06": {
+"sport": "nhl",
+"espn_id": "401891815"
+},
+"nhl-min-nsh-2026-10-01": {
+"sport": "nhl",
+"espn_id": "401891816"
+},
+"nhl-phi-nj-2026-10-01": {
+"sport": "nhl",
+"espn_id": "401891817"
+},
+"nhl-nj-nyi-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401891818"
+},
+"nhl-tb-nyr-2026-10-01": {
+"sport": "nhl",
+"espn_id": "401891819"
+},
+"nhl-phi-ott-2026-10-08": {
+"sport": "nhl",
+"espn_id": "401891820"
+},
+"nhl-mon-pit-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401891822"
+},
+"nhl-fla-sj-2026-10-01": {
+"sport": "nhl",
+"espn_id": "401891823"
+},
+"nhl-cal-sea-2026-10-04": {
+"sport": "nhl",
+"espn_id": "401891824"
+},
+"nhl-sj-stl-2026-10-08": {
+"sport": "nhl",
+"espn_id": "401891825"
+},
+"nhl-wsh-tb-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401891826"
+},
+"nhl-chi-utah-2026-10-01": {
+"sport": "nhl",
+"espn_id": "401891828"
+},
+"nhl-edm-van-2026-10-01": {
+"sport": "nhl",
+"espn_id": "401891829"
+},
+"nhl-pit-wsh-2026-10-07": {
+"sport": "nhl",
+"espn_id": "401891830"
+},
+"nhl-bos-wpg-2026-10-02": {
+"sport": "nhl",
+"espn_id": "401891831"
+},
+"nhl-wsh-car-2026-10-02": {
+"sport": "nhl",
+"espn_id": "401892432"
+},
+"nhl-ana-las-2026-10-02": {
+"sport": "nhl",
+"espn_id": "401892433"
+},
+"nhl-ott-tor-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401892434"
+},
+"nhl-car-phi-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401892435"
+},
+"nhl-utah-cbj-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401892436"
+},
+"nhl-sea-edm-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401892437"
+},
+"nhl-dal-nsh-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401892438"
+},
+"nhl-stl-col-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401892439"
+},
+"nhl-cal-van-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401892440"
+},
+"nhl-lak-sj-2026-10-03": {
+"sport": "nhl",
+"espn_id": "401892441"
+},
+"nhl-wpg-det-2026-10-04": {
+"sport": "nhl",
+"espn_id": "401892442"
+},
+"nhl-utah-nyr-2026-10-04": {
+"sport": "nhl",
+"espn_id": "401892443"
+},
+"nhl-las-van-2026-10-04": {
+"sport": "nhl",
+"espn_id": "401892444"
+},
+"nhl-phi-tb-2026-10-05": {
+"sport": "nhl",
+"espn_id": "401892445"
+},
+"nhl-ott-bos-2026-10-05": {
+"sport": "nhl",
+"espn_id": "401892446"
+},
+"nhl-wpg-pit-2026-10-05": {
+"sport": "nhl",
+"espn_id": "401892447"
+},
+"nhl-sj-dal-2026-10-05": {
+"sport": "nhl",
+"espn_id": "401892448"
+},
+"nhl-nsh-tor-2026-10-06": {
+"sport": "nhl",
+"espn_id": "401892449"
+},
+"nhl-ott-det-2026-10-06": {
+"sport": "nhl",
+"espn_id": "401892450"
+},
+"nhl-utah-nj-2026-10-06": {
+"sport": "nhl",
+"espn_id": "401892451"
+},
+"nhl-nyi-nyr-2026-10-06": {
+"sport": "nhl",
+"espn_id": "401892452"
+},
+"nhl-min-buf-2026-10-06": {
+"sport": "nhl",
+"espn_id": "401892453"
+},
+"nhl-las-sea-2026-10-06": {
+"sport": "nhl",
+"espn_id": "401892454"
+},
+"nhl-col-wpg-2026-10-07": {
+"sport": "nhl",
+"espn_id": "401892455"
+},
+"nhl-edm-ana-2026-10-07": {
+"sport": "nhl",
+"espn_id": "401892456"
+},
+"nhl-utah-bos-2026-10-08": {
+"sport": "nhl",
+"espn_id": "401892457"
+},
+"nhl-dal-buf-2026-10-08": {
+"sport": "nhl",
+"espn_id": "401892458"
+},
+"nhl-nsh-mon-2026-10-08": {
+"sport": "nhl",
+"espn_id": "401892459"
+},
+"nhl-min-tb-2026-10-08": {
+"sport": "nhl",
+"espn_id": "401892460"
+},
+"nhl-van-car-2026-10-08": {
+"sport": "nhl",
+"espn_id": "401892461"
+},
+"nhl-chi-nyi-2026-10-08": {
+"sport": "nhl",
+"espn_id": "401892462"
+},
+"nhl-col-cal-2026-10-08": {
+"sport": "nhl",
+"espn_id": "401892463"
+},
+"nhl-tor-las-2026-10-08": {
+"sport": "nhl",
+"espn_id": "401892464"
+},
+"nhl-sea-det-2026-10-09": {
+"sport": "nhl",
+"espn_id": "401892465"
+},
+"nhl-nyr-wsh-2026-10-09": {
+"sport": "nhl",
+"espn_id": "401892466"
+},
+"nhl-pit-cbj-2026-10-09": {
+"sport": "nhl",
+"espn_id": "401892467"
+},
+"nhl-ana-wpg-2026-10-09": {
+"sport": "nhl",
+"espn_id": "401892468"
+},
+"nhl-phi-bos-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892469"
+},
+"nhl-van-nj-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892470"
+},
+"nhl-edm-sj-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892471"
+},
+"nhl-utah-buf-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892472"
+},
+"nhl-det-mon-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892473"
+},
+"nhl-nsh-ott-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892474"
+},
+"nhl-dal-pit-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892475"
+},
+"nhl-car-chi-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892476"
+},
+"nhl-cbj-stl-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892477"
+},
+"nhl-tor-col-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892478"
+},
+"nhl-tb-nyi-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892479"
+},
+"nhl-ana-cal-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892480"
+},
+"nhl-lak-las-2026-10-10": {
+"sport": "nhl",
+"espn_id": "401892481"
+},
+"nhl-sea-wsh-2026-10-11": {
+"sport": "nhl",
+"espn_id": "401892482"
+},
+"nhl-van-nyr-2026-10-11": {
+"sport": "nhl",
+"espn_id": "401892483"
+},
+"nhl-car-phi-2026-10-11": {
+"sport": "nhl",
+"espn_id": "401892484"
+},
+"nhl-fla-buf-2026-10-12": {
+"sport": "nhl",
+"espn_id": "401892485"
+},
+"nhl-ott-nj-2026-10-12": {
+"sport": "nhl",
+"espn_id": "401892486"
+},
+"nhl-las-min-2026-10-12": {
+"sport": "nhl",
+"espn_id": "401892487"
+},
+"nhl-nj-det-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892488"
+},
+"nhl-fla-cbj-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892489"
+},
+"nhl-buf-mon-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892490"
+},
+"nhl-wsh-car-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892491"
+},
+"nhl-sea-phi-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892492"
+},
+"nhl-tb-nyr-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892493"
+},
+"nhl-stl-ott-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892494"
+},
+"nhl-van-nyi-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892495"
+},
+"nhl-pit-chi-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892496"
+},
+"nhl-min-wpg-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892497"
+},
+"nhl-col-dal-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892498"
+},
+"nhl-las-nsh-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892499"
+},
+"nhl-tor-utah-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892500"
+},
+"nhl-cal-ana-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892501"
+},
+"nhl-edm-lak-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892502"
+},
+"nhl-bos-sj-2026-10-13": {
+"sport": "nhl",
+"espn_id": "401892503"
+},
+"nhl-mon-wsh-2026-10-14": {
+"sport": "nhl",
+"espn_id": "401892504"
+},
+"nhl-dal-col-2026-10-14": {
+"sport": "nhl",
+"espn_id": "401892505"
+},
+"nhl-buf-tor-2026-10-15": {
+"sport": "nhl",
+"espn_id": "401892506"
+},
+"nhl-nyi-ott-2026-10-15": {
+"sport": "nhl",
+"espn_id": "401892507"
+},
+"nhl-phi-det-2026-10-15": {
+"sport": "nhl",
+"espn_id": "401892508"
+},
+"nhl-sea-tb-2026-10-15": {
+"sport": "nhl",
+"espn_id": "401892509"
+},
+"nhl-van-fla-2026-10-15": {
+"sport": "nhl",
+"espn_id": "401892510"
+},
+"nhl-nyr-nj-2026-10-15": {
+"sport": "nhl",
+"espn_id": "401892511"
+},
+"nhl-wpg-chi-2026-10-15": {
+"sport": "nhl",
+"espn_id": "401892512"
+},
+"nhl-sj-nsh-2026-10-15": {
+"sport": "nhl",
+"espn_id": "401892513"
+},
+"nhl-stl-min-2026-10-15": {
+"sport": "nhl",
+"espn_id": "401892514"
+},
+"nhl-utah-edm-2026-10-15": {
+"sport": "nhl",
+"espn_id": "401892515"
+},
+"nhl-cal-las-2026-10-15": {
+"sport": "nhl",
+"espn_id": "401892516"
+},
+"nhl-pit-col-2026-10-16": {
+"sport": "nhl",
+"espn_id": "401892517"
+},
+"nhl-bos-ana-2026-10-16": {
+"sport": "nhl",
+"espn_id": "401892518"
+},
+"nhl-nj-wsh-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892519"
+},
+"nhl-car-wpg-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892520"
+},
+"nhl-van-tb-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892521"
+},
+"nhl-sea-fla-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892522"
+},
+"nhl-nyi-tor-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892523"
+},
+"nhl-buf-mon-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892524"
+},
+"nhl-sj-det-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892525"
+},
+"nhl-ott-phi-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892526"
+},
+"nhl-nyr-cbj-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892527"
+},
+"nhl-dal-chi-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892528"
+},
+"nhl-stl-nsh-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892529"
+},
+"nhl-bos-lak-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892530"
+},
+"nhl-edm-utah-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892531"
+},
+"nhl-pit-las-2026-10-17": {
+"sport": "nhl",
+"espn_id": "401892532"
+},
+"nhl-cbj-min-2026-10-18": {
+"sport": "nhl",
+"espn_id": "401892533"
+},
+"nhl-car-cal-2026-10-18": {
+"sport": "nhl",
+"espn_id": "401892534"
+},
+"nhl-ana-nyr-2026-10-19": {
+"sport": "nhl",
+"espn_id": "401892535"
+},
+"nhl-col-phi-2026-10-19": {
+"sport": "nhl",
+"espn_id": "401892536"
+},
+"nhl-sj-tor-2026-10-19": {
+"sport": "nhl",
+"espn_id": "401892537"
+},
+"nhl-pit-utah-2026-10-19": {
+"sport": "nhl",
+"espn_id": "401892538"
+},
+"nhl-sj-mon-2026-10-20": {
+"sport": "nhl",
+"espn_id": "401892539"
+},
+"nhl-col-nj-2026-10-20": {
+"sport": "nhl",
+"espn_id": "401892540"
+},
+"nhl-ana-nyi-2026-10-20": {
+"sport": "nhl",
+"espn_id": "401892541"
+},
+"nhl-lak-wsh-2026-10-20": {
+"sport": "nhl",
+"espn_id": "401892542"
+},
+"nhl-tor-cbj-2026-10-20": {
+"sport": "nhl",
+"espn_id": "401892543"
+},
+"nhl-wpg-stl-2026-10-20": {
+"sport": "nhl",
+"espn_id": "401892544"
+},
+"nhl-bos-dal-2026-10-20": {
+"sport": "nhl",
+"espn_id": "401892545"
+},
+"nhl-min-edm-2026-10-20": {
+"sport": "nhl",
+"espn_id": "401892546"
+},
+"nhl-det-sea-2026-10-20": {
+"sport": "nhl",
+"espn_id": "401892547"
+},
+"nhl-car-van-2026-10-20": {
+"sport": "nhl",
+"espn_id": "401892548"
+},
+"nhl-tb-las-2026-10-20": {
+"sport": "nhl",
+"espn_id": "401892549"
+},
+"nhl-phi-buf-2026-10-21": {
+"sport": "nhl",
+"espn_id": "401892550"
+},
+"nhl-fla-ott-2026-10-21": {
+"sport": "nhl",
+"espn_id": "401892551"
+},
+"nhl-nsh-bos-2026-10-22": {
+"sport": "nhl",
+"espn_id": "401892552"
+},
+"nhl-nyr-tor-2026-10-22": {
+"sport": "nhl",
+"espn_id": "401892553"
+},
+"nhl-sj-ott-2026-10-22": {
+"sport": "nhl",
+"espn_id": "401892554"
+},
+"nhl-ana-nj-2026-10-22": {
+"sport": "nhl",
+"espn_id": "401892555"
+},
+"nhl-fla-pit-2026-10-22": {
+"sport": "nhl",
+"espn_id": "401892556"
+},
+"nhl-lak-nyi-2026-10-22": {
+"sport": "nhl",
+"espn_id": "401892557"
+},
+"nhl-las-stl-2026-10-22": {
+"sport": "nhl",
+"espn_id": "401892558"
+},
+"nhl-wpg-dal-2026-10-22": {
+"sport": "nhl",
+"espn_id": "401892559"
+},
+"nhl-min-cal-2026-10-22": {
+"sport": "nhl",
+"espn_id": "401892560"
+},
+"nhl-car-edm-2026-10-22": {
+"sport": "nhl",
+"espn_id": "401892561"
+},
+"nhl-utah-sea-2026-10-22": {
+"sport": "nhl",
+"espn_id": "401892562"
+},
+"nhl-det-van-2026-10-22": {
+"sport": "nhl",
+"espn_id": "401892563"
+},
+"nhl-mon-chi-2026-10-23": {
+"sport": "nhl",
+"espn_id": "401892564"
+},
+"nhl-tb-col-2026-10-23": {
+"sport": "nhl",
+"espn_id": "401892565"
+},
+"nhl-ana-phi-2026-10-24": {
+"sport": "nhl",
+"espn_id": "401892566"
+},
+"nhl-lak-nj-2026-10-24": {
+"sport": "nhl",
+"espn_id": "401892567"
+},
+"nhl-sj-bos-2026-10-24": {
+"sport": "nhl",
+"espn_id": "401892568"
+},
+"nhl-nyr-ott-2026-10-24": {
+"sport": "nhl",
+"espn_id": "401892569"
+},
+"nhl-nsh-pit-2026-10-24": {
+"sport": "nhl",
+"espn_id": "401892570"
+},
+"nhl-buf-wsh-2026-10-24": {
+"sport": "nhl",
+"espn_id": "401892571"
+},
+"nhl-las-cbj-2026-10-24": {
+"sport": "nhl",
+"espn_id": "401892572"
+},
+"nhl-car-stl-2026-10-24": {
+"sport": "nhl",
+"espn_id": "401892573"
+},
+"nhl-tor-edm-2026-10-24": {
+"sport": "nhl",
+"espn_id": "401892574"
+},
+"nhl-tb-utah-2026-10-24": {
+"sport": "nhl",
+"espn_id": "401892575"
+},
+"nhl-det-cal-2026-10-24": {
+"sport": "nhl",
+"espn_id": "401892576"
+},
+"nhl-min-sea-2026-10-24": {
+"sport": "nhl",
+"espn_id": "401892577"
+},
+"nhl-fla-chi-2026-10-25": {
+"sport": "nhl",
+"espn_id": "401892578"
+},
+"nhl-nyi-dal-2026-10-25": {
+"sport": "nhl",
+"espn_id": "401892579"
+},
+"nhl-col-nsh-2026-10-25": {
+"sport": "nhl",
+"espn_id": "401892580"
+},
+"nhl-min-van-2026-10-25": {
+"sport": "nhl",
+"espn_id": "401892581"
+},
+"nhl-lak-nyr-2026-10-26": {
+"sport": "nhl",
+"espn_id": "401892582"
+},
+"nhl-tor-cal-2026-10-26": {
+"sport": "nhl",
+"espn_id": "401892583"
+},
+"nhl-det-edm-2026-10-26": {
+"sport": "nhl",
+"espn_id": "401892584"
+},
+"nhl-cbj-phi-2026-10-27": {
+"sport": "nhl",
+"espn_id": "401892585"
+},
+"nhl-bos-car-2026-10-27": {
+"sport": "nhl",
+"espn_id": "401892586"
+},
+"nhl-lak-chi-2026-10-27": {
+"sport": "nhl",
+"espn_id": "401892587"
+},
+"nhl-mon-stl-2026-10-27": {
+"sport": "nhl",
+"espn_id": "401892588"
+},
+"nhl-nyi-nsh-2026-10-27": {
+"sport": "nhl",
+"espn_id": "401892589"
+},
+"nhl-nj-dal-2026-10-27": {
+"sport": "nhl",
+"espn_id": "401892590"
+},
+"nhl-fla-wpg-2026-10-27": {
+"sport": "nhl",
+"espn_id": "401892591"
+},
+"nhl-min-utah-2026-10-27": {
+"sport": "nhl",
+"espn_id": "401892592"
+},
+"nhl-ott-las-2026-10-27": {
+"sport": "nhl",
+"espn_id": "401892593"
+},
+"nhl-van-ana-2026-10-27": {
+"sport": "nhl",
+"espn_id": "401892594"
+},
+"nhl-buf-sj-2026-10-27": {
+"sport": "nhl",
+"espn_id": "401892595"
+},
+"nhl-phi-wsh-2026-10-28": {
+"sport": "nhl",
+"espn_id": "401892596"
+},
+"nhl-cal-edm-2026-10-28": {
+"sport": "nhl",
+"espn_id": "401892597"
+},
+"nhl-nj-col-2026-10-28": {
+"sport": "nhl",
+"espn_id": "401892598"
+},
+"nhl-tor-sea-2026-10-28": {
+"sport": "nhl",
+"espn_id": "401892599"
+},
+"nhl-chi-det-2026-10-29": {
+"sport": "nhl",
+"espn_id": "401892600"
+},
+"nhl-wpg-tb-2026-10-29": {
+"sport": "nhl",
+"espn_id": "401892601"
+},
+"nhl-utah-pit-2026-10-29": {
+"sport": "nhl",
+"espn_id": "401892602"
+},
+"nhl-cbj-car-2026-10-29": {
+"sport": "nhl",
+"espn_id": "401892603"
+},
+"nhl-bos-stl-2026-10-29": {
+"sport": "nhl",
+"espn_id": "401892604"
+},
+"nhl-wsh-nsh-2026-10-29": {
+"sport": "nhl",
+"espn_id": "401892605"
+},
+"nhl-mon-dal-2026-10-29": {
+"sport": "nhl",
+"espn_id": "401892606"
+},
+"nhl-nyi-min-2026-10-29": {
+"sport": "nhl",
+"espn_id": "401892607"
+},
+"nhl-buf-ana-2026-10-29": {
+"sport": "nhl",
+"espn_id": "401892608"
+},
+"nhl-ott-lak-2026-10-29": {
+"sport": "nhl",
+"espn_id": "401892609"
+},
+"nhl-van-sj-2026-10-29": {
+"sport": "nhl",
+"espn_id": "401892610"
+},
+"nhl-nj-las-2026-10-30": {
+"sport": "nhl",
+"espn_id": "401892611"
+},
+"nhl-wpg-fla-2026-10-30": {
+"sport": "nhl",
+"espn_id": "401892612"
+},
+"nhl-sea-cal-2026-10-30": {
+"sport": "nhl",
+"espn_id": "401892613"
+},
+"nhl-chi-bos-2026-10-31": {
+"sport": "nhl",
+"espn_id": "401892614"
+},
+"nhl-stl-det-2026-10-31": {
+"sport": "nhl",
+"espn_id": "401892615"
+},
+"nhl-tb-nsh-2026-10-31": {
+"sport": "nhl",
+"espn_id": "401892616"
+},
+"nhl-edm-nyi-2026-10-31": {
+"sport": "nhl",
+"espn_id": "401892617"
+},
+"nhl-buf-lak-2026-10-31": {
+"sport": "nhl",
+"espn_id": "401892618"
+},
+"nhl-ott-sj-2026-10-31": {
+"sport": "nhl",
+"espn_id": "401892619"
+},
+"nhl-pit-mon-2026-10-31": {
+"sport": "nhl",
+"espn_id": "401892620"
+},
+"nhl-tor-van-2026-10-31": {
+"sport": "nhl",
+"espn_id": "401892621"
+},
+"nhl-cbj-dal-2026-10-31": {
+"sport": "nhl",
+"espn_id": "401892622"
+},
+"nhl-cal-col-2026-10-31": {
+"sport": "nhl",
+"espn_id": "401892623"
+},
+"nhl-wpg-car-2026-11-01": {
+"sport": "nhl",
+"espn_id": "401892624"
+},
+"nhl-min-wsh-2026-11-01": {
+"sport": "nhl",
+"espn_id": "401892625"
+},
+"nhl-utah-phi-2026-11-01": {
+"sport": "nhl",
+"espn_id": "401892626"
+},
+"nhl-edm-nyr-2026-11-01": {
+"sport": "nhl",
+"espn_id": "401892627"
+},
+"nhl-ott-ana-2026-11-01": {
+"sport": "nhl",
+"espn_id": "401892628"
+},
+"nhl-las-bos-2026-11-02": {
+"sport": "nhl",
+"espn_id": "401892629"
+},
+"nhl-det-fla-2026-11-02": {
+"sport": "nhl",
+"espn_id": "401892630"
+},
+"nhl-col-chi-2026-11-02": {
+"sport": "nhl",
+"espn_id": "401892631"
+},
+"nhl-cal-sj-2026-11-02": {
+"sport": "nhl",
+"espn_id": "401892632"
+},
+"nhl-utah-tor-2026-11-03": {
+"sport": "nhl",
+"espn_id": "401892633"
+},
+"nhl-wpg-mon-2026-11-03": {
+"sport": "nhl",
+"espn_id": "401892634"
+},
+"nhl-det-tb-2026-11-03": {
+"sport": "nhl",
+"espn_id": "401892635"
+},
+"nhl-edm-nj-2026-11-03": {
+"sport": "nhl",
+"espn_id": "401892636"
+},
+"nhl-stl-nyr-2026-11-03": {
+"sport": "nhl",
+"espn_id": "401892637"
+},
+"nhl-min-phi-2026-11-03": {
+"sport": "nhl",
+"espn_id": "401892638"
+},
+"nhl-las-pit-2026-11-03": {
+"sport": "nhl",
+"espn_id": "401892639"
+},
+"nhl-dal-wsh-2026-11-03": {
+"sport": "nhl",
+"espn_id": "401892640"
+},
+"nhl-col-cbj-2026-11-03": {
+"sport": "nhl",
+"espn_id": "401892641"
+},
+"nhl-car-nsh-2026-11-03": {
+"sport": "nhl",
+"espn_id": "401892642"
+},
+"nhl-ana-van-2026-11-03": {
+"sport": "nhl",
+"espn_id": "401892643"
+}
+}
