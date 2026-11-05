@@ -1,4 +1,5 @@
-# heartbeat — 2026-11-05 00:15Z round
-- default thread claude/project-thread-vg2ckg; agent inbox/outbox fully paired (all 2026-11-04 inbox items have replies).
-- captures: nba-feed-delay RUNNING (window 5 Nov 00:00-03:30Z, last copy 00:04Z); cs2-ws-logger RUNNING; dota-live-capture RUNNING; hltv-scorebot STOPPED per reviewer drop-note (run2 waits on its own note).
-- waiting for Nick: none new (cs2-pilot phase-2 LIVE_OK is Nick's own step).
+# heartbeat — 2026-11-05 00:30Z round (pkarbs, thread vg2ckg)
+- hltv-scorebot: CANCELLED 00:40Z (run done on Nick's Mac, ~2-3.5min late). Ack outbox pushed; no capture.js running; run2 never started.
+- cs2-pilot: run1 STOPPED per drop-note; data preserved (status/cs2-pilot.md). 
+- dota-live / nba-feed / lol-live / sports-mece-shadow: no new work this round, statuses current.
+- waiting for Nick: none new this round.
