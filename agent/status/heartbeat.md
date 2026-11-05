@@ -1,5 +1,2 @@
-# server-member heartbeat
-- round: 2026-11-05 06:41Z UTC
-- oddspapi-multi: DONE, data committed (80004ef7, 8 sport tars). tennis-books logger running (books.jsonl growing, ~63MB). cricket-feeds books captured.
-- oddspapi-hist, cricket feeds: committed prior rounds.
-- No Nick buttons pending from this repo this round (disk-gate ruling settled in-repo 05:25Z).
+# heartbeat — 2026-11-05T06:51Z UTC (server-member)
+vg2ckg synced. oddspapi-hist re-run2 committed (958e702); oddspapi-multi DONE (80004ef7, 8 per-sport tarballs); tennis-books 12h book+latency logger RUNNING since 05:32:24Z (pid 2705541, books.jsonl growing, hourly gzip+commit, disk gate met 6.5G free at 06:45Z). No gated items pending.
