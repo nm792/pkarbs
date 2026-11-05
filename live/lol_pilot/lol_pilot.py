@@ -59,7 +59,41 @@ def game_jump(p_home, dk_home):
     return sig(logit(p_home) + KILLS_BETA * dk_home) - p_home
 
 
+_aget0 = BASE.aget
+RTT = {}                       # last round-trip (s) per host, for the speed report
+
+
+async def _aget_timed(url, body=None):
+    t0 = time.time()
+    try: return await _aget0(url, body)
+    finally:
+        RTT[url.split('/')[2]] = round(time.time() - t0, 3)
+BASE.aget = _aget_timed        # base methods call BASE.aget at runtime, so they are timed too
+
+
 class Pilot(BASE.Pilot):
+    """Speed measurement (Nick 5 Nov 02:20Z, dry only until he sees it): every book poll is saved to OUT/books.jsonl
+    (top 10 bids of each token = full ladder at 1 s, plus the poll round trip), so each paper bid's queue ahead and
+    later fills can be rebuilt; every window/order row carries ws_recv, decided and poll RTT timestamps."""
+    def __init__(s, a):
+        super().__init__(a)
+        s.bookf = open(os.path.join(s.out, 'books.jsonl'), 'a', buffering=1)
+
+    async def manage(s, m, T):
+        if m.book:
+            row = dict(t=round(T, 3), gid=m.gid, kind=m.kind, rtt=RTT.get('clob.polymarket.com'), mid=m.mid())
+            for i, b in m.book.items():
+                bb, ba, lv = b
+                row[f'b{i}'] = sorted(((p, q) for p, q in (lv or {}).items()), reverse=True)[:10]
+                row[f'ask{i}'] = ba
+            s.bookf.write(json.dumps(row) + '\n')
+        w = m.window
+        if w is not None and 'first_manage' not in w:
+            w['first_manage'] = T
+            s.log('decision', eid=w['eid'], kind=m.kind, ws_recv=w['R'], first_book_after_ws=round(T - w['R'], 3),
+                  rtt_clob=RTT.get('clob.polymarket.com'))
+        await super().manage(m, T)
+
     async def discover(s):
         smin = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(BASE.now() - 14 * 86400)); evs = []
         for off in range(0, 1000, 100):
