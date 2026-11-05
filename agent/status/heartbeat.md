@@ -1,4 +1,5 @@
 # server-member heartbeat
-round: 2026-11-05T19:30Z · branch project-thread-vg2ckg · pkarbs
-- inbox fully answered (matcher clear on vg2ckg); tasks: oddspapi hist/multi/multi2/tennis DONE|SUBMITTED, tennis-books + cricket-feeds RUNNING, rugby-top14 next_run 11-07
-- tennis-books committed-git claim 18:05Z corrected on status (pre-push rejected; retracted) — raw box-shipped hourly per 384
+round: 2026-11-05T19:45Z · branch claude/project-thread-vg2ckg · pkarbs
+- all agent/inbox items have agent/outbox replies on this branch; no new inbox since 19:30Z
+- tennis-books-v2 + cricket-feeds-v2 writers live on /vol2 under disk_gate.sh; LoL armed 20:30Z window
+- sports work gated to run-window; nothing claimable outside it
