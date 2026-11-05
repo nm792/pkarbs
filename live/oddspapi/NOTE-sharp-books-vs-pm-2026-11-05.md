@@ -32,3 +32,13 @@ Per-match tennis peaks (corr > 0.1): Pinnacle median +2 s, 2 of 50 matches at >=
 
 ## To reach 9/10
 Repeat with 1 s PM books for tennis (log books for 20+ matches) and 10+ CS2/LoL matches.
+
+## Addendum (5 Nov 04:25Z): is a 2 s lead enough? Direct test with Pinnacle/bet365 as the trigger
+Nick: "why do we need 5-10 seconds and not 2?" Script `winmodels/tennis/hist/pin_trigger.py`, output `out_pin_trigger.json`.
+- **Where the 5-10 s came from.** It was partly data and partly my wording. The trade-based tennis delay curve (1,895 matches, NOTE-sports-adv-and-delay-curves section 5) gives $3.97/match 5 s before the price onset, $1.99 at onset, $1.29 at +2 s and ~$0 at +5 s, as an upper bound (oracle side, no queue). So the data says value exists only up to about the onset. "5-10 s before" overstated what is needed; "at or before onset" is right.
+- **Lead vs PM price onset (measured, same onset definition):** Pinnacle steps of 1.5pp or more come a median 2.4 s before the PM onset (IQR -0.2 to 7.6 s; first 74% of the time; 2,387 steps on 50 matches). bet365 comes 0.8 s before (IQR -8.4 to 7.4; first 54% of the time).
+- **Backtest (book step = trigger and side; bid PM mid x 0.975 from trigger + latency, while PM hasn't caught up; trade-based fills, queue ignored = optimistic; held to result):**
+  - Pinnacle, bid lives 10 s: latency 0.5 s gives $1.76/match (90% -$4.0 to +$9.9; 10 of 50 matches filled; ex-top-5 -99%). 1.5 s gives -$1.22. 3 s gives -$0.08. 5 s gives -$4.86.
+  - Pinnacle, bid lives 30 s: -$4.9 to -$17/match at every latency.
+  - bet365, 10 s: 0.5 s $5.55 (90% -$9.0 to +$23.4), 1.5 s -$0.24, 3 s +$2.41, 5 s -$3.45; ex-top-5 -99% throughout. 30 s: about $0 or negative.
+- **Verdict:** a 2 s lead is real but not enough to make money. Fills at market - 2.5% are $2-16/match, and every result range spans zero (the best is ~$1.8/match = ~$110/day at 61 matches/day, all from 5 matches). Live access needs OddsPapi's paid B2B WebSocket, and realistic latency (1.5 s+) is negative. No tennis order books were recorded, so queue position is not modelled; that makes these numbers optimistic. Confidence 6/10.
