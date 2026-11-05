@@ -1,4 +1,5 @@
-# heartbeat — 2026-11-05 01:30Z round (pkarbs, claude/project-thread-vg2ckg)
-- NBA feed-delay capture RUNNING (window 5 Nov 00:00-03:30Z games, exits 06:45Z). Last copy 01:06Z: 730 espn_plays / 880 nba_actions / 455 polls / 11 log, 2076 total; poll storm 29 (403/429) ok. This round's chunk (01:06Z) committed.
-- Cs2-ws-logger carries the Polymarket side through 06:45Z.
-- waiting for Nick: none.
+# heartbeat 2026-11-05T01:52:10Z — pkarbs (vg2ckg)
+
+- cricket-feeds: RUNNING since 01:51:47Z (unit cricket-feeds.service), books/markets growing; WBBL window 04:40–08:00Z
+- nba capture, cs2-ws-logger, hltv-scorebot: running/committed per prior status
+- no new reviewer asks beyond cricket-feeds start nudge (answered)
