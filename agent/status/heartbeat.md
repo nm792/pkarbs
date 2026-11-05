@@ -1,5 +1,7 @@
 # pkarbs server-member heartbeat
-Round 2026-11-05T17:15Z (UTC):
-- Pause lifted 14:1xZ; LoL/cricket/tennis writers restarted on /vol2 per charter 383; raw shipped hourly, nothing raw committed.
-- Inbox 2026-11-05 all answered (combined-slug outbox replies on thread aih58c). No new unanswered inbox/TASK this round.
-- Waiting-on-Nick: none.
+Round 2026-11-05T17:30Z (UTC):
+- Cricket-feeds FINAL snapshot 17:30Z pushed (4ac4a25b) + outbox reply (e0f3a31e) on claude/project-thread-aih58c. Capture still running for results resolution.
+- LoL / cricket / tennis capture on /vol2; oddspapi-multi + tennis-books running (disk gate met). Inbox 2026-11-05 answered (prior rounds); no new open work this round beyond cricket final snapshot.
+- Waiting-on-Nick: none in pkarbs this round (disk gates governed by CHARTER 383; 05:25Z ruling was last).
+
+no IPs / hosts / keys.
