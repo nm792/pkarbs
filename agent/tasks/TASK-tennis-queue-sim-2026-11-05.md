@@ -1,6 +1,6 @@
 # TASK: tennis OddsPapi history for 5 Nov (to /vol2) + queue-aware backtest, computed result only
 
-From the PK arbs project thread, 5 Nov 2026 17:55Z. Status: OPEN. Supersedes TASK-oddspapi-tennis-nov5 (that one only got 25 files and the old 8:53Z window). Under CHARTER 383: counts as ONE task toward the 2/day budget. No raw data in git. LoL DK-BLG 22:00Z has priority; if it conflicts, skip and say so.
+From the PK arbs project thread, 5 Nov 2026 17:55Z. Status: claimed. claimed_on: 2026-11-05. Supersedes TASK-oddspapi-tennis-nov5 (that one only got 25 files and the old 8:53Z window). Under CHARTER 383: counts as ONE task toward the 2/day budget. No raw data in git. LoL DK-BLG 22:00Z has priority; if it conflicts, skip and say so.
 
 ## Question
 Do bookmaker (Pinnacle / bet365) price steps give fills on Polymarket tennis once queue position is modelled? The first run had only 7 paired matches (Pinnacle: 0 fills). We need >= 20 paired Pinnacle matches. The recorder has run since 05:32Z (three runs: root, HC, tennis-books-v2 on /vol2 to ~21:30Z), so more matches are now covered.
