@@ -8,3 +8,5 @@
 - files: /root/cricket-feeds/2026-11-05/{books,markets,espn,log}.jsonl (all growing at 01:52Z)
 - hourly share commit -> rn1/scores/cricket/feeds-2026-11-05/
 - ends ~17:15Z (timeout 58000) or self-stop
+
+snapshot 05:31Z: committed rn1/scores/cricket/feeds-2026-11-05/ (books.jsonl.gz 1.79MB + espn/sports/log/markets/espn_hdr) live; hourly cadence on until ~17:15Z

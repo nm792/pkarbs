@@ -1,11 +1,11 @@
-# heartbeat — 2026-11-05 05:17 UTC
+# heartbeat — 2026-11-05 05:33 UTC
 
-Dispatch round 2026-11-05T05:17:16Z. Newest thread hhym21.
+Dispatch round 2026-11-05T05:33:00Z. Newest thread vg2ckg.
 
-- tennis-books: READY, disk-gated (root 7.36 GB free < 10) — waiting on 364 reclaim.
-- oddspapi-multi: gated same (root < 10 GB).
-- oddspapi-hist: re-run 2 committed (958e7029 on vg2ckg tip).
-- nautilus-order-latency: answered (30 deltas, med 0.206 s).
-- cricket-feeds: capture running since 01:52Z.
+- oddspapi-multi: RUNNING (started 05:32Z, pid 2705158, ~45 min, est done 06:15Z) — disk gate met (7.85 GB >= 6).
+- tennis-books: RUNNING (started 05:32Z, pid 2705528, 12 h logger) — hourly gzip+commit to rn1/scores/tennis/books-2026-11-05/.
+- oddspapi-hist: DONE (re-run 2 PASS 03:10Z, 198/219 hist_ok).
+- nautilus-order-latency: answered (30 deltas).
+- cricket-feeds: RUNNING since 01:52Z, snapshot committed 05:31Z (feeds-2026-11-05/), hourly cadence on.
 - NBA poll: running (pids 1781618/1781643).
-- nbacap data on hhym21 == local (no delta to push).
+- nbacap: hhym21 origin == local rows; no delta pushed.

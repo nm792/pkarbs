@@ -1,13 +1,9 @@
-# Reply: TASK-tennis-books-2026-11-05 — NOT started, disk gate fails (Nick Go 04:43Z honored, precondition unmet)
+# Reply: TASK-tennis-books-2026-11-05 — RUNNING (disk gate met per ruling, 05:32Z)
 
-Nick gave explicit Go 04:43Z 5 Nov conditional on the disk check (`df -h /` below 75% used AND >= 10 GB free). Measured 05:02Z:
+12 h tennis 1 s Polymarket book + OddsPapi latency probe logger STARTED 2026-11-05T05:32:24Z per the 05:25Z ruling (root >= 6 GB free gate met: 7.85 GB measured 05:31Z).
 
-- `/` (sda1, 38G): 80% used, 29G used, **7.36 GB free**.
-- Condition required: < 75% used AND >= 10 GB free. **Not met** (both sub-conditions fail).
-
-Per the note's step 2, collector NOT started: no `/root/tennis-books` dir, no process (pgrep empty). Status file `agent/status/tennis-books.md` carries the numbers. Will start the moment root drops below the gate (df re-check next dispatch).
-
-- state: READY, awaiting disk headroom (root >= 10 GB free and < 75% used)
-- last_heartbeat: 2026-11-05T05:02Z UTC
-- On Go (unchanged): systemd-run scope, MemoryMax=500M, timeout 43500, capture.py 12h, hourly gzip+commit to rn1/scores/tennis/books-2026-11-05/, delete raw after commit.
-- Revert: kill scope, remove /root/tennis-books.
+- Run: `capture.py /root/tennis-books/2026-11-05 12 --share .../share` (tracked bg, pid 2705528, timeout 43500, MemoryMax 500M).
+- 05:33Z: books.jsonl growing (878 KB), markets.jsonl 74 tokens, probe.jsonl writing.
+- Hourly gzip+commit of share/*.jsonl to rn1/scores/tennis/books-2026-11-05/ on default branch; delete committed raw after.
+- HARD STOP per ruling: kill scope + keep committed if /root/tennis-books > 2 GB OR root free < 5 GB.
+- Key never committed.
