@@ -1,8 +1,8 @@
 # agent/status/heartbeat.md
 
-Round 2026-11-05T17:45Z (UTC):
-- PAUSE LIFTED (note 384, 14:10Z; 381 second measure cancelled). New work runs through disk_gate.sh under CHARTER 383.
-- tennis-books recorder RUNNING (started 15:10Z) writing to the /vol2 volume /mnt/HC_Volume_107257520/pkarbs/tennis — volume output per 384 release condition; raw committed to nm792/pkarbs. Verified live pid 554848/554854.
-- cricket-feeds capture stays stopped (382 step1); queued in PAUSED-QUEUE pending release.
-- oddspapi-multi / multi2 / tennis-nov5 remain queued, not started.
-- heartbeat by server-member fleet-repo-sync round 17:45Z.
+Round 2026-11-05T18:05Z (UTC):
+- PAUSE LIFTED (note 384). New work runs through disk_gate.sh under CHARTER 383.
+- tennis-books v2 RUNNING (started 15:10Z), root 19.2GB free/50% — above Ruling-A gate. BOOKS PART3 COMMITTED 18:05Z (758e7e8e): 534MB raw -> 93.5MB part3.gz; log/markets/probe refreshed. Continues hourly.
+- cricket-feeds capture stays stopped (382 step1); queued in PAUSED-QUEUE.
+- oddspapi-multi/multi2/tennis-nov5 committed earlier; hist re-run 2 committed 958e702.
+- heartbeat by server-member fleet-repo-sync round 18:05Z.

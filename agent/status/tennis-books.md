@@ -1,8 +1,10 @@
 # status: tennis-books (TASK-tennis-books-2026-11-05)
-state: STOPPED (HARD-STOP 2026-11-05T12:18Z)
-reason: root free 4.9G < 5.0G hard-stop (ruling-disk-gate 05:25Z + Nick 04:43Z). Scope killed, data kept committed.
-last commit: 6a2f3b6d 12:18Z - books split 2 parts (part1 41MB, part2 70MB; single gz 109MB >100MB GH limit), 965,778 rows. log/markets/probe .gz committed.
-raw files: /root/tennis-books/2026-11-05/share/*.raw deleted per delete-after-commit ruling; raw books.jsonl (766MB) reclaimed.
-df at stop: / 4.9G free / 88% used. tennis-books dir was 1.5G.
-next: do NOT restart unless a new reviewer note clears disk. cricket-feeds still running separately.
-last heartbeat: 2026-11-05T12:18Z UTC
+state: RUNNING (Ruling-A restart 2026-11-05T15:10:36Z)
+reason: Ruling-disk-gate (05:25Z) gate = root >=6GB free at start; root now 19.2GB free/50% used — GO. Nick 04:43Z "run if clear" + tennis-books-go note.
+unit: tennis-books-v2.service (systemd-run, idle:timeout 22800, MemoryMax 500M), pid 554848/554854, started 15:10:36Z.
+hard stop: kill scope + keep committed if /root/tennis-books >2GB OR root free <5GB. Both clear.
+last commit: 758e7e8e 18:05Z - books.jsonl.part3.gz (93.5MB single part, 15:10-18:05Z run), log/markets/probe .gz refreshed.
+raw files: /mnt/HC_Volume_107257520/pkarbs/tennis/2026-11-05/share/books.jsonl (534MB, growing); gzipped parts committed to origin, raw kept locally until next commit-delete.
+df at 18:05Z: / 19.2GB free / 50% used (via /dev/sda1).
+next: continue hourly gz+commit; delete committed raw after each commit; stop per hard-stop rules.
+last heartbeat: 2026-11-05T18:05Z UTC
