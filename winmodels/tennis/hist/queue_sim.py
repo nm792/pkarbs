@@ -9,7 +9,9 @@ import sys, os, json, gzip, glob, re, bisect, datetime as dt, math
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.dirname(os.path.dirname(HERE))); sys.path.insert(0, HERE)
 import common as C
-OP, BF, MF = sys.argv[1:4]
+OP, BF, MF = sys.argv[1:4]      # BF, MF: comma-separated lists of books / markets files
+if os.environ.get('PK_RAW'): C.RAW = os.environ['PK_RAW']      # keep the trades cache off the repo/root disk
+OUT = os.environ.get('OUT', f'{HERE}/out_queue_sim.json')
 STEP = 0.015; W = 5; CAP = 500; D = 0.025
 ACKS = [3.795, .157, .124, .086, 3.576, .222, 1.281, 1.585, .106, .084, .087, .089, .106, .145, .279, .555, .206, .414, .153, .206, .119, .314, .206, .088, .243, .312, .089, .291, .867, .084]
 ts = lambda s: dt.datetime.fromisoformat(s.replace('Z', '+00:00')).timestamp()
@@ -17,10 +19,15 @@ toks = lambda s: [w for w in re.sub(r'[^a-z ]', ' ', s.lower().replace(',', ' ')
 def same(a, b):
     A, B = set(toks(a)), set(toks(b)); return bool(A & B)
 mk = {}
-for l in open(MF) if MF.endswith('l') else gzip.open(MF, 'rt'):
-    r = json.loads(l); mk[r['cond']] = r
+def lines(fn):
+    return gzip.open(fn, 'rt') if fn.endswith('.gz') else open(fn)
+for fn in MF.split(','):
+    for l in lines(fn):
+        try: r = json.loads(l)
+        except Exception: continue
+        mk[r['cond']] = r
 snaps = {}      # token -> (times list, [(bids dict, asks dict)])
-for l in gzip.open(BF, 'rt'):
+for l in (l for fn in BF.split(',') for l in lines(fn)):
     try: r = json.loads(l)
     except Exception: continue
     s = snaps.setdefault(r['tk'], ([], []))
@@ -121,4 +128,4 @@ for bk in ('pinnacle', 'bet365'):
             net = np.array([p[2] for p in P0]); rr = np.random.default_rng(0); bs = [rr.choice(net, len(net)).sum() / len(net) for _ in range(2000)]
             k['ci90_boot'] = [round(float(np.percentile(bs, 5)), 2), round(float(np.percentile(bs, 95)), 2)]
         out[f'{bk} | {name}'] = k; print(bk, name, k, flush=True)
-json.dump(out, open(f'{HERE}/out_queue_sim.json', 'w'), indent=1)
+json.dump(out, open(OUT, 'w'), indent=1)
