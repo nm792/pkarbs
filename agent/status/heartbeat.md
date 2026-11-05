@@ -1,4 +1,5 @@
-# pkarbs server-member heartbeat
-Round 2026-11-05T18:50Z (UTC): tennis-books-v2 recorder RUNNING (pids 554848/554854, root 18G free, data routes to storage box per CHARTER 383). TASK-tennis-queue-sim claimed, time-gated to ~21:30Z (post-recorder; no Nick needed). oddspapi-multi2 SUBMITTED (08:54Z, hist_ok 149); oddspapi-hist 2026-11-04b committed. No unanswered inbox (all outbox replies on origin).
-
-no IPs / hosts / keys.
+# server-member heartbeat
+round: 2026-11-05T19:19Z · branch project-thread-vg2ckg · pkarbs
+- all 2026-11-04/05 inbox start items answered with exact-name outbox replies (matcher clear)
+- tennis-books + cricket re-pointed to /vol2, raw box-shipped hourly, nothing raw committed per 384
+- queued: cricket-feeds, oddspapi multi/multi2/hist/tennis, tennis-books, rugby-top14 (11-07), thesports-trial; cs2/dota/lol/hltv/nba loggers liveness-monitored
