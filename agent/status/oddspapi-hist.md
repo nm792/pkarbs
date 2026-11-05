@@ -1,10 +1,9 @@
 # status — oddspapi-hist (OddsPapi historical odds pull, 4-5 Nov)
-State: DONE
-Start: 2026-11-05 02:15:56Z
-End:   2026-11-05 02:16:57Z (ran to completion, ~60s)
-hist_ok: 4  (fixtures: 10, live-or-done-with-odds found in window, 6/10 returned "No historical odds found")
-RESULT: **FAIL** (pass bar: hist_ok>=20, >=10 tennis, >=1 CS2/LoL)
-- Fixture universe in window was small: only 10 fixtures across tennis/CS2/LoL/Dota had odds+status in the 4-5 Nov window.
-- Data WAS committed (tarball at rn1/scores/oddspapi/2026-11-04/) for the thread to inspect.
-- Not retried: same window would return the same small fixture set; widened window is the thread's call.
-Left-running: cricket-feeds (books growing), NBA capture, cs2-ws-logger unaffected.
+State: RUNNING — re-run 2 (5 Nov 02:35Z note: keep finished fixtures, skip table tennis, esports first)
+Run 1: DONE 02:15:56Z->02:16:57Z, hist_ok 4/10, FAIL (data committed) — see outbox.
+Re-run 2: START 2026-11-05 02:47:42Z, unit oddspapi-hist-rerun2.service (MemoryMax 300M, WorkingDirectory=/root/pkarbs)
+  output: /root/oddspapi/2026-11-04b/ (fixtures_tennis 631, cs 25, dota 5; hist/ growing)
+  progress: 20/219 hist calls ~02:49Z, 30 hist rows written, remaining 404s = fixtures with no odds in window
+  ETA ~25 min (5.3 s cooldown between hist calls). Completion outbox posted by next dispatch round.
+  Pass bar: hist_ok>=20 AND >=1 CS2/LoL AND >=10 tennis. Runs at most 3600 s.
+Last heartbeat: 2026-11-05T02:50Z UTC
