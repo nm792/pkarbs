@@ -41,3 +41,11 @@ Caveat: the margin-variance model (params.json) was fit on 2025-26 ESPN score pa
 - Outputs: out_nba_delay_curve.json, out_nba_delay_hist.json, out_ws_vs_espn.json
 
 Confidence 7/10. The sign at 0-5 s is firm on 429 games. Size is optimistic because it assumes first in queue (LoL queue check suggests fills may be overstated), and the 2026 sample disagrees held to result.
+
+## Live feed delays, 5 Nov 00:00-02:50Z (added 5 Nov 02:55Z; live_delay.py, sandbox poll of 10 games)
+Every figure is measured against the NBA official `timeActual` (ms) of the play that set each new score.
+- **Polymarket sports WS: median 5.8 s** (p10 3.6 s; n 24 on the same games tonight). This matches the 5.5 s from 3 Nov (n 1,743), so it is the fastest free feed.
+- **NBA liveData S3 play-by-play: median 8.3 s** (p10 4.3, p25 6.0, p75 10.9; n 582 score changes, 10 games). The file is republished every ~8-22 s and reaches us ~0.2 s after its Last-Modified time. On the same scores it is a median 3.1 s behind the PM WS, and ahead of it only 25% of the time.
+- **ESPN summary API: median 37.8 s** (p10 24.7, p90 56.4; n 610). Too slow. This is why its historical wallclock looks "true time" while its live delivery is not.
+- Verdict: the best free feed is the PM sports WS at ~5.5 s, the 5 s row of the curve: **~+$17.5/game held, ~$125/day (sim, 500 cap, first in queue)**. The 0-2 s rows (+$33-40/game) need a sub-2 s feed. The only candidate is Sportradar/Genius direct (paid; Polymarket's own source), which is outside the no-paid-feeds rule.
+- Raw: winmodels/raw/nbacap-2026-11-05-local/ (nba_actions, espn_plays, polls, pmws). The server capture (agent/status/nba-feed-delay.md) continues to 06:45Z.
