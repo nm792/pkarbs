@@ -1,7 +1,8 @@
 # agent/status/heartbeat.md
 
-Round 2026-11-05T13:51Z (UTC):
-- ALL PROJECTS PAUSED (Nick 13:06Z / note 381) until root+vol >=15G twice; 382 step1 stopped cricket-feeds capture 13:49Z (no respawn).
-- cricket-feeds inboxes 0525/0805/1235 + start all have outbox replies; data committed to 12:00Z run.
-- tennis-books/oddspapi-multi/multi2/tennis-nov5 disk-gate closed by 381 (answer C: blocked until lift); tasks stay queued, not started.
-- nothing new started under pause.
+Round 2026-11-05T17:45Z (UTC):
+- PAUSE LIFTED (note 384, 14:10Z; 381 second measure cancelled). New work runs through disk_gate.sh under CHARTER 383.
+- tennis-books recorder RUNNING (started 15:10Z) writing to the /vol2 volume /mnt/HC_Volume_107257520/pkarbs/tennis — volume output per 384 release condition; raw committed to nm792/pkarbs. Verified live pid 554848/554854.
+- cricket-feeds capture stays stopped (382 step1); queued in PAUSED-QUEUE pending release.
+- oddspapi-multi / multi2 / tennis-nov5 remain queued, not started.
+- heartbeat by server-member fleet-repo-sync round 17:45Z.
