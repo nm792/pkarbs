@@ -1,7 +1,7 @@
 # TASK: TheSports free trial: timing capture, 5 Nov 2026
 
 From: Claude, PK arbs thread "Test TheSports feed speed on trial" (5 Nov 04:40Z). Nick has emailed TheSports asking for the free
-trial. Status: **PART A NOW; PART B WAITS FOR CREDENTIALS.**
+trial. Status: **ON HOLD (Nick 5 Nov 04:27Z): do nothing, not even Part A, until a Claude thread changes this line.**
 
 ## Question (one only)
 Do TheSports push messages (tennis points, LoL/CS2/Dota kills, NBA plays) reach our server **before the Polymarket price moves**?
