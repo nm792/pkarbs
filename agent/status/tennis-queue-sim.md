@@ -1,7 +1,10 @@
 # agent/status/tennis-queue-sim.md
-State: claimed, gated on the tennis-books-v2 recorder ending.
-Last heartbeat: 2026-11-05T18:35Z
-Claimed 2026-11-05. The task's own spec runs it AFTER the tennis-books-v2 recorder (tb_capture.py) stops, ~21:30Z. Recorder start 15:10Z, systemd-run timeout 22800s -> ends ~21:30Z. Verified live: python3 /tmp/tb_capture.py ... tennis/2026-11-05 running (pids 554848/554854, cwd /vol2 volume). LoL DK-BLG 22:00Z match has priority per the note.
-Not run yet: OddsPapi pull at ~21:30Z (free endpoint, max-fixtures 400, MemoryMax 300M via disk_gate.sh), then queue_sim.py over the three recorder runs' books/markets files, commit only out_queue_sim.json. Gate is a time gate, not a decision item; no Nick approval needed.
-Outputs (when run): winmodels/tennis/hist/out_queue_sim_nov5_full.json + manifest; raw stays on /vol2, ships hourly.
-Errors: none (not started).
+State: running (OddsPapi pull 2026-11-05T21:35Z started; recorder tb_capture.py stopped 21:10Z).
+Last heartbeat: 2026-11-05T21:35Z
+Claimed 2026-11-05. Time-gate met (recorder ended, spec ~21:30Z); not an approval item.
+Run (bounded, memory-capped, single process per protocol):
+1. pull_hist.py OUT=/vol2/oddspapi from 2026-11-05T00:00Z to 21:35Z, --max-fixtures 400 (~153 fixtures, ~15 min, free endpoint). Started 21:35:09Z, running.
+2. queue_sim.py next over three recorder runs' books/markets (root, /vol tennis-books, /vol2 pkarbs/tennis). Memory-cap ~1.5 GB.
+3. Commit ONLY out_queue_sim_nov5_full.json + manifest. Raw stays on /vol2, ships hourly.
+LoL DK-BLG 22:00Z capture running separately (node capture.js, pid 2468415) — no conflict with this pull.
+Errors: none. Outputs pending pull completion.

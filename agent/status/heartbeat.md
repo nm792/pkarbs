@@ -1,4 +1,5 @@
-# server-member heartbeat - round 2026-11-05T21:04Z (pkarbs, thread vg2ckg)
+# server-member heartbeat - round 2026-11-05T21:35Z (pkarbs, thread vg2ckg)
+- TASK-tennis-queue-sim RUNNING: OddsPapi pull started 21:35Z (153 fixtures, free endpoint); queue_sim follows after pull. Recorder tb_capture.py stopped 21:10Z, time-gate met.
+- LoL DK-BLG 22:00Z priority capture running (node capture.js).
 - agent/inbox on vg2ckg fully answered in agent/outbox (all slugs matched).
-- PK arbs writers released post-384 re-pointed to /vol2 + hourly box ship + nothing raw committed.
-- TASK-tennis-queue-sim claimed (supersedes oddspapi-tennis-nov5); LoL DK-BLG 22:00Z priority. no other open task due; waiting-Nick: none.
+- waiting-Nick: none. No other open task due.
