@@ -1,9 +1,8 @@
-# status — lol-live-capture (GEN-LYON live)
+# status — lol-live-capture (DK-BLG armed)
 
-State: IDLE (GEN-LYON capture complete, process exited)
-Last heartbeat: 2026-11-05 01:54Z
-Errors: none
-Output: /mnt/project-files/rn1/scores/lol/live-2026-11/server-GEN-LYON/ (books/frames/polls/sportsws/capture.log, final 00:28-29Z)
-- GEN-LYON window 2026-11-04 20:30Z–00:30Z; capture 22:02Z, memory-capped 600M, single process, timeout-bound. Process exited after window end (0 running).
-- Final output committed to rn1/scores/lol/live-2026-11/server-GEN-LYON/ (gzipped) at 01:54Z.
-- Remaining windows: DK-BLG 5 Nov 22:00Z, T1-KC 6 Nov 22:00Z (watchdog run.flag set).
+State: ARMED for DK-BLG (watchdog every 2 min, OUT /mnt/HC_Volume_107257520/pkarbs/lol, run.flag set, disk_gate GO). INERT until window 20:30Z.
+Last heartbeat: 2026-11-05T15:10Z
+- GEN-LYON capture complete (committed live-2026-11/server-GEN-LYON at 01:54Z).
+- DK-BLG window 2026-11-05 20:30Z–00:30Z (scheduled 22:00Z). Watchdog armed 15:08Z via */2 cron invoking watchdog.sh; runs capture.js when window opens. Output /vol2/pkarbs/lol (disk_gate GO, cap 20G, free 28G). Dry only, memory-capped 600M, timeout-bound.
+- T1-KC 6 Nov 22:00Z will be armed by the same watchdog line (config label) once DK-BLG window closes.
+Errors: none. Raw ships to box hourly; git manifest only (charter 383).

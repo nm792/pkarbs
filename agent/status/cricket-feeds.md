@@ -1,9 +1,8 @@
-# status: cricket-feeds — RUNNING
-- state: RUNNING (capture pid alive since 02:51Z, python3 capture.py .../2026-11-05, timeout 58000)
-- created/claimed: 2026-11-05 (task merged PR #100); MemoryMax 500M
-- files: /root/cricket-feeds/2026-11-05/{books,markets,espn,espn_hdr,log,sports}.jsonl all growing (books 110MB raw at 09:01Z)
-- hourly share commit -> rn1/scores/cricket/feeds-2026-11-05/
-- ends ~17:15Z (timeout 58000) or self-stop
-- last heartbeat: 2026-11-05T09:0XZ UTC
+# status: cricket-feeds — RUNNING on /vol2 (restarted)
 
-snapshot 0901Z (this round): committed books.jsonl.gz 5.1MB + espn/espn_hdr/markets/log/sports to rn1/scores/cricket/feeds-2026-11-05/ on claude/project-thread-vg2ckg (commit e46a270). Feed alive and appending.
+state: RUNNING (cricket-feeds-v2, since 15:10:36Z, timeout 9400s ~17:47Z)
+- Restarted per reviewer pause-lift priority #2: output re-pointed to /mnt/HC_Volume_107257520/pkarbs/cricket/2026-11-05 (off root, per charter 383). disk_gate GO.
+- unit cricket-feeds-v2, MemoryMax 500M, MemorySwapMax 0, data to /vol2/pkarbs/cricket/2026-11-05/ (books/espn/espn_hdr/markets/log) + share/.
+- Prior unit (cricket-feeds, root path) stopped 13:49Z per note 382 pause enforcement; data kept, nothing deleted.
+- Raw ships to box hourly; git manifest only (charter 383). Snapshot commit cadence re-instated on the run.
+Last heartbeat: 2026-11-05T15:10Z UTC
