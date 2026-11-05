@@ -13,7 +13,7 @@ Match map (one entry per match): {"espn": "1543953", "slug": "...", "teams": {"<
    event's direction (boundary up, wicket down) from the base mid. Base = mid at max(R - 60 s, previous ESPN ball + 3 s).
    TH = 1c for boundaries, 2c for wickets. lag = R - onset (positive = ESPN is BEHIND the price).
    The Polymarket sports-WS score change for the same ball gives a second lag (WS - onset).
-2. Delay curve. T0 = min(onset, R) is the best estimate of the true event time we have (no ground truth clock).
+2. Delay curve. T0 = R - --anchor (0 = the ESPN feed as it is; 30 = ESPN's measured lag behind the price, i.e. a feed at true event time).
    For d in 0/5/10/20/30/60 s, at t = T0 + d, the rule bids on the token the model says should rise >= 1c and has not
    yet risen that far since T0 - 5 s: price = mid x 0.975 rounded UP to the 0.1c/1c tick, never at/above best ask,
    only if fair - bid >= E (1c). The bid rests 30 s. Fill = trades on that token at price <= bid in the 30 s, minus the
@@ -30,6 +30,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument('cap'); ap.add_argument('mapf'); ap.add_argument('trades')
 ap.add_argument('--cap-shares', type=float, default=500)
 ap.add_argument('--out', default='')
+ap.add_argument('--anchor', type=float, default=0.0, help='T0 = R - anchor seconds (0 = ESPN receipt; ~30 = estimated true event time from the event-triggered average)')
 A = ap.parse_args()
 D, E, WIN = 0.025, 0.01, 30.0
 DELAYS = [0, 5, 10, 20, 30, 60]
@@ -128,7 +129,7 @@ def main():
             lagrows.append(dict(match=m['slug'], play=r['play'], inn=inn, over=r.get('over'), R=R, onset=onset,
                                 lag=None if onset is None else R - onset, base=base))
             # ---------- delay curve ----------
-            T0 = min(onset, R) if onset else R
+            T0 = R - A.anchor
             ia = Bk.at(T0 - 5)
             if ia is None: continue
             anc_bat = Bk.mid[ia]
