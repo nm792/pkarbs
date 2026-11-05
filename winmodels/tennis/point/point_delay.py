@@ -48,7 +48,8 @@ for f in FILES:
     for l in gzip.open(f, 'rt'):
         d = json.loads(l)
         if d['src'] != 'cito_tennis_ws': continue
-        m = json.loads(d['m'])
+        try: m = json.loads(d['m'])
+        except Exception: continue
         if m.get('type') != 'POINT_UPDATE': continue
         x = m['data']; mid = x['match_id']
         if mid not in MT: continue
@@ -78,7 +79,16 @@ for mid, ev in EV.items():
         q0 = m0 if p10 else 1 - m0                                   # market prob of player1
         a1, a2 = fit(q0, T, s0, dbl)
         q1 = MP(a1, a2, *s, doubles=dbl); j1 = q1 - q0                # expected change in P(player1)
-        E.append(dict(t=t, j0=j1 if p10 else -j1, m0=m0, s0=s0, s=s))  # jump in token0 terms
+        if s[:2] != s0[:2]: typ = 'set'
+        elif s[2:4] != s0[2:4]:
+            gw = 1 if s[2] > s0[2] else 2; typ = 'break' if gw != s0[6] else 'hold'
+        else:
+            a, b = s[4], s[5]; sv = s0[6]; rp, spt = (b, a) if sv == 1 else (a, b)   # returner / server points after the point
+            if s[7]: typ = 'tiebreak_pt'
+            elif rp >= 3 and rp > spt: typ = 'break_pt'                 # returner now has break point
+            elif spt >= 3 and spt > rp: typ = 'game_pt'
+            else: typ = 'other_pt'
+        E.append(dict(t=t, j0=j1 if p10 else -j1, m0=m0, s0=s0, s=s, typ=typ))  # jump in token0 terms
     if len(E) < 5: why['few events'] += 1; continue
     games.append(dict(mid=mid, slug=v['slug'], tour=tour, tourn=tourn, dbl=dbl, pr=pr, M=M, win0=win0, reb=reb, E=E, t0=ev[0][0], t1=ev[-1][0] + 60, T=T, p10=p10))
 print('matches', len(games), dict(why), 'events', sum(len(g['E']) for g in games), flush=True)
@@ -118,16 +128,19 @@ Y2 = np.array([g['M'].at(e['on'] + 30) - e['m0on'] for g in games for e in g['E'
 REG['onset'] = dict(n=int(len(X2)), beta=float(X2 @ Y2 / (X2 @ X2)), corr=float(np.corrcoef(X2, Y2)[0, 1]))
 print('model jump vs mid move from onset-2 to onset+30 s:', REG['onset'], flush=True)
 
-def run(g, lag, W, minj, caught, Q, ref='cito', max_gap=0.01, d=0.025):
+def run(g, lag, W, minj, caught, Q, ref='cito', max_gap=0.01, d=0.025, types=None):
     tot = np.zeros(4); pr, M = g['pr'], g['M']
     E = [e for e in g['E'] if ref == 'cito' or e['on'] is not None]
+    keep = [e for e in E if types is None or e['typ'] in types]
     et = [(e['t'] if ref == 'cito' else e['on']) for e in E]
     order = np.argsort(et); E = [E[i] for i in order]; et = [et[i] for i in order]
     for (T, _, ph, sell0, sz) in pr:
         if not (g['t0'] <= T <= g['t1']): continue
         i = bisect.bisect_right(et, T - lag) - 1
         if i < 0 or T > et[i] + lag + W: continue
-        e = E[i]; pj = e['j0'] if ref == 'cito' else e['j0on']
+        e = E[i]
+        if types is not None and e['typ'] not in types: continue
+        pj = e['j0'] if ref == 'cito' else e['j0on']
         if abs(pj) < minj: continue
         tok = 0 if pj > 0 else 1
         mk = M.at(T - C.QDELAY); pre = e['m0'] if ref == 'cito' else e['m0on']
@@ -155,6 +168,21 @@ for ref in ('cito', 'onset'):
             out['curve'].append(row)
             print(f"{ref:>5} cap{Q:>4} delay{lag:>4}s: filled ${s['usd']:>6} (${row['filled_per_match']}/match) 1min {s['net_1min_pct']:>6}% {s['ci_1min']} (${row['per_match_1min']}/match) "
                   f"result {s['net_result_pct']:>6}% {s['ci_result']} (${row['per_match_result']}/match)", flush=True)
+DAYM = float(os.environ.get('MATCHES_PER_DAY', 70))
+print('--- onset (true time) delay curve, W 30/60/120, cap 500 ---')
+for W_ in (30, 60, 120):
+    for lag in (-5, 0, 5, 10, 20, 30):
+        s_ = C.summarize([run(g, lag, W_, MINJ, CAUGHT, 500, 'onset') for g in games]); n = len(games)
+        out['curve'].append(dict(ref='onset', W=W_, cap=500, delay=lag, filled_per_match=round(s_['usd'] / n, 1), per_match_result=round(s_['net_result_usd'] / n, 2), **s_))
+        print(f"onset W{W_:>3} delay{lag:>3}s: filled ${s_['usd']/n:6.1f}/match 1min {s_['net_1min_pct']}% {s_['ci_1min']} result {s_['net_result_pct']}% {s_['ci_result']} "
+              f"${s_['net_result_usd']/n:.2f}/match (${s_['net_result_usd']/n*DAYM:.0f}/day at {DAYM:.0f} matches)", flush=True)
+print('--- by event type, onset delay 0, W 30, cap 500 ---')
+print('event counts', dict(collections.Counter(e['typ'] for g in games for e in g['E'])))
+for ty in ('break_pt', 'game_pt', 'other_pt', 'hold', 'break', 'set', 'tiebreak_pt'):
+    for ref, lag in (('onset', 0), ('onset', 5), ('cito', 0)):
+        s_ = C.summarize([run(g, lag, 30, MINJ, CAUGHT, 500, ref, types={ty}) for g in games]); n = len(games)
+        out.setdefault('by_type', []).append(dict(type=ty, ref=ref, delay=lag, **s_))
+        print(f"{ty:>12} {ref:>5} {lag:>2}s: filled ${s_['usd']/n:6.1f}/match 1min {s_['net_1min_pct']}% result {s_['net_result_pct']}% {s_['ci_result']} ${s_['net_result_usd']/n:.2f}/match", flush=True)
 for W_, mj, cg in itertools.product([15, 30], [0.005, 0.01, 0.02], [0.5, 1.0]):
     s = C.summarize([run(g, 0, W_, mj, cg, 500) for g in games], nb=200); out['grid'].append(dict(W=W_, minj=mj, caught=cg, **s))
     print(f'grid W{W_} minj{mj} caught{cg}: filled ${s["usd"]} 1min {s["net_1min_pct"]}% result {s["net_result_pct"]}%')
