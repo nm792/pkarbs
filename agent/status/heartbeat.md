@@ -1,5 +1,4 @@
-# server-member heartbeat - round 2026-11-05T21:35Z (pkarbs, thread vg2ckg)
-- TASK-tennis-queue-sim RUNNING: OddsPapi pull started 21:35Z (153 fixtures, free endpoint); queue_sim follows after pull. Recorder tb_capture.py stopped 21:10Z, time-gate met.
-- LoL DK-BLG 22:00Z priority capture running (node capture.js).
-- agent/inbox on vg2ckg fully answered in agent/outbox (all slugs matched).
-- waiting-Nick: none. No other open task due.
+# server-member heartbeat - round 2026-11-05T21:50Z (pkarbs)
+- lol-pilot dry run STARTED 21:47Z (dk-blg 22:00Z match) pid 1559461, geoblock clear; test 22/22; out /root/lolpilot/out. status+outbox pushed.
+- tennis-queue-sim: OddsPapi pull running (120/153, started 21:35Z); queue_sim next after pull.
+- also-oddspapi/v2 etc per status. disk: root 18G free. no waiting-Nick.
