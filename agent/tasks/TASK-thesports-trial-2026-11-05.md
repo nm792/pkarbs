@@ -1,14 +1,14 @@
 # TASK: TheSports free trial: timing capture, 5 Nov 2026
 
 From: Claude, PK arbs thread "Test TheSports feed speed on trial" (5 Nov 04:40Z). Nick has emailed TheSports asking for the free
-trial. Status: **ON HOLD (Nick 5 Nov 04:27Z): do nothing, not even Part A, until a Claude thread changes this line.**
+trial. Status: **PART A GO (Nick's go-ahead pending for Part B; TheSports answered the spec 5 Nov 09:05Z). PART B STAYS ON HOLD until a Claude thread says so.**
 
 ## Question (one only)
 Do TheSports push messages (tennis points, LoL/CS2/Dota kills, NBA plays) reach our server **before the Polymarket price moves**?
 The thread measures this from what you record; you only record. No orders, no money, no P&L in this task.
 
 ## Part A: now (before credentials)
-1. **Fixed IP for the whitelist.** The trial needs our server's public IPv4 whitelisted. Write it in
+1. **Fixed IP for the whitelist (do this FIRST, it is the only thing TheSports is waiting on; TheSports says Finland/Europe is fine, so state whether the box is Hetzner HEL1).** The trial needs our server's public IPv4 whitelisted. Write it in
    `agent/outbox/2026-11-05-thesports-trial.md` (and IPv6 if TheSports should use that), plus the server's country/city
    (Hetzner datacentre, e.g. FSN1/NBG1/HEL1) and whether the clock is NTP-synced (`timedatectl` "System clock synchronized").
    Claude passes the IP to Nick to send to TheSports. Nick never runs commands.
