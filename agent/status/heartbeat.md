@@ -1,5 +1,11 @@
-# server-member heartbeat 2026-11-05T05:02Z
-- tennis-books: Nick Go 04:43Z honored, disk gate NOT met (root 80% used / 7.36G free; needs <75% + >=10G). NOT started; numbers in status + outbox.
-- oddspapi-multi: held same disk gate (>=10G free = 7.36G). Not started; replied in outbox.
-- oddspapi-hist re-run2 committed (958e702, 04-b). nautilus order latency answered (n=30, median 0.206s, CSV pushed). hltv cancel done.
-- No other unanswered inbox on newest thread.
+# heartbeat — 2026-11-05 05:17 UTC
+
+Dispatch round 2026-11-05T05:17:16Z. Newest thread hhym21.
+
+- tennis-books: READY, disk-gated (root 7.36 GB free < 10) — waiting on 364 reclaim.
+- oddspapi-multi: gated same (root < 10 GB).
+- oddspapi-hist: re-run 2 committed (958e7029 on vg2ckg tip).
+- nautilus-order-latency: answered (30 deltas, med 0.206 s).
+- cricket-feeds: capture running since 01:52Z.
+- NBA poll: running (pids 1781618/1781643).
+- nbacap data on hhym21 == local (no delta to push).
