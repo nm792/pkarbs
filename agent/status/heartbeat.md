@@ -1,3 +1,4 @@
-# heartbeat — 2026-11-06T10:33Z
-- Both 11-06 inbox items answered on thread (nba-books-ws nudge: Part B scheduled via at 5 for 23:25Z; thesports: blocked on missing creds). No open inbox without outbox reply.
-- Newest thread vg2ckg; previous threads pf5upe etc. alive.
+# heartbeat — 2026-11-06T11:00Z
+- Newest thread vg2ckg. No open inbox without outbox reply.
+- tennis-books-v2 unit INACTIVE (run completed at timeout ~21:30Z 11-05). Flagged: 18:07Z→21:10Z tail never shipped to box = owner/reviewer decision (in status file).
+- ruling-disk-gate superseded by CHARTER 383/384. oddspapi runs committed.
