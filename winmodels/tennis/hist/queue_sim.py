@@ -26,12 +26,15 @@ for fn in MF.split(','):
         try: r = json.loads(l)
         except Exception: continue
         mk[r['cond']] = r
-snaps = {}      # token -> (times list, [(bids dict, asks dict)])
-for l in (l for fn in BF.split(',') for l in lines(fn)):
-    try: r = json.loads(l)
-    except Exception: continue
-    s = snaps.setdefault(r['tk'], ([], []))
-    s[0].append(r['ms'] / 1000); s[1].append(([(float(x['price']), float(x['size'])) for x in r['bids']], [(float(x['price']), float(x['size'])) for x in r['asks']]))
+span = {}       # token -> [first_ts, last_ts]  (pass 1: tiny memory; the full books are streamed twice, never held)
+def stream():
+    for l in (l for fn in BF.split(',') for l in lines(fn)):
+        try: yield json.loads(l)
+        except Exception: continue
+for r in stream():
+    t = r['ms'] / 1000; sp = span.setdefault(r['tk'], [t, t])
+    sp[0] = min(sp[0], t); sp[1] = max(sp[1], t)
+snaps = {}      # filled in pass 2 for MATCHED tokens only, top 12 levels per side
 def book_series(b, flip):
     if '121' not in b['markets']: return []
     ev = sorted((ts(x['createdAt']), oid, x['price'], x['active']) for oid, ov in b['markets']['121']['outcomes'].items() for x in ov['players'].get('0', []))
@@ -61,8 +64,8 @@ for f in glob.glob(f'{OP}/hist/*'):
         if same(fx['participant1Name'], o[1]) and same(fx['participant2Name'], o[0]): hit = (m, True); break
     if not hit: continue
     m, flip = hit
-    if m['tokens'][0] not in snaps: continue
-    t_lo = min(snaps[m['tokens'][0]][0]); t_hi = max(snaps[m['tokens'][0]][0])
+    if m['tokens'][0] not in span: continue
+    t_lo, t_hi = span[m['tokens'][0]]
     tr = C.pull_trades(m['cond'], t_lo - 600, t_hi + 6 * 3600, 'tennis/queue/trades')
     pr = C.prints(tr)
     win0 = gamma_win(m['slug'])
@@ -71,9 +74,27 @@ for f in glob.glob(f'{OP}/hist/*'):
              books={bk: book_series(d['hist']['bookmakers'][bk], flip) for bk in ('pinnacle', 'bet365') if bk in d['hist']['bookmakers']})
     games.append(g)
 print('matches paired with recorded books', len(games), [g['slug'] for g in games])
+want = {tk for g in games for tk in g['m']['tokens']}
+from array import array
+NL = 12          # bid levels kept; asks: best ask only. Flat float64 arrays (~200 B/row) instead of Python tuples (~2.5 KB/row)
+for r in stream():
+    if r['tk'] not in want: continue
+    sn = snaps.setdefault(r['tk'], [array('d'), array('d')])
+    bids = sorted(((float(x['price']), float(x['size'])) for x in r['bids']), reverse=True)[:NL]
+    ba = min((float(x['price']) for x in r['asks']), default=0.0)
+    flat = [v for p, z in bids for v in (p, z)] + [0.0] * (2 * (NL - len(bids))) + [ba]
+    sn[0].append(r['ms'] / 1000); sn[1].extend(flat)
+W_ROW = 2 * NL + 1
+for tk, sn in snaps.items():              # runs are merged from several files: sort by time
+    t = np.frombuffer(sn[0], dtype='d'); o = np.argsort(t, kind='stable')
+    f = np.frombuffer(sn[1], dtype='d').reshape(-1, W_ROW)[o]
+    snaps[tk] = (t[o].copy(), f.copy())
+del span
 def snap_at(tok, T):
-    s = snaps[tok]; i = bisect.bisect_right(s[0], T) - 1
-    return (s[0][i], s[1][i]) if i >= 0 and T - s[0][i] < 5 else None
+    t, f = snaps[tok]; i = int(np.searchsorted(t, T, side='right')) - 1
+    if i < 0 or T - t[i] >= 5: return None
+    row = f[i]; bids = [(row[2 * j], row[2 * j + 1]) for j in range(NL) if row[2 * j] > 0]
+    ba = row[-1]; return (t[i], (bids, [(ba, 0.0)] if ba > 0 else []))
 def sim(g, bk, ack, rng, guard):
     tot = np.zeros(4); n_orders = 0; filled = 0
     reb = 0
