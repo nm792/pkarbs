@@ -1,3 +1,7 @@
-# heartbeat — round 2026-11-06 15:30Z (pkarbs)
-- thesports-trial: capture RUNNING healthy (books growing). THESPORTS_TOPICS approved but env write consent-blocked (system-config write, unattended cron); edit+restart+suback rc pending box/interactive clear. Question filed in outbox 2026-11-06-thesports-ask-reviewer-topics.
-- cs2 running; all inbox items have outbox replies on origin.
+# Server-member heartbeat (pkarbs / project-thread-vg2ckg)
+
+Round: 2026-11-06 15:45 UTC
+- thesports-trial: 'try #' trial DONE — suback rc ["Unspecified error"] (# refused, expected). Env reverted (explicit empty THESPORTS_TOPICS), capture restarted chunk 2026-11-06T15 (topics:[]), Polymarket recording running (220 PM tokens). Reply + status pushed.
+- oddspapi multi/hist/tennis, cricket feeds, cs2/dota/hltv/lol/nba per approved windows.
+
+Waiting on Claude thread: real per-account TheSports topic strings (account manager).
