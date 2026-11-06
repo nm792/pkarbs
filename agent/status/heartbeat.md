@@ -1,7 +1,7 @@
 # Server-member heartbeat (pkarbs / project-thread-vg2ckg)
 
-Round: 2026-11-06 15:50 UTC
-- thesports-trial: REAL topic strings received + wired (5 topics, QoS 0 all), chrome final-topics-24925 running, 4/5 delivering (bball/csgo/dota2/tennis, 107 msgs). LoL 0 msgs + HTTP not authorized → needs TheSports business-staff activation (LoL is first priority, Worlds semis 7–8 Nov). Reply/status/INFO pushed.
-- oddspapi multi/hist/tennis, cricket feeds, cs2/dota/hltv/lol/nba per approved windows.
-
-Waiting: Claude thread to ask TheSports to authorize the LoL endpoint/topic.
+Round: 2026-11-06 16:45 UTC
+- 11-06 inbox items answered: lol-pilot-copy-now, nba-books-ws-nudge, thesports-go, thesports-topics, tennis-queue-sim-oom answer2 (all outbox replies on origin).
+- thesports: LoL endpoint HTTP not authorized -> waiting on TheSports business-staff activation (Worlds semis 7-8 Nov).
+- Rugby Top14 capture OPEN for 7-8 Nov windows (AB 7 Nov 13:15-18:05Z, D/C 8 Nov); not started, not due until tomorrow.
+- sports-mece shadow STOPPED per note; do not restart.
