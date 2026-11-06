@@ -75,18 +75,26 @@ for f in glob.glob(f'{OP}/hist/*'):
     games.append(g)
 print('matches paired with recorded books', len(games), [g['slug'] for g in games])
 want = {tk for g in games for tk in g['m']['tokens']}
+from array import array
+NL = 12          # bid levels kept; asks: best ask only. Flat float64 arrays (~200 B/row) instead of Python tuples (~2.5 KB/row)
 for r in stream():
     if r['tk'] not in want: continue
-    sn = snaps.setdefault(r['tk'], ([], []))
-    bids = sorted(((float(x['price']), float(x['size'])) for x in r['bids']), reverse=True)[:12]
-    asks = sorted((float(x['price']), float(x['size'])) for x in r['asks'])[:12]
-    sn[0].append(r['ms'] / 1000); sn[1].append((bids, asks))
-for sn in snaps.values():                 # books of one token arrive in time order per file, but runs are merged: sort
-    o = sorted(range(len(sn[0])), key=sn[0].__getitem__); sn[0][:] = [sn[0][i] for i in o]; sn[1][:] = [sn[1][i] for i in o]
+    sn = snaps.setdefault(r['tk'], [array('d'), array('d')])
+    bids = sorted(((float(x['price']), float(x['size'])) for x in r['bids']), reverse=True)[:NL]
+    ba = min((float(x['price']) for x in r['asks']), default=0.0)
+    flat = [v for p, z in bids for v in (p, z)] + [0.0] * (2 * (NL - len(bids))) + [ba]
+    sn[0].append(r['ms'] / 1000); sn[1].extend(flat)
+W_ROW = 2 * NL + 1
+for tk, sn in snaps.items():              # runs are merged from several files: sort by time
+    t = np.frombuffer(sn[0], dtype='d'); o = np.argsort(t, kind='stable')
+    f = np.frombuffer(sn[1], dtype='d').reshape(-1, W_ROW)[o]
+    snaps[tk] = (t[o].copy(), f.copy())
 del span
 def snap_at(tok, T):
-    s = snaps[tok]; i = bisect.bisect_right(s[0], T) - 1
-    return (s[0][i], s[1][i]) if i >= 0 and T - s[0][i] < 5 else None
+    t, f = snaps[tok]; i = int(np.searchsorted(t, T, side='right')) - 1
+    if i < 0 or T - t[i] >= 5: return None
+    row = f[i]; bids = [(row[2 * j], row[2 * j + 1]) for j in range(NL) if row[2 * j] > 0]
+    ba = row[-1]; return (t[i], (bids, [(ba, 0.0)] if ba > 0 else []))
 def sim(g, bk, ack, rng, guard):
     tot = np.zeros(4); n_orders = 0; filled = 0
     reb = 0
