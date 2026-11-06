@@ -22,6 +22,12 @@ The thread measures this from what you record; you only record. No orders, no mo
    PASS: `log.jsonl` has `start`, `thesports_no_creds`, `pmws_open`, `discover_pm` with tokens > 0, and `stop`;
    `books.jsonl` has 100+ rows. Then delete /root/thesports/dry. Report PASS/FAIL and the last 20 log lines in the outbox file.
 
+## TheSports facts that change the run (from their trial PDF + docs.thesports.com, 6 Nov)
+- MQTT: `mq.thesports.com:443`, TLS WebSocket, username/password = the same user/secret as the HTTP API, client IP must be whitelisted. **Topics are issued by TheSports per sport (football, basketball, tennis in their sample); never construct them.** Put the issued topics in `THESPORTS_TOPICS` (comma list). `#` will probably be refused. Messages are JSON; changed fields only (`score`, `stats`, `incidents`, `tlive` for football).
+- The trial enables only endpoints requested from the business manager. Esports (LoL/Dota2/CS2) and cricket are eligible but need activation and their own topics. In `agent/outbox/2026-11-05-thesports-trial.md` report which topics Nick's email lists; if there is no LoL/Dota/cricket topic, say so at once (the thread asks TheSports).
+- HTTP real-time endpoints are meant to be polled every 2 s. Schedule endpoints (`/v1/<sport>/match/diary`) map match ids to team names via `results_extra`; poll them every 300 s. Set, e.g., `THESPORTS_POLL_PATHS=/v1/basketball/match/diary@300,/v1/basketball/match/detail_live@2,/v1/tennis/match/diary@300` plus the esports/cricket paths once TheSports gives them.
+- Basketball real-time = quarter scores + remaining seconds in the section + a timer with `update time` in whole seconds; no per-play ms timestamps. Football-style incidents carry minute/second only. So we time by our own receipt, as planned.
+
 ## Part B: when Nick sends the trial user/secret (and topics) to you
 1. Install them per `live/thesports/KEY-INSTALL-THESPORTS.md`. Never print, commit or message them.
 2. Run in 12 h bounded chunks for the whole trial (15 days), one chunk at a time (PROTOCOL rule 2):
