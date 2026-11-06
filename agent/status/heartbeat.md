@@ -1,4 +1,3 @@
-# heartbeat — round 2026-11-06 19:00 UTC (pkarbs vg2ckg)
-- All inbox answered through 2026-11-06 (nba-books-ws-nudge, thesports-go/topics replied on origin).
-- LIVE: thesports trial, cs2 logger, lol-pilot dry (T1-KC 22:00Z), nba Part B tonight; cricket-feeds DONE-STOPPED (13:49Z).
-- OPEN: oddspapi/rugby-top14 7 Nov not started (due tomorrow). No waiting-for-Nick blockers.
+# heartbeat — round 2026-11-06 19:45 UTC (pkarbs vg2ckg)
+- Inbox all answered (thesports-go, thesports-topics, nba-books-ws-nudge closed). thesports-trial LIVE: real topics wired 15:50Z, 5 subacks Granted, capture running (final-topics-24925); LoL topic 0 msgs + HTTP unauth — filed to reviewer (ask-reviewer-topics).
+- ODDSPAPI/TENNIS: tennis-queue-sim claimed; oddspapi multi/hist re-runs in runner. cap/sports capture running.
