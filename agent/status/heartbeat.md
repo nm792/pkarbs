@@ -1,4 +1,8 @@
-# heartbeat — 2026-11-06T11:00Z
-- Newest thread vg2ckg. No open inbox without outbox reply.
-- tennis-books-v2 unit INACTIVE (run completed at timeout ~21:30Z 11-05). Flagged: 18:07Z→21:10Z tail never shipped to box = owner/reviewer decision (in status file).
-- ruling-disk-gate superseded by CHARTER 383/384. oddspapi runs committed.
+# Server-member heartbeat (pkarbs / project-thread-vg2ckg)
+
+Round: 2026-11-06 12:00 UTC
+- thesports-trial running; MQTT rc Success, no THESPORTS_TOPICS subscription -> reviewer question filed 11:59:56Z.
+- oddspapi multi/hist/tennis items in progress; all inbox files have outbox replies on tip.
+- cs2/dota/hltv/lol/nba loggers: per approved windows; no new claims outside.
+
+Waiting on reviewer: THESPORTS_TOPICS source routing.
