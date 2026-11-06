@@ -150,3 +150,13 @@ Ranking is by evidence for an edge at an attainable feed, then by size, then by 
 - Mutually exclusive: yes by sport; some sports overlap in vendor (TheSports covers LoL, CS2, Dota).
 - Collectively exhaustive: no, section 4 lists sports not assessed, and I could not check how many Polymarket markets exist for table tennis, snooker or badminton.
 - To reach 9: (1) Hermes/agent status check for the 6 Nov events since 03:10Z; (2) full-night NBA books; (3) one live-fill sample in any sport; (4) a count of Polymarket markets for the unassessed minor sports; (5) TheSports measured latency against the price.
+
+## 9. Re-prioritised list (6 Nov 07:10Z, Nick: rank by fast-feed value, feed availability, volume, date)
+Headline caveats: every figure is sim; zero live fills anywhere (LoL dry run 0 of 62 bids); TheSports' 2-3 s is their claim, not measured against the price; LSports and Goalserve latency are vendor claims; project memory says LSports has no esports, so coverage there is unchecked. No $/day is given where the range spans zero. NBA stance unchanged: no proven edge until a sub-2 s feed exists.
+
+1. LoL. Feed: TheSports ($200/mo). Sim clears zero at a 2-20 s lag (+$0.7k to +$20.5k over 531 games), spans zero at a fixed 20 s. In-play $10.2M/day. Next: approve trial now, measure vs price on Worlds semis 7-8 Nov and final 14 Nov. Tonight's T1 v KC dry run is the second sample.
+2. Dota 2. Feed: TheSports. 1-min edge clears zero up to 30 s (+0.1 to +3.7%), spans zero at 60 s; the free Valve feed is 5-16 min late. In-play $5.8M/day. Next: measure on BLAST Slam from 17 Nov. Pinnacle route loses without its top 5.
+3. NBA. Feed: none confirmed under 2 s. Sim clears zero only at 0-2 s (queue-safe, 429 games), spans zero from 5 s. TheSports claims 2-3 s generally (not NBA-specific); Goalserve NBA $250/mo is listed with no play-by-play latency. In-play $13.8M/day. Next: include NBA in the TheSports 3-day check and run the full-night books; ask Goalserve for a measured NBA latency.
+4. Cricket / BBL. Feed: Goalserve (~$125/mo, ~1 s claimed). No verdict: delay curve inconclusive (one resolved match). In-play $0.4M/day. Next: Goalserve trial before 12 Dec, time it against the price first.
+5. CS2. Feed: TheSports, bundled only. Even a feed 10-30 s earlier showed no edge (20 matches, ranges span zero). Next: 100-match verdict ~12 Nov. PGL Major 25 Nov.
+Not prioritised: tennis (fill-limited, upper bound only at a feed before the price), NFL (needs a feed before the price), NHL (parked), rugby and AFL (capability builds), soccer/MLB/UFC/CFB/minor sports (unassessed).
