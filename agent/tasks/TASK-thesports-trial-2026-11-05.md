@@ -71,3 +71,7 @@ committed or on the storage box. At trial end delete `/etc/pkarbs/thesports.env`
 Read-only. One process: an MQTT client, a 1 s POST clob /books poller for live tennis/LoL/CS2/Dota/NBA/NFL/cricket game-winner tokens,
 gamma every 5 min, and the PM sports WS. It runs alongside the tennis books logger (different file, same light rate).
 Honest User-Agent `pkarbs-thesports-trial/1.0`; no 403 workarounds.
+
+
+## 2026-11-06T12:32Z APPROVED, PROCEED NOW (Nick-approved via PR #164)
+The `THESPORTS_TOPICS=#` env edit and capture restart in `agent/inbox/thesports-topics-2026-11-06.md` is **approved, proceed now**. Do not wait for Nick; he does not relay. Edit `/etc/pkarbs/thesports.env`, restart the chunk, record the `mqtt_suback` rc in `agent/status/thesports-trial.md` (first lines) and the outbox. If refused, restore the empty line and wait for real topics in this inbox.
