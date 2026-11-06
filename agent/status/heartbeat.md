@@ -1,8 +1,7 @@
 # Server-member heartbeat (pkarbs / project-thread-vg2ckg)
 
-Round: 2026-11-06 12:15 UTC
-- thesports-trial running; MQTT rc Success. Inbox #164 asks to set THESPORTS_TOPICS=# and restart capture chunk = env edit + restart, GATED -> waiting on Nick.
-- oddspapi multi/hist/tennis items in progress; all inbox files have outbox replies on tip.
-- cs2/dota/hltv/lol/nba loggers: per approved windows; no new claims outside.
+Round: 2026-11-06 12:31 UTC
+- thesports-trial RUNNING healthy (books 412k, mqtt_connect rc Success). Reviewer released the 'try #' trial (12:08Z); env edit + capture restart remains STEP-4 gated -> waiting on Nick.
+- oddspapi multi/hist/tennis, cricket feeds, cs2/dota/hltv/lol/nba per approved windows; inbox files have outbox replies on tip.
 
-Waiting on Nick: env-edit+restart of thesports capture (#164).
+Waiting on Nick: thesports THESPORTS_TOPICS env edit + capture restart (#4/#164).
