@@ -8,7 +8,7 @@ Streams (JSONL under OUT, one file each):
   ts_mqtt.jsonl   every TheSports MQTT message, raw (topic, payload), stamped on receipt
   ts_poll.jsonl   optional HTTP polling of the paths in THESPORTS_POLL_PATHS, written only when the body changes
   books.jsonl     1 s Polymarket order books (top 15 levels) for every moneyline / game-winner token of live
-                  tennis, LoL, CS2, Dota 2, NBA (and NFL) events, written only when the book changes
+                  tennis, LoL, CS2, Dota 2, NBA, NFL and cricket events, written only when the book changes
   markets.jsonl   event slug -> sport, title, start, question, tokens, outcomes
   pmws.jsonl      Polymarket sports WS rows for the same sports (free benchmark)
   log.jsonl       connects, errors, subscription acks, counts
@@ -25,7 +25,7 @@ import argparse, base64, gzip, hashlib, json, os, shutil, ssl, threading, time, 
 ap = argparse.ArgumentParser()
 ap.add_argument('out'); ap.add_argument('hours', type=float)
 ap.add_argument('--share', default='')
-ap.add_argument('--sports', default='tennis,lol,cs2,dota2,nba,nfl')
+ap.add_argument('--sports', default='tennis,lol,cs2,dota2,nba,nfl,cricket')
 ap.add_argument('--book-every', type=float, default=1.0)
 ap.add_argument('--no-books', action='store_true')
 A = ap.parse_args()
@@ -41,7 +41,7 @@ SECRETS = [s for s in (USER, SECRET) if len(s) >= 4]
 # gamma tag slug, PM sports-WS leagueAbbreviation values
 TAGS = {'tennis': ('tennis', {'atp', 'wta', 'challenger', 'itf', 'tennis'}), 'lol': ('league-of-legends', {'lol'}),
         'cs2': ('counter-strike-2', {'cs2'}), 'dota2': ('dota-2', {'dota2'}), 'nba': ('nba', {'nba'}),
-        'nfl': ('nfl', {'nfl'})}
+        'nfl': ('nfl', {'nfl'}), 'cricket': ('cricket', {'cricket', 'bbl', 'wbbl', 'ipl', 'npl', 'ct20', 'psl', 'sa20', 'cpl', 'ilt20', 't20'})}
 MKT_TYPES = (None, 'moneyline', 'child_moneyline')
 _lock = threading.Lock(); files = {}; counts = {}
 
