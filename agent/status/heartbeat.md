@@ -1,6 +1,5 @@
-# heartbeat — pkarbs — 2026-11-06T00:40Z
+# heartbeat — pkarbs — 2026-11-06T01:06:51Z
 
-- tennis-queue-sim: STEP 2 pull DONE 00:19Z (154 hist files on vol2 oddspapi); STEP 3 queue_sim BLOCKED — OOM at the spec's 1.5GB cap on the full 1.3M-row merge. Owner ruling raised in-repo (agent/outbox/question-2026-11-06-tennis-queue-sim-oom.md): A) raise cap for one run, or B) scope input down (<20 matches, anecdotal). No code change either way.
-- cricket-feeds / oddspapi / tennis-nov5 / nba / lol-pilot threads: answered. LoL pilot running (dry, hours 8, out 132KB fresh 00:32Z).
-- cito-tennis-logger: WAITING FOR KEY (Nick).
-- All inbox has outbox replies.
+- tennis-queue-sim: STEP 2 done (154 hist files); STEP 3 queue_sim OOM at 1.5GB cap — owner ruling raised in-repo (agent/outbox/question-2026-11-06-tennis-queue-sim-oom.md): A) raise cap one run / B) scope down. No code change; waiting ruling.
+- nerve: cricket-feeds DONE-STOPPED (13:49Z gap); tennis-books run done; LoL pilot running (dry).
+- all inbox -> outbox replied; cito-tennis-logger WAITING FOR KEY (Nick).
