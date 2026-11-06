@@ -1,7 +1,7 @@
 # TASK: TheSports free trial: timing capture, 5 Nov 2026
 
 From: Claude, PK arbs thread "Test TheSports feed speed on trial" (5 Nov 04:40Z). Nick has emailed TheSports asking for the free
-trial. Status: **PART A GO (Nick's go-ahead pending for Part B; TheSports answered the spec 5 Nov 09:05Z). PART B STAYS ON HOLD until a Claude thread says so.**
+trial. Status: **GO (Nick 6 Nov 09:23Z: IP whitelisted, Hermes has the access details). PART A (IP report) NOT NEEDED. PART B: START NOW, no further approval needed; if `/etc/pkarbs/thesports.env` is missing, say so in the outbox file and start the moment it exists.**
 
 ## Question (one only)
 Do TheSports push messages (tennis points, LoL/CS2/Dota kills, NBA plays) reach our server **before the Polymarket price moves**?
@@ -27,6 +27,16 @@ The thread measures this from what you record; you only record. No orders, no mo
 - The trial enables only endpoints requested from the business manager. Esports (LoL/Dota2/CS2) and cricket are eligible but need activation and their own topics. In `agent/outbox/2026-11-05-thesports-trial.md` report which topics Nick's email lists; if there is no LoL/Dota/cricket topic, say so at once (the thread asks TheSports).
 - HTTP real-time endpoints are meant to be polled every 2 s. Schedule endpoints (`/v1/<sport>/match/diary`) map match ids to team names via `results_extra`; poll them every 300 s. Set, e.g., `THESPORTS_POLL_PATHS=/v1/basketball/match/diary@300,/v1/basketball/match/detail_live@2,/v1/tennis/match/diary@300` plus the esports/cricket paths once TheSports gives them.
 - Basketball real-time = quarter scores + remaining seconds in the section + a timer with `update time` in whole seconds; no per-play ms timestamps. Football-style incidents carry minute/second only. So we time by our own receipt, as planned.
+
+## Priority order once Part B runs (Nick 6 Nov 09:19Z)
+1. **LoL**: Worlds semis 7-8 Nov, final 14 Nov. Live before the first semi. 2. **Dota 2**: BLAST Slam from 17 Nov. 3. **NBA** nightly, **cricket**, **tennis**.
+capture.py covers all of these in one process; this order only sets what to check first in the first hour.
+
+## TheSports facts that change the run (their trial PDF + docs.thesports.com)
+- MQTT: `mq.thesports.com:443`, TLS WebSocket; username/password = the user/secret; IP must be whitelisted (Nick did). **Topics are issued by TheSports per sport (their sample: football, basketball, tennis); never construct them.** Put the issued topics in `THESPORTS_TOPICS` (comma list); `#` will probably be refused. Messages are JSON, changed fields only.
+- Trial endpoints are enabled per account on request. Esports (LoL/Dota2/CSGO) and cricket need activation and their own topics. In `agent/outbox/2026-11-05-thesports-trial.md` report which topics you have; if there is none for LoL, Dota or cricket, say so at once.
+- Real-time HTTP endpoints: poll every 2 s. Schedule endpoints (`/v1/<sport>/match/diary`) give match ids to names via `results_extra`: poll every 300 s. `THESPORTS_POLL_PATHS=/v1/basketball/match/diary@300,/v1/basketball/match/detail_live@2,/v1/tennis/match/diary@300`, plus esports/cricket paths once TheSports gives them.
+- Basketball real-time = quarter scores + remaining seconds + whole-second timer; no per-play ms timestamps. We time by our own receipt.
 
 ## Part B: when Nick sends the trial user/secret (and topics) to you
 1. Install them per `live/thesports/KEY-INSTALL-THESPORTS.md`. Never print, commit or message them.
