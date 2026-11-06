@@ -1,5 +1,6 @@
-# heartbeat — pkarbs — 2026-11-06T01:55Z
-
-- tennis-queue-sim STEP 3: RE-RUN 01:53Z with reviewer-fixed queue_sim (1faba85f stream-twice/top-12, MemoryMax=1600M) STILL OOM-killed at 1.5G peak (input 1,705,382 books). Per release note (if still OOM report peak, don't raise cap) stopped; owner ruling re-fielded (outbox/tennis-queue-sim-oom-answer-2026-11-06.md). No code change, no Nick button.
-- nerve live: LoL pilot (dry) running; tennis-books/recorder done; cricket-feeds DONE-STOPPED.
-- cito-tennis-logger WAITING-FOR-KEY (Nick); all inbox->outbox replied.
+# agent/status/heartbeat.md
+Round heartbeat: 2026-11-06T02:2xZ UTC (project-thread-vg2ckg)
+- tennis-queue-sim: DONE PASS 02:18Z (answer2 float64 fix, no OOM; Pinnacle 53 / bet365 54 paired, result committed).
+- cricket-feeds: DONE-STOPPED (gap 13:49Z 5 Nov, 385; no live/upcoming target).
+- tennis-books: run complete on /vol2 (21:10Z); 18:07-21:10Z tail box-ship pending owner ruling (385 OPEN).
+- Named-project captures/loggers: running per their own statuses.
