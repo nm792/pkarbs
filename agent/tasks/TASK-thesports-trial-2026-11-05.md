@@ -52,6 +52,6 @@ committed or on the storage box. At trial end delete `/etc/pkarbs/thesports.env`
 (chunk start/stop, rows per file, connected %, PASS/FAIL, "credentials installed: yes/no").
 
 ## Protocol notes
-Read-only. One process: an MQTT client, a 1 s POST clob /books poller for live tennis/LoL/CS2/Dota/NBA/NFL game-winner tokens,
+Read-only. One process: an MQTT client, a 1 s POST clob /books poller for live tennis/LoL/CS2/Dota/NBA/NFL/cricket game-winner tokens,
 gamma every 5 min, and the PM sports WS. It runs alongside the tennis books logger (different file, same light rate).
 Honest User-Agent `pkarbs-thesports-trial/1.0`; no 403 workarounds.
