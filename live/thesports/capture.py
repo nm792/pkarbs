@@ -16,7 +16,7 @@ Credentials only from env (installed by Hermes in /etc/pkarbs/thesports.env, nev
   THESPORTS_USER, THESPORTS_SECRET            account user and secret (both used for MQTT login and HTTP ?user=&secret=)
   THESPORTS_MQTT_HOST (mq.thesports.com), THESPORTS_MQTT_PORT (443), THESPORTS_MQTT_PATH (/mqtt),
   THESPORTS_MQTT_TRANSPORT (websockets|tcp), THESPORTS_TOPICS (comma list, from TheSports support; default '#')
-  THESPORTS_API (https://api.thesports.com), THESPORTS_POLL_PATHS (comma list of paths, optional), THESPORTS_POLL_EVERY (2)
+  THESPORTS_API (https://api.thesports.com), THESPORTS_POLL_PATHS (comma list of path[@seconds], optional), THESPORTS_POLL_EVERY (2)
 Usage: capture.py OUT HOURS [--share DIR] [--sports tennis,lol,cs2,dota2,nba,nfl] [--no-books]
 Without credentials it still records books + PM WS (useful as a dry run) and logs 'thesports_no_creds'.
 """
@@ -114,23 +114,29 @@ def mqtt_thread():
 
 # ---------------- TheSports HTTP polling (optional comparison) ----------------
 def poll_thread():
-    paths = [p.strip() for p in E.get('THESPORTS_POLL_PATHS', '').split(',') if p.strip()]
-    if not (paths and USER and SECRET): return
-    base = E.get('THESPORTS_API', 'https://api.thesports.com'); every = float(E.get('THESPORTS_POLL_EVERY', '2'))
-    last = {}
+    """THESPORTS_POLL_PATHS: comma list of 'path' or 'path@seconds' (default THESPORTS_POLL_EVERY, 2 s). Use a slow cadence
+    (e.g. @300) for the schedule/diary endpoints, which are big, and 2 s for the real-time endpoints (the docs' suggested rate)."""
+    specs = []
+    for p in (x.strip() for x in E.get('THESPORTS_POLL_PATHS', '').split(',')):
+        if not p: continue
+        path, _, sec = p.partition('@')
+        specs.append((path, float(sec) if sec else float(E.get('THESPORTS_POLL_EVERY', '2'))))
+    if not (specs and USER and SECRET): return
+    base = E.get('THESPORTS_API', 'https://api.thesports.com'); last = {}; due = {p: 0.0 for p, _ in specs}
     while time.time() < END:
-        t0 = time.time()
-        for p in paths:
-            sep = '&' if '?' in p else '?'
+        for path, every in specs:
+            if time.time() < due[path]: continue
+            t0 = time.time(); due[path] = t0 + every
+            sep = '&' if '?' in path else '?'
             try:
-                b = http(base + p + sep + urllib.parse.urlencode(dict(user=USER, secret=SECRET)), timeout=10); R = ms()
+                b = http(base + path + sep + urllib.parse.urlencode(dict(user=USER, secret=SECRET)), timeout=10); R = ms()
                 h = hashlib.md5(b).hexdigest()
-                if last.get(p) == h: continue
-                last[p] = h
-                rec('ts_poll', dict(ms=R, sent=int(t0 * 1000), path=p, body=b.decode('utf-8', 'replace')))
+                if last.get(path) == h: continue
+                last[path] = h
+                rec('ts_poll', dict(ms=R, sent=int(t0 * 1000), path=path, body=b.decode('utf-8', 'replace')))
             except Exception as e:
-                rec('log', dict(ms=ms(), what='poll_err', path=p, err=repr(e)[:200]))
-        time.sleep(max(0.2, every - (time.time() - t0)))
+                rec('log', dict(ms=ms(), what='poll_err', path=path, err=repr(e)[:200]))
+        time.sleep(0.2)
 
 
 # ---------------- Polymarket discovery + 1 s books ----------------
