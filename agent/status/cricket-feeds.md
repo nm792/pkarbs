@@ -1,9 +1,7 @@
-# status: cricket-feeds — RUNNING
-- state: RUNNING (capture pid alive since 02:51Z, python3 capture.py .../2026-11-05, timeout 58000)
-- created/claimed: 2026-11-05 (task merged PR #100); MemoryMax 500M
-- files: /root/cricket-feeds/2026-11-05/{books,markets,espn,espn_hdr,log,sports}.jsonl all growing (books 110MB raw at 09:01Z)
-- hourly share commit -> rn1/scores/cricket/feeds-2026-11-05/
-- ends ~17:15Z (timeout 58000) or self-stop
-- last heartbeat: 2026-11-05T09:0XZ UTC
-
-snapshot 0901Z (this round): committed books.jsonl.gz 5.1MB + espn/espn_hdr/markets/log/sports to rn1/scores/cricket/feeds-2026-11-05/ on claude/project-thread-vg2ckg (commit e46a270). Feed alive and appending.
+# status: cricket-feeds — DONE-STOPPED (2026-11-05 23:05Z)
+- state: DONE-STOPPED. Capture NOT running (no live process, no unit). Data last written 13:49Z (books.jsonl 188MB, espn/espn_hdr/markets/log all 13:44-13:49Z).
+- stop cause: 382 pause at 13:49Z; not restarted. Task targets (Ban v WI 03:30Z, WBBL Strikers v Heat 04:40Z) long past; no live/upcoming cricket match today (checked 23:05Z).
+- gap: 13:49Z onward, no capture.
+- per note 385 §1.3: no live/upcoming match → marked DONE-STOPPED, not restarted.
+- files retained: /root/cricket-feeds/2026-11-05/ (raw, uncommitted).
+- last heartbeat: 2026-11-05T23:05Z UTC

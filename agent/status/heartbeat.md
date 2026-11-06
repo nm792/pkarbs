@@ -1,7 +1,6 @@
-# agent/status/heartbeat.md
+# heartbeat — pkarbs — 2026-11-06T00:40Z
 
-Round 2026-11-05T13:51Z (UTC):
-- ALL PROJECTS PAUSED (Nick 13:06Z / note 381) until root+vol >=15G twice; 382 step1 stopped cricket-feeds capture 13:49Z (no respawn).
-- cricket-feeds inboxes 0525/0805/1235 + start all have outbox replies; data committed to 12:00Z run.
-- tennis-books/oddspapi-multi/multi2/tennis-nov5 disk-gate closed by 381 (answer C: blocked until lift); tasks stay queued, not started.
-- nothing new started under pause.
+- tennis-queue-sim: STEP 2 pull DONE 00:19Z (154 hist files on vol2 oddspapi); STEP 3 queue_sim BLOCKED — OOM at the spec's 1.5GB cap on the full 1.3M-row merge. Owner ruling raised in-repo (agent/outbox/question-2026-11-06-tennis-queue-sim-oom.md): A) raise cap for one run, or B) scope input down (<20 matches, anecdotal). No code change either way.
+- cricket-feeds / oddspapi / tennis-nov5 / nba / lol-pilot threads: answered. LoL pilot running (dry, hours 8, out 132KB fresh 00:32Z).
+- cito-tennis-logger: WAITING FOR KEY (Nick).
+- All inbox has outbox replies.
