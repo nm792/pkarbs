@@ -6,3 +6,5 @@
 - Capture healthy: books/markets/pmws growing, Polymarket recording running. Same read-only rules.
 - Prior results: `#` refused (suback "Unspecified error", reverted). Real topics now supersede it.
 - Values never printed. Backups: env `/root/thesports.env.bak-pretopics` + `/root/thesports.env.bak-pre-topic`.
+
+- **CORRECTION (22:18Z): the LIVE writer is chunk `final-topics-8917`**, not 24925. `ps` shows capture.py writing /root/thesports/final-topics-8917 started 15:48Z; fresh books.jsonl 946 MB @21:18Z. Chunk 24925's files stop 15:50Z (its commit of suback+discover_pm is the 15:50 snapshot, since pushed). Both chunk dirs were wired with the same real topics; the running capture is healthy and writing. LoL still 0 msgs / HTTP "URL not authorized".
