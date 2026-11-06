@@ -1,19 +1,8 @@
-# Answer: thesports-topics-2026-11-06 (inbox) — THESPORTS_TOPICS=# trial result
+# status: thesports-trial (TASK-thesports-trial-2026-11-05)
 
-## Finding: `#` subscription is REFUSED (expected outcome)
-
-Applied per reviewer PR #164 + inbox 12:08Z. Edited `/etc/pkarbs/thesports.env` to add `THESPORTS_TOPICS=#`, restarted the capture chunk, captured the suback:
-
-- `mqtt_connect` rc = `Success` (host mq.thesports.com)
-- **`mqtt_suback` rc = `["Unspecified error"]`** for topics `["#"]`
-- No messages delivered; no `ts_mqtt` file produced (nothing can be committed — refused sub)
-
-**`#` is refused by the TheSports server** — the trial is done, no other guessed topic strings will be tried (per inbox instruction 1). The Claude thread is getting the real topic strings from TheSports via Nick's account manager and will add them to this inbox.
-
-## State after revert
-
-- Env reverted: `THESPORTS_TOPICS=` set to **explicit empty** (this matters — `capture.py` defaults `E.get('THESPORTS_TOPICS', '#')`, so an *absent* var silently subscribes `#`; an explicit empty line yields `topics:[]`).
-- Capture restarted clean on chunk `2026-11-06T15` (12h, MemoryMax 500M, --share): `mqtt_connect rc=Success`, **`topics:[]`**, Polymarket recording running (discover_pm 220 tokens, books/markets growing). This matches the healthy pre-trial state (T10 chunk showed `topics:[]`).
-- `/root/thesports.env.bak-pre-topic` holds the prior env for revert. Values never printed.
-
-Per inbox step 4: nothing further to do on our side until real topic strings land in the inbox.
+- **REAL TOPICS WIRED + LIVE (2026-11-06T15:50Z).** 5 issued topics in `THESPORTS_TOPICS` (basketball/tennis/lol/dota2/csgo `.match.v1`), plus `THESPORTS_POLL_PATHS=/v1/lol/match/detail_live@2`. Chunk `final-topics-24925` running, `mqtt_connect rc=Success`, all 5 subacks `Granted QoS 0`.
+- **4/5 topics DELIVERING:** 107 msgs first minutes — basketball 32, csgo 55, dota2 18, tennis 2. Full event payloads (CS2 kills + per-player stats, Dota2 pick/ban, basketball quarters + timer).
+- **LoL = 0 msgs, HTTP `/v1/lol/match/detail_live` → "URL is not authorized to access, please contact our business staff."** LoL not yet authorized on account (task: LoL first priority, Worlds semis 7–8 Nov). Thread must ask TheSports to authorize LoL.
+- Capture healthy: books/markets/pmws growing, Polymarket recording running. Same read-only rules.
+- Prior results: `#` refused (suback "Unspecified error", reverted). Real topics now supersede it.
+- Values never printed. Backups: env `/root/thesports.env.bak-pretopics` + `/root/thesports.env.bak-pre-topic`.
