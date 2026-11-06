@@ -1,4 +1,7 @@
-# heartbeat — round 2026-11-06T21:18Z (pkarbs vg2ckg)
-- Newest thread = project-thread-vg2ckg; every inbox item has an outbox reply on origin (all OK). thesports trial GO (Nick 09:23Z) — capture LIVE.
-- NOTE: live capture process writes chunk final-topics-8917 (fresh books.jsonl 946MB @21:18Z); status file's "final-topics-24925 running" is stale (that chunk's files stop 15:50Z). Both wired with real topics; capture healthy + writing.
-- LoL authorization still pending TheSports ("URL not authorized") per thread ask.
+# Heartbeat — 2026-11-06 03:20 UTC
+
+Sync: main synced to origin/main. T018 (2024 delistings) mid-work; T019 accepted partial; T020 (2026 delistings)
+advanced this round — takeovers census chunk (Mayne 31-Oct-26, 16 completed 2026 deals) pulled; 7 in-band
+non-resource candidates to t020_delistings.csv, 9 exclusions to excluded.csv. Per-company cap/price/revenue/GICS
++ ASX removal-date fills remain the next T020 chunk. T021-T031 queued behind T020 per program.md order. No gated items
+waiting on Nick.
