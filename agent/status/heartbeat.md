@@ -1,3 +1,3 @@
-# heartbeat — 2026-11-06T10:18Z
-- thesports-trial: BLOCKED (credentials not installed; /etc/pkarbs/thesports.env absent). waiting for Nick: YES — forward trial user/secret/topics in direct chat. LoL first, Worlds semis 7-8 Nov.
-- All other inbox/task items on this thread have outbox replies on origin.
+# heartbeat — 2026-11-06T10:33Z
+- Both 11-06 inbox items answered on thread (nba-books-ws nudge: Part B scheduled via at 5 for 23:25Z; thesports: blocked on missing creds). No open inbox without outbox reply.
+- Newest thread vg2ckg; previous threads pf5upe etc. alive.
