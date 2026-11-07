@@ -1,4 +1,5 @@
-# heartbeat — round 2026-11-07 02:30 UTC (pkarbs claude/project-thread-vg2ckg)
-- All inbox items on vg2ckg have outbox replies; no open note. thesports-topics answered on vg2ckg (stale copy on pf5upe is superseded thread).
-- PAUSE/charter-383 in force; root under floor, no new collectors.
-Agent alive.
+# heartbeat — 2026-11-07 03:30Z round
+
+- Newest thread vg2ckg. thesports slim bands pushed 03:04Z; diary-names task committed (read-only trial).
+- Note 391 (tt-review) stops thesports-capture.service (a pkarbs writer) off root — step 1 stop consent-gated; data intact, /root/thesports 3.3 G not yet shipped (step 3 button pending).
+- No new unanswered inbox/task on vg2ckg/pf5upe tips.
