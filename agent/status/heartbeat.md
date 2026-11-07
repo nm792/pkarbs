@@ -1,6 +1,4 @@
-# heartbeat — round 2026-11-07 02:15 UTC (pkarbs vg2ckg)
-- All 66 agent/inbox items have outbox replies; no unanswered note.
-- thesports-trial capture LIVE (fresh books.jsonl); oddspapi/tennis/queue-sim tasks DONE.
-- rugby-top14 capture PREPARED, window 7-8 Nov not yet open.
-- PAUSE (329) in force: root 14G under 15G floor -> no new work claimed.
+# heartbeat — round 2026-11-07 02:30 UTC (pkarbs claude/project-thread-vg2ckg)
+- All inbox items on vg2ckg have outbox replies; no open note. thesports-topics answered on vg2ckg (stale copy on pf5upe is superseded thread).
+- PAUSE/charter-383 in force; root under floor, no new collectors.
 Agent alive.
