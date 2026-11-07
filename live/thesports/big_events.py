@@ -665,3 +665,18 @@ if os.environ.get('ENDS'):
     rep('PM sports-ws "ended" minus TheSports last game-result message', [r['pm'] - r['lg'] for r in rowsE if r['pm'] and r['lg']])
     rep('price reaches and STAYS >=98.5% minus TheSports last game-result message', [r['pf99'] - r['lg'] for r in rowsE if r['pf99'] and r['lg']])
     rep('PM sports-ws "ended" minus price STAYS >=98.5%', [r['pm'] - r['pf99'] for r in rowsE if r['pm'] and r['pf99']])
+
+if os.environ.get('DUMP'):
+    dm_ = {}
+    for f in glob.glob(DI + '/tennis-*.json'):
+        for m in json.load(open(f)).get('results', []): dm_[m['id']] = m
+    print('match_id,home,away,scheduled_start_utc_epoch,first_ts_msg_epoch,last_ts_msg_epoch')
+    fl = {}
+    for r in msgs:
+        if r['topic'].endswith('tennis/match/v1'):
+            try:
+                for p in json.loads(r['p']): fl.setdefault(p['id'], [r['ms'] / 1000, 0])[1] = r['ms'] / 1000
+            except Exception: pass
+    for key in tk_of:
+        if key[0] == 'tennis' and key[1] in dm_:
+            h, a = matches[key[1]]; print('%s,"%s","%s",%s,%.0f,%.0f' % (key[1], h, a, dm_[key[1]]['match_time'], fl[key[1]][0], fl[key[1]][1]))
