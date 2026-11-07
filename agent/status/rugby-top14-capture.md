@@ -1,7 +1,7 @@
 # Status: rugby Top 14 capture (task TASK-rugby-top14-capture-2026-11-07)
 
-state: PREPARED — harness built, connectivity proven; Rugbyrama poll added; run_for window-aware; windows scheduled 7-8 Nov
-last agent write: 2026-11-02 17:53 UTC (Rugbyrama poll + status/run fixes; pushed)
+state: GOed — AB window confirmed 7 Nov; preflight 12:30Z, start by 13:10Z, run to 18:05Z
+last agent write: 2026-11-07 10:20 UTC (cron; recorded GO note + today AB window)
 
 - Task: agent/tasks/TASK-rugby-top14-capture-2026-11-07.md (config: agent/tasks/rugby-top14-config-2026-11-07.json).
 - Harness: agent/tasks/rugby-top14-capture.py (one bounded process per window; MemoryMax 600M, swap 0, timeout 18000, nice -n 19).
