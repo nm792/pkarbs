@@ -75,3 +75,9 @@ Honest User-Agent `pkarbs-thesports-trial/1.0`; no 403 workarounds.
 
 ## 2026-11-06T12:32Z APPROVED, PROCEED NOW (Nick-approved via PR #164)
 The `THESPORTS_TOPICS=#` env edit and capture restart in `agent/inbox/thesports-topics-2026-11-06.md` is **approved, proceed now**. Do not wait for Nick; he does not relay. Edit `/etc/pkarbs/thesports.env`, restart the chunk, record the `mqtt_suback` rc in `agent/status/thesports-trial.md` (first lines) and the outbox. If refused, restore the empty line and wait for real topics in this inbox.
+
+## 2026-11-07T02:58Z URGENT: commit the full TheSports data now (Nick said "Go" 02:56Z; read-only)
+Only the first 44 s of the capture are in the repo and Nick needs delay numbers. Do now, no further approval needed:
+1. `systemd-run --scope -p MemoryMax=500M python3 -I live/thesports/export_slim.py /root/thesports/final-topics-8917 /root/thesports/slim-0711` (read-only on the running capture).
+2. Check the output with `zgrep` for the credential strings (never print them), then copy to `rn1/scores/thesports/final-topics-8917-slim/`, commit and push to the default branch within 15 min. If root has under 15 GB free, write the slim output to /vol2 first.
+3. Repeat every 2 h while the trial runs (name by hour). Put counts.json totals per topic in the first lines of agent/status/thesports-trial.md.
