@@ -94,18 +94,37 @@ async def read_clob(clob_f, log, markets, use_rest):
     attempts = 0
     while True:
         try:
-            async with websockets.connect(CLOB_WS, user_agent_header=UA["User-Agent"], max_size=8*1024*1024) as ws:
+            async with websockets.connect(CLOB_WS, user_agent_header=UA["User-Agent"], max_size=8*1024*1024, ping_interval=None) as ws:
                 _w(log, f"{time.time():.3f} CLOB open")
                 await ws.send(json.dumps({"assets_ids": tokens, "type": "market"}))
-                async for raw in ws:
-                    obj = json.loads(raw.decode() if isinstance(raw, bytes) else raw)
-                    _record(clob_f, {"recv_ms": int(time.time()*1000), "recv_iso": datetime.utcnow().isoformat()+"Z", **obj})
+
+                async def keepalive():
+                    # market channel drops idle clients: send the text PING every 10 s
+                    while True:
+                        await asyncio.sleep(10)
+                        await ws.send("PING")
+                ka = asyncio.create_task(keepalive())
+                try:
+                    async for raw in ws:
+                        s_ = raw.decode() if isinstance(raw, bytes) else raw
+                        if s_.strip().upper() == "PONG":
+                            continue
+                        try:
+                            obj = json.loads(s_)
+                        except Exception:
+                            _record(clob_f, {"recv_ms": int(time.time()*1000), "unparsed": s_[:200]})
+                            continue
+                        # the initial snapshot arrives as a JSON LIST of books; later messages are dicts
+                        for item in (obj if isinstance(obj, list) else [obj]):
+                            if not isinstance(item, dict):
+                                continue
+                            _record(clob_f, {"recv_ms": int(time.time()*1000), "recv_iso": datetime.utcnow().isoformat()+"Z", **item})
+                finally:
+                    ka.cancel()
         except Exception as e:
             attempts += 1
             _w(log, f"{time.time():.3f} CLOB close {e!r} (attempt {attempts})")
-            if attempts >= 3:
-                return "REFUSED-3x"
-            await asyncio.sleep(5)
+            await asyncio.sleep(min(5 * attempts, 30))   # keep retrying; never give up silently
 
 async def poll_espn(espn_f, log):
     while True:
@@ -204,9 +223,11 @@ async def summarise(win, markets, log, every=300):
         await asyncio.sleep(every)
         try:
             now = time.time(); nclob = 0; ntr = {}
-            for l in new_lines(f"{ROOT}/{win}_clob.jsonl"):
+            for l in new_lines(f"{ROOT}/{win}_clob.jsonl") + new_lines(f"{ROOT}/{win}_clob_rest.jsonl"):
                 try: o = json.loads(l)
                 except Exception: continue
+                if isinstance(o, dict) and isinstance(o.get("book"), dict):   # REST poll row
+                    bk_ = o["book"]; o = {"asset_id": o.get("token_id") or bk_.get("asset_id"), "bids": bk_.get("bids"), "asks": bk_.get("asks")}
                 for item in (o if isinstance(o, list) else [o]):
                     nclob += 1
                     changes = item.get("price_changes") or [item]
@@ -279,6 +300,16 @@ async def summarise(win, markets, log, every=300):
 
 async def main():
     win = sys.argv[1] if len(sys.argv) > 1 else "A"
+    # single-instance guard (Nick approved 7 Nov 15:04Z): a second launch of the same window exits at once
+    import fcntl
+    os.makedirs(ROOT, exist_ok=True)
+    global _LOCK
+    _LOCK = open(f"{ROOT}/{win}.lock", "w")
+    try:
+        fcntl.flock(_LOCK, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        print(json.dumps({"window": win, "error": "already running (lock held), exiting"}))
+        sys.exit(0)
     cfg = json.load(open(CONFIG_PATH))
     markets = cfg.get(win, [])
     kick0 = min(m.get("kickoffUTC", "2026-11-07T00:00:00Z") for m in markets)
@@ -287,7 +318,7 @@ async def main():
     # window run length: per-window (AB merged to 5h / 18000s per Nick 15:50Z; D,C ~2h45 bounded)
     run_for = 18000 if win == "AB" else 10500
     log = f"{ROOT}/{win}_log.txt"
-    _w(log, f"{time.time():.3f} WIN={win} start markets={len(markets)}", append=False)
+    _w(log, f"{time.time():.3f} WIN={win} start markets={len(markets)}")
     rr_ids = RR_MATCHES.get(win, [])
     tasks = [
         asyncio.create_task(read_sports(f"{ROOT}/{win}_sports.jsonl", log)),
