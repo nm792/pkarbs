@@ -1,10 +1,11 @@
 # status: tennis-books (TASK-tennis-books-2026-11-05)
-state: COMPLETED at timeout (~21:30Z). Ruling-A restart 2026-11-05T15:10:36Z ran to its 22800s timeout; books.jsonl stopped 21:10Z.
+state: COMPLETED — data route VERIFIED COMPLETE (2026-11-07 05:28Z). No tail gap.
 unit: was tennis-books-v2.service (systemd-run transient, MemoryMax 500M); no longer present (transient run ended).
-disk_gate (note 385 §1.4, 23:05Z): `pkarbs 500/day -> /mnt/HC_Volume_107257520/pkarbs/tennis` on VOL2 → GO (free 26G, cap 20480MB, use 0, headroom 20480MB). No reference to the superseded 05:25Z root>=6GB ruling — the gate is now disk_gate.sh.
-DATA ROUTE (CHARTER 383 pre-push hook): raw/.gz >5MB cannot push to git; run data shipped to STORAGE BOX (tennis -> /vol2 + hourly box ship + nothing raw committed):
-  local raw: /mnt/HC_Volume_107257520/pkarbs/tennis/2026-11-05/share/books.jsonl (1,048,467 rows, 1.0GB) — final, stopped 21:10Z.
-  box: pkarbs/tennis-2026-11-05/ holds ONLY books.part3.gz(93.5MB)+log/markets/probe.jsonl.gz @18:07Z.
-GAP: 18:07Z→21:10Z tail (last ~3h of the run) was never shipped to the box — no hourly box ship covered it after 18:07Z. Box ship of the tail or explicit discard is an owner/reviewer decision; not silently done.
-next: owner decides ship-vs-discard of the tail; else task closed.
-last heartbeat: 2026-11-05T23:05Z UTC (corrected from stale RUNNING snapshot 18:10Z)
+data_route: CHARTER 383/384 — box is the store; nothing raw committed.
+  local raw: /mnt/HC_Volume_107257520/pkarbs/tennis/2026-11-05/share/books.jsonl (1,002,747,113 B, 1,048,467 rows, stopped 21:10Z)
+  box: pkarbs/tennis-2026-11-05/share/* STORAGE-BOX VERIFIED 2026-11-07 05:26Z:
+    share/books.jsonl 1,002,747,113 B @21:10:36Z == local (rsync --checksum dry-run: 0 transfers, checksum-clean, plus tennis_books_2026-11-05.jsonl.gz 166,866,252 B @08:34:49Z)
+    share/{log,markets,probe}.jsonl all present matching local.
+RESOLUTION: the 23:05Z 5-Nov "tail 18:07Z→21:10Z never shipped / owner decides ship-vs-discard" note is SUPERSEDED — the full final share/ set (through 21:10Z) is ON the box, checksum-verified. Accounts for the earlier 18:07Z partial + later full-file box ship. Nothing to ship, nothing to discard; task data route complete.
+next: task closed (no remaining owner decision).
+last heartbeat: 2026-11-07T05:28Z UTC
