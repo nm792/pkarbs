@@ -1,2 +1,2 @@
-# agent/status/heartbeat.md — pkarbs 12:48Z
-- round 12:48Z: rugby Top14 window AB 7 Nov 13:15-18:05Z preflight verified; launch at window start by dispatch. thesports trial capture LIVE. cricket feeds DONE-STOPPED. tennis/cs2/dota/lol loggers per status. Inbox==outbox on vg2ckg, no new task. No live consent-gated item in this thread.
+# agent/status/heartbeat.md — pkarbs 13:05Z
+- round 13:05Z: rugby Top14 window AB RUNNING since 13:00:30Z (preflight re-measured 13:02Z: disk 19G free, dir writable, ESPN 270559 6 events). WARNING: 5 duplicate AB capture procs (no single-instance guard); consolidate-to-one = consent-gated. thesports trial capture LIVE; committed books_mid for slim-1102-32295 (37 parts, 800,150 rows, 04:00Z+). cricket DONE-STOPPED. Inbox==outbox excluding the 4 noted; nothing else new on vg2ckg.
