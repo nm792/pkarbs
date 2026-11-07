@@ -543,3 +543,27 @@ if os.environ.get('POINTS'):
             if not a: print('  net +%ds: n=0' % h); continue
             ci = bd(a, b)
             print('  net taker (buy ask +1.2 s, sell bid +%ds, all events, spread<=3c, 25-75%%): real n=%d median %+.2fc mean %+.2fc | placebo n=%d median %+.2fc mean %+.2fc | mean diff 90%% CI %s' % (h, len(a), 100 * statistics.median([v for _, v in a]), 100 * sum(v for _, v in a) / len(a), len(b), 100 * statistics.median([v for _, v in b]), 100 * sum(v for _, v in b) / len(b), ('[%+.2f, %+.2f]' % ci) if ci else 'n/a'))
+
+# ---- half-move timing at 1 s resolution (coordinator 07:24Z)
+if os.environ.get('POINTS'):
+    def halft(f, t):
+        pre = mid_at(f, t - 30); post = mid_at(f, t + 10)
+        if pre is None or post is None or not (0.25 <= pre <= 0.75) or post - pre < 0.03: return None
+        for s in range(-30, 11):
+            x = mid_at(f, t + s)
+            if x is not None and x - pre >= (post - pre) / 2 - 1e-9: return s
+        return None
+    pq = lambda a, q: sorted(a)[min(len(a) - 1, int(q * len(a)))]
+    random.seed(99)
+    print('\n--- HALF-MOVE TIME relative to feed message (s; negative = price got half its move BEFORE the message). Events whose total move t-30..t+10 is >=3c favourable ---')
+    for cls in sorted(pc2):
+        for lab in ('real', 'placebo'):
+            hs = []; tot = 0
+            for key, t0, sd, tk, sg in pc2[cls]:
+                f = fav_tk(tk, sg, sd)
+                if not f: continue
+                for tt in ([t0] if lab == 'real' else [t0 + random.choice([-1, 1]) * random.uniform(60, 600) for _ in range(5)]):
+                    tot += 1; h = halft(f, tt)
+                    if h is not None: hs.append(h)
+            if hs: print('%-62s %-7s n_big=%3d of %4d (%.0f%%) | median %+d s, 10-90%% range [%+d, %+d] s | share before message (<=-1): %.0f%%' % (cls, lab, len(hs), tot, 100 * len(hs) / tot, statistics.median(hs), pq(hs, .1), pq(hs, .9), 100 * sum(1 for h in hs if h <= -1) / len(hs)))
+            else: print(cls, lab, 'none')
