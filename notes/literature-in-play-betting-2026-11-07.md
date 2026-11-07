@@ -125,4 +125,36 @@ NBA is dropped from here on. Everything above on NBA stays in the note only as b
 - Consequence: a taker entry on the feed (tests 1-3 above) sits in a delay window during which market makers can cancel. Courtsiding's edge is exactly what this rule is built to neutralise. The taker test must (a) include the market's `seconds_delay`, (b) count a miss when the quote is cancelled in that window, and (c) use the measured order timings, not an assumed instant fill.
 - It also means resting orders (post-only) are not subject to the delay. That does not make them safe, because of the adverse-selection result above, but the comparison of taker and resting variants must be done with the delay in place.
 
-**Still not read in full:** Bizzozero, Flepp and Franck (7 Nov 05:00Z). `www.zora.uzh.ch` is now allowed, but ZORA answers our client with an anti-bot challenge page, and the EconPapers records for the working paper (Zurich No. 368, 2017) carry no PDF link. I did not try to get around the challenge. Second-hand only (search summary, unverified): the working paper uses point-by-point data for 141 men's singles matches and reports that the cumulative abnormal return in the first seconds after an important event is more than 60% of the full price reaction. To read it, someone needs to download the PDF from a browser into `/mnt/project-files/` (title "What is the effect of insider trading on price efficiency?", UZH working paper 368).
+## Courtsiding paper read in full (7 Nov 05:10Z, via TinyFish)
+
+Bizzozero, Flepp, Franck, "Insider trading and price efficiency: evidence from a betting exchange", University of Zurich working paper 368, Sept 2017 ([PDF](http://repec.business.uzh.ch/RePEc/zrh/wpaper/368_IBW_full_alt.pdf)). This is the working-paper version. The published JEBO 2018 version is "The effect of fast trading on price discovery and efficiency" and may differ. We could not open ZORA directly because of its anti-bot page, but TinyFish found and read this copy on another host.
+
+**Data:** 141 Grand Slam men's singles matches (French Open and Wimbledon, 2009-2014), Betfair best back/lay odds for every second (1.3 million seconds), IBM point-by-point data. 365 set-won events and 79 tie-break events.
+
+**Edge duration**
+- The insider advantage is the delay of TV and score feeds, at least 5 s. They attribute the price move in the first 5 s after a set is won to courtsiders.
+- Cumulative abnormal return after a set is won: **0.82% at 1 s, 3.06% at 5 s.** The first five seconds are **about 60% of the full price reaction** once the public sees it, and **about 80% for unanticipated events (tie-breaks).**
+- Odds on average stabilise after about 10 s.
+- Prices start moving before the public information is out, which is the evidence that fast traders exist.
+
+**Execution method:** "sequential back-lay". Back the set winner at t=0, lay the same player 10 s later, locking in a profit whatever the result. The authors ignore the exchange's speed bump and assume market orders match immediately. They also ignore the 5% commission.
+
+**Returns of the 10 s round trip**
+| Events | Return | n |
+|---|---|---|
+| All set events | -0.87% (p=0.09) | 365 |
+| All tie-breaks | -0.65% (p=0.69) | 79 |
+| Balanced matches (set winner priced 25-75%), sets | +1.48% (p=0.15) | 97 |
+| Balanced 25-75%, tie-breaks | +4.03% (p=0.03) | 29 |
+| Strict balance 40-60%, sets | +2.96% (p=0.02) | 44 |
+| Strict balance 40-60%, tie-breaks | +6.6% (p=0.11) | 12 |
+
+Why negative overall, in the authors' words: when one player is a strong favourite the odds barely move, and when an underdog wins the odds are erratic because volume is low.
+
+**What this adds for our algo**
+1. **The lead is about 5 s and most of the move happens inside it.** That is 60-80% of the move in the first 5 s, not 100% after 10 s. Our TheSports lead (2-3 s on some events) is a bit under that. The shape of the answer matches ours: judge on events where we are first.
+2. **Trade only balanced prices.** Without a filter the same rule loses money. With a 25-75% filter it is mildly positive, and with 40-60% it is clearly positive on 44 events. This is the cheapest filter to add to every test we run: skip events when the pre-event price is outside roughly 25-75%.
+3. **Unexpected events carry the most.** Tie-breaks (unanticipated) gave the largest share (80%) and the largest returns. In our sports that points to break of serve, round wins when the score was close, and objectives that swing a map.
+4. **Small samples.** The best cells are 12-44 events with p-values of 0.02-0.15. It is suggestive, not proven.
+5. **It was a round trip, not hold-to-resolution.** Their trade sells after 10 s. Ours holds. The comparison should therefore also be run as 10 s exit versus hold on our data.
+6. **It ignored the speed bump.** With a delay like Betfair's 5 s (Brown) or Polymarket's `seconds_delay`, the returns above are an upper bound for a taker.
