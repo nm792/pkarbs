@@ -1,6 +1,10 @@
-Round: 2026-11-07T20:03Z UTC
-- rugby-top14-capture: AB window ended 18:05Z (raw committed dae68560); D window scheduled 8 Nov 13:45Z; RUNNING=no (window closed).
-- tennis-books: COMPLETED 5 Nov; 18:07-21:10Z tail ship/discard = owner/reviewer decision.
-- thesports-trial: capture healthy (books.jsonl). sports-mece-shadow read-only.
-- TASK-cfb-capture-2026-11-07: pending, authoring CFB capture.py = code change (gated).
-Agent alive.
+# heartbeat — 2026-11-07T21:00Z (server-member round)
+
+Open tasks on this thread:
+- rugby-top14-capture: 1 AB writer (1312662) live; REST fallback (rugby-clob-rest-fallback.py) writing AB_clob_rest.jsonl. GATED: wiring summariser to AB_clob_rest is a script change (consent-gated, awaiting Nick).
+- thesports-trial: PART B GO'd (Nick 6 Nov); capture running; env whitelisted.
+- tennis-reference-times: delivered (independent timestamps for 28 matches).
+- cfb-capture: optional, bounded, not claimed this round.
+
+Consent-gated (await live session): 1 item — rugby summariser script change.
+Fetch+pushed per round. State verified against origin/claude/project-thread-vg2ckg.
