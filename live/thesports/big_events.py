@@ -680,3 +680,59 @@ if os.environ.get('DUMP'):
     for key in tk_of:
         if key[0] == 'tennis' and key[1] in dm_:
             h, a = matches[key[1]]; print('%s,"%s","%s",%s,%.0f,%.0f' % (key[1], h, a, dm_[key[1]]['match_time'], fl[key[1]][0], fl[key[1]][1]))
+
+# ================= CS2 / generic: unfiltered windows, half-move timing, taker net (no feed-first filter) =================
+if os.environ.get('CS2'):
+    def halft2(f, t):
+        pre = mid_at(f, t - 30); post = mid_at(f, t + 10)
+        if pre is None or post is None or not (0.25 <= pre <= 0.75) or post - pre < 0.03: return None
+        for s in range(-30, 11):
+            x = mid_at(f, t + s)
+            if x is not None and x - pre >= (post - pre) / 2 - 1e-9: return s
+        return None
+    pq2 = lambda a, q: sorted(a)[min(len(a) - 1, int(q * len(a)))]
+    def netn2(f, t, h):
+        r0 = row(f, t + DELAY); pre = mid_at(f, t - 10); en = row(f, t + DELAY + 1.0); x = row(f, t + DELAY + h)
+        if not (r0 and pre is not None and en and x) or not (0.25 <= pre <= 0.75) or en[2] - en[1] > 0.03: return None
+        return x[1] - en[2]
+    random.seed(123)
+    SP = os.environ['CS2']
+    allL = [x for c in classes if c.startswith(SP) for x in classes[c]]
+    for cls, L in [(c, classes[c]) for c in sorted(classes) if c.startswith(SP)] + [(SP + ' ALL', allL)]:
+        print('\n== %s | events %d, maps/matches %d' % (cls, len(L), len(set(k for k, *_ in L))))
+        W = [(-90, -60), (-60, -30), (-30, -15), (-15, -5), (-5, 5), (5, 15), (15, 60)]
+        for lab in ('real', 'placebo'):
+            out = []
+            for a, b in W:
+                v = []
+                for key, t0, sd, tk, sg in L:
+                    f = fav_tk(tk, sg, sd)
+                    if not f: continue
+                    for tt in ([t0] if lab == 'real' else [t0 + random.choice([-1, 1]) * random.uniform(60, 600) for _ in range(3)]):
+                        x, y = mid_at(f, tt + a), mid_at(f, tt + b)
+                        if x is not None and y is not None and 0.25 <= x <= 0.75: v.append(y - x)
+                out.append('[%+d,%+d] %+.1fc(n%d)' % (a, b, 100 * statistics.median(v), len(v)) if v else 'n/a')
+            print('  move %-7s %s' % (lab, ' | '.join(out)))
+        for lab in ('real', 'placebo'):
+            hs = []; tot = 0
+            for key, t0, sd, tk, sg in L:
+                f = fav_tk(tk, sg, sd)
+                if not f: continue
+                for tt in ([t0] if lab == 'real' else [t0 + random.choice([-1, 1]) * random.uniform(60, 600) for _ in range(5)]):
+                    tot += 1; h = halft2(f, tt)
+                    if h is not None: hs.append(h)
+            print('  half-move %-7s big moves %d of %d (%.0f%%)%s' % (lab, len(hs), tot, 100 * len(hs) / max(tot, 1), (' | median %+d s, 10-90%% [%+d, %+d]' % (statistics.median(hs), pq2(hs, .1), pq2(hs, .9))) if hs else ''))
+        for h in (10, 30):
+            a, b = [], []
+            for key, t0, sd, tk, sg in L:
+                f = fav_tk(tk, sg, sd)
+                if not f: continue
+                v = netn2(f, t0, h)
+                if v is not None: a.append((key, v))
+                for _ in range(5):
+                    v = netn2(f, t0 + random.choice([-1, 1]) * random.uniform(60, 600), h)
+                    if v is not None: b.append((key, v))
+            if a: 
+                ci = bd(a, b)
+                print('  net taker +%ds: real n=%d median %+.2fc mean %+.2fc | placebo n=%d median %+.2fc mean %+.2fc | diff 90%% CI %s' % (h, len(a), 100 * statistics.median([v for _, v in a]), 100 * sum(v for _, v in a) / len(a), len(b), 100 * statistics.median([v for _, v in b]) if b else float('nan'), 100 * sum(v for _, v in b) / len(b) if b else float('nan'), ('[%+.2f, %+.2f]' % ci) if ci else 'n/a'))
+            else: print('  net taker +%ds: n=0' % h)

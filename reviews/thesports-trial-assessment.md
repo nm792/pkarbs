@@ -22,6 +22,7 @@ Scripts: `live/thesports/` : `event_price_change_names.py` (name bridge), `tenni
 - **Timing vs price:** price reaches half its move a median 14-15 s BEFORE the TheSports point message (10-90%: -23 to -6 s; break points, n=64 / saves n=48 / other points n=478). Placebo -8 to -12 s (the placebo is biased negative because the window ends at +10 s, so the real excess lead is about 2-7 s, and real events are tighter and far more often big: 40% vs 10% at break points).
 - **Net after spread and 1 s delay (taker, no feed-first filter):** about -1c at +10 s and +30 s for break-point-created, saved, and other points; real minus placebo inside the 90% interval except "other points" at +10 s (+0.07 to +0.18c, not tradeable). Game-end (break) net also about -1c, real = placebo.
 - **Reference:** TheSports shows each game score a median 15 s BEFORE Polymarket's own sports-ws score (10-90%: -50 to +3 s; 20 matches, 357 changes). So TheSports is ahead of PM's score feed but behind the PM price.
+- **Replication on new matches (chunk slim-1102-32295, 9 name-paired matches, 1,355 live points, 7 Nov 04:00-13:15Z):** breaks +5.0c median over -60..+60 s (n=27, 77% >=3c); price half-move median -16 s before the feed message for break-point-created (n=15, 100% before) and -16 s for other big moves, placebo -7 to -12 s; net taker -1.0c at +10 s (break-point-created -1.8c, 90% CI of real minus placebo [-0.93, -0.48], i.e. worse than random) and +30 s. TheSports vs PM sports-ws: median -15.9 s (4 matches, 61 changes). Same picture as the first 28 matches.
 - **Verdict:** no edge from TheSports tennis (price already moved, real = placebo). Whether any faster feed beats the price: UNKNOWN, settled by timing a second feed (LSports trial, deferred to next week) on the same clock. The 14 s gap may be the price source being faster than TheSports, not TheSports being slow versus its own claim (2-3 s vs officials).
 - Not done: Sofascore reference (no per-point timestamps expected); per-point topic (none in our five topics).
 
@@ -35,10 +36,12 @@ Scripts: `live/thesports/` : `event_price_change_names.py` (name bridge), `tenni
 - A true ground truth needs a live recording of a timestamped source during a match. Not yet set up.
 - **Verdict: UNKNOWN** whether TheSports or the price is "late" against true event time. Settled by: an independent timestamped source for the same matches (Sofascore via Hermes, or a live recording of one match with a visible clock).
 
-## CS2 (5 name-verified maps; 112 round-win events)
-- Round wins by stage, favourable move t-10..t+30: early/mid 0.0c median (13% >=3c, n=45 priced), loser>=10 -0.3c (25%, n=12), winner reaching 12 +0.5c (0%, n=3). Net about -1c at +5/+10/+30 s, real = placebo (CI wide, 5 maps).
-- Timing: 112 events too few; half-move timing with the 1 s window NOT yet run for CS2. Earlier median lead +12.8 s vs placebo +3.6 s (91 events) used the asymmetric window and is NOT reliable.
-- **Verdict: UNKNOWN** (5 maps). Settled by: more maps (new chunk, 25 Nov Major) and the half-move timing run.
+## CS2 (10 name-verified maps in chunk slim-1102-32295, 196 round-win events; earlier chunk had 5 maps / 112 events)
+- **Round wins barely move the price.** Median move 0.0c in every window from -90 to +60 s; only 13% of events have a >=3c move over -30..+10 s, the same as at random times (14%). Early/mid rounds 150 events, loser>=10 late rounds 31, winner reaching 12 (map point) 10 (only 2 with price data), overtime 5 (none priced).
+- **Timing (events with a >=3c move):** half-move median -18 s (10-90%: -28 to 0, n=25) vs random-time placebo -13 s (-25 to +2, n=142). The placebo window biases toward negative, so the real excess is about 5 s and the sample is small.
+- **Net taker (buy ask +1.2 s, sell bid +10 s / +30 s, spread<=3c, no feed-first filter):** all events -1.0c median, mean -1.24c (+10 s) and -1.63c (+30 s), placebo -1.50c / -0.82c; real minus placebo 90% CI [-0.38, +0.66] and [-1.68, +0.25]. No edge.
+- **Verdict (10 maps):** no edge from CS2 round-win messages: the market does not reprice on single rounds more than at random times, and the rare big moves come before the message. Map points and overtime: UNKNOWN (n=2 priced). Settled by more maps (25 Nov Major).
+- Earlier CS2 "+12.8 s vs placebo +3.6 s" lead and "+25c" are withdrawn (see table).
 
 ## LoL
 - 3 games, market paired by sign-free price co-movement, side by home.side (verified 3/3). Type 2/3/4 events inferred as tower/inhibitor/monster from counts (TheSports does not document codes).
@@ -65,7 +68,7 @@ Dropped from review by Nick (04:39Z). Only record: TheSports a median 2.5 s afte
 | "Re-run once team names" / "74% before half" | Superseded by name-verified sides. |
 
 ## Open items
-00. 7 Nov 12:20Z: `slim-1102-32295` has ts_mqtt (CS2 from ~06:00Z) and 21 CS2 + 48 tennis markets but no books_mid. Asked Hermes (`agent/inbox/thesports-books-mid-1102-2026-11-07.md`). Nothing run until books land.
+00. 7 Nov 13:10Z: books_mid for slim-1102-32295 landed (800,150 rows); tennis and CS2 run on it (above). LoL still 0 messages.
 0. 7 Nov 09:15Z: newer chunk `slim-0517-32295` (04:00-05:08Z; 6,362 CS2, 4,939 tennis msgs, no LoL) cannot be tested: its books/markets cover only 12 tennis moneyline markets (18 tokens), no CS2 markets, and none of them is a match with TheSports events (0 name pairs). Hermes diagnosis (outbox 09:19Z): discovery filter `MKT_TYPES` + live window found only 12 tennis moneyline markets; checked against the code and chunk 8917: `child_moneyline` (CS2 map winners) IS included already, so likely no CS2/LoL/Dota market was in the live window then. No capture edit needed. Waiting for the next chunk with live CS2/LoL books.
 1. LoL tonight and new CS2 maps: rerun `big_events.py` on the new chunk and add half-move timing for CS2/LoL.
 2. Ask TheSports for a per-event timestamp or a faster tennis/esports product.
