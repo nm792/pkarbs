@@ -40,7 +40,7 @@ process.on('SIGTERM', () => { log('SIGTERM'); stop = true; });
 process.on('SIGINT', () => { log('SIGINT'); stop = true; });
 const stopTimer = setInterval(() => { if (fs.existsSync(F('STOP'))) { if (!stop) log('STOP file'); stop = true; } }, 5000);
 const live = () => !stop && Date.now() < end;
-const UA = 'pkarbs-research/1.0 (contact nm@delphic.co)';
+const UA = 'pkarbs-research/1.0';
 
 // ------------------------------------------------------------------ HLTV scorebot
 const sockets = {};

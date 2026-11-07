@@ -13,7 +13,7 @@ After each score change in a Top 14 match, how many seconds later does the Polym
 - If the CLOB stream refuses the connection (403 from the proxy, as seen from the sandbox on 2 Nov), that is a recorded result. Fall back to REST book polls every 5 s and label the lag figures "5 s poll resolution", not "stream". The fallback is not a failure of the task, but it must be stated in the report.
 - No P&L. Lag figures are a distribution with n events and the threshold used (2c move vs the last trade before the score change).
 
-## Sources (honest User-Agent only: `pkarbs-research/1.0 (contact nm@delphic.co)`)
+## Sources (honest User-Agent only: `pkarbs-research/1.0`)
 1. **Score, primary: sports websocket** `wss://sports-api.polymarket.com/ws`. Hermes's logger keeps every sport from this channel. Filter messages where leagueAbbreviation is a Top 14 code (`rutopft`, from the config ticker prefix). Store each raw message with a local receive timestamp. Probe on 2 Nov over 200 s showed no rugby messages (only dota2, mlbb, challenger, atp, rus, cricket, cs2). That was an off-hours sample, so the result is inconclusive. The window must record whether any `rutopft` message arrived; if none did, the score clock is ESPN alone (say so in the report).
 2. **Score, cross-check: ESPN** `GET https://site.api.espn.com/apis/site/v2/sports/rugby/270559/scoreboard` every 30 s. Top 14 league ID 270559 (2 Nov probe returned 200). Store the raw response for the event(s) with status and score.
 3. **Prices, primary: CLOB market websocket** `wss://ws-subscriptions-clob.polymarket.com/ws/market`. Send `{"assets_ids": [<every clobTokenIds entry in the window's markets>], "type": "market"}`. Store every book, price_change and last_trade_price message raw, with local receive timestamp. Fallback if the connection is refused: REST `GET https://clob.polymarket.com/book?token_id=<yesToken>` every 5 s, one request per token, and the report says so.
@@ -50,7 +50,7 @@ Every figure is measured from captured messages. Estimates are labelled as estim
 ## Added 2 Nov 2026 (Nick approved, 15:44Z): Rugbyrama widget poll as an extra score clock
 Purpose: record when each score event first appears on the Rugbyrama match widget. It is a first-seen clock, not a broadcast time. First test: does the widget update live during a match? If it never changes during play, say so in the report. Nothing else in this task depends on it.
 
-- Endpoint (GET, honest User-Agent `pkarbs-research/1.0 (contact nm@delphic.co)`): `https://www.rugbyrama.fr/idalgo/cache/page/rugby_widget_match.php?refMatch=<id>`
+- Endpoint (GET, honest User-Agent `pkarbs-research/1.0`): `https://www.rugbyrama.fr/idalgo/cache/page/rugby_widget_match.php?refMatch=<id>`
 - Poll every 15 s while the match is between kickoff minus 30 min and full time plus 15 min. Run it inside capture.py as a fourth async task, in the same process and memory cap. Do not start a separate process.
 - Store the raw HTML response with the local receive timestamp in `rugby/<window>_rugbyrama.jsonl` (one line per poll: time, refMatch, status, size, body). Parse the event list (game minute, event text, running score). An event's first-seen time is the first poll whose parsed list contains it. Log first-seen times in `rugby/<window>_rugbyrama_events.jsonl`.
 - Match IDs (from rugbyrama.fr results pages, checked 2 Nov 2026). Kickoffs below are Paris time (CET, UTC+1):
