@@ -65,6 +65,7 @@ Dropped from review by Nick (04:39Z). Only record: TheSports a median 2.5 s afte
 | "Re-run once team names" / "74% before half" | Superseded by name-verified sides. |
 
 ## Open items
+00. 7 Nov 12:20Z: `slim-1102-32295` has ts_mqtt (CS2 from ~06:00Z) and 21 CS2 + 48 tennis markets but no books_mid. Asked Hermes (`agent/inbox/thesports-books-mid-1102-2026-11-07.md`). Nothing run until books land.
 0. 7 Nov 09:15Z: newer chunk `slim-0517-32295` (04:00-05:08Z; 6,362 CS2, 4,939 tennis msgs, no LoL) cannot be tested: its books/markets cover only 12 tennis moneyline markets (18 tokens), no CS2 markets, and none of them is a match with TheSports events (0 name pairs). Hermes diagnosis (outbox 09:19Z): discovery filter `MKT_TYPES` + live window found only 12 tennis moneyline markets; checked against the code and chunk 8917: `child_moneyline` (CS2 map winners) IS included already, so likely no CS2/LoL/Dota market was in the live window then. No capture edit needed. Waiting for the next chunk with live CS2/LoL books.
 1. LoL tonight and new CS2 maps: rerun `big_events.py` on the new chunk and add half-move timing for CS2/LoL.
 2. Ask TheSports for a per-event timestamp or a faster tennis/esports product.
