@@ -51,8 +51,12 @@ Scripts: `live/thesports/` : `event_price_change_names.py` (name bridge), `tenni
 - DK-BLG dry run (6 Nov, 1 match, 38 kills): PM score feed median 17.6 s after price; 62 paper bids, 0 fills.
 - **Verdict: UNKNOWN.** Settled by: tonight's second LoL semi and more series; TheSports documenting event type codes; LoL HTTP authorization.
 
-## Dota 2
-Capture delivering; not timed. BLAST from 17 Nov.
+## Dota 2 (first read 7 Nov 15:10Z; 4 Game-1 winner markets paired by names, 86 kill events; Hermes already records books for live Dota Game-N-Winner markets, 15 markets from 5 series in chunk slim-1102-32295)
+- Message format: no `event` list; per-team `stats` (inferred: [0]=kills, [1]=11-bit tower-alive mask, [2]=6-bit barracks mask, [3]=net worth), `roushan_timer`. Events are derived from changes between messages; the stats meaning is INFERRED, not documented by TheSports.
+- **Kills (n=86, 4 games, band 10-90%):** winner side's price, mean signed move: before message (-90..0 s) about +0.7c in total, after message (0..+60 s) +1.3c (+0.86 in 0..15 s, +0.44 in 15..60 s); placebo after message -0.06c. Half-move time (events with a >=3c move, n=23 of 86): real median -2 s (10-90%: -24 to +4) vs random-time placebo -15 s (-28 to +4, n=73): the price moves around/after the kill message, not clearly before it. This is the first sport where the placebo comparison favours TheSports on timing.
+- **Net taker (buy ask +1.2 s, sell bid +10/+30 s, spread<=3c, 10-90%, no feed-first filter):** +10 s real -1.32c (n=22) vs placebo -2.09c, diff 90% CI [+0.10, +1.56]; +30 s real -1.91c vs placebo -2.31c, diff CI [-0.45, +1.59]. Both still negative after spread: no profit shown. Spreads are wider than CS2 (median 2-4c).
+- Towers (n=28) and barracks (n=4): too few; UNKNOWN. Roshan: 1 timer start, UNKNOWN.
+- **Verdict: UNKNOWN, weak sign of a timing lead on kills; no profit.** Settled by: more Dota games (BLAST Slam from 17 Nov, DreamLeague), TheSports field documentation, and Game 2/3 markets.
 
 ## Basketball
 Dropped from review by Nick (04:39Z). Only record: TheSports a median 2.5 s after the PM price (35% first).
