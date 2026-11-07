@@ -570,6 +570,7 @@ if os.environ.get('POINTS'):
 
 # ================= LAG reference: Polymarket sports-ws tennis score vs TheSports vs price (same logger clock) =================
 if os.environ.get('LAG'):
+    pass
     pmg = collections.defaultdict(dict); pmnames = {}
     for r in rd(D + '/pmws.jsonl.gz'):
         if r.get('leagueAbbreviation') not in ('atp', 'wta', 'challenger'): continue
@@ -607,3 +608,60 @@ if os.environ.get('LAG'):
     pq = lambda a, q: sorted(a)[min(len(a) - 1, int(q * len(a)))]
     print('\nLAG: matches matched between TheSports and PM sports-ws:', used, '| game-score changes seen by both:', len(diffs))
     if diffs: print('TheSports first-seen minus PM sports-ws first-seen (s; positive = TheSports later): median %+.1f, 10-90%% range [%+.1f, %+.1f]' % (statistics.median(diffs), pq(diffs, .1), pq(diffs, .9)))
+
+# ================= END-OF-MATCH timestamps (Nick 07:42Z) =================
+if os.environ.get('ENDS'):
+    dstat = {}
+    for f in glob.glob(DI + '/tennis-*.json'):
+        d = json.load(open(f))
+        for m in d.get('results', []): dstat[m['id']] = m
+    pm_end = {}
+    for r in rd(D + '/pmws.jsonl.gz'):
+        if r.get('leagueAbbreviation') in ('atp', 'wta', 'challenger') and r.get('ended'): pm_end.setdefault(r['gameId'], r['ms'] / 1000.0)
+    tsg2 = collections.defaultdict(dict); lastmsg = {}
+    for r in msgs:
+        if not r['topic'].endswith('tennis/match/v1'): continue
+        try: ps = json.loads(r['p'])
+        except Exception: continue
+        t = r['ms'] / 1000.0
+        for p in ps:
+            lastmsg[p['id']] = t
+            for s_ in (p.get('timeline') or []):
+                for q_ in s_.get('rounds', []):
+                    sc = q_.get('score')
+                    if sc: tsg2[p['id']].setdefault((s_['set'], q_['round'], sc.get('home', 0), sc.get('away', 0)), t)
+    rowsE = []
+    for key, (tk, sg) in tk_of.items():
+        if key[0] != 'tennis': continue
+        dm = dstat.get(key[1]); hm = matches.get(key[1])
+        if not dm or dm.get('status_id') != 100 or not dm.get('scores') or 'ft' not in dm['scores']: continue
+        ft = dm['scores']['ft']
+        if ft[0] == ft[1]: continue
+        hw = 1 if ft[0] > ft[1] else -1
+        wtk = fav_tk(tk, sg, hw)
+        if not wtk: continue
+        gid = [g for g, nm in pmnames.items() if ((same(hm[0], nm[0]) and same(hm[1], nm[1])) or (same(hm[0], nm[1]) and same(hm[1], nm[0])))] if 'pmnames' in globals() else []
+        # price final: first t where winner mid >=0.95 and stays >=0.95 through end of data
+        ts_ = T[wtk]; mids = [(book[wtk][i][1] + book[wtk][i][2]) / 2 for i in range(len(ts_))]
+        pf = None
+        for i in range(len(ts_) - 1, -1, -1):
+            if mids[i] < 0.95: pf = ts_[i + 1] if i + 1 < len(ts_) else None; break
+        else: pf = ts_[0]
+        lastgame = max(tsg2[key[1]].items(), key=lambda kv: kv[1])[1] if tsg2[key[1]] else None
+        pf99 = None
+        for i in range(len(ts_) - 1, -1, -1):
+            if mids[i] < 0.985: pf99 = ts_[i + 1] if i + 1 < len(ts_) else None; break
+        rowsE.append(dict(m=key[1], upd=dm.get('updated_at'), pf=pf, pf99=pf99, lg=lastgame, lm=lastmsg.get(key[1]), pm=pm_end.get(gid[0]) if gid else None))
+    print('\nEND-OF-MATCH: ended matches with winner token and diary: %d' % len(rowsE))
+    pq = lambda a, q: sorted(a)[min(len(a) - 1, int(q * len(a)))]
+    def rep(lab, a):
+        a = [x for x in a if x is not None]
+        print('%-70s n=%2d median %+7.1f s, 10-90%% [%+.1f, %+.1f]' % (lab, len(a), statistics.median(a), pq(a, .1), pq(a, .9)) if a else lab + ' n=0')
+    rep('price final jump (winner stays >=95%) minus TheSports diary updated_at', [r['pf'] - r['upd'] for r in rowsE if r['pf'] and r['upd']])
+    rep('TheSports last game-result message minus diary updated_at', [r['lg'] - r['upd'] for r in rowsE if r['lg'] and r['upd']])
+    rep('TheSports last message minus diary updated_at', [r['lm'] - r['upd'] for r in rowsE if r['lm'] and r['upd']])
+    rep('PM sports-ws "ended" minus diary updated_at', [r['pm'] - r['upd'] for r in rowsE if r['pm'] and r['upd']])
+    rep('price final jump minus TheSports last game-result message', [r['pf'] - r['lg'] for r in rowsE if r['pf'] and r['lg']])
+    rep('PM sports-ws "ended" minus TheSports last game-result message', [r['pm'] - r['lg'] for r in rowsE if r['pm'] and r['lg']])
+    rep('price reaches and STAYS >=98.5% minus TheSports last game-result message', [r['pf99'] - r['lg'] for r in rowsE if r['pf99'] and r['lg']])
+    rep('PM sports-ws "ended" minus price STAYS >=98.5%', [r['pm'] - r['pf99'] for r in rowsE if r['pm'] and r['pf99']])
