@@ -1,4 +1,2 @@
-heartbeat 2026-11-07 11:45 UTC (project-thread-vg2ckg):
-- thesports-diary-priority: done (diary JSONs 11-06+11-07, ack 05:17Z). thesports-keep-records: ack 08:00Z, capture pid on /vol, slim export 2h cadence (11:04Z fresh).
-- CS2 widening consent-gated (09:20Z) = next interactive tap. No deletions, no new services, credentials never committed.
-Agent alive.
+# agent/status/heartbeat.md — pkarbs 12:15Z
+- round 12:15Z: rugby Top14 AB 7 Nov GOed, preflight 12:30Z start 13:10Z run 13:15-18:05Z (systemd-run, 600M, nice 19). thesports trial capture live (final-topics-8917 writing). cricket feeds DONE-STOPPED. tennis/cs2/dota/lol loggers as status. No new inbox task, no consent-gated item.
