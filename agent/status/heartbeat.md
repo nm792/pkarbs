@@ -1,7 +1,3 @@
-# server-member heartbeat — 2026-11-07T08:3xZ UTC
+# heartbeat (2026-11-07 ~09:55Z)
 
-- tennis-reference-times (TASK-tennis-reference-times-2026-11-07): ANSWERED — Sofascore blocked 403 from server (all UAs/headers). See outbox/tennis-reference-ack-2026-11-07.md. Awaiting coordinator source decision.
-- rugby-top14-capture-2026-11-07: OPEN, not started. Window A/B today 13:15-18:05 UTC (not yet). D + C tomorrow. No action now.
-- tennis-books: COMPLETED at timeout 21:10Z; tail 18:07Z-21:10Z ship-vs-discard unresolved (owner decision, carried).
-- tennis-queue-sim: DONE (step 3 pass).
-- thesports-trial: running, capture healthy, LoL 0 msgs (needs TheSports auth — thread item).
+round 09:55Z: nba-books-ws/nba-feed-delay CANCEL honoured (Nick dropped NBA 04:39Z); thesports diary+keep-records acks already pushed 08:00Z; rugby 5-min-summary + preflight items RECEIVED, actionable at 12:30Z preflight (AB window 13:15-18:05Z) — code pulls for user-agent change confirmed in-repo, no capture restart needed now. LoL diary still needs TheSports LoL authorization (filed, not my call).

@@ -182,6 +182,101 @@ async def poll_rugbyrama(rr_f, ev_f, log, rr_ids):
                     _w(log, f"{time.time():.3f} RR {rid} FAILED (3 consecutive errors) -- report only")
         await asyncio.sleep(15)
 
+async def summarise(win, markets, log, every=300):
+    """Every 5 min: one compact block per live match appended to <win>_summary.md, copied straight to LIVE.
+    Reads the capture files incrementally (byte offsets), so it stays cheap. Counts only; no P&L."""
+    names = {}   # token -> (title, outcome question)
+    for ev in markets:
+        for mk in ev.get("markets", []):
+            for t in mk.get("clobTokenIds", []):
+                names[t] = (ev.get("title", ev.get("ticker")), mk.get("question", "?"))
+    kick = {ev.get("title", ev.get("ticker")): ev.get("kickoffUTC", "") for ev in markets}
+    pos = {}; tot = {}; last = {}; recent = {}
+    state = {"book": {}, "trades": {}, "espn": {}, "rr": {}, "sports": 0, "espn_err": 0, "espn_ok": 0}
+    def new_lines(path):
+        try:
+            with open(path, "rb") as f:
+                f.seek(pos.get(path, 0)); data = f.read(); pos[path] = pos.get(path, 0) + len(data)
+        except FileNotFoundError:
+            return []
+        return [l for l in data.decode("utf-8", "ignore").split("\n") if l.strip()]
+    while True:
+        await asyncio.sleep(every)
+        try:
+            now = time.time(); nclob = 0; ntr = {}
+            for l in new_lines(f"{ROOT}/{win}_clob.jsonl"):
+                try: o = json.loads(l)
+                except Exception: continue
+                for item in (o if isinstance(o, list) else [o]):
+                    nclob += 1
+                    changes = item.get("price_changes") or [item]
+                    for c in changes:
+                        tok = c.get("asset_id") or item.get("asset_id")
+                        if not tok: continue
+                        bb, ba = c.get("best_bid"), c.get("best_ask")
+                        if bb is None and item.get("bids"):
+                            try: bb = max(float(x["price"]) for x in item["bids"]); ba = min(float(x["price"]) for x in item["asks"]) if item.get("asks") else None
+                            except Exception: pass
+                        if bb is not None or ba is not None:
+                            state["book"][tok] = (bb, ba)
+                        recent[tok] = recent.get(tok, 0) + 1
+            for l in new_lines(f"{ROOT}/{win}_trades.jsonl"):
+                try: o = json.loads(l)
+                except Exception: continue
+                cond = o.get("conditionId"); ntr[cond] = ntr.get(cond, 0) + 1
+                state["trades"].setdefault(cond, [0, None])
+                state["trades"][cond][0] += 1; state["trades"][cond][1] = o.get("price")
+            for l in new_lines(f"{ROOT}/{win}_sports.jsonl"):
+                state["sports"] += 1
+            for l in new_lines(f"{ROOT}/{win}_espn.jsonl"):
+                try: o = json.loads(l)
+                except Exception: continue
+                if o.get("status") == 200:
+                    state["espn_ok"] += 1
+                    for e in o.get("data", {}).get("events", []):
+                        comp = (e.get("competitions") or [{}])[0]
+                        sc = "-".join(str(c.get("score", "?")) for c in comp.get("competitors", []))
+                        state["espn"][e.get("shortName")] = (e.get("status", {}).get("type", {}).get("name"), sc, e.get("status", {}).get("displayClock"))
+                else:
+                    state["espn_err"] += 1
+            for l in new_lines(f"{ROOT}/{win}_rugbyrama_events.jsonl"):
+                try: o = json.loads(l)
+                except Exception: continue
+                state["rr"][o.get("refMatch")] = (o.get("score"), o.get("minute"), o.get("text"))
+            out = [f"## {datetime.utcnow().strftime('%H:%M:%SZ')} window {win} summary (last {every}s, counts only)",
+                   f"- CLOB msgs {nclob}; sports WS rutopft msgs total {state['sports']}; ESPN polls ok {state['espn_ok']} err {state['espn_err']}"]
+            for ev in markets:
+                title = ev.get("title", ev.get("ticker"))
+                try:
+                    ko = datetime.strptime(ev.get("kickoffUTC", ""), "%Y-%m-%dT%H:%M:%SZ")
+                    mins = (datetime.utcnow() - ko).total_seconds() / 60
+                    if mins < -20 or mins > 135: continue   # only matches live or about to start
+                except Exception:
+                    pass
+                bits = []
+                for mk in ev.get("markets", []):
+                    toks = mk.get("clobTokenIds", [])
+                    b = state["book"].get(toks[0]) if toks else None
+                    n = sum(recent.get(t, 0) for t in toks)
+                    tr = state["trades"].get(mk.get("conditionId"), [0, None])
+                    bits.append(f"{mk.get('question','?')[:28]}: bid/ask {b[0] if b else '-'}/{b[1] if b else '-'}, stream msgs {n}, trades {tr[0]} last {tr[1]}")
+                out.append(f"- {title} (KO {kick.get(title,'?')[11:16]}Z): " + " | ".join(bits))
+            if state["espn"]:
+                out.append("- ESPN: " + "; ".join(f"{k} {v[0]} {v[1]} {v[2]}" for k, v in sorted(state["espn"].items())))
+            if state["rr"]:
+                out.append("- Rugbyrama latest event: " + "; ".join(f"{k} {v[0]} min {v[1]}" for k, v in state["rr"].items()))
+            recent.clear()
+            block = "\n".join(out) + "\n\n"
+            for dst in (f"{ROOT}/{win}_summary.md", f"{LIVE}/{win}_summary.md"):
+                try:
+                    with open(dst, "a") as f: f.write(block)
+                except Exception as e:
+                    _w(log, f"{time.time():.3f} summary write {dst} {e!r}")
+        except asyncio.CancelledError:
+            raise
+        except Exception as e:
+            _w(log, f"{time.time():.3f} summary error {e!r}")
+
 async def main():
     win = sys.argv[1] if len(sys.argv) > 1 else "A"
     cfg = json.load(open(CONFIG_PATH))
@@ -203,6 +298,7 @@ async def main():
     if rr_ids:
         tasks.append(asyncio.create_task(poll_rugbyrama(f"{ROOT}/{win}_rugbyrama.jsonl",
                                                        f"{ROOT}/{win}_rugbyrama_events.jsonl", log, rr_ids)))
+    tasks.append(asyncio.create_task(summarise(win, markets, log)))
     try:
         await asyncio.sleep(run_for)
     except (KeyboardInterrupt, asyncio.CancelledError):
