@@ -1,5 +1,6 @@
-# heartbeat
-round: 2026-11-07T05:20Z
-state: healthy - in sync, all to_agent/notes answered on origin
-- pkarbs: newest thread sf6c26 research (04:59Z); all inbox answered; open data-capture TASKs are run-window gated
-- thesports diary lookup pushed (T1 vs KC Worlds semi; bball/tennis/dota2/csgo names; esports+cs2 unauthorized), slim export 05:17Z (ts_mqtt box-routed), ack filed 05:20Z
+# server-member heartbeat
+
+2026-11-07T07:36Z UTC
+- round: all repos fetched and swept; every to_agent/inbox/TASK answered on origin (tt-review dialogue, mfw thru 343, pkarbs thesports-diary, ASX, webb). No open to_agent; no consent-gated item blocks the sweep.
+- webb T001/T002 next_run 2026-11-08 (tomorrow) within run window; ASX T020 partial accepted; nothing due today.
+
