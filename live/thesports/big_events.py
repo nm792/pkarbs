@@ -567,3 +567,43 @@ if os.environ.get('POINTS'):
                     if h is not None: hs.append(h)
             if hs: print('%-62s %-7s n_big=%3d of %4d (%.0f%%) | median %+d s, 10-90%% range [%+d, %+d] s | share before message (<=-1): %.0f%%' % (cls, lab, len(hs), tot, 100 * len(hs) / tot, statistics.median(hs), pq(hs, .1), pq(hs, .9), 100 * sum(1 for h in hs if h <= -1) / len(hs)))
             else: print(cls, lab, 'none')
+
+# ================= LAG reference: Polymarket sports-ws tennis score vs TheSports vs price (same logger clock) =================
+if os.environ.get('LAG'):
+    pmg = collections.defaultdict(dict); pmnames = {}
+    for r in rd(D + '/pmws.jsonl.gz'):
+        if r.get('leagueAbbreviation') not in ('atp', 'wta', 'challenger'): continue
+        gid = r['gameId']; pmnames[gid] = (r['homeTeam'], r['awayTeam'])
+        sc = (r.get('score') or '').split(',')[-1].strip(); per = r.get('period') or ''
+        try: a, b = [int(x) for x in sc.split('-')]; s_ = int(per.replace('S', ''))
+        except Exception: continue
+        pmg[gid].setdefault((s_, a, b), r['ms'] / 1000.0)
+    tsg = collections.defaultdict(dict); fm_ = set()
+    for r in msgs:
+        if not r['topic'].endswith('tennis/match/v1'): continue
+        try: ps = json.loads(r['p'])
+        except Exception: continue
+        t = r['ms'] / 1000.0
+        for p in ps:
+            tl = p.get('timeline')
+            if not tl: continue
+            for s_ in tl:
+                for q_ in s_.get('rounds', []):
+                    sc = q_.get('score')
+                    if sc: tsg[p['id']].setdefault((s_['set'], sc.get('home', 0), sc.get('away', 0)), t)
+    diffs = []; halfpm = []; halfts = []; used = 0
+    for key, (tk, sg) in tk_of.items():
+        if key[0] != 'tennis': continue
+        hm = matches.get(key[1])
+        gid = [g for g, nm in pmnames.items() if hm and ((same(hm[0], nm[0]) and same(hm[1], nm[1])) or (same(hm[0], nm[1]) and same(hm[1], nm[0])))]
+        if not gid: continue
+        gid = gid[0]; sw = same(hm[0], pmnames[gid][1]) and not same(hm[0], pmnames[gid][0]); used += 1
+        for (s_, a, b), tt in tsg[key[1]].items():
+            if (s_, a, b) not in tsg[key[1]] or tt - min(tsg[key[1]].values()) < 1: continue    # skip history in first message
+            k2 = (s_, b, a) if sw else (s_, a, b)
+            if k2 not in pmg[gid]: continue
+            tp = pmg[gid][k2]; diffs.append(tt - tp)
+            prev = (s_, a - 1, b) if a > 0 else None
+    pq = lambda a, q: sorted(a)[min(len(a) - 1, int(q * len(a)))]
+    print('\nLAG: matches matched between TheSports and PM sports-ws:', used, '| game-score changes seen by both:', len(diffs))
+    if diffs: print('TheSports first-seen minus PM sports-ws first-seen (s; positive = TheSports later): median %+.1f, 10-90%% range [%+.1f, %+.1f]' % (statistics.median(diffs), pq(diffs, .1), pq(diffs, .9)))
