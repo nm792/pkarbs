@@ -736,3 +736,107 @@ if os.environ.get('CS2'):
                 ci = bd(a, b)
                 print('  net taker +%ds: real n=%d median %+.2fc mean %+.2fc | placebo n=%d median %+.2fc mean %+.2fc | diff 90%% CI %s' % (h, len(a), 100 * statistics.median([v for _, v in a]), 100 * sum(v for _, v in a) / len(a), len(b), 100 * statistics.median([v for _, v in b]) if b else float('nan'), 100 * sum(v for _, v in b) / len(b) if b else float('nan'), ('[%+.2f, %+.2f]' % ci) if ci else 'n/a'))
             else: print('  net taker +%ds: n=0' % h)
+
+# ================= CS2 in-round events (typeid 8 kill, typeid 2 round end) vs c_score (coordinator 13:18Z) =================
+if os.environ.get('CS2EV'):
+    cev = collections.defaultdict(list); seen_c = set(); fmc = set(); cs_lag = []
+    cs_first_score = {}
+    for r in msgs:
+        if not r['topic'].endswith('csgo/match/v1'): continue
+        try: ps = json.loads(r['p'])
+        except Exception: continue
+        t = r['ms'] / 1000.0
+        for p in ps:
+            key = ('cs2', p['match_id'], p.get('map_id')); fm = key not in fmc; fmc.add(key)
+            hs = p['home'].get('side')
+            for e in (p.get('event') or []):
+                k2 = (key, e['typeid'], e['index'])
+                if k2 in seen_c: continue
+                seen_c.add(k2)
+                if fm: continue
+                if e['typeid'] == 8 and e.get('killerside') in (1, 2) and hs in (1, 2):
+                    cev[key].append((t, 1 if e['killerside'] == hs else -1, 'cs2 kill (typeid 8)'))
+                elif e['typeid'] == 2 and e.get('winner_side') in (1, 2) and hs in (1, 2):
+                    cev[key].append((t, 1 if e['winner_side'] == hs else -1, 'cs2 round-end event (typeid 2)'))
+    cl = collections.defaultdict(list)
+    for key, evs in cev.items():
+        if key not in tk_of: continue
+        tk, sg = tk_of[key]
+        for t0, sd, cls in evs: cl[cls].append((key, t0, sd, tk, sg))
+    # lag of typeid-2 round-end event vs c_score update for same round (first-seen times)
+    cs_t = {}
+    for key, evs in ev.items():
+        if key[0] == 'cs2':
+            for i, (t0, sd) in enumerate(evs): cs_t.setdefault(key, []).append(t0)
+    for key, evs in cev.items():
+        r2 = [t for t, sd, c in evs if c.startswith('cs2 round-end')]
+        if key in cs_t and r2:
+            for t in r2:
+                near = [x - t for x in cs_t[key] if abs(x - t) < 60]
+                if near: cs_lag.append(min(near, key=abs))
+    if cs_lag: print('\nround-end event (typeid 2) first-seen vs c_score change first-seen for the same round: c_score minus event median %+.1f s, 10-90%% [%+.1f, %+.1f] (n=%d)' % (statistics.median(cs_lag), sorted(cs_lag)[int(.1 * len(cs_lag))], sorted(cs_lag)[int(.9 * len(cs_lag))], len(cs_lag)))
+    random.seed(7)
+    for cls in sorted(cl):
+        L = cl[cls]
+        print('\n== %s | events %d, maps %d' % (cls, len(L), len(set(k for k, *_ in L))))
+        for lab in ('real', 'placebo'):
+            out = []
+            for a, b in ((-60, -30), (-30, -15), (-15, -5), (-5, 0), (0, 5), (5, 15), (15, 30), (30, 60), (-60, 60)):
+                v = []
+                for key, t0, sd, tk, sg in L:
+                    f = fav_tk(tk, sg, sd)
+                    if not f: continue
+                    for tt in ([t0] if lab == 'real' else [t0 + random.choice([-1, 1]) * random.uniform(60, 600) for _ in range(3)]):
+                        x, y = mid_at(f, tt + a), mid_at(f, tt + b)
+                        if x is not None and y is not None and 0.1 <= x <= 0.9: v.append(y - x)
+                out.append('[%+d,%+d] mean %+.2fc(n%d)' % (a, b, 100 * sum(v) / len(v), len(v)) if v else 'n/a')
+            print('  signed move %-7s %s' % (lab, ' | '.join(out)))
+        for h in (5, 10, 30):
+            a, b = [], []
+            for key, t0, sd, tk, sg in L:
+                f = fav_tk(tk, sg, sd)
+                if not f: continue
+                v = netn2(f, t0, h) if 'netn2' in globals() else None
+                if v is not None: a.append((key, v))
+                for _ in range(5):
+                    v = netn2(f, t0 + random.choice([-1, 1]) * random.uniform(60, 600), h)
+                    if v is not None: b.append((key, v))
+            if a:
+                ci = bd(a, b)
+                print('  net taker +%ds (all events, spread<=3c, 25-75%%): real n=%d mean %+.2fc median %+.2fc | placebo n=%d mean %+.2fc | diff 90%% CI %s' % (h, len(a), 100 * sum(v for _, v in a) / len(a), 100 * statistics.median([v for _, v in a]), len(b), 100 * sum(v for _, v in b) / len(b) if b else float('nan'), ('[%+.2f, %+.2f]' % ci) if ci else 'n/a'))
+if os.environ.get('CS2EV'):
+    agree = collections.Counter()
+    for key, evs in cev.items():
+        if key not in tk_of: continue
+        for t, sd, c in evs:
+            if not c.startswith('cs2 round-end'): continue
+            near = [(abs(x - t), s2) for x, s2 in ev[key] if abs(x - t) < 60]
+            if near:
+                s2 = min(near)[1]; agree[(key[1][:6], sd == s2)] += 1
+    tot = collections.Counter()
+    for (m, ok), n in agree.items(): tot[ok] += n
+    print('\nround-end typeid-2 side vs c_score-derived side: agree %d, disagree %d' % (tot[True], tot[False]))
+    for m in sorted(set(m for m, _ in agree)): print('  match', m, 'agree', agree[(m, True)], 'disagree', agree[(m, False)])
+if os.environ.get('CS2EV'):
+    def mv(key, t, sd, a, b):
+        tk, sg = tk_of[key]; f = fav_tk(tk, sg, sd)
+        if not f: return None
+        x, y = mid_at(f, t + a), mid_at(f, t + b)
+        return None if x is None or y is None or not (0.1 <= x <= 0.9) else y - x
+    print('\nSAME-ROUND COMPARISON (window -90..+60, mean signed move, cents)')
+    A, B, C = [], [], []
+    for key, evs in cev.items():
+        if key not in tk_of: continue
+        for t, sd, c in evs:
+            if not c.startswith('cs2 round-end'): continue
+            near = [(abs(x - t), x, s2) for x, s2 in ev[key] if abs(x - t) < 60]
+            if not near: continue
+            _, x, s2 = min(near)
+            m1 = mv(key, x, s2, -90, 60)        # c_score event: its own time and side
+            m2 = mv(key, t, sd, -90, 60)        # typeid-2 event: its time and side
+            m3 = mv(key, x, s2, -90, 60) if sd == s2 else None
+            if m1 is not None: A.append(m1)
+            if m2 is not None: B.append(m2)
+            if m3 is not None: C.append(m3)
+    f_ = lambda a: 'mean %+.2fc n=%d' % (100 * sum(a) / len(a), len(a)) if a else 'n/a'
+    print('c_score events (matched to a typeid-2 event):', f_(A)); print('typeid-2 events:', f_(B)); print('c_score events where both sides agree:', f_(C))
