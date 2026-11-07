@@ -36,12 +36,14 @@ Scripts: `live/thesports/` : `event_price_change_names.py` (name bridge), `tenni
 - A true ground truth needs a live recording of a timestamped source during a match. Not yet set up.
 - **Verdict: UNKNOWN** whether TheSports or the price is "late" against true event time. Settled by: an independent timestamped source for the same matches (Sofascore via Hermes, or a live recording of one match with a visible clock).
 
-## CS2 (10 name-verified maps in chunk slim-1102-32295, 196 round-win events; earlier chunk had 5 maps / 112 events)
-- **Round wins barely move the price.** Median move 0.0c in every window from -90 to +60 s; only 13% of events have a >=3c move over -30..+10 s, the same as at random times (14%). Early/mid rounds 150 events, loser>=10 late rounds 31, winner reaching 12 (map point) 10 (only 2 with price data), overtime 5 (none priced).
-- **Timing (events with a >=3c move):** half-move median -18 s (10-90%: -28 to 0, n=25) vs random-time placebo -13 s (-25 to +2, n=142). The placebo window biases toward negative, so the real excess is about 5 s and the sample is small.
-- **Net taker (buy ask +1.2 s, sell bid +10 s / +30 s, spread<=3c, no feed-first filter):** all events -1.0c median, mean -1.24c (+10 s) and -1.63c (+30 s), placebo -1.50c / -0.82c; real minus placebo 90% CI [-0.38, +0.66] and [-1.68, +0.25]. No edge.
-- **Verdict (10 maps):** no edge from CS2 round-win messages: the market does not reprice on single rounds more than at random times, and the rare big moves come before the message. Map points and overtime: UNKNOWN (n=2 priced). Settled by more maps (25 Nov Major).
-- Earlier CS2 "+12.8 s vs placebo +3.6 s" lead and "+25c" are withdrawn (see table).
+## CS2 (10 name-verified maps, 196 round wins; earlier chunk 5 maps / 112 events)
+**Status: earlier conclusion "no edge, rounds barely move the price" WITHDRAWN (Nick 13:18Z, audit 13:40Z).** It came from 5 bins of medians and a feed-first/band filter that hid a gradual move. Corrected reading below. Profit: UNKNOWN.
+- **Pairing audit (`live/thesports/cs2_audit.py`):** all 10 are the correct map-winner markets ("Map N Winner", `child_moneyline`, N = TheSports box_num), names verified. Book activity: 700-6,500 rows per map, 170-930 price changes per map (about one every 10-15 s); median spread 1c on 8 maps, 9-10c on the Johnny Speeds vs Drama map (thin). Side check: c_score-derived round winner gives +3.0c signed move, positive as expected.
+- **Round winner's price, mean signed move over -90..+60 s around the c_score message (10-90% band): real +4.4c (n=124) vs random-time placebo +0.02c (n=357).** Where it happens: -90..-60 s +1.3c, -60..-30 +1.8c, -30..-15 +1.3c, -15..0 +0.1c, 0..+15 -0.6c, +15..+60 +0.2c (placebo ~0.1-0.3c in every bin). So a round win moves the price about 4c, and the price has finished moving about 15 s BEFORE TheSports' message.
+- **Net taker (buy ask +1.2 s, sell bid +10/+30 s, spread<=3c, no feed-first filter):** -1.2c / -1.6c vs placebo -1.5c / -0.8c: nothing left after the message. Consistent with the feed being >=15 s late; a faster feed could capture part of ~4c per round, but this is UNKNOWN until a faster feed is timed on the same clock.
+- **"Only 2 priced map-point events" explained:** the test keeps pre-event price 25-75%; at a map point (winner at 12 of 13) the leader is already >75%, so most map points fall outside the band. Not a pairing fault. Map-point/overtime economics: UNKNOWN (needs a wider band and more maps).
+- **Other TheSports CS2 event types** (`event` typeid 8 kill, 2 round end, 6 alive counts, 4/5 bomb): the round-end event arrives with the c_score change (median -0.5 s), so it is no faster. Kill/typeid-2 side mapping via `home.side` disagrees with the c_score side in 15% of rounds (side swaps at half-time?), so kill-level results are NOT trusted yet (kills show about 0c after the message either way).
+- Earlier CS2 "+12.8 s vs placebo +3.6 s" and "+25c" stay withdrawn.
 
 ## LoL
 - 3 games, market paired by sign-free price co-movement, side by home.side (verified 3/3). Type 2/3/4 events inferred as tower/inhibitor/monster from counts (TheSports does not document codes).
@@ -66,6 +68,7 @@ Dropped from review by Nick (04:39Z). Only record: TheSports a median 2.5 s afte
 | "Big events leave nothing to trade" (-1c, median move 0-0.5c) | Window started at t-10 s and the feed-first filter kept events the market ignored. Replaced by the unfiltered result above (breaks move ~7c, but before the message). |
 | "Price moves at least 30 s before TheSports" | A -30..0 s bucket cannot say that; 1 s binning gives about 14 s. |
 | "Re-run once team names" / "74% before half" | Superseded by name-verified sides. |
+| CS2 "round wins barely move the price, no edge" (10 maps) | Medians of narrow bins and a band filter hid a gradual ~4c move that completes before the message; replaced by the CS2 section above. |
 
 ## Open items
 00. 7 Nov 13:10Z: books_mid for slim-1102-32295 landed (800,150 rows); tennis and CS2 run on it (above). LoL still 0 messages.
