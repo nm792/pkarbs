@@ -81,3 +81,10 @@ Only the first 44 s of the capture are in the repo and Nick needs delay numbers.
 1. `systemd-run --scope -p MemoryMax=500M python3 -I live/thesports/export_slim.py /root/thesports/final-topics-8917 /root/thesports/slim-0711` (read-only on the running capture).
 2. Check the output with `zgrep` for the credential strings (never print them), then copy to `rn1/scores/thesports/final-topics-8917-slim/`, commit and push to the default branch within 15 min. If root has under 15 GB free, write the slim output to /vol2 first.
 3. Repeat every 2 h while the trial runs (name by hour). Put counts.json totals per topic in the first lines of agent/status/thesports-trial.md.
+
+## 2026-11-07T03:20Z Team-name lookup for matching (within the trial scope: read-only GET calls with the existing trial credentials)
+Our matcher pairs TheSports match ids to Polymarket markets by price co-movement because the push has no team names. Fix it with names:
+1. For today and yesterday (UTC) call the existing schedule endpoint `https://api.thesports.com/v1/{basketball,esports,tennis}/match/diary` (and the esports/LoL, Dota2, CS2 variants the docs list under the same path pattern; use `results_extra` for names) with the trial user/secret from `/etc/pkarbs/thesports.env`. Never print the credentials. One call per sport per day, no polling.
+2. Save the raw JSON responses (credentials redacted) to `rn1/scores/thesports/diary/<sport>-<date>.json`, commit and push to the default branch.
+3. Also commit a fresh slim export of the capture (`live/thesports/export_slim.py`) now, then every 2 h.
+4. If an endpoint answers "URL is not authorized", write the exact text in `agent/status/thesports-trial.md` and continue with the others.
