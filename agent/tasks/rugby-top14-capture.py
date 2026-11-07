@@ -9,7 +9,7 @@ One bounded process per window A/B/C. Four concurrent async tasks:
 
 Outputs (append JSONL), under <root>/rugby/<window>_*.jsonl (+ _log.txt):
   sports, clob, espn, trades, rugbyrama, rugbyrama_events. Copy every 10 min to /mnt/project-files/rugby/live-2026-11/.
-Stop at the window end time. Honest UA pkarbs-research/1.0 (contact nm@delphic.co).
+Stop at the window end time. Honest UA pkarbs-research/1.0.
 Memory cap 600M, swap 0, timeout 18000 (AB) via the systemd-run wrapper in the task.
 
 Serves the one question: after a score change, how many seconds later does the
@@ -21,7 +21,7 @@ No P&L. Fallback: if CLOB WS refused (403), REST book poll every 5 s, labelled
 import asyncio, json, os, re, sys, time, html, urllib.request, urllib.error, websockets
 from datetime import datetime
 
-UA = {"User-Agent": "pkarbs-research/1.0 (contact nm@delphic.co)"}
+UA = {"User-Agent": "pkarbs-research/1.0"}
 CONFIG_PATH = "/root/pkarbs/agent/tasks/rugby-top14-config-2026-11-07.json"
 ROOT = "/root/pkarbs/rugby"            # scratch outputs
 LIVE = "/mnt/project-files/rugby/live-2026-11"
