@@ -394,3 +394,51 @@ for cls in sorted(classes):
 for sp in ('tennis', 'cs2', 'lol'):
     L = [x for c in keep for x in classes[c] if c.startswith(sp)]
     if len(keep) and L and len([c for c in keep if c.startswith(sp)]) > 1: report(sp + ' ALL KEPT CLASSES', L)
+
+# ================= sanity check (coordinator 07:22Z) =================
+if os.environ.get('CHECK'):
+    print('\n--- CHECK 1: unfiltered move, price 60 s before -> 60 s after, all paired tennis events (no feed-first, no band) ---')
+    for cls in sorted(c for c in classes if c.startswith('tennis')):
+        sg_, un_, n_ = [], [], 0
+        for key, t0, sd, tk, sg in classes[cls]:
+            f = fav_tk(tk, sg, sd)
+            if not f: continue
+            a, b = mid_at(f, t0 - 60), mid_at(f, t0 + 60)
+            if a is None or b is None: continue
+            sg_.append(b - a); un_.append(abs(b - a)); n_ += 1
+        if n_: print('%-52s n=%3d signed median %+.2fc mean %+.2fc | unsigned median %.2fc | share signed>=3c %d%%' % (cls, n_, 100 * statistics.median(sg_), 100 * sum(sg_) / n_, 100 * statistics.median(un_), 100 * sum(1 for x in sg_ if x >= .03) / n_))
+    print('\n--- CHECK 3: market type of paired tennis tokens ---')
+    cc = collections.Counter()
+    for key, (tk, sg) in tk_of.items():
+        if key[0] == 'tennis':
+            m = [m_ for m_ in mk.values() if tk in m_['tokens']][0]; cc[(m['smt'], m['q'][:0] or 'x')] += 1
+    print(cc)
+    ex = [m_ for m_ in mk.values() if m_['sport'] == 'tennis'][:6]
+    for m_ in ex: print(m_['smt'], '|', m_['q'], '|', m_['outcomes'])
+    print('\n--- CHECK 2: hand-check set-winning breaks ---')
+    shown = 0
+    for key, t0, sd, tk, sg in classes['tennis break that wins the set']:
+        if shown >= 5: break
+        f = fav_tk(tk, sg, sd)
+        if not f or mid_at(f, t0 - 60) is None: continue
+        hm = matches.get(key[1]); m = [m_ for m_ in mk.values() if tk in m_['tokens']][0]
+        print('\nmatch', key[1][:8], 'diary home/away', hm, '| PM q:', m['q'], m['smt'], m['outcomes'], '| tk sign', sg)
+        print('feed event t=%.1f side(home=+1)=%+d  -> favoured PM token outcome: %s' % (t0, sd, m['outcomes'][m['tokens'].index(f)]))
+        print('fav mid path (t rel feed): ' + ' '.join('%+d:%.3f' % (d, mid_at(f, t0 + d)) for d in (-60, -30, -15, -10, -5, -2, 0, 2, 5, 10, 20, 30, 60) if mid_at(f, t0 + d) is not None))
+        shown += 1
+if os.environ.get('CHECK'):
+    print('\n--- CHECK 4: where the break move sits relative to the feed (signed median cents per window; real vs random-time placebo) ---')
+    W = [(-90, -60), (-60, -30), (-30, -15), (-15, -5), (-5, 5), (5, 15), (15, 60)]
+    for cls in ('tennis break (set goes on)', 'tennis break that wins the set', 'tennis hold at 5+ games (not set-ending)'):
+        for lab in ('real', 'placebo'):
+            out = []
+            for a, b in W:
+                v = []
+                for key, t0, sd, tk, sg in classes[cls]:
+                    f = fav_tk(tk, sg, sd)
+                    if not f: continue
+                    for tt in ([t0] if lab == 'real' else [t0 + random.choice([-1, 1]) * random.uniform(60, 600) for _ in range(3)]):
+                        x, y = mid_at(f, tt + a), mid_at(f, tt + b)
+                        if x is not None and y is not None: v.append(y - x)
+                out.append('[%+d,%+d]s %+.1fc(n%d)' % (a, b, 100 * statistics.median(v), len(v)) if v else 'n/a')
+            print('%-42s %-7s %s' % (cls, lab, ' | '.join(out)))
