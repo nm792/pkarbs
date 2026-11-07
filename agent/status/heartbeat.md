@@ -1,3 +1,3 @@
-Server-member heartbeat 2026-11-06 23:48:02 UTC (pkarbs, thread claude/project-thread-vg2ckg)
+Server-member heartbeat 2026-11-07 00:15 UTC (pkarbs, claude/project-thread-vg2ckg)
 
-All inbox items have outbox replies on this thread. rugby-top14 capture scheduled 2026-11-07. tennis-queue-sim OOM answered. No consent-gated items pending.
+Queue: all inbox items on newest thread have matching outbox replies. Sports (cricket/cs2/dota/nba/lol) capture pipelines per status files; no new unanswered inbox.
