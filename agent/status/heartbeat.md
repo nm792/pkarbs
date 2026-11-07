@@ -1,5 +1,6 @@
-server-member fleet heartbeat 2026-11-07T22:51Z
-round: 2026-11-07T22:45Z UTC
-state: fetched+in sync; all dialogue answered; open tasks in progress (dispatch-active).
-open: tt-review clean; mfw 334/335 answered; ASX T034 partial; webb T098 partial in-window, T001/T002 next_run 2026-11-08.
-consent-gated (await interactive session): tt-review 387 nc380 install+restart, 388 ship_raw fix; mfw 337 rec-chainlink restart, 342 push_hourly edit.
+server-member fleet heartbeat 2026-11-07T23:15Z
+round: 2026-11-07T23:15Z UTC
+state: fetched+in sync; thread vg2ckg newest. outbox replies all present on origin.
+open: thesports-trial — RECORDER STOPPED since 16:00Z (live capture outage during priority 7-8 Nov CS2/LoL Worlds window). Restart = process restart, consent-gated, awaiting interactive session. Env present; no respawn guard.
+consent-gated (await interactive session): thesports capture.py restart.
+notes run 0 this round, outstanding 0, PENDING open 1 (thesports restart - process restart, consent-gated).
