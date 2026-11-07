@@ -1,6 +1,7 @@
-# server-member heartbeat 2026-11-07 09:19:58 UTC
-- tt-review dialogue: 395b dry-run answered+pushed (64c45fc6) — highs collector proven end-to-end on tokyo 2026-10-14 (all-200, 0.32 MB); GFS skipped (no eccodes/numpy). Full 4-city fetch gated on Nick tap.
-- pkarbs vg2ckg: books-coverage diagnosis pushed (ebe2beed) — chunk 32295 recorded only 12 tennis ML because capture MKT_TYPES filter is moneyline-only + live-window; CS2 widening is a gated code edit.
-- mfw main: chainlink RTDS recorder live (rec-chainlink.service active, MainPID 1905900) pushing hourly; queue answered through 340.
-- webb main: no due tasks (T001/T002 next_run 11-08); outside HK run window.
-- ASX main: T020 continues under dispatch; worktree has unverified start_price/cap edits not pushed (spec: blank==unknown).
+# server-member heartbeat 2026-11-07 09:32:44 UTC
+- tt-review dialogue: from_agent/395c pushed (547c1bc2) — storage box step-1 gate passed (844 GB free, data/113 reachable); full highs fetch for tokyo/seoul/london/helsinki consent-gated on Nick tap; numpy/eccodes absent so GFS skipped per note. Collector n395_fetch_highs.py present on origin.
+- pkarbs vg2ckg: covered by dispatch books-coverage diagnosis (ebe2beed).
+- mfw main: queue answered through 340 (dispatch 09:19Z); chainlink RTDS recorder live, pushing hourly.
+- webb main: T001/T002 next_run 2026-11-08, not due; outside HK run window (14:00-23:00 UTC).
+- ASX main: T020 continues under dispatch; worktree carries in-progress delistings edits (spec: blank==unknown) not committed by me.
+- biotech: archived, not swept/pushed.
