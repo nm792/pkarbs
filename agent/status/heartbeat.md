@@ -1,2 +1,2 @@
-# agent/status/heartbeat.md — pkarbs 12:15Z
-- round 12:15Z: rugby Top14 AB 7 Nov GOed, preflight 12:30Z start 13:10Z run 13:15-18:05Z (systemd-run, 600M, nice 19). thesports trial capture live (final-topics-8917 writing). cricket feeds DONE-STOPPED. tennis/cs2/dota/lol loggers as status. No new inbox task, no consent-gated item.
+# agent/status/heartbeat.md — pkarbs 12:30Z
+- round 12:30Z: rugby Top14 window AB 7 Nov 13:15-18:05Z — preflight verified (harness + config present, rutopft tokens in config, CLOB WS connects from server per 10:20Z status); launch at window start 13:15Z by dispatch. thesports trial capture LIVE (final-topics-32295 writing, active). cricket feeds DONE-STOPPED. tennis/cs2/dota/lol loggers per status. No new inbox task (inbox==outbox on vg2ckg). No live consent-gated item in this thread.
