@@ -25,6 +25,14 @@ Scripts: `live/thesports/` : `event_price_change_names.py` (name bridge), `tenni
 - **Verdict:** no edge from TheSports tennis (price already moved, real = placebo). Whether any faster feed beats the price: UNKNOWN, settled by timing a second feed (LSports trial, deferred to next week) on the same clock. The 14 s gap may be the price source being faster than TheSports, not TheSports being slow versus its own claim (2-3 s vs officials).
 - Not done: Sofascore reference (no per-point timestamps expected); per-point topic (none in our five topics).
 
+## Tennis: official start/end time check (Nick 07:42Z) - NOT POSSIBLE with what we can reach
+- **Sofascore** (startTimestamp/endTimestamp): `api.sofascore.com` returns HTTP 403 from the cloud container directly AND through TinyFish. Not obtained. Also expected to give start, not a match-point timestamp; its point-by-point has no times. Hermes' server IP not yet tried (task for Hermes).
+- **TheSports diary** has `match_time` (scheduled start) and `updated_at`, but `updated_at` is a median ~8 h AFTER our last game message (post-match edits), so it is not an end time. Unusable.
+- What the capture alone shows (26 ended, name-paired matches, all on one clock; NOT official times):
+  - Polymarket sports-ws "ended" flag arrives a median +32.7 s AFTER TheSports' last game-result message (10-90%: +2 to +71 s, n=19). TheSports is ahead of PM's own score feed at match end too, as at game level (-15 s).
+  - Winner's price stays >=98.5% from a median 59 s BEFORE TheSports' last game-result message (10-90%: 336 to 11 s before, n=18). This is NOT a match-point timestamp: lopsided matches are near 99% before the last point, so it cannot be used as the end time.
+- **Verdict: UNKNOWN** whether TheSports or the price is "late" against true event time. Settled by: an independent timestamped source for the same matches (Sofascore via Hermes, or a live recording of one match with a visible clock).
+
 ## CS2 (5 name-verified maps; 112 round-win events)
 - Round wins by stage, favourable move t-10..t+30: early/mid 0.0c median (13% >=3c, n=45 priced), loser>=10 -0.3c (25%, n=12), winner reaching 12 +0.5c (0%, n=3). Net about -1c at +5/+10/+30 s, real = placebo (CI wide, 5 maps).
 - Timing: 112 events too few; half-move timing with the 1 s window NOT yet run for CS2. Earlier median lead +12.8 s vs placebo +3.6 s (91 events) used the asymmetric window and is NOT reliable.
