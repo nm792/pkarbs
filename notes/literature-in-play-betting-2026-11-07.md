@@ -56,3 +56,26 @@ Each one uses only the feed event and the market. No win model.
 7. **Skip the last minutes and the extremes** (calibration paper): a filter to test on top of 1.
 
 Next step: run 1, 2 and 4 on the TheSports capture per sport, with the 0.2 s / 1.3 s order delay, and report fills, move left after our order, and P&L per event with a confidence interval.
+
+## Full-text read, 7 Nov 04:40Z: what the numbers say and what this means for our algo
+
+Read in full: Cheng, Yang, Zou (arXiv 2605.00864) and Lehalle and Mounjid (arXiv 1610.00261, v4). **Not read in full:** Bizzozero et al. (Elsevier) and Brown 2015 (Wiley / UEA working paper). Their hosts (linkinghub.elsevier.com, onlinelibrary.wiley.com, ueaeco.github.io, hal.science) are blocked, so I only have their abstracts. Their edge-duration and return numbers are therefore still missing.
+
+**Cheng, Yang, Zou (Polymarket NBA, 173 games, 4 Feb-4 Mar 2026)**
+- Data: Polymarket CLOB `/book` top-of-book snapshots, polled every 3.6 to 5.5 s. They cannot see anything shorter than about 4 s.
+- Single-market arbitrage (Yes+No under $1, or over $1 by minting): only 7 executable in-game episodes in 75 million snapshots. Median 3.6 s, which is just their polling interval. Capped profit $210 on $100 per episode, median yield 11%.
+- Combinatorial (moneyline vs spread): 290 episodes, median 16 s in-game, 17% lasted 4 s or less, mostly in the final minutes. Median return 101 bps, but only 14.8 shares fit on average and 77% of episodes were depth-limited.
+- Median bid-ask spread: 392 bps pre-game, 1,031 bps in-game, 7,533 bps after the game. This covers all NBA market types, so moneyline alone may be tighter. We should read the number from our own books.
+- Authors' reading: market makers "occasionally require a few seconds" to reprice after a live shock.
+
+**Lehalle and Mounjid (large-tick equities, AstraZeneca)**
+- Theory plus a small data study. Latency is measured in order-book events, not seconds, so there is no clock-time number to borrow. Findings: a resting buy order is filled mostly when the price is about to fall; the value of cancelling and reposting on a signal shrinks as latency grows, faster for participants more exposed to adverse selection.
+
+**What this means for our algo**
+1. **The window is seconds, not tens of seconds.** The only direct Polymarket NBA evidence says dislocations close in about 4 s, and the paper cannot see below that. Our TheSports lead (2-3 s in places) sits inside the part nobody has measured. So the first test is timing at second resolution on our own captures, not new theory.
+2. **A taker pays a lot of spread.** If in-game spreads are anywhere near 10%, a taker entry has to beat that on its own. This is why the taker variant should only fire when the move left is clearly bigger than the spread we see at that moment, and why the bid-at-current-price test (variant 3) matters.
+3. **Resting orders fill when we are wrong.** Lehalle and Mounjid give the mechanism behind Nick's 7 Nov point. The fix they point to is fast cancel on a signal. Our measured cancel is about 0.13 s, so the cancel-after-N-seconds test is worth running with N of a few seconds.
+4. **Depth caps size.** 14.8 shares average executable size in the arbitrage cases. Treat any backtest size above that scale as unproven.
+5. **Book is efficient against simple arbitrage.** Do not spend time on Yes+No or moneyline-vs-spread arbitrage. The edge, if any, is the feed.
+
+Strategy order is unchanged: take-on-feed (1) and feed-first-only (2) with the placebo (4) first, measured at second resolution.
