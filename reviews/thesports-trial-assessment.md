@@ -31,6 +31,8 @@ Scripts: `live/thesports/` : `event_price_change_names.py` (name bridge), `tenni
 - What the capture alone shows (26 ended, name-paired matches, all on one clock; NOT official times):
   - Polymarket sports-ws "ended" flag arrives a median +32.7 s AFTER TheSports' last game-result message (10-90%: +2 to +71 s, n=19). TheSports is ahead of PM's own score feed at match end too, as at game level (-15 s).
   - Winner's price stays >=98.5% from a median 59 s BEFORE TheSports' last game-result message (10-90%: 336 to 11 s before, n=18). This is NOT a match-point timestamp: lopsided matches are near 99% before the last point, so it cannot be used as the end time.
+- **Other sources tried 7 Nov 07:50Z:** ESPN scoreboard (`site.api.espn.com/.../tennis/{atp,wta}/scoreboard?dates=`) works and lists 103 ATP / 207 WTA competitions for 6 Nov, but gives only a minute-resolution `startDate` and a final status, no end time and no points. Flashscore (via TinyFish) returns only a gambling-notice shell. ATP Tour (via TinyFish) returns a daily schedule with "Starts at"/"Not before" times only. None gives a match-point timestamp. Hermes task written: `agent/tasks/TASK-tennis-reference-times-2026-11-07.md` (Sofascore from the server IP, 28 matches listed in `rn1/scores/thesports/reference/tennis-matches-28.csv`).
+- A true ground truth needs a live recording of a timestamped source during a match. Not yet set up.
 - **Verdict: UNKNOWN** whether TheSports or the price is "late" against true event time. Settled by: an independent timestamped source for the same matches (Sofascore via Hermes, or a live recording of one match with a visible clock).
 
 ## CS2 (5 name-verified maps; 112 round-win events)
