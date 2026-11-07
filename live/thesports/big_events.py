@@ -442,3 +442,104 @@ if os.environ.get('CHECK'):
                         if x is not None and y is not None: v.append(y - x)
                 out.append('[%+d,%+d]s %+.1fc(n%d)' % (a, b, 100 * statistics.median(v), len(v)) if v else 'n/a')
             print('%-42s %-7s %s' % (cls, lab, ' | '.join(out)))
+
+# ================= POINT-LEVEL tennis (coordinator 07:23Z) =================
+if os.environ.get('POINTS'):
+    RKm = {'0': 0, '15': 1, '30': 2, '40': 3, 'A': 4}
+    serve_of = {}
+    for r in msgs:
+        if not r['topic'].endswith('tennis/match/v1'): continue
+        try: ps = json.loads(r['p'])
+        except Exception: continue
+        for p in ps:
+            for s_ in (p.get('timeline') or []):
+                for q_ in s_.get('rounds', []):
+                    sc = q_.get('score')
+                    if sc and sc.get('serve') in (1, 2): serve_of[(p['id'], s_['set'], q_['round'])] = 1 if sc['serve'] == 1 else -1
+    def server(m_, s_, r_):
+        if (m_, s_, r_) in serve_of: return serve_of[(m_, s_, r_)]
+        for d in (1, 2, 3, 4, 5, 6):
+            for rr, fl in ((r_ - d, 1 if d % 2 == 0 else -1), (r_ + d, 1 if d % 2 == 0 else -1)):
+                if (m_, s_, rr) in serve_of: return fl * serve_of[(m_, s_, rr)]
+        return None
+    pcls = collections.defaultdict(list); seen_p = set(); fmp = set(); npts = 0
+    for r in msgs:
+        if not r['topic'].endswith('tennis/match/v1'): continue
+        try: ps = json.loads(r['p'])
+        except Exception: continue
+        t = r['ms'] / 1000.0
+        for p in ps:
+            tl = p.get('timeline')
+            if not tl: continue
+            m_ = p['id']; fm = m_ not in fmp; fmp.add(m_)
+            for s_ in tl:
+                for q_ in s_.get('rounds', []):
+                    pts = q_.get('points') or []
+                    sv = server(m_, s_['set'], q_['round'])
+                    prev = (0, 0)
+                    for i, pt in enumerate(pts):
+                        cur = (RKm.get(pt[0]), RKm.get(pt[1]))
+                        k = (m_, s_['set'], q_['round'], i)
+                        if None in cur: prev = (0, 0); continue
+                        if k in seen_p: prev = cur; continue
+                        seen_p.add(k)
+                        a, b = prev, cur; prev = cur
+                        if fm or sv is None: continue
+                        if i > 0 and None in (RKm.get(pts[i - 1][0]), RKm.get(pts[i - 1][1])): continue
+                        dh, da = b[0] - a[0], b[1] - a[1]
+                        if dh == 1 and da <= 0 or da < 0 and dh >= 0: w = 1
+                        elif da == 1 and dh <= 0 or dh < 0 and da >= 0: w = -1
+                        else: continue
+                        npts += 1
+                        ser = (lambda x: x[0] if sv == 1 else x[1]); ret = (lambda x: x[1] if sv == 1 else x[0])
+                        bp_before = (ret(a) == 3 and ser(a) < 3) or ret(a) == 4
+                        bp_after = (ret(b) == 3 and ser(b) < 3) or ret(b) == 4
+                        if w != sv and bp_before: cls = 'point: returner wins at break point (game wins/breaks soon)'
+                        elif w == sv and bp_before: cls = 'point: server SAVES break point'
+                        elif w != sv and bp_after: cls = 'point: returner wins, creates break point'
+                        else: cls = 'point: other'
+                        pcls[cls].append(((('tennis', m_)), t, w, k))
+    pc2 = collections.defaultdict(list)
+    for cls, L in pcls.items():
+        for key, t0, sd, k in L:
+            ts_ = tk_of.get(key)
+            if ts_: pc2[cls].append((key, t0, sd, ts_[0], ts_[1]))
+    print('\n--- POINT-LEVEL: points seen live (not first message) with server known:', npts, '| paired to name-verified matches ---')
+    def netn(f, t, h):
+        r0 = row(f, t + DELAY); pre = mid_at(f, t - 10); en = row(f, t + DELAY + 1.0); x = row(f, t + DELAY + h)
+        if not (r0 and pre is not None and en and x) or not (0.25 <= pre <= 0.75) or en[2] - en[1] > 0.03: return None   # NO feed-first filter
+        return x[1] - en[2]
+    random.seed(88)
+    for cls in sorted(pc2):
+        L = pc2[cls]
+        W = [(-30, 0), (0, 30)]
+        out = []
+        for lab in ('real', 'plac'):
+            row_ = []
+            for a, b in W:
+                v = []
+                for key, t0, sd, tk, sg in L:
+                    f = fav_tk(tk, sg, sd)
+                    if not f: continue
+                    for tt in ([t0] if lab == 'real' else [t0 + random.choice([-1, 1]) * random.uniform(60, 600) for _ in range(5)]):
+                        x, y = mid_at(f, tt + a), mid_at(f, tt + b)
+                        if x is not None and y is not None and 0.25 <= x <= 0.75: v.append(y - x)
+                row_.append('[%+d,%+d]s median %+.2fc mean %+.2fc (n%d)' % (a, b, 100 * statistics.median(v), 100 * sum(v) / len(v), len(v)) if v else 'n/a')
+            out.append((lab, row_))
+        R = {h: [] for h in (10, 30)}; P = {h: [] for h in R}
+        for key, t0, sd, tk, sg in L:
+            f = fav_tk(tk, sg, sd)
+            if not f: continue
+            for h in R:
+                v = netn(f, t0, h)
+                if v is not None: R[h].append((key, v))
+                for _ in range(5):
+                    v = netn(f, t0 + random.choice([-1, 1]) * random.uniform(60, 600), h)
+                    if v is not None: P[h].append((key, v))
+        print('\n%s | events %d, matches %d' % (cls, len(L), len(set(k for k, *_ in L))))
+        for lab, row_ in out: print('  move %-5s %s' % (lab, ' || '.join(row_)))
+        for h in R:
+            a, b = R[h], P[h]
+            if not a: print('  net +%ds: n=0' % h); continue
+            ci = bd(a, b)
+            print('  net taker (buy ask +1.2 s, sell bid +%ds, all events, spread<=3c, 25-75%%): real n=%d median %+.2fc mean %+.2fc | placebo n=%d median %+.2fc mean %+.2fc | mean diff 90%% CI %s' % (h, len(a), 100 * statistics.median([v for _, v in a]), 100 * sum(v for _, v in a) / len(a), len(b), 100 * statistics.median([v for _, v in b]), 100 * sum(v for _, v in b) / len(b), ('[%+.2f, %+.2f]' % ci) if ci else 'n/a'))
