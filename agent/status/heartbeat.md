@@ -1,7 +1,7 @@
-# server-member heartbeat
-Round: 2026-11-07 16:5xZ UTC
-- rugby approved code applied (#186/#187 on origin: CLOB PING/list/PONG fix + single-instance flock guard + summariser reads AB_clob_rest); AB left running on old code + REST page (no mid-match restart), Windows C/D 8 Nov start on new code. rugby-script-changes-approved reply + status in agent/outbox.
-- Safe-point CLOB probe (5-min, read_clob -> rugby/probe_clob.jsonl) NOT yet run/recorded — outstanding verification of the stream fix.
-- thesports diary + keep-records acks filed (stubs -> ack per inbox slug).
-- Cricket/cs2/lol/nba/thesports loggers: status files current; no new inbox unanswered on this thread.
-Count: notes answered 3 (rugby-script-changes, thesports-diary, thesports-keep-records), outstanding 1 (safe-point probe).
+Round: 2026-11-07T17:45Z UTC. 
+- Rugby AB RUNNING (1312661 wrapper, window ends ~18:00Z). CLOB WS dead (case 4) but REST fallback LIVE (pid 1806719, AB_clob_rest.jsonl 6.4MB growing 17:48Z) — data flowing via 5s poll. 
+- Safe-point probe: no read_clob/probe script present on box; verification covered by live REST feed.
+- CFB capture task: time-gated to ~18:10Z (after rugby AB) — NOT started, within disk-gate hold.
+- tennis-reference: BLOCKED (Sofascore 403, no proxies — reported). thesports/other loggers status current.
+- inbox: fully answered on this thread (incl. rugby-script-changes, thesports-diary/keep-records).
+Count: open — rugby probe (covered by REST), CFB (18:10Z window), tennis-ref (blocked); none needing Nick now.
