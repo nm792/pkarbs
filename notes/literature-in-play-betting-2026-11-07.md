@@ -79,3 +79,33 @@ Read in full: Cheng, Yang, Zou (arXiv 2605.00864) and Lehalle and Mounjid (arXiv
 5. **Book is efficient against simple arbitrage.** Do not spend time on Yes+No or moneyline-vs-spread arbitrage. The edge, if any, is the feed.
 
 Strategy order is unchanged: take-on-feed (1) and feed-first-only (2) with the placebo (4) first, measured at second resolution.
+
+## Refocus, 7 Nov 04:45Z: tennis and esports only (Nick: NBA is a waste of time)
+
+NBA is dropped from here on. Everything above on NBA stays in the note only as background.
+
+**Tennis (the best-covered case)**
+| Paper | Finding | Meaning for us |
+|---|---|---|
+| Bizzozero, Flepp, Franck 2018 ([DOI](https://doi.org/10.1016/j.jebo.2018.09.020); abstract read, full text blocked) | Courtsiders' fast trades move prices to the right level quickly, and a simple strategy earned positive returns after important events. | Direct precedent for a feed that is seconds ahead. Numbers on seconds and returns still missing. |
+| Easton and Uylangco, "Forecasting outcomes in tennis matches using within-match betting markets", Int. J. Forecasting 2010 ([EconPapers](https://econpapers.repec.org/RePEc:eee:intfor:v:26:y::i:3:p:564-575)). **Unverified: from a search summary only.** | Odds underreact to service breaks: the extra points a broken player tends to lose are not fully priced right away. No bias after a hold. | A second edge that needs no speed. Test: after a break, does the price keep drifting for tens of seconds? |
+| Brown 2015 ([EconPapers](https://econpapers.repec.org/article/blaeconom/v_3a82_3ay_3a2015_3ai_3a327_3ap_3a420-447.htm); abstract only) | Wimbledon exchange arbitrage is frequent in-play, rare pre-match. | In-play tennis prices are briefly inconsistent. |
+| Klaassen and Magnus point-by-point model; Dumitrescu et al. ([PDF](https://www.doc.ic.ac.uk/~wjk/publications/DumitrescuHuangKnottenbeltSpaniasWozniak.pdf)); Xie and Muppidi, arXiv [2609.07617](https://arxiv.org/abs/2609.07617) (abstract read; weak source) | Win probability from point-win rates by dynamic programming. Betting odds track these models closely. | A cheap fair-value model: how far a point or game should move the price. |
+
+**Esports (almost nothing on prices)**
+| Paper | Finding | Meaning for us |
+|---|---|---|
+| Yang, Qin, Lei, "Real-time eSports match result prediction", arXiv [1701.03162](https://arxiv.org/abs/1701.03162) (abstract read) | Dota 2: pre-match features 71% accurate; adding per-minute in-game features reaches up to 93.7% at minute 40. | Minute-level state is highly predictive but this is slow-moving. Event-level jumps (our approach) are not in the paper. |
+| Xenopoulos, Coelho, Silva, arXiv [2109.12990](https://arxiv.org/abs/2109.12990) (abstract read) | CS:GO win probability at the start of each round from score, equipment and money. | A ready recipe for the size of a CS2 round-win move. |
+| Hodge et al., IEEE Trans. on Games 2021 ([White Rose](https://eprints.whiterose.ac.uk/152931/); not re-read) | Live Dota 2 and CS:GO win prediction, up to about 85% accurate after 5 minutes. | Same point: state models exist, price-vs-event timing does not. |
+| JIFS 2024, 46(3):7413 ([DOI](https://doi.org/10.3233/JIFS-232932); search summary only) and Sweeney 2021, Games and Culture (summary only) | Favourite-longshot biases in LoL, CS:GO, Dota 2 vary by title and tournament. | Pre-game bias, not in-play. Not our edge. |
+
+**Gap:** I found no paper that measures an in-play price against an event feed in LoL, CS2 or Dota. Our TheSports capture is the evidence, and the literature gives method, not results.
+
+**Dumbest tests, restricted to these sports (paper only, held to resolution)**
+1. **Tennis, take-on-point:** when TheSports reports a game won or a break, take the ask on that player if the price hasn't moved. Placebo: same on a random side.
+2. **Tennis, post-break drift (no speed needed):** buy the player who just broke at the market after 10-60 s and hold. If this works, the edge doesn't depend on the feed.
+3. **CS2, take-on-round-win:** on the feed's round result, take the ask on the winner if the price hasn't moved; compare to the Xenopoulos-style round model for size.
+4. **LoL / Dota, take-on-big-event only:** use our own jump table and trade only the events with the largest typical move, skip small ones.
+5. **Feed-first-only filter on all four.** Count only events where the feed beat the book. Report separately.
+6. **Bid at the pre-event best bid, cancel after N seconds** as the comparison for fills (already running).
