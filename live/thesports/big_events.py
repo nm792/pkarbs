@@ -840,3 +840,108 @@ if os.environ.get('CS2EV'):
             if m3 is not None: C.append(m3)
     f_ = lambda a: 'mean %+.2fc n=%d' % (100 * sum(a) / len(a), len(a)) if a else 'n/a'
     print('c_score events (matched to a typeid-2 event):', f_(A)); print('typeid-2 events:', f_(B)); print('c_score events where both sides agree:', f_(C))
+
+# ================= DOTA 2 (Nick/coordinator 15:02Z): kills, towers, barracks, Roshan vs price, same method as corrected CS2 =================
+if os.environ.get('DOTA'):
+    pop = lambda x: bin(int(x)).count('1')
+    dkey_names = {}
+    dev = collections.defaultdict(list); dprev = {}; dfm = set()
+    for r in msgs:
+        if not r['topic'].endswith('dota2/match/v1'): continue
+        try: ps = json.loads(r['p'])
+        except Exception: continue
+        t = r['ms'] / 1000.0
+        for p in ps:
+            key = ('dota2', p['match_id'], p['box_num'])
+            if p.get('status_id') != 2 and key not in dprev: pass
+            h, a = p['home']['stats'], p['away']['stats']
+            cur = (h[0], a[0], pop(h[1]), pop(a[1]), pop(h[2]), pop(a[2]), p.get('roushan_timer') or 0)
+            if key in dprev:
+                pv = dprev[key]
+                # kills
+                for side, i in ((1, 0), (-1, 1)):
+                    if cur[i] - pv[i] == 1: dev[key].append((t, side, 'dota kill (stats[0])'))
+                # towers destroyed (alive-count falls): team losing tower -> OTHER side gains
+                if cur[2] < pv[2]: dev[key].append((t, -1, 'dota tower (home tower lost -> away favoured)'))
+                if cur[3] < pv[3]: dev[key].append((t, 1, 'dota tower (away tower lost -> home favoured)'))
+                if cur[4] < pv[4]: dev[key].append((t, -1, 'dota barracks (home lost -> away favoured)'))
+                if cur[5] < pv[5]: dev[key].append((t, 1, 'dota barracks (away lost -> home favoured)'))
+                if pv[6] == 0 and cur[6] > 0: dev[key].append((t, 0, 'dota roshan timer started'))
+            dprev[key] = cur
+    # pair to PM Game N Winner markets by names
+    dk = {}
+    for key in dev:
+        hm = matches.get(key[1])
+        if not hm or None in hm: continue
+        for tk in [t for t, (sp, q, smt) in tk_sport.items() if sp == 'dota2' and t in book]:
+            q = tk_sport[tk][1]
+            if ('Game %d Winner' % key[2]) not in q: continue
+            m = [m_ for m_ in mk.values() if tk in m_['tokens']][0]
+            i = m['tokens'].index(tk); o = m['outcomes'][i]; po = m['outcomes'][1 - i]
+            if same(hm[0], o) and same(hm[1], po): dk[key] = (tk, 1); break
+            if same(hm[1], o) and same(hm[0], po): dk[key] = (tk, -1); break
+    print('\nDOTA: event games %d, names found %d, paired to PM Game-N-Winner market %d' % (len(dev), sum(1 for k in dev if matches.get(k[1])), len(dk)))
+    for key, (tk, sg) in dk.items():
+        b = book[tk]; print('  ', key[1][:6], 'game', key[2], tk_sport[tk][1][:70], '| rows', len(b), 'median spread %.3f' % statistics.median([x[2] - x[1] for x in b]), '| events', len(dev[key]))
+    dl = collections.defaultdict(list)
+    for key, evs in dev.items():
+        if key not in dk: continue
+        tk, sg = dk[key]
+        for t0, sd, cls in evs:
+            if sd == 0: continue
+            dl[cls].append((key, t0, sd, tk, sg))
+    random.seed(11)
+    def fav_d(tk, sg, side):
+        f = tk if side * sg > 0 else partner.get(tk)
+        return f if f is not None and f in book else None
+    def halft_d(f, t):
+        pre = mid_at(f, t - 30); post = mid_at(f, t + 10)
+        if pre is None or post is None or not (0.1 <= pre <= 0.9) or post - pre < 0.03: return None
+        for s in range(-30, 11):
+            x = mid_at(f, t + s)
+            if x is not None and x - pre >= (post - pre) / 2 - 1e-9: return s
+    def net_d(f, t, h):
+        r0 = row(f, t + DELAY); pre = mid_at(f, t - 10); en = row(f, t + DELAY + 1.0); x = row(f, t + DELAY + h)
+        if not (r0 and pre is not None and en and x) or not (0.1 <= pre <= 0.9) or en[2] - en[1] > 0.03: return None
+        return x[1] - en[2]
+    allk = [x for c, L in dl.items() if c.startswith('dota kill') for x in L]
+    tw = [x for c, L in dl.items() if c.startswith('dota tower') for x in L]
+    br = [x for c, L in dl.items() if c.startswith('dota barracks') for x in L]
+    for cls, L in (('KILLS', allk), ('TOWERS', tw), ('BARRACKS', br)):
+        print('\n== DOTA %s | events %d, games %d' % (cls, len(L), len(set(k for k, *_ in L))))
+        for lab in ('real', 'placebo'):
+            out = []
+            for a, b in ((-90, -60), (-60, -30), (-30, -15), (-15, 0), (0, 15), (15, 60), (-90, 60)):
+                v = []
+                for key, t0, sd, tk, sg in L:
+                    f = fav_d(tk, sg, sd)
+                    if not f: continue
+                    for tt in ([t0] if lab == 'real' else [t0 + random.choice([-1, 1]) * random.uniform(60, 600) for _ in range(3)]):
+                        x, y = mid_at(f, tt + a), mid_at(f, tt + b)
+                        if x is not None and y is not None and 0.1 <= x <= 0.9: v.append(y - x)
+                out.append('[%+d,%+d] mean %+.2fc(n%d)' % (a, b, 100 * sum(v) / len(v), len(v)) if v else 'n/a')
+            print('  signed move %-7s %s' % (lab, ' | '.join(out)))
+        for lab in ('real', 'placebo'):
+            hs = []; tot = 0
+            for key, t0, sd, tk, sg in L:
+                f = fav_d(tk, sg, sd)
+                if not f: continue
+                for tt in ([t0] if lab == 'real' else [t0 + random.choice([-1, 1]) * random.uniform(60, 600) for _ in range(5)]):
+                    tot += 1; h = halft_d(f, tt)
+                    if h is not None: hs.append(h)
+            print('  half-move %-7s big moves %d of %d%s' % (lab, len(hs), tot, (' | median %+d s, 10-90%% [%+d, %+d]' % (statistics.median(hs), sorted(hs)[int(.1 * len(hs))], sorted(hs)[min(len(hs) - 1, int(.9 * len(hs)))])) if hs else ''))
+        for h in (10, 30):
+            a, b = [], []
+            for key, t0, sd, tk, sg in L:
+                f = fav_d(tk, sg, sd)
+                if not f: continue
+                v = net_d(f, t0, h)
+                if v is not None: a.append((key, v))
+                for _ in range(5):
+                    v = net_d(f, t0 + random.choice([-1, 1]) * random.uniform(60, 600), h)
+                    if v is not None: b.append((key, v))
+            if a:
+                ci = bd(a, b)
+                print('  net taker +%ds: real n=%d mean %+.2fc median %+.2fc | placebo n=%d mean %+.2fc | diff 90%% CI %s' % (h, len(a), 100 * sum(v for _, v in a) / len(a), 100 * statistics.median([v for _, v in a]), len(b), 100 * sum(v for _, v in b) / len(b) if b else float('nan'), ('[%+.2f, %+.2f]' % ci) if ci else 'n/a'))
+            else: print('  net taker +%ds: n=0' % h)
+    print('\nRoshan timer starts (side unknown, counts only):', sum(1 for evs in dev.values() for e in evs if e[2].startswith('dota roshan')))
