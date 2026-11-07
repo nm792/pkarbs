@@ -158,3 +158,13 @@ Why negative overall, in the authors' words: when one player is a strong favouri
 4. **Small samples.** The best cells are 12-44 events with p-values of 0.02-0.15. It is suggestive, not proven.
 5. **It was a round trip, not hold-to-resolution.** Their trade sells after 10 s. Ours holds. The comparison should therefore also be run as 10 s exit versus hold on our data.
 6. **It ignored the speed bump.** With a delay like Betfair's 5 s (Brown) or Polymarket's `seconds_delay`, the returns above are an upper bound for a taker.
+
+## Easton and Uylangco 2007, the earlier paper (cricket), read in full 7 Nov 05:25Z
+
+Nick supplied the PDF: "An Examination of In-play Sports Betting Using One-Day Cricket Matches" (SSRN 948013, J. Prediction Markets 2007). **This is the earlier cricket paper, not the 2010 tennis paper**, so the tennis service-break claim above is still unread.
+
+- Data: 15 one-day internationals, Betfair bid and ask recorded after every ball (hand-collected from TV and radio), 8,828 balls. Not second-level timing.
+- News is impounded rapidly on the ball itself. Payoff per $1 bet on the ball (average): wicket -$0.055, four runs +$0.012, more than four +$0.017, zero runs -$0.001.
+- Odds drift in the direction of the news afterwards ("under-reaction"): the extra payoff over the next six balls averages +$0.004 after a four and +$0.010 after a six or more (about a third to two thirds of the immediate move), with no clear drift after a wicket (-$0.004, not significant on the non-parametric test). The drift sits mainly in the three balls after the event.
+- Odds also predicted the outcome of a ball before it was bowled (bettors anticipate).
+- For us: cricket is parked until TheSports switches it on, and the timing is balls, not seconds. The useful part is the shape: a small continuation after a big event, confined to a few minutes. It is weak support for testing a drift trade after large events, in cricket first.
