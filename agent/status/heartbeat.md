@@ -1,1 +1,4 @@
-round 2026-11-07T07:00:00Z UTC — server-member dispatch. pkarbs (thread vg2ckg): inbox fully answered — 66/67 have outbox; thesports-diary-priority-2026-11-07 answered by thesports-diary-ack-2026-11-07.md (the exact outbox name the note named). thesports diary+slim committed, LoL MQTT auth (Worlds) pending TheSports resubmit (not my approval). Nothing running outside protocol.
+# server-member heartbeat
+
+2026-11-07T07:17Z UTC
+- thread-vg2ckg: heartbeat only; inbox fully answered (outbox present for all inbox items incl thesports/cs2/nba).
