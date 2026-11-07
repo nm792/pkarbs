@@ -109,3 +109,20 @@ NBA is dropped from here on. Everything above on NBA stays in the note only as b
 4. **LoL / Dota, take-on-big-event only:** use our own jump table and trade only the events with the largest typical move, skip small ones.
 5. **Feed-first-only filter on all four.** Count only events where the feed beat the book. Report separately.
 6. **Bid at the pre-event best bid, cancel after N seconds** as the comparison for fills (already running).
+
+## Brown 2015 read in full (UEA working paper, Nov 2013 version) and a finding that changes the taker test, 7 Nov 05:00Z
+
+**Brown (Wimbledon men's singles, Betfair, 2008-2012, 68 matches, prices sampled every second)**
+- Set-up: arbitrage between the match-winner market and the set-score markets. Risk-free once all four bets are filled.
+- In-play there were 2,170 separate opportunities vs 534 pre-match (2% commission), though most sampled hours were pre-match.
+- Duration: **in-play median 4-8 s, mostly 5 s; pre-match median up to 133 s.** The 5 s is not an accident: see below.
+- Return per opportunity (2% commission, % of collateral): in-play median 0.2-0.6% for the first strategy and 0.6-2.0% for the second; pre-match medians mostly 0.04-0.65%. Maxima reach 14% and 68%. The paper itself notes the highest returns may arise in the first 5 seconds of an opportunity.
+- Execution: Betfair applies a **5-second cooling-off period to every in-play bet**. The paper says its aim is to remove any advantage from seeing the action earlier (in the stadium or on a faster TV feed): it lets liquidity providers cancel before a market order matches. So the fastest an automated arbitrageur can complete four bets is 5 s.
+
+**Why this matters for us (checked against Polymarket's own docs and API)**
+- Polymarket has the same device. Its order-lifecycle docs (`polymarket-docs/pages/concepts__order-lifecycle.md`) describe a "sports/game delay": marketable orders on configured markets wait for a delay window before matching, status `delayed`.
+- The CLOB market record has a `seconds_delay` field. On 7 Nov I read it for a sample of sports markets: **1 second on the tennis and Dota 2 / CS2 game markets I sampled, 0 on futures and props.** Those samples were older, unresolved listings, so the number at match time may differ. We must read it live per market.
+- Consequence: a taker entry on the feed (tests 1-3 above) sits in a delay window during which market makers can cancel. Courtsiding's edge is exactly what this rule is built to neutralise. The taker test must (a) include the market's `seconds_delay`, (b) count a miss when the quote is cancelled in that window, and (c) use the measured order timings, not an assumed instant fill.
+- It also means resting orders (post-only) are not subject to the delay. That does not make them safe, because of the adverse-selection result above, but the comparison of taker and resting variants must be done with the delay in place.
+
+**Still not read in full:** Bizzozero, Flepp and Franck. ScienceDirect returns 403 to our client and the doi.org link lands on the paywalled page. The 2017 University of Zurich working-paper version may be reachable if `www.zora.uzh.ch` is allowed.
