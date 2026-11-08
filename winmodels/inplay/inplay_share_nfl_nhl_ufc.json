@@ -1,0 +1,285 @@
+{
+ "summary": {
+  "nfl": {
+   "events": 3,
+   "markets": 6,
+   "trade_notional": 3479791,
+   "gamma_sampled": 7662204,
+   "notional_over_gamma": 0.454,
+   "inplay_share": 0.742,
+   "inplay_mid_share": 0.694,
+   "ml_inplay_share": 0.806,
+   "ml_inplay_mid_share": 0.754
+  },
+  "nhl": {
+   "events": 3,
+   "markets": 6,
+   "trade_notional": 757526,
+   "gamma_sampled": 1369254,
+   "notional_over_gamma": 0.553,
+   "inplay_share": 0.22,
+   "inplay_mid_share": 0.101,
+   "ml_inplay_share": 0.235,
+   "ml_inplay_mid_share": 0.109
+  },
+  "ufc": {
+   "events": 3,
+   "markets": 6,
+   "trade_notional": 1576033,
+   "gamma_sampled": 2813753,
+   "notional_over_gamma": 0.56,
+   "inplay_share": 0.875,
+   "inplay_mid_share": 0.718,
+   "ml_inplay_share": 0.872,
+   "ml_inplay_mid_share": 0.718
+  }
+ },
+ "events": {
+  "nfl": {
+   "nfl-was-sf-2026-10-20": {
+    "ev_vol": 10081108.039652001,
+    "mk": [
+     {
+      "q": "Commanders vs. 49ers",
+      "typ": "moneyline",
+      "gamma": 5431003.188646002,
+      "inplay": 1912646.5903426448,
+      "inplay_mid": 1825848.6069662601,
+      "pre": 374332.3902965893,
+      "n": 3005,
+      "last_trade_age_h": 0,
+      "span_h": 376.7813888888889
+     },
+     {
+      "q": "Spread: 49ers (-7.5)",
+      "typ": "spreads",
+      "gamma": 638352.17279,
+      "inplay": 86038.70360090403,
+      "inplay_mid": 81415.34218491049,
+      "pre": 236345.39479381856,
+      "n": 671,
+      "last_trade_age_h": 0,
+      "span_h": 180.495
+     }
+    ]
+   },
+   "nfl-ari-dal-2026-11-01": {
+    "ev_vol": 2632087.286259,
+    "mk": [
+     {
+      "q": "Cardinals vs. Cowboys",
+      "typ": "moneyline",
+      "gamma": 1430614.755588,
+      "inplay": 569120.3273891257,
+      "inplay_mid": 493710.2948296462,
+      "pre": 221224.43430019805,
+      "n": 1523,
+      "last_trade_age_h": 0,
+      "span_h": 314.66777777777776
+     },
+     {
+      "q": "Spread: Cowboys (-7.5)",
+      "typ": "spreads",
+      "gamma": 160370.342317,
+      "inplay": 15674.731953960521,
+      "inplay_mid": 15226.811393960521,
+      "pre": 63886.47289799462,
+      "n": 259,
+      "last_trade_age_h": 0,
+      "span_h": 105.7088888888889
+     }
+    ]
+   },
+   "nfl-ten-cin-2026-11-01-player-props": {
+    "ev_vol": 6554.04076,
+    "mk": [
+     {
+      "q": "Ja'Marr Chase: Receiving Yards O/U 79.5",
+      "typ": "receiving_yards",
+      "gamma": 1003.183505,
+      "pre": 498.14119999303114,
+      "n": 18,
+      "last_trade_age_h": 0,
+      "span_h": 28.3725
+     },
+     {
+      "q": "Carnell Tate: Receptions O/U 4.5",
+      "typ": "receptions",
+      "gamma": 860.283674,
+      "pre": 23.359999995487218,
+      "n": 6,
+      "last_trade_age_h": 0,
+      "span_h": 7.596666666666667
+     }
+    ]
+   }
+  },
+  "nhl": {
+   "nhl-wpg-mon-2026-11-03": {
+    "ev_vol": 961359.1596900002,
+    "mk": [
+     {
+      "q": "Jets vs. Canadiens",
+      "typ": "moneyline",
+      "gamma": 921253.5654180002,
+      "inplay": 88123.5213834564,
+      "inplay_mid": 21485.916762911405,
+      "pre": 434455.51245110214,
+      "n": 711,
+      "last_trade_age_h": 0,
+      "span_h": 256.02194444444444
+     },
+     {
+      "q": "Spread: Jets (-1.5)",
+      "typ": "spreads",
+      "gamma": 23185.600804000005,
+      "inplay": 964.7584319937456,
+      "inplay_mid": 245.0219920000256,
+      "pre": 9545.4431,
+      "n": 56,
+      "last_trade_age_h": 0,
+      "span_h": 12.0225
+     }
+    ]
+   },
+   "nhl-det-fla-2026-11-02": {
+    "ev_vol": 301934.746571,
+    "mk": [
+     {
+      "q": "Red Wings vs. Panthers",
+      "typ": "moneyline",
+      "gamma": 142080.643605,
+      "inplay": 57357.23931968592,
+      "inplay_mid": 43425.194552027424,
+      "pre": 24090.249875551453,
+      "n": 630,
+      "last_trade_age_h": 0,
+      "span_h": 39.96861111111111
+     },
+     {
+      "q": "Red Wings vs. Panthers: O/U 5.5",
+      "typ": "totals",
+      "gamma": 126248.968144,
+      "inplay": 5958.043186006757,
+      "inplay_mid": 410.2902960028103,
+      "pre": 62198.86519726965,
+      "n": 210,
+      "last_trade_age_h": 0,
+      "span_h": 28.355
+     }
+    ]
+   },
+   "nhl-phi-buf-2026-10-21": {
+    "ev_vol": 198673.448391,
+    "mk": [
+     {
+      "q": "Flyers vs. Sabres",
+      "typ": "moneyline",
+      "gamma": 118518.68799600001,
+      "inplay": 9402.000368927425,
+      "inplay_mid": 6800.864672967703,
+      "pre": 46142.5087670727,
+      "n": 455,
+      "last_trade_age_h": 0,
+      "span_h": 84.09583333333333
+     },
+     {
+      "q": "Flyers vs. Sabres: O/U 5.5",
+      "typ": "totals",
+      "gamma": 37966.142596000005,
+      "inplay": 4894.597445001147,
+      "inplay_mid": 4130.398385001146,
+      "pre": 14393.416595135568,
+      "n": 130,
+      "last_trade_age_h": 0,
+      "span_h": 13.110833333333334
+     }
+    ]
+   }
+  },
+  "ufc": {
+   "ufc-ale14-mov-2026-10-24": {
+    "ev_vol": 2208872.7751160003,
+    "mk": [
+     {
+      "q": "UFC 333: Alexander Volkanovski vs. Movsar Evloev (Featherweight, Main Card)",
+      "typ": "moneyline",
+      "gamma": 2078679.5743460003,
+      "post": 3.87612,
+      "inplay": 1001011.2697049574,
+      "inplay_mid": 828899.4764249542,
+      "pre": 132338.29759552272,
+      "n": 3070,
+      "last_trade_age_h": 0,
+      "span_h": 333.4588888888889
+     },
+     {
+      "q": "Will Movsar Evloev win by KO or TKO?",
+      "typ": "ufc_method_of_victory",
+      "gamma": 37972.130003,
+      "inplay": 11440.086988183899,
+      "inplay_mid": 11325.628688185941,
+      "pre": 346.6185999775305,
+      "n": 63,
+      "last_trade_age_h": 0,
+      "span_h": 28.08861111111111
+     }
+    ]
+   },
+   "ufc-avagae-jac7-2026-10-24": {
+    "ev_vol": 518704.5963700001,
+    "mk": [
+     {
+      "q": "UFC 333: Abubakar Vagaev vs. Jacob Malkoun (Middleweight, Early Prelims)",
+      "typ": "moneyline",
+      "gamma": 483406.9442080001,
+      "inplay": 246333.43702445482,
+      "inplay_mid": 194302.22313445617,
+      "pre": 34419.8668681439,
+      "n": 1656,
+      "last_trade_age_h": 0,
+      "span_h": 200.905
+     },
+     {
+      "q": "O/U 2.5 Rounds",
+      "typ": "totals",
+      "gamma": 16484.976886,
+      "inplay": 11535.713397990803,
+      "inplay_mid": 11381.328797999427,
+      "pre": 177.30000001939817,
+      "n": 15,
+      "last_trade_age_h": 0,
+      "span_h": 4.8372222222222225
+     }
+    ]
+   },
+   "ufc-nik2-abd8-2026-10-24": {
+    "ev_vol": 232191.57500400004,
+    "mk": [
+     {
+      "q": "UFC 333: Nikita Krylov vs. Abdul-Rakhman Yakhyaev (Light Heavyweight, Prelims)",
+      "typ": "moneyline",
+      "gamma": 177340.68350700004,
+      "inplay": 91605.95706124498,
+      "inplay_mid": 78069.66308527844,
+      "pre": 28930.50804614912,
+      "n": 598,
+      "last_trade_age_h": 0,
+      "span_h": 252.46944444444443
+     },
+     {
+      "q": "Fight to Go the Distance?",
+      "typ": "ufc_go_the_distance",
+      "gamma": 19868.496995999998,
+      "inplay": 17621.876223723062,
+      "inplay_mid": 8372.088093719984,
+      "pre": 268.3599979998864,
+      "n": 30,
+      "last_trade_age_h": 0,
+      "span_h": 30.75583333333333
+     }
+    ]
+   }
+  }
+ }
+}

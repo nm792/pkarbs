@@ -1,0 +1,17 @@
+train games 738 holdout 347 beta kill/tower/rax/rosh [0.0252 0.0116 0.0325 0.0153] R2 0.178 n 29365
+train lag0 W10: games 496 $fill 59650 1min 3.38% [np.float64(2.55), np.float64(4.22)] result 14.09% $8407 [np.float64(4813.0), np.float64(12132.0)] ex-top5 10.16%
+train lag0 W30: games 584 $fill 126529 1min 3.28% [np.float64(2.57), np.float64(4.06)] result 15.1% $19105 [np.float64(12145.0), np.float64(26767.0)] ex-top5 10.52%
+train lag2 W10: games 492 $fill 58412 1min 3.43% [np.float64(2.54), np.float64(4.31)] result 15.96% $9321 [np.float64(6075.0), np.float64(12823.0)] ex-top5 12.47%
+train lag2 W30: games 577 $fill 123078 1min 3.1% [np.float64(2.36), np.float64(3.86)] result 15.38% $18933 [np.float64(12031.0), np.float64(26323.0)] ex-top5 10.76%
+train lag5 W10: games 477 $fill 56588 1min 3.25% [np.float64(2.41), np.float64(4.09)] result 16.43% $9299 [np.float64(5794.0), np.float64(13086.0)] ex-top5 11.61%
+train lag5 W30: games 566 $fill 120912 1min 2.78% [np.float64(2.06), np.float64(3.55)] result 14.15% $17109 [np.float64(10277.0), np.float64(24321.0)] ex-top5 9.37%
+train lag10 W10: games 462 $fill 51763 1min 2.74% [np.float64(1.93), np.float64(3.56)] result 13.42% $6946 [np.float64(3244.0), np.float64(10928.0)] ex-top5 7.53%
+train lag10 W30: games 569 $fill 118471 1min 2.03% [np.float64(1.29), np.float64(2.84)] result 10.86% $12864 [np.float64(6214.0), np.float64(20071.0)] ex-top5 6.06%
+holdout lag0 W10: games 239 $fill 34914 1min 3.86% [np.float64(2.71), np.float64(5.13)] result 10.9% $3805 [np.float64(1485.0), np.float64(6250.0)] ex-top5 5.64%
+holdout lag0 W30: games 286 $fill 74507 1min 2.25% [np.float64(1.2), np.float64(3.31)] result 7.8% $5809 [np.float64(865.0), np.float64(10855.0)] ex-top5 2.44%
+holdout lag2 W10: games 238 $fill 32358 1min 3.29% [np.float64(2.19), np.float64(4.46)] result 13.46% $4355 [np.float64(1966.0), np.float64(6737.0)] ex-top5 7.48%
+holdout lag2 W30: games 291 $fill 72138 1min 1.82% [np.float64(0.78), np.float64(2.9)] result 8.94% $6452 [np.float64(1599.0), np.float64(11398.0)] ex-top5 3.52%
+holdout lag5 W10: games 230 $fill 30366 1min 2.13% [np.float64(0.75), np.float64(3.63)] result 13.29% $4035 [np.float64(1317.0), np.float64(6889.0)] ex-top5 4.97%
+holdout lag5 W30: games 287 $fill 68065 1min 1.33% [np.float64(0.21), np.float64(2.42)] result 9.41% $6405 [np.float64(1381.0), np.float64(11579.0)] ex-top5 3.27%
+holdout lag10 W10: games 230 $fill 27636 1min 0.57% [np.float64(-0.77), np.float64(1.84)] result 14.18% $3919 [np.float64(1196.0), np.float64(6819.0)] ex-top5 5.16%
+holdout lag10 W30: games 283 $fill 65091 1min 0.4% [np.float64(-0.65), np.float64(1.52)] result 8.28% $5387 [np.float64(650.0), np.float64(10014.0)] ex-top5 2.51%

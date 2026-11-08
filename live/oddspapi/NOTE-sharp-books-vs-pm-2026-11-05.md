@@ -1,0 +1,102 @@
+# Do Pinnacle / bet365 / 1xbet move before the Polymarket price? (5 Nov 2026)
+
+**Answer: no. Pinnacle moves about 2 s before Polymarket's trade prints in tennis, bet365 about 1 s before, and 1xbet about 4 s after. Only 4-6% of tennis matches show a book leading by 5 s or more. The event rule needs the event 5-10 s before the price, so book prices are not a usable faster feed.** Confidence 7/10.
+
+## Data (raw, all measured)
+- Book prices: OddsPapi `/v4/historical-odds` (free), pulled on the server by Hermes for 4 Nov 00:00Z to 5 Nov 12:00Z. That gives 198 fixtures: tennis, 25 CS2, 1 LoL and 5 Dota. Raw: `rn1/scores/oddspapi/2026-11-04b/oddspapi_2026-11-04b.tar.gz`. Timestamps are OddsPapi ingest time; OddsPapi says that is about 1 s after Pinnacle and 4-10 s after bet365.
+- In-play history is dense for Pinnacle (median 175 price changes per tennis match, 168 per CS2 match) and for 1xbet. bet365 is sparse on esports (3-23 per match), so bet365 esports can't be tested.
+- Polymarket: v2 trades for the matched markets (`out/pmtrades_2026-11-04.tar.gz`), plus our 1 s order books for CS2 on 4 Nov (`/mnt/project-files/cs2-feeds/2026-11-04`, 08:50-12:21Z only).
+- Matched: 51-52 singles tennis matches, 3-4 CS2 (match winner) and 1 LoL (GEN-LYON game 1).
+
+## Method
+Cross-correlation of 5 s price changes on a 1 s grid, lags -60..+60 s, pooled over matches (`xcorr.py`). The peak lag is where book moves line up best with Polymarket moves.
+
+A first, event-based method (`lead.py`: for each PM jump, when did the book first cross half the move) showed books 10-22 s "first". **It failed its placebo:** the same code run at random times 15 min away also showed books "first" 53-60% of the time with a median of -10 to -16 s, because slow drift crosses the threshold early. Its numbers are not used.
+
+## Results (cross-correlation, measured)
+| Sport / book | PM side | Matches | Book lead at peak | Corr at peak | Corr if book were 10 s first |
+|---|---|---|---|---|---|
+| Tennis / Pinnacle | trades | 51 | **+2 s** | 0.34 | 0.06 |
+| Tennis / bet365 | trades | 52 | +2 s pooled (+1 s per-match median) | 0.18 | 0.04 |
+| Tennis / 1xbet | trades | 52 | -3 s (book later) | 0.17 | 0.04 |
+| CS2 / Pinnacle | trades | 3 | +2 s | 0.14 | 0.05 |
+| CS2 / 1xbet | **1 s books** | 2 | **-10 s (book later)** | 0.35 | 0.01 |
+| LoL / Pinnacle | trades | 1 | +2 s | 0.16 | 0.01 |
+
+Per-match tennis peaks (corr > 0.1): Pinnacle median +2 s, 2 of 50 matches at >= 5 s; bet365 median +1 s, 3 of 47; 1xbet median -4 s, 2 of 50.
+
+## Caveats
+- PM trade prints come after the PM quote moves (median gap between trades before a jump is 14 s), so a book "lead" over trades overstates its lead over the PM price. The true lead is 2 s or less.
+- CS2 and LoL samples are tiny (1-4 matches). Bet365 esports history is too sparse to test.
+- Getting Pinnacle live through OddsPapi needs their B2B WebSocket plan (REST has cooldowns). That isn't worth buying given the result.
+
+## To reach 9/10
+Repeat with 1 s PM books for tennis (log books for 20+ matches) and 10+ CS2/LoL matches.
+
+## Addendum (5 Nov 04:25Z): is a 2 s lead enough? Direct test with Pinnacle/bet365 as the trigger
+Nick: "why do we need 5-10 seconds and not 2?" Script `winmodels/tennis/hist/pin_trigger.py`, output `out_pin_trigger.json`.
+- **Where the 5-10 s came from.** It was partly data and partly my wording. The trade-based tennis delay curve (1,895 matches, NOTE-sports-adv-and-delay-curves section 5) gives $3.97/match 5 s before the price onset, $1.99 at onset, $1.29 at +2 s and ~$0 at +5 s, as an upper bound (oracle side, no queue). So the data says value exists only up to about the onset. "5-10 s before" overstated what is needed; "at or before onset" is right.
+- **Lead vs PM price onset (measured, same onset definition):** Pinnacle steps of 1.5pp or more come a median 2.4 s before the PM onset (IQR -0.2 to 7.6 s; first 74% of the time; 2,387 steps on 50 matches). bet365 comes 0.8 s before (IQR -8.4 to 7.4; first 54% of the time).
+- **Backtest (book step = trigger and side; bid PM mid x 0.975 from trigger + latency, while PM hasn't caught up; trade-based fills, queue ignored = optimistic; held to result):**
+  - Pinnacle, bid lives 10 s: latency 0.5 s gives $1.76/match (90% -$4.0 to +$9.9; 10 of 50 matches filled; ex-top-5 -99%). 1.5 s gives -$1.22. 3 s gives -$0.08. 5 s gives -$4.86.
+  - Pinnacle, bid lives 30 s: -$4.9 to -$17/match at every latency.
+  - bet365, 10 s: 0.5 s $5.55 (90% -$9.0 to +$23.4), 1.5 s -$0.24, 3 s +$2.41, 5 s -$3.45; ex-top-5 -99% throughout. 30 s: about $0 or negative.
+- **Verdict:** a 2 s lead is real but not enough to make money. Fills at market - 2.5% are $2-16/match, and every result range spans zero (the best is ~$1.8/match = ~$110/day at 61 matches/day, all from 5 matches). Live access needs OddsPapi's paid B2B WebSocket, and realistic latency (1.5 s+) is negative. No tennis order books were recorded, so queue position is not modelled; that makes these numbers optimistic. Confidence 6/10.
+
+## Addendum 2 (5 Nov 04:20Z): order placement ~0 (Nautilus, Nick)
+Same backtest at 0 / 0.1 / 0.25 / 0.5 s from the OddsPapi timestamp (`out_pin_trigger_ms.json`). PM trades have 1 s timestamps, so differences under 1 s are only roughly resolved.
+- Pinnacle trigger, bid lives 5-10 s: 0-0.1 s gives **$2.5-2.6/match** (90% -$2.5 to +$10.6; 8-10 of 50 matches fill; ex-top-5 -45%). 0.25-0.5 s gives $1.8. 30 s bids lose.
+- bet365 trigger, 5 s: 0-0.1 s gives $10/match (90% -$2 to +$26), but ex-top-5 -99%, so it all comes from a few matches. 10 s gives ~$5; 30 s gives ~$0.
+- Every range still spans zero. Fills are trade-based with no queue (optimistic). The tennis 1 s book logger (PR #113) will give queue position.
+- **What now limits speed is getting the Pinnacle update.** The OddsPapi timestamp is when OddsPapi has it (~1 s after Pinnacle by their claim). We would only get it that fast over their WebSocket, which is the paid B2B plan (price unknown). The free REST odds endpoint has a 500 ms cooldown per call, one fixture per call, so with 20 live matches each refreshes about every 10 s, which is far too slow. Pinnacle's own API is closed to the public; resellers (SharpAPI Pinnacle tier $399/mo, PinnWire) state no latency.
+
+## Addendum 3 (5 Nov 04:45Z): backtest at MEASURED Nautilus order latency
+
+Source: Hermes read existing Nautilus live Polymarket logs on the server (runs 21-22 Oct, `/root/030_live.log`, `/root/034_live.log`), no new orders. `agent/outbox/2026-11-05-nautilus-order-latency.md` + CSV.
+- submit -> OrderAccepted: n=30, median 0.206 s, p90 1.281 s, max 3.8 s. cancel -> OrderCanceled: median 0.126 s, p90 0.318 s.
+- Server -> clob.polymarket.com/time: connect 2.4 ms median, full round trip 66 ms median. So the network is fast; most of the 0.2 s is signing/adapter/venue time, and the p90 tail is long.
+
+Re-run (`out_pin_trigger_meas.json`, latency counted from the OddsPapi `createdAt`, i.e. assumes ZERO extra delay receiving the Pinnacle move, which is optimistic):
+
+| trigger | bid window | 0.2 s (median) | 1.3 s (p90) |
+| --- | --- | --- | --- |
+| Pinnacle | 5 s | $1.82/match [-3.9, +9.9], ex-top5 -99.5% | -$1.44/match |
+| Pinnacle | 10 s | $1.76/match [-4.0, +9.9] | -$1.52/match |
+| bet365 | 5 s | $10.5/match [-1.6, +26.5], ex-top5 -99.6% | $4.5/match [-5.9, +20.8] |
+
+Verdict unchanged: at our measured order speed there is no robust edge. Every range spans zero and dropping the top 5 matches wipes out the result. Any delay in receiving the Pinnacle move adds directly to these latencies and makes it worse. 7/10. The queue-aware re-run needs the tennis 1 s book logger, which Hermes is holding for Nick's Go (disk rule).
+
+## Addendum 4 (5 Nov 05:00Z): failsafe guards for slow orders
+
+Nick: "Can we not failsafe this? ... the slow orders lose $1.40 per match." Script `winmodels/tennis/hist/guard_sim.py`, output `out_guard_sim.json`. Each signal's order latency is drawn from the 30 measured Nautilus submit->ack times (40 random draws; figures are medians across draws).
+
+What the venue and Nautilus allow:
+- GTD expiry can't serve as a fast guard. Polymarket requires expiry at least 3 minutes ahead, in whole seconds, and expires orders 1 minute early.
+- The guard has to be an explicit cancel. Measured Nautilus cancel->OrderCanceled: median 0.13 s, p90 0.32 s, max 2.4 s.
+- Resting post-only bids are not held by the sports taker delay.
+
+Guards tested: A = cancel if no ack within N s; B = on ack, cancel if PM has already moved >= f of the jump our way; C = skip the signal if it is already R s old when we send.
+
+| Pinnacle trigger, 5 s window | $/match | 90% range | ex-top-5 |
+| --- | --- | --- | --- |
+| no guard (real latency mix) | 1.87 | -3.7 to +10.2 | -$2.4/match |
+| A 0.8 s | 2.12 | -3.7 to +10.3 | -$2.0 |
+| A 0.5 s | 2.21 | -3.6 to +10.3 | -$1.9 |
+| A 0.3 s | 2.44 | -3.4 to +10.5 | -$1.9 |
+| A 0.5 s + B (0.5 or 0.25) | 2.21 | same as A | -$1.9 |
+| A + B, signal 0.5 s old | 1.97 | -3.7 to +10.2 | -$2.4 |
+| A + B, signal 1.0 s old | -1.44 | -4.7 to +0.7 | -$1.9 |
+
+bet365 trigger, 5 s window: $9.4 with no guard, $10.1-10.3 with A at 0.3-0.8 s (90% range -1.8 to +25.8), still -$1.5/match without the top 5.
+
+Reading:
+- Guard A works as intended. It removes the slow-order losses (20-30% of signals are cancelled) and lifts Pinnacle from $1.9 to $2.2-2.4/match.
+- Guard B adds nothing, because the sim already never fills once PM has moved half the jump.
+- Guard C must be set at about 0.5 s: a signal 1 s old loses money with any guard.
+- None of this fixes the main problem. Every 90% range still spans zero, and without the top 5 matches every version loses about $1.5-2.4/match. Fills ignore the queue (optimistic) and PM trades have 1 s timestamps. 7/10.
+
+## Addendum 5: queue-aware tennis backtest (5 Nov, recorded PM 1 s books + OddsPapi history 5 Nov)
+Script winmodels/tennis/hist/queue_sim.py, output out_queue_sim.json. Only 7 matches overlap the recorder window (05:32-08:52Z) and have Pinnacle history (6 with bet365): FAR BELOW 20, anecdotal.
+- Pinnacle trigger, bid at mid-2.5% (tick), queue ahead = displayed size at our level, 5 s window, 500 sh cap: ~124 orders, 0 fills at 0.2 s, 1.3 s ack, measured-ack draws and with the 0.3 s guard. $0/match. With queue position the bid at -2.5% is never reached inside 5 s.
+- bet365 trigger: 2-3 fills in 6 matches, all losers (-$61/match, sample too small, ex-top-5 meaningless).
+- Hermes' 5 Nov OddsPapi pull gave 25 files (target 30), 4 had no odds. Re-run when the recorder has more finished matches with Pinnacle.

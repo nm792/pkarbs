@@ -1,0 +1,21 @@
+top250_full matches 241 markets 726 span days 43
+lag+20 W30 Q100: fill/match $139 1min 3.47% [np.float64(2.3), np.float64(4.63)] result 4.9% $/match 6.8 [np.float64(-3.2), np.float64(16.2)] | later half $/m 17.9 1min 3.74%
+lag+20 W30 Q500: fill/match $378 1min 3.76% [np.float64(2.48), np.float64(5.09)] result 4.68% $/match 17.7 [np.float64(-11.2), np.float64(44.7)] | later half $/m 50.9 1min 4.4%
+lag+20 W30 Q1000: fill/match $548 1min 3.78% [np.float64(2.52), np.float64(5.1)] result 4.37% $/match 24.0 [np.float64(-22.3), np.float64(72.7)] | later half $/m 63.3 1min 4.54%
+lag+20 W30 Q2000: fill/match $714 1min 3.55% [np.float64(2.3), np.float64(4.87)] result 6.6% $/match 47.2 [np.float64(-22.4), np.float64(115.0)] | later half $/m 85.8 1min 4.33%
+lag+20 W30 Q1e+09: fill/match $1084 1min 2.19% [np.float64(0.79), np.float64(3.68)] result 6.75% $/match 73.2 [np.float64(-103.0), np.float64(246.9)] | later half $/m 77.2 1min 3.75%
+lag+20 W60 Q100: fill/match $313 1min 1.78% [np.float64(0.96), np.float64(2.73)] result 2.55% $/match 8.0 [np.float64(-6.5), np.float64(22.3)] | later half $/m 15.9 1min 2.03%
+lag+20 W60 Q500: fill/match $834 1min 2.05% [np.float64(1.09), np.float64(3.06)] result 1.84% $/match 15.4 [np.float64(-28.2), np.float64(59.7)] | later half $/m 38.1 1min 2.52%
+lag+20 W60 Q1000: fill/match $1169 1min 2.31% [np.float64(1.24), np.float64(3.42)] result 1.82% $/match 21.3 [np.float64(-49.5), np.float64(93.6)] | later half $/m 55.9 1min 2.82%
+lag+20 W60 Q2000: fill/match $1495 1min 2.27% [np.float64(1.03), np.float64(3.53)] result 3.47% $/match 51.9 [np.float64(-51.5), np.float64(157.3)] | later half $/m 110.9 1min 2.62%
+lag+20 W60 Q1e+09: fill/match $2092 1min 2.29% [np.float64(0.76), np.float64(3.89)] result 5.92% $/match 123.9 [np.float64(-104.3), np.float64(351.1)] | later half $/m 141.7 1min 2.59%
+lag+20 W90 Q100: fill/match $489 1min 0.46% [np.float64(-0.35), np.float64(1.23)] result 2.55% $/match 12.5 [np.float64(-5.6), np.float64(32.4)] | later half $/m 17.0 1min 0.14%
+lag+20 W90 Q500: fill/match $1286 1min 0.9% [np.float64(0.05), np.float64(1.75)] result 2.33% $/match 29.9 [np.float64(-26.2), np.float64(87.2)] | later half $/m 50.4 1min 0.65%
+lag+20 W90 Q1000: fill/match $1764 1min 1.13% [np.float64(0.17), np.float64(2.1)] result 2.77% $/match 48.9 [np.float64(-41.3), np.float64(140.0)] | later half $/m 80.1 1min 0.83%
+lag+20 W90 Q2000: fill/match $2219 1min 1.23% [np.float64(0.23), np.float64(2.3)] result 4.65% $/match 103.2 [np.float64(-25.7), np.float64(232.2)] | later half $/m 148.4 1min 0.84%
+lag+20 W90 Q1e+09: fill/match $2920 1min 1.39% [np.float64(0.2), np.float64(2.63)] result 6.91% $/match 201.7 [np.float64(-59.6), np.float64(472.3)] | later half $/m 189.0 1min 0.95%
+lag+20 W120 Q100: fill/match $639 1min 0.12% [np.float64(-0.57), np.float64(0.79)] result 0.46% $/match 2.9 [np.float64(-19.7), np.float64(25.7)] | later half $/m 10.1 1min -0.19%
+lag+20 W120 Q500: fill/match $1680 1min 0.62% [np.float64(-0.1), np.float64(1.39)] result -0.12% $/match -2.0 [np.float64(-70.4), np.float64(68.0)] | later half $/m 24.2 1min 0.46%
+lag+20 W120 Q1000: fill/match $2299 1min 0.87% [np.float64(0.06), np.float64(1.67)] result 0.34% $/match 7.8 [np.float64(-97.0), np.float64(109.5)] | later half $/m 54.7 1min 0.72%
+lag+20 W120 Q2000: fill/match $2889 1min 0.91% [np.float64(0.01), np.float64(1.85)] result 1.65% $/match 47.7 [np.float64(-102.2), np.float64(198.5)] | later half $/m 133.9 1min 0.71%
+lag+20 W120 Q1e+09: fill/match $3734 1min 1.27% [np.float64(0.17), np.float64(2.39)] result 4.43% $/match 165.2 [np.float64(-117.3), np.float64(445.7)] | later half $/m 202.8 1min 0.73%

@@ -1,0 +1,37 @@
+Running as unit: run-p3368554-i3366652.scope; invocation ID: ad3b127f799e4a25ac593eea27c140be
+events.jsonl: kept 2561 snapshot lines for hour 2026102505
+hour 2026102505: 27 runs detected; rescan said: ['messages: 4647698 runs written to /tmp/gates-2026102505-o942n_u1/out/runs.jsonl', 'resets=0 skipped_s=0.0 dedup_changes=760811 dedup_runs=0 crossed_checks=1882 unseeded_checks=2572 corrupt_members_skipped=0 top_checks=4190181 top_mismatch_before_repair=16381 levels_dropped=23745', "trade_prints: {'2026102505': 645}"]
+PASS  G2 detector quotes == sim book at t0  (0 of 27 runs differ)
+PASS  G2 delay-0 fill >= 95% on every leg, >= 95% of runs with dur > 0.05 s  (18 of 18 pass; all runs: 27 of 27)
+PASS  G3 no run opened on a crossed leg  (0 runs)
+PASS  G3 no run opened on an unseeded leg  (0 runs)
+PASS  G5 at t0 every leg's top equals the exchange's last best_bid/best_ask  (0 of 27 runs differ)
+PASS  G4 printed sim= equals CSV pnl_usd sum  (printed={('yes', '0'): 0.33, ('yes', 'market'): -8.16, ('no', '0'): 3.08, ('no', 'market'): -6.26})
+PASS  G4 rebate_usd == R x fees_usd  (rebate=0.1472 R*fees=0.1473)
+PASS  G5 no traded run meets a crossed leg at match or unwind time  (0 leg-times crossed)
+saved to reports/sports-mece/hours/2026102505/
+
+8 of 8 gates pass
+	Command being timed: "timeout 1800 /usr/bin/python3 shadow/test_gates.py --real-data /mnt/HC_Volume_107257520/pkarbs/shadow/data-v2 --hour 2026102505 --save reports/sports-mece/hours/2026102505/"
+	User time (seconds): 486.76
+	System time (seconds): 1.99
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:08.98
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 174416
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 182173
+	Voluntary context switches: 5072
+	Involuntary context switches: 5030
+	Swaps: 0
+	File system inputs: 1075984
+	File system outputs: 80
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
