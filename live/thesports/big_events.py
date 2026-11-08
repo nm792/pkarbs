@@ -466,7 +466,7 @@ if os.environ.get('POINTS'):
             for rr, fl in ((r_ - d, 1 if d % 2 == 0 else -1), (r_ + d, 1 if d % 2 == 0 else -1)):
                 if (m_, s_, rr) in serve_of: return fl * serve_of[(m_, s_, rr)]
         return None
-    pcls = collections.defaultdict(list); seen_p = set(); fmp = set(); npts = 0
+    pcls = collections.defaultdict(list); seen_p = set(); fmp = set(); npts = 0; pmeta = {}
     for r in msgs:
         if not r['topic'].endswith('tennis/match/v1'): continue
         try: ps = json.loads(r['p'])
@@ -503,6 +503,7 @@ if os.environ.get('POINTS'):
                         elif w != sv and bp_after: cls = 'point: returner wins, creates break point'
                         else: cls = 'point: other'
                         pcls[cls].append(((('tennis', m_)), t, w, k))
+                        pmeta[(('tennis', m_), t, w)] = (k[1], k[2], k[3], 1 if w == sv else 0)
     pc2 = collections.defaultdict(list)
     for cls, L in pcls.items():
         for key, t0, sd, k in L:
@@ -1046,3 +1047,25 @@ if os.environ.get('SIGNAL'):
             print(line('lead s (half-move rel. message), big only', R, P, lambda o: o['lead'], scale=1, unit='s', cond=lambda o: o['big']))
             print(line('share of big moves LATE (half-move >0 s)', R, P, lambda o: 1.0 if o['lead'] > 0 else 0.0, scale=100, unit='%', cond=lambda o: o['big']))
             print(line('share of big moves EARLY (<=-10 s)', R, P, lambda o: 1.0 if o['lead'] <= -10 else 0.0, scale=100, unit='%', cond=lambda o: o['big']))
+
+# ---- tennis state splits (needs POINTS=1 SIGNAL=1 SPLIT=1)
+if os.environ.get('SPLIT') and os.environ.get('SIGNAL'):
+    def split_filter(L, fn):
+        return [x for x in L if (x[0], x[1], x[2]) in pmeta and fn(pmeta[(x[0], x[1], x[2])])]
+    tsplits = [
+        ('set 1', lambda m: m[0] == 1), ('set 2', lambda m: m[0] == 2), ('set 3+', lambda m: m[0] >= 3),
+        ('game 1-4 of set', lambda m: m[1] <= 4), ('game 5-8 of set', lambda m: 5 <= m[1] <= 8), ('game 9+ of set', lambda m: m[1] >= 9),
+        ('first 2 points of game', lambda m: m[2] <= 1), ('3rd+ point of game', lambda m: m[2] >= 2),
+        ('server won point', lambda m: m[3] == 1), ('returner won point', lambda m: m[3] == 0),
+    ]
+    print('\n=== TENNIS STATE SPLITS (all points, all prices; QUIET = price moved <1c in the 30 s before the message) ===')
+    for nm, fn in tsplits:
+        L = split_filter(tp, fn)
+        R, P = sig_events(L, None)
+        ne = sum(len(v) for v in R.values())
+        if ne < 8: print('\n## %s | events %d (too few)' % (nm, ne)); continue
+        print('\n## %s | events with prices %d, games %d' % (nm, ne, len(R)))
+        print(line('after: move t..t+30, QUIET only', R, P, lambda o: o['after'], cond=lambda o: o['quiet']))
+        print(line('after: move t..t+30, all', R, P, lambda o: o['after']))
+        print(line('share QUIET at message', R, P, lambda o: 1.0 if o['quiet'] else 0.0, scale=100, unit='%'))
+        print(line('share of big moves LATE (half-move >0 s)', R, P, lambda o: 1.0 if o['lead'] > 0 else 0.0, scale=100, unit='%', cond=lambda o: o['big']))
