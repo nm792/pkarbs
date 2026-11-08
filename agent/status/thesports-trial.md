@@ -1,8 +1,8 @@
 # thesports-trial status
 state: running (capture-b scope active, writing ts_mqtt/books)
-last heartbeat (UTC): 2026-11-08 18:07Z (server-member sweep)
-export: 2h slim 32295b 18:07:23Z chunk +7189 files recovered+landed on origin 18:13Z (direct push was non-ff; rebuilt on 18:03Z tip). Prior 16:05Z chunk +5753 files landed on origin. full markers/log re-export 14:25Z c55206e48 (markets 787, log 261); 2h timer refreshing whole markets/log each run.
+last heartbeat (UTC): 2026-11-08 19:22Z (server-member sweep round)
+export: 2h timer cron '0 */2 * * *' armed; guard installed (09:39Z card), plumbing-only exporter adds ONLY slim dir, aborts empty manifest, never -A. Last slim chunk 18:07:23Z +7189 files landed on origin; exports continuing on the 2h timer.
 auth: ssh key nm792 verified 12:57Z.
-process: thesports-capture-b unit active since 00:39Z; RSS 275 MB < 650 MB cap, VmSwap 0 — no OOM. Live files updating continuously (ts_mqtt/books/log 16:52Z).
-errors: (none this round; monitor 'oom' flag was stale/noise)
+process: thesports-capture-b.scope active; books.jsonl.gz updating continuously (mtime 19:22Z). RSS under 650 MB cap, VmSwap 0 — no OOM (monitor 'oom' flag confirmed stale/noise).
+errors: none this round.
 output: rn1/scores/thesports/diary/*-2026-11-08.json; slim final-topics-32295b-slim markets/log full on origin.
