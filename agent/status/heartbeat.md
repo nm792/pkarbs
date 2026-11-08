@@ -1,1 +1,1 @@
-round 2026-11-08T10:34:30Z UTC — pkarbs claude/project-thread-vg2ckg. Inbox/tasks covered by outbox (latest dispatch round handled thesports/thesports-trial/rugby items). No un-replied inbox items. Nothing consent-gated live.
+round 2026-11-08T11:12Z UTC - pkarbs vg2ckg. No new un-replied inbox since 10:53Z thread update; outbox covers thesports/thesports-trial items. Nothing consent-gated live.
