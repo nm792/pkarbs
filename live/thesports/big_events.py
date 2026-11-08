@@ -215,7 +215,15 @@ def same(a, b):
         sa, sb = surn(a), surn(b)
         return len(sa) == len(sb) >= 2 and all(difflib.SequenceMatcher(None, x, y).ratio() >= 0.85 for x, y in zip(sorted(sa), sorted(sb)))
     if na[-1] == nb[-1] and na[0][0] == nb[0][0]: return True
-    return difflib.SequenceMatcher(None, ja.replace(' ', ''), jb.replace(' ', '')).ratio() >= 0.85
+    if difflib.SequenceMatcher(None, ja.replace(' ', ''), jb.replace(' ', '')).ratio() >= 0.85: return True
+    # family-name-first order (Shimizu Yuta vs Yuta Shimizu) and truncated surnames (Staeheli vs Staehel)
+    ra, rb = ' '.join(reversed(na)), ' '.join(reversed(nb))
+    if difflib.SequenceMatcher(None, ra.replace(' ', ''), jb.replace(' ', '')).ratio() >= 0.85: return True
+    if len(na) == len(nb) >= 2 and sorted(na) == sorted(nb): return True
+    sa_, sb_ = sorted(na, key=len)[-1], sorted(nb, key=len)[-1]
+    k = min(len(sa_), len(sb_))
+    if k >= 5 and sa_[:k-1] == sb_[:k-1] and na[0][0] == nb[0][0] or (k >= 5 and sa_[:k-1] == sb_[:k-1] and na[-1][0] == nb[-1][0]): return True
+    return False
 names = {}; matches = {}
 for f in glob.glob(DI + '/*.json'):
     d = json.load(open(f))
