@@ -1,2 +1,1 @@
-server-member heartbeat 2026-11-08T07:04:43Z
-fleet sweep 06:45Z: URGENT commit-deleted-files replied (worktree full; exporter guard = gated code change). thesports capture live. 2 consent-gated items await next interactive session (guard install + export timer arm).
+round 2026-11-08T10:34:30Z UTC — pkarbs claude/project-thread-vg2ckg. Inbox/tasks covered by outbox (latest dispatch round handled thesports/thesports-trial/rugby items). No un-replied inbox items. Nothing consent-gated live.
