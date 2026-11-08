@@ -1,4 +1,2 @@
-# Heartbeat — server-member dispatch round
-Round: 2026-11-08 03:15Z
-- Thread vg2ckg synced/behind reconciled; rugby outbox replies pushed 2026-11-07.
-- Open: PAUSE-all-projects (2026-11-05), charter-383; thesports trial recorder live.
+round 2026-11-08 03:35Z
+thesports-trial: capture-b RUNNING (loL/dota/cricket topics), creds installed, status current. inbox all answered on vg2ckg. no gate blocks.
