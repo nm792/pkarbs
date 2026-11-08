@@ -1,0 +1,999 @@
+{
+ "beta": 0.06584732486901333,
+ "r2": 0.04059157855282025,
+ "n": 246,
+ "res": [
+  {
+   "lag": 0,
+   "W": 10,
+   "ex_top5_usd": 50,
+   "ex_top5_1min_pct": -1.12,
+   "ex_top5_result_pct": -99.62,
+   "ex_top5_result_usd": -50,
+   "events": 1,
+   "usd": 50,
+   "reb_usd": 0,
+   "net_1min_pct": -1.12,
+   "ci_1min": [
+    -1.12,
+    0.0
+   ],
+   "net_result_pct": -99.62,
+   "ci_result": [
+    -99.62,
+    0.0
+   ],
+   "net_result_usd": -50,
+   "ci_result_usd": [
+    -150.0,
+    0.0
+   ],
+   "games": [
+    [
+     "Counter-Strike: Legacy vs TheMongolz (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: FURIA vs FaZe (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Natus Vincere vs Team Falcons",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: MOUZ vs TYLOO (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: 9z vs BetBoom Team (BO3) - IE",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Aurora Gaming vs Liquid (BO3)",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: PARIVISION vs G2 (BO3) - IEM ",
+     50,
+     -1,
+     -50
+    ],
+    [
+     "Counter-Strike: HAVU vs Nordic Valor (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: KUUSAMO.gg vs BOJONG (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Pandaric eSports vs BLUEJAYS.",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Playing Ducks vs Huskies eSpo",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Leo Team vs Saint Sinners (BO",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: ex-ENCE vs SINQU (BO3) - NODW",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: megoshort vs Falcons Force (B",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: DNK vs Wingman (BO3) - Exort ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Liquid vs PARIVISION (BO3) - ",
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "lag": 0,
+   "W": 30,
+   "ex_top5_usd": 124,
+   "ex_top5_1min_pct": 0.51,
+   "ex_top5_result_pct": -99.6,
+   "ex_top5_result_usd": -123,
+   "events": 3,
+   "usd": 124,
+   "reb_usd": 0,
+   "net_1min_pct": 0.51,
+   "ci_1min": [
+    -1.12,
+    2.96
+   ],
+   "net_result_pct": -99.6,
+   "ci_result": [
+    -99.62,
+    -99.57
+   ],
+   "net_result_usd": -123,
+   "ci_result_usd": [
+    -243.0,
+    -31.0
+   ],
+   "games": [
+    [
+     "Counter-Strike: Legacy vs TheMongolz (BO3) - ",
+     31,
+     1,
+     -31
+    ],
+    [
+     "Counter-Strike: FURIA vs FaZe (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Natus Vincere vs Team Falcons",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: MOUZ vs TYLOO (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: 9z vs BetBoom Team (BO3) - IE",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Aurora Gaming vs Liquid (BO3)",
+     42,
+     0,
+     -42
+    ],
+    [
+     "Counter-Strike: PARIVISION vs G2 (BO3) - IEM ",
+     50,
+     -1,
+     -50
+    ],
+    [
+     "Counter-Strike: HAVU vs Nordic Valor (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: KUUSAMO.gg vs BOJONG (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Pandaric eSports vs BLUEJAYS.",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Playing Ducks vs Huskies eSpo",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Leo Team vs Saint Sinners (BO",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: ex-ENCE vs SINQU (BO3) - NODW",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: megoshort vs Falcons Force (B",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: DNK vs Wingman (BO3) - Exort ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Liquid vs PARIVISION (BO3) - ",
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "lag": 2,
+   "W": 10,
+   "ex_top5_usd": 50,
+   "ex_top5_1min_pct": -1.12,
+   "ex_top5_result_pct": -99.62,
+   "ex_top5_result_usd": -50,
+   "events": 1,
+   "usd": 50,
+   "reb_usd": 0,
+   "net_1min_pct": -1.12,
+   "ci_1min": [
+    -1.12,
+    0.0
+   ],
+   "net_result_pct": -99.62,
+   "ci_result": [
+    -99.62,
+    0.0
+   ],
+   "net_result_usd": -50,
+   "ci_result_usd": [
+    -150.0,
+    0.0
+   ],
+   "games": [
+    [
+     "Counter-Strike: Legacy vs TheMongolz (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: FURIA vs FaZe (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Natus Vincere vs Team Falcons",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: MOUZ vs TYLOO (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: 9z vs BetBoom Team (BO3) - IE",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Aurora Gaming vs Liquid (BO3)",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: PARIVISION vs G2 (BO3) - IEM ",
+     50,
+     -1,
+     -50
+    ],
+    [
+     "Counter-Strike: HAVU vs Nordic Valor (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: KUUSAMO.gg vs BOJONG (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Pandaric eSports vs BLUEJAYS.",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Playing Ducks vs Huskies eSpo",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Leo Team vs Saint Sinners (BO",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: ex-ENCE vs SINQU (BO3) - NODW",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: megoshort vs Falcons Force (B",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: DNK vs Wingman (BO3) - Exort ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Liquid vs PARIVISION (BO3) - ",
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "lag": 2,
+   "W": 30,
+   "ex_top5_usd": 124,
+   "ex_top5_1min_pct": 0.51,
+   "ex_top5_result_pct": -99.6,
+   "ex_top5_result_usd": -123,
+   "events": 3,
+   "usd": 124,
+   "reb_usd": 0,
+   "net_1min_pct": 0.51,
+   "ci_1min": [
+    -1.12,
+    2.96
+   ],
+   "net_result_pct": -99.6,
+   "ci_result": [
+    -99.62,
+    -99.57
+   ],
+   "net_result_usd": -123,
+   "ci_result_usd": [
+    -243.0,
+    -31.0
+   ],
+   "games": [
+    [
+     "Counter-Strike: Legacy vs TheMongolz (BO3) - ",
+     31,
+     1,
+     -31
+    ],
+    [
+     "Counter-Strike: FURIA vs FaZe (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Natus Vincere vs Team Falcons",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: MOUZ vs TYLOO (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: 9z vs BetBoom Team (BO3) - IE",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Aurora Gaming vs Liquid (BO3)",
+     42,
+     0,
+     -42
+    ],
+    [
+     "Counter-Strike: PARIVISION vs G2 (BO3) - IEM ",
+     50,
+     -1,
+     -50
+    ],
+    [
+     "Counter-Strike: HAVU vs Nordic Valor (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: KUUSAMO.gg vs BOJONG (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Pandaric eSports vs BLUEJAYS.",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Playing Ducks vs Huskies eSpo",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Leo Team vs Saint Sinners (BO",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: ex-ENCE vs SINQU (BO3) - NODW",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: megoshort vs Falcons Force (B",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: DNK vs Wingman (BO3) - Exort ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Liquid vs PARIVISION (BO3) - ",
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "lag": 5,
+   "W": 10,
+   "ex_top5_usd": 1,
+   "ex_top5_1min_pct": 0.0,
+   "ex_top5_result_pct": 0.0,
+   "ex_top5_result_usd": 0,
+   "events": 0,
+   "usd": 0,
+   "reb_usd": 0,
+   "net_1min_pct": NaN,
+   "ci_1min": [
+    0.0,
+    0.0
+   ],
+   "net_result_pct": NaN,
+   "ci_result": [
+    0.0,
+    0.0
+   ],
+   "net_result_usd": 0,
+   "ci_result_usd": [
+    0.0,
+    0.0
+   ],
+   "games": [
+    [
+     "Counter-Strike: Legacy vs TheMongolz (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: FURIA vs FaZe (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Natus Vincere vs Team Falcons",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: MOUZ vs TYLOO (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: 9z vs BetBoom Team (BO3) - IE",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Aurora Gaming vs Liquid (BO3)",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: PARIVISION vs G2 (BO3) - IEM ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: HAVU vs Nordic Valor (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: KUUSAMO.gg vs BOJONG (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Pandaric eSports vs BLUEJAYS.",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Playing Ducks vs Huskies eSpo",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Leo Team vs Saint Sinners (BO",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: ex-ENCE vs SINQU (BO3) - NODW",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: megoshort vs Falcons Force (B",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: DNK vs Wingman (BO3) - Exort ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Liquid vs PARIVISION (BO3) - ",
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "lag": 5,
+   "W": 30,
+   "ex_top5_usd": 74,
+   "ex_top5_1min_pct": 1.62,
+   "ex_top5_result_pct": -99.58,
+   "ex_top5_result_usd": -73,
+   "events": 2,
+   "usd": 74,
+   "reb_usd": 0,
+   "net_1min_pct": 1.62,
+   "ci_1min": [
+    0.0,
+    2.96
+   ],
+   "net_result_pct": -99.58,
+   "ci_result": [
+    -99.6,
+    0.0
+   ],
+   "net_result_usd": -73,
+   "ci_result_usd": [
+    -167.0,
+    0.0
+   ],
+   "games": [
+    [
+     "Counter-Strike: Legacy vs TheMongolz (BO3) - ",
+     31,
+     1,
+     -31
+    ],
+    [
+     "Counter-Strike: FURIA vs FaZe (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Natus Vincere vs Team Falcons",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: MOUZ vs TYLOO (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: 9z vs BetBoom Team (BO3) - IE",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Aurora Gaming vs Liquid (BO3)",
+     42,
+     0,
+     -42
+    ],
+    [
+     "Counter-Strike: PARIVISION vs G2 (BO3) - IEM ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: HAVU vs Nordic Valor (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: KUUSAMO.gg vs BOJONG (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Pandaric eSports vs BLUEJAYS.",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Playing Ducks vs Huskies eSpo",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Leo Team vs Saint Sinners (BO",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: ex-ENCE vs SINQU (BO3) - NODW",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: megoshort vs Falcons Force (B",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: DNK vs Wingman (BO3) - Exort ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Liquid vs PARIVISION (BO3) - ",
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "lag": 10,
+   "W": 10,
+   "ex_top5_usd": 42,
+   "ex_top5_1min_pct": 0.64,
+   "ex_top5_result_pct": -99.57,
+   "ex_top5_result_usd": -42,
+   "events": 1,
+   "usd": 42,
+   "reb_usd": 0,
+   "net_1min_pct": 0.64,
+   "ci_1min": [
+    0.0,
+    0.64
+   ],
+   "net_result_pct": -99.57,
+   "ci_result": [
+    -99.57,
+    0.0
+   ],
+   "net_result_usd": -42,
+   "ci_result_usd": [
+    -127.0,
+    0.0
+   ],
+   "games": [
+    [
+     "Counter-Strike: Legacy vs TheMongolz (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: FURIA vs FaZe (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Natus Vincere vs Team Falcons",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: MOUZ vs TYLOO (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: 9z vs BetBoom Team (BO3) - IE",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Aurora Gaming vs Liquid (BO3)",
+     42,
+     0,
+     -42
+    ],
+    [
+     "Counter-Strike: PARIVISION vs G2 (BO3) - IEM ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: HAVU vs Nordic Valor (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: KUUSAMO.gg vs BOJONG (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Pandaric eSports vs BLUEJAYS.",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Playing Ducks vs Huskies eSpo",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Leo Team vs Saint Sinners (BO",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: ex-ENCE vs SINQU (BO3) - NODW",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: megoshort vs Falcons Force (B",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: DNK vs Wingman (BO3) - Exort ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Liquid vs PARIVISION (BO3) - ",
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "lag": 10,
+   "W": 30,
+   "ex_top5_usd": 74,
+   "ex_top5_1min_pct": 1.62,
+   "ex_top5_result_pct": -99.58,
+   "ex_top5_result_usd": -73,
+   "events": 2,
+   "usd": 74,
+   "reb_usd": 0,
+   "net_1min_pct": 1.62,
+   "ci_1min": [
+    0.0,
+    2.96
+   ],
+   "net_result_pct": -99.58,
+   "ci_result": [
+    -99.6,
+    0.0
+   ],
+   "net_result_usd": -73,
+   "ci_result_usd": [
+    -167.0,
+    0.0
+   ],
+   "games": [
+    [
+     "Counter-Strike: Legacy vs TheMongolz (BO3) - ",
+     31,
+     1,
+     -31
+    ],
+    [
+     "Counter-Strike: FURIA vs FaZe (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Natus Vincere vs Team Falcons",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: MOUZ vs TYLOO (BO3) - IEM Bei",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: 9z vs BetBoom Team (BO3) - IE",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Aurora Gaming vs Liquid (BO3)",
+     42,
+     0,
+     -42
+    ],
+    [
+     "Counter-Strike: PARIVISION vs G2 (BO3) - IEM ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: HAVU vs Nordic Valor (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: KUUSAMO.gg vs BOJONG (BO3) - ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Pandaric eSports vs BLUEJAYS.",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Playing Ducks vs Huskies eSpo",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Leo Team vs Saint Sinners (BO",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: ex-ENCE vs SINQU (BO3) - NODW",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: megoshort vs Falcons Force (B",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: DNK vs Wingman (BO3) - Exort ",
+     0,
+     0,
+     0
+    ],
+    [
+     "Counter-Strike: Liquid vs PARIVISION (BO3) - ",
+     0,
+     0,
+     0
+    ]
+   ]
+  }
+ ]
+}

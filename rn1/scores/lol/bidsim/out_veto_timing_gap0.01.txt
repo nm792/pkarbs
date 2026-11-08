@@ -1,0 +1,13 @@
+model: logistic on 2223 games; 201 backtest matches excluded
+frame winner vs Polymarket resolution: {'ok': 451, 'bad': 35}
+event betas (logit per unit, mean of LOGO fits): {'kills': 0.284, 'towers': 0.0, 'dragons': 0.126, 'barons': 0.023, 'inhibs': 0.051, 'gold': 0.401}
+variant                        games   $filled  1min%   res%     res$     res$ 90% (series)  res$ ex top5 ser
+no filter, pull30                201   1664784   1.09   0.13     2114       [-49054, 53594]            -33987
+no filter, no pull               201   2729985  -0.71  -2.93   -80070     [-143285, -17370]           -112772
+veto E=0%, pull30                201    867011   2.37   8.12    70435        [3880, 139685]             20124
+veto E=2%, pull30                201    972044   2.12   6.90    67034        [1086, 134371]             17013
+veto E=5%, pull30                201   1136580   1.96   5.86    66642        [2397, 131319]             18205
+veto E=10%, pull30               201   1351741   1.60   3.09    41702      [-16662, 102149]             -6724
+timing: pull hurt side only      201   1836809   1.64   0.50     9267       [-40427, 57337]            -26463
+timing + veto E=5%               201   1252059   2.66   6.27    78442       [10136, 145970]             27461
+games 451
