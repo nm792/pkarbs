@@ -81,3 +81,21 @@ Dropped from review by Nick (04:39Z). Only record: TheSports a median 2.5 s afte
 2. Ask TheSports for a per-event timestamp or a faster tennis/esports product.
 3. LSports trial timing vs price on the same clock (deferred to next week).
 4. Dota 2 timing once events are available.
+
+## Update 8 Nov 01:30Z: gap slim 14:00-16:00Z (capture was down 16:00Z to 00:21Z, restarted with Nick's approval)
+
+Data: `rn1/scores/thesports/final-topics-32295-slim` (books_mid 420,817 rows, ts_mqtt 261,695 msgs). Coverage gap: the stretch after `slim-1102-32295` ended (~13:15Z) up to 14:00Z is not in either slim; asked Hermes only if it matters. Run: `CS2=cs2 POINTS=1 CHECK=1 LAG=1 DOTA=1 python3 live/thesports/big_events.py <slim>`. Raw output kept in the PR description summary, same method as above (random-time placebo beside every figure).
+
+| Sport | Events | Price half-move vs message (real / placebo) | Net taker +10 s (real / placebo, 90% CI of diff) | Verdict |
+|---|---|---|---|---|
+| Tennis | 27 matches, 13 paired, 1,428 points | median -14 s / -11 s (break-point points -15 s / -9 s) | -0.97c / -1.09c (-0.04..+0.25) | price moves first; no profit |
+| CS2 | 17 maps, 316 round wins | -21 s / -9 s | -1.15c / -1.21c (-0.36..+0.43) | price moves first; no profit |
+| Dota 2 kills | 9 games, 211 kills | -7 s / -15 s (placebo biased negative) | -1.88c / -2.16c (-0.25..+0.68) | weak timing lead; still negative |
+| Dota 2 towers | 63 events, 8 games | -7 s / -11 s | n=14 -1.50c / -2.02c | unknown (too few) |
+| Dota 2 barracks | 8 events | n/a | n=0 | unknown |
+
+- TheSports tennis vs Polymarket's own score feed: TheSports is a median 24 s earlier (11 matches, 182 game changes; earlier slim: 15 s). The price moves before both.
+- CS2 map points: 2 priced events. Overtime: 0 priced events out of 10. Unknown; the 25 Nov Major is the test.
+- Dota 2 kills: 'unknown, weak timing lead'. Placebo half-move is biased negative by the window end (+10 s); net is the cleaner figure and is still below zero.
+- Roshan timer starts: 10 (side unknown).
+- No new claims of edge. Nothing here supports a taker rule on any of these classes.
