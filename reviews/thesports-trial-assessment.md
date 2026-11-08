@@ -106,3 +106,22 @@ Data: `rn1/scores/thesports/final-topics-32295-slim` (books_mid 420,817 rows, ts
 
 - Tennis and Dota 2: **unknown, signal vs noise not yet separated.** The "no profit" lines in the tables above are a taker test with a 1 s delay, not a test of whether TheSports carries information. They are not a verdict on the feed.
 - Work now: per-event lead distributions (not medians) against the random-time placebo, subsets by event type, price level and move size, cluster-bootstrap significance, and the subset known at message time (price not yet moved) where the feed could add something. Script block `SIGNAL=1` in `live/thesports/big_events.py` (run with `POINTS=1 CS2=cs2 DOTA=1 SIGNAL=1`, slims pooled with a colon).
+
+## Signal vs noise, first pass (8 Nov 03:00Z; slim-1102-32295 + final-topics-32295-slim pooled; raw output `reviews/thesports-signal-vs-noise-2026-11-08.txt`)
+
+Method: every event next to the same events shifted by a random 60-600 s (5 each); p values by bootstrap over games (games, not events, are the unit). "QUIET" = price moved <1c in the 30 s before the message, which is known at message time. All figures in cents of the favoured side's mid.
+
+| Class (paired games) | Price already moving before message (t-30..t), real vs placebo | After message (t..t+30), QUIET events, real vs placebo, 90% CI of diff | Lead of price over message (half-move s), real vs placebo | Reading |
+|---|---|---|---|---|
+| Tennis points (1,194 events, 23 matches) | +1.76c vs +0.02c | +0.37c (n302) vs -0.01c, CI +0.20..+0.58 | -10.2 s vs -8.3 s | **real but small information after the message when the price had not moved**; also the price often reacts first |
+| Tennis, underdog-favoured side (fav price 0.10-0.40) | +1.91c vs -0.10c | +0.36c (n79) vs 0.00c, CI +0.21..+0.51 | -9.2 s vs -4.7 s | same, strongest band |
+| Tennis, balanced price (0.40-0.60) | | +0.54c (n23) vs -0.06c, CI -0.09..+1.11 | -5.5 s vs -5.5 s | too few quiet events |
+| Tennis game-level breaks (58 events) | | too few quiet events | -25.3 s vs -4.6 s, CI -28..-14 | price leads the message by ~25 s on breaks; only 5% of big moves come after the message vs 43% placebo |
+| CS2 round wins (452 events, 28 maps) | | -0.03c (n153) vs +0.07c, CI -0.59..+0.35 | -17.4 s vs -7.9 s, CI -14..-5 | price leads; no after-message information |
+| Dota 2 kills (237 events, 12 games) | big-move share 38% vs 32% (p=0.04) | +0.43c (n71) vs +0.36c, CI -1.16..+1.25 | -8.8 s vs -11.6 s, CI -4.8..+10.1 | **unknown**: timing indistinguishable from placebo |
+| Dota 2 kills, balanced price (0.40-0.60) | | n11, too few | -4.9 s vs -17.2 s, p=0.06 | suggestive (price lags the random-time baseline), not significant |
+| Dota 2 towers (62 events) | | | | unknown, too few |
+
+- The one result that survives: tennis, after the message, when the price had not moved. About +0.4c over 30 s on average, significant across the pooled data and in each price band with enough events. 0.4c is below the 1c spread, so it is information but not yet a trade.
+- This is about 40 comparisons, so single p values near 0.05 (Dota 2 balanced prices, Dota 2 high-price late share p=0.09) are leads to retest, not findings.
+- Caveats: bootstrap over 23 tennis matches, 28 CS2 maps and 12 Dota games; events within a game are not independent; side mapping of CS2 kill-level events is not used here (round wins only).

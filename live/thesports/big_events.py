@@ -198,7 +198,7 @@ def boot_diff(real, plac, k):
     ds.sort()
     return (ds[20] * 100, ds[len(ds) - 21] * 100) if len(ds) > 40 else None
 import unicodedata, re
-DI = os.path.join(os.path.dirname(D.rstrip('/')), 'diary')
+DI = os.path.join(os.path.dirname(DIRS[0].rstrip('/')), 'diary')
 def norm(x):
     x = unicodedata.normalize('NFKD', x).encode('ascii', 'ignore').decode().lower()
     return re.sub(r'[^a-z0-9 ]', ' ', x).split()
