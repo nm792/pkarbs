@@ -1,9 +1,7 @@
 # thesports-trial status
-state: running (capture-b active; diary refreshed 2026-11-08)
-state: running (capture-b active; diary refreshed 2026-11-08)
-last heartbeat (UTC): 2026-11-08 12:57Z
-export: 12:05Z slim 32295b re-pushed to origin as c0a3f2f (22106 slim paths; was stranded by cron publickey at 10:03Z/12:05Z). Next 2h timer fire 14:00Z.
-auth: /root/.ssh/id_ed25519 restored + config (13:01Z); ssh -T git@github.com verifies as nm792 (12:57Z).
-errors: cs2/esports diary endpoint "URL is not authorized"; rec cron pushes failed publickey until 13:01Z fix (spools intact, no data lost).
-output: rn1/scores/thesports/diary/*-2026-11-08.json; slim final-topics-32295b-slim on origin
-
+state: running (capture-b scope active, writing ts_mqtt/books)
+last heartbeat (UTC): 2026-11-08 14:26Z
+export: full re-export 14:25Z c55206e48 — markets.jsonl.gz 787 rows, log.jsonl.gz 261 rows (was 358/53); exporter flat-copy staging fixed so the 2-hour timer now refreshes whole markets/log each run. Next timer 16:00Z.
+auth: ssh key nm792 verified 12:57Z.
+errors: (none this round)
+output: rn1/scores/thesports/diary/*-2026-11-08.json; slim final-topics-32295b-slim markets/log full on origin
