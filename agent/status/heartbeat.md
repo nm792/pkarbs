@@ -1,4 +1,4 @@
-# server-member heartbeat — 2026-11-08T03:05Z
-- thesports-diary-refresh-2026-11-08: DONE — diary for 8 Nov fetch+commit (tennis/csgo/dota2/lol/basketball); cs2/esports unauthorized.
-- thesports capture-b: running. All review notes answered.
-Count: notes run 1 new (diary refresh); outstanding 0.
+# Heartbeat — server-member dispatch round
+Round: 2026-11-08 03:15Z
+- Thread vg2ckg synced/behind reconciled; rugby outbox replies pushed 2026-11-07.
+- Open: PAUSE-all-projects (2026-11-05), charter-383; thesports trial recorder live.
