@@ -956,6 +956,7 @@ if os.environ.get('DOTA'):
 # Needs POINTS=1 CS2=cs2 DOTA=1 so the event lists exist. Pool slims with D1:D2.
 if os.environ.get('SIGNAL'):
     BOOT = 1500
+    NPL = int(os.environ.get('NPL', '20'))   # placebo shifts per event (more = less placebo noise)
     random.seed(2024)
     def curve(f, t):
         """favourable mid at selected offsets, or None"""
@@ -986,7 +987,7 @@ if os.environ.get('SIGNAL'):
             if o is None or not (0.02 < o['p'] < 0.98): continue
             if band and not (band[0] <= o['p'] < band[1]): continue
             R[key].append(o)
-            for _ in range(5):
+            for _ in range(NPL):
                 tt = t0 + random.choice([-1, 1]) * random.uniform(60, 600)
                 q = feats(f, tt)
                 if q is not None and (not band or band[0] <= q['p'] < band[1]) and 0.02 < q['p'] < 0.98: P[key].append(q)

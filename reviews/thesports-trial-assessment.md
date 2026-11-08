@@ -132,3 +132,13 @@ Method: every event next to the same events shifted by a random 60-600 s (5 each
 - **CS2:** price leads (-17.5 s vs -9.1 s, 225 big moves, CI -12..-4); 71% of big moves 10+ s early vs 53% placebo; QUIET after message -0.07c vs +0.10c. No signal.
 - **Dota 2 kills (336 events, 15 games):** the earlier balanced-price lead (p=0.06, 12 games) does **not** replicate (-14.9 s vs -9.2 s, p=0.66). New candidate: favourite price 0.60-0.90 and QUIET, after message +1.38c (n30) vs -0.57c, CI +0.80..+3.56 (first pass: +1.50c, n16, p=0.14, same sign and size). Still few games; **unknown, retest on the next slim.** All-price Dota: late share 39.5% vs 33.3% (p=0.26), QUIET after +0.42c vs -0.16c (p=0.17): not significant. Towers: nothing (83 events).
 - Pairing is the bottleneck: only 24 of 75 tennis games and 29 of 38 CS2 maps are paired to a PM market by names. `diary/` does not hold names for the newer matches; Hermes asked to refresh it.
+
+## Signal vs noise, third pass (8 Nov 03:50Z; refreshed 8 Nov diary: tennis 30 games paired, CS2 30 maps, Dota 15 games; 30 placebo shifts per event to remove placebo noise; raw `reviews/thesports-signal-vs-noise-2026-11-08-pooled3-diary-npl30.txt`)
+
+No new slim since 02:09Z; this is the same three slims, better name pairing (tennis 23 to 30 games) and a quieter placebo (5 to 30 shifts per event; the 5-shift placebo moved some figures, notably Dota).
+
+- **Tennis, QUIET after message, by favourite price:** all prices +0.39c (n421, CI of diff +0.23..+0.53); fav 0.10-0.40 **+0.62c** (n99, CI +0.27..+1.08); fav 0.40-0.60 **+1.05c** (n30, 20 games, CI +0.48..+2.12, p=0.01); fav 0.60-0.90 -0.14c (n91, CI -0.73..+0.28, none). So the information after the message sits where the favoured side is at most 60%, and is largest at balanced prices; matches the Courtsiding finding that the edge pays in balanced matches. n=30 at balanced prices: needs more matches. Break-point points alone: no signal (n25).
+- **Tennis breaks of serve:** price leads the message by 25.6 s vs 10.4 s placebo (65 big moves, CI -20..-9). The feed is behind on breaks.
+- **CS2:** price leads by 17.5 s vs 8.4 s (225 big moves, CI -13..-5). QUIET after message: -0.07c vs +0.26c, no signal. Late rounds (loser >=10): -1.96c (n20) vs +0.42c, wrong sign, n20: ignore.
+- **Dota 2 kills, fav 0.60-0.90, QUIET:** +1.38c (n30, 15 games) vs +0.04c, CI +0.26..+2.59, p=0.04. Not robust: p was 0.09 with a 5-shift placebo, the 0.40-0.60 band has the opposite sign (-1.50c, n17), and the all-price figure is +0.42c vs +0.04c (p=0.40). Status: **unknown, candidate**. Lead timing indistinguishable from placebo in every band.
+- Multiple comparisons: about 60 comparisons in this pass; single p near 0.05 are leads, not findings.
