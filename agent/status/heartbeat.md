@@ -1,5 +1,5 @@
 # heartbeat
-round: 2026-11-08T18:00Z (UTC)
+round: 2026-11-08T18:46Z (UTC)
 branch: claude/project-thread-vg2ckg (newest)
-state: newest thread vg2ckg. Inbox thesports msgs all have outbox replies. thesports-trial running: capture-b scope active since 00:39Z, RSS 275MB<650MB cap, no OOM (monitor oom/nightly-slot tokens are stale noise); slim export landed. 363 (mfw book stall) answered this round.
+state: newest thread vg2ckg. Inbox all answered in outbox. thesports-trial running: capture-b SCOPE active (MemoryCurrent 612MB<650MB cap), files updating 18:50Z; oom/nightly-slot monitor tokens stale noise. Older-thread items answered on vg2ckg.
 next: none open.
