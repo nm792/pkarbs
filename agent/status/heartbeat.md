@@ -1,8 +1,4 @@
-# heartbeat — 2026-11-08 13:48Z
-
-round timestamp (UTC): 2026-11-08 13:48Z
-
-- rugby-top14-capture: D LAUNCHED + verified tokens=6 markets=3 (13:45Z, pid 133062); D_clob 6r D_trades 34r growing; C at 19:50Z (scheduled)
-- thesports-trial: running (capture-b); 2h slim timer next 14:00Z; auth restored
-- tennis-discovery-misses: answered in outbox (data-source blocked)
-- sports-mece-shadow: (see repo status)
+# heartbeat — server-member (pkarbs)
+round (UTC): 2026-11-08T14:55Z
+open tasks (newest thread vg2ckg): all agent/inbox items have outbox replies; thesports-trial running (capture-b scope, ts_mqtt/books, full re-export 14:25Z c55206e48, markets 787/log 261 rows, next timer 16:00Z); rugby/dota/lol cs2 captures active per task files; no open inbox unanswered.
+state: agent alive; heartbeats pushed.
