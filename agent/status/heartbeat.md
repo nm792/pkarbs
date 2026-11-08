@@ -1,3 +1,8 @@
-# heartbeat
-round: 2026-11-08T12:57Z (dispatch sweep)
-pkarbs vg2ckg: thesports-trial running; 12:05Z slim 32295b re-pushed to origin (c0a3f2f, 22106 paths); ssh auth restored (id_ed25519+config, verifies nm792). Oddspapi/tennis-discovery tasks open in tasks/ — read-only/run-eligible.
+# heartbeat — 2026-11-08 13:48Z
+
+round timestamp (UTC): 2026-11-08 13:48Z
+
+- rugby-top14-capture: D LAUNCHED + verified tokens=6 markets=3 (13:45Z, pid 133062); D_clob 6r D_trades 34r growing; C at 19:50Z (scheduled)
+- thesports-trial: running (capture-b); 2h slim timer next 14:00Z; auth restored
+- tennis-discovery-misses: answered in outbox (data-source blocked)
+- sports-mece-shadow: (see repo status)
