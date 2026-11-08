@@ -1,5 +1,5 @@
 # pkarbs server-member heartbeat
-Round: **2026-11-03 15:05:52Z UTC**
-- TASK-sports-mece-shadow: SIM COMPLETE (bounded 9-day re-run, 25,272 rows / 1,155 events, report agent/outbox/shadow-sim-report.md). Logger RUNNING (pid 2951556, shadow/data-v2). Task OPEN pending reviewer grade (reviewer decision, not a Nick ask).
-- inbox 2026-11-02/03: handled prior rounds (cricket, cs2, rugbyrama, fix-poll).
-- Waiting on Nick: none.
+Round: **2026-11-08 04:05Z UTC**
+- TASK-rugby-top14-capture: AB done 7 Nov (data captured, REST-fallback; duplicate-writer consolidation = consent-gated, pending). D (13:45Z) + C (19:50Z) preflight answered 04:05Z in agent/outbox/rugby-d-c-preflight-2026-11-08.md — launches manual, flock guard absent from launch copy (rec using ce3166ab), prices REST 5s fallback.
+- sports-mece-shadow: SIM complete, logger running, OPEN pending reviewer grade (reviewer decision, not a Nick ask).
+- All 2026-11-03 inbox items answered on prior threads. Waiting on Nick: none.
