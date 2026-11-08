@@ -1,2 +1,2 @@
-# heartbeat — server-member dispatch round 2026-11-08T16:12:45Z
-- pkarbs vg2ckg: matcher-cleared 2 outbox replies under exact inbox slug (rugby-nesting-fix-approved, thesports-guard-timer-approved). thesports recorder active; guard+timer installed.
+round 2026-11-08T16:30Z
+pkarbs (vg2ckg): thesports-trial RUNNING (capture-b, export ok, tag 16:00Z timer); all 11-08 inbox items have outbox replies. heartbeat live.
