@@ -1,8 +1,0 @@
-PLACEBO all lag-300 W10: games 566 $fill 66046 1min 4.14% [np.float64(3.4), np.float64(4.9)] result 40.63% $26831 ex-top5 36.99%
-PLACEBO all lag-120 W10: games 521 $fill 56253 1min 6.04% [np.float64(5.25), np.float64(6.85)] result 32.79% $18443 ex-top5 29.54%
-PLACEBO all lag-60 W10: games 514 $fill 55289 1min 9.59% [np.float64(8.73), np.float64(10.5)] result 28.2% $15591 ex-top5 25.75%
-PLACEBO all lag20 W10: games 417 $fill 39895 1min 2.39% [np.float64(1.39), np.float64(3.41)] result 9.04% $3608 ex-top5 5.06%
-PLACEBO all lag30 W10: games 425 $fill 37704 1min 1.16% [np.float64(0.07), np.float64(2.28)] result 11.17% $4212 ex-top5 8.31%
-PLACEBO all lag60 W10: games 357 $fill 34159 1min -0.59% [np.float64(-1.94), np.float64(0.75)] result 11.79% $4026 ex-top5 7.71%
-PLACEBO all lag120 W10: games 333 $fill 29787 1min 0.38% [np.float64(-1.32), np.float64(1.9)] result 10.79% $3215 ex-top5 7.56%
-PLACEBO all lag300 W10: games 285 $fill 22258 1min 0.18% [np.float64(-1.82), np.float64(2.13)] result 9.87% $2196 ex-top5 4.3%
