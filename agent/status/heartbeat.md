@@ -1,1 +1,1 @@
-round 2026-11-08T11:27Z UTC - pkarbs vg2ckg. No new un-replied inbox since 10:53Z thread update; outbox covers thesports/thesports-trial items. Recorders healthy. Nothing consent-gated live.
+2026-11-08T12:40Z - pkarbs: guard+timer approved 09:39Z applied, outbox reply on origin, 2h timer fired 12:05Z (7054 files); thesports trial running.
