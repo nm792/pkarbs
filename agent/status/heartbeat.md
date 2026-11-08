@@ -1,4 +1,5 @@
-# heartbeat 2026-11-08T20:39:54Z — server-member dispatch round
-- rugby window C: did NOT auto-launch at 19:50Z; launched now from patched copy (pid 1257780, tokens=6 markets=3, C_clob 6 book rows, C_trades 45). Reply pushed agent/outbox/rugby-c-launch-and-export-2026-11-08.md. Export step due after C ends ~22:35Z.
-- thesports-trial: healthy (capture-b scope active, RSS under cap, monitor oom flag stale; exporter timer armed, guard in place).
-- TASK-URGENT commit-deleted-files: guard verified live (plumbing-only export, never -A); outbox reply present.
+# heartbeat 2026-11-08T21:47Z — server-member dispatch round (thread vg2ckg)
+- thesports-trial: healthy — capture-b pid 2818605, RSS 276MB<650MB cap, VmSwap 0, books refreshing (mtime 21:15Z+). 21:31Z slim export +11918 files on origin; 2h exporter timer armed, next export ~22:00Z. Monitor 'oom'/'nightly-slot' flags = stale noise.
+- TASK-URGENT commit-deleted-files: guard verified live (plumbing-only export, never -A).
+- rugby window C: running (launched from patched copy, pid 1257780), export step due ~22:35Z when C ends.
+- No new open inbox items without outbox replies this round.
