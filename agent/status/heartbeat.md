@@ -1,4 +1,4 @@
-server-member fleet heartbeat 2026-11-08T02:06Z
-round: 2026-11-08T02:00Z UTC
-state: thread vg2ckg is newest; all inbox/task items have outbox replies (thesports flow/gap + restart 11-08 answered; tennis-reference ack; rugby, oddspapi, cricket replied). No unanswered inbox.
-open: none unanswered on vg2ckg; concurrent dispatch maintains statuses.
+# server-member heartbeat — 2026-11-08T02:20Z
+- thesports-arm-export-2026-11-08: DONE — capture live, 32295b first slim export (`final-topics-32295b-slim`) + books 13:15-14:00Z gap committed, pushed 1968b201.
+- thesports status: RESTARTED RUNNING (capture-b writing, rows advancing).
+- All recent review notes answered; nothing waiting on a consent gate.
