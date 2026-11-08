@@ -12,3 +12,9 @@ output: rn1/scores/thesports/diary/*-2026-11-08.json; slim final-topics-32295b-s
 - output writing continuously: final-topics-32295b/ts_mqtt.jsonl.gz mtime 20:44Z (174 MB), ts_poll.jsonl.gz 20:44Z; ts_mqtt/markets/pmws live jsonl all <10 min old.
 - unit label 'inactive' is the transient scope artifact; /proc process + fresh output are the ground truth.
 - last export chunk on origin 18:07Z (+7189 files); 2h exporter timer '0 */2 * * *' armed with piping-only guard — next export ~20:07Z (verify on next round).
+
+## 21:33Z server-member sweep: export gap closed
+- 20:00Z slim export FAILED on /tmp full (write-tree: sha1 file /tmp/idx.ts.lock out of diskspace).
+- Freed stale /tmp staging (tarballs, csv extracts, ~540M); re-ran export_timer_2h.sh.
+- Origin now at 21:31:21Z export +11918 files (up from 18:07Z). 2h timer resumes next 22:00Z.
+- Capture healthy all round: pid 2818605, RSS 276MB < 650MB cap, VmSwap 0, books mtime 21:15Z. No OOM (monitor oom flag stale).
