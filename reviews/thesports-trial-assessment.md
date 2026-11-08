@@ -142,3 +142,12 @@ No new slim since 02:09Z; this is the same three slims, better name pairing (ten
 - **CS2:** price leads by 17.5 s vs 8.4 s (225 big moves, CI -13..-5). QUIET after message: -0.07c vs +0.26c, no signal. Late rounds (loser >=10): -1.96c (n20) vs +0.42c, wrong sign, n20: ignore.
 - **Dota 2 kills, fav 0.60-0.90, QUIET:** +1.38c (n30, 15 games) vs +0.04c, CI +0.26..+2.59, p=0.04. Not robust: p was 0.09 with a 5-shift placebo, the 0.40-0.60 band has the opposite sign (-1.50c, n17), and the all-price figure is +0.42c vs +0.04c (p=0.40). Status: **unknown, candidate**. Lead timing indistinguishable from placebo in every band.
 - Multiple comparisons: about 60 comparisons in this pass; single p near 0.05 are leads, not findings.
+
+## Signal vs noise, fourth pass (8 Nov 06:15Z; adds Hermes' 06:03Z slim export of final-topics-32295b to ~06:00Z; raw `reviews/thesports-signal-vs-noise-2026-11-08-pooled3-0614Z.txt`)
+
+Data note: Hermes' commit f18045e6 (05:38Z) deleted 22,262 tracked files from the default branch; restored in PR #201 (nothing lost). The 06:03/06:04Z exports were committed without deletions (checked) and look like the first run of the timer.
+
+- **Tennis, QUIET after message, fav 40-60%:** +1.01c (n35, 23 matches) vs placebo -0.10c (30 shifts), 90% CI of diff +0.57..+1.84, p<0.01. Previous pass +1.05c, n30, 20 matches. Stable.
+- **Tennis, fav 10-40%:** +0.60c (n100, 31 matches) vs +0.04c, CI +0.29..+0.85. **Fav 60-90%:** -0.13c (n92), none. All prices: +0.39c (n428, 33 matches), CI +0.22..+0.58.
+- **Dota 2 kills, fav 60-90%, QUIET:** +1.38c (n30, 15 games) vs -0.05c, CI +0.22..+2.87, p=0.05. No new Dota games in this slim (overnight), so unchanged. All prices: +0.42c vs +0.17c, p=0.57. Still unknown/candidate.
+- **CS2:** price leads by 17.5 s vs 8.0 s (225 big moves, CI -13..-6); no signal after the message.
