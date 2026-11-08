@@ -10,20 +10,24 @@ TheSports ids to PM tokens is by price co-movement (no team names yet)."""
 import statistics
 import sys, json, gzip, glob, bisect, collections, statistics as st, math, random
 D = sys.argv[1]
+DIRS = D.split(':')   # several slim dirs may be pooled, colon separated
 DELAY = 0.2
+def rdm(suffix):
+    for d_ in DIRS:
+        yield from rd(d_ + suffix)
 def rd(p):
     for f in sorted(glob.glob(p, recursive=True)):
         for l in gzip.open(f, 'rt'):
             try: yield json.loads(l)
             except Exception: pass
 book = collections.defaultdict(list)
-for r in rd(D + '/books_mid/**/*.gz'):
+for r in rdm('/books_mid/**/*.gz'):
     book[r['tk']].append((r['ms'] / 1000.0, r['bb'], r['ba'], r['q']))
 T = {}
 for k in book:
     book[k].sort(); T[k] = [x[0] for x in book[k]]
 mk = {}
-for m in rd(D + '/markets.jsonl.gz'):
+for m in rdm('/markets.jsonl.gz'):
     mk[m['cond']] = m
 tk_sport = {}
 for m in mk.values():
@@ -36,7 +40,7 @@ def mid_at(tk, t):
 # ---- events
 ev = collections.defaultdict(list)
 last = {}; seen = set()
-msgs = sorted(rd(D + '/ts_mqtt/**/*.gz'), key=lambda r: r['ms'])
+msgs = sorted(rdm('/ts_mqtt/**/*.gz'), key=lambda r: r['ms'])
 for r in msgs:
     s = r['topic'].split('/')[1]
     if s not in ('basketball', 'csgo', 'lol', 'tennis'): continue
@@ -572,7 +576,7 @@ if os.environ.get('POINTS'):
 if os.environ.get('LAG'):
     pass
     pmg = collections.defaultdict(dict); pmnames = {}
-    for r in rd(D + '/pmws.jsonl.gz'):
+    for r in rdm('/pmws.jsonl.gz'):
         if r.get('leagueAbbreviation') not in ('atp', 'wta', 'challenger'): continue
         gid = r['gameId']; pmnames[gid] = (r['homeTeam'], r['awayTeam'])
         sc = (r.get('score') or '').split(',')[-1].strip(); per = r.get('period') or ''
@@ -616,7 +620,7 @@ if os.environ.get('ENDS'):
         d = json.load(open(f))
         for m in d.get('results', []): dstat[m['id']] = m
     pm_end = {}
-    for r in rd(D + '/pmws.jsonl.gz'):
+    for r in rdm('/pmws.jsonl.gz'):
         if r.get('leagueAbbreviation') in ('atp', 'wta', 'challenger') and r.get('ended'): pm_end.setdefault(r['gameId'], r['ms'] / 1000.0)
     tsg2 = collections.defaultdict(dict); lastmsg = {}
     for r in msgs:
@@ -945,3 +949,100 @@ if os.environ.get('DOTA'):
                 print('  net taker +%ds: real n=%d mean %+.2fc median %+.2fc | placebo n=%d mean %+.2fc | diff 90%% CI %s' % (h, len(a), 100 * sum(v for _, v in a) / len(a), 100 * statistics.median([v for _, v in a]), len(b), 100 * sum(v for _, v in b) / len(b) if b else float('nan'), ('[%+.2f, %+.2f]' % ci) if ci else 'n/a'))
             else: print('  net taker +%ds: n=0' % h)
     print('\nRoshan timer starts (side unknown, counts only):', sum(1 for evs in dev.values() for e in evs if e[2].startswith('dota roshan')))
+
+
+# ================= SIGNAL vs NOISE (Nick 8 Nov 02:28Z): per-event lead distributions vs placebo, subsets, cluster-bootstrap =================
+# Needs POINTS=1 CS2=cs2 DOTA=1 so the event lists exist. Pool slims with D1:D2.
+if os.environ.get('SIGNAL'):
+    BOOT = 1500
+    random.seed(2024)
+    def curve(f, t):
+        """favourable mid at selected offsets, or None"""
+        return {s_: mid_at(f, t + s_) for s_ in (-60, -30, 0, 30, 60)}
+    def half_lead(f, t):
+        pre = mid_at(f, t - 60); post = mid_at(f, t + 60)
+        if pre is None or post is None or post - pre < 0.03: return None
+        for s_ in range(-60, 61):
+            x = mid_at(f, t + s_)
+            if x is not None and x - pre >= (post - pre) / 2 - 1e-9: return s_
+        return None
+    def feats(f, t):
+        c = curve(f, t)
+        if c[-30] is None or c[0] is None: return None
+        before = c[0] - c[-30]
+        o = {'p': c[-30], 'before': before, 'quiet': abs(before) < 0.01}
+        o['after'] = (c[30] - c[0]) if c[30] is not None else None
+        h = half_lead(f, t)
+        o['lead'] = h
+        o['big'] = h is not None
+        return o
+    def sig_events(L, band=None):
+        R, P = collections.defaultdict(list), collections.defaultdict(list)
+        for key, t0, sd, tk, sg in L:
+            f = fav_tk(tk, sg, sd)
+            if not f: continue
+            o = feats(f, t0)
+            if o is None or not (0.02 < o['p'] < 0.98): continue
+            if band and not (band[0] <= o['p'] < band[1]): continue
+            R[key].append(o)
+            for _ in range(5):
+                tt = t0 + random.choice([-1, 1]) * random.uniform(60, 600)
+                q = feats(f, tt)
+                if q is not None and (not band or band[0] <= q['p'] < band[1]) and 0.02 < q['p'] < 0.98: P[key].append(q)
+        return R, P
+    def agg(G, fn):
+        """per-game (sum, n) of fn over events where fn is not None"""
+        out = {}
+        for k, L in G.items():
+            v = [fn(o) for o in L]; v = [x for x in v if x is not None]
+            if v: out[k] = (sum(v), len(v))
+        return out
+    def mean_of(a):
+        n = sum(x[1] for x in a.values()); return (sum(x[0] for x in a.values()) / n, n) if n else (None, 0)
+    def bdiff(ra, pa):
+        games = sorted(set(ra) | set(pa))
+        if not ra or not pa: return None
+        ds = []
+        for _ in range(BOOT):
+            g = random.choices(games, k=len(games))
+            rs = sum(ra[k][0] for k in g if k in ra); rn = sum(ra[k][1] for k in g if k in ra)
+            ps = sum(pa[k][0] for k in g if k in pa); pn = sum(pa[k][1] for k in g if k in pa)
+            if rn and pn: ds.append(rs / rn - ps / pn)
+        if len(ds) < BOOT // 2: return None
+        ds.sort(); lo, hi = ds[int(.05 * len(ds))], ds[int(.95 * len(ds))]
+        pv = 2 * min(sum(1 for d in ds if d <= 0), sum(1 for d in ds if d >= 0)) / len(ds)
+        return lo, hi, min(1.0, pv)
+    def line(name, R, P, fn, scale=100, unit='c', cond=None):
+        f2 = (lambda o: fn(o) if (cond is None or cond(o)) else None)
+        ra, pa = agg(R, f2), agg(P, f2)
+        (rm, rn), (pm, pn) = mean_of(ra), mean_of(pa)
+        if rn < 5 or pn < 5: return '    %-44s n real %d / placebo %d (too few)' % (name, rn, pn)
+        b = bdiff(ra, pa)
+        return '    %-44s real %+7.2f%s (n%d) | placebo %+7.2f%s (n%d) | diff 90%% CI %s p=%s' % (name, rm * scale, unit, rn, pm * scale, unit, pn, ('[%+.2f, %+.2f]' % (b[0] * scale, b[1] * scale)) if b else 'n/a', ('%.2f' % b[2]) if b else 'n/a')
+    tp = [x for c, L in pc2.items() for x in L]
+    groups = collections.OrderedDict()
+    groups['TENNIS all points'] = tp
+    groups['TENNIS break-point points'] = [x for c, L in pc2.items() if 'break point' in c or 'SAVES' in c for x in L]
+    groups['TENNIS other points'] = pc2.get('point: other', [])
+    groups['TENNIS game-level breaks (set goes on)'] = classes.get('tennis break (set goes on)', [])
+    groups['CS2 all round wins'] = [x for c, L in classes.items() if c.startswith('cs2') for x in L]
+    groups['CS2 late rounds (loser>=10)'] = classes.get('cs2 round, loser already >=10 (late, winner<12)', [])
+    groups['DOTA kills'] = allk
+    groups['DOTA towers'] = tw
+    BANDS = [('all prices', None), ('fav price 0.10-0.40', (0.10, 0.40)), ('fav price 0.40-0.60', (0.40, 0.60)), ('fav price 0.60-0.90', (0.60, 0.90))]
+    print('\n=== SIGNAL vs NOISE: pooled over %d slim dir(s); favourable = side the event helps; cents; placebo = same events shifted +-60-600 s (5 each); CI/p = bootstrap over games ===' % len(DIRS))
+    print('before = fav mid move t-30..t (price already reacting); after = move t..t+30; QUIET = price moved <1c in the 30 s before the message (known at message time, so tradeable-filter, not look-ahead)')
+    for gname, L in groups.items():
+        for bname, band in BANDS:
+            R, P = sig_events(L, band)
+            ne = sum(len(v) for v in R.values())
+            if ne < 8: continue
+            print('\n## %s | %s | events with prices %d, games %d' % (gname, bname, ne, len(R)))
+            print(line('before: move t-30..t, all', R, P, lambda o: o['before']))
+            print(line('after: move t..t+30, all', R, P, lambda o: o['after']))
+            print(line('after: move t..t+30, QUIET only', R, P, lambda o: o['after'], cond=lambda o: o['quiet']))
+            print(line('share QUIET at message', R, P, lambda o: 1.0 if o['quiet'] else 0.0, scale=100, unit='%'))
+            print(line('share with a big move (>=3c, t-60..t+60)', R, P, lambda o: 1.0 if o['big'] else 0.0, scale=100, unit='%'))
+            print(line('lead s (half-move rel. message), big only', R, P, lambda o: o['lead'], scale=1, unit='s', cond=lambda o: o['big']))
+            print(line('share of big moves LATE (half-move >0 s)', R, P, lambda o: 1.0 if o['lead'] > 0 else 0.0, scale=100, unit='%', cond=lambda o: o['big']))
+            print(line('share of big moves EARLY (<=-10 s)', R, P, lambda o: 1.0 if o['lead'] <= -10 else 0.0, scale=100, unit='%', cond=lambda o: o['big']))

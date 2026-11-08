@@ -99,3 +99,10 @@ Data: `rn1/scores/thesports/final-topics-32295-slim` (books_mid 420,817 rows, ts
 - Dota 2 kills: 'unknown, weak timing lead'. Placebo half-move is biased negative by the window end (+10 s); net is the cleaner figure and is still below zero.
 - Roshan timer starts: 10 (side unknown).
 - No new claims of edge. Nothing here supports a taker rule on any of these classes.
+
+## Direction from Nick, 8 Nov 02:28Z (supersedes the verdict wording above)
+
+"So we are far from rejecting TS on tennis or dota. I do not care yet what the losing-money test says because we have not yet begun to sort real signal from noise."
+
+- Tennis and Dota 2: **unknown, signal vs noise not yet separated.** The "no profit" lines in the tables above are a taker test with a 1 s delay, not a test of whether TheSports carries information. They are not a verdict on the feed.
+- Work now: per-event lead distributions (not medians) against the random-time placebo, subsets by event type, price level and move size, cluster-bootstrap significance, and the subset known at message time (price not yet moved) where the feed could add something. Script block `SIGNAL=1` in `live/thesports/big_events.py` (run with `POINTS=1 CS2=cs2 DOTA=1 SIGNAL=1`, slims pooled with a colon).
