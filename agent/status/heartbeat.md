@@ -1,5 +1,4 @@
-# heartbeat 2026-11-08T21:47Z — server-member dispatch round (thread vg2ckg)
-- thesports-trial: healthy — capture-b pid 2818605, RSS 276MB<650MB cap, VmSwap 0, books refreshing (mtime 21:15Z+). 21:31Z slim export +11918 files on origin; 2h exporter timer armed, next export ~22:00Z. Monitor 'oom'/'nightly-slot' flags = stale noise.
-- TASK-URGENT commit-deleted-files: guard verified live (plumbing-only export, never -A).
-- rugby window C: running (launched from patched copy, pid 1257780), export step due ~22:35Z when C ends.
-- No new open inbox items without outbox replies this round.
+# heartbeat 2026-11-08 21:59Z (server-member dispatch)
+- thesports-trial: healthy, capture-b pid 2818605 active, books <10min fresh, no OOM. 2h exporter timer armed (next 22:00Z); last export 21:31Z +11918.
+- TASK-URGENT-commit-deleted-files: replied in agent/outbox/thesports-commit-deleted-files-2026-11-08.md — exporter confirmed plumbing-only (read-tree from origin tip, case-filter add of slim paths, no add -A), structurally cannot mass-delete. Origin head whole (dcca8a075 + this reply).
+- No other open outbox items on vg2ckg.
