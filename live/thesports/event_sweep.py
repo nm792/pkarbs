@@ -98,21 +98,50 @@ for r in msgs:
         elif sp == 'tennis':
             invm['tennis'].add(p.get('id')); key = ('tennis', p.get('id'), 0)
             fm = ('tn', p.get('id')) not in first; first.add(('tn', p.get('id')))
+            RK = {'0': 0, '15': 1, '30': 2, '40': 3, 'AD': 4, 'A': 4}
+            def rk(x):
+                return RK[x] if x in RK else (int(x) if str(x).isdigit() else None)
             for st_ in (p.get('timeline') or []):
-                prv = (0, 0)
+                prv = (0, 0); prvsrv = None
                 for rd_ in st_.get('rounds', []):
-                    sc = rd_.get('score')
-                    if not sc: continue
-                    cur = (sc.get('home', 0), sc.get('away', 0)); k3 = ('gm', p['id'], st_['set'], rd_['round'])
-                    if k3 not in first:
-                        first.add(k3)
-                        dh, da = cur[0] - prv[0], cur[1] - prv[1]
-                        if not fm and dh >= 0 and da >= 0 and dh + da == 1:
-                            w = 1 if dh else -1; hi, lo = max(cur), min(cur)
-                            if (hi >= 6 and hi - lo >= 2) or (hi == 7 and lo in (5, 6)): ev[key].append((t, w, 'tennis set won'))
-                            if cur == (6, 6): ev[key].append((t, 0, 'tennis tiebreak starts'))
-                            if hi >= 5 and hi - lo == 1 and not ((hi >= 6) and hi - lo >= 2): ev[key].append((t, w, 'tennis game to 5+ (serve for set / hold-break at 5)'))
-                    prv = cur
+                    pts = rd_.get('points') or []; sc = rd_.get('score')
+                    tb = prv == (6, 6)
+                    srv = (3 - prvsrv) if (prvsrv and not tb) else None      # 1 home serves, 2 away
+                    trans = []
+                    for i in range(1, len(pts)):
+                        k2 = ('pt', p['id'], st_['set'], rd_['round'], i)
+                        if k2 in first: continue
+                        first.add(k2)
+                        a_, b_, c_, d_ = rk(pts[i-1][0]), rk(pts[i-1][1]), rk(pts[i][0]), rk(pts[i][1])
+                        if None in (a_, b_, c_, d_): continue
+                        w = 1 if (c_ > a_ and d_ <= b_) or (d_ < b_) else (-1 if (d_ > b_ and c_ <= a_) or (c_ < a_) else 0)
+                        if w: trans.append((w, a_, b_, 'listed'))
+                    if sc:
+                        k3 = ('gm', p['id'], st_['set'], rd_['round'])
+                        if k3 not in first:
+                            first.add(k3)
+                            cur = (sc.get('home', 0), sc.get('away', 0)); dh, da = cur[0] - prv[0], cur[1] - prv[1]
+                            if dh >= 0 and da >= 0 and dh + da == 1:
+                                lp = pts[-1] if pts else ['0', '0']
+                                a_, b_ = rk(lp[0]), rk(lp[1])
+                                if None not in (a_, b_): trans.append((1 if dh else -1, a_, b_, 'decisive'))
+                        srv = sc.get('serve') if sc.get('serve') in (1, 2) else srv
+                    if not fm:
+                        for w, a_, b_, kind in trans:
+                            gp = lambda x, o: (x >= 6 and x - o >= 1) if tb else ((x == 3 and o < 3) or x == 4)
+                            gh, ga = prv
+                            spt = lambda x, o, gx, go: gp(x, o) and (tb or (gx == 5 and go <= 4) or (gx == 6 and go == 5))
+                            hsp, asp = spt(a_, b_, gh, ga), spt(b_, a_, ga, gh)
+                            if hsp or asp:
+                                x = 1 if hsp else -1
+                                ev[key].append((t, w, 'tennis set point converted (%s)' % kind if w == x else 'tennis set point saved (%s)' % kind))
+                            if srv and not tb:
+                                ret = 1 if srv == 2 else -1
+                                rgp = gp(a_, b_) if ret == 1 else gp(b_, a_)
+                                if rgp:
+                                    ev[key].append((t, w, 'tennis break point converted (%s)' % kind if w == ret else 'tennis break point saved (%s)' % kind))
+                            if tb: ev[key].append((t, w, 'tennis tiebreak point (%s)' % kind))
+                    if sc: prv = (sc.get('home', 0), sc.get('away', 0)); prvsrv = sc.get('serve') if sc.get('serve') in (1, 2) else prvsrv
         elif sp == 'lol':
             key = ('lol', p['match_id'], p['box_num']); invm['lol'].add(key)
             for e in (p.get('event') or []):
@@ -316,3 +345,27 @@ if os.environ.get('ATTR'):
                     n += 1; k += (b - a >= 0.02); tot.append(z - a)
             res[lab] = (n, 100 * k / n if n else float('nan'), 100 * statistics.median(tot) if tot else float('nan'))
         print('  %-36s real n=%d moved-before %.0f%% median[-30,+60] %+.1fc | placebo n=%d %.0f%% %+.1fc' % ((c,) + res['real'] + res['plac']))
+
+if os.environ.get('TIMING'):
+    # fine timing: mean signed fav-mid move in short windows around the message, real vs placebo, by band of fav mid at t-30
+    WIN = [(-30, -20), (-20, -10), (-10, -5), (-5, -2), (-2, 0), (0, 1.2), (1.2, 3), (3, 10), (10, 30), (30, 60)]
+    BANDS = [('all 10-90', 0.10, 0.90), ('25-75', 0.25, 0.75), ('40-60', 0.40, 0.60)]
+    random.seed(21)
+    for c in [k for k in sorted(classes) if k.startswith('tennis') and ('decisive' in k or 'listed' in k)]:
+        L = classes[c]
+        print('\n== TIMING %s | events %d' % (c, len(L)))
+        for bn, lo, hi in BANDS:
+            for lab in ('real', 'placebo'):
+                out = []
+                for a, b in WIN:
+                    v = []
+                    for key, t, sd, tk, sg in L:
+                        f = fav(tk, sg, sd)
+                        if not f: continue
+                        for _ in range(1 if lab == 'real' else 8):
+                            tt = t if lab == 'real' else t + random.choice([-1, 1]) * random.uniform(60, 600)
+                            m0 = mid(f, tt - 30); x, y = mid(f, tt + a), mid(f, tt + b)
+                            if m0 is None or x is None or y is None or not (lo <= m0 < hi): continue
+                            v.append(y - x)
+                    out.append('%+.2f(n%d)' % (100 * sum(v) / len(v), len(v)) if v else 'n/a')
+                print('  %-9s %-7s %s' % (bn, lab, ' '.join('[%g,%g]%s' % (a, b, o) for (a, b), o in zip(WIN, out))))
