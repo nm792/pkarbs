@@ -7,6 +7,8 @@
                                                   # it launches every entry whose fire time has passed (and kickoff+30 min has not), once.
 Schedule file: agent/tasks/captures-schedule.json  {"entries": [{"name","kind":"rugby"|"chess","window","kickoff_utc","lead_min","hours"}]}
 Rugby entries can omit kickoff_utc: it is the earliest kickoffUTC of that window in the rugby config.
+Rugby entries may carry "slugs" (comma list of Polymarket event slugs) and "espn" (ESPN league id): if the window is not in the
+config yet, --run-due/--install build it first with build_rugby_window.py (fails cleanly until Polymarket lists the events).
 Re-running is safe: an existing unit with the same name is skipped. Entries in the past are skipped."""
 import argparse, json, os, subprocess, sys
 from datetime import datetime, timedelta, timezone
@@ -24,6 +26,14 @@ def main():
     now = parse(a.now) if a.now else datetime.now(timezone.utc)
     cfg = json.load(open(a.config)) if os.path.exists(a.config) else {}
     for e in json.load(open(a.schedule)).get("entries", []):
+        if e["kind"] == "rugby" and e.get("slugs") and e["window"] not in cfg:   # window built from Polymarket slugs once listed
+            if a.run_due or a.install:
+                r = subprocess.run([sys.executable, f"{HERE}/build_rugby_window.py", "--window", e["window"], "--slugs", e["slugs"],
+                                    "--espn", str(e.get("espn", "267979")), "--config", a.config], capture_output=True, text=True)
+                print("BUILD", e["name"], r.stdout.strip()[-200:])
+                cfg = json.load(open(a.config)) if os.path.exists(a.config) else {}
+                if e["window"] not in cfg: continue   # not listed on Polymarket yet: retry next round (no launch attempt)
+            elif not e.get("kickoff_utc"): print("SKIP (window not built yet, no kickoff_utc)", e["name"]); continue
         ko = e.get("kickoff_utc")
         if not ko and e["kind"] == "rugby":
             ko = min(ev["kickoffUTC"] for ev in cfg[e["window"]])

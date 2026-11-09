@@ -1,4 +1,8 @@
 {
-  "_note": "Add one entry per capture window. Rugby entries use a window name from rugby-top14-config-2026-11-07.json (kickoff is derived). The launcher fires at kickoff minus lead_min, checks tokens/markets, launches, and verifies after 60 s.",
-  "entries": []
+  "_note": "One entry per capture window. Rugby: window name in rugby-top14-config-2026-11-07.json, or slugs+espn so the window is built when Polymarket lists the events. Launcher fires at kickoff minus lead_min, checks tokens, launches, verifies after 60 s.",
+  "entries": [
+    {"name": "prem-2026-12-04", "kind": "rugby", "window": "PREM1204", "slugs": "ruprem-bat-bri-2026-12-04", "espn": "267979", "kickoff_utc": "2026-12-04T19:45:00Z", "lead_min": 15},
+    {"name": "prem-2026-12-05a", "kind": "rugby", "window": "PREM1205A", "slugs": "ruprem-glo-new-2026-12-05,ruprem-har-lei-2026-12-05", "espn": "267979", "kickoff_utc": "2026-12-05T15:00:00Z", "lead_min": 15},
+    {"name": "prem-2026-12-05b", "kind": "rugby", "window": "PREM1205B", "slugs": "ruprem-sar-nor-2026-12-05", "espn": "267979", "kickoff_utc": "2026-12-05T17:30:00Z", "lead_min": 15}
+  ]
 }

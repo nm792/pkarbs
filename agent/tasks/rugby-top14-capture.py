@@ -126,10 +126,11 @@ async def read_clob(clob_f, log, markets, use_rest):
             _w(log, f"{time.time():.3f} CLOB close {e!r} (attempt {attempts})")
             await asyncio.sleep(min(5 * attempts, 30))   # keep retrying; never give up silently
 
-async def poll_espn(espn_f, log):
+async def poll_espn(espn_f, log, league=None):
+    url = ESPN if not league else ESPN.replace("/270559/", f"/{league}/")   # per-window league (Premiership 267979)
     while True:
         try:
-            st, body = http_get(ESPN, timeout=15)
+            st, body = http_get(url, timeout=15)
             _record(espn_f, {"recv_ms": int(time.time()*1000), "status": st, "data": json.loads(body)})
         except Exception as e:
             _record(espn_f, {"recv_ms": int(time.time()*1000), "error": str(e)})
@@ -317,6 +318,11 @@ async def main():
     st = time.time()
     # window run length: per-window (AB merged to 5h / 18000s per Nick 15:50Z; D,C ~2h45 bounded)
     run_for = 18000 if win == "AB" else 10500
+    league = next((m.get("espnLeague") for m in markets if m.get("espnLeague")), None)
+    if league:   # new-format windows (built by build_rugby_window.py): run until last kickoff + 2 h 35 min
+        from datetime import timezone
+        last = max(datetime.fromisoformat(m["kickoffUTC"].replace("Z", "+00:00")) for m in markets)
+        run_for = max(3600, int(last.timestamp() + 9300 - time.time()))
     log = f"{ROOT}/{win}_log.txt"
     _w(log, f"{time.time():.3f} WIN={win} start markets={len(markets)}")
     rr_ids = RR_MATCHES.get(win, [])
@@ -331,7 +337,7 @@ async def main():
     tasks = [
         asyncio.create_task(read_sports(f"{ROOT}/{win}_sports.jsonl", log)),
         asyncio.create_task(read_clob(f"{ROOT}/{win}_clob.jsonl", log, flat, use_rest=False)),
-        asyncio.create_task(poll_espn(f"{ROOT}/{win}_espn.jsonl", log)),
+        asyncio.create_task(poll_espn(f"{ROOT}/{win}_espn.jsonl", log, league)),
         asyncio.create_task(poll_trades(f"{ROOT}/{win}_trades.jsonl", log, flat)),
     ]
     if rr_ids:
