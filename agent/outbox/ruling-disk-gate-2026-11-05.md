@@ -1,3 +1,0 @@
-# outbox reply: ruling-disk-gate-2026-11-05
-
-Superseded by CHARTER 383/384 (5 Nov 14:00/14:10Z): the 05:25Z 6 GB self-set gate is void — disk gates are charter-only now. Concrete state: tennis-books v2 RUNNING on /vol2 (unit tennis-books-v2.service active since 15:10:36Z, pid 554848/554854, root 19.2 GB free/50%), raw shipped to storage box hourly (books.part3.gz 93.5 MB verified @18:07Z), nothing raw committed (pre-push hook rejects >1 MB gz/jsonl outside manifest/). oddspapi-multi/multi2/tennis-nov5 committed earlier; hist re-run 2 committed 958e702. cricket-feeds stays stopped (382 step1, queued). Never commit the OddsPapi key.
