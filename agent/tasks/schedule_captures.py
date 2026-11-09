@@ -26,9 +26,9 @@ def main():
     now = parse(a.now) if a.now else datetime.now(timezone.utc)
     cfg = json.load(open(a.config)) if os.path.exists(a.config) else {}
     for e in json.load(open(a.schedule)).get("entries", []):
-        if e["kind"] == "rugby" and e.get("slugs") and e["window"] not in cfg:   # window built from Polymarket slugs once listed
+        if e["kind"] == "rugby" and (e.get("slugs") or e.get("prefix")) and e["window"] not in cfg:   # window built from Polymarket slugs once listed
             if a.run_due or a.install:
-                r = subprocess.run([sys.executable, f"{HERE}/build_rugby_window.py", "--window", e["window"], "--slugs", e["slugs"],
+                r = subprocess.run([sys.executable, f"{HERE}/build_rugby_window.py", "--window", e["window"], *(["--slugs", e["slugs"]] if e.get("slugs") else ["--prefix", e["prefix"], "--dates", e["dates"]]),
                                     "--espn", str(e.get("espn", "267979")), "--config", a.config], capture_output=True, text=True)
                 print("BUILD", e["name"], r.stdout.strip()[-200:])
                 cfg = json.load(open(a.config)) if os.path.exists(a.config) else {}
