@@ -1078,3 +1078,70 @@ if os.environ.get('SPLIT') and os.environ.get('SIGNAL'):
         print(line('after: move t..t+30, all', R, P, lambda o: o['after']))
         print(line('share QUIET at message', R, P, lambda o: 1.0 if o['quiet'] else 0.0, scale=100, unit='%'))
         print(line('share of big moves LATE (half-move >0 s)', R, P, lambda o: 1.0 if o['lead'] > 0 else 0.0, scale=100, unit='%', cond=lambda o: o['big']))
+
+# ================= TRADEABILITY (coordinator 9 Nov 00:12Z, pre-authorised): do the quiet-moment moves survive spread, 1 s PM delay, queue, hold to resolution? =================
+# TRADE=1 with SIGNAL=1 POINTS=1 CS2=cs2 DOTA=1. Quiet-at-message events only. Order lands at t + 0.2 s (our latency) + DLY (PM sports delay, default 1 s).
+# TAKER: buy favourable token at best ask at landing, hold to resolution (settle proxy; unresolved games excluded). Payoff per share = settle - ask.
+# BID: post-only at best bid at landing (queue = size shown in books q; fill only if best ask falls to <= our bid within HOLD s = trade-through proxy), hold to resolution; per attempt (0 if unfilled).
+# Placebo = same rule at the same events shifted +-60-600 s (conditions re-checked there). Real minus placebo = what the TIMING adds over the side/price bias.
+if os.environ.get('TRADE') and os.environ.get('SIGNAL'):
+    DLY = float(os.environ.get('DLY', '1.0')); HOLDS = float(os.environ.get('HOLD', '60'))
+    def extras(f, t, S):
+        te = t + 0.2 + DLY
+        r = row(f, te, maxage=5)
+        if not r or r[1] <= 0 or r[2] >= 1 or r[2] <= r[1]: return None
+        bb, ba, q = r[1], r[2], r[3]
+        d = {'taker': S - ba, 'mid': S - (bb + ba) / 2, 'spread': ba - bb, 'ask': ba, 'q': q}
+        for hz in (60, 180):
+            r2 = row(f, te + hz, maxage=15); m2 = mid_at(f, te + hz)
+            d['mtm%d' % hz] = (m2 - ba) if m2 is not None else None            # buy at ask, valued at later mid (no exit cost)
+            d['rt%d' % hz] = (r2[1] - ba) if r2 else None                       # buy at ask, sell at later best bid (full round trip)
+        ts = T[f]; i = bisect.bisect_right(ts, te)
+        filled = False
+        while i < len(ts) and ts[i] <= te + HOLDS:
+            if book[f][i][2] <= bb + 1e-9: filled = True; break
+            i += 1
+        d['filled'] = 1.0 if filled else 0.0
+        d['bid'] = (S - bb) if filled else 0.0
+        d['bidfill'] = (S - bb) if filled else None
+        return d
+    def trade_events(L, band):
+        R, P = collections.defaultdict(list), collections.defaultdict(list)
+        for key, t0, sd, tk, sg in L:
+            f = fav_tk(tk, sg, sd)
+            if not f: continue
+            S = settle(f)
+            if S is None: continue
+            def mk_(t):
+                o = feats(f, t)
+                if o is None or not o['quiet'] or not (0.02 < o['p'] < 0.98): return None
+                if band and not (band[0] <= o['p'] < band[1]): return None
+                x = extras(f, t, S)
+                if x is None: return None
+                o.update(x); return o
+            o = mk_(t0)
+            if o: R[key].append(o)
+            for _ in range(NPL):
+                q_ = mk_(t0 + random.choice([-1, 1]) * random.uniform(60, 600))
+                if q_: P[key].append(q_)
+        return R, P
+    print('\n=== TRADEABILITY: quiet-at-message events, order lands t+0.2 s+%.1f s PM delay, hold to resolution, cents per share; placebo = same rule at shifted times; CI/p bootstrap over games ===' % DLY)
+    TG = [('TENNIS all points', tp, [('fav 0.10-0.40', (0.10, 0.40)), ('fav 0.40-0.60', (0.40, 0.60)), ('fav 0.10-0.60', (0.10, 0.60)), ('fav 0.60-0.90', (0.60, 0.90))]),
+          ('DOTA kills', allk, [('fav 0.60-0.90', (0.60, 0.90)), ('fav 0.40-0.90', (0.40, 0.90))]),
+          ('CS2 all round wins', groups['CS2 all round wins'], [('fav 0.40-0.60', (0.40, 0.60))])]
+    for gname, L, bands in TG:
+        for bname, band in bands:
+            R, P = trade_events(L, band)
+            ne = sum(len(v) for v in R.values())
+            if ne < 8: print('\n## %s | %s | too few (%d)' % (gname, bname, ne)); continue
+            print('\n## %s | %s | resolved quiet events %d, games %d' % (gname, bname, ne, len(R)))
+            print(line('mean spread paid (ask-bid)', R, P, lambda o: o['spread']))
+            print(line('TAKER at ask, hold: net per share', R, P, lambda o: o['taker']))
+            print(line('(same, valued at mid, no spread)', R, P, lambda o: o['mid']))
+            for hz in (60, 180):
+                print(line('TAKER buy ask, value at mid +%ds (no exit cost)' % hz, R, P, lambda o, hz=hz: o['mtm%d' % hz]))
+                print(line('TAKER buy ask, SELL at bid +%ds (round trip)' % hz, R, P, lambda o, hz=hz: o['rt%d' % hz]))
+            print(line('BID at best bid: fill rate', R, P, lambda o: o['filled'], scale=100, unit='%'))
+            print(line('BID net per attempt (0 if no fill)', R, P, lambda o: o['bid']))
+            print(line('BID net per FILL', R, P, lambda o: o['bidfill'], cond=lambda o: o['filled'] > 0))
+            print(line('queue ahead at landing (shares)', R, P, lambda o: o['q'], scale=1, unit=' sh'))
