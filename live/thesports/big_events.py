@@ -1232,3 +1232,20 @@ if os.environ.get('PREREG') and os.environ.get('TRADE') and os.environ.get('SIGN
             else: print('   %s: no data' % tag)
         else:
             print('   not evaluated: below target N (no peeking)')
+
+# ================= FEED-LEAD TEST (Nick 9 Nov 07:21Z: "TEST THE THESPORTS FEEDS"): does each event message lead the PM price by enough to beat the 1 s delay? =================
+# FEEDLEAD=1 with SIGNAL=1 POINTS=1 CS2=cs2 DOTA=1. No price bands. Per event type, over events with a big move (>=3c within t-60..t+60 on the favourable token):
+#   lead = time of the half-move relative to the message (s). Message BEATS the delay if half-move comes after t + 0.2 s + DLY (default 1.0 s) -> lead > 1.2.
+#   Statistic: share of big-move events with lead > 1.2 s, real vs same events shifted +-60-600 s (placebo), CI/p bootstrap over games/matches.
+if os.environ.get('FEEDLEAD') and os.environ.get('SIGNAL'):
+    TH = 0.2 + float(os.environ.get('DLY', '1.0'))
+    print('\n=== FEED-LEAD: per event type, big-move events only; message beats the 1 s delay if price half-move comes > %.1f s after the message; placebo = same events at shifted times; CI/p bootstrap over games ===' % TH)
+    for gname, L in groups.items():
+        R, P = sig_events(L, None)
+        ne = sum(len(v) for v in R.values())
+        nb = sum(1 for v in R.values() for o in v if o['big'])
+        if ne < 8: continue
+        print('\n## %s | events with prices %d, games %d, big-move events %d' % (gname, ne, len(R), nb))
+        print(line('share of big moves where message beats delay (lead > %.1f s)' % TH, R, P, lambda o: 1.0 if o['lead'] > TH else 0.0, scale=100, unit='%', cond=lambda o: o['big']))
+        print(line('median-ish lead s (mean half-move time vs message)', R, P, lambda o: o['lead'], scale=1, unit='s', cond=lambda o: o['big']))
+        print(line('share of ALL events where message beats delay', R, P, lambda o: 1.0 if (o['big'] and o['lead'] > TH) else 0.0, scale=100, unit='%'))
