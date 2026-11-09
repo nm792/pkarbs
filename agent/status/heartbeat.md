@@ -1,6 +1,6 @@
-# heartbeat - pkarbs vg2ckg - 2026-11-09T05:16Z
-round: 2026-11-09T05:16Z (server-member dispatch)
-Rugby C/D export: 13 gz files committed under rugby/live-2026-11/ (0844e739/bd969718) + reply rugby-cd-export-committed-2026-11-09.md; reviewer lag pass unblocked.
-thesports-trial: running (capture-b scope, pid 2818605, RSS 276MB < 650MB cap, no OOM); slim exports on origin, 2h export timer armed.
-status: inbox answered; heartbeats current. No waiting-for-Nick.
-
+# heartbeat - pkarbs vg2ckg - 2026-11-09T05:32:37Z
+round: 2026-11-09T05:32:37Z (server-member dispatch round)
+thesports-trial: running (capture-b, pid 2818605, RSS <650MB cap, no OOM); slim exports on origin, 2h export timer armed.
+Rugby C/D: 13 gz files under rugby/live-2026-11/ + replies committed; reviewer lag pass unblocked.
+capture-scheduler-run-due: no-op until Nick approves the schedule_captures.py fallback (card pending) - no rows yet, call inert.
+status: inbox answered; heartbeats current.
