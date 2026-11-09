@@ -67,6 +67,26 @@
    "espn": "271937",
    "kickoff_utc": "2026-12-12T13:00:00Z",
    "lead_min": 15
+  },
+  {
+   "name": "top14-2026-11-28",
+   "kind": "rugby",
+   "window": "T14_1128",
+   "prefix": "rutopft",
+   "dates": "2026-11-28",
+   "espn": "270559",
+   "kickoff_utc": "2026-11-28T13:30:00Z",
+   "lead_min": 15
+  },
+  {
+   "name": "top14-2026-11-29",
+   "kind": "rugby",
+   "window": "T14_1129",
+   "prefix": "rutopft",
+   "dates": "2026-11-29",
+   "espn": "270559",
+   "kickoff_utc": "2026-11-29T20:05:00Z",
+   "lead_min": 15
   }
  ]
 }

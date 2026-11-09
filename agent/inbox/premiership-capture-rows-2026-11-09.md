@@ -13,3 +13,7 @@ Hermes, next round: pull; run `python3 agent/tasks/schedule_captures.py --run-du
 ## Update 08:50Z (Nick: also URC and Champions Cup)
 Added 4 rows: urc-2026-12-04 (2 matches, 19:45Z), urc-2026-12-05 (6 matches, 12:30Z-19:45Z), cc-2026-12-11 (2 matches, 20:00Z), cc-2026-12-12 (7 matches, 13:00Z-17:30Z). These rows use `prefix`+`dates`: build_rugby_window.py discovers every Polymarket event whose slug starts with ruurc-/rueuchamp- and ends with that date, so team codes are not needed. Same behaviour: build fails cleanly until listed. The URC 5 Dec window runs about 10 h (12:15Z to ~22:20Z); the rest 3-7 h. Expected load: up to 6 matches x 3 markets x 2 tokens per window, same as Top 14 AB.
 Test: discovery built T (ruurc 2026-10-31) and T2 (rueuchamp 2026-10-18) from past events OK.
+
+## Update 09:10Z (Nick: November captures)
+Added 2 Top 14 rows: top14-2026-11-28 (6 matches from 13:30Z) and top14-2026-11-29 (ASM-RC, 20:05Z). Polymarket lists about 2 weeks ahead, so these build around 14-15 Nov and --run-due will pick them up. The 28 Nov window runs to the last kickoff + 2h35. No Rugbyrama match ids exist for these (ESPN score clock only); if the rugby thread supplies ids it will add them to RR_MATCHES.
+No row for the November internationals: Polymarket lists NO international match (no Nations Championship / Autumn tests series exists there; only Six Nations, Rugby Championship, Rugby's Greatest Rivalry). Nothing to capture until such an event is listed.
