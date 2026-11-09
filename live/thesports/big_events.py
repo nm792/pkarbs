@@ -1092,7 +1092,7 @@ if os.environ.get('TRADE') and os.environ.get('SIGNAL'):
         if not r or r[1] <= 0 or r[2] >= 1 or r[2] <= r[1]: return None
         bb, ba, q = r[1], r[2], r[3]
         d = {'taker': S - ba, 'mid': S - (bb + ba) / 2, 'spread': ba - bb, 'ask': ba, 'q': q}
-        for hz in (60, 180):
+        for hz in (60, 300, 900):
             r2 = row(f, te + hz, maxage=15); m2 = mid_at(f, te + hz)
             d['mtm%d' % hz] = (m2 - ba) if m2 is not None else None            # buy at ask, valued at later mid (no exit cost)
             d['rt%d' % hz] = (r2[1] - ba) if r2 else None                       # buy at ask, sell at later best bid (full round trip)
@@ -1138,10 +1138,54 @@ if os.environ.get('TRADE') and os.environ.get('SIGNAL'):
             print(line('mean spread paid (ask-bid)', R, P, lambda o: o['spread']))
             print(line('TAKER at ask, hold: net per share', R, P, lambda o: o['taker']))
             print(line('(same, valued at mid, no spread)', R, P, lambda o: o['mid']))
-            for hz in (60, 180):
+            for hz in (60, 300, 900):
                 print(line('TAKER buy ask, value at mid +%ds (no exit cost)' % hz, R, P, lambda o, hz=hz: o['mtm%d' % hz]))
                 print(line('TAKER buy ask, SELL at bid +%ds (round trip)' % hz, R, P, lambda o, hz=hz: o['rt%d' % hz]))
             print(line('BID at best bid: fill rate', R, P, lambda o: o['filled'], scale=100, unit='%'))
             print(line('BID net per attempt (0 if no fill)', R, P, lambda o: o['bid']))
             print(line('BID net per FILL', R, P, lambda o: o['bidfill'], cond=lambda o: o['filled'] > 0))
             print(line('queue ahead at landing (shares)', R, P, lambda o: o['q'], scale=1, unit=' sh'))
+
+# ---- TRADE_DETAIL (Nick 9 Nov 00:19Z "how is this noisy?"): per-match view of hold-to-resolution taker payoff, clustered bootstrap, leave-out, multiple-test correction
+if os.environ.get('TRADE_DETAIL') and os.environ.get('TRADE') and os.environ.get('SIGNAL'):
+    def hold_diff(R, P, skip=()):
+        ra = agg({k: v for k, v in R.items() if k not in skip}, lambda o: o['taker']); pa = agg({k: v for k, v in P.items() if k not in skip}, lambda o: o['taker'])
+        (rm, rn), (pm, pn) = mean_of(ra), mean_of(pa)
+        return ra, pa, rm, pm
+    allp = []   # p-values of every hold-to-resolution taker test run above (for correction)
+    for gname, L, bands in TG:
+        for bname, band in bands:
+            R, P = trade_events(L, band)
+            if sum(len(v) for v in R.values()) < 8: continue
+            ra, pa = agg(R, lambda o: o['taker']), agg(P, lambda o: o['taker'])
+            b = bdiff(ra, pa)
+            if b: allp.append(((gname, bname), b[2]))
+    print('\n### hold-to-resolution TAKER: %d tests run; Holm-adjusted p-values (clustered by match)' % len(allp))
+    order = sorted(allp, key=lambda x: x[1]); m = len(order); run = 0.0
+    for i, (nm, pv) in enumerate(order):
+        run = max(run, min(1.0, (m - i) * pv)); print('   %-45s raw p=%.3f  Holm p=%.3f' % (nm[0] + ' | ' + nm[1], pv, run))
+    R, P = trade_events(tp, (0.40, 0.60))
+    ra, pa, rm, pm = hold_diff(R, P)
+    print('\n### TENNIS 40-60%% per match (cluster = match): real events %d in %d matches; placebo %d' % (sum(len(v) for v in R.values()), len(R), sum(len(v) for v in P.values())))
+    rows = []
+    for k in sorted(R):
+        rv = [o['taker'] for o in R[k]]; pv = [o['taker'] for o in P.get(k, [])]
+        win = sum(1 for o in R[k] if o['taker'] + o['ask'] > 0.5) / len(R[k])
+        rows.append((k, len(rv), sum(rv) / len(rv), (sum(pv) / len(pv)) if pv else None, win, sum(o['ask'] for o in R[k]) / len(R[k])))
+    print('   match key                       n   real c   placebo c   fav-won share  mean ask')
+    for r in sorted(rows, key=lambda r: -(r[2] - (r[3] or 0))):
+        print('   %-30s %3d  %+7.1f  %9s   %5.0f%%   %.2f' % (str(r[0])[:30], r[1], r[2] * 100, ('%+.1f' % (r[3] * 100)) if r[3] is not None else 'n/a', r[4] * 100, r[5]))
+    diffs = [(r[2] - r[3]) for r in rows if r[3] is not None]
+    rr = [(r[2], r[3]) for r in rows if r[3] is not None]
+    print('   equal-weight-per-match mean(real-placebo) = %+.1fc over %d matches, sd %.1fc, se %.1fc' % (statistics.mean(diffs) * 100, len(diffs), statistics.pstdev(diffs) * 100, statistics.pstdev(diffs) / len(diffs) ** 0.5 * 100))
+    print('   matches with real > placebo: %d of %d' % (sum(1 for d in diffs if d > 0), len(diffs)))
+    bd = bdiff(ra, pa)
+    print('   event-pooled, match-clustered bootstrap: real %+.1fc placebo %+.1fc diff 90%% CI [%+.1f, %+.1f] raw p=%.3f' % (rm * 100, pm * 100, bd[0] * 100, bd[1] * 100, bd[2]))
+    # leave-top-k-matches-out
+    ranked = [r[0] for r in sorted(rows, key=lambda r: -(r[2] - (r[3] or 0)))]
+    for kk in (1, 2, 3, 5):
+        sk = set(ranked[:kk]); ra2, pa2, rm2, pm2 = hold_diff(R, P, skip=sk); b2 = bdiff(ra2, pa2)
+        print('   drop top %d matches: real %+.1fc placebo %+.1fc diff 90%% CI [%+.1f, %+.1f] p=%.3f' % (kk, rm2 * 100, pm2 * 100, b2[0] * 100, b2[1] * 100, b2[2]))
+    # why noisy: payoff per share is S - ask, S is 0/1
+    allv = [o['taker'] for v in R.values() for o in v]
+    print('   per-event payoff sd = %.1fc (S is 0 or 1), so naive se with n=%d is %.1fc; clustered over %d matches larger because events in one match share one winner' % (statistics.pstdev(allv) * 100, len(allv), statistics.pstdev(allv) / len(allv) ** 0.5 * 100, len(R)))
