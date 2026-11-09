@@ -1189,3 +1189,31 @@ if os.environ.get('TRADE_DETAIL') and os.environ.get('TRADE') and os.environ.get
     # why noisy: payoff per share is S - ask, S is 0/1
     allv = [o['taker'] for v in R.values() for o in v]
     print('   per-event payoff sd = %.1fc (S is 0 or 1), so naive se with n=%d is %.1fc; clustered over %d matches larger because events in one match share one winner' % (statistics.pstdev(allv) * 100, len(allv), statistics.pstdev(allv) / len(allv) ** 0.5 * 100, len(R)))
+
+# ================= PRE-REGISTERED RULES (committed 9 Nov before 01:00Z; see reviews/PREREG-thesports-2026-11-09.md) =================
+# PREREG=1 PREREG_AFTER=1794186000 (2026-11-09T01:00:00Z) with SIGNAL=1 TRADE=1 POINTS=1 DOTA=1. Only events at or after PREREG_AFTER count. Parameters are FIXED; do not edit after commit.
+if os.environ.get('PREREG') and os.environ.get('TRADE') and os.environ.get('SIGNAL'):
+    AFTER = float(os.environ.get('PREREG_AFTER', '1794186000'))
+    RULES = [
+        # name, event list, band, statistic key, label, target N (qualifying matches/games with >=1 entry)
+        ('T1 TENNIS point, quiet, fav 0.40-0.60, buy ask at t+1.2 s, hold to resolution', tp, (0.40, 0.60), 'taker', 60),
+        ('D1 DOTA kill, quiet, fav 0.60-0.90, buy ask at t+1.2 s, value at mid 60 s later', allk, (0.60, 0.90), 'mtm60', 40),
+    ]
+    print('\n=== PRE-REGISTERED RULES: events at/after %s UTC only; success = 90%% match-clustered CI for (real - placebo) entirely above 0, evaluated ONCE at target N ===' % __import__('datetime').datetime.utcfromtimestamp(AFTER).strftime('%Y-%m-%d %H:%MZ'))
+    for name, L, band, key, N in RULES:
+        L2 = [x for x in L if x[1] >= AFTER]
+        R, P = trade_events(L2, band)
+        n = len(R); ne = sum(len(v) for v in R.values())
+        print('\n## %s\n   post-cutoff qualifying matches/games: %d of target %d (entries %d)' % (name, n, N, ne))
+        # history rate (pre-cutoff too), for the ETA
+        Rh, _ = trade_events(L, band); days = collections.defaultdict(set)
+        for k, v in Rh.items():
+            pass
+        if n >= N or os.environ.get('PREREG_INTERIM'):
+            ra, pa = agg(R, lambda o: o[key]), agg(P, lambda o: o[key])
+            (rm, rn), (pm, pn) = mean_of(ra), mean_of(pa); b = bdiff(ra, pa)
+            tag = 'PRE-REGISTERED TEST' if n >= N else 'INTERIM, NOT A TEST (n below target)'
+            if b: print('   %s: real %+.2fc (n%d) placebo %+.2fc (n%d) diff 90%% CI [%+.2f, %+.2f] p=%.3f' % (tag, rm * 100, rn, pm * 100, pn, b[0] * 100, b[1] * 100, b[2]))
+            else: print('   %s: no data' % tag)
+        else:
+            print('   not evaluated: below target N (no peeking)')
