@@ -180,3 +180,10 @@ Verdict: TheSports is 20-30 s behind the price on these events, more than on ord
 - Rates from pre-cutoff history: T1 ~11 qualifying matches/day (23 in ~2 effective days); D1 ~13 qualifying games/day (20 games in ~1.5 days). Expected: T1 reaches 60 matches ~14-15 Nov, ~130 by 21 Nov; D1 reaches 40 games ~12-13 Nov, ~110 by 21 Nov (more once BLAST starts 17 Nov).
 - Sensitivity (80% power, one-sided 5%): T1 per-match sd 28.7c -> detects +9c at 60 matches, +6c at 130. D1 per-game sd ~3.1c -> detects +1.2c at 40 games, +0.8c at ~110.
 - A pass means <=5% chance the effect is zero for that rule (single pre-registered test, no multiple-test penalty). It does not prove fills; real fills need a small live test (standalone approval card, only after a rule passes).
+
+## Lead-time cut (9 Nov 02:30Z; raw: reviews/thesports-leadcut-2026-11-09.txt)
+Among quiet-at-message events, split by whether the price's half-move came more than 2 s AFTER the message (feed leads) or at/before it (price first). Look-ahead diagnostic (ceiling): the split uses the later price path, so it is not a tradeable filter. Placebo shares are the same split at shifted times.
+- Share of quiet events where the feed leads by >2 s: tennis 40-60% 12.0% vs placebo 10.7% (p=0.71); tennis 10-60% 8.5% vs 8.1%; Dota 60-90% 15.4% vs 12.1% (p=0.53). Not more often than at random times.
+- Price already moved first (big move): tennis 40-60% 21.3% vs 10.1% (p=0.01); Dota 60-90% 28.2% vs 16.8% (p=0.10). Quiet entries are more often too late than random ones.
+- Price capture (buy ask, mid +60 s) among feed-leads events: tennis 40-60% +3.06c vs placebo +4.85c (n9, p=0.00 worse); tennis 10-60% +3.38c vs +4.67c (n21); Dota 60-90% +4.42c vs +6.01c (n6). No better than placebo even in the ceiling case. Counts 5-21 events, so thin.
+Reading: the ~1c post-message drift is not coming from events where TheSports beats the price by seconds; it appears alongside, not because of, a feed lead. Does not change the pre-registered tests, which are the arbiter. Tennis/Dota remain UNKNOWN pending those tests.

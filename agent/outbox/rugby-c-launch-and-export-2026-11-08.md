@@ -10,3 +10,6 @@ C did NOT auto-launch at 19:50Z (no process, no C files, no crontab entry for it
 
 ## 2. Export step (after C ends ~22:35Z)
 Not yet due (C still running; est. end ~22:35Z). Will copy C_clob.jsonl, C_trades.jsonl, C_espn.jsonl, C_rugbyrama_events.jsonl, C_log.txt (and the D equivalents) to /mnt/project-files/rugby/live-2026-11/ and list paths+sizes on completion. Nothing committed now — C raw jsonl are live on the volume, not pushed.
+
+## UPDATE (2026-11-09 01:39Z): export COMPLETED.
+All 10 C and D raw files (clob, trades, espn, rugbyrama_events, log) are now in /mnt/project-files/rugby/live-2026-11/ with sizes listed in agent/outbox/rugby-cd-export-status-2026-11-09.md.

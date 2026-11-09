@@ -1151,6 +1151,15 @@ if os.environ.get('TRADE') and os.environ.get('SIGNAL'):
             print(line('BID net per attempt (0 if no fill)', R, P, lambda o: o['bid']))
             print(line('BID net per FILL', R, P, lambda o: o['bidfill'], cond=lambda o: o['filled'] > 0))
             print(line('queue ahead at landing (shares)', R, P, lambda o: o['q'], scale=1, unit=' sh'))
+            # lead-time cut (look-ahead diagnostic, ceiling): did the price's half-move come AFTER our landing (feed led by > DLY+0.2+... s)?
+            late2 = lambda o: o['big'] and o['lead'] > 2          # TheSports led the price by > 2 s
+            early_ = lambda o: o['big'] and o['lead'] <= 2        # price moved first or at the message
+            print(line('LEAD CUT share: feed leads price by >2 s', R, P, lambda o: 1.0 if late2(o) else 0.0, scale=100, unit='%'))
+            print(line('LEAD CUT share: price moved first (big move)', R, P, lambda o: 1.0 if early_(o) else 0.0, scale=100, unit='%'))
+            print(line('LEAD CUT share: no big move', R, P, lambda o: 1.0 if not o['big'] else 0.0, scale=100, unit='%'))
+            for nm_, cd_ in (('feed leads >2 s', late2), ('price moved first', early_)):
+                print(line('  [%s] buy ask, value at mid +60s' % nm_, R, P, lambda o: o['mtm60'], cond=cd_))
+                print(line('  [%s] hold to resolution' % nm_, R, P, lambda o: o['taker'], cond=cd_))
 
 # ---- TRADE_DETAIL (Nick 9 Nov 00:19Z "how is this noisy?"): per-match view of hold-to-resolution taker payoff, clustered bootstrap, leave-out, multiple-test correction
 if os.environ.get('TRADE_DETAIL') and os.environ.get('TRADE') and os.environ.get('SIGNAL'):
