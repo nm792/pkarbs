@@ -128,6 +128,7 @@ for r in msgs:
                         srv = sc.get('serve') if sc.get('serve') in (1, 2) else srv
                     if not fm:
                         for w, a_, b_, kind in trans:
+                            ev[key].append((t, w, 'tennis any point (%s)' % kind))
                             gp = lambda x, o: (x >= 6 and x - o >= 1) if tb else ((x == 3 and o < 3) or x == 4)
                             gh, ga = prv
                             spt = lambda x, o, gx, go: gp(x, o) and (tb or (gx == 5 and go <= 4) or (gx == 6 and go == 5))
@@ -369,3 +370,106 @@ if os.environ.get('TIMING'):
                             v.append(y - x)
                     out.append('%+.2f(n%d)' % (100 * sum(v) / len(v), len(v)) if v else 'n/a')
                 print('  %-9s %-7s %s' % (bn, lab, ' '.join('[%g,%g]%s' % (a, b, o) for (a, b), o in zip(WIN, out))))
+
+if os.environ.get('FAVTEST'):
+    # Nick 9 Nov 00:54Z: the favourite rule (T1: quiet, point winner's token mid in 0.40-0.60, buy ask at t+1.2, hold to resolution)
+    # split by point-message class and by whether the point winner is the favourite (mid at t-30 >= 0.50).
+    BAND = (0.40, 0.60); random.seed(33)
+    def ent_h(f, t):
+        a, b = mid(f, t), mid(f, t - 30)
+        if a is None or b is None or abs(a - b) >= 0.01 or not (0.40 <= b < 0.60): return None
+        e = row(f, t + DEL)
+        if not e or e[2] - e[1] > 0.05 or e[2] >= 0.99: return None
+        S = settle(f)
+        return None if S is None else (S - e[2], b)
+    def run(L, pred=lambda b: True, NP=30):
+        per = collections.defaultdict(list)
+        for key, t, sd, tk, sg in L:
+            if t < float(os.environ.get('PREREG_AFTER', '0')): continue
+            f = fav(tk, sg, sd)
+            if not f: continue
+            r0 = ent_h(f, t)
+            if not r0 or not pred(r0[1]): continue
+            pl = []
+            for _ in range(NP):
+                x = ent_h(f, t + random.choice([-1, 1]) * random.uniform(60, 600))
+                if x and pred(x[1]): pl.append(x[0])
+            if len(pl) < 3: continue
+            per[key[1]].append((r0[0], sum(pl) / len(pl)))
+        return per
+    def summ(per):
+        ms = [(sum(a for a, _ in v) / len(v), sum(b for _, b in v) / len(v)) for v in per.values()]
+        if len(ms) < 3: return 'n=%d events, %d matches (too few)' % (sum(len(v) for v in per.values()), len(ms))
+        d = [a - b for a, b in ms]; n = len(d)
+        bs = sorted(sum(random.choice(d) for _ in d) / n for _ in range(1500))
+        return 'events %d matches %d | real %+.1fc placebo %+.1fc diff %+.1fc 90%% CI [%+.1f, %+.1f]' % (sum(len(v) for v in per.values()), n, 100 * sum(a for a, _ in ms) / n, 100 * sum(b for _, b in ms) / n, 100 * sum(d) / n, 100 * bs[75], 100 * bs[1424])
+    tpk = lambda kinds: [x for c, L in classes.items() for x in L if c.startswith('tennis any point') and any(k in c for k in kinds)]
+    print('\n=== FAVOURITE RULE (quiet, winner token 0.40-0.60, buy ask t+1.2, HOLD to resolution; real - placebo; cluster = match) ===')
+    allpts = tpk(['listed', 'decisive'])
+    fv = lambda b: b >= 0.50; dg = lambda b: b < 0.50
+    for lab, L in (('ALL point messages', allpts), ('listed points only', tpk(['listed'])), ('decisive point (game-score message) only', tpk(['decisive']))):
+        print('\n## %s' % lab)
+        for sl, pr in (('winner token 0.40-0.60', lambda b: True), ('winner is FAVOURITE (0.50-0.60)', fv), ('winner is UNDERDOG (0.40-0.50)', dg)):
+            print('   %-34s %s' % (sl, summ(run(L, pr))))
+    print('\n## by point class (winner token 0.40-0.60; favourite/underdog split)')
+    for c in sorted(classes):
+        if not c.startswith('tennis') or c.startswith('tennis any'): continue
+        L = classes[c]
+        for sl, pr in (('any', lambda b: True), ('fav wins', fv), ('dog wins', dg)):
+            print('   %-48s %-9s %s' % (c, sl, summ(run(L, pr))))
+    # does a class add value beyond the rule? within the rule: class events vs all OTHER point events of the same matches
+    print('\n## incremental: class minus rest-of-points (same rule), per-match difference')
+    restkey = lambda L: set((x[0][1], round(x[1], 1)) for x in L)
+    base = run(allpts)
+    for c in sorted(classes):
+        if not c.startswith('tennis') or c.startswith('tennis any'): continue
+        cls = run(classes[c])
+        ms = [m for m in cls if m in base]
+        if len(ms) < 5: print('   %-48s too few shared matches (%d)' % (c, len(ms))); continue
+        d = []
+        for m in ms:
+            ca = sum(a - b for a, b in cls[m]) / len(cls[m]); ba = sum(a - b for a, b in base[m]) / len(base[m]); d.append(ca - ba)
+        bs = sorted(sum(random.choice(d) for _ in d) / len(d) for _ in range(1500))
+        print('   %-48s matches %d | class minus all-points diff %+.1fc 90%% CI [%+.1f, %+.1f]' % (c, len(d), 100 * sum(d) / len(d), 100 * bs[75], 100 * bs[1424]))
+
+if os.environ.get('UNDERDOG'):
+    # U1/U2 (see reviews/PREREG-thesports-underdog-2026-11-09.md). Tennis in-play = between first and last TheSports message of the match.
+    AFTER = float(os.environ.get('PREREG_AFTER', '0')); random.seed(44)
+    span = {}
+    for r in msgs:
+        if not r['topic'].endswith('tennis/match/v1'): continue
+        try: ps = json.loads(r['p'])
+        except Exception: continue
+        for p_ in ps:
+            a_ = span.setdefault(p_['id'], [r['ms'] / 1000.0, r['ms'] / 1000.0]); a_[1] = r['ms'] / 1000.0
+    u1 = collections.defaultdict(list); u2 = {}
+    for key in sorted(k for k in pair if k[0] == 'tennis'):
+        if key[1] not in span: continue
+        tk, sg = pair[key]; t0, t1 = span[key[1]]
+        for f in (tk, partner.get(tk)):
+            if not f or f not in book: continue
+            S = settle(f)
+            if S is None: continue
+            first_in = None; t = t0 + 60
+            while t < t1 - 60:
+                if t >= AFTER:
+                    m = mid(f, t)
+                    if m is not None and 0.40 <= m < 0.50:
+                        e = row(f, t + 1.0)
+                        if e and e[2] - e[1] <= 0.05 and e[2] < 0.99:
+                            u1[key[1]].append(S - e[2])
+                            if first_in is None: first_in = S - e[2]
+                t += 60
+            if first_in is not None: u2.setdefault(key[1], []).append(first_in)
+    def ci(d):
+        ms = [sum(v) / len(v) for v in d.values()]
+        if len(ms) < 3: return 'matches %d (too few)' % len(ms)
+        n = len(ms); bs = sorted(sum(random.choice(ms) for _ in ms) / n for _ in range(2000))
+        p1 = sum(1 for b in bs if b <= 0) / len(bs)
+        return 'matches %d | mean per match %+.1fc | 90%% CI [%+.1f, %+.1f] | one-sided boot p(<=0) %.3f | matches with +payoff %d' % (n, 100 * sum(ms) / n, 100 * bs[100], 100 * bs[1899], p1, sum(1 for m in ms if m > 0))
+    print('\n=== UNDERDOG (token mid 0.40-0.50, in play, 60 s grid, buy ask at +1 s, hold to resolution; benchmark 0 = fair price); events at/after %s ===' % AFTER)
+    print('U1 every grid time  :', ci(u1), '| entries', sum(len(v) for v in u1.values()))
+    print('U2 first time in band (per token per match):', ci(u2))
+    if os.environ.get('UDBG'):
+        vals = sorted((round(100 * sum(v) / len(v), 1), len(v)) for v in u2.values())
+        print('U2 per-match (mean c, n tokens):', vals)
