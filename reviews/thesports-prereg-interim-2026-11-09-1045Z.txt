@@ -1,0 +1,760 @@
+coverage {('tennis', 'event games'): 198, ('tennis', 'names found'): 182, ('tennis', 'paired to PM market by names'): 124, ('cs2', 'event games'): 100, ('cs2', 'names found'): 92, ('cs2', 'paired to PM market by names'): 73}
+paired games with big events: tennis 118 cs2 73 lol 1
+
+JUMP TABLE (favourable mid move t-10..t+30, any timing, pre 25-75%, cents)
+cs2 early/mid round (loser<10)                       events 1021 with price data 391 | median move +0.00c | share >=3c: 19%
+cs2 map-winning round (13-x regulation)              events  58 with price data   0 | median move +nanc | share >=3c: n/a
+cs2 overtime round (both >=12)                       events 116 with price data  29 | median move +0.00c | share >=3c: 31%
+cs2 round -> winner at 12 (map point)                events  84 with price data  17 | median move +0.00c | share >=3c: 41%
+cs2 round, loser already >=10 (late, winner<12)      events 108 with price data  50 | median move -0.50c | share >=3c: 16%
+lol inhibitor (type 3)                               events   1 with price data   0 | median move +nanc | share >=3c: n/a
+lol tower (type 2)                                   events   4 with price data   0 | median move +nanc | share >=3c: n/a
+tennis break (set goes on)                           events 485 with price data 195 | median move +0.50c | share >=3c: 27%
+tennis break that wins the set                       events  54 with price data  21 | median move +0.00c | share >=3c: 14%
+tennis break that wins the set (winner now 2 sets)   events  36 with price data   0 | median move +nanc | share >=3c: n/a
+tennis hold at 5+ games (not set-ending)             events 384 with price data 140 | median move +0.00c | share >=3c: 11%
+tennis hold that wins the set                        events  91 with price data  33 | median move +0.00c | share >=3c: 3%
+tennis hold that wins the set (winner now 2 sets)    events  49 with price data   0 | median move +nanc | share >=3c: n/a
+
+classes kept (median >=3c): NONE
+
+--- POINT-LEVEL: points seen live (not first message) with server known: 14739 | paired to name-verified matches ---
+
+point: other | events 8848, matches 124
+  move real  [-30,+0]s median +2.00c mean +2.15c (n3609) || [+0,+30]s median +0.00c mean +0.25c (n3570)
+  move plac  [-30,+0]s median +0.00c mean +0.01c (n17718) || [+0,+30]s median +0.00c mean +0.02c (n17466)
+  net taker (buy ask +1.2 s, sell bid +10s, all events, spread<=3c, 25-75%): real n=2922 median -1.00c mean -1.49c | placebo n=14113 median -1.00c mean -1.40c | mean diff 90% CI [-0.26, +0.05]
+  net taker (buy ask +1.2 s, sell bid +30s, all events, spread<=3c, 25-75%): real n=2911 median -1.00c mean -1.36c | placebo n=14025 median -1.00c mean -1.44c | mean diff 90% CI [-0.05, +0.20]
+
+point: returner wins, creates break point | events 670, matches 115
+  move real  [-30,+0]s median +4.50c mean +4.93c (n279) || [+0,+30]s median +0.00c mean +0.92c (n275)
+  move plac  [-30,+0]s median +0.00c mean +0.31c (n1311) || [+0,+30]s median +0.00c mean +0.10c (n1330)
+  net taker (buy ask +1.2 s, sell bid +10s, all events, spread<=3c, 25-75%): real n=221 median -1.00c mean -1.83c | placebo n=1034 median -1.00c mean -1.39c | mean diff 90% CI [-1.03, +0.11]
+  net taker (buy ask +1.2 s, sell bid +30s, all events, spread<=3c, 25-75%): real n=219 median -2.00c mean -1.37c | placebo n=1057 median -1.00c mean -1.56c | mean diff 90% CI [-0.34, +0.72]
+
+point: server SAVES break point | events 557, matches 108
+  move real  [-30,+0]s median +3.50c mean +3.60c (n226) || [+0,+30]s median +1.00c mean +0.24c (n224)
+  move plac  [-30,+0]s median +0.00c mean -0.02c (n1095) || [+0,+30]s median +0.00c mean -0.26c (n1105)
+  net taker (buy ask +1.2 s, sell bid +10s, all events, spread<=3c, 25-75%): real n=184 median -1.00c mean -1.65c | placebo n=846 median -1.00c mean -1.60c | mean diff 90% CI [-0.55, +0.49]
+  net taker (buy ask +1.2 s, sell bid +30s, all events, spread<=3c, 25-75%): real n=183 median -1.00c mean -1.52c | placebo n=869 median -1.00c mean -1.91c | mean diff 90% CI [-0.35, +1.07]
+
+--- HALF-MOVE TIME relative to feed message (s; negative = price got half its move BEFORE the message). Events whose total move t-30..t+10 is >=3c favourable ---
+point: other                                                   real    n_big=1296 of 8848 (15%) | median -15 s, 10-90% range [-25, -4] s | share before message (<=-1): 94%
+point: other                                                   placebo n_big=3080 of 44240 (7%) | median -13 s, 10-90% range [-26, +3] s | share before message (<=-1): 82%
+point: returner wins, creates break point                      real    n_big=199 of  670 (30%) | median -15 s, 10-90% range [-25, -6] s | share before message (<=-1): 97%
+point: returner wins, creates break point                      placebo n_big=278 of 3350 (8%) | median -13 s, 10-90% range [-26, +5] s | share before message (<=-1): 81%
+point: server SAVES break point                                real    n_big=130 of  557 (23%) | median -13 s, 10-90% range [-24, -4] s | share before message (<=-1): 92%
+point: server SAVES break point                                placebo n_big=228 of 2785 (8%) | median -13 s, 10-90% range [-25, +5] s | share before message (<=-1): 79%
+
+== cs2 early/mid round (loser<10) | events 1021, maps/matches 72
+  move real    [-90,-60] +1.0c(n419) | [-60,-30] +1.0c(n403) | [-30,-15] +0.5c(n394) | [-15,-5] +0.0c(n390) | [-5,+5] +0.0c(n389) | [+5,+15] +0.0c(n382) | [+15,+60] +0.0c(n383)
+  move placebo [-90,-60] +0.0c(n1236) | [-60,-30] +0.0c(n1190) | [-30,-15] +0.0c(n1213) | [-15,-5] +0.0c(n1202) | [-5,+5] +0.0c(n1243) | [+5,+15] +0.0c(n1239) | [+15,+60] +0.0c(n1182)
+  half-move real    big moves 138 of 1021 (14%) | median -19 s, 10-90% [-28, +0]
+  half-move placebo big moves 508 of 5105 (10%) | median -11 s, 10-90% [-26, +7]
+  net taker +10s: real n=328 median -1.00c mean -1.39c | placebo n=1570 median -1.00c mean -1.39c | diff 90% CI [-0.20, +0.20]
+  net taker +30s: real n=328 median -1.00c mean -1.06c | placebo n=1525 median -1.00c mean -1.23c | diff 90% CI [-0.25, +0.65]
+
+== cs2 map-winning round (13-x regulation) | events 58, maps/matches 58
+  move real    [-90,-60] +0.8c(n2) | [-60,-30] +30.0c(n1) | n/a | n/a | n/a | n/a | n/a
+  move placebo [-90,-60] -0.5c(n18) | [-60,-30] -1.0c(n15) | [-30,-15] +0.0c(n9) | [-15,-5] +0.0c(n9) | [-5,+5] +0.0c(n14) | [+5,+15] +0.0c(n18) | [+15,+60] +0.0c(n7)
+  half-move real    big moves 0 of 58 (0%)
+  half-move placebo big moves 8 of 290 (3%) | median -16 s, 10-90% [-26, +6]
+  net taker +10s: n=0
+  net taker +30s: n=0
+
+== cs2 overtime round (both >=12) | events 116, maps/matches 29
+  move real    [-90,-60] +0.5c(n35) | [-60,-30] +3.2c(n32) | [-30,-15] +0.9c(n30) | [-15,-5] +0.0c(n29) | [-5,+5] +0.0c(n29) | [+5,+15] +0.0c(n27) | [+15,+60] +1.0c(n26)
+  move placebo [-90,-60] +0.5c(n85) | [-60,-30] +0.1c(n89) | [-30,-15] +0.0c(n97) | [-15,-5] +0.0c(n91) | [-5,+5] +0.0c(n78) | [+5,+15] +0.0c(n65) | [+15,+60] +3.0c(n75)
+  half-move real    big moves 14 of 116 (12%) | median -15 s, 10-90% [-28, +4]
+  half-move placebo big moves 57 of 580 (10%) | median -11 s, 10-90% [-26, +8]
+  net taker +10s: real n=24 median -1.00c mean -0.10c | placebo n=123 median -1.00c mean -0.83c | diff 90% CI [-1.07, +1.96]
+  net taker +30s: real n=24 median -1.00c mean +0.95c | placebo n=114 median -1.00c mean -0.48c | diff 90% CI [-0.24, +3.29]
+
+== cs2 round -> winner at 12 (map point) | events 84, maps/matches 69
+  move real    [-90,-60] +0.5c(n18) | [-60,-30] +4.5c(n19) | [-30,-15] +2.5c(n19) | [-15,-5] +0.0c(n17) | [-5,+5] +0.0c(n17) | [+5,+15] +0.0c(n17) | [+15,+60] +1.5c(n17)
+  move placebo [-90,-60] +0.0c(n58) | [-60,-30] +0.0c(n67) | [-30,-15] +0.0c(n61) | [-15,-5] +0.0c(n55) | [-5,+5] +0.0c(n50) | [+5,+15] +0.0c(n59) | [+15,+60] +0.5c(n55)
+  half-move real    big moves 11 of 84 (13%) | median -20 s, 10-90% [-29, -11]
+  half-move placebo big moves 23 of 420 (5%) | median -17 s, 10-90% [-25, +6]
+  net taker +10s: real n=16 median -1.00c mean -0.89c | placebo n=93 median -1.00c mean -1.55c | diff 90% CI [-0.96, +2.44]
+  net taker +30s: real n=16 median -1.50c mean +0.49c | placebo n=79 median -1.50c mean -1.47c | diff 90% CI [-1.84, +5.57]
+
+== cs2 round, loser already >=10 (late, winner<12) | events 108, maps/matches 37
+  move real    [-90,-60] +5.0c(n42) | [-60,-30] +1.5c(n45) | [-30,-15] +1.0c(n46) | [-15,-5] +0.0c(n49) | [-5,+5] +0.0c(n50) | [+5,+15] +0.0c(n49) | [+15,+60] +0.5c(n45)
+  move placebo [-90,-60] +0.0c(n125) | [-60,-30] +0.0c(n120) | [-30,-15] +0.0c(n109) | [-15,-5] +0.0c(n128) | [-5,+5] +0.0c(n111) | [+5,+15] +0.0c(n123) | [+15,+60] +0.5c(n112)
+  half-move real    big moves 16 of 108 (15%) | median -19 s, 10-90% [-28, +10]
+  half-move placebo big moves 64 of 540 (12%) | median -15 s, 10-90% [-28, +3]
+  net taker +10s: real n=42 median -1.00c mean -1.82c | placebo n=165 median -1.00c mean -1.42c | diff 90% CI [-1.05, +0.29]
+  net taker +30s: real n=42 median -1.15c mean -2.20c | placebo n=150 median -1.00c mean -2.21c | diff 90% CI [-1.76, +2.18]
+
+== cs2 ALL | events 1387, maps/matches 73
+  move real    [-90,-60] +1.0c(n516) | [-60,-30] +1.0c(n500) | [-30,-15] +0.5c(n489) | [-15,-5] +0.0c(n485) | [-5,+5] +0.0c(n485) | [+5,+15] +0.0c(n475) | [+15,+60] +0.0c(n471)
+  move placebo [-90,-60] +0.0c(n1533) | [-60,-30] +0.0c(n1505) | [-30,-15] +0.0c(n1512) | [-15,-5] +0.0c(n1491) | [-5,+5] +0.0c(n1447) | [+5,+15] +0.0c(n1483) | [+15,+60] +0.0c(n1449)
+  half-move real    big moves 179 of 1387 (13%) | median -19 s, 10-90% [-28, +0]
+  half-move placebo big moves 620 of 6935 (9%) | median -12 s, 10-90% [-26, +6]
+  net taker +10s: real n=410 median -1.00c mean -1.34c | placebo n=1944 median -1.00c mean -1.36c | diff 90% CI [-0.19, +0.21]
+  net taker +30s: real n=410 median -1.00c mean -1.00c | placebo n=1923 median -1.00c mean -1.11c | diff 90% CI [-0.39, +0.62]
+
+DOTA: event games 65, names found 61, paired to PM Game-N-Winner market 49
+   jwq2en game 1 Dota 2: Xipto Esports vs Power Rangers - Game 1 Winner | rows 3276 median spread 0.020 | events 37
+   w2r08e game 1 Dota 2: Inner Circle vs Spirit Academy - Game 1 Winner | rows 3284 median spread 0.040 | events 37
+   65mk6p game 1 Dota 2: potn9ki vs Nemiga Gaming - Game 1 Winner | rows 3389 median spread 0.040 | events 27
+   dnm920 game 1 Dota 2: Froglings vs Zenith - Game 1 Winner | rows 2052 median spread 0.030 | events 18
+   7oqd9x game 1 Dota 2: PuckChamp vs Nemiga Gaming - Game 1 Winner | rows 1806 median spread 0.030 | events 43
+   18q6g2 game 1 Dota 2: potn9ki vs Team Synapse - Game 1 Winner | rows 3495 median spread 0.030 | events 45
+   39mp8d game 1 Dota 2: Xipto Esports vs PlayTime - Game 1 Winner | rows 5026 median spread 0.020 | events 55
+   ypq3eg game 2 Dota 2: oveA vs Mena Warriors - Game 2 Winner | rows 2677 median spread 0.090 | events 25
+   82repw game 1 Dota 2: Power Rangers vs Zenith - Game 1 Winner | rows 2003 median spread 0.024 | events 30
+   7oqd9x game 2 Dota 2: PuckChamp vs Nemiga Gaming - Game 2 Winner | rows 3153 median spread 0.050 | events 27
+   82repw game 2 Dota 2: Power Rangers vs Zenith - Game 2 Winner | rows 4708 median spread 0.050 | events 33
+   18q6g2 game 2 Dota 2: potn9ki vs Team Synapse - Game 2 Winner | rows 5476 median spread 0.070 | events 39
+   65mk6p game 1 Dota 2: CyberHero vs Ka4kanarskie cyxariki - Game 1 Winner | rows 2302 median spread 0.020 | events 23
+   39mp8d game 2 Dota 2: Xipto Esports vs PlayTime - Game 2 Winner | rows 6441 median spread 0.020 | events 40
+   65mk6p game 2 Dota 2: CyberHero vs Ka4kanarskie cyxariki - Game 2 Winner | rows 4168 median spread 0.020 | events 21
+   xwrx8o game 2 Dota 2: Hokori vs Rottweilas Latam - Game 2 Winner | rows 55 median spread 0.920 | events 7
+   18q6g2 game 1 Dota 2: CyberHero vs angry birds - Game 1 Winner | rows 1803 median spread 0.040 | events 34
+   yomowk game 1 Dota 2: Xipto Esports vs Zenith - Game 1 Winner | rows 1181 median spread 0.020 | events 17
+   yomowk game 1 Dota 2: Inner Circle vs Zero Tenacity - Game 1 Winner | rows 1840 median spread 0.020 | events 25
+   y8m4eg game 1 Dota 2: Power Rangers vs PlayTime - Game 1 Winner | rows 4291 median spread 0.020 | events 58
+   ypq3eg game 1 Dota 2: Nemiga Gaming vs Team Synapse - Game 1 Winner | rows 2083 median spread 0.020 | events 31
+   yomowk game 2 Dota 2: Xipto Esports vs Zenith - Game 2 Winner | rows 2438 median spread 0.020 | events 27
+   18q6g2 game 2 Dota 2: CyberHero vs angry birds - Game 2 Winner | rows 3604 median spread 0.040 | events 36
+   yomowk game 2 Dota 2: Inner Circle vs Zero Tenacity - Game 2 Winner | rows 3244 median spread 0.050 | events 46
+   ypq3eg game 2 Dota 2: Nemiga Gaming vs Team Synapse - Game 2 Winner | rows 3723 median spread 0.020 | events 38
+   y8m4eg game 2 Dota 2: Power Rangers vs PlayTime - Game 2 Winner | rows 6283 median spread 0.020 | events 61
+   jxm89k game 1 Dota 2: Froglings vs potn9ki - Game 1 Winner | rows 1394 median spread 0.050 | events 39
+   glrwwg game 1 Dota 2: Power Rangers vs Team Synapse - Game 1 Winner | rows 1969 median spread 0.040 | events 52
+   xwrx8o game 1 Dota 2: Xipto Esports vs Nemiga Gaming - Game 1 Winner | rows 1896 median spread 0.020 | events 40
+   jxm89k game 2 Dota 2: Froglings vs potn9ki - Game 2 Winner | rows 1736 median spread 0.090 | events 22
+   xwrx8o game 2 Dota 2: Xipto Esports vs Nemiga Gaming - Game 2 Winner | rows 2905 median spread 0.020 | events 23
+   glrwwg game 2 Dota 2: Power Rangers vs Team Synapse - Game 2 Winner | rows 2933 median spread 0.020 | events 21
+   0or59n game 1 Dota 2: Yakult Brothers vs Zero Tenacity - Game 1 Winner | rows 1264 median spread 0.030 | events 14
+   wyrnxk game 1 Dota 2: PlayTime vs LEGION - Game 1 Winner | rows 2003 median spread 0.030 | events 39
+   7lm792 game 1 Dota 2: Amaru Gaming vs CyberHero - Game 1 Winner | rows 1067 median spread 0.030 | events 22
+   xwrx8o game 1 Dota 2: Nemiga Gaming vs Spirit Academy - Game 1 Winner | rows 2950 median spread 0.040 | events 65
+   0or59n game 2 Dota 2: Yakult Brothers vs Zero Tenacity - Game 2 Winner | rows 2144 median spread 0.030 | events 21
+   7lm792 game 2 Dota 2: Amaru Gaming vs CyberHero - Game 2 Winner | rows 2464 median spread 0.030 | events 47
+   wyrnxk game 2 Dota 2: PlayTime vs LEGION - Game 2 Winner | rows 2661 median spread 0.030 | events 30
+   54qle1 game 1 Dota 2: Xipto Esports vs Rottweilas Latam - Game 1 Winner | rows 668 median spread 0.190 | events 24
+   xwrx8o game 2 Dota 2: Nemiga Gaming vs Spirit Academy - Game 2 Winner | rows 2868 median spread 0.060 | events 39
+   5erg57 game 1 Dota 2: Froglings vs Ka4kanarskie cyxariki - Game 1 Winner | rows 1913 median spread 0.030 | events 39
+   3xmvxd game 1 Dota 2: Amaru Gaming vs Inner Circle - Game 1 Winner | rows 1846 median spread 0.050 | events 26
+   l4rjek game 1 Dota 2: Yakult Brothers vs PuckChamp - Game 1 Winner | rows 1505 median spread 0.030 | events 17
+   54qle1 game 2 Dota 2: Xipto Esports vs Rottweilas Latam - Game 2 Winner | rows 731 median spread 0.370 | events 20
+   l4rjek game 2 Dota 2: Yakult Brothers vs PuckChamp - Game 2 Winner | rows 2563 median spread 0.040 | events 19
+   5erg57 game 2 Dota 2: Froglings vs Ka4kanarskie cyxariki - Game 2 Winner | rows 2588 median spread 0.030 | events 47
+   3xmvxd game 2 Dota 2: Amaru Gaming vs Inner Circle - Game 2 Winner | rows 2856 median spread 0.050 | events 26
+   5erg57 game 1 Dota 2: CyberHero vs Team Lynx - Game 1 Winner | rows 1960 median spread 0.050 | events 34
+
+== DOTA KILLS | events 1161, games 49
+  signed move real    [-90,-60] mean +0.25c(n803) | [-60,-30] mean +0.23c(n805) | [-30,-15] mean -0.16c(n792) | [-15,+0] mean +0.38c(n777) | [+0,+15] mean +0.91c(n781) | [+15,+60] mean +0.26c(n764) | [-90,+60] mean +1.77c(n781)
+  signed move placebo [-90,-60] mean +0.16c(n2354) | [-60,-30] mean +0.26c(n2313) | [-30,-15] mean -0.05c(n2290) | [-15,+0] mean +0.08c(n2284) | [+0,+15] mean -0.05c(n2234) | [+15,+60] mean +0.09c(n2222) | [-90,+60] mean +0.65c(n2280)
+  half-move real    big moves 229 of 1161 | median -5 s, 10-90% [-27, +6]
+  half-move placebo big moves 781 of 5805 | median -14 s, 10-90% [-27, +5]
+  net taker +10s: real n=393 mean -1.40c median -1.00c | placebo n=2089 mean -1.90c | diff 90% CI [+0.26, +0.75]
+  net taker +30s: real n=391 mean -1.16c median -1.00c | placebo n=2081 mean -1.96c | diff 90% CI [+0.41, +1.22]
+
+== DOTA TOWERS | events 345, games 48
+  signed move real    [-90,-60] mean -0.62c(n161) | [-60,-30] mean -0.32c(n153) | [-30,-15] mean -0.22c(n153) | [-15,+0] mean -0.55c(n150) | [+0,+15] mean -0.35c(n150) | [+15,+60] mean +0.64c(n145) | [-90,+60] mean -1.15c(n149)
+  signed move placebo [-90,-60] mean -0.13c(n505) | [-60,-30] mean +0.20c(n477) | [-30,-15] mean +0.05c(n486) | [-15,+0] mean -0.08c(n487) | [+0,+15] mean -0.23c(n462) | [+15,+60] mean -0.55c(n467) | [-90,+60] mean +0.50c(n478)
+  half-move real    big moves 29 of 345 | median -13 s, 10-90% [-26, +6]
+  half-move placebo big moves 192 of 1725 | median -13 s, 10-90% [-27, +5]
+  net taker +10s: real n=65 mean -2.00c median -2.00c | placebo n=340 mean -2.03c | diff 90% CI [-0.66, +0.65]
+  net taker +30s: real n=65 mean -1.28c median -1.00c | placebo n=316 mean -3.01c | diff 90% CI [+0.23, +2.98]
+
+== DOTA BARRACKS | events 64, games 41
+  signed move real    [-90,-60] mean +1.45c(n15) | [-60,-30] mean -2.49c(n12) | [-30,-15] mean -2.53c(n12) | [-15,+0] mean +3.73c(n11) | [+0,+15] mean +2.00c(n11) | [+15,+60] mean -6.25c(n11) | [-90,+60] mean +1.22c(n10)
+  signed move placebo [-90,-60] mean +0.11c(n50) | [-60,-30] mean -0.95c(n53) | [-30,-15] mean +0.43c(n45) | [-15,+0] mean -1.34c(n42) | [+0,+15] mean -0.35c(n44) | [+15,+60] mean +1.97c(n42) | [-90,+60] mean +1.49c(n40)
+  half-move real    big moves 3 of 64 | median -9 s, 10-90% [-23, -8]
+  half-move placebo big moves 26 of 320 | median -13 s, 10-90% [-26, +4]
+  net taker +10s: real n=1 mean -3.00c median -3.00c | placebo n=23 mean -1.76c | diff 90% CI [-1.59, -0.50]
+  net taker +30s: real n=1 mean -2.00c median -2.00c | placebo n=20 mean -1.74c | diff 90% CI [-1.83, +0.81]
+
+Roshan timer starts (side unknown, counts only): 44
+
+=== SIGNAL vs NOISE: pooled over 3 slim dir(s); favourable = side the event helps; cents; placebo = same events shifted +-60-600 s (5 each); CI/p = bootstrap over games ===
+before = fav mid move t-30..t (price already reacting); after = move t..t+30; QUIET = price moved <1c in the 30 s before the message (known at message time, so tradeable-filter, not look-ahead)
+
+## TENNIS all points | all prices | events with prices 7783, games 120
+    before: move t-30..t, all                    real   +1.97c (n7783) | placebo   +0.00c (n204499) | diff 90% CI [+1.82, +2.09] p=0.00
+    after: move t..t+30, all                     real   +0.20c (n7637) | placebo   -0.01c (n200958) | diff 90% CI [+0.12, +0.29] p=0.00
+    after: move t..t+30, QUIET only              real   +0.29c (n1568) | placebo   +0.01c (n78737) | diff 90% CI [+0.15, +0.41] p=0.00
+    share QUIET at message                       real  +20.93% (n7783) | placebo  +39.59% (n204499) | diff 90% CI [-20.03, -17.20] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +36.22% (n7783) | placebo  +22.72% (n204499) | diff 90% CI [+12.17, +14.74] p=0.00
+    lead s (half-move rel. message), big only    real  -11.59s (n2819) | placebo  -11.92s (n46467) | diff 90% CI [-0.54, +1.22] p=0.56
+    share of big moves LATE (half-move >0 s)     real  +29.69% (n2819) | placebo  +34.67% (n46467) | diff 90% CI [-6.38, -3.56] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +58.53% (n2819) | placebo  +57.49% (n46467) | diff 90% CI [-0.48, +2.46] p=0.26
+
+## TENNIS all points | fav price 0.10-0.40 | events with prices 2281, games 107
+    before: move t-30..t, all                    real   +2.37c (n2281) | placebo   +0.10c (n49199) | diff 90% CI [+2.11, +2.41] p=0.00
+    after: move t..t+30, all                     real   +0.39c (n2256) | placebo   -0.05c (n48596) | diff 90% CI [+0.30, +0.58] p=0.00
+    after: move t..t+30, QUIET only              real   +0.70c (n366) | placebo   +0.03c (n18689) | diff 90% CI [+0.38, +0.99] p=0.00
+    share QUIET at message                       real  +16.57% (n2281) | placebo  +38.72% (n49199) | diff 90% CI [-23.83, -20.35] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +39.32% (n2281) | placebo  +21.32% (n49199) | diff 90% CI [+16.09, +19.81] p=0.00
+    lead s (half-move rel. message), big only    real   -8.61s (n897) | placebo   -9.71s (n10487) | diff 90% CI [-0.71, +2.89] p=0.29
+    share of big moves LATE (half-move >0 s)     real  +33.33% (n897) | placebo  +36.90% (n10487) | diff 90% CI [-6.12, -0.76] p=0.04
+    share of big moves EARLY (<=-10 s)           real  +54.52% (n897) | placebo  +55.22% (n10487) | diff 90% CI [-3.89, +2.32] p=0.67
+
+## TENNIS all points | fav price 0.40-0.60 | events with prices 1604, games 87
+    before: move t-30..t, all                    real   +2.62c (n1604) | placebo   +0.04c (n25905) | diff 90% CI [+2.30, +2.92] p=0.00
+    after: move t..t+30, all                     real   +0.35c (n1579) | placebo   -0.00c (n25619) | diff 90% CI [+0.17, +0.56] p=0.00
+    after: move t..t+30, QUIET only              real   +1.20c (n171) | placebo   -0.03c (n9182) | diff 90% CI [+0.73, +1.88] p=0.00
+    share QUIET at message                       real  +10.91% (n1604) | placebo  +36.17% (n25905) | diff 90% CI [-27.65, -22.63] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +46.01% (n1604) | placebo  +24.96% (n25905) | diff 90% CI [+18.57, +23.35] p=0.00
+    lead s (half-move rel. message), big only    real  -12.49s (n738) | placebo  -11.95s (n6467) | diff 90% CI [-2.26, +1.28] p=0.65
+    share of big moves LATE (half-move >0 s)     real  +29.54% (n738) | placebo  +35.55% (n6467) | diff 90% CI [-8.72, -3.29] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +59.62% (n738) | placebo  +56.98% (n6467) | diff 90% CI [-0.48, +5.52] p=0.16
+
+## TENNIS all points | fav price 0.60-0.90 | events with prices 2450, games 109
+    before: move t-30..t, all                    real   +1.84c (n2450) | placebo   -0.11c (n53551) | diff 90% CI [+1.80, +2.11] p=0.00
+    after: move t..t+30, all                     real   -0.04c (n2421) | placebo   +0.00c (n52885) | diff 90% CI [-0.22, +0.11] p=0.67
+    after: move t..t+30, QUIET only              real   -0.11c (n349) | placebo   -0.05c (n19237) | diff 90% CI [-0.44, +0.28] p=0.85
+    share QUIET at message                       real  +14.57% (n2450) | placebo  +36.63% (n53551) | diff 90% CI [-23.65, -20.43] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +40.90% (n2450) | placebo  +24.96% (n53551) | diff 90% CI [+14.09, +17.68] p=0.00
+    lead s (half-move rel. message), big only    real  -14.28s (n1002) | placebo  -13.40s (n13365) | diff 90% CI [-2.22, +0.55] p=0.30
+    share of big moves LATE (half-move >0 s)     real  +25.85% (n1002) | placebo  +32.05% (n13365) | diff 90% CI [-8.26, -3.96] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +62.87% (n1002) | placebo  +59.66% (n13365) | diff 90% CI [+1.02, +5.50] p=0.02
+
+## TENNIS break-point points | all prices | events with prices 951, games 107
+    before: move t-30..t, all                    real   +3.36c (n951) | placebo   -0.00c (n24597) | diff 90% CI [+2.96, +3.72] p=0.00
+    after: move t..t+30, all                     real   +0.40c (n918) | placebo   -0.03c (n24181) | diff 90% CI [+0.13, +0.72] p=0.01
+    after: move t..t+30, QUIET only              real   +0.18c (n114) | placebo   -0.00c (n9305) | diff 90% CI [-0.23, +0.59] p=0.48
+    share QUIET at message                       real  +12.93% (n951) | placebo  +38.82% (n24597) | diff 90% CI [-27.91, -23.60] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +44.69% (n951) | placebo  +25.00% (n24597) | diff 90% CI [+16.93, +22.74] p=0.00
+    lead s (half-move rel. message), big only    real  -10.68s (n425) | placebo  -11.31s (n6149) | diff 90% CI [-1.38, +2.84] p=0.60
+    share of big moves LATE (half-move >0 s)     real  +29.65% (n425) | placebo  +35.21% (n6149) | diff 90% CI [-9.21, -1.72] p=0.01
+    share of big moves EARLY (<=-10 s)           real  +57.18% (n425) | placebo  +56.43% (n6149) | diff 90% CI [-3.47, +4.96] p=0.78
+
+## TENNIS break-point points | fav price 0.10-0.40 | events with prices 280, games 84
+    before: move t-30..t, all                    real   +4.04c (n280) | placebo   +0.27c (n5386) | diff 90% CI [+3.24, +4.28] p=0.00
+    after: move t..t+30, all                     real   +0.45c (n275) | placebo   +0.02c (n5314) | diff 90% CI [-0.26, +1.09] p=0.29
+    after: move t..t+30, QUIET only              real   +0.30c (n22) | placebo   +0.19c (n1925) | diff 90% CI [-1.14, +1.27] p=0.88
+    share QUIET at message                       real   +8.57% (n280) | placebo  +36.56% (n5386) | diff 90% CI [-31.44, -24.08] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +48.21% (n280) | placebo  +23.38% (n5386) | diff 90% CI [+19.85, +30.05] p=0.00
+    lead s (half-move rel. message), big only    real   -8.07s (n135) | placebo   -7.75s (n1259) | diff 90% CI [-5.05, +4.48] p=0.92
+    share of big moves LATE (half-move >0 s)     real  +35.56% (n135) | placebo  +38.84% (n1259) | diff 90% CI [-11.95, +5.39] p=0.58
+    share of big moves EARLY (<=-10 s)           real  +54.07% (n135) | placebo  +54.09% (n1259) | diff 90% CI [-7.54, +7.97] p=0.99
+
+## TENNIS break-point points | fav price 0.40-0.60 | events with prices 220, games 62
+    before: move t-30..t, all                    real   +4.79c (n220) | placebo   +0.12c (n3016) | diff 90% CI [+3.99, +5.40] p=0.00
+    after: move t..t+30, all                     real   +0.39c (n217) | placebo   +0.06c (n2992) | diff 90% CI [-0.34, +1.03] p=0.43
+    after: move t..t+30, QUIET only              real   +1.35c (n10) | placebo   +0.11c (n972) | diff 90% CI [-0.47, +2.59] p=0.25
+    share QUIET at message                       real   +4.55% (n220) | placebo  +32.79% (n3016) | diff 90% CI [-32.00, -24.34] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +54.09% (n220) | placebo  +29.84% (n3016) | diff 90% CI [+19.11, +29.71] p=0.00
+    lead s (half-move rel. message), big only    real  -13.57s (n119) | placebo  -10.79s (n900) | diff 90% CI [-7.08, +1.50] p=0.31
+    share of big moves LATE (half-move >0 s)     real  +24.37% (n119) | placebo  +36.56% (n900) | diff 90% CI [-18.59, -5.40] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +62.18% (n119) | placebo  +55.89% (n900) | diff 90% CI [-1.40, +13.55] p=0.17
+
+## TENNIS break-point points | fav price 0.60-0.90 | events with prices 268, games 87
+    before: move t-30..t, all                    real   +3.16c (n268) | placebo   -0.22c (n5286) | diff 90% CI [+2.91, +3.85] p=0.00
+    after: move t..t+30, all                     real   +0.05c (n259) | placebo   -0.04c (n5224) | diff 90% CI [-0.46, +0.59] p=0.80
+    after: move t..t+30, QUIET only              real   -0.53c (n15) | placebo   +0.04c (n1762) | diff 90% CI [-2.63, +1.51] p=0.67
+    share QUIET at message                       real   +5.97% (n268) | placebo  +33.90% (n5286) | diff 90% CI [-30.77, -25.03] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +51.49% (n268) | placebo  +27.79% (n5286) | diff 90% CI [+17.50, +29.92] p=0.00
+    lead s (half-move rel. message), big only    real  -11.76s (n138) | placebo  -12.88s (n1469) | diff 90% CI [-3.20, +5.50] p=0.67
+    share of big moves LATE (half-move >0 s)     real  +28.26% (n138) | placebo  +31.86% (n1469) | diff 90% CI [-9.81, +3.18] p=0.35
+    share of big moves EARLY (<=-10 s)           real  +58.70% (n138) | placebo  +59.29% (n1469) | diff 90% CI [-8.15, +6.91] p=0.93
+
+## TENNIS other points | all prices | events with prices 6832, games 120
+    before: move t-30..t, all                    real   +1.77c (n6832) | placebo   -0.00c (n180066) | diff 90% CI [+1.64, +1.91] p=0.00
+    after: move t..t+30, all                     real   +0.17c (n6719) | placebo   -0.00c (n176998) | diff 90% CI [+0.08, +0.26] p=0.00
+    after: move t..t+30, QUIET only              real   +0.30c (n1454) | placebo   -0.00c (n69499) | diff 90% CI [+0.16, +0.44] p=0.00
+    share QUIET at message                       real  +22.04% (n6832) | placebo  +39.65% (n180066) | diff 90% CI [-19.11, -16.11] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +35.04% (n6832) | placebo  +22.79% (n180066) | diff 90% CI [+10.94, +13.54] p=0.00
+    lead s (half-move rel. message), big only    real  -11.76s (n2394) | placebo  -12.24s (n41045) | diff 90% CI [-0.45, +1.39] p=0.37
+    share of big moves LATE (half-move >0 s)     real  +29.70% (n2394) | placebo  +34.06% (n41045) | diff 90% CI [-5.81, -2.84] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +58.77% (n2394) | placebo  +57.93% (n41045) | diff 90% CI [-0.77, +2.44] p=0.39
+
+## TENNIS other points | fav price 0.10-0.40 | events with prices 2001, games 106
+    before: move t-30..t, all                    real   +2.13c (n2001) | placebo   +0.11c (n43629) | diff 90% CI [+1.85, +2.18] p=0.00
+    after: move t..t+30, all                     real   +0.38c (n1981) | placebo   -0.09c (n43137) | diff 90% CI [+0.33, +0.61] p=0.00
+    after: move t..t+30, QUIET only              real   +0.72c (n344) | placebo   +0.01c (n16563) | diff 90% CI [+0.42, +1.05] p=0.00
+    share QUIET at message                       real  +17.69% (n2001) | placebo  +38.62% (n43629) | diff 90% CI [-22.71, -19.09] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +38.08% (n2001) | placebo  +20.72% (n43629) | diff 90% CI [+15.24, +19.42] p=0.00
+    lead s (half-move rel. message), big only    real   -8.70s (n762) | placebo  -10.44s (n9042) | diff 90% CI [-0.31, +3.86] p=0.16
+    share of big moves LATE (half-move >0 s)     real  +32.94% (n762) | placebo  +36.29% (n9042) | diff 90% CI [-6.51, -0.33] p=0.07
+    share of big moves EARLY (<=-10 s)           real  +54.59% (n762) | placebo  +55.55% (n9042) | diff 90% CI [-4.59, +2.36] p=0.63
+
+## TENNIS other points | fav price 0.40-0.60 | events with prices 1384, games 84
+    before: move t-30..t, all                    real   +2.28c (n1384) | placebo   +0.02c (n22720) | diff 90% CI [+1.95, +2.58] p=0.00
+    after: move t..t+30, all                     real   +0.35c (n1362) | placebo   +0.00c (n22475) | diff 90% CI [+0.14, +0.53] p=0.01
+    after: move t..t+30, QUIET only              real   +1.19c (n161) | placebo   -0.01c (n8006) | diff 90% CI [+0.69, +1.83] p=0.00
+    share QUIET at message                       real  +11.92% (n1384) | placebo  +35.88% (n22720) | diff 90% CI [-26.74, -20.98] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +44.73% (n1384) | placebo  +24.93% (n22720) | diff 90% CI [+17.12, +22.29] p=0.00
+    lead s (half-move rel. message), big only    real  -12.28s (n619) | placebo  -13.09s (n5663) | diff 90% CI [-0.92, +2.74] p=0.47
+    share of big moves LATE (half-move >0 s)     real  +30.53% (n619) | placebo  +34.17% (n5663) | diff 90% CI [-6.67, -0.25] p=0.07
+    share of big moves EARLY (<=-10 s)           real  +59.13% (n619) | placebo  +58.70% (n5663) | diff 90% CI [-2.79, +3.54] p=0.81
+
+## TENNIS other points | fav price 0.60-0.90 | events with prices 2182, games 108
+    before: move t-30..t, all                    real   +1.68c (n2182) | placebo   -0.12c (n48347) | diff 90% CI [+1.64, +1.95] p=0.00
+    after: move t..t+30, all                     real   -0.05c (n2162) | placebo   +0.02c (n47784) | diff 90% CI [-0.23, +0.08] p=0.48
+    after: move t..t+30, QUIET only              real   -0.10c (n334) | placebo   -0.11c (n17340) | diff 90% CI [-0.39, +0.33] p=0.94
+    share QUIET at message                       real  +15.63% (n2182) | placebo  +36.54% (n48347) | diff 90% CI [-22.58, -19.17] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +39.60% (n2182) | placebo  +24.64% (n48347) | diff 90% CI [+13.06, +16.89] p=0.00
+    lead s (half-move rel. message), big only    real  -14.68s (n864) | placebo  -13.10s (n11915) | diff 90% CI [-3.00, -0.14] p=0.07
+    share of big moves LATE (half-move >0 s)     real  +25.46% (n864) | placebo  +32.19% (n11915) | diff 90% CI [-8.99, -4.51] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +63.54% (n864) | placebo  +59.69% (n11915) | diff 90% CI [+1.48, +6.15] p=0.01
+
+## TENNIS game-level breaks (set goes on) | all prices | events with prices 367, games 101
+    before: move t-30..t, all                    real   +4.60c (n367) | placebo   +0.11c (n9642) | diff 90% CI [+3.98, +5.07] p=0.00
+    after: move t..t+30, all                     real   +0.15c (n354) | placebo   +0.21c (n9503) | diff 90% CI [-0.34, +0.23] p=0.72
+    after: move t..t+30, QUIET only              real   +0.55c (n40) | placebo   +0.12c (n3416) | diff 90% CI [-0.78, +1.94] p=0.61
+    share QUIET at message                       real  +12.53% (n367) | placebo  +36.22% (n9642) | diff 90% CI [-26.88, -20.70] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +70.03% (n367) | placebo  +30.28% (n9642) | diff 90% CI [+35.81, +43.61] p=0.00
+    lead s (half-move rel. message), big only    real  -26.21s (n257) | placebo  -11.19s (n2920) | diff 90% CI [-17.13, -12.66] p=0.00
+    share of big moves LATE (half-move >0 s)     real   +1.17% (n257) | placebo  +35.31% (n2920) | diff 90% CI [-36.48, -31.68] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +88.72% (n257) | placebo  +56.06% (n2920) | diff 90% CI [+28.09, +37.36] p=0.00
+
+## TENNIS game-level breaks (set goes on) | fav price 0.10-0.40 | events with prices 66, games 49
+    before: move t-30..t, all                    real   +5.82c (n66) | placebo   +0.37c (n1352) | diff 90% CI [+4.77, +6.28] p=0.00
+    after: move t..t+30, all                     real   +0.49c (n66) | placebo   +0.24c (n1345) | diff 90% CI [-0.56, +1.29] p=0.73
+    after: move t..t+30, QUIET only              n real 4 / placebo 445 (too few)
+    share QUIET at message                       real   +6.06% (n66) | placebo  +33.21% (n1352) | diff 90% CI [-34.19, -20.34] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +83.33% (n66) | placebo  +32.84% (n1352) | diff 90% CI [+41.67, +58.96] p=0.00
+    lead s (half-move rel. message), big only    real  -25.98s (n55) | placebo   -7.15s (n444) | diff 90% CI [-23.84, -13.41] p=0.00
+    share of big moves LATE (half-move >0 s)     real   +1.82% (n55) | placebo  +39.19% (n444) | diff 90% CI [-44.10, -30.11] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +90.91% (n55) | placebo  +50.90% (n444) | diff 90% CI [+29.44, +49.09] p=0.00
+
+## TENNIS game-level breaks (set goes on) | fav price 0.40-0.60 | events with prices 82, games 44
+    before: move t-30..t, all                    real   +4.92c (n82) | placebo   +0.15c (n1041) | diff 90% CI [+2.98, +6.61] p=0.00
+    after: move t..t+30, all                     real   -0.28c (n82) | placebo   -0.10c (n1036) | diff 90% CI [-0.95, +0.66] p=0.73
+    after: move t..t+30, QUIET only              real   +1.37c (n12) | placebo   +0.31c (n299) | diff 90% CI [-2.93, +5.34] p=0.69
+    share QUIET at message                       real  +14.63% (n82) | placebo  +28.82% (n1041) | diff 90% CI [-21.20, -6.02] p=0.01
+    share with a big move (>=3c, t-60..t+60)     real  +70.73% (n82) | placebo  +34.68% (n1041) | diff 90% CI [+26.82, +45.02] p=0.00
+    lead s (half-move rel. message), big only    real  -27.55s (n58) | placebo  -12.27s (n361) | diff 90% CI [-18.93, -11.15] p=0.00
+    share of big moves LATE (half-move >0 s)     real   +1.72% (n58) | placebo  +34.90% (n361) | diff 90% CI [-39.41, -26.42] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +94.83% (n58) | placebo  +56.79% (n361) | diff 90% CI [+30.08, +45.27] p=0.00
+
+## TENNIS game-level breaks (set goes on) | fav price 0.60-0.90 | events with prices 147, games 79
+    before: move t-30..t, all                    real   +5.43c (n147) | placebo   -0.27c (n2627) | diff 90% CI [+5.05, +6.42] p=0.00
+    after: move t..t+30, all                     real   +0.25c (n145) | placebo   +0.22c (n2610) | diff 90% CI [-0.31, +0.37] p=0.83
+    after: move t..t+30, QUIET only              real   +0.50c (n8) | placebo   +0.18c (n881) | diff 90% CI [-0.35, +0.96] p=0.41
+    share QUIET at message                       real   +6.12% (n147) | placebo  +33.92% (n2627) | diff 90% CI [-31.49, -23.65] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +80.95% (n147) | placebo  +31.98% (n2627) | diff 90% CI [+43.28, +54.59] p=0.00
+    lead s (half-move rel. message), big only    real  -25.47s (n119) | placebo  -12.61s (n840) | diff 90% CI [-15.61, -9.80] p=0.00
+    share of big moves LATE (half-move >0 s)     real   +0.00% (n119) | placebo  +32.50% (n840) | diff 90% CI [-35.14, -29.77] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +84.03% (n119) | placebo  +59.29% (n840) | diff 90% CI [+19.04, +30.48] p=0.00
+
+## CS2 all round wins | all prices | events with prices 1066, games 67
+    before: move t-30..t, all                    real   +1.73c (n1066) | placebo   +0.18c (n27836) | diff 90% CI [+1.20, +1.96] p=0.00
+    after: move t..t+30, all                     real   +0.23c (n1049) | placebo   +0.21c (n27547) | diff 90% CI [-0.21, +0.25] p=0.86
+    after: move t..t+30, QUIET only              real   +0.11c (n345) | placebo   +0.19c (n10637) | diff 90% CI [-0.34, +0.18] p=0.61
+    share QUIET at message                       real  +33.40% (n1066) | placebo  +38.72% (n27836) | diff 90% CI [-7.84, -2.89] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +49.25% (n1066) | placebo  +38.30% (n27836) | diff 90% CI [+7.67, +14.42] p=0.00
+    lead s (half-move rel. message), big only    real  -18.89s (n525) | placebo   -7.56s (n10660) | diff 90% CI [-13.75, -8.81] p=0.00
+    share of big moves LATE (half-move >0 s)     real  +22.86% (n525) | placebo  +39.73% (n10660) | diff 90% CI [-20.46, -13.25] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +72.76% (n525) | placebo  +51.26% (n10660) | diff 90% CI [+17.21, +25.22] p=0.00
+
+## CS2 all round wins | fav price 0.10-0.40 | events with prices 240, games 58
+    before: move t-30..t, all                    real   +2.51c (n240) | placebo   -0.03c (n4536) | diff 90% CI [+1.65, +3.41] p=0.00
+    after: move t..t+30, all                     real   +0.29c (n236) | placebo   +0.00c (n4508) | diff 90% CI [-0.37, +0.92] p=0.44
+    after: move t..t+30, QUIET only              real   -0.10c (n56) | placebo   +0.07c (n1731) | diff 90% CI [-1.19, +0.84] p=0.78
+    share QUIET at message                       real  +24.17% (n240) | placebo  +38.43% (n4536) | diff 90% CI [-19.72, -9.67] p=0.00
+    share with a big move (>=3c, t-60..t+60)     real  +55.42% (n240) | placebo  +34.48% (n4536) | diff 90% CI [+15.26, +26.31] p=0.00
+    lead s (half-move rel. message), big only    real  -18.90s (n133) | placebo   -3.68s (n1564) | diff 90% CI [-20.23, -10.01] p=0.00
+    share of big moves LATE (half-move >0 s)     real  +21.05% (n133) | placebo  +44.05% (n1564) | diff 90% CI [-28.89, -16.59] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +72.93% (n133) | placebo  +46.36% (n1564) | diff 90% CI [+19.20, +33.61] p=0.00
+
+## CS2 all round wins | fav price 0.40-0.60 | events with prices 197, games 38
+    before: move t-30..t, all                    real   +2.48c (n197) | placebo   -0.24c (n2271) | diff 90% CI [+1.74, +3.89] p=0.00
+    after: move t..t+30, all                     real   +0.40c (n197) | placebo   -0.27c (n2265) | diff 90% CI [-0.09, +1.35] p=0.15
+    after: move t..t+30, QUIET only              real   +0.14c (n50) | placebo   -0.26c (n719) | diff 90% CI [-0.57, +1.45] p=0.49
+    share QUIET at message                       real  +25.38% (n197) | placebo  +31.79% (n2271) | diff 90% CI [-12.75, -0.69] p=0.07
+    share with a big move (>=3c, t-60..t+60)     real  +53.81% (n197) | placebo  +39.10% (n2271) | diff 90% CI [+6.28, +23.13] p=0.01
+    lead s (half-move rel. message), big only    real  -17.58s (n106) | placebo   -7.88s (n888) | diff 90% CI [-15.77, -3.63] p=0.01
+    share of big moves LATE (half-move >0 s)     real  +28.30% (n106) | placebo  +40.09% (n888) | diff 90% CI [-21.83, -1.29] p=0.07
+    share of big moves EARLY (<=-10 s)           real  +66.98% (n106) | placebo  +50.34% (n888) | diff 90% CI [+5.80, +26.67] p=0.01
+
+## CS2 all round wins | fav price 0.60-0.90 | events with prices 404, games 62
+    before: move t-30..t, all                    real   +1.56c (n404) | placebo   +0.17c (n7074) | diff 90% CI [+0.99, +1.79] p=0.00
+    after: move t..t+30, all                     real   +0.18c (n400) | placebo   +0.11c (n7015) | diff 90% CI [-0.20, +0.35] p=0.68
+    after: move t..t+30, QUIET only              real   +0.16c (n123) | placebo   +0.25c (n2434) | diff 90% CI [-0.42, +0.27] p=0.68
+    share QUIET at message                       real  +30.94% (n404) | placebo  +34.80% (n7074) | diff 90% CI [-7.97, +0.15] p=0.12
+    share with a big move (>=3c, t-60..t+60)     real  +56.93% (n404) | placebo  +42.59% (n7074) | diff 90% CI [+9.84, +18.74] p=0.00
+    lead s (half-move rel. message), big only    real  -18.20s (n230) | placebo  -10.08s (n3013) | diff 90% CI [-11.49, -4.64] p=0.00
+    share of big moves LATE (half-move >0 s)     real  +21.30% (n230) | placebo  +35.61% (n3013) | diff 90% CI [-18.83, -9.58] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +74.78% (n230) | placebo  +55.29% (n3013) | diff 90% CI [+14.34, +24.24] p=0.00
+
+## CS2 late rounds (loser>=10) | all prices | events with prices 95, games 34
+    before: move t-30..t, all                    real   +2.11c (n95) | placebo   -0.17c (n2388) | diff 90% CI [+1.56, +3.05] p=0.00
+    after: move t..t+30, all                     real   -0.97c (n93) | placebo   +0.20c (n2350) | diff 90% CI [-2.27, -0.14] p=0.05
+    after: move t..t+30, QUIET only              real   -2.45c (n28) | placebo   +0.31c (n811) | diff 90% CI [-4.46, -1.20] p=0.00
+    share QUIET at message                       real  +29.47% (n95) | placebo  +34.42% (n2388) | diff 90% CI [-11.62, +1.27] p=0.21
+    share with a big move (>=3c, t-60..t+60)     real  +57.89% (n95) | placebo  +38.57% (n2388) | diff 90% CI [+13.09, +25.01] p=0.00
+    lead s (half-move rel. message), big only    real  -13.85s (n55) | placebo   -4.80s (n921) | diff 90% CI [-16.89, -1.02] p=0.06
+    share of big moves LATE (half-move >0 s)     real  +32.73% (n55) | placebo  +44.95% (n921) | diff 90% CI [-22.11, -2.43] p=0.05
+    share of big moves EARLY (<=-10 s)           real  +67.27% (n55) | placebo  +46.91% (n921) | diff 90% CI [+10.48, +29.31] p=0.00
+
+## CS2 late rounds (loser>=10) | fav price 0.10-0.40 | events with prices 46, games 21
+    before: move t-30..t, all                    real   +2.63c (n46) | placebo   +0.31c (n794) | diff 90% CI [+0.95, +3.97] p=0.01
+    after: move t..t+30, all                     real   -1.54c (n44) | placebo   +0.45c (n788) | diff 90% CI [-3.44, -0.53] p=0.02
+    after: move t..t+30, QUIET only              real   -2.76c (n13) | placebo   +0.71c (n242) | diff 90% CI [-6.07, -0.85] p=0.02
+    share QUIET at message                       real  +28.26% (n46) | placebo  +30.48% (n794) | diff 90% CI [-11.32, +7.07] p=0.66
+    share with a big move (>=3c, t-60..t+60)     real  +58.70% (n46) | placebo  +44.21% (n794) | diff 90% CI [+1.28, +24.92] p=0.07
+    lead s (half-move rel. message), big only    real  -18.93s (n27) | placebo   -4.79s (n351) | diff 90% CI [-26.79, -1.67] p=0.07
+    share of big moves LATE (half-move >0 s)     real  +22.22% (n27) | placebo  +44.44% (n351) | diff 90% CI [-37.00, -6.44] p=0.03
+    share of big moves EARLY (<=-10 s)           real  +77.78% (n27) | placebo  +47.58% (n351) | diff 90% CI [+12.93, +46.90] p=0.01
+
+## CS2 late rounds (loser>=10) | fav price 0.40-0.60 | events with prices 14, games 10
+    before: move t-30..t, all                    real   +3.29c (n14) | placebo   -1.20c (n112) | diff 90% CI [+2.23, +6.57] p=0.00
+    after: move t..t+30, all                     real   +0.75c (n14) | placebo   -2.45c (n112) | diff 90% CI [+1.05, +6.10] p=0.01
+    after: move t..t+30, QUIET only              n real 4 / placebo 31 (too few)
+    share QUIET at message                       real  +28.57% (n14) | placebo  +27.68% (n112) | diff 90% CI [-21.16, +17.34] p=0.93
+    share with a big move (>=3c, t-60..t+60)     real  +92.86% (n14) | placebo  +33.04% (n112) | diff 90% CI [+45.69, +74.17] p=0.00
+    lead s (half-move rel. message), big only    real  -20.08s (n13) | placebo  -12.30s (n37) | diff 90% CI [-24.01, +12.49] p=0.49
+    share of big moves LATE (half-move >0 s)     real  +38.46% (n13) | placebo  +40.54% (n37) | diff 90% CI [-28.21, +29.49] p=0.83
+    share of big moves EARLY (<=-10 s)           real  +61.54% (n13) | placebo  +51.35% (n37) | diff 90% CI [-21.26, +35.89] p=0.51
+
+## CS2 late rounds (loser>=10) | fav price 0.60-0.90 | events with prices 16, games 11
+    before: move t-30..t, all                    real   +1.19c (n16) | placebo   -1.76c (n164) | diff 90% CI [+1.02, +5.63] p=0.01
+    after: move t..t+30, all                     real   -1.84c (n16) | placebo   -1.13c (n163) | diff 90% CI [-6.00, +2.53] p=0.84
+    after: move t..t+30, QUIET only              n real 2 / placebo 43 (too few)
+    share QUIET at message                       real  +12.50% (n16) | placebo  +26.22% (n164) | diff 90% CI [-25.58, +0.21] p=0.11
+    share with a big move (>=3c, t-60..t+60)     real  +56.25% (n16) | placebo  +39.02% (n164) | diff 90% CI [-11.92, +44.82] p=0.33
+    lead s (half-move rel. message), big only    real   -5.44s (n9) | placebo   -3.89s (n64) | diff 90% CI [-12.10, +15.35] p=0.82
+    share of big moves LATE (half-move >0 s)     real  +33.33% (n9) | placebo  +46.88% (n64) | diff 90% CI [-38.89, +15.96] p=0.45
+    share of big moves EARLY (<=-10 s)           real  +66.67% (n9) | placebo  +45.31% (n64) | diff 90% CI [-8.89, +46.41] p=0.27
+
+## CS2 map point (round -> winner at 12) | all prices | events with prices 46, games 33
+    before: move t-30..t, all                    real   +4.12c (n46) | placebo   +0.13c (n995) | diff 90% CI [+1.98, +5.86] p=0.00
+    after: move t..t+30, all                     real   +1.10c (n43) | placebo   +0.75c (n974) | diff 90% CI [-1.24, +1.85] p=0.67
+    after: move t..t+30, QUIET only              real   +0.38c (n9) | placebo   +0.83c (n311) | diff 90% CI [-2.58, +1.45] p=0.70
+    share QUIET at message                       real  +21.74% (n46) | placebo  +31.66% (n995) | diff 90% CI [-19.61, +0.41] p=0.12
+    share with a big move (>=3c, t-60..t+60)     real  +54.35% (n46) | placebo  +42.71% (n995) | diff 90% CI [-1.67, +24.43] p=0.16
+    lead s (half-move rel. message), big only    real  -21.64s (n25) | placebo   -5.56s (n425) | diff 90% CI [-27.41, -4.45] p=0.02
+    share of big moves LATE (half-move >0 s)     real  +24.00% (n25) | placebo  +41.88% (n425) | diff 90% CI [-32.09, -2.70] p=0.06
+    share of big moves EARLY (<=-10 s)           real  +72.00% (n25) | placebo  +50.82% (n425) | diff 90% CI [+5.41, +36.62] p=0.04
+
+## CS2 map point (round -> winner at 12) | fav price 0.40-0.60 | events with prices 10, games 7
+    before: move t-30..t, all                    real   +6.11c (n10) | placebo   -0.29c (n74) | diff 90% CI [+1.16, +11.71] p=0.05
+    after: move t..t+30, all                     real   +4.65c (n10) | placebo   -1.50c (n74) | diff 90% CI [+2.88, +9.82] p=0.00
+    after: move t..t+30, QUIET only              n real 1 / placebo 21 (too few)
+    share QUIET at message                       real  +10.00% (n10) | placebo  +28.38% (n74) | diff 90% CI [-29.17, -2.78] p=0.06
+    share with a big move (>=3c, t-60..t+60)     real  +80.00% (n10) | placebo  +32.43% (n74) | diff 90% CI [+27.13, +67.82] p=0.00
+    lead s (half-move rel. message), big only    real  -11.38s (n8) | placebo   +1.08s (n24) | diff 90% CI [-44.10, +8.05] p=0.35
+    share of big moves LATE (half-move >0 s)     real  +37.50% (n8) | placebo  +50.00% (n24) | diff 90% CI [-39.05, +20.00] p=0.59
+    share of big moves EARLY (<=-10 s)           real  +62.50% (n8) | placebo  +50.00% (n24) | diff 90% CI [-18.39, +38.35] p=0.58
+
+## CS2 map point (round -> winner at 12) | fav price 0.60-0.90 | events with prices 15, games 15
+    before: move t-30..t, all                    real   +4.45c (n15) | placebo   -0.25c (n152) | diff 90% CI [+2.83, +6.53] p=0.00
+    after: move t..t+30, all                     real   +1.55c (n14) | placebo   -0.53c (n149) | diff 90% CI [+0.02, +4.39] p=0.10
+    after: move t..t+30, QUIET only              n real 1 / placebo 39 (too few)
+    share QUIET at message                       real  +13.33% (n15) | placebo  +26.32% (n152) | diff 90% CI [-25.69, +0.46] p=0.12
+    share with a big move (>=3c, t-60..t+60)     real  +60.00% (n15) | placebo  +40.79% (n152) | diff 90% CI [-3.15, +41.17] p=0.15
+    lead s (half-move rel. message), big only    real  -32.11s (n9) | placebo  -11.40s (n62) | diff 90% CI [-36.38, -4.78] p=0.04
+    share of big moves LATE (half-move >0 s)     real  +11.11% (n9) | placebo  +33.87% (n62) | diff 90% CI [-40.94, -0.76] p=0.09
+    share of big moves EARLY (<=-10 s)           real  +77.78% (n9) | placebo  +54.84% (n62) | diff 90% CI [-9.01, +48.89] p=0.24
+
+## CS2 overtime rounds (both >=12) | all prices | events with prices 69, games 18
+    before: move t-30..t, all                    real   +2.30c (n69) | placebo   +0.36c (n1405) | diff 90% CI [+0.89, +3.14] p=0.00
+    after: move t..t+30, all                     real   +1.60c (n69) | placebo   +0.46c (n1358) | diff 90% CI [+0.14, +2.03] p=0.05
+    after: move t..t+30, QUIET only              real   +0.86c (n22) | placebo   +0.62c (n371) | diff 90% CI [-0.85, +1.16] p=0.71
+    share QUIET at message                       real  +31.88% (n69) | placebo  +27.54% (n1405) | diff 90% CI [-3.47, +12.47] p=0.37
+    share with a big move (>=3c, t-60..t+60)     real  +60.87% (n69) | placebo  +45.12% (n1405) | diff 90% CI [+5.06, +26.81] p=0.01
+    lead s (half-move rel. message), big only    real  -20.69s (n42) | placebo   -7.08s (n634) | diff 90% CI [-20.70, -5.74] p=0.00
+    share of big moves LATE (half-move >0 s)     real  +23.81% (n42) | placebo  +39.75% (n634) | diff 90% CI [-26.23, -5.51] p=0.01
+    share of big moves EARLY (<=-10 s)           real  +69.05% (n42) | placebo  +49.53% (n634) | diff 90% CI [+8.49, +30.86] p=0.01
+
+## CS2 overtime rounds (both >=12) | fav price 0.10-0.40 | events with prices 14, games 11
+    before: move t-30..t, all                    real   +0.75c (n14) | placebo   -0.20c (n154) | diff 90% CI [+0.13, +2.03] p=0.05
+    after: move t..t+30, all                     real   +3.61c (n14) | placebo   +0.60c (n150) | diff 90% CI [+0.06, +6.44] p=0.09
+    after: move t..t+30, QUIET only              real   +0.10c (n5) | placebo   +0.15c (n44) | diff 90% CI [-1.73, +1.80] p=0.99
+    share QUIET at message                       real  +35.71% (n14) | placebo  +28.57% (n154) | diff 90% CI [-11.02, +29.57] p=0.53
+    share with a big move (>=3c, t-60..t+60)     real  +42.86% (n14) | placebo  +38.31% (n154) | diff 90% CI [-13.98, +25.98] p=0.73
+    lead s (half-move rel. message), big only    real  -14.17s (n6) | placebo   -4.05s (n59) | diff 90% CI [-35.79, +23.98] p=0.66
+    share of big moves LATE (half-move >0 s)     real  +33.33% (n6) | placebo  +38.98% (n59) | diff 90% CI [-43.06, +44.09] p=0.84
+    share of big moves EARLY (<=-10 s)           real  +50.00% (n6) | placebo  +50.85% (n59) | diff 90% CI [-60.78, +44.10] p=0.99
+
+## CS2 overtime rounds (both >=12) | fav price 0.40-0.60 | events with prices 13, games 8
+    before: move t-30..t, all                    real   +2.52c (n13) | placebo   +0.88c (n75) | diff 90% CI [-1.25, +5.66] p=0.39
+    after: move t..t+30, all                     real   -0.07c (n13) | placebo   -1.67c (n75) | diff 90% CI [-2.42, +5.82] p=0.51
+    after: move t..t+30, QUIET only              real   +1.61c (n5) | placebo   -2.57c (n19) | diff 90% CI [-1.05, +9.31] p=0.21
+    share QUIET at message                       real  +38.46% (n13) | placebo  +25.33% (n75) | diff 90% CI [-13.60, +39.37] p=0.41
+    share with a big move (>=3c, t-60..t+60)     real  +61.54% (n13) | placebo  +48.00% (n75) | diff 90% CI [-13.30, +46.31] p=0.48
+    lead s (half-move rel. message), big only    real  -13.88s (n8) | placebo  -14.86s (n36) | diff 90% CI [-11.71, +15.19] p=0.78
+    share of big moves LATE (half-move >0 s)     real  +37.50% (n8) | placebo  +27.78% (n36) | diff 90% CI [-8.33, +31.85] p=0.42
+    share of big moves EARLY (<=-10 s)           real  +50.00% (n8) | placebo  +63.89% (n36) | diff 90% CI [-38.52, +11.11] p=0.33
+
+## CS2 overtime rounds (both >=12) | fav price 0.60-0.90 | events with prices 25, games 10
+    before: move t-30..t, all                    real   +3.75c (n25) | placebo   -0.33c (n164) | diff 90% CI [+1.67, +5.99] p=0.00
+    after: move t..t+30, all                     real   +2.24c (n25) | placebo   -0.15c (n160) | diff 90% CI [+0.12, +4.89] p=0.08
+    after: move t..t+30, QUIET only              real   +1.50c (n6) | placebo   +3.01c (n37) | diff 90% CI [-4.64, +1.10] p=0.34
+    share QUIET at message                       real  +24.00% (n25) | placebo  +22.56% (n164) | diff 90% CI [-10.62, +17.78] p=0.87
+    share with a big move (>=3c, t-60..t+60)     real  +88.00% (n25) | placebo  +54.88% (n164) | diff 90% CI [+17.41, +45.61] p=0.00
+    lead s (half-move rel. message), big only    real  -21.41s (n22) | placebo  -15.72s (n90) | diff 90% CI [-13.75, +5.49] p=0.35
+    share of big moves LATE (half-move >0 s)     real  +18.18% (n22) | placebo  +26.67% (n90) | diff 90% CI [-18.83, +3.63] p=0.25
+    share of big moves EARLY (<=-10 s)           real  +77.27% (n22) | placebo  +67.78% (n90) | diff 90% CI [-7.87, +24.02] p=0.35
+
+## DOTA kills | all prices | events with prices 1005, games 48
+    before: move t-30..t, all                    real   +0.25c (n1005) | placebo   +0.05c (n26692) | diff 90% CI [-0.01, +0.43] p=0.11
+    after: move t..t+30, all                     real   +0.74c (n988) | placebo   +0.09c (n26465) | diff 90% CI [+0.36, +0.92] p=0.00
+    after: move t..t+30, QUIET only              real   +0.82c (n355) | placebo   +0.00c (n9506) | diff 90% CI [+0.44, +1.21] p=0.00
+    share QUIET at message                       real  +35.82% (n1005) | placebo  +36.10% (n26692) | diff 90% CI [-2.86, +2.43] p=0.84
+    share with a big move (>=3c, t-60..t+60)     real  +34.13% (n1005) | placebo  +29.30% (n26692) | diff 90% CI [+2.62, +7.00] p=0.00
+    lead s (half-move rel. message), big only    real  -10.15s (n343) | placebo  -13.97s (n7821) | diff 90% CI [+0.27, +7.28] p=0.07
+    share of big moves LATE (half-move >0 s)     real  +41.40% (n343) | placebo  +32.67% (n7821) | diff 90% CI [+4.07, +13.74] p=0.00
+    share of big moves EARLY (<=-10 s)           real  +49.27% (n343) | placebo  +60.12% (n7821) | diff 90% CI [-15.66, -6.34] p=0.00
+
+## DOTA kills | fav price 0.10-0.40 | events with prices 259, games 46
+    before: move t-30..t, all                    real   +0.04c (n259) | placebo   -0.19c (n5053) | diff 90% CI [-0.25, +0.74] p=0.43
+    after: move t..t+30, all                     real   +1.00c (n256) | placebo   -0.14c (n5034) | diff 90% CI [+0.25, +2.08] p=0.03
+    after: move t..t+30, QUIET only              real   +0.48c (n73) | placebo   -0.18c (n1738) | diff 90% CI [-0.31, +1.53] p=0.25
+    share QUIET at message                       real  +28.57% (n259) | placebo  +34.59% (n5053) | diff 90% CI [-10.09, -1.97] p=0.01
+    share with a big move (>=3c, t-60..t+60)     real  +32.05% (n259) | placebo  +24.80% (n5053) | diff 90% CI [+2.24, +12.28] p=0.02
+    lead s (half-move rel. message), big only    real   -7.00s (n83) | placebo  -10.78s (n1253) | diff 90% CI [-1.05, +8.60] p=0.20
+    share of big moves LATE (half-move >0 s)     real  +44.58% (n83) | placebo  +35.04% (n1253) | diff 90% CI [+3.17, +16.17] p=0.01
+    share of big moves EARLY (<=-10 s)           real  +46.99% (n83) | placebo  +57.94% (n1253) | diff 90% CI [-17.96, -3.86] p=0.01
+
+## DOTA kills | fav price 0.40-0.60 | events with prices 199, games 25
+    before: move t-30..t, all                    real   +0.06c (n199) | placebo   -0.06c (n3163) | diff 90% CI [-0.40, +0.60] p=0.72
+    after: move t..t+30, all                     real   +1.32c (n198) | placebo   +0.01c (n3160) | diff 90% CI [+0.65, +2.01] p=0.00
+    after: move t..t+30, QUIET only              real   +0.90c (n56) | placebo   +0.08c (n920) | diff 90% CI [-0.72, +2.36] p=0.41
+    share QUIET at message                       real  +28.14% (n199) | placebo  +29.09% (n3163) | diff 90% CI [-7.64, +5.90] p=0.79
+    share with a big move (>=3c, t-60..t+60)     real  +39.70% (n199) | placebo  +30.45% (n3163) | diff 90% CI [+4.84, +13.74] p=0.00
+    lead s (half-move rel. message), big only    real   -9.61s (n79) | placebo  -19.15s (n963) | diff 90% CI [+3.28, +16.39] p=0.01
+    share of big moves LATE (half-move >0 s)     real  +41.77% (n79) | placebo  +26.48% (n963) | diff 90% CI [+6.00, +24.87] p=0.01
+    share of big moves EARLY (<=-10 s)           real  +49.37% (n79) | placebo  +67.39% (n963) | diff 90% CI [-28.41, -7.92] p=0.00
+
+## DOTA kills | fav price 0.60-0.90 | events with prices 331, games 47
+    before: move t-30..t, all                    real   +0.51c (n331) | placebo   +0.25c (n6273) | diff 90% CI [-0.24, +0.74] p=0.37
+    after: move t..t+30, all                     real   +0.50c (n328) | placebo   +0.23c (n6224) | diff 90% CI [-0.20, +0.74] p=0.35
+    after: move t..t+30, QUIET only              real   +1.55c (n100) | placebo   +0.32c (n1993) | diff 90% CI [+0.63, +1.86] p=0.00
+    share QUIET at message                       real  +30.51% (n331) | placebo  +32.20% (n6273) | diff 90% CI [-5.84, +3.06] p=0.58
+    share with a big move (>=3c, t-60..t+60)     real  +42.90% (n331) | placebo  +35.77% (n6273) | diff 90% CI [+2.69, +11.61] p=0.01
+    lead s (half-move rel. message), big only    real  -11.95s (n142) | placebo  -13.85s (n2244) | diff 90% CI [-3.20, +7.02] p=0.52
+    share of big moves LATE (half-move >0 s)     real  +38.73% (n142) | placebo  +31.60% (n2244) | diff 90% CI [+0.27, +14.23] p=0.09
+    share of big moves EARLY (<=-10 s)           real  +51.41% (n142) | placebo  +60.03% (n2244) | diff 90% CI [-15.48, -1.64] p=0.04
+
+## DOTA towers | all prices | events with prices 221, games 40
+    before: move t-30..t, all                    real   -0.52c (n221) | placebo   +0.10c (n5623) | diff 90% CI [-1.24, -0.01] p=0.10
+    after: move t..t+30, all                     real   +0.06c (n211) | placebo   -0.10c (n5551) | diff 90% CI [-0.56, +0.86] p=0.74
+    after: move t..t+30, QUIET only              real   -0.02c (n87) | placebo   -0.07c (n1802) | diff 90% CI [-0.67, +0.80] p=0.92
+    share QUIET at message                       real  +40.72% (n221) | placebo  +32.76% (n5623) | diff 90% CI [+1.71, +13.55] p=0.03
+    share with a big move (>=3c, t-60..t+60)     real  +24.89% (n221) | placebo  +30.41% (n5623) | diff 90% CI [-10.84, -0.65] p=0.07
+    lead s (half-move rel. message), big only    real  -18.69s (n55) | placebo  -12.89s (n1710) | diff 90% CI [-17.30, +5.92] p=0.42
+    share of big moves LATE (half-move >0 s)     real  +30.91% (n55) | placebo  +32.57% (n1710) | diff 90% CI [-16.46, +13.68] p=0.83
+    share of big moves EARLY (<=-10 s)           real  +67.27% (n55) | placebo  +59.12% (n1710) | diff 90% CI [-7.09, +22.93] p=0.39
+
+## DOTA towers | fav price 0.10-0.40 | events with prices 47, games 20
+    before: move t-30..t, all                    real   -1.65c (n47) | placebo   -0.03c (n856) | diff 90% CI [-3.99, +0.68] p=0.25
+    after: move t..t+30, all                     real   +0.45c (n45) | placebo   +0.10c (n852) | diff 90% CI [-0.82, +1.67] p=0.61
+    after: move t..t+30, QUIET only              real   +0.48c (n13) | placebo   -0.21c (n235) | diff 90% CI [-2.20, +5.11] p=0.81
+    share QUIET at message                       real  +29.79% (n47) | placebo  +27.80% (n856) | diff 90% CI [-9.78, +16.92] p=0.80
+    share with a big move (>=3c, t-60..t+60)     real  +27.66% (n47) | placebo  +30.96% (n856) | diff 90% CI [-14.30, +7.44] p=0.64
+    lead s (half-move rel. message), big only    real   -9.15s (n13) | placebo   -8.37s (n265) | diff 90% CI [-18.23, +25.33] p=0.96
+    share of big moves LATE (half-move >0 s)     real  +38.46% (n13) | placebo  +37.74% (n265) | diff 90% CI [-17.78, +28.51] p=0.97
+    share of big moves EARLY (<=-10 s)           real  +61.54% (n13) | placebo  +54.72% (n265) | diff 90% CI [-22.48, +24.70] p=0.66
+
+## DOTA towers | fav price 0.40-0.60 | events with prices 31, games 13
+    before: move t-30..t, all                    real   -0.82c (n31) | placebo   -0.16c (n294) | diff 90% CI [-2.83, +1.61] p=0.61
+    after: move t..t+30, all                     real   +0.81c (n31) | placebo   +0.05c (n293) | diff 90% CI [-3.10, +3.49] p=0.70
+    after: move t..t+30, QUIET only              real   -0.37c (n8) | placebo   -0.81c (n67) | diff 90% CI [-3.95, +3.37] p=0.82
+    share QUIET at message                       real  +25.81% (n31) | placebo  +22.79% (n294) | diff 90% CI [-8.29, +22.03] p=0.60
+    share with a big move (>=3c, t-60..t+60)     real  +45.16% (n31) | placebo  +40.48% (n294) | diff 90% CI [-10.03, +17.85] p=0.62
+    lead s (half-move rel. message), big only    real   -4.14s (n14) | placebo  -12.76s (n119) | diff 90% CI [-34.11, +39.14] p=0.72
+    share of big moves LATE (half-move >0 s)     real  +50.00% (n14) | placebo  +36.97% (n119) | diff 90% CI [-37.89, +47.73] p=0.74
+    share of big moves EARLY (<=-10 s)           real  +50.00% (n14) | placebo  +57.98% (n119) | diff 90% CI [-43.19, +43.75] p=0.88
+
+## DOTA towers | fav price 0.60-0.90 | events with prices 71, games 27
+    before: move t-30..t, all                    real   -0.08c (n71) | placebo   -0.15c (n1311) | diff 90% CI [-0.97, +1.12] p=0.92
+    after: move t..t+30, all                     real   -0.54c (n70) | placebo   -0.12c (n1302) | diff 90% CI [-1.37, +0.45] p=0.44
+    after: move t..t+30, QUIET only              real   +0.20c (n22) | placebo   -0.28c (n357) | diff 90% CI [-0.90, +1.72] p=0.64
+    share QUIET at message                       real  +30.99% (n71) | placebo  +27.38% (n1311) | diff 90% CI [-7.65, +15.13] p=0.57
+    share with a big move (>=3c, t-60..t+60)     real  +26.76% (n71) | placebo  +35.70% (n1311) | diff 90% CI [-18.82, +0.88] p=0.14
+    lead s (half-move rel. message), big only    real  -32.05s (n19) | placebo  -14.17s (n468) | diff 90% CI [-28.00, -7.94] p=0.01
+    share of big moves LATE (half-move >0 s)     real  +15.79% (n19) | placebo  +32.69% (n468) | diff 90% CI [-31.22, -3.26] p=0.03
+    share of big moves EARLY (<=-10 s)           real  +78.95% (n19) | placebo  +60.04% (n468) | diff 90% CI [+3.95, +34.26] p=0.04
+
+=== TRADEABILITY: quiet-at-message events, order lands t+0.2 s+1.0 s PM delay, hold to resolution, cents per share; placebo = same rule at shifted times; CI/p bootstrap over games ===
+
+## TENNIS all points | fav 0.10-0.40 | resolved quiet events 243, games 61
+    mean spread paid (ask-bid)                   real   +2.56c (n243) | placebo   +2.06c (n15319) | diff 90% CI [+0.01, +1.07] p=0.09
+    TAKER at ask, hold: net per share            real  -11.40c (n243) | placebo   -9.27c (n15319) | diff 90% CI [-5.56, +1.24] p=0.33
+    (same, valued at mid, no spread)             real  -10.12c (n243) | placebo   -8.24c (n15319) | diff 90% CI [-5.52, +1.24] p=0.37
+    TAKER buy ask, value at mid +60s (no exit cost) real   -1.03c (n237) | placebo   -1.07c (n15009) | diff 90% CI [-0.48, +0.46] p=0.82
+    TAKER buy ask, SELL at bid +60s (round trip) real   -2.28c (n237) | placebo   -2.13c (n15009) | diff 90% CI [-0.80, +0.34] p=0.67
+    TAKER buy ask, value at mid +300s (no exit cost) real   -1.36c (n226) | placebo   -0.84c (n14250) | diff 90% CI [-1.29, +0.26] p=0.28
+    TAKER buy ask, SELL at bid +300s (round trip) real   -2.52c (n226) | placebo   -1.93c (n14250) | diff 90% CI [-1.40, +0.24] p=0.24
+    TAKER buy ask, value at mid +900s (no exit cost) real   -1.72c (n187) | placebo   -0.48c (n12420) | diff 90% CI [-2.71, +0.22] p=0.16
+    TAKER buy ask, SELL at bid +900s (round trip) real   -2.92c (n187) | placebo   -1.47c (n12420) | diff 90% CI [-3.00, +0.03] p=0.11
+    BID at best bid: fill rate                   real  +36.63% (n243) | placebo  +42.38% (n15319) | diff 90% CI [-10.96, -0.15] p=0.09
+    BID net per attempt (0 if no fill)           real   -2.72c (n243) | placebo   -4.13c (n15319) | diff 90% CI [-1.20, +3.61] p=0.35
+    BID net per FILL                             real   -7.42c (n89) | placebo   -9.74c (n6492) | diff 90% CI [-4.12, +8.29] p=0.60
+    queue ahead at landing (shares)              real +14415.72 sh (n243) | placebo +11182.71 sh (n15319) | diff 90% CI [+1250.24, +5281.52] p=0.01
+    LEAD CUT share: feed leads price by >2 s     real   +7.00% (n243) | placebo   +7.14% (n15319) | diff 90% CI [-2.24, +2.17] p=0.92
+    LEAD CUT share: price moved first (big move) real   +8.64% (n243) | placebo   +5.87% (n15319) | diff 90% CI [-0.35, +6.06] p=0.14
+    LEAD CUT share: no big move                  real  +84.36% (n243) | placebo  +86.99% (n15319) | diff 90% CI [-6.07, +0.66] p=0.19
+      [feed leads >2 s] buy ask, value at mid +60s real   +3.71c (n17) | placebo   +4.51c (n1092) | diff 90% CI [-1.62, +0.11] p=0.14
+      [feed leads >2 s] hold to resolution       real   -8.65c (n17) | placebo   -4.05c (n1094) | diff 90% CI [-13.06, +3.88] p=0.33
+      [price moved first] buy ask, value at mid +60s real   +0.82c (n21) | placebo   +0.82c (n896) | diff 90% CI [-1.31, +1.57] p=0.89
+      [price moved first] hold to resolution     real  -11.57c (n21) | placebo   -2.78c (n899) | diff 90% CI [-24.72, +8.12] p=0.35
+
+## TENNIS all points | fav 0.40-0.60 | resolved quiet events 101, games 35
+    mean spread paid (ask-bid)                   real   +5.85c (n101) | placebo   +2.79c (n8441) | diff 90% CI [+0.68, +6.14] p=0.02
+    TAKER at ask, hold: net per share            real  +11.31c (n101) | placebo   +0.88c (n8441) | diff 90% CI [+4.07, +17.38] p=0.01
+    (same, valued at mid, no spread)             real  +14.24c (n101) | placebo   +2.28c (n8441) | diff 90% CI [+5.32, +19.32] p=0.00
+    TAKER buy ask, value at mid +60s (no exit cost) real   -1.07c (n97) | placebo   -1.32c (n8281) | diff 90% CI [-0.80, +1.17] p=0.63
+    TAKER buy ask, SELL at bid +60s (round trip) real   -2.77c (n97) | placebo   -2.62c (n8281) | diff 90% CI [-2.05, +1.18] p=0.93
+    TAKER buy ask, value at mid +300s (no exit cost) real   -1.44c (n92) | placebo   -0.65c (n8110) | diff 90% CI [-2.90, +1.19] p=0.53
+    TAKER buy ask, SELL at bid +300s (round trip) real   -3.60c (n92) | placebo   -1.90c (n8110) | diff 90% CI [-4.57, +0.87] p=0.29
+    TAKER buy ask, value at mid +900s (no exit cost) real   -0.71c (n88) | placebo   +0.25c (n7894) | diff 90% CI [-4.22, +2.61] p=0.66
+    TAKER buy ask, SELL at bid +900s (round trip) real   -1.79c (n88) | placebo   -0.75c (n7894) | diff 90% CI [-4.35, +2.55] p=0.63
+    BID at best bid: fill rate                   real  +33.66% (n101) | placebo  +39.36% (n8441) | diff 90% CI [-14.15, +3.21] p=0.30
+    BID net per attempt (0 if no fill)           real   -1.13c (n101) | placebo   -0.77c (n8441) | diff 90% CI [-4.82, +4.39] p=0.92
+    BID net per FILL                             real   -3.35c (n34) | placebo   -1.95c (n3322) | diff 90% CI [-12.84, +14.41] p=0.87
+    queue ahead at landing (shares)              real +10183.84 sh (n101) | placebo +10969.29 sh (n8441) | diff 90% CI [-3481.19, +1780.74] p=0.63
+    LEAD CUT share: feed leads price by >2 s     real  +11.88% (n101) | placebo  +10.01% (n8441) | diff 90% CI [-3.11, +7.03] p=0.54
+    LEAD CUT share: price moved first (big move) real  +20.79% (n101) | placebo   +9.42% (n8441) | diff 90% CI [+4.66, +17.74] p=0.00
+    LEAD CUT share: no big move                  real  +67.33% (n101) | placebo  +80.57% (n8441) | diff 90% CI [-22.29, -4.74] p=0.01
+      [feed leads >2 s] buy ask, value at mid +60s real   +4.81c (n12) | placebo   +5.05c (n841) | diff 90% CI [-2.12, +2.62] p=0.76
+      [feed leads >2 s] hold to resolution       real  +31.03c (n12) | placebo  +13.14c (n845) | diff 90% CI [-3.17, +35.31] p=0.15
+      [price moved first] buy ask, value at mid +60s real   +0.19c (n21) | placebo   +0.20c (n795) | diff 90% CI [-1.98, +1.46] p=0.97
+      [price moved first] hold to resolution     real  +11.81c (n21) | placebo   +5.53c (n795) | diff 90% CI [-15.15, +25.64] p=0.66
+
+## TENNIS all points | fav 0.10-0.60 | resolved quiet events 344, games 68
+    mean spread paid (ask-bid)                   real   +3.53c (n344) | placebo   +2.31c (n23660) | diff 90% CI [+0.42, +2.12] p=0.00
+    TAKER at ask, hold: net per share            real   -4.73c (n344) | placebo   -5.32c (n23660) | diff 90% CI [-2.77, +3.84] p=0.76
+    (same, valued at mid, no spread)             real   -2.97c (n344) | placebo   -4.16c (n23660) | diff 90% CI [-2.22, +4.66] p=0.56
+    TAKER buy ask, value at mid +60s (no exit cost) real   -1.04c (n334) | placebo   -1.12c (n23250) | diff 90% CI [-0.36, +0.52] p=0.69
+    TAKER buy ask, SELL at bid +60s (round trip) real   -2.42c (n334) | placebo   -2.27c (n23250) | diff 90% CI [-0.82, +0.47] p=0.77
+    TAKER buy ask, value at mid +300s (no exit cost) real   -1.38c (n318) | placebo   -0.65c (n22257) | diff 90% CI [-1.48, +0.01] p=0.10
+    TAKER buy ask, SELL at bid +300s (round trip) real   -2.83c (n318) | placebo   -1.82c (n22257) | diff 90% CI [-1.89, -0.17] p=0.05
+    TAKER buy ask, value at mid +900s (no exit cost) real   -1.40c (n275) | placebo   -0.01c (n20230) | diff 90% CI [-2.93, +0.31] p=0.17
+    TAKER buy ask, SELL at bid +900s (round trip) real   -2.56c (n275) | placebo   -1.03c (n20230) | diff 90% CI [-3.16, +0.11] p=0.13
+    BID at best bid: fill rate                   real  +35.76% (n344) | placebo  +40.89% (n23660) | diff 90% CI [-9.71, -0.25] p=0.09
+    BID net per attempt (0 if no fill)           real   -2.25c (n344) | placebo   -2.71c (n23660) | diff 90% CI [-1.83, +2.75] p=0.73
+    BID net per FILL                             real   -6.30c (n123) | placebo   -6.63c (n9674) | diff 90% CI [-6.32, +6.53] p=0.92
+    queue ahead at landing (shares)              real +13173.22 sh (n344) | placebo +11109.74 sh (n23660) | diff 90% CI [+444.89, +3806.04] p=0.03
+    LEAD CUT share: feed leads price by >2 s     real   +8.43% (n344) | placebo   +8.28% (n23660) | diff 90% CI [-1.76, +2.41] p=0.87
+    LEAD CUT share: price moved first (big move) real  +12.21% (n344) | placebo   +7.17% (n23660) | diff 90% CI [+2.33, +7.99] p=0.00
+    LEAD CUT share: no big move                  real  +79.36% (n344) | placebo  +84.56% (n23660) | diff 90% CI [-8.80, -1.68] p=0.02
+      [feed leads >2 s] buy ask, value at mid +60s real   +4.16c (n29) | placebo   +4.74c (n1956) | diff 90% CI [-1.55, +0.60] p=0.32
+      [feed leads >2 s] hold to resolution       real   +7.77c (n29) | placebo   +2.99c (n1958) | diff 90% CI [-5.87, +14.80] p=0.43
+      [price moved first] buy ask, value at mid +60s real   +0.51c (n42) | placebo   +0.50c (n1693) | diff 90% CI [-1.23, +1.16] p=0.93
+      [price moved first] hold to resolution     real   +0.12c (n42) | placebo   -0.50c (n1696) | diff 90% CI [-13.01, +15.34] p=0.97
+
+## TENNIS all points | fav 0.60-0.90 | resolved quiet events 236, games 63
+    mean spread paid (ask-bid)                   real   +3.28c (n236) | placebo   +2.12c (n16793) | diff 90% CI [+0.54, +1.82] p=0.00
+    TAKER at ask, hold: net per share            real  +13.56c (n236) | placebo   +8.86c (n16793) | diff 90% CI [+1.17, +8.95] p=0.03
+    (same, valued at mid, no spread)             real  +15.20c (n236) | placebo   +9.92c (n16793) | diff 90% CI [+1.61, +8.92] p=0.02
+    TAKER buy ask, value at mid +60s (no exit cost) real   -1.44c (n232) | placebo   -0.84c (n16479) | diff 90% CI [-1.12, -0.13] p=0.03
+    TAKER buy ask, SELL at bid +60s (round trip) real   -3.12c (n232) | placebo   -1.98c (n16479) | diff 90% CI [-2.04, -0.42] p=0.00
+    TAKER buy ask, value at mid +300s (no exit cost) real   -1.45c (n217) | placebo   -0.09c (n15644) | diff 90% CI [-2.27, -0.55] p=0.00
+    TAKER buy ask, SELL at bid +300s (round trip) real   -3.41c (n217) | placebo   -1.25c (n15644) | diff 90% CI [-3.53, -0.91] p=0.00
+    TAKER buy ask, value at mid +900s (no exit cost) real   +0.78c (n195) | placebo   +0.70c (n13441) | diff 90% CI [-1.29, +1.47] p=0.90
+    TAKER buy ask, SELL at bid +900s (round trip) real   -0.41c (n195) | placebo   -0.28c (n13441) | diff 90% CI [-1.56, +1.29] p=0.85
+    BID at best bid: fill rate                   real  +28.39% (n236) | placebo  +35.27% (n16793) | diff 90% CI [-12.01, -1.64] p=0.03
+    BID net per attempt (0 if no fill)           real   +2.89c (n236) | placebo   +2.70c (n16793) | diff 90% CI [-1.77, +2.13] p=0.91
+    BID net per FILL                             real  +10.18c (n67) | placebo   +7.64c (n5923) | diff 90% CI [-3.59, +9.17] p=0.55
+    queue ahead at landing (shares)              real +12895.22 sh (n236) | placebo +13258.68 sh (n16793) | diff 90% CI [-1767.83, +1193.60] p=0.68
+    LEAD CUT share: feed leads price by >2 s     real  +10.59% (n236) | placebo   +9.28% (n16793) | diff 90% CI [-1.81, +4.35] p=0.47
+    LEAD CUT share: price moved first (big move) real  +15.25% (n236) | placebo  +11.31% (n16793) | diff 90% CI [+0.08, +8.18] p=0.10
+    LEAD CUT share: no big move                  real  +74.15% (n236) | placebo  +79.40% (n16793) | diff 90% CI [-9.35, -1.23] p=0.03
+      [feed leads >2 s] buy ask, value at mid +60s real   +2.24c (n25) | placebo   +4.16c (n1559) | diff 90% CI [-2.80, -1.03] p=0.00
+      [feed leads >2 s] hold to resolution       real  +17.60c (n25) | placebo  +12.70c (n1559) | diff 90% CI [-2.52, +11.99] p=0.28
+      [price moved first] buy ask, value at mid +60s real   -1.18c (n36) | placebo   +0.16c (n1900) | diff 90% CI [-3.03, -0.01] p=0.09
+      [price moved first] hold to resolution     real  +15.69c (n36) | placebo  +10.75c (n1900) | diff 90% CI [+0.13, +9.92] p=0.09
+
+## DOTA kills | fav 0.60-0.90 | resolved quiet events 76, games 32
+    mean spread paid (ask-bid)                   real   +4.32c (n76) | placebo   +3.41c (n2281) | diff 90% CI [+0.13, +1.77] p=0.03
+    TAKER at ask, hold: net per share            real   +9.15c (n76) | placebo   +2.41c (n2281) | diff 90% CI [+1.60, +12.36] p=0.03
+    (same, valued at mid, no spread)             real  +11.31c (n76) | placebo   +4.11c (n2281) | diff 90% CI [+1.90, +12.60] p=0.02
+    TAKER buy ask, value at mid +60s (no exit cost) real   +0.12c (n74) | placebo   -1.21c (n2236) | diff 90% CI [+0.42, +2.44] p=0.02
+    TAKER buy ask, SELL at bid +60s (round trip) real   -1.56c (n74) | placebo   -3.00c (n2236) | diff 90% CI [+0.43, +2.66] p=0.01
+    TAKER buy ask, value at mid +300s (no exit cost) real   +0.94c (n73) | placebo   -0.15c (n2151) | diff 90% CI [-1.02, +3.29] p=0.40
+    TAKER buy ask, SELL at bid +300s (round trip) real   -0.94c (n73) | placebo   -1.92c (n2151) | diff 90% CI [-1.10, +3.23] p=0.42
+    TAKER buy ask, value at mid +900s (no exit cost) real   +3.37c (n53) | placebo   +0.22c (n1657) | diff 90% CI [-0.64, +7.13] p=0.19
+    TAKER buy ask, SELL at bid +900s (round trip) real   +1.62c (n53) | placebo   -1.42c (n1657) | diff 90% CI [-0.65, +6.85] p=0.17
+    BID at best bid: fill rate                   real  +21.05% (n76) | placebo  +33.63% (n2281) | diff 90% CI [-19.40, -5.42] p=0.00
+    BID net per attempt (0 if no fill)           real   +1.11c (n76) | placebo   -0.99c (n2281) | diff 90% CI [-0.93, +5.17] p=0.29
+    BID net per FILL                             real   +5.25c (n16) | placebo   -2.94c (n767) | diff 90% CI [-3.22, +17.97] p=0.24
+    queue ahead at landing (shares)              real +277.90 sh (n76) | placebo +525.54 sh (n2281) | diff 90% CI [-383.87, -102.27] p=0.01
+    LEAD CUT share: feed leads price by >2 s     real  +17.11% (n76) | placebo  +13.99% (n2281) | diff 90% CI [-3.27, +10.68] p=0.45
+    LEAD CUT share: price moved first (big move) real  +30.26% (n76) | placebo  +14.60% (n2281) | diff 90% CI [+7.53, +24.25] p=0.00
+    LEAD CUT share: no big move                  real  +52.63% (n76) | placebo  +71.42% (n2281) | diff 90% CI [-28.30, -10.12] p=0.00
+      [feed leads >2 s] buy ask, value at mid +60s real   +5.81c (n13) | placebo   +6.20c (n319) | diff 90% CI [-2.18, +1.47] p=0.73
+      [feed leads >2 s] hold to resolution       real  +13.77c (n13) | placebo   +5.75c (n319) | diff 90% CI [-5.99, +20.76] p=0.34
+      [price moved first] buy ask, value at mid +60s real   +0.89c (n23) | placebo   +0.72c (n333) | diff 90% CI [-0.57, +0.99] p=0.68
+      [price moved first] hold to resolution     real  +12.72c (n23) | placebo   +4.20c (n333) | diff 90% CI [+0.28, +17.02] p=0.09
+
+## DOTA kills | fav 0.40-0.90 | resolved quiet events 123, games 36
+    mean spread paid (ask-bid)                   real   +3.66c (n123) | placebo   +3.02c (n3669) | diff 90% CI [+0.10, +1.33] p=0.05
+    TAKER at ask, hold: net per share            real   +3.94c (n123) | placebo   +0.93c (n3669) | diff 90% CI [-1.04, +6.97] p=0.22
+    (same, valued at mid, no spread)             real   +5.77c (n123) | placebo   +2.44c (n3669) | diff 90% CI [-0.69, +7.42] p=0.18
+    TAKER buy ask, value at mid +60s (no exit cost) real   +0.14c (n121) | placebo   -1.11c (n3623) | diff 90% CI [+0.12, +2.45] p=0.07
+    TAKER buy ask, SELL at bid +60s (round trip) real   -1.42c (n121) | placebo   -2.74c (n3623) | diff 90% CI [+0.21, +2.62] p=0.05
+    TAKER buy ask, value at mid +300s (no exit cost) real   +0.22c (n118) | placebo   -0.46c (n3513) | diff 90% CI [-1.60, +2.80] p=0.65
+    TAKER buy ask, SELL at bid +300s (round trip) real   -1.50c (n118) | placebo   -2.14c (n3513) | diff 90% CI [-1.72, +2.73] p=0.67
+    TAKER buy ask, value at mid +900s (no exit cost) real   -1.55c (n96) | placebo   -0.54c (n2883) | diff 90% CI [-4.41, +1.92] p=0.56
+    TAKER buy ask, SELL at bid +900s (round trip) real   -3.06c (n96) | placebo   -2.23c (n2883) | diff 90% CI [-4.13, +2.20] p=0.62
+    BID at best bid: fill rate                   real  +31.71% (n123) | placebo  +40.34% (n3669) | diff 90% CI [-15.30, -1.99] p=0.03
+    BID net per attempt (0 if no fill)           real   +2.20c (n123) | placebo   -1.60c (n3669) | diff 90% CI [-0.06, +7.38] p=0.10
+    BID net per FILL                             real   +6.95c (n39) | placebo   -3.97c (n1480) | diff 90% CI [-0.96, +20.98] p=0.14
+    queue ahead at landing (shares)              real +374.36 sh (n123) | placebo +613.16 sh (n3669) | diff 90% CI [-409.40, -91.72] p=0.00
+    LEAD CUT share: feed leads price by >2 s     real  +16.26% (n123) | placebo  +13.30% (n3669) | diff 90% CI [-2.31, +9.07] p=0.37
+    LEAD CUT share: price moved first (big move) real  +27.64% (n123) | placebo  +16.41% (n3669) | diff 90% CI [+5.61, +18.19] p=0.00
+    LEAD CUT share: no big move                  real  +56.10% (n123) | placebo  +70.29% (n3669) | diff 90% CI [-21.50, -7.78] p=0.00
+      [feed leads >2 s] buy ask, value at mid +60s real   +9.43c (n20) | placebo   +7.05c (n488) | diff 90% CI [-0.47, +5.32] p=0.17
+      [feed leads >2 s] hold to resolution       real   +1.95c (n20) | placebo   +7.92c (n488) | diff 90% CI [-16.82, +5.75] p=0.35
+      [price moved first] buy ask, value at mid +60s real   +1.19c (n34) | placebo   +1.12c (n602) | diff 90% CI [-0.80, +1.00] p=0.87
+      [price moved first] hold to resolution     real   +5.66c (n34) | placebo   +4.00c (n602) | diff 90% CI [-9.54, +11.26] p=0.79
+
+## CS2 all round wins | fav 0.40-0.60 | resolved quiet events 40, games 21
+    mean spread paid (ask-bid)                   real   +1.85c (n40) | placebo   +2.04c (n1296) | diff 90% CI [-0.53, +0.11] p=0.28
+    TAKER at ask, hold: net per share            real   -6.27c (n40) | placebo   +4.84c (n1296) | diff 90% CI [-24.06, +2.42] p=0.16
+    (same, valued at mid, no spread)             real   -5.35c (n40) | placebo   +5.85c (n1296) | diff 90% CI [-24.88, +3.28] p=0.19
+    TAKER buy ask, value at mid +60s (no exit cost) real   +0.06c (n40) | placebo   -0.44c (n1293) | diff 90% CI [-1.92, +2.85] p=0.74
+    TAKER buy ask, SELL at bid +60s (round trip) real   -0.87c (n40) | placebo   -1.44c (n1293) | diff 90% CI [-1.90, +2.90] p=0.73
+    TAKER buy ask, value at mid +300s (no exit cost) real   -2.68c (n39) | placebo   +3.79c (n1283) | diff 90% CI [-11.25, -1.21] p=0.05
+    TAKER buy ask, SELL at bid +300s (round trip) real   -3.59c (n39) | placebo   +2.79c (n1283) | diff 90% CI [-11.23, -1.33] p=0.03
+    TAKER buy ask, value at mid +900s (no exit cost) real   -8.48c (n28) | placebo   +5.56c (n996) | diff 90% CI [-19.96, -8.36] p=0.00
+    TAKER buy ask, SELL at bid +900s (round trip) real   -9.56c (n28) | placebo   +4.53c (n996) | diff 90% CI [-20.84, -8.35] p=0.00
+    BID at best bid: fill rate                   real  +50.00% (n40) | placebo  +46.68% (n1296) | diff 90% CI [-9.07, +17.28] p=0.69
+    BID net per attempt (0 if no fill)           real   -4.52c (n40) | placebo   +3.74c (n1296) | diff 90% CI [-17.58, +1.02] p=0.14
+    BID net per FILL                             real   -9.05c (n20) | placebo   +8.01c (n605) | diff 90% CI [-36.16, +1.54] p=0.13
+    queue ahead at landing (shares)              real +1062.19 sh (n40) | placebo +4338.55 sh (n1296) | diff 90% CI [-8446.09, +125.57] p=0.22
+    LEAD CUT share: feed leads price by >2 s     real  +25.00% (n40) | placebo  +21.91% (n1296) | diff 90% CI [-7.23, +14.13] p=0.67
+    LEAD CUT share: price moved first (big move) real  +22.50% (n40) | placebo  +14.04% (n1296) | diff 90% CI [-1.80, +20.35] p=0.19
+    LEAD CUT share: no big move                  real  +52.50% (n40) | placebo  +64.04% (n1296) | diff 90% CI [-24.78, +1.07] p=0.13
+      [feed leads >2 s] buy ask, value at mid +60s real  +10.25c (n10) | placebo   +9.15c (n284) | diff 90% CI [-3.04, +4.34] p=0.69
+      [feed leads >2 s] hold to resolution       real   -3.60c (n10) | placebo   +9.93c (n284) | diff 90% CI [-44.03, +14.10] p=0.35
+      [price moved first] buy ask, value at mid +60s real   +0.49c (n9) | placebo   +1.88c (n182) | diff 90% CI [-4.67, +2.51] p=0.53
+      [price moved first] hold to resolution     real   -3.78c (n9) | placebo   +0.58c (n182) | diff 90% CI [-28.80, +22.25] p=0.85
+
+## CS2 map point (->12) | fav 0.10-0.90 | too few (1)
+
+## CS2 map-winning round (13-x) | fav 0.10-0.90 | too few (0)
+
+## CS2 overtime rounds | fav 0.10-0.90 | resolved quiet events 14, games 9
+    mean spread paid (ask-bid)                   real   +1.93c (n14) | placebo   +1.62c (n311) | diff 90% CI [-0.13, +0.65] p=0.26
+    TAKER at ask, hold: net per share            real  +12.21c (n14) | placebo  +11.88c (n311) | diff 90% CI [-15.11, +13.41] p=0.98
+    (same, valued at mid, no spread)             real  +13.18c (n14) | placebo  +12.69c (n311) | diff 90% CI [-14.58, +14.23] p=0.95
+    TAKER buy ask, value at mid +60s (no exit cost) real   +3.19c (n13) | placebo   -0.05c (n299) | diff 90% CI [-0.37, +6.28] p=0.14
+    TAKER buy ask, SELL at bid +60s (round trip) real   +2.31c (n13) | placebo   -0.96c (n299) | diff 90% CI [-0.12, +6.46] p=0.11
+    TAKER buy ask, value at mid +300s (no exit cost) real  +16.32c (n8) | placebo   +9.75c (n216) | diff 90% CI [-10.85, +22.72] p=0.49
+    TAKER buy ask, SELL at bid +300s (round trip) real  +15.51c (n8) | placebo   +8.77c (n216) | diff 90% CI [-10.50, +22.68] p=0.46
+    TAKER buy ask, value at mid +900s (no exit cost) n real 0 / placebo 45 (too few)
+    TAKER buy ask, SELL at bid +900s (round trip) n real 0 / placebo 45 (too few)
+    BID at best bid: fill rate                   real  +28.57% (n14) | placebo  +54.02% (n311) | diff 90% CI [-36.46, -12.27] p=0.01
+    BID net per attempt (0 if no fill)           real   -3.79c (n14) | placebo   +4.12c (n311) | diff 90% CI [-13.83, -1.52] p=0.04
+    BID net per FILL                             n real 4 / placebo 168 (too few)
+    queue ahead at landing (shares)              real +136.02 sh (n14) | placebo +156.52 sh (n311) | diff 90% CI [-76.77, +36.66] p=0.48
+    LEAD CUT share: feed leads price by >2 s     real  +28.57% (n14) | placebo  +26.69% (n311) | diff 90% CI [-29.10, +27.53] p=0.99
+    LEAD CUT share: price moved first (big move) real  +28.57% (n14) | placebo  +18.65% (n311) | diff 90% CI [-12.53, +36.05] p=0.45
+    LEAD CUT share: no big move                  real  +42.86% (n14) | placebo  +54.66% (n311) | diff 90% CI [-30.23, +10.59] p=0.34
+      [feed leads >2 s] buy ask, value at mid +60s n real 4 / placebo 83 (too few)
+      [feed leads >2 s] hold to resolution       n real 4 / placebo 83 (too few)
+      [price moved first] buy ask, value at mid +60s n real 4 / placebo 58 (too few)
+      [price moved first] hold to resolution     n real 4 / placebo 58 (too few)
+
+## CS2 overtime rounds | fav 0.40-0.60 | too few (5)
+  print('\n=== PRE-REGISTERED RULES: events at/after %s UTC only; success = 90%% match-clustered CI for (real - placebo) entirely above 0, evaluated ONCE at target N ===' % __import__('datetime').datetime.utcfromtimestamp(AFTER).strftime('%Y-%m-%d %H:%MZ'))
+
+=== PRE-REGISTERED RULES: events at/after 2026-11-09 01:00Z UTC only; success = 90% match-clustered CI for (real - placebo) entirely above 0, evaluated ONCE at target N ===
+
+## T1 TENNIS point, quiet, fav 0.40-0.60, buy ask at t+1.2 s, hold to resolution
+   post-cutoff qualifying matches/games: 2 of target 60 (entries 7)
+   INTERIM, NOT A TEST (n below target): real +19.94c (n7) placebo +0.73c (n830) diff 90% CI [+8.57, +24.80] p=0.000
+
+## D1 DOTA kill, quiet, fav 0.60-0.90, buy ask at t+1.2 s, value at mid 60 s later
+   post-cutoff qualifying matches/games: 0 of target 40 (entries 0)
+   INTERIM, NOT A TEST (n below target): no data
