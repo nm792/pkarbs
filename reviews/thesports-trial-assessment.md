@@ -151,3 +151,12 @@ Data note: Hermes' commit f18045e6 (05:38Z) deleted 22,262 tracked files from th
 - **Tennis, fav 10-40%:** +0.60c (n100, 31 matches) vs +0.04c, CI +0.29..+0.85. **Fav 60-90%:** -0.13c (n92), none. All prices: +0.39c (n428, 33 matches), CI +0.22..+0.58.
 - **Dota 2 kills, fav 60-90%, QUIET:** +1.38c (n30, 15 games) vs -0.05c, CI +0.22..+2.87, p=0.05. No new Dota games in this slim (overnight), so unchanged. All prices: +0.42c vs +0.17c, p=0.57. Still unknown/candidate.
 - **CS2:** price leads by 17.5 s vs 8.0 s (225 big moves, CI -13..-6); no signal after the message.
+
+## Tradeability pass (9 Nov 00:30Z; coordinator-authorised; raw: reviews/thesports-tradeability-2026-11-09.txt)
+Data: all pooled exports to 22:24Z 8 Nov (tennis 92 matches paired, 89 with big events). Quiet-at-message events only; order lands t+0.2 s +1 s PM sports delay; real vs same rule at shifted placebo times; CI/p bootstrap over games.
+- Spread at the event: tennis 10-40% 3.1c (placebo 2.5c); 40-60% 7.3c (placebo 3.6c, widens at messages); 60-90% 3.8c (2.5c); Dota 60-90% 3.1c (2.6c).
+- Taker price capture (buy ask, value at mid +60 s): tennis 10-40% -1.32c vs placebo -1.29c; 40-60% -1.49c vs -1.73c; 60-90% -1.65c vs -0.95c (p=0.04, worse); Dota 60-90% -0.06c vs -1.54c (p=0.02, n39, 20 games). Full round trip (sell at bid +60 s): tennis -2.7c to -3.7c, Dota -1.45c vs -3.04c.
+  => after the 1.2 s delay the ~1c move is already in the ask; price capture does not beat placebo for tennis. Dota is the only positive (39 events, thin).
+- Hold to resolution (taker): tennis 40-60% +12.3c vs +1.4c (p=0.03, 75 events, 23 games); 10-40% -12.2c vs -10.3c (p=0.28); 60-90% +12.3c vs +9.4c (p=0.23); Dota 60-90% +1.8c vs -4.8c (p=0.18). Std per share ~45c, so SE ~5c at n=75: this cannot resolve a 1c edge, and the 40-60% result is one of ~10 tests with no matching price move after entry.
+- Bid at best bid (post-only, fill = ask trades down to bid within 60 s): fill 23-36% (placebo 32-43%), queue ahead ~9-13k shares in tennis, ~0.3k in Dota; per-attempt hold EV tennis 10-40% -2.35c vs -4.40c (p=0.09), 40-60% -1.80c vs -0.06c (p=0.55); Dota 60-90% +1.38c vs -3.16c (p=0.14).
+Verdict (wording per Nick 8 Nov): UNKNOWN, signal real but tradeability not shown. Settles it: (a) hold-to-resolution needs ~thousands of events (days more data), (b) Dota 60-90% needs more games, (c) entry before the 1 s delay is impossible, so only events where the feed leads the price by >2 s can pay; the lead-time split is the next cut.
