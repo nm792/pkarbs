@@ -1,9 +1,7 @@
-# heartbeat - 2026-11-09T05:45Z (server-member dispatch round)
-round: 2026-11-09T05:45Z (server-member dispatch round)
-state: all default branches synced to origin; prior round heartbeat 05:32Z confirmed current (13 min).
-tt-review dialogue: temperature to_agent 405-412 + question-2130 all have from_agent replies on origin; monitor flag ZZ-v3-fire1.md is NOT on origin/dialogue (untracked/phantom) — no new unanswered note.
-mfw main: to_agent 363 (book stall) answered on origin (from_agent/363: rec.log truncated/journalless, no 120s guard, no :27/:28 cron; recurrent 121.2s signature, not a crash boundary).
-pkarbs vg2ckg: inbox answered; thesports-trial capture pid 2818605 alive, RSS ~276MB < cap, no OOM (monitor oom flag = stale noise); rugby C/D replies + slim exports on origin.
-ASX main: queue answered; T020 partial done; T018 (2024 delistings) next OPEN/redo, per-company primary pass deferred to interactive round (box disk-freeze: one-off reads only).
-webb main: T001/T002 next_run 2026-11-15, not due; outside 14:00-23:00Z run window; all others accepted/retired/blocked.
-status: no new unanswered work this round; nothing gates on Nick.
+# agent/status/heartbeat.md
+Round: 2026-11-09T06:15Z (server-member dispatch)
+- thesports-trial: running (capture-b scope active); RSS 276MB<650MB cap, no OOM; slim exports on origin (last 22:24Z). Monitor "oom" flag = stale noise.
+- capture-scheduler: APPROVED 9 Nov 00:19:32Z; files pulled+py_compile OK; --list 0 timers (no rows yet); --run-due exit 0 no-op. Reply on origin.
+- rugby CD export: 13 files committed (0844e739/bd969718) under rugby/live-2026-11/, reply filed. Done.
+- rugby-top14-capture: windows AB done, D captured, C thin. Status current.
+Open tail: none from this round. Next window rows to add once Top 14 / chess WCC known.
