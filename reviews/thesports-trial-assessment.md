@@ -187,3 +187,10 @@ Among quiet-at-message events, split by whether the price's half-move came more 
 - Price already moved first (big move): tennis 40-60% 21.3% vs 10.1% (p=0.01); Dota 60-90% 28.2% vs 16.8% (p=0.10). Quiet entries are more often too late than random ones.
 - Price capture (buy ask, mid +60 s) among feed-leads events: tennis 40-60% +3.06c vs placebo +4.85c (n9, p=0.00 worse); tennis 10-60% +3.38c vs +4.67c (n21); Dota 60-90% +4.42c vs +6.01c (n6). No better than placebo even in the ceiling case. Counts 5-21 events, so thin.
 Reading: the ~1c post-message drift is not coming from events where TheSports beats the price by seconds; it appears alongside, not because of, a feed lead. Does not change the pre-registered tests, which are the arbiter. Tennis/Dota remain UNKNOWN pending those tests.
+
+## Feed-lead test (9 Nov 07:30Z; raw: reviews/thesports-feedlead-2026-11-09-0725Z.txt; data to 22:24Z 8 Nov; no price bands)
+Question: does the message lead the Polymarket price by enough to beat our delay (0.2 s + 1 s PM delay = price half-move must come >1.2 s after the message)? Over events with a big move (>=3c in t-60..t+60), share where the message beats the delay, real vs placebo (same events shifted +-60-600 s), 90% CI bootstrap over games.
+- Tennis points: 28.1% vs placebo 32.9% (2053 big moves, 90 matches; diff CI [-6.2, -3.2]). Break-point points 27.6% vs 32.3%. Game-level breaks 1.6% vs 35.3% (193 events; message is ~26 s late).
+- CS2 round wins: 22.6% vs 38.3% (358 big moves, 50 maps; CI [-19.7, -11.5]); mean half-move 18.9 s BEFORE the message vs 8.0 s placebo. Map point 21.4% vs 41.4% (14); overtime 15.0% vs 34.9% (20).
+- Dota kills: 35.7% vs 31.0% (238 big moves, 31 games; CI [-1.3, +10.4], p=0.21). Dota towers 29.3% vs 34.4% (41, p=0.64). Not distinguishable from placebo.
+Reading: for tennis and CS2 the message is not ahead of the price (it is later than random times). Dota kills: no evidence of a lead; the 4.7 point difference is inside the noise. UNKNOWN for Dota pending the pre-registered test; the other data say no lead.
