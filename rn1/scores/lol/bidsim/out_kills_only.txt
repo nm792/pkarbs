@@ -1,0 +1,13 @@
+model: logistic on 1964 games; 372 backtest matches excluded
+frame winner vs Polymarket resolution: {'ok': 832, 'bad': 59}
+event betas (logit per unit, mean of LOGO fits): {'kills': 0.284, 'towers': 0.0, 'dragons': 0.126, 'barons': 0.023, 'inhibs': 0.051, 'gold': 0.401}
+set / lag / window                  ser    $fill  1min%      1min 90%   res%    res$ res$ 90% (series)
+HOLDOUT kills lag 2s win 30         224   157381  13.45   [11.2,15.9]  14.55   22904     [10853,35186]
+HOLDOUT kills lag WS 2+U(0,20)s win 30  206   116982   8.63    [6.3,11.2]   9.12   10664       [727,20549]
+HOLDOUT kills lag 20s win 30        194    96468   3.53     [1.7,5.3]   6.56    6331     [-3029,15539]
+HOLDOUT kills lag 55s feed win 30   189    97167   2.18    [-1.4,6.2] -14.67  -14252     [-29571,-990]
+all kills lag 2s win 30             336   231213  13.57   [11.7,15.4]  14.34   33149     [18895,47628]
+all kills lag WS 2+U(0,20)s win 30  313   169841   7.98    [6.1,10.0]   6.23   10583      [-659,22208]
+all kills lag 20s win 30            302   138766   2.83     [1.3,4.3]   1.84    2559     [-7817,13485]
+all kills lag 55s feed win 30       291   140176   1.24    [-1.3,4.3] -10.81  -15157    [-31911,-1027]
+games loaded 830 holdout 531

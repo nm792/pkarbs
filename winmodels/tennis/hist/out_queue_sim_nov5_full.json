@@ -1,0 +1,102 @@
+{
+ "pinnacle | ack 0.2s": {
+  "matches": 53,
+  "per_match": 0.12,
+  "per_match_range": null,
+  "orders": 1095,
+  "filled_orders": 3,
+  "usd_filled": 29,
+  "ex_top5_per_match": -0.15,
+  "ci90_boot": [
+   -0.25,
+   0.5
+  ]
+ },
+ "pinnacle | ack 1.3s": {
+  "matches": 53,
+  "per_match": 0.0,
+  "per_match_range": null,
+  "orders": 308,
+  "filled_orders": 0,
+  "usd_filled": 0,
+  "ex_top5_per_match": 0.0,
+  "ci90_boot": [
+   0.0,
+   0.0
+  ]
+ },
+ "pinnacle | drawn acks, no guard": {
+  "matches": 53,
+  "per_match": -0.12,
+  "per_match_range": [
+   -1.68,
+   0.18
+  ],
+  "orders": 990,
+  "filled_orders": 2,
+  "usd_filled": 29,
+  "ex_top5_per_match": -0.15
+ },
+ "pinnacle | drawn acks, 0.3 s guard": {
+  "matches": 53,
+  "per_match": 0.06,
+  "per_match_range": [
+   -0.12,
+   0.25
+  ],
+  "orders": 2093,
+  "filled_orders": 1,
+  "usd_filled": 29,
+  "ex_top5_per_match": -0.15
+ },
+ "bet365 | ack 0.2s": {
+  "matches": 54,
+  "per_match": 6.65,
+  "per_match_range": null,
+  "orders": 2775,
+  "filled_orders": 18,
+  "usd_filled": 1462,
+  "ex_top5_per_match": -9.2,
+  "ci90_boot": [
+   -12.89,
+   28.48
+  ]
+ },
+ "bet365 | ack 1.3s": {
+  "matches": 54,
+  "per_match": 1.28,
+  "per_match_range": null,
+  "orders": 2602,
+  "filled_orders": 19,
+  "usd_filled": 1518,
+  "ex_top5_per_match": -8.37,
+  "ci90_boot": [
+   -13.33,
+   14.32
+  ]
+ },
+ "bet365 | drawn acks, no guard": {
+  "matches": 54,
+  "per_match": 7.72,
+  "per_match_range": [
+   3.11,
+   11.64
+  ],
+  "orders": 2737,
+  "filled_orders": 19,
+  "usd_filled": 1470,
+  "ex_top5_per_match": -9.22
+ },
+ "bet365 | drawn acks, 0.3 s guard": {
+  "matches": 54,
+  "per_match": 4.89,
+  "per_match_range": [
+   -3.32,
+   12.78
+  ],
+  "orders": 3228,
+  "filled_orders": 13,
+  "usd_filled": 1242,
+  "ex_top5_per_match": -5.55
+ }
+}

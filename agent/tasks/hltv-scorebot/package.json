@@ -1,0 +1,8 @@
+{
+  "name": "hltv-scorebot-capture",
+  "private": true,
+  "description": "Bounded HLTV scorebot + Polymarket book capture (pkarbs, 4 Nov 2026)",
+  "dependencies": {
+    "socket.io-client": "2.4.0"
+  }
+}

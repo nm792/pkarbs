@@ -1,0 +1,27 @@
+# probe from Claude cloud container (US egress, IAD), 2026-11-04T10:40:41Z. columns: host | proxy CONNECT code | site HTTP code
+# CONNECT 403 = not on our allowlist; CONNECT 200 + 403 = site itself refused us
+cross.bet | 200 403
+www.cross.bet | 200 403
+api.cross.bet | 502 000
+guest.api.arcadia.pinnacle.com | 403 000
+www.pinnacle.com | 403 000
+thunderpick.io | 403 000
+stake.com | 403 000
+gg.bet | 403 000
+www.betway.com | 403 000
+1xbet.com | 403 000
+www.bet365.com | 403 000
+api.betfair.com | 403 000
+api.smarkets.com | 403 000
+cloudbet.com | 403 000
+sports-api.cloudbet.com | 403 000
+api.odds-api.io | 403 000
+api.oddspapi.io | 403 000
+widgets.sir.sportradar.com | 403 000
+api.grid.gg | 200 301
+api-op.grid.gg | 200 404
+grid.gg | 403 000
+# GRID series-state GraphQL without key:
+{"errors":[{"message":"Requester unauthorized to make query","path":["queryValue"],"extensions":{"errorType":"UNAUTHENTICATED"}}],"data":null}
+# GRID central-data GraphQL without key:
+{"errors":[{"message":"Requester unauthorized to make query","path":["queryValue"],"extensions":{"errorType":"UNAUTHENTICATED"}}],"data":null}

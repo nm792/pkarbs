@@ -1,0 +1,4 @@
+{
+  "_note": "Add one entry per capture window. Rugby entries use a window name from rugby-top14-config-2026-11-07.json (kickoff is derived). The launcher fires at kickoff minus lead_min, checks tokens/markets, launches, and verifies after 60 s.",
+  "entries": []
+}

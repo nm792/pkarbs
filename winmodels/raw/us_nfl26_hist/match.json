@@ -1,0 +1,482 @@
+{
+"nfl-ne-sea-2026-09-10": {
+"sport": "nfl",
+"espn_id": "401872656"
+},
+"nfl-sf-la-2026-09-11": {
+"sport": "nfl",
+"espn_id": "401872657"
+},
+"nfl-atl-pit-2026-09-13": {
+"sport": "nfl",
+"espn_id": "401872658"
+},
+"nfl-bal-ind-2026-09-13": {
+"sport": "nfl",
+"espn_id": "401872659"
+},
+"nfl-buf-hou-2026-09-13": {
+"sport": "nfl",
+"espn_id": "401872660"
+},
+"nfl-chi-car-2026-09-13": {
+"sport": "nfl",
+"espn_id": "401872661"
+},
+"nfl-cle-jax-2026-09-13": {
+"sport": "nfl",
+"espn_id": "401872922"
+},
+"nfl-no-det-2026-09-13": {
+"sport": "nfl",
+"espn_id": "401872923"
+},
+"nfl-nyj-ten-2026-09-13": {
+"sport": "nfl",
+"espn_id": "401872924"
+},
+"nfl-tb-cin-2026-09-13": {
+"sport": "nfl",
+"espn_id": "401872925"
+},
+"nfl-ari-lac-2026-09-13": {
+"sport": "nfl",
+"espn_id": "401872926"
+},
+"nfl-gb-min-2026-09-13": {
+"sport": "nfl",
+"espn_id": "401872927"
+},
+"nfl-mia-lv-2026-09-13": {
+"sport": "nfl",
+"espn_id": "401872928"
+},
+"nfl-was-phi-2026-09-13": {
+"sport": "nfl",
+"espn_id": "401872929"
+},
+"nfl-dal-nyg-2026-09-14": {
+"sport": "nfl",
+"espn_id": "401872930"
+},
+"nfl-den-kc-2026-09-15": {
+"sport": "nfl",
+"espn_id": "401872931"
+},
+"nfl-det-buf-2026-09-18": {
+"sport": "nfl",
+"espn_id": "401872932"
+},
+"nfl-car-atl-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872933"
+},
+"nfl-cin-hou-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872934"
+},
+"nfl-cle-tb-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872935"
+},
+"nfl-gb-nyj-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872936"
+},
+"nfl-min-chi-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872937"
+},
+"nfl-no-bal-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872938"
+},
+"nfl-phi-ten-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872939"
+},
+"nfl-jax-den-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872940"
+},
+"nfl-lv-lac-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872941"
+},
+"nfl-mia-sf-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872942"
+},
+"nfl-sea-ari-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872943"
+},
+"nfl-was-dal-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872944"
+},
+"nfl-ind-kc-2026-09-21": {
+"sport": "nfl",
+"espn_id": "401872945"
+},
+"nfl-pit-ne-2026-09-20": {
+"sport": "nfl",
+"espn_id": "401872946"
+},
+"nfl-nyg-la-2026-09-22": {
+"sport": "nfl",
+"espn_id": "401872947"
+},
+"nfl-atl-gb-2026-09-25": {
+"sport": "nfl",
+"espn_id": "401872948"
+},
+"nfl-car-cle-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872949"
+},
+"nfl-cin-pit-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872950"
+},
+"nfl-hou-ind-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872951"
+},
+"nfl-kc-mia-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872952"
+},
+"nfl-lac-buf-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872953"
+},
+"nfl-nyj-det-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872954"
+},
+"nfl-sea-was-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872955"
+},
+"nfl-ten-nyg-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872956"
+},
+"nfl-ne-jax-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872957"
+},
+"nfl-ari-sf-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872958"
+},
+"nfl-min-tb-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872959"
+},
+"nfl-bal-dal-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872960"
+},
+"nfl-lv-no-2026-09-27": {
+"sport": "nfl",
+"espn_id": "401872961"
+},
+"nfl-la-den-2026-09-28": {
+"sport": "nfl",
+"espn_id": "401872962"
+},
+"nfl-phi-chi-2026-09-29": {
+"sport": "nfl",
+"espn_id": "401872963"
+},
+"nfl-pit-cle-2026-10-02": {
+"sport": "nfl",
+"espn_id": "401872964"
+},
+"nfl-ind-was-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872965"
+},
+"nfl-ari-nyg-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872966"
+},
+"nfl-dal-hou-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872967"
+},
+"nfl-gb-tb-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872968"
+},
+"nfl-jax-cin-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872969"
+},
+"nfl-la-phi-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872970"
+},
+"nfl-ne-buf-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872971"
+},
+"nfl-nyj-chi-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872972"
+},
+"nfl-ten-bal-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872973"
+},
+"nfl-mia-min-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872974"
+},
+"nfl-den-sf-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872975"
+},
+"nfl-kc-lv-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872976"
+},
+"nfl-lac-sea-2026-10-04": {
+"sport": "nfl",
+"espn_id": "401872977"
+},
+"nfl-det-car-2026-10-05": {
+"sport": "nfl",
+"espn_id": "401872978"
+},
+"nfl-atl-no-2026-10-06": {
+"sport": "nfl",
+"espn_id": "401872979"
+},
+"nfl-tb-dal-2026-10-09": {
+"sport": "nfl",
+"espn_id": "401872980"
+},
+"nfl-phi-jax-2026-10-11": {
+"sport": "nfl",
+"espn_id": "401872981"
+},
+"nfl-cin-mia-2026-10-11": {
+"sport": "nfl",
+"espn_id": "401872982"
+},
+"nfl-cle-nyj-2026-10-11": {
+"sport": "nfl",
+"espn_id": "401872983"
+},
+"nfl-hou-ten-2026-10-11": {
+"sport": "nfl",
+"espn_id": "401872984"
+},
+"nfl-ind-pit-2026-10-11": {
+"sport": "nfl",
+"espn_id": "401872985"
+},
+"nfl-lv-ne-2026-10-11": {
+"sport": "nfl",
+"espn_id": "401872986"
+},
+"nfl-min-no-2026-10-11": {
+"sport": "nfl",
+"espn_id": "401872987"
+},
+"nfl-nyg-was-2026-10-11": {
+"sport": "nfl",
+"espn_id": "401872988"
+},
+"nfl-den-lac-2026-10-11": {
+"sport": "nfl",
+"espn_id": "401872989"
+},
+"nfl-chi-gb-2026-10-11": {
+"sport": "nfl",
+"espn_id": "401872990"
+},
+"nfl-det-ari-2026-10-11": {
+"sport": "nfl",
+"espn_id": "401872991"
+},
+"nfl-sf-sea-2026-10-11": {
+"sport": "nfl",
+"espn_id": "401872992"
+},
+"nfl-bal-atl-2026-10-12": {
+"sport": "nfl",
+"espn_id": "401872993"
+},
+"nfl-buf-la-2026-10-13": {
+"sport": "nfl",
+"espn_id": "401872994"
+},
+"nfl-hou-jax-2026-10-18": {
+"sport": "nfl",
+"espn_id": "401872996"
+},
+"nfl-bal-cle-2026-10-18": {
+"sport": "nfl",
+"espn_id": "401872997"
+},
+"nfl-car-phi-2026-10-18": {
+"sport": "nfl",
+"espn_id": "401872998"
+},
+"nfl-chi-atl-2026-10-18": {
+"sport": "nfl",
+"espn_id": "401872999"
+},
+"nfl-no-nyg-2026-10-18": {
+"sport": "nfl",
+"espn_id": "401873000"
+},
+"nfl-nyj-ne-2026-10-18": {
+"sport": "nfl",
+"espn_id": "401873001"
+},
+"nfl-pit-tb-2026-10-18": {
+"sport": "nfl",
+"espn_id": "401873002"
+},
+"nfl-ten-ind-2026-10-18": {
+"sport": "nfl",
+"espn_id": "401873003"
+},
+"nfl-ari-la-2026-10-18": {
+"sport": "nfl",
+"espn_id": "401873004"
+},
+"nfl-buf-lv-2026-10-18": {
+"sport": "nfl",
+"espn_id": "401873005"
+},
+"nfl-lac-kc-2026-10-18": {
+"sport": "nfl",
+"espn_id": "401873006"
+},
+"nfl-dal-gb-2026-10-19": {
+"sport": "nfl",
+"espn_id": "401873007"
+},
+"nfl-was-sf-2026-10-20": {
+"sport": "nfl",
+"espn_id": "401873008"
+},
+"nfl-dal-phi-2026-10-27": {
+"sport": "nfl",
+"espn_id": "401873009"
+},
+"nfl-ne-chi-2026-10-23": {
+"sport": "nfl",
+"espn_id": "401873010"
+},
+"nfl-pit-no-2026-10-25": {
+"sport": "nfl",
+"espn_id": "401873011"
+},
+"nfl-cin-bal-2026-10-25": {
+"sport": "nfl",
+"espn_id": "401873012"
+},
+"nfl-cle-ten-2026-10-25": {
+"sport": "nfl",
+"espn_id": "401873013"
+},
+"nfl-ind-min-2026-10-25": {
+"sport": "nfl",
+"espn_id": "401873014"
+},
+"nfl-mia-nyj-2026-10-25": {
+"sport": "nfl",
+"espn_id": "401873015"
+},
+"nfl-nyg-hou-2026-10-25": {
+"sport": "nfl",
+"espn_id": "401873016"
+},
+"nfl-sf-atl-2026-10-25": {
+"sport": "nfl",
+"espn_id": "401873017"
+},
+"nfl-tb-car-2026-10-25": {
+"sport": "nfl",
+"espn_id": "401873018"
+},
+"nfl-den-ari-2026-10-25": {
+"sport": "nfl",
+"espn_id": "401873019"
+},
+"nfl-gb-det-2026-10-25": {
+"sport": "nfl",
+"espn_id": "401873020"
+},
+"nfl-la-lv-2026-10-25": {
+"sport": "nfl",
+"espn_id": "401873021"
+},
+"nfl-kc-sea-2026-10-26": {
+"sport": "nfl",
+"espn_id": "401873022"
+},
+"nfl-car-gb-2026-10-30": {
+"sport": "nfl",
+"espn_id": "401873023"
+},
+"nfl-ari-dal-2026-11-01": {
+"sport": "nfl",
+"espn_id": "401873024"
+},
+"nfl-atl-tb-2026-11-01": {
+"sport": "nfl",
+"espn_id": "401873025"
+},
+"nfl-bal-buf-2026-11-01": {
+"sport": "nfl",
+"espn_id": "401873026"
+},
+"nfl-cle-pit-2026-11-01": {
+"sport": "nfl",
+"espn_id": "401873027"
+},
+"nfl-ind-jax-2026-11-01": {
+"sport": "nfl",
+"espn_id": "401873028"
+},
+"nfl-lv-nyj-2026-11-01": {
+"sport": "nfl",
+"espn_id": "401873029"
+},
+"nfl-min-det-2026-11-01": {
+"sport": "nfl",
+"espn_id": "401873030"
+},
+"nfl-ten-cin-2026-11-01": {
+"sport": "nfl",
+"espn_id": "401873031"
+},
+"nfl-lac-la-2026-11-01": {
+"sport": "nfl",
+"espn_id": "401873032"
+},
+"nfl-kc-den-2026-11-01": {
+"sport": "nfl",
+"espn_id": "401873033"
+},
+"nfl-ne-mia-2026-11-01": {
+"sport": "nfl",
+"espn_id": "401873034"
+},
+"nfl-phi-was-2026-11-02": {
+"sport": "nfl",
+"espn_id": "401873035"
+},
+"nfl-chi-sea-2026-11-03": {
+"sport": "nfl",
+"espn_id": "401873036"
+}
+}

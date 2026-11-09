@@ -1,0 +1,79 @@
+events usable 336 {'no period times': 408, 'goal list != final score': 2} markets 7628
+{'ok': 3496, 'no pre-match 1X2 prices': 8}
+all                 none        ev  325 $fill    444535 1min+reb -0.11% [np.float64(-0.39), np.float64(0.18)]  result+reb -4.46% [np.float64(-9.03), np.float64(0.56)] = $-19842
+all                 model     0 ev  322 $fill    201323 1min+reb 0.24% [np.float64(-0.44), np.float64(0.83)]  result+reb 2.86% [np.float64(-3.59), np.float64(9.28)] = $5762
+all                 model  0.02 ev  310 $fill    125228 1min+reb 0.32% [np.float64(-0.68), np.float64(1.19)]  result+reb 2.29% [np.float64(-5.77), np.float64(10.46)] = $2868
+all                 model  0.05 ev  265 $fill     56806 1min+reb 1.26% [np.float64(-0.29), np.float64(2.6)]  result+reb 4.67% [np.float64(-6.24), np.float64(15.45)] = $2653
+all                 blend     0 ev  322 $fill    256132 1min+reb 0.45% [np.float64(-0.09), np.float64(0.94)]  result+reb 2.1% [np.float64(-3.18), np.float64(7.33)] = $5369
+all                 blend  0.02 ev  305 $fill    107250 1min+reb 0.25% [np.float64(-0.91), np.float64(1.24)]  result+reb 0.93% [np.float64(-6.84), np.float64(8.71)] = $1001
+all                 blend  0.05 ev  182 $fill     25497 1min+reb 3.14% [np.float64(0.11), np.float64(5.78)]  result+reb 12.84% [np.float64(-1.68), np.float64(26.78)] = $3275
+moneyline           none        ev  316 $fill    245841 1min+reb -0.87% [np.float64(-1.28), np.float64(-0.45)]  result+reb -3.19% [np.float64(-9.1), np.float64(2.74)] = $-7838
+moneyline           model     0 ev  306 $fill    118786 1min+reb -0.05% [np.float64(-0.75), np.float64(0.62)]  result+reb 1.28% [np.float64(-7.69), np.float64(10.96)] = $1517
+moneyline           model  0.02 ev  284 $fill     79085 1min+reb 0.13% [np.float64(-0.9), np.float64(1.03)]  result+reb -0.37% [np.float64(-10.69), np.float64(10.21)] = $-291
+moneyline           model  0.05 ev  228 $fill     37563 1min+reb 1.41% [np.float64(0.03), np.float64(2.77)]  result+reb 4.69% [np.float64(-7.66), np.float64(17.46)] = $1763
+moneyline           blend     0 ev  309 $fill    140787 1min+reb -0.05% [np.float64(-0.65), np.float64(0.51)]  result+reb 2.27% [np.float64(-5.73), np.float64(10.75)] = $3200
+moneyline           blend  0.02 ev  276 $fill     70011 1min+reb 0.19% [np.float64(-0.94), np.float64(1.19)]  result+reb -1.67% [np.float64(-10.9), np.float64(7.53)] = $-1167
+moneyline           blend  0.05 ev  144 $fill     18371 1min+reb 3.6% [np.float64(1.14), np.float64(5.91)]  result+reb 13.22% [np.float64(-3.91), np.float64(29.68)] = $2429
+totals              none        ev  310 $fill    163955 1min+reb 0.97% [np.float64(0.46), np.float64(1.47)]  result+reb -4.51% [np.float64(-10.32), np.float64(1.26)] = $-7401
+totals              model     0 ev  289 $fill     66585 1min+reb 0.69% [np.float64(-0.46), np.float64(1.65)]  result+reb 5.05% [np.float64(-4.01), np.float64(12.95)] = $3365
+totals              model  0.02 ev  261 $fill     35702 1min+reb 0.74% [np.float64(-1.26), np.float64(2.48)]  result+reb 7.57% [np.float64(-5.06), np.float64(19.21)] = $2701
+totals              model  0.05 ev  170 $fill     14692 1min+reb 0.92% [np.float64(-3.39), np.float64(4.47)]  result+reb 5.98% [np.float64(-11.35), np.float64(24.6)] = $879
+totals              blend     0 ev  301 $fill     94443 1min+reb 1.19% [np.float64(0.29), np.float64(2.01)]  result+reb 2.78% [np.float64(-4.34), np.float64(9.26)] = $2625
+totals              blend  0.02 ev  242 $fill     28715 1min+reb 0.37% [np.float64(-1.92), np.float64(2.35)]  result+reb 6.14% [np.float64(-6.41), np.float64(18.43)] = $1763
+totals              blend  0.05 ev   89 $fill      5283 1min+reb 2.52% [np.float64(-8.04), np.float64(11.72)]  result+reb 2.03% [np.float64(-22.11), np.float64(25.91)] = $107
+spreads             none        ev  177 $fill     18221 1min+reb 0.06% [np.float64(-0.99), np.float64(1.2)]  result+reb -5.12% [np.float64(-15.47), np.float64(6.6)] = $-932
+spreads             model     0 ev  136 $fill     11110 1min+reb 0.86% [np.float64(-0.42), np.float64(2.32)]  result+reb 9.39% [np.float64(-5.5), np.float64(26.71)] = $1043
+spreads             model  0.02 ev  105 $fill      7678 1min+reb 0.85% [np.float64(-0.84), np.float64(2.82)]  result+reb 1.85% [np.float64(-12.79), np.float64(18.48)] = $142
+spreads             model  0.05 ev   55 $fill      3079 1min+reb 2.27% [np.float64(-1.17), np.float64(7.36)]  result+reb -1.03% [np.float64(-21.73), np.float64(19.9)] = $-32
+spreads             blend     0 ev  145 $fill     13221 1min+reb 0.8% [np.float64(-0.3), np.float64(2.03)]  result+reb 2.19% [np.float64(-10.86), np.float64(17.24)] = $290
+spreads             blend  0.02 ev   85 $fill      6086 1min+reb 1.17% [np.float64(-0.97), np.float64(3.76)]  result+reb 0.29% [np.float64(-14.86), np.float64(16.18)] = $17
+spreads             blend  0.05 ev   14 $fill      1132 1min+reb 1.45% [np.float64(1.12), np.float64(2.0)]  result+reb 37.99% [np.float64(-6.74), np.float64(76.62)] = $430
+both_teams_to_score none        ev  188 $fill     16518 1min+reb 0.44% [np.float64(-0.06), np.float64(0.95)]  result+reb -22.22% [np.float64(-32.31), np.float64(-10.38)] = $-3671
+both_teams_to_score model     0 ev  101 $fill      4842 1min+reb -0.4% [np.float64(-2.02), np.float64(0.93)]  result+reb -3.36% [np.float64(-23.95), np.float64(18.01)] = $-163
+both_teams_to_score model  0.02 ev   73 $fill      2762 1min+reb -1.13% [np.float64(-3.86), np.float64(1.2)]  result+reb 11.41% [np.float64(-19.21), np.float64(38.42)] = $315
+both_teams_to_score model  0.05 ev   45 $fill      1472 1min+reb -1.29% [np.float64(-5.73), np.float64(1.86)]  result+reb 2.89% [np.float64(-41.14), np.float64(37.94)] = $42
+both_teams_to_score blend     0 ev  127 $fill      7680 1min+reb -0.09% [np.float64(-1.11), np.float64(0.74)]  result+reb -9.71% [np.float64(-26.34), np.float64(7.06)] = $-746
+both_teams_to_score blend  0.02 ev   62 $fill      2438 1min+reb -1.53% [np.float64(-4.64), np.float64(1.11)]  result+reb 15.9% [np.float64(-13.89), np.float64(40.8)] = $388
+both_teams_to_score blend  0.05 ev   18 $fill       710 1min+reb -1.6% [np.float64(-11.41), np.float64(3.65)]  result+reb 43.5% [np.float64(-27.04), np.float64(85.16)] = $309
+{
+"all": {
+"points": 397486,
+"events": 328,
+"brier_model": 0.1254,
+"brier_mkt": 0.1281,
+"brier_blend": 0.1258,
+"mean_abs_diff": 0.0336
+},
+"both_teams_to_score": {
+"points": 30344,
+"events": 265,
+"brier_model": 0.1544,
+"brier_mkt": 0.1615,
+"brier_blend": 0.1562,
+"mean_abs_diff": 0.052
+},
+"moneyline": {
+"points": 111897,
+"events": 328,
+"brier_model": 0.139,
+"brier_mkt": 0.139,
+"brier_blend": 0.1384,
+"mean_abs_diff": 0.0286
+},
+"spreads": {
+"points": 70282,
+"events": 264,
+"brier_model": 0.1262,
+"brier_mkt": 0.1316,
+"brier_blend": 0.1273,
+"mean_abs_diff": 0.0435
+},
+"totals": {
+"points": 184963,
+"events": 320,
+"brier_model": 0.1121,
+"brier_mkt": 0.1147,
+"brier_blend": 0.1126,
+"mean_abs_diff": 0.0298
+}
+}
