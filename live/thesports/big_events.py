@@ -284,7 +284,7 @@ for r in msgs:
                 dh, da = cur[0] - cs_last[key][0], cur[1] - cs_last[key][1]
                 if dh >= 0 and da >= 0 and dh + da == 1:
                     w = 1 if dh else -1; ws, ls = (cur[0], cur[1]) if w == 1 else (cur[1], cur[0])
-                    cls = 'cs2 round -> winner at 12 (map point)' if ws == 12 else ('cs2 round, loser already >=10 (late, winner<12)' if ls >= 10 else ('cs2 overtime round' if ws >= 13 else 'cs2 early/mid round (loser<10)'))
+                    cls = 'cs2 round -> winner at 12 (map point)' if ws == 12 else ('cs2 map-winning round (13-x regulation)' if (ws == 13 and ls < 12) else ('cs2 overtime round (both >=12)' if ls >= 12 else ('cs2 round, loser already >=10 (late, winner<12)' if ls >= 10 else 'cs2 early/mid round (loser<10)')))
                     big[key].append((t, w, cls))
             cs_last[key] = cur
         elif s == 'lol':
@@ -1037,6 +1037,9 @@ if os.environ.get('SIGNAL'):
     groups['TENNIS game-level breaks (set goes on)'] = classes.get('tennis break (set goes on)', [])
     groups['CS2 all round wins'] = [x for c, L in classes.items() if c.startswith('cs2') for x in L]
     groups['CS2 late rounds (loser>=10)'] = classes.get('cs2 round, loser already >=10 (late, winner<12)', [])
+    groups['CS2 map point (round -> winner at 12)'] = classes.get('cs2 round -> winner at 12 (map point)', [])
+    groups['CS2 map-winning round (13-x)'] = classes.get('cs2 map-winning round (13-x regulation)', [])
+    groups['CS2 overtime rounds (both >=12)'] = classes.get('cs2 overtime round (both >=12)', [])
     groups['DOTA kills'] = allk
     groups['DOTA towers'] = tw
     BANDS = [('all prices', None), ('fav price 0.10-0.40', (0.10, 0.40)), ('fav price 0.40-0.60', (0.40, 0.60)), ('fav price 0.60-0.90', (0.60, 0.90))]
@@ -1128,7 +1131,10 @@ if os.environ.get('TRADE') and os.environ.get('SIGNAL'):
     print('\n=== TRADEABILITY: quiet-at-message events, order lands t+0.2 s+%.1f s PM delay, hold to resolution, cents per share; placebo = same rule at shifted times; CI/p bootstrap over games ===' % DLY)
     TG = [('TENNIS all points', tp, [('fav 0.10-0.40', (0.10, 0.40)), ('fav 0.40-0.60', (0.40, 0.60)), ('fav 0.10-0.60', (0.10, 0.60)), ('fav 0.60-0.90', (0.60, 0.90))]),
           ('DOTA kills', allk, [('fav 0.60-0.90', (0.60, 0.90)), ('fav 0.40-0.90', (0.40, 0.90))]),
-          ('CS2 all round wins', groups['CS2 all round wins'], [('fav 0.40-0.60', (0.40, 0.60))])]
+          ('CS2 all round wins', groups['CS2 all round wins'], [('fav 0.40-0.60', (0.40, 0.60))]),
+          ('CS2 map point (->12)', groups['CS2 map point (round -> winner at 12)'], [('fav 0.10-0.90', (0.10, 0.90))]),
+          ('CS2 map-winning round (13-x)', groups['CS2 map-winning round (13-x)'], [('fav 0.10-0.90', (0.10, 0.90))]),
+          ('CS2 overtime rounds', groups['CS2 overtime rounds (both >=12)'], [('fav 0.10-0.90', (0.10, 0.90)), ('fav 0.40-0.60', (0.40, 0.60))])]
     for gname, L, bands in TG:
         for bname, band in bands:
             R, P = trade_events(L, band)
