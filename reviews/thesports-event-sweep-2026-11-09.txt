@@ -45,135 +45,201 @@ INVENTORY (messages per sport, distinct games/matches, event-type counts)
   events lol event type 2                             66
   events lol event type 3                             11
   events lol event type 4                             39
+  events tennis game to 5+ (serve for set / hold-break at 5) 412
+  events tennis set won                               473
+  events tennis tiebreak starts                       65
   dota roshan timer starts (side by aegis vote below): 45
   aegis item vote top: [('kjw2r08etjoqz84', 41), ('yl5erg57cyom8k0', 11), ('v2y8m4egt3yql07', 4)]
-paired games to PM game-winner token: 37 of 189 games with events
+paired games to PM game-winner token: 200 of 416 games with events
 
 RESULT per event class (cents per share; diff = real minus placebo; 90% match-clustered CI; band 0.10-0.90)
+
+== cs2 kill | events 5403
+   mtm60   n=967 matches=25 diff +0.14c CI [-0.47, +0.82]
+   exit30  n=975 matches=25 diff +0.30c CI [-0.41, +1.33]
+   hold    n=892 matches=23 diff -0.93c CI [-1.63, -0.22]
+   signed move real [-30,0] -0.04c(n3343) | [0,10] -0.02c(n3290) | [10,60] +0.24c(n3248)
+   signed move plac [-30,0] +0.06c(n15846) | [0,10] +0.04c(n15505) | [10,60] +0.16c(n15286)
+
+== cs2 kill headshot | events 7670
+   mtm60   n=1421 matches=25 diff +0.33c CI [+0.00, +0.66]
+   exit30  n=1448 matches=25 diff -0.52c CI [-2.33, +0.67]
+   hold    n=1291 matches=24 diff -0.86c CI [-1.58, -0.14]
+   signed move real [-30,0] +0.00c(n4488) | [0,10] +0.04c(n4388) | [10,60] +0.19c(n4331)
+   signed move plac [-30,0] +0.08c(n21801) | [0,10] +0.02c(n21203) | [10,60] +0.17c(n20821)
+
+== cs2 round end wintype 1 | events 132
+   mtm60   n=16 matches=14 diff -3.22c CI [-5.88, -0.66]
+   exit30  n=16 matches=13 diff -0.16c CI [-1.16, +0.74]
+   hold    n=16 matches=12 diff -0.26c CI [-5.01, +5.27]
+   signed move real [-30,0] -0.14c(n81) | [0,10] +0.08c(n81) | [10,60] +0.08c(n81)
+   signed move plac [-30,0] +0.43c(n368) | [0,10] -0.08c(n374) | [10,60] +1.21c(n359)
+
+== cs2 round end wintype 2 | events 189
+   mtm60   n=31 matches=16 diff -0.21c CI [-2.64, +2.19]
+   exit30  n=31 matches=16 diff -1.29c CI [-3.36, +0.58]
+   hold    n=26 matches=14 diff -8.08c CI [-10.88, -5.32]
+   signed move real [-30,0] -0.52c(n119) | [0,10] -0.05c(n118) | [10,60] +0.82c(n115)
+   signed move plac [-30,0] +0.10c(n560) | [0,10] -0.07c(n560) | [10,60] +0.35c(n556)
+
+== cs2 round end wintype 3 | events 51
+   mtm60   n=5 matches=5 diff -3.77c CI [-6.53, -0.89]
+   exit30  n=5 matches=5 diff -1.93c CI [-4.45, +0.05]
+   hold    n=5 matches=5 diff -0.73c CI [-6.24, +4.04]
+   signed move real [-30,0] -0.57c(n42) | [0,10] -0.71c(n41) | [10,60] -0.06c(n39)
+   signed move plac [-30,0] +0.12c(n183) | [0,10] +0.06c(n188) | [10,60] +1.06c(n184)
+
+== cs2 round end wintype 4 | events 327
+   mtm60   n=52 matches=19 diff -0.62c CI [-2.09, +0.81]
+   exit30  n=51 matches=20 diff -0.31c CI [-1.14, +0.51]
+   hold    n=43 matches=18 diff -2.64c CI [-5.46, +0.18]
+   signed move real [-30,0] -0.23c(n188) | [0,10] +0.36c(n187) | [10,60] +0.44c(n185)
+   signed move plac [-30,0] +0.32c(n921) | [0,10] +0.12c(n918) | [10,60] +0.64c(n889)
+
+== cs2 round end wintype 5 | events 400
+   mtm60   n=49 matches=20 diff -2.47c CI [-5.18, -0.02]
+   exit30  n=52 matches=20 diff -1.79c CI [-2.66, -0.85]
+   hold    n=43 matches=20 diff -2.92c CI [-5.48, -0.26]
+   signed move real [-30,0] +0.31c(n201) | [0,10] -0.35c(n197) | [10,60] +0.12c(n195)
+   signed move plac [-30,0] +0.20c(n993) | [0,10] +0.27c(n1015) | [10,60] +0.76c(n981)
 
 == dota NW lead crosses +10k | events 42
    mtm60   n=0 matches=0 diff n/a CI n/a
    exit30  n=0 matches=0 diff n/a CI n/a
    hold    n=0 matches=0 diff n/a CI n/a
    signed move real [-30,0] +2.72c(n9) | [0,10] -0.72c(n9) | [10,60] -7.76c(n8)
-   signed move plac [-30,0] +1.37c(n65) | [0,10] +0.86c(n68) | [10,60] +2.49c(n61)
+   signed move plac [-30,0] -0.34c(n62) | [0,10] +0.38c(n68) | [10,60] -0.06c(n50)
 
 == dota NW lead crosses +20k | events 26
    mtm60   n=0 matches=0 diff n/a CI n/a
    exit30  n=0 matches=0 diff n/a CI n/a
    hold    n=0 matches=0 diff n/a CI n/a
    signed move real [-30,0] +7.40c(n3) | [0,10] -4.52c(n3) | [10,60] +5.67c(n3)
-   signed move plac [-30,0] +1.31c(n24) | [0,10] +0.46c(n35) | [10,60] +0.46c(n22)
+   signed move plac [-30,0] +3.72c(n26) | [0,10] +1.36c(n33) | [10,60] +3.04c(n23)
 
 == dota NW lead crosses +5k | events 72
-   mtm60   n=1 matches=1 diff +1.00c CI n/a
-   exit30  n=2 matches=2 diff -1.46c CI n/a
-   hold    n=1 matches=1 diff -16.80c CI n/a
+   mtm60   n=1 matches=1 diff +1.80c CI n/a
+   exit30  n=2 matches=2 diff +0.92c CI n/a
+   hold    n=1 matches=1 diff -15.80c CI n/a
    signed move real [-30,0] +0.44c(n20) | [0,10] -0.66c(n20) | [10,60] +3.81c(n20)
-   signed move plac [-30,0] +0.75c(n143) | [0,10] +0.56c(n151) | [10,60] +1.46c(n142)
+   signed move plac [-30,0] -0.78c(n146) | [0,10] -0.15c(n158) | [10,60] +0.96c(n153)
 
 == dota NW lead flips | events 208
-   mtm60   n=33 matches=12 diff -0.74c CI [-2.86, +1.23]
-   exit30  n=32 matches=13 diff +0.51c CI [-0.59, +1.57]
-   hold    n=29 matches=11 diff -1.00c CI [-3.17, +1.24]
+   mtm60   n=33 matches=12 diff +0.05c CI [-2.07, +2.21]
+   exit30  n=32 matches=12 diff +0.05c CI [-1.08, +1.23]
+   hold    n=30 matches=12 diff -2.44c CI [-6.71, +1.30]
    signed move real [-30,0] +0.12c(n142) | [0,10] +0.12c(n141) | [10,60] +0.54c(n140)
-   signed move plac [-30,0] +0.14c(n702) | [0,10] -0.01c(n678) | [10,60] +0.51c(n667)
+   signed move plac [-30,0] +0.16c(n679) | [0,10] +0.23c(n690) | [10,60] -0.07c(n686)
 
 == dota all barracks gone (megacreeps) | events 9
    mtm60   n=0 matches=0 diff n/a CI n/a
    exit30  n=0 matches=0 diff n/a CI n/a
    hold    n=0 matches=0 diff n/a CI n/a
    signed move real [-30,0] n/a | [0,10] n/a | [10,60] n/a
-   signed move plac [-30,0] +1.83c(n9) | [0,10] -2.00c(n9) | [10,60] -9.62c(n8)
+   signed move plac [-30,0] +0.50c(n6) | [0,10] +0.33c(n6) | [10,60] +8.63c(n8)
 
 == dota barracks destroyed | events 43
-   mtm60   n=2 matches=2 diff -0.77c CI n/a
-   exit30  n=2 matches=2 diff -2.20c CI n/a
-   hold    n=2 matches=2 diff -3.21c CI n/a
+   mtm60   n=2 matches=2 diff +1.94c CI n/a
+   exit30  n=2 matches=2 diff +0.30c CI n/a
+   hold    n=2 matches=2 diff -5.87c CI n/a
    signed move real [-30,0] -1.18c(n7) | [0,10] +1.91c(n7) | [10,60] -1.39c(n7)
-   signed move plac [-30,0] +1.07c(n64) | [0,10] -0.10c(n64) | [10,60] +0.66c(n60)
+   signed move plac [-30,0] +1.30c(n61) | [0,10] +0.84c(n68) | [10,60] +1.67c(n69)
 
 == dota first blood | events 23
-   mtm60   n=9 matches=8 diff +0.69c CI [-1.11, +2.58]
-   exit30  n=9 matches=8 diff +1.06c CI [+0.11, +2.23]
-   hold    n=7 matches=6 diff +1.42c CI [+0.63, +2.53]
+   mtm60   n=10 matches=9 diff +0.80c CI [-0.73, +2.26]
+   exit30  n=10 matches=9 diff +1.03c CI [-0.11, +2.25]
+   hold    n=8 matches=7 diff +0.74c CI [-0.35, +1.99]
    signed move real [-30,0] -0.39c(n22) | [0,10] +0.64c(n22) | [10,60] +0.43c(n22)
-   signed move plac [-30,0] +0.16c(n90) | [0,10] -0.09c(n86) | [10,60] +0.50c(n87)
+   signed move plac [-30,0] -0.26c(n90) | [0,10] +0.18c(n92) | [10,60] +0.73c(n87)
 
 == dota game ends (feed status change) | events 2
    mtm60   n=0 matches=0 diff n/a CI n/a
    exit30  n=0 matches=0 diff n/a CI n/a
    hold    n=0 matches=0 diff n/a CI n/a
    signed move real [-30,0] n/a | [0,10] n/a | [10,60] n/a
-   signed move plac [-30,0] -1.00c(n2) | [0,10] n/a | [10,60] n/a
+   signed move plac [-30,0] +0.50c(n1) | [0,10] -1.50c(n2) | [10,60] -0.45c(n1)
 
 == dota kill | events 776
-   mtm60   n=110 matches=18 diff +0.23c CI [-0.98, +1.44]
-   exit30  n=110 matches=18 diff -0.23c CI [-1.10, +0.49]
-   hold    n=78 matches=16 diff -1.57c CI [-2.72, -0.40]
+   mtm60   n=107 matches=18 diff -0.50c CI [-1.81, +0.65]
+   exit30  n=110 matches=18 diff -0.22c CI [-0.91, +0.44]
+   hold    n=76 matches=16 diff -2.26c CI [-3.44, -1.21]
    signed move real [-30,0] +0.27c(n539) | [0,10] +0.62c(n538) | [10,60] +0.23c(n532)
-   signed move plac [-30,0] +0.25c(n2571) | [0,10] +0.06c(n2576) | [10,60] +0.23c(n2530)
+   signed move plac [-30,0] +0.07c(n2577) | [0,10] +0.05c(n2519) | [10,60] +0.06c(n2504)
 
 == dota roshan killed (aegis side) | events 24
-   mtm60   n=1 matches=1 diff +7.28c CI n/a
-   exit30  n=1 matches=1 diff +3.83c CI n/a
-   hold    n=1 matches=1 diff +19.00c CI n/a
+   mtm60   n=1 matches=1 diff +4.28c CI n/a
+   exit30  n=1 matches=1 diff +2.37c CI n/a
+   hold    n=1 matches=1 diff +14.56c CI n/a
    signed move real [-30,0] -2.06c(n18) | [0,10] -1.01c(n18) | [10,60] +4.90c(n17)
-   signed move plac [-30,0] -0.95c(n73) | [0,10] -0.40c(n71) | [10,60] +0.17c(n75)
+   signed move plac [-30,0] -0.92c(n80) | [0,10] -0.94c(n75) | [10,60] -1.72c(n78)
 
 == dota team down to <=3 towers | events 23
    mtm60   n=0 matches=0 diff n/a CI n/a
    exit30  n=0 matches=0 diff n/a CI n/a
    hold    n=0 matches=0 diff n/a CI n/a
    signed move real [-30,0] -3.50c(n2) | [0,10] +0.75c(n2) | [10,60] +0.25c(n2)
-   signed move plac [-30,0] +0.57c(n28) | [0,10] -0.45c(n37) | [10,60] +2.27c(n29)
+   signed move plac [-30,0] +1.65c(n29) | [0,10] +1.81c(n31) | [10,60] +4.07c(n31)
 
 == dota tower destroyed | events 232
-   mtm60   n=23 matches=9 diff +0.28c CI [-4.05, +6.97]
-   exit30  n=20 matches=8 diff +1.73c CI [-0.24, +3.91]
-   hold    n=24 matches=8 diff +1.81c CI [-2.23, +5.71]
+   mtm60   n=21 matches=8 diff -3.03c CI [-5.24, -1.04]
+   exit30  n=19 matches=8 diff +2.02c CI [-2.80, +7.47]
+   hold    n=24 matches=7 diff -1.58c CI [-3.69, +0.24]
    signed move real [-30,0] -0.65c(n109) | [0,10] -0.12c(n109) | [10,60] +0.32c(n110)
-   signed move plac [-30,0] +0.39c(n587) | [0,10] +0.22c(n587) | [10,60] +0.18c(n581)
+   signed move plac [-30,0] -0.07c(n587) | [0,10] -0.01c(n584) | [10,60] +0.24c(n596)
 
 == lol event type 1 | events 132
-   mtm60   n=5 matches=1 diff -1.24c CI n/a
-   exit30  n=5 matches=1 diff +0.21c CI n/a
-   hold    n=5 matches=1 diff -1.26c CI n/a
+   mtm60   n=5 matches=1 diff +0.97c CI n/a
+   exit30  n=5 matches=1 diff -0.46c CI n/a
+   hold    n=5 matches=1 diff -0.98c CI n/a
    signed move real [-30,0] +0.88c(n41) | [0,10] -0.59c(n41) | [10,60] -0.68c(n71)
-   signed move plac [-30,0] -0.65c(n314) | [0,10] -0.16c(n317) | [10,60] +0.91c(n319)
+   signed move plac [-30,0] +0.37c(n316) | [0,10] -0.20c(n299) | [10,60] +0.34c(n334)
 
 == lol event type 2 | events 66
-   mtm60   n=10 matches=1 diff +1.39c CI n/a
-   exit30  n=9 matches=1 diff -0.91c CI n/a
-   hold    n=10 matches=1 diff -4.61c CI n/a
+   mtm60   n=10 matches=1 diff +3.59c CI n/a
+   exit30  n=11 matches=1 diff +0.21c CI n/a
+   hold    n=10 matches=1 diff -5.93c CI n/a
    signed move real [-30,0] -0.90c(n24) | [0,10] +0.15c(n24) | [10,60] +0.64c(n32)
-   signed move plac [-30,0] -0.29c(n167) | [0,10] +0.63c(n159) | [10,60] +0.93c(n159)
+   signed move plac [-30,0] -0.26c(n148) | [0,10] -0.10c(n168) | [10,60] +0.44c(n156)
 
 == lol event type 3 | events 11
    mtm60   n=0 matches=0 diff n/a CI n/a
    exit30  n=0 matches=0 diff n/a CI n/a
    hold    n=0 matches=0 diff n/a CI n/a
    signed move real [-30,0] n/a | [0,10] n/a | [10,60] n/a
-   signed move plac [-30,0] +7.22c(n9) | [0,10] -3.57c(n7) | [10,60] +7.38c(n16)
+   signed move plac [-30,0] +3.27c(n11) | [0,10] -0.46c(n12) | [10,60] -1.13c(n8)
 
 == lol event type 4 | events 39
-   mtm60   n=4 matches=1 diff +0.34c CI n/a
-   exit30  n=4 matches=1 diff +0.38c CI n/a
-   hold    n=4 matches=1 diff -2.10c CI n/a
+   mtm60   n=4 matches=1 diff -0.62c CI n/a
+   exit30  n=4 matches=1 diff +0.56c CI n/a
+   hold    n=4 matches=1 diff +0.10c CI n/a
    signed move real [-30,0] +1.06c(n18) | [0,10] +1.42c(n18) | [10,60] -1.06c(n26)
-   signed move plac [-30,0] +0.49c(n107) | [0,10] -0.10c(n115) | [10,60] -0.36c(n107)
+   signed move plac [-30,0] -0.64c(n116) | [0,10] +0.07c(n108) | [10,60] +0.29c(n112)
+
+== tennis game to 5+ (serve for set / hold-break at 5) | events 199
+   mtm60   n=16 matches=14 diff -1.14c CI [-2.61, +0.16]
+   exit30  n=15 matches=13 diff -0.31c CI [-1.11, +0.60]
+   hold    n=12 matches=10 diff -0.95c CI [-2.46, +0.45]
+   signed move real [-30,0] +3.99c(n130) | [0,10] -0.01c(n125) | [10,60] +0.07c(n121)
+   signed move plac [-30,0] +0.00c(n643) | [0,10] +0.32c(n643) | [10,60] +0.65c(n641)
+
+== tennis set won | events 214
+   mtm60   n=9 matches=8 diff -0.74c CI [-1.38, -0.11]
+   exit30  n=9 matches=8 diff -0.87c CI [-1.56, -0.18]
+   hold    n=9 matches=8 diff -3.11c CI [-4.71, -1.58]
+   signed move real [-30,0] +3.76c(n98) | [0,10] +0.01c(n92) | [10,60] -0.34c(n86)
+   signed move plac [-30,0] +1.30c(n494) | [0,10] +0.46c(n511) | [10,60] +1.37c(n481)
 
 ATTRITION (tower/barracks/roshan/kill): stage counts
   dota tower destroyed {'paired events': 232, 'QUALIFY': 28, 'price moved >=1c before msg': 90, 'no mid at t or t-30 (book stale >15s)': 66, 'spread>5c': 7, 'outside band': 41}
   dota barracks destroyed {'paired events': 43, 'no mid at t or t-30 (book stale >15s)': 29, 'price moved >=1c before msg': 10, 'QUALIFY': 2, 'outside band': 2}
   dota roshan killed (aegis side) {'paired events': 24, 'price moved >=1c before msg': 19, 'outside band': 2, 'QUALIFY': 1, 'no mid at t or t-30 (book stale >15s)': 2}
   dota kill {'paired events': 776, 'price moved >=1c before msg': 466, 'QUALIFY': 118, 'outside band': 107, 'spread>5c': 17, 'no mid at t or t-30 (book stale >15s)': 68}
-unpaired games: {'no team names in diary': 66, 'names found but no PM cs2 market with these teams/game no.': 78, 'names found but no PM dota2 market with these teams/game no.': 8}
+unpaired games: {'no team names in diary': 107, 'names found but no PM tennis market with these teams/game no.': 85, 'names found but no PM cs2 market with these teams/game no.': 16, 'names found but no PM dota2 market with these teams/game no.': 8}
 
 PRICE-LEADS CHECK: share of events where fav mid already moved FAVOURABLY by >=2c over [t-30,t] (real vs placebo same band), and median signed move [t-30,t+60]
-  dota tower destroyed                 real n=108 moved-before 20% median[-30,+60] -0.5c | placebo n=1174 31% +0.5c
-  dota barracks destroyed              real n=7 moved-before 14% median[-30,+60] -1.5c | placebo n=125 34% +4.0c
-  dota roshan killed (aegis side)      real n=17 moved-before 29% median[-30,+60] -0.0c | placebo n=148 26% -0.5c
-  dota kill                            real n=531 moved-before 29% median[-30,+60] +1.0c | placebo n=5115 26% +0.0c
-  dota first blood                     real n=22 moved-before 9% median[-30,+60] +0.8c | placebo n=182 23% +0.5c
-  dota NW lead flips                   real n=140 moved-before 24% median[-30,+60] +1.0c | placebo n=1353 27% +0.0c
+  dota tower destroyed                 real n=108 moved-before 20% median[-30,+60] -0.5c | placebo n=1193 33% +1.0c
+  dota barracks destroyed              real n=7 moved-before 14% median[-30,+60] -1.5c | placebo n=123 37% +1.5c
+  dota roshan killed (aegis side)      real n=17 moved-before 29% median[-30,+60] -0.0c | placebo n=148 26% -2.0c
+  dota kill                            real n=531 moved-before 29% median[-30,+60] +1.0c | placebo n=5092 26% +0.0c
+  dota first blood                     real n=22 moved-before 9% median[-30,+60] +0.8c | placebo n=178 19% +0.0c
+  dota NW lead flips                   real n=140 moved-before 24% median[-30,+60] +1.0c | placebo n=1336 27% +0.0c

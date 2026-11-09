@@ -85,7 +85,7 @@ for r in msgs:
             items_seen[key] = eq
             dprev[key] = cur
         elif sp == 'csgo':
-            key = ('cs2', p['match_id'], p.get('map_id')); invm['cs2'].add(key)
+            key = ('cs2', p['match_id'], p.get('box_num')); invm['cs2'].add(key)
             hs = p['home'].get('side')
             for e in (p.get('event') or []):
                 k2 = (key, e['typeid'], e['index'])
@@ -95,7 +95,24 @@ for r in msgs:
                 if e['typeid'] == 8 and e.get('killerside') in (1, 2) and hs in (1, 2):
                     ev[key].append((t, 1 if e['killerside'] == hs else -1, 'cs2 kill headshot' if e.get('headshot') else 'cs2 kill'))
         elif sp == 'basketball': invm['nba'].add(p.get('id'))
-        elif sp == 'tennis': invm['tennis'].add(p.get('id'))
+        elif sp == 'tennis':
+            invm['tennis'].add(p.get('id')); key = ('tennis', p.get('id'), 0)
+            fm = ('tn', p.get('id')) not in first; first.add(('tn', p.get('id')))
+            for st_ in (p.get('timeline') or []):
+                prv = (0, 0)
+                for rd_ in st_.get('rounds', []):
+                    sc = rd_.get('score')
+                    if not sc: continue
+                    cur = (sc.get('home', 0), sc.get('away', 0)); k3 = ('gm', p['id'], st_['set'], rd_['round'])
+                    if k3 not in first:
+                        first.add(k3)
+                        dh, da = cur[0] - prv[0], cur[1] - prv[1]
+                        if not fm and dh >= 0 and da >= 0 and dh + da == 1:
+                            w = 1 if dh else -1; hi, lo = max(cur), min(cur)
+                            if (hi >= 6 and hi - lo >= 2) or (hi == 7 and lo in (5, 6)): ev[key].append((t, w, 'tennis set won'))
+                            if cur == (6, 6): ev[key].append((t, 0, 'tennis tiebreak starts'))
+                            if hi >= 5 and hi - lo == 1 and not ((hi >= 6) and hi - lo >= 2): ev[key].append((t, w, 'tennis game to 5+ (serve for set / hold-break at 5)'))
+                    prv = cur
         elif sp == 'lol':
             key = ('lol', p['match_id'], p['box_num']); invm['lol'].add(key)
             for e in (p.get('event') or []):
@@ -177,7 +194,8 @@ for key in ev:
         if tk not in book or sp != key[0]: continue
         if key[0] == 'dota2' and ('Game %d Winner' % key[2]) not in q: continue
         if key[0] == 'lol' and ('Game %d ' % key[2]) not in q: continue
-        if key[0] == 'cs2': continue
+        if key[0] == 'cs2' and ('Map %s Winner' % key[2]) not in q: continue
+        if key[0] == 'tennis' and smt != 'moneyline': continue
         m = [m_ for m_ in mk.values() if tk in m_['tokens']][0]
         i = m['tokens'].index(tk); o, po = m['outcomes'][i], m['outcomes'][1 - i]
         if same(hm[0], o) and same(hm[1], po): pair[key] = (tk, 1); break
@@ -211,6 +229,7 @@ for key, evs in ev.items():
     if key not in pair: continue
     tk, sg = pair[key]
     for t, sd, c in evs:
+        if sd == 0: continue
         c = re.sub(r' \(away\)', '', c); classes[c].append((key, t, sd, tk, sg))
 rows = []
 for c, L in sorted(classes.items()):
