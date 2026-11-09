@@ -473,3 +473,89 @@ if os.environ.get('UNDERDOG'):
     if os.environ.get('UDBG'):
         vals = sorted((round(100 * sum(v) / len(v), 1), len(v)) for v in u2.values())
         print('U2 per-match (mean c, n tokens):', vals)
+
+if os.environ.get('SELECT'):
+    # diagnostic (no rule): underdog (token mid 0.40-0.50) win rate vs implied price, T1-style entries vs any-time entries, by distinct match-token
+    from math import comb
+    def pbin(k, n, p): return sum(comb(n, i) * p ** i * (1 - p) ** (n - i) for i in range(k, n + 1))
+    A = {}   # T1-style: after a point the token's side won, quiet, mid(t-30) in .40-.50, listed+decisive
+    for c, L in classes.items():
+        if not c.startswith('tennis any point'): continue
+        for key, t, sd, tk, sg in L:
+            f = fav(tk, sg, sd)
+            if not f: continue
+            a, b = mid(f, t), mid(f, t - 30)
+            if a is None or b is None or abs(a - b) >= 0.01 or not (0.40 <= b < 0.50): continue
+            e = row(f, t + DEL); S = settle(f)
+            if not e or S is None or e[2] - e[1] > 0.05 or e[2] >= 0.99: continue
+            A.setdefault((key[1], f), []).append((S, e[2]))
+    span = {}
+    for r in msgs:
+        if not r['topic'].endswith('tennis/match/v1'): continue
+        try: ps = json.loads(r['p'])
+        except Exception: continue
+        for p_ in ps:
+            a_ = span.setdefault(p_['id'], [r['ms'] / 1000.0, r['ms'] / 1000.0]); a_[1] = r['ms'] / 1000.0
+    B = {}
+    for key in sorted(k for k in pair if k[0] == 'tennis'):
+        if key[1] not in span: continue
+        tk, sg = pair[key]; t0, t1 = span[key[1]]
+        for f in (tk, partner.get(tk)):
+            if not f or f not in book: continue
+            S = settle(f)
+            if S is None: continue
+            t = t0 + 60
+            while t < t1 - 60:
+                m = mid(f, t)
+                if m is not None and 0.40 <= m < 0.50:
+                    e = row(f, t + 1.0)
+                    if e and e[2] - e[1] <= 0.05 and e[2] < 0.99: B.setdefault((key[1], f), []).append((S, e[2]))
+                t += 60
+            pass
+    def rep(name, D):
+        ent = [x for v in D.values() for x in v]
+        units = [(sum(s for s, _ in v) / len(v), sum(a for _, a in v) / len(v)) for v in D.values()]
+        mt = set(m for m, _ in D)
+        W = sum(1 for s, _ in units if s >= 0.5); n = len(units); pa = sum(a for _, a in units) / n
+        print('%-44s matches %d | match-tokens %d | entries %d | mean ask %.3f | entry win rate %.1f%% | match-token win rate %.1f%% (%d/%d) vs implied %.1f%% | binomial p(wins>=obs | price) %.3f' % (name, len(mt), n, len(ent), sum(a for _, a in ent) / len(ent), 100 * sum(s for s, _ in ent) / len(ent), 100 * W / n, W, n, 100 * pa, pbin(W, n, pa)))
+        return mt
+    print('\n=== SELECTION DIAGNOSTIC: underdog 0.40-0.50 win rate vs implied price ===')
+    ma = rep('A: after a point it won (T1 underdog half)', A)
+    mb = rep('B: any in-play time, 60 s grid (U1)', B)
+    print('matches in A:%d, in B:%d, A inside B:%d' % (len(ma), len(mb), len(ma & mb)))
+    Bo = {k: v for k, v in B.items() if k[0] not in ma}
+    rep('B restricted to matches NOT in A', Bo)
+    Bi = {k: v for k, v in B.items() if k[0] in ma}
+    rep('B restricted to the A matches', Bi)
+
+if os.environ.get('LEAD'):
+    # Does the TheSports message LEAD the PM price? For each class: share of the favourite's total move over [t-60, t+60] that is already done at the message
+    # (price-led share = (mid(t)-mid(t-60)) / (mid(t+60)-mid(t-60)), pooled as ratio of sums over events with |total|>=2c), real vs placebo (shifted 60-600 s, 5 per event),
+    # 90% bootstrap CI over matches. Share > 0.5 => price moved first; ~0 => message first.
+    random.seed(66); MINMOVE = 0.02
+    def ratio(items):
+        num = sum(a for _, a, _ in items); den = sum(b for _, _, b in items)
+        return None if den <= 0 else num / den
+    print('\n=== LEAD: share of the [-60,+60] favourable move already in the price at the message (1.00 = price fully led, 0.00 = message first) ===')
+    for c, L in sorted(classes.items()):
+        res = {}
+        for lab in ('real', 'placebo'):
+            byk = collections.defaultdict(list)
+            for key, t, sd, tk, sg in L:
+                f = fav(tk, sg, sd)
+                if not f: continue
+                for _ in range(1 if lab == 'real' else 5):
+                    tt = t if lab == 'real' else t + random.choice([-1, 1]) * random.uniform(60, 600)
+                    a, b, z = mid(f, tt - 60), mid(f, tt), mid(f, tt + 60)
+                    if None in (a, b, z) or not (0.05 <= a <= 0.95) or z - a < MINMOVE: continue
+                    byk[key[1]].append((key[1], b - a, z - a))
+            items = [x for v in byk.values() for x in v]; ms = list(byk)
+            if len(ms) < 3 or not items: res[lab] = None; continue
+            r0 = ratio(items); bs = []
+            for _ in range(1000):
+                pick = [random.choice(ms) for _ in ms]; r = ratio([x for m in pick for x in byk[m]])
+                if r is not None: bs.append(r)
+            bs.sort()
+            res[lab] = (r0, bs[50], bs[949], len(items), len(ms))
+        f_ = lambda r: 'n/a (too few)' if not r else '%.2f [%.2f, %.2f] events %d matches %d' % r
+        print('%-52s real %s | placebo %s' % (c, f_(res['real']), f_(res['placebo'])))
