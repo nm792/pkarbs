@@ -385,6 +385,7 @@ if os.environ.get('FAVTEST'):
     def run(L, pred=lambda b: True, NP=30):
         per = collections.defaultdict(list)
         for key, t, sd, tk, sg in L:
+            if t < float(os.environ.get('PREREG_AFTER', '0')): continue
             f = fav(tk, sg, sd)
             if not f: continue
             r0 = ent_h(f, t)
@@ -430,3 +431,45 @@ if os.environ.get('FAVTEST'):
             ca = sum(a - b for a, b in cls[m]) / len(cls[m]); ba = sum(a - b for a, b in base[m]) / len(base[m]); d.append(ca - ba)
         bs = sorted(sum(random.choice(d) for _ in d) / len(d) for _ in range(1500))
         print('   %-48s matches %d | class minus all-points diff %+.1fc 90%% CI [%+.1f, %+.1f]' % (c, len(d), 100 * sum(d) / len(d), 100 * bs[75], 100 * bs[1424]))
+
+if os.environ.get('UNDERDOG'):
+    # U1/U2 (see reviews/PREREG-thesports-underdog-2026-11-09.md). Tennis in-play = between first and last TheSports message of the match.
+    AFTER = float(os.environ.get('PREREG_AFTER', '0')); random.seed(44)
+    span = {}
+    for r in msgs:
+        if not r['topic'].endswith('tennis/match/v1'): continue
+        try: ps = json.loads(r['p'])
+        except Exception: continue
+        for p_ in ps:
+            a_ = span.setdefault(p_['id'], [r['ms'] / 1000.0, r['ms'] / 1000.0]); a_[1] = r['ms'] / 1000.0
+    u1 = collections.defaultdict(list); u2 = {}
+    for key in sorted(k for k in pair if k[0] == 'tennis'):
+        if key[1] not in span: continue
+        tk, sg = pair[key]; t0, t1 = span[key[1]]
+        for f in (tk, partner.get(tk)):
+            if not f or f not in book: continue
+            S = settle(f)
+            if S is None: continue
+            first_in = None; t = t0 + 60
+            while t < t1 - 60:
+                if t >= AFTER:
+                    m = mid(f, t)
+                    if m is not None and 0.40 <= m < 0.50:
+                        e = row(f, t + 1.0)
+                        if e and e[2] - e[1] <= 0.05 and e[2] < 0.99:
+                            u1[key[1]].append(S - e[2])
+                            if first_in is None: first_in = S - e[2]
+                t += 60
+            if first_in is not None: u2.setdefault(key[1], []).append(first_in)
+    def ci(d):
+        ms = [sum(v) / len(v) for v in d.values()]
+        if len(ms) < 3: return 'matches %d (too few)' % len(ms)
+        n = len(ms); bs = sorted(sum(random.choice(ms) for _ in ms) / n for _ in range(2000))
+        p1 = sum(1 for b in bs if b <= 0) / len(bs)
+        return 'matches %d | mean per match %+.1fc | 90%% CI [%+.1f, %+.1f] | one-sided boot p(<=0) %.3f | matches with +payoff %d' % (n, 100 * sum(ms) / n, 100 * bs[100], 100 * bs[1899], p1, sum(1 for m in ms if m > 0))
+    print('\n=== UNDERDOG (token mid 0.40-0.50, in play, 60 s grid, buy ask at +1 s, hold to resolution; benchmark 0 = fair price); events at/after %s ===' % AFTER)
+    print('U1 every grid time  :', ci(u1), '| entries', sum(len(v) for v in u1.values()))
+    print('U2 first time in band (per token per match):', ci(u2))
+    if os.environ.get('UDBG'):
+        vals = sorted((round(100 * sum(v) / len(v), 1), len(v)) for v in u2.values())
+        print('U2 per-match (mean c, n tokens):', vals)
