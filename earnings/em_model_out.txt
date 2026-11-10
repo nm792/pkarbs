@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/user/scratch/em/em_model.py", line 4, in <module>
+    import em_data as D
+  File "/home/user/scratch/em/em_data.py", line 4, in <module>
+    TR=json.load(open('pm_trades.json'))
+                 ~~~~^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'pm_trades.json'
