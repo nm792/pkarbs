@@ -1,0 +1,24 @@
+-- Netflix: rows=288 q={'netflix|top': 0.28, 'netflix|#2': 0.21}
+Netflix ALL: windows(with fills)=73 bets=25 stake=$147 pnl=$-64 roi=-43% | placebo=$-3±55 excess=$-61 (-1.1 sd) | t=-1.36 | w/l=6/19
+Netflix train: windows(with fills)=46 bets=15 stake=$108 pnl=$-58 roi=-54% | placebo=$-20±54 excess=$-38 (-0.7 sd) | t=-1.35 | w/l=4/11
+Netflix TEST: windows(with fills)=27 bets=10 stake=$39 pnl=$-6 roi=-15% | placebo=$17±20 excess=$-23 (-1.1 sd) | t=-0.31 | w/l=2/8
+-- Spotify: rows=93 q={'spotify|#1': 0.48, 'spotify|#2': 0.5}
+Spotify ALL: windows(with fills)=40 bets=18 stake=$282 pnl=$671 roi=+238% | placebo=$245±281 excess=$425 (+1.5 sd) | t=1.00 | w/l=3/15
+Spotify train: windows(with fills)=26 bets=10 stake=$260 pnl=$647 roi=+249% | placebo=$205±282 excess=$443 (+1.6 sd) | t=0.98 | w/l=2/8
+Spotify TEST: windows(with fills)=14 bets=8 stake=$21 pnl=$24 roi=+111% | placebo=$49±20 excess=$-25 (-1.3 sd) | t=0.55 | w/l=1/7
+-- Billboard: rows=88 q={'billboard|200': 0.35, 'billboard|Hot 100': 0.44}
+Billboard ALL: windows(with fills)=28 bets=8 stake=$37 pnl=$25 roi=+68% | placebo=$14±17 excess=$11 (+0.7 sd) | t=0.84 | w/l=2/6
+Billboard train: windows(with fills)=20 bets=4 stake=$6 pnl=$-6 roi=-100% | placebo=$4±4 excess=$-10 (-2.5 sd) | t=-1.56 | w/l=0/4
+Billboard TEST: windows(with fills)=8 bets=4 stake=$30 pnl=$31 roi=+102% | placebo=$9±17 excess=$22 (+1.3 sd) | t=1.13 | w/l=2/2
+-- AppStore: rows=198 q={'appstore|1': 0.61, 'appstore|2': 0.34}
+AppStore ALL: windows(with fills)=70 bets=36 stake=$280 pnl=$614 roi=+219% | placebo=$194±240 excess=$421 (+1.8 sd) | t=1.32 | w/l=9/27
+AppStore train: windows(with fills)=48 bets=26 stake=$217 pnl=$551 roi=+254% | placebo=$166±238 excess=$385 (+1.6 sd) | t=1.19 | w/l=6/20
+AppStore TEST: windows(with fills)=22 bets=10 stake=$63 pnl=$64 roi=+101% | placebo=$34±20 excess=$30 (+1.5 sd) | t=1.24 | w/l=3/7
+-- OpenRouter: rows=15 q={'openrouter|1': 0.8, 'openrouter|3': 0.25, 'openrouter|2': 0.25}
+OpenRouter ALL: windows(with fills)=13 bets=12 stake=$174 pnl=$115 roi=+66% | placebo=$34±39 excess=$80 (+2.1 sd) | t=2.31 | w/l=9/3
+OpenRouter train: windows(with fills)=7 bets=6 stake=$66 pnl=$53 roi=+80% | placebo=$25±16 excess=$28 (+1.7 sd) | t=3.49 | w/l=6/0
+OpenRouter TEST: windows(with fills)=6 bets=6 stake=$108 pnl=$62 roi=+57% | placebo=$8±35 excess=$54 (+1.5 sd) | t=1.32 | w/l=3/3
+-- ALL families: rows=682 q={'netflix|top': 0.27, 'appstore|2': 0.35, 'spotify|#2': 0.5, 'spotify|#1': 0.47, 'appstore|1': 0.62, 'billboard|200': 0.29, 'netflix|#2': 0.2, 'billboard|Hot 100': 0.53, 'openrouter|1': 0.5, 'openrouter|3': 0.5, 'openrouter|2': 0.5}
+ALL families ALL: windows(with fills)=224 bets=97 stake=$834 pnl=$1166 roi=+140% | placebo=$484±388 excess=$683 (+1.8 sd) | t=1.41 | w/l=21/76
+ALL families train: windows(with fills)=144 bets=58 stake=$643 pnl=$1182 roi=+184% | placebo=$373±381 excess=$809 (+2.1 sd) | t=1.44 | w/l=13/45
+ALL families TEST: windows(with fills)=80 bets=39 stake=$191 pnl=$-16 roi=-8% | placebo=$106±47 excess=$-122 (-2.6 sd) | t=-0.22 | w/l=8/31
