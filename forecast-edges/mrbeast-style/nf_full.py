@@ -69,6 +69,7 @@ def predict(r,upto,par,newrate,N=3000):
     out={}
     for i,x in enumerate(rows): out[x['title']]=(1-u)*sims[i]/N
     return rows,out
+ORACLE=None
 def run(TH=.05,WIN=7200,LEADMODE='start',split=True,verbose=True,label=''):
     cutm=sorted(r['start'] for r in EV if r['k'][0]=='global')
     cut=cutm[len(cutm)//2]
@@ -85,6 +86,7 @@ def run(TH=.05,WIN=7200,LEADMODE='start',split=True,verbose=True,label=''):
         for name,c,won in r['mk']:
             mt=match(name,rows)
             if mt: prob[c]=(P[mt['title']],won)
+            if mt and ORACLE: prob[c]=((0.97 if won else 0.03) if ORACLE=='o' else (0.03 if won else 0.97),won)
         if not prob: skipped['nomatch']+=1; continue
         fills=[]
         for name,c,won in r['mk']:
@@ -99,22 +101,27 @@ def run(TH=.05,WIN=7200,LEADMODE='start',split=True,verbose=True,label=''):
             e=(q-p) if oi==0 else ((1-q)-p)
             if e>TH: bet=dict(oi=oi,p=p,sz=sz,stake=sz*p,pnl=((w if oi==0 else 1-w)-p)*sz); break   # FIRST qualifying print
         units.append(dict(half='test' if r['start']>=cut else 'train',bet=bet,fills=[(oi,p,sz,(1.0 if won else 0.0)) for t,c,p,sz,oi,won in fills],id=r['id'],start=r['start'],k=r['k']))
-    def placebo(bets,reps=2000):
-        # matched on side (oi) and price within +-5c, drawn from the same event's fills
+    def placebo(bets,reps=2000,universe=None):
+        # v2: matched on side (oi) and price (+-5c) but drawn from OTHER events' prints in the same selection,
+        # so a perfect oracle can beat it (v1 drew from the same event window and mostly re-drew the bet itself)
         tot=[];dropped=0
+        pools={}
+        for u in bets:
+            b=u['bet']
+            pools[id(u)]=[(oi,p,sz,w) for v in universe if v['id']!=u['id'] for oi,p,sz,w in v['fills'] if oi==b['oi'] and abs(p-b['p'])<=.05]
         for _ in range(reps):
             s=0
             for u in bets:
-                b=u['bet']; c=[(oi,p,sz,w) for oi,p,sz,w in u['fills'] if oi==b['oi'] and abs(p-b['p'])<=.05]
-                if not c: dropped+=1; c=[(oi,p,sz,w) for oi,p,sz,w in u['fills'] if oi==b['oi']] or u['fills']
-                oi,p,sz,w=random.choice(c); s+=((w if oi==0 else 1-w)-p)*sz
+                c=pools[id(u)]
+                if not c: dropped+=1; continue
+                oi,p,sz,w=random.choice(c); s+=((w if oi==0 else 1-w)-p)*min(sz,u['bet']['sz'])
             tot.append(s)
         return st.mean(tot),st.pstdev(tot),dropped/reps
     def summ(sel,name):
         us=[u for u in units if sel(u)]; b=[u for u in us if u['bet']]
         if not us: print(label,name,'no units'); return
         stake=sum(u['bet']['stake'] for u in b); pnl=sum(u['bet']['pnl'] for u in b)
-        mp,sp,dr=placebo(b) if b else (0,0,0)
+        mp,sp,dr=placebo(b,universe=us) if b else (0,0,0)
         per=[(u['bet']['pnl'] if u['bet'] else 0.0) for u in us]; n=len(us)
         sd=st.pstdev(per) if n>1 else 0; t=(st.mean(per)/(sd/math.sqrt(n))) if sd else 0
         print(f"{label} {name}: event-units={n} bets={len(b)} stake=${stake:.0f} pnl=${pnl:.0f} | matched placebo=${mp:.0f}±{sp:.0f} excess={(pnl-mp)/sp if sp else 0:+.1f} sd (unmatched draws {dr:.1f}/bet-set) | t per event={t:.2f} | w/l={sum(1 for u in b if u['bet']['pnl']>0)}/{sum(1 for u in b if u['bet']['pnl']<0)}")
@@ -122,7 +129,7 @@ def run(TH=.05,WIN=7200,LEADMODE='start',split=True,verbose=True,label=''):
     for rk in(1,2): summ(lambda u,rk=rk:u['k'][2]==rk and u['half']=='test',f'TEST rank{rk}')
     print(f'   skipped {dict(skipped)}; cut={datetime.datetime.fromtimestamp(cut)}; newrate={newrate}')
     return units
-if __name__=='__main__':
+if __name__=='__main__' and len(sys.argv)==1:
     for TH in(.05,.03,.10):
         for WIN in(7200,21600):
             for lm in('start','close72'):
