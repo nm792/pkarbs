@@ -6,15 +6,15 @@ Locked rule (backtest 'weekly, 24h, 5c edge'; k=0.439, bias=0.003 fitted on the 
     rem    = sum over remaining hours of the 21-day UTC hour-of-day posting rate
     mu = so_far + rem*(1+0.003); sd = max(0.439*rem, sqrt(max(rem,1)))
     p_model(bracket) = Phi((hi+.5-mu)/sd) - Phi((lo-.5-mu)/sd)
-  BUY YES at the live best ask if p_model - ask_yes > 0.05 ; BUY NO at the live best No ask if (1-p_model) - ask_no > 0.05.
-  Skip prices <= 0.02 or >= 0.98. Size = min(shares at that ask level, CAP_BRACKET_USD/price). Cap per window and total below.
-Output: JSON list of taker order intents (token_id, side=BUY, outcome, limit_price=ask, shares, usd). Hermes places them as marketable FOK/IOC orders, never resting.
+  Candidates: BUY YES at the live best ask if p_model - ask_yes > 0.05 ; BUY NO at the live best No ask if (1-p_model) - ask_no > 0.05.
+  Skip prices <= 0.02 or >= 0.98. ONE bracket per window only: the single largest edge (model - ask) over all YES and NO candidates. Size = min(shares at that ask level, $5/price).
+Output: JSON list (at most one) of taker order intents (token_id, side=BUY, outcome, limit_price=ask, shares, usd). Hermes places it as a marketable FOK/IOC order, never resting.
 Usage: python3 tweetcount-decide.py --slug elon-musk-of-tweets-november-6-november-13-2026 [--force] [--ts-file posts.json]
 """
 import argparse, bisect, calendar, json, math, re, sys, time, urllib.request, urllib.parse
 UA={"User-Agent":"Mozilla/5.0 (compatible; research)"}
 K,B,TH=0.439,0.003,0.05
-CAP_BRACKET,CAP_WINDOW=5.0,25.0
+CAP_WINDOW=5.0  # ONE bracket per window, the single largest edge, max $5
 def j(u):
     with urllib.request.urlopen(urllib.request.Request(u,headers=UA),timeout=30) as r: return json.loads(r.read().decode('utf-8','replace'))
 def Phi(x): return .5*(1+math.erf(x/math.sqrt(2)))
@@ -50,7 +50,7 @@ def main():
     while x<end:
         nx=min(end,(x//3600+1)*3600); rem+=prof[int((x%86400)//3600)]*(nx-x)/3600; x=nx
     mu=so+rem*(1+B); sd=max(K*rem,math.sqrt(max(rem,1)))
-    out=[];spent=0.0
+    cand=[]
     for mk in ev["markets"]:
         bk=bucket(mk.get("groupItemTitle") or "")
         if not bk: continue
@@ -62,8 +62,10 @@ def main():
             if not ask: continue
             p,sz=ask
             if p<=0.02 or p>=0.98 or pmodel-p<=TH: continue
-            usd=min(CAP_BRACKET,sz*p,CAP_WINDOW-spent)
+            usd=min(CAP_WINDOW,sz*p)
             if usd<1: continue
-            out.append({"bracket":mk["groupItemTitle"],"token_id":tok,"side":"BUY","outcome":side,"limit_price":p,"shares":round(usd/p,2),"usd":round(usd,2),"p_model":round(pmodel,3)}); spent+=usd
+            cand.append((pmodel-p,{"bracket":mk["groupItemTitle"],"token_id":tok,"side":"BUY","outcome":side,"limit_price":p,"shares":round(usd/p,2),"usd":round(usd,2),"p_model":round(pmodel,3),"edge":round(pmodel-p,3)}))
+    out=[max(cand,key=lambda x:x[0])[1]] if cand else []
+    spent=sum(o["usd"] for o in out)
     print(json.dumps({"slug":a.slug,"T":T,"so_far":so,"rem_pred":round(rem,1),"mu":round(mu,1),"sd":round(sd,1),"orders":out,"total_usd":round(spent,2)},indent=1))
 main()
