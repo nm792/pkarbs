@@ -1,0 +1,25 @@
+resolved events 391 Counter({('global', 'movie', 1): 55, ('global', 'show', 1): 52, ('global', 'show', 2): 48, ('US', 'show', 1): 48, ('global', 'movie', 2): 47, ('US', 'movie', 1): 47, ('US', 'show', 2): 47, ('US', 'movie', 2): 47})
+ORACLE
+   ALL: event-units=106 bets=43 stake=$646 pnl=$307 | matched placebo=$12±41 excess=+7.2 sd (unmatched draws 0.0/bet-set) | t per event=5.00 | w/l=43/0
+   train: event-units=59 bets=25 stake=$379 pnl=$136 | matched placebo=$-11±29 excess=+5.1 sd (unmatched draws 0.0/bet-set) | t per event=3.57 | w/l=25/0
+   TEST: event-units=47 bets=18 stake=$267 pnl=$171 | matched placebo=$41±23 excess=+5.6 sd (unmatched draws 0.0/bet-set) | t per event=3.58 | w/l=18/0
+   TEST rank1: event-units=28 bets=9 stake=$208 pnl=$106 | matched placebo=$31±9 excess=+8.4 sd (unmatched draws 2.0/bet-set) | t per event=2.57 | w/l=9/0
+   TEST rank2: event-units=19 bets=9 stake=$59 pnl=$65 | matched placebo=$-7±16 excess=+4.6 sd (unmatched draws 2.0/bet-set) | t per event=2.70 | w/l=9/0
+   skipped {'nofills': 88, 'nopred': 8}; cut=2026-05-05 20:00:33.003976; newrate={'movie': (0.43452380952380953, 0.44642857142857145), 'show': (0.30666666666666664, 0.2733333333333333)}
+ANTI-ORACLE (should lose)
+   ALL: event-units=106 bets=42 stake=$651 pnl=$-651 | matched placebo=$-26±78 excess=-8.0 sd (unmatched draws 0.0/bet-set) | t per event=-1.99 | w/l=0/42
+   train: event-units=59 bets=29 stake=$264 pnl=$-264 | matched placebo=$-24±40 excess=-5.9 sd (unmatched draws 0.0/bet-set) | t per event=-4.29 | w/l=0/29
+   TEST: event-units=47 bets=13 stake=$386 pnl=$-386 | matched placebo=$20±13 excess=-30.3 sd (unmatched draws 0.0/bet-set) | t per event=-1.21 | w/l=0/13
+   TEST rank1: event-units=28 bets=9 stake=$347 pnl=$-347 | matched placebo=$-1±7 excess=-46.9 sd (unmatched draws 1.0/bet-set) | t per event=-1.09 | w/l=0/9
+   TEST rank2: event-units=19 bets=4 stake=$39 pnl=$-39 | matched placebo=$17±4 excess=-15.3 sd (unmatched draws 0.0/bet-set) | t per event=-1.78 | w/l=0/4
+   skipped {'nofills': 88, 'nopred': 8}; cut=2026-05-05 20:00:33.003976; newrate={'movie': (0.43452380952380953, 0.44642857142857145), 'show': (0.30666666666666664, 0.2733333333333333)}
+winner was in last-published top10 list: (type,rank,in_list)->events
+  ('movie', 1, False) 27
+  ('movie', 1, True) 26
+  ('movie', 2, False) 18
+  ('movie', 2, True) 27
+  ('show', 1, False) 24
+  ('show', 1, True) 26
+  ('show', 2, False) 19
+  ('show', 2, True) 27
+candidate-level Brier: model 0.2138 vs market first print 0.2088 over 121 candidate-events
