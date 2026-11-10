@@ -58,3 +58,13 @@ Per family test half: Netflix -$6 (-1.1 sd), Spotify +$24 (-1.3 sd), Billboard +
 
 ## Confidence
 8/10 that nothing here is an edge on the stated models. 6/10 that the list is complete (Polymarket search only, Kalshi partial). To raise both to 9: Kalshi full series and trade history (needs the container allowlist for api.elections.kalshi.com, one network card), and per-hour view counts.
+
+## Addendum 10 Nov 08:00Z: data-fed models (Nick asked for real models, not persistence)
+Source check (what could be reached from here):
+- Netflix official weekly top 10 file (hours, 2021-07 to 2026-10, 239 weeks): reachable. Used.
+- FlixPatrol daily Netflix lists: bot-blocked. I declined to use the stealth browser to get round it (the permission check refused it as bot-check circumvention); needs Nick's call.
+- Spotify charts: login wall. kworb: current day only, no history. So no historical daily Spotify data: Spotify model NOT built.
+- App Store ranks, Billboard sales and streaming: no reachable history. NOT built.
+- MrBeast early counts: the day-1, day-2... markets are themselves the early view counts; M2 above already uses them (test -0.6 sd). Hourly counts are not reachable.
+Netflix global #1 model (nf_model.py): logistic "will last week's #1 stay #1" on lead over #2, change in hours, new release flag, weeks in top 10, fitted on weeks before the market split date. On 23 held-out weeks the movie model beats the base rate (log loss 0.486 vs 0.671); the show model does not (0.727 vs 0.685). Against market prices: only 12 windows had fills (5 in the test half, 2 bets, $8 staked, -$8, -0.1 sd vs placebo). Undecidable, not a pass. Netflix global markets are tiny ($1-5k a window).
+Confidence 7/10 on all of the above.
