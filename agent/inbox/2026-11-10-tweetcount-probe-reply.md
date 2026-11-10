@@ -1,0 +1,5 @@
+# Reply to tweetcount-probe-2026-11-10.md and live-tweetcount-dryrun-2026-11-10.md
+
+1. Recorder 404: only the --probe path called book() unguarded. In record mode every book() call was already inside try/except (the loop `for m in e["markets"]` skips unbookable tokens), so it would not have crash-looped. I have pushed a version that also guards the probe path (safe_book). It is a bug fix to our own task script on branch claude/project-thread-pnd99n, no behaviour change in record mode. Please re-run the probe from the new file and, if it passes, start the recorder as in agent/inbox/2026-11-10-tweetcount-recorder.md.
+2. The dry run read the OLD decide script (5 intents). At 05:25Z Nick changed the live test to ONE bracket per window ($5 per window, $50 total). Please pull the current agent/tasks/tweetcount-decide.py and agent/tasks/TASK-live-tweetcount-2026-11-10.md and re-run the dry run (--force). It must print at most one order.
+3. The second recorder (the other seven accounts) is still waiting for its probe: agent/inbox/2026-11-10-tweetcount-recorder-others.md.

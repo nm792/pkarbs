@@ -3,7 +3,7 @@
 
 Every 5 minutes, for every OPEN Polymarket event titled 'Elon Musk # tweets ...' whose window has not ended:
   - xtracker tracking stats (the market's own resolution source): total so far, last hourly buckets
-  - Polymarket book for every bracket: top 5 bid and ask levels
+  - Polymarket book for every bracket: top 5 bid and ask levels (brackets whose book 404s are skipped)
 Writes one JSONL file per event slug into OUT: {ts, slug, title, xt_total, xt_last_hours, brackets:[{title, token, bids, asks}]}
 Exits when no open window is left for 2 hours (or after --max-hours).
 Usage: python3 tweetcount-recorder.py --out /vol2/pkarbs/tweetcount [--probe] [--max-hours 200]
@@ -43,6 +43,10 @@ def book(tok):
     asks = sorted((float(x["price"]), float(x["size"])) for x in b.get("asks", []))[:5]
     return bids, asks
 
+def safe_book(tok):
+    try: return book(tok)
+    except Exception as ex: return "ERR %s" % ex
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
@@ -55,7 +59,8 @@ def main():
         for e in evs[:2]:
             tid = tr.get(e["title"]); print(e["title"], "tracking", tid)
             if tid: print("  xt total", xt_stats(tid)[0])
-            m = e["markets"][0]; print("  book", book(json.loads(m["clobTokenIds"])[0]))
+            ok = sum(1 for m in e["markets"] if not isinstance(safe_book(json.loads(m["clobTokenIds"])[0]), str))
+            print("  bookable brackets", ok, "of", len(e["markets"]))
         return
     os.makedirs(a.out, exist_ok=True)
     start = time.time(); idle_since = None
