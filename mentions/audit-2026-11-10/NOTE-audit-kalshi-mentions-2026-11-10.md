@@ -19,7 +19,7 @@ Reproduces. Differences are one extra print from a fresh pull.
 
 ## 2. Look-ahead (the build ordered events by open time)
 The build adds an event's result to the word history as soon as the next event opens, even if that event had not settled yet (NBA/Trump markets open days before the game; one NBA event settled in October for a March game). The audit rebuilt it causally: an event only enters the history once ALL its markets had closed and settled (the earlier of `close_time` and `settlement_ts`, which is conservative) before the new event opened.
-Result: +$2,700 on $25,140 (net $2,451), so the leak is not what produces the result. Word lists are the market's own `yes_sub_title` at open, so no after-the-fact word lists. 44 `scalar` and ~270 blank/active markets across series are excluded; none are voids that matter.
+Result: +$2,700 on $25,140 (net $2,451), so the leak is not what produces the result. Word lists are the market's own `yes_sub_title` at open, so no after-the-fact word lists. 44 `scalar` and a few hundred blank (still active or closed) markets across series are excluded; none are voids that matter.
 
 ## 3. Locked checks, causal version, 3c
 | Check | All events | Later half (calendar, from 23 Apr 2026) |
@@ -58,7 +58,7 @@ All 9 series are `fee_type quadratic, fee_multiplier 1` (checked on `/series/<ti
 - Historical order books are not available, so whether a taker could really have taken each print's full size at that price is unverified. Prints are real trades, which is the best available evidence.
 
 ## 8. Size of the prize
-Later half: about +$1,000 net over ~6.5 months at the build's print sizes, +$370-900 over the whole period at capped sizes. That is a few dollars a day against the $500/day target. Statistically real-looking, economically small.
+Later half: about +$1,000 net over ~6.5 months at the build's print sizes, +$415 to +$892 over the whole period at 10 to 25 contract caps. That is a few dollars a day against the $500/day target. Statistically real-looking, economically small.
 
 ## 9. What would raise confidence above 9
 1. A forward test on new events (the later half is only 8 clusters; need 100+ new events), judged once.
