@@ -1,0 +1,24 @@
+TEST half: 42 maps, 1750 points
+   market                     Brier 0.1426  logloss 0.4351
+   A fixed strength + state   Brier 0.1661  logloss 0.4948
+   B Bayes sd.15 + state      Brier 0.1652  logloss 0.4921
+   C Bayes sd.30 + state      Brier 0.1643  logloss 0.4901
+   D Bayes sd.60 + state      Brier 0.1676  logloss 0.5011
+   E Bayes sd1.0 + state      Brier 0.1722  logloss 0.5166
+   S score-only               Brier 0.1682  logloss 0.4995
+TRAIN half: 42 maps, 1928 points
+   market                     Brier 0.1385  logloss 0.4297
+   A fixed strength + state   Brier 0.1483  logloss 0.4461
+   B Bayes sd.15 + state      Brier 0.1490  logloss 0.4478
+   C Bayes sd.30 + state      Brier 0.1517  logloss 0.4550
+   D Bayes sd.60 + state      Brier 0.1597  logloss 0.4795
+   E Bayes sd1.0 + state      Brier 0.1670  logloss 0.5033
+   S score-only               Brier 0.1476  logloss 0.4422
+ALL paired maps: 84 maps, 3678 points
+   market                     Brier 0.1404  logloss 0.4323
+   A fixed strength + state   Brier 0.1568  logloss 0.4693
+   B Bayes sd.15 + state      Brier 0.1567  logloss 0.4689
+   C Bayes sd.30 + state      Brier 0.1577  logloss 0.4717
+   D Bayes sd.60 + state      Brier 0.1635  logloss 0.4898
+   E Bayes sd1.0 + state      Brier 0.1695  logloss 0.5096
+   S score-only               Brier 0.1574  logloss 0.4695
