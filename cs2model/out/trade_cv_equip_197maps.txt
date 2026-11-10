@@ -1,0 +1,24 @@
+=== feature set BASE: 4-fold CV out-of-fold predictions, all 94 paired maps held out once
+  BASE A TH=5c N=25 per-map          bets  58 (maps 58) | PnL $     -28 on $    778 (-3.6%) | win 52% avg price 0.54 | placebo $+5 +/- 87 -> z -0.37 | per-map mean $-0 se 2
+  BASE A TH=5c N=100 per-map         bets  41 (maps 41) | PnL $    -159 on $   2059 (-7.7%) | win 46% avg price 0.50 | placebo $-34 +/- 290 -> z -0.43 | per-map mean $-4 se 7
+  BASE A TH=10c N=25 per-map         bets  51 (maps 51) | PnL $     -61 on $    611 (-10.0%) | win 43% avg price 0.48 | placebo $+2 +/- 86 -> z -0.73 | per-map mean $-1 se 2
+  BASE A TH=10c N=100 per-map        bets  35 (maps 35) | PnL $    -169 on $   1669 (-10.1%) | win 43% avg price 0.48 | placebo $-40 +/- 283 -> z -0.46 | per-map mean $-5 se 8
+  BASE S TH=5c N=25 per-map          bets  57 (maps 57) | PnL $     -48 on $    748 (-6.5%) | win 49% avg price 0.53 | placebo $-2 +/- 85 -> z -0.55 | per-map mean $-1 se 2
+  BASE S TH=5c N=100 per-map         bets  40 (maps 40) | PnL $    -240 on $   2040 (-11.7%) | win 45% avg price 0.51 | placebo $-34 +/- 299 -> z -0.69 | per-map mean $-6 se 7
+  BASE S TH=10c N=25 per-map         bets  51 (maps 51) | PnL $     -69 on $    619 (-11.2%) | win 43% avg price 0.49 | placebo $-4 +/- 86 -> z -0.77 | per-map mean $-1 se 2
+  BASE S TH=10c N=100 per-map        bets  36 (maps 36) | PnL $    -278 on $   1678 (-16.6%) | win 39% avg price 0.47 | placebo $-22 +/- 281 -> z -0.91 | per-map mean $-8 se 8
+  BASE A TH=5c N=100 per-round       bets 115 (maps 41) | PnL $    -174 on $   5574 (-3.1%) | win 47% avg price 0.48 | placebo $-89 +/- 504 -> z -0.17 | per-map mean $-4 se 18
+=== feature set +EQUIP: 4-fold CV out-of-fold predictions, all 94 paired maps held out once
+  +EQUIP A TH=5c N=25 per-map        bets  59 (maps 59) | PnL $     -25 on $    800 (-3.2%) | win 53% avg price 0.54 | placebo $+3 +/- 92 -> z -0.31 | per-map mean $-0 se 2
+  +EQUIP A TH=5c N=100 per-map       bets  40 (maps 40) | PnL $    -237 on $   2037 (-11.6%) | win 45% avg price 0.51 | placebo $-23 +/- 297 -> z -0.72 | per-map mean $-6 se 7
+  +EQUIP A TH=10c N=25 per-map       bets  51 (maps 51) | PnL $     -22 on $    622 (-3.5%) | win 47% avg price 0.49 | placebo $+2 +/- 85 -> z -0.28 | per-map mean $-0 se 2
+  +EQUIP A TH=10c N=100 per-map      bets  37 (maps 37) | PnL $    -140 on $   1740 (-8.0%) | win 43% avg price 0.47 | placebo $-16 +/- 291 -> z -0.42 | per-map mean $-4 se 7
+  +EQUIP A TH=5c N=100 per-round     bets 113 (maps 40) | PnL $    -361 on $   5561 (-6.5%) | win 46% avg price 0.49 | placebo $-106 +/- 495 -> z -0.52 | per-map mean $-9 se 21
+=== feature set +EQUIP+PRATE+ELO+SERIES: 4-fold CV out-of-fold predictions, all 94 paired maps held out once
+  +EQUIP+PRATE+ELO+SERIES A TH=5c N=25 per-map bets  59 (maps 59) | PnL $     -28 on $    803 (-3.4%) | win 53% avg price 0.54 | placebo $+2 +/- 90 -> z -0.32 | per-map mean $-0 se 2
+  +EQUIP+PRATE+ELO+SERIES A TH=5c N=100 per-map bets  40 (maps 40) | PnL $    -237 on $   2037 (-11.6%) | win 45% avg price 0.51 | placebo $-23 +/- 297 -> z -0.72 | per-map mean $-6 se 7
+  +EQUIP+PRATE+ELO+SERIES A TH=10c N=25 per-map bets  50 (maps 50) | PnL $      -3 on $    603 (-0.5%) | win 48% avg price 0.48 | placebo $+5 +/- 82 -> z -0.10 | per-map mean $-0 se 2
+  +EQUIP+PRATE+ELO+SERIES A TH=10c N=100 per-map bets  37 (maps 37) | PnL $    -231 on $   1731 (-13.3%) | win 41% avg price 0.47 | placebo $-36 +/- 291 -> z -0.67 | per-map mean $-6 se 7
+  +EQUIP+PRATE+ELO+SERIES A TH=5c N=100 per-round bets 114 (maps 40) | PnL $    -356 on $   5656 (-6.3%) | win 46% avg price 0.50 | placebo $-111 +/- 489 -> z -0.50 | per-map mean $-9 se 21
+ORACLE N=25: bets 72 PnL $+684 | placebo $+0 +/- 98 -> z +7.0
+ORACLE N=100: bets 54 PnL $+2208 | placebo $-33 +/- 331 -> z +6.8
