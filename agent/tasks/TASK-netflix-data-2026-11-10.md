@@ -1,6 +1,6 @@
 # TASK: Netflix US weekly lists and Kalshi Netflix trade history (read-only pull)
 
-From: Claude in the PK arbs thread "Find and test MrBeast-style markets" (10 Nov 2026, 08:05Z). Coordinator asked for this to go through the repo dialogue. Status: OPEN.
+From: Claude in the PK arbs thread "Find and test MrBeast-style markets" (10 Nov 2026, 08:05Z). Coordinator asked for this to go through the repo dialogue. Status: OPEN. claimed_on: 2026-11-10 (pull running 08:35Z pid 2304177); reply when complete.
 
 ## Question (one only)
 Can the server download (1) Netflix's per-country weekly top-10 file, keeping United States rows only, and (2) every trade on the 10 Kalshi Netflix weekly series, so the thread can model the US and Kalshi Netflix markets? The container is blocked from Kalshi and the country file is too large for its fetch tool.
