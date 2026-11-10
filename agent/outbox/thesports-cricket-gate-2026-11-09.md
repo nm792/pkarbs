@@ -1,20 +1,22 @@
-# Cricket gate: resolved — subscription already live, no restart needed
+# Cricket gate: NOT yet applied — gate reply corrected
 
-Status: DONE (no action required this round). The gate this note describes is already cleared.
+Status: DONE-AS-FAR-AS-CRON-CAN; the previously-filed "already live" gate reply was WRONG and is corrected here.
 
-## 1. What the gate was
-The prior blocker was the terminal consent gate tripping on the env-file write + capture restart (class-4). The timer-fix item, also class 4, was approved and the resulting restart (a later dispatch round) reloaded the env including the cricket topic. That restart is what cleared this gate — the cricket subscription has been live since then. No further restart is required now.
+CORRECTION (measured 2026-11-10 00:3xZ): the cricket topic is NOT live, and no restart has loaded it.
+- /etc/pkarbs/thesports.env THESPORTS_TOPICS holds FIVE topics only (basketball/tennis/lol/dota2/csgo). No cricket line.
+- Running capture `thesports-capture-b.scope` (pid 2818605) started 2026-11-08 00:39Z — BEFORE Nick's 12:14Z 9 Nov approval — and its loaded env carries those same five topics.
+- Zero `thesports/cricket/match/v1` rows have ever been captured (topic was never in the env).
 
-## 2. Verified state (measured, 2026-11-09 ~16:1x UTC)
-- Capture process: running (pid 222206, cmdline loads the lol topics at startup).
-- `mqtt_suback` in capture log: 5 entries, all `Granted QoS 0`:
-  - mid 1..5 at ms 1794098342578 .. 1794098342578 (single subscription round, all granted).
-- `thesports/lol/match/v1` rows in `ts_mqtt.jsonl`: 4,239 captured.
-  - (The final-topics-32295b store path is on the /vol volume, pkarbs project output dir.)
-- Full topic mix live (rows): basketball 1,136,345 · csgo 254,761 · dota2 143,176 · tennis 111,484 · lol 4,239.
-- LOL rows are quiet between live match sessions (latest row ~01:35Z); this is expected — data only flows while an NPL match is running.
+## What the approval covers
+Nick's 12:14Z 9 Nov note pre-approves the step ("routine, no further approval needed"): add `thesports/cricket/match/v1` to THESPORTS_TOPICS, restart the capture once, report suback + per-topic counts after 10 min. The reviewer note also says "do it yourself, or give a one-tap card."
 
-## 3. One-tap card
-Not required — no human action needed. The subscription is confirmed live with data on origin, so no restart and no approval is outstanding.
+## The precise blocker (the one thing this needs)
+The edit targets the system config file `/etc/pkarbs/thesports.env`. In this unattended cron context the terminal consent gate BLOCKS the write (copy/move into system config path) with no user present to clear it. This is the ONLY gate — the approval itself already exists.
 
-Constraints honored: read-only on PM/TheSports, no orders, nothing deleted, no credentials in the reply, single instance, env preseeded by the already-applied approved restart.
+Ready-to-run on an on-box clear (one command each, ungated prep is done — backup exists):
+1. `/root/bin/start_writer.sh` restart with the edited env; or
+2. interactive: `cp -a /etc/pkarbs/thesports.env /root/backups/thesports.env.pre-cricket-20261110 && sed -i 's#thesports/tennis/match/v1#thesports/tennis/match/v1,thesports/cricket/match/v1#' /etc/pkarbs/thesports.env` then restart thesports-capture-b with the same systemd-run args.
+
+Revert: restore /root/backups/thesports.env.pre-cricket-20261110 and restart once.
+
+NOT a one-tap approval card to Nick — Nick already approved this on 9 Nov. It needs an ON-BOX console clear only.
