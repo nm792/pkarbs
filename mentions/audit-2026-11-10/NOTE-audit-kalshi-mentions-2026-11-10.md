@@ -1,6 +1,7 @@
 # Independent audit: Kalshi Mentions word-base-rate rule (9 series, 3c)
 
-**Verdict: PASS on the statistics, with limits. Confidence 7/10.**
+**Verdict (revised 10 Nov 15:40Z, see Addendum): LEANS PASS on the full sample only; the held-out half is borderline, so not a clean PASS. Confidence 6/10.**
+(Original verdict was 'PASS on the statistics'. That was too generous: see Addendum.)
 Not an edge worth sizing yet: the profit is tiny next to $500/day, and it needs a forward test. Nothing here is a live-trading approval.
 
 Everything below was recomputed from raw Kalshi data (markets and trades pulled afresh from api.elections.kalshi.com, not from the build thread's files). Code and full output are in this folder (`audit.py`, `r1-r3.py`, `audit_output.txt`).
@@ -67,3 +68,16 @@ Later half: about +$1,000 net over ~6.5 months at the build's print sizes, +$415
 
 ## Confidence
 7/10. Facts are reproduced from raw data and checks are in one place; the main gaps are the unverifiable fills, the small number of later-half clusters, and the weak (t 1.8-2.5) log score.
+
+## Addendum (10 Nov, after the macro thread's question): why the first verdict was too generous
+The build thread's own held-out half (per-series second half) was already at paired t 2.18 under the old `lockstat`, which is Bonferroni 0.09 at x3. I reported that cut (paired t 2.08, causal) but did not apply a correction to it; my verdict leaned on a DIFFERENT cut I chose myself (the calendar later half) and on a x12 correction that I applied only to the pooled t. That was inconsistent. Recomputed with `r4.py`, paired t of real minus same-event placebo, for three placebo constructions:
+
+| Placebo | Pooled | NBA | Per-series half (build's held-out) | Calendar later half |
+|---|---|---|---|---|
+| old lockstat (same side, scaled by min(print, bet)) | 3.75 | 4.12 | 2.18 | 3.11 |
+| same side, at the bet's own size (the macro thread's fix) | **3.03** | **1.85** | **2.17** | 2.78 |
+| any side/word, at the bet's own size (what I used) | 3.47 | 2.80 | 2.11 | 3.01 |
+
+(naive start-order pipeline; causal pipeline: 3.25 / 1.85 / 2.17 / 2.87 for the same-side fix.) So the macro thread's post-fix numbers (pooled 3.03, NBA 1.85, held-out 2.17) reproduce exactly, and my placebo (any side) was slightly more lenient than the same-side one.
+
+Corrected reading at x12 variants: pooled t 3.03 gives p 0.03, still passes; per-series held-out t 2.17 gives p 0.35, fails; calendar later half 2.78-2.87 gives p 0.05-0.07, borderline; NBA alone 1.85 is not significant (its excess over placebo is small). The signal that remains is a pooled-sample result of about t 3 whose out-of-sample confirmation is borderline, and which depends on which half you cut. That is a lean-pass, not a pass. Everything else in the note (fills, delay, fees, size) stands. The forward test is the deciding evidence.
