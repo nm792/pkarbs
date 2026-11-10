@@ -1,0 +1,9 @@
+segment (one reading per map)       n mean mid win rate      gap      t
+ALL maps (home)                    84    0.483    0.548   +0.065  +1.42
+map 1                              41    0.461    0.585   +0.124  +1.92
+map 2                              42    0.510    0.524   +0.014  +0.21
+map 3+ (late series)                1    0.225    0.000   -0.225   +nan
+tier1 events                        6    0.355    0.500   +0.145  +0.84
+tier2 events                       78    0.492    0.551   +0.059  +1.23
+trailing team down >=5 rds         40    0.164    0.100   -0.064  -1.47
+trailing team down >=7 rds         15    0.131    0.000   -0.131  -3.51
