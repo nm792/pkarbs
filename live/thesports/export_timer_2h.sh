@@ -26,10 +26,8 @@ rm -rf "$STAGE" 2>/dev/null
 mkdir -p "$STAGE"
 
 build_and_push() {
-  # re-fetch, rebuild on the fresh tip, push. returns 0 on success.
-  git fetch origin >/dev/null 2>&1
-  TIP=$(git rev-parse origin/claude/project-thread-vg2ckg)
-  [ -n "$TIP" ] || { echo "no origin tip"; return 1; }
+  # rebuild the slim files first (slow), THEN fetch the fresh tip and commit
+  # against it so the push window is milliseconds, not the whole export time.
   # boundary = newest committed ts_mqtt minute (seconds)
   LAST=$(git ls-tree -r --name-only origin/claude/project-thread-vg2ckg \
           | grep 'final-topics-32295b-slim/ts_mqtt/' | grep -oE '[0-9]{10}\.jsonl\.gz' \
@@ -43,6 +41,10 @@ build_and_push() {
   NF=$(grep -cE 'rn1/scores/thesports/final-topics-32295b-slim/' "$MANIFEST")
   NEWFILES=$(sed -n '1p' "$MANIFEST")
   if [ "${NF:-0}" = "0" ] || [ -z "$NEWFILES" ]; then echo "no new files; exit"; return 2; fi
+  # fetch the CURRENT origin tip only after the slow export finished
+  git fetch origin >/dev/null 2>&1
+  TIP=$(git rev-parse origin/claude/project-thread-vg2ckg)
+  [ -n "$TIP" ] || { echo "no origin tip"; return 1; }
   export GIT_INDEX_FILE=$IDX
   rm -f "$GIT_INDEX_FILE" "$GIT_INDEX_FILE.lock"
   if ! git read-tree "$TIP"; then echo "read-tree failed"; unset GIT_INDEX_FILE; return 1; fi
