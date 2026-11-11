@@ -6,6 +6,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
 import volume_first_scan as v, gas_leader as g
 rng = np.random.default_rng(13)
+OUT = "scan/OUT-gas-rbob-test-2026-11-11.md"
 import pandas as pd
 SER = ["KXAAAGASD"] + [f"KXAAAGASD{s}" for s in "CA TX FL NY IL NJ WA NC OH PA GA VA".split()]
 px = pd.read_excel("/tmp/eia.xls", sheet_name="Data 1", skiprows=2); px.columns = ["d", "p"]
