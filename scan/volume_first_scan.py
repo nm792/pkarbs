@@ -440,6 +440,15 @@ def main():
             P(f"| Kalshi | {c} [{o['cat']}] ({o['n']} mkts) | {usd(o['d1'])} | n/a | {usd(o['d1'])} | {'PASS' if ok else 'no'} |")
         if ok:
             units.append({"venue": "K", "name": c, "series": [k for k, _ in sorted(o["series"].items(), key=lambda kv: -kv[1])], "daily": o["d1"]})
+    # gap table: top 15 unscanned units by volume, always printed
+    gap = [("PM", c, min(o["d1"], o["d7"]) if o["d7"] else o["d1"], o["d1"]) for c, o in pm.items()
+           if not c.startswith("EXCL") and c.lower() not in ALREADY_SCANNED]
+    gap += [("Kalshi", c, o["d1"], o["d1"]) for c, o in kl.items() if c.lower() not in ALREADY_SCANNED]
+    gap.sort(key=lambda g: -g[2])
+    P("\n### Top 15 unscanned units by volume (gate value, 24h)")
+    P("| # | venue | unit | gate $/day | 24h $ |\n|---|---|---|---:|---:|")
+    for i, g in enumerate(gap[:15], 1):
+        P(f"| {i} | {g[0]} | {g[1]} | {usd(g[2])} | {usd(g[3])} |")
     P(f"\nPassed gate: {len(units)} units. Categories under the floor are dropped, no estimates for them.\n")
     units = sorted(units, key=lambda u: -u["daily"])[:a.max_units]
     if a.only:
