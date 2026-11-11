@@ -24,7 +24,7 @@ Measured on 11 Nov 09:00Z from the Kalshi API (counts only, no performance looke
 - 16 eligible series today (at least 10 resolved events, an event in the last 30 days, excluding arm 1); they opened 61 events in the last 30 days and 175 in the last 90 days, i.e. 13.6-14.2 events per week. KXWORLDNEWSMENTION alone is about a third of that (22 in 30 days); the top 3 series are about 60%.
 - Counts-only dry run of the scorer with a test freeze of 12 Oct: 243 events opened, 112 unresolved at the time of the run, 55 eligible and resolved, in 13 series (about 13 per week).
 - Not every event produces a bet: in the earlier Kalshi backtest about 80% of events had a qualifying print (592 of 744); assume 50-80% for these series.
-- Date to reach 100 events with a bet: 100 / 0.8 = 125 events, about 9 weeks, around 14 January 2027; at 50% it needs 200 events, about 14-15 weeks, around 25 February 2027. Central estimate (65%, about 155 events, 11 weeks): about 28 January 2027. The count grows as more series reach 10 resolved events, which shortens these dates, and falls in holiday weeks (late December).
+- Date to reach 100 events with a bet: 100 / 0.8 = 125 events, about 9 weeks, around 14 January 2027; at 50% it needs 200 events, about 14-15 weeks, around 20 February 2027. Central estimate (65%, about 155 events, 11 weeks): about 28 January 2027. The count grows as more series reach 10 resolved events, which shortens these dates, and falls in holiday weeks (late December).
 - Resolution lag (events must settle before scoring) adds a few days.
 
 ## Limits
