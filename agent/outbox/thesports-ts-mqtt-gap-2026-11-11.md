@@ -14,3 +14,6 @@ The new >5% shrink guard (15407a49) did NOT refuse the whole export — no `SKIP
 
 ## Data already captured (not lost)
 Live source ts_mqtt.jsonl (4.9 GB) and books.jsonl (6.4 GB) under `/mnt/HC_Volume_107257520/pkarbs/thesports/final-topics-32295b/` are complete and growing (newest 09:44Z+); nothing was deleted. The 8 h of tennis/Dota messages (00:22Z-now) are recorded on the volume, absent only from the repo slim copy.
+
+## UPDATE (11:10Z 11 Nov) — data LANDED on origin
+A manual merge commit (**6cf032317a**) was built by overlaying the 09:59Z slim build (`b091e49b`, ts_mqtt 00:22Z→10:00Z, 218,056 ts_mqtt files + books_mid) onto the current origin tip and pushed fast-forward. Verified on `origin/claude/project-thread-vg2ckg`: newest ts_mqtt chunk **1794384000000** (10:00:00Z) and newest books_mid chunk **1794384000000** — the 8 h of tennis/Dota/other messages (00:22Z→10:00Z) are now on the slim repo branch. The durable fix (rebase/merge at push time) is still CHANGE-BATCH #15, approval-gated under 409 (11-08..15); OPEN row 13 stays open only for that code fix and any newer 10Z+ chunks the timer still fails to push.
