@@ -1,0 +1,21 @@
+rn1_42_deep matches 42 markets 127
+touch pull0 {'pct': 0.04} Q100: fill/match $2183 1min 0.27% [np.float64(-0.71), np.float64(1.28)] result 2.14% $/match 46.8 [np.float64(-124.3), np.float64(252.6)] reb/m 8.1 | later half $/m 11.0 1min -1.19%
+touch pull0 {'pct': 0.04} Q500: fill/match $5869 1min 0.86% [np.float64(-0.23), np.float64(1.98)] result 3.17% $/match 186.1 [np.float64(-265.8), np.float64(709.0)] reb/m 21.9 | later half $/m 203.6 1min -0.63%
+touch pull0 {'pct': 0.05} Q100: fill/match $1436 1min -0.48% [np.float64(-1.52), np.float64(0.41)] result 0.95% $/match 13.6 [np.float64(-83.1), np.float64(120.1)] reb/m 5.5 | later half $/m -10.2 1min -0.1%
+touch pull0 {'pct': 0.05} Q500: fill/match $3786 1min 0.32% [np.float64(-0.76), np.float64(1.32)] result 1.57% $/match 59.4 [np.float64(-203.4), np.float64(341.3)] reb/m 14.7 | later half $/m -21.3 1min 0.23%
+touch pull0 {'pct': 0.075} Q100: fill/match $663 1min -0.49% [np.float64(-2.19), np.float64(1.04)] result -3.56% $/match -23.6 [np.float64(-96.7), np.float64(59.0)] reb/m 2.8 | later half $/m -55.7 1min -0.99%
+touch pull0 {'pct': 0.075} Q500: fill/match $1716 1min -0.04% [np.float64(-1.75), np.float64(1.52)] result -3.16% $/match -54.3 [np.float64(-232.4), np.float64(140.2)] reb/m 7.4 | later half $/m -189.1 1min 0.07%
+touch pull0 {'pct': 0.1} Q100: fill/match $341 1min 0.61% [np.float64(-3.03), np.float64(5.49)] result 1.98% $/match 6.8 [np.float64(-40.3), np.float64(59.0)] reb/m 1.5 | later half $/m 39.1 1min -1.79%
+touch pull0 {'pct': 0.1} Q500: fill/match $867 1min 0.21% [np.float64(-3.14), np.float64(4.17)] result 2.01% $/match 17.4 [np.float64(-96.0), np.float64(140.8)] reb/m 3.9 | later half $/m 61.7 1min -2.77%
+touch pull0 {'pct': 0.15} Q100: fill/match $107 1min 1.34% [np.float64(-3.54), np.float64(7.07)] result 10.89% $/match 11.6 [np.float64(-15.8), np.float64(44.2)] reb/m 0.5 | later half $/m 54.4 1min 3.18%
+touch pull0 {'pct': 0.15} Q500: fill/match $304 1min 1.4% [np.float64(-4.63), np.float64(8.94)] result 23.32% $/match 70.8 [np.float64(-31.8), np.float64(193.2)] reb/m 1.5 | later half $/m 244.7 1min 4.22%
+through pull0 {'pct': 0.04} Q100: fill/match $2112 1min 0.11% [np.float64(-0.93), np.float64(1.14)] result 2.56% $/match 54.0 [np.float64(-117.6), np.float64(252.0)] reb/m 7.8 | later half $/m 2.5 1min -1.59%
+through pull0 {'pct': 0.04} Q500: fill/match $5709 1min 0.74% [np.float64(-0.41), np.float64(1.94)] result 3.48% $/match 198.8 [np.float64(-211.0), np.float64(700.2)] reb/m 21.1 | later half $/m 165.9 1min -1.02%
+through pull0 {'pct': 0.05} Q100: fill/match $1412 1min -0.45% [np.float64(-1.46), np.float64(0.54)] result 1.24% $/match 17.5 [np.float64(-80.5), np.float64(122.0)] reb/m 5.4 | later half $/m -9.1 1min -0.12%
+through pull0 {'pct': 0.05} Q500: fill/match $3724 1min 0.3% [np.float64(-0.71), np.float64(1.24)] result 2.01% $/match 74.8 [np.float64(-196.3), np.float64(365.8)] reb/m 14.4 | later half $/m -15.3 1min 0.1%
+through pull0 {'pct': 0.075} Q100: fill/match $661 1min -0.49% [np.float64(-2.14), np.float64(1.14)] result -3.3% $/match -21.8 [np.float64(-93.3), np.float64(54.2)] reb/m 2.8 | later half $/m -53.3 1min -1.0%
+through pull0 {'pct': 0.075} Q500: fill/match $1710 1min -0.04% [np.float64(-1.72), np.float64(1.42)] result -2.89% $/match -49.4 [np.float64(-230.1), np.float64(145.7)] reb/m 7.4 | later half $/m -181.3 1min 0.06%
+through pull0 {'pct': 0.1} Q100: fill/match $327 1min 0.18% [np.float64(-3.69), np.float64(5.08)] result -0.26% $/match -0.8 [np.float64(-41.1), np.float64(45.5)] reb/m 1.4 | later half $/m 20.0 1min -2.03%
+through pull0 {'pct': 0.1} Q500: fill/match $829 1min -0.33% [np.float64(-3.57), np.float64(3.23)] result 1.43% $/match 11.9 [np.float64(-93.7), np.float64(125.5)] reb/m 3.7 | later half $/m 25.1 1min -3.0%
+through pull0 {'pct': 0.15} Q100: fill/match $106 1min 1.27% [np.float64(-3.37), np.float64(7.08)] result 9.56% $/match 10.1 [np.float64(-19.5), np.float64(40.2)] reb/m 0.5 | later half $/m 55.3 1min 3.18%
+through pull0 {'pct': 0.15} Q500: fill/match $302 1min 1.37% [np.float64(-4.7), np.float64(8.55)] result 23.34% $/match 70.4 [np.float64(-32.1), np.float64(188.0)] reb/m 1.5 | later half $/m 247.8 1min 4.23%

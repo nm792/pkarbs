@@ -1,0 +1,165 @@
+{
+ "unresolved_usd": 0,
+ "taker_matched": 2562,
+ "taker_rows": 2562,
+ "ALL:maker": {
+  "usd": 9562951,
+  "pnl": 28072,
+  "pct": 0.29,
+  "events": 1654,
+  "boot90": [
+   -181714,
+   246755
+  ]
+ },
+ "ALL:taker": {
+  "usd": 1121565,
+  "pnl": -114424,
+  "pct": -10.2,
+  "events": 661,
+  "boot90": [
+   -233144,
+   4489
+  ]
+ },
+ "cs2:maker": {
+  "usd": 1045550,
+  "pnl": 4959,
+  "pct": 0.47,
+  "events": 18,
+  "boot90": [
+   -83255,
+   97784
+  ]
+ },
+ "cs2:taker": {
+  "usd": 261446,
+  "pnl": -49670,
+  "pct": -19.0,
+  "events": 18,
+  "boot90": [
+   -127037,
+   24882
+  ]
+ },
+ "cs2_maker:map_winner": {
+  "usd": 569795,
+  "pnl": 749,
+  "pct": 0.13,
+  "events": 18,
+  "boot90": [
+   -63524,
+   70175
+  ]
+ },
+ "cs2_maker:match": {
+  "usd": 442054,
+  "pnl": -5070,
+  "pct": -1.15,
+  "events": 18,
+  "boot90": [
+   -44495,
+   29906
+  ]
+ },
+ "cs2_maker:other": {
+  "usd": 33700,
+  "pnl": 9280,
+  "pct": 27.54,
+  "events": 12,
+  "boot90": [
+   -6038,
+   23707
+  ]
+ },
+ "cs2_taker:map_winner": {
+  "usd": 112276,
+  "pnl": 2055,
+  "pct": 1.83,
+  "events": 17,
+  "boot90": [
+   -27292,
+   34658
+  ]
+ },
+ "cs2_taker:match": {
+  "usd": 111180,
+  "pnl": -47315,
+  "pct": -42.56,
+  "events": 17,
+  "boot90": [
+   -87589,
+   -12222
+  ]
+ },
+ "cs2_taker:other": {
+  "usd": 37990,
+  "pnl": -4410,
+  "pct": -11.61,
+  "events": 11,
+  "boot90": [
+   -42797,
+   28406
+  ]
+ },
+ "soccer_other:maker": {
+  "usd": 4095115,
+  "pnl": -58051,
+  "pct": -1.42,
+  "events": 1299,
+  "boot90": [
+   -184800,
+   72958
+  ]
+ },
+ "soccer_other:taker": {
+  "usd": 485959,
+  "pnl": -21437,
+  "pct": -4.41,
+  "events": 500,
+  "boot90": [
+   -74702,
+   27706
+  ]
+ },
+ "tennis:maker": {
+  "usd": 2736664,
+  "pnl": 34247,
+  "pct": 1.25,
+  "events": 209,
+  "boot90": [
+   -100449,
+   148269
+  ]
+ },
+ "tennis:taker": {
+  "usd": 195181,
+  "pnl": -47152,
+  "pct": -24.16,
+  "events": 79,
+  "boot90": [
+   -117097,
+   18041
+  ]
+ },
+ "us:maker": {
+  "usd": 1685623,
+  "pnl": 46917,
+  "pct": 2.78,
+  "events": 128,
+  "boot90": [
+   -34722,
+   126462
+  ]
+ },
+ "us:taker": {
+  "usd": 178979,
+  "pnl": 3835,
+  "pct": 2.14,
+  "events": 64,
+  "boot90": [
+   -29475,
+   40364
+  ]
+ }
+}

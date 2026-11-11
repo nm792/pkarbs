@@ -1,0 +1,8 @@
+/root/pkarbs/agent/tasks/rugby-top14-capture.py:167: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  _record(rr_f, {"recv_ms": now_ms, "recv_iso": datetime.utcnow().isoformat() + "Z",
+/root/pkarbs/agent/tasks/rugby-top14-capture.py:175: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  _record(ev_f, {"recv_ms": now_ms, "recv_iso": datetime.utcnow().isoformat() + "Z",
+/root/pkarbs/agent/tasks/rugby-top14-capture.py:246: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  out = [f"## {datetime.utcnow().strftime('%H:%M:%SZ')} window {win} summary (last {every}s, counts only)",
+/root/pkarbs/agent/tasks/rugby-top14-capture.py:252: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  mins = (datetime.utcnow() - ko).total_seconds() / 60

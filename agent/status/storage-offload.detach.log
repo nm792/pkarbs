@@ -1,0 +1,30 @@
+offload start 2026-11-03T14:29:57Z cutoff=1793543397
+/root/offload_pkarbs_shadow.sh: line 55: freed/1e9: value too great for base (error token is "1e9")
+/root/offload_pkarbs_shadow.sh: line 58: freed/1e9: value too great for base (error token is "1e9")
+/root/offload_pkarbs_shadow.sh: line 62: freed/1e9: value too great for base (error token is "1e9")
+offload start 2026-11-03T14:31:46Z cutoff=1793543506
+moved rescan-data/raw-2026102315.jsonl.gz (155281868B) freed=0GB moved=1
+moved rescan-data/raw-2026102316.jsonl.gz (414223464B) freed=0GB moved=2
+moved rescan-data/raw-2026102318.jsonl.gz (932954305B) freed=1GB moved=3
+moved rescan-data/raw-2026102319.jsonl.gz (1134558400B) freed=2GB moved=4
+moved rescan-data/raw-2026102322.jsonl.gz (165615983B) freed=2GB moved=5
+moved rescan-data/raw-2026102323.jsonl.gz (215885177B) freed=3GB moved=6
+moved rescan-data/raw-2026102400.jsonl.gz (226800691B) freed=3GB moved=7
+moved data/bad/raw-2026102401.jsonl.gz (200081201B) freed=3GB moved=8
+moved rescan-data/raw-2026102402.jsonl.gz (177319594B) freed=3GB moved=9
+moved rescan-data/raw-2026102403.jsonl.gz (133494122B) freed=3GB moved=10
+moved data/bad/raw-2026102404.jsonl.gz (111540387B) freed=3GB moved=11
+moved data/bad/raw-2026102406.jsonl.gz (497046664B) freed=4GB moved=12
+moved data-v2/raw-2026102406.jsonl.gz (3810284B) freed=4GB moved=13
+moved rescan-data/events.jsonl (176394641B) freed=4GB moved=14
+moved rescan-data/raw-2026102405.jsonl.gz (607406314B) freed=5GB moved=15
+moved data-v2/raw-2026102407.jsonl.gz (387922242B) freed=5GB moved=16
+moved data-v2/raw-2026102408.jsonl.gz (348493038B) freed=5GB moved=17
+moved data-v2/raw-2026102409.jsonl.gz (202590255B) freed=6GB moved=18
+moved data-v2/raw-2026102410.jsonl.gz (296858253B) freed=6GB moved=19
+moved data-v2/raw-2026102411.jsonl.gz (825242049B) freed=7GB moved=20
+moved data-v2/raw-2026102412.jsonl.gz (920392754B) freed=8GB moved=21
+moved data-v2/raw-2026102413.jsonl.gz (831864651B) freed=8GB moved=22
+moved data-v2/raw-2026102414.jsonl.gz (1212780632B) freed=10GB moved=23
+moved data-v2/raw-2026102415.jsonl.gz (1297009814B) freed=11GB moved=24
+moved data-v2/raw-2026102416.jsonl.gz (985459613B) freed=12GB moved=25

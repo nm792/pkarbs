@@ -1,0 +1,319 @@
+INVENTORY (messages per sport, distinct games/matches, event-type counts)
+  cs2 event typeid 1                 1954
+  cs2 event typeid 2                 2000
+  cs2 event typeid 3                 1006
+  cs2 event typeid 4                 942
+  cs2 event typeid 5                 653
+  cs2 event typeid 6                 1059
+  cs2 event typeid 8                 23316
+  lol event type 1                   133
+  lol event type 2                   66
+  lol event type 3                   11
+  lol event type 4                   39
+  msgs basketball                    1770421
+  msgs csgo                          305095
+  msgs dota2                         121576
+  msgs lol                           4432
+  msgs tennis                        100398
+  distinct cs2          115
+  distinct dota2        88
+  distinct lol          6
+  distinct nba          885
+  distinct tennis       273
+  events cs2 kill                                     9957
+  events cs2 kill headshot                            13359
+  events cs2 round end wintype 1                      259
+  events cs2 round end wintype 2                      323
+  events cs2 round end wintype 3                      81
+  events cs2 round end wintype 4                      592
+  events cs2 round end wintype 5                      725
+  events dota NW lead crosses +10k                    45
+  events dota NW lead crosses +10k (away)             39
+  events dota NW lead crosses +20k                    28
+  events dota NW lead crosses +20k (away)             23
+  events dota NW lead crosses +5k                     64
+  events dota NW lead crosses +5k (away)              68
+  events dota NW lead flips                           433
+  events dota all barracks gone (megacreeps)          21
+  events dota barracks destroyed                      82
+  events dota first blood                             42
+  events dota game ends (feed status change)          11
+  events dota kill                                    1488
+  events dota team down to <=3 towers                 53
+  events dota tower destroyed                         459
+  events lol event type 1                             133
+  events lol event type 2                             66
+  events lol event type 3                             11
+  events lol event type 4                             39
+  events tennis any point (decisive)                  4815
+  events tennis any point (listed)                    21411
+  events tennis break point converted (decisive)      1405
+  events tennis break point converted (listed)        7
+  events tennis break point saved (listed)            1576
+  events tennis set point converted (decisive)        471
+  events tennis set point saved (listed)              429
+  events tennis tiebreak point (decisive)             63
+  events tennis tiebreak point (listed)               633
+  dota roshan timer starts (side by aegis vote below): 45
+  aegis item vote top: [('kjw2r08etjoqz84', 41), ('yl5erg57cyom8k0', 11), ('v2y8m4egt3yql07', 4)]
+paired games to PM game-winner token: 202 of 438 games with events
+
+RESULT per event class (cents per share; diff = real minus placebo; 90% match-clustered CI; band 0.10-0.90)
+
+== cs2 kill | events 5403
+   mtm60   n=967 matches=25 diff +0.14c CI [-0.47, +0.82]
+   exit30  n=975 matches=25 diff +0.30c CI [-0.41, +1.33]
+   hold    n=892 matches=23 diff -0.93c CI [-1.63, -0.22]
+   signed move real [-30,0] -0.04c(n3343) | [0,10] -0.02c(n3290) | [10,60] +0.24c(n3248)
+   signed move plac [-30,0] +0.06c(n15846) | [0,10] +0.04c(n15505) | [10,60] +0.16c(n15286)
+
+== cs2 kill headshot | events 7670
+   mtm60   n=1421 matches=25 diff +0.33c CI [+0.00, +0.66]
+   exit30  n=1448 matches=25 diff -0.52c CI [-2.33, +0.67]
+   hold    n=1291 matches=24 diff -0.86c CI [-1.58, -0.14]
+   signed move real [-30,0] +0.00c(n4488) | [0,10] +0.04c(n4388) | [10,60] +0.19c(n4331)
+   signed move plac [-30,0] +0.08c(n21801) | [0,10] +0.02c(n21203) | [10,60] +0.17c(n20821)
+
+== cs2 round end wintype 1 | events 132
+   mtm60   n=16 matches=14 diff -3.22c CI [-5.88, -0.66]
+   exit30  n=16 matches=13 diff -0.16c CI [-1.16, +0.74]
+   hold    n=16 matches=12 diff -0.26c CI [-5.01, +5.27]
+   signed move real [-30,0] -0.14c(n81) | [0,10] +0.08c(n81) | [10,60] +0.08c(n81)
+   signed move plac [-30,0] +0.43c(n368) | [0,10] -0.08c(n374) | [10,60] +1.21c(n359)
+
+== cs2 round end wintype 2 | events 189
+   mtm60   n=31 matches=16 diff -0.21c CI [-2.64, +2.19]
+   exit30  n=31 matches=16 diff -1.29c CI [-3.36, +0.58]
+   hold    n=26 matches=14 diff -8.08c CI [-10.88, -5.32]
+   signed move real [-30,0] -0.52c(n119) | [0,10] -0.05c(n118) | [10,60] +0.82c(n115)
+   signed move plac [-30,0] +0.10c(n560) | [0,10] -0.07c(n560) | [10,60] +0.35c(n556)
+
+== cs2 round end wintype 3 | events 51
+   mtm60   n=5 matches=5 diff -3.77c CI [-6.53, -0.89]
+   exit30  n=5 matches=5 diff -1.93c CI [-4.45, +0.05]
+   hold    n=5 matches=5 diff -0.73c CI [-6.24, +4.04]
+   signed move real [-30,0] -0.57c(n42) | [0,10] -0.71c(n41) | [10,60] -0.06c(n39)
+   signed move plac [-30,0] +0.12c(n183) | [0,10] +0.06c(n188) | [10,60] +1.06c(n184)
+
+== cs2 round end wintype 4 | events 327
+   mtm60   n=52 matches=19 diff -0.62c CI [-2.09, +0.81]
+   exit30  n=51 matches=20 diff -0.31c CI [-1.14, +0.51]
+   hold    n=43 matches=18 diff -2.64c CI [-5.46, +0.18]
+   signed move real [-30,0] -0.23c(n188) | [0,10] +0.36c(n187) | [10,60] +0.44c(n185)
+   signed move plac [-30,0] +0.32c(n921) | [0,10] +0.12c(n918) | [10,60] +0.64c(n889)
+
+== cs2 round end wintype 5 | events 400
+   mtm60   n=49 matches=20 diff -2.47c CI [-5.18, -0.02]
+   exit30  n=52 matches=20 diff -1.79c CI [-2.66, -0.85]
+   hold    n=43 matches=20 diff -2.92c CI [-5.48, -0.26]
+   signed move real [-30,0] +0.31c(n201) | [0,10] -0.35c(n197) | [10,60] +0.12c(n195)
+   signed move plac [-30,0] +0.20c(n993) | [0,10] +0.27c(n1015) | [10,60] +0.76c(n981)
+
+== dota NW lead crosses +10k | events 42
+   mtm60   n=0 matches=0 diff n/a CI n/a
+   exit30  n=0 matches=0 diff n/a CI n/a
+   hold    n=0 matches=0 diff n/a CI n/a
+   signed move real [-30,0] +2.72c(n9) | [0,10] -0.72c(n9) | [10,60] -7.76c(n8)
+   signed move plac [-30,0] -0.34c(n62) | [0,10] +0.38c(n68) | [10,60] -0.06c(n50)
+
+== dota NW lead crosses +20k | events 26
+   mtm60   n=0 matches=0 diff n/a CI n/a
+   exit30  n=0 matches=0 diff n/a CI n/a
+   hold    n=0 matches=0 diff n/a CI n/a
+   signed move real [-30,0] +7.40c(n3) | [0,10] -4.52c(n3) | [10,60] +5.67c(n3)
+   signed move plac [-30,0] +3.72c(n26) | [0,10] +1.36c(n33) | [10,60] +3.04c(n23)
+
+== dota NW lead crosses +5k | events 72
+   mtm60   n=1 matches=1 diff +1.80c CI n/a
+   exit30  n=2 matches=2 diff +0.92c CI n/a
+   hold    n=1 matches=1 diff -15.80c CI n/a
+   signed move real [-30,0] +0.44c(n20) | [0,10] -0.66c(n20) | [10,60] +3.81c(n20)
+   signed move plac [-30,0] -0.78c(n146) | [0,10] -0.15c(n158) | [10,60] +0.96c(n153)
+
+== dota NW lead flips | events 208
+   mtm60   n=33 matches=12 diff +0.05c CI [-2.07, +2.21]
+   exit30  n=32 matches=12 diff +0.05c CI [-1.08, +1.23]
+   hold    n=30 matches=12 diff -2.44c CI [-6.71, +1.30]
+   signed move real [-30,0] +0.12c(n142) | [0,10] +0.12c(n141) | [10,60] +0.54c(n140)
+   signed move plac [-30,0] +0.16c(n679) | [0,10] +0.23c(n690) | [10,60] -0.07c(n686)
+
+== dota all barracks gone (megacreeps) | events 9
+   mtm60   n=0 matches=0 diff n/a CI n/a
+   exit30  n=0 matches=0 diff n/a CI n/a
+   hold    n=0 matches=0 diff n/a CI n/a
+   signed move real [-30,0] n/a | [0,10] n/a | [10,60] n/a
+   signed move plac [-30,0] +0.50c(n6) | [0,10] +0.33c(n6) | [10,60] +8.63c(n8)
+
+== dota barracks destroyed | events 43
+   mtm60   n=2 matches=2 diff +1.94c CI n/a
+   exit30  n=2 matches=2 diff +0.30c CI n/a
+   hold    n=2 matches=2 diff -5.87c CI n/a
+   signed move real [-30,0] -1.18c(n7) | [0,10] +1.91c(n7) | [10,60] -1.39c(n7)
+   signed move plac [-30,0] +1.30c(n61) | [0,10] +0.84c(n68) | [10,60] +1.67c(n69)
+
+== dota first blood | events 23
+   mtm60   n=10 matches=9 diff +0.80c CI [-0.73, +2.26]
+   exit30  n=10 matches=9 diff +1.03c CI [-0.11, +2.25]
+   hold    n=8 matches=7 diff +0.74c CI [-0.35, +1.99]
+   signed move real [-30,0] -0.39c(n22) | [0,10] +0.64c(n22) | [10,60] +0.43c(n22)
+   signed move plac [-30,0] -0.26c(n90) | [0,10] +0.18c(n92) | [10,60] +0.73c(n87)
+
+== dota game ends (feed status change) | events 2
+   mtm60   n=0 matches=0 diff n/a CI n/a
+   exit30  n=0 matches=0 diff n/a CI n/a
+   hold    n=0 matches=0 diff n/a CI n/a
+   signed move real [-30,0] n/a | [0,10] n/a | [10,60] n/a
+   signed move plac [-30,0] +0.50c(n1) | [0,10] -1.50c(n2) | [10,60] -0.45c(n1)
+
+== dota kill | events 776
+   mtm60   n=107 matches=18 diff -0.50c CI [-1.81, +0.65]
+   exit30  n=110 matches=18 diff -0.22c CI [-0.91, +0.44]
+   hold    n=76 matches=16 diff -2.26c CI [-3.44, -1.21]
+   signed move real [-30,0] +0.27c(n539) | [0,10] +0.62c(n538) | [10,60] +0.23c(n532)
+   signed move plac [-30,0] +0.07c(n2577) | [0,10] +0.05c(n2519) | [10,60] +0.06c(n2504)
+
+== dota roshan killed (aegis side) | events 24
+   mtm60   n=1 matches=1 diff +4.28c CI n/a
+   exit30  n=1 matches=1 diff +2.37c CI n/a
+   hold    n=1 matches=1 diff +14.56c CI n/a
+   signed move real [-30,0] -2.06c(n18) | [0,10] -1.01c(n18) | [10,60] +4.90c(n17)
+   signed move plac [-30,0] -0.92c(n80) | [0,10] -0.94c(n75) | [10,60] -1.72c(n78)
+
+== dota team down to <=3 towers | events 23
+   mtm60   n=0 matches=0 diff n/a CI n/a
+   exit30  n=0 matches=0 diff n/a CI n/a
+   hold    n=0 matches=0 diff n/a CI n/a
+   signed move real [-30,0] -3.50c(n2) | [0,10] +0.75c(n2) | [10,60] +0.25c(n2)
+   signed move plac [-30,0] +1.65c(n29) | [0,10] +1.81c(n31) | [10,60] +4.07c(n31)
+
+== dota tower destroyed | events 232
+   mtm60   n=21 matches=8 diff -3.03c CI [-5.24, -1.04]
+   exit30  n=19 matches=8 diff +2.02c CI [-2.80, +7.47]
+   hold    n=24 matches=7 diff -1.58c CI [-3.69, +0.24]
+   signed move real [-30,0] -0.65c(n109) | [0,10] -0.12c(n109) | [10,60] +0.32c(n110)
+   signed move plac [-30,0] -0.07c(n587) | [0,10] -0.01c(n584) | [10,60] +0.24c(n596)
+
+== lol event type 1 | events 132
+   mtm60   n=5 matches=1 diff +0.97c CI n/a
+   exit30  n=5 matches=1 diff -0.46c CI n/a
+   hold    n=5 matches=1 diff -0.98c CI n/a
+   signed move real [-30,0] +0.88c(n41) | [0,10] -0.59c(n41) | [10,60] -0.68c(n71)
+   signed move plac [-30,0] +0.37c(n316) | [0,10] -0.20c(n299) | [10,60] +0.34c(n334)
+
+== lol event type 2 | events 66
+   mtm60   n=10 matches=1 diff +3.59c CI n/a
+   exit30  n=11 matches=1 diff +0.21c CI n/a
+   hold    n=10 matches=1 diff -5.93c CI n/a
+   signed move real [-30,0] -0.90c(n24) | [0,10] +0.15c(n24) | [10,60] +0.64c(n32)
+   signed move plac [-30,0] -0.26c(n148) | [0,10] -0.10c(n168) | [10,60] +0.44c(n156)
+
+== lol event type 3 | events 11
+   mtm60   n=0 matches=0 diff n/a CI n/a
+   exit30  n=0 matches=0 diff n/a CI n/a
+   hold    n=0 matches=0 diff n/a CI n/a
+   signed move real [-30,0] n/a | [0,10] n/a | [10,60] n/a
+   signed move plac [-30,0] +3.27c(n11) | [0,10] -0.46c(n12) | [10,60] -1.13c(n8)
+
+== lol event type 4 | events 39
+   mtm60   n=4 matches=1 diff -0.62c CI n/a
+   exit30  n=4 matches=1 diff +0.56c CI n/a
+   hold    n=4 matches=1 diff +0.10c CI n/a
+   signed move real [-30,0] +1.06c(n18) | [0,10] +1.42c(n18) | [10,60] -1.06c(n26)
+   signed move plac [-30,0] -0.64c(n116) | [0,10] +0.07c(n108) | [10,60] +0.29c(n112)
+
+== tennis any point (decisive) | events 2143
+   mtm60   n=232 matches=71 diff +0.22c CI [-0.24, +0.71]
+   exit30  n=227 matches=68 diff +0.22c CI [-0.26, +0.65]
+   hold    n=187 matches=52 diff -1.90c CI [-2.73, -1.14]
+   signed move real [-30,0] +2.41c(n1369) | [0,10] +0.07c(n1353) | [10,60] +0.01c(n1317)
+   signed move plac [-30,0] +0.25c(n6576) | [0,10] +0.04c(n6610) | [10,60] +0.31c(n6555)
+
+== tennis any point (listed) | events 9609
+   mtm60   n=566 matches=81 diff +0.73c CI [+0.24, +1.27]
+   exit30  n=559 matches=80 diff +0.77c CI [+0.45, +1.11]
+   hold    n=423 matches=61 diff +0.01c CI [-0.53, +0.52]
+   signed move real [-30,0] +2.63c(n6384) | [0,10] +0.10c(n6354) | [10,60] -0.03c(n6236)
+   signed move plac [-30,0] +0.00c(n30571) | [0,10] -0.03c(n30193) | [10,60] -0.03c(n30029)
+
+== tennis break point converted (decisive) | events 547
+   mtm60   n=22 matches=17 diff -1.57c CI [-3.17, -0.33]
+   exit30  n=22 matches=16 diff -0.58c CI [-1.31, +0.08]
+   hold    n=15 matches=11 diff -4.16c CI [-6.51, -1.94]
+   signed move real [-30,0] +4.85c(n346) | [0,10] +0.03c(n340) | [10,60] -0.18c(n332)
+   signed move plac [-30,0] +0.10c(n1678) | [0,10] +0.05c(n1658) | [10,60] +0.64c(n1606)
+
+== tennis break point converted (listed) | events 1
+   mtm60   n=0 matches=0 diff n/a CI n/a
+   exit30  n=0 matches=0 diff n/a CI n/a
+   hold    n=0 matches=0 diff n/a CI n/a
+   signed move real [-30,0] +2.00c(n1) | [0,10] +0.00c(n1) | [10,60] +0.00c(n1)
+   signed move plac [-30,0] -1.70c(n5) | [0,10] -1.23c(n5) | [10,60] +2.13c(n5)
+
+== tennis break point saved (listed) | events 699
+   mtm60   n=28 matches=20 diff +0.52c CI [-0.96, +2.06]
+   exit30  n=29 matches=20 diff +0.58c CI [-0.43, +1.59]
+   hold    n=24 matches=18 diff +2.60c CI [+0.66, +4.61]
+   signed move real [-30,0] +3.93c(n493) | [0,10] +0.03c(n490) | [10,60] -0.20c(n480)
+   signed move plac [-30,0] -0.18c(n2258) | [0,10] -0.08c(n2249) | [10,60] -0.22c(n2219)
+
+== tennis set point converted (decisive) | events 214
+   mtm60   n=9 matches=8 diff -1.60c CI [-2.43, -0.83]
+   exit30  n=9 matches=8 diff -0.60c CI [-1.14, +0.06]
+   hold    n=9 matches=8 diff -2.01c CI [-2.90, -0.98]
+   signed move real [-30,0] +3.76c(n98) | [0,10] +0.01c(n92) | [10,60] -0.34c(n86)
+   signed move plac [-30,0] +0.86c(n510) | [0,10] -0.00c(n502) | [10,60] +0.82c(n488)
+
+== tennis set point saved (listed) | events 189
+   mtm60   n=11 matches=8 diff +0.05c CI [-1.52, +1.63]
+   exit30  n=10 matches=7 diff +0.50c CI [-0.58, +1.47]
+   hold    n=5 matches=4 diff +2.70c CI [+0.95, +5.78]
+   signed move real [-30,0] +2.77c(n97) | [0,10] +0.49c(n97) | [10,60] -1.64c(n94)
+   signed move plac [-30,0] -0.17c(n522) | [0,10] -0.40c(n491) | [10,60] -0.91c(n494)
+
+== tennis tiebreak point (decisive) | events 32
+   mtm60   n=0 matches=0 diff n/a CI n/a
+   exit30  n=0 matches=0 diff n/a CI n/a
+   hold    n=0 matches=0 diff n/a CI n/a
+   signed move real [-30,0] +5.15c(n21) | [0,10] -0.16c(n18) | [10,60] -0.28c(n16)
+   signed move plac [-30,0] +1.28c(n103) | [0,10] +0.54c(n111) | [10,60] +1.23c(n99)
+
+== tennis tiebreak point (listed) | events 328
+   mtm60   n=11 matches=9 diff -1.30c CI [-5.11, +2.54]
+   exit30  n=11 matches=9 diff +3.45c CI [+0.23, +6.47]
+   hold    n=8 matches=6 diff -6.93c CI [-12.04, -1.94]
+   signed move real [-30,0] +5.54c(n251) | [0,10] -0.37c(n251) | [10,60] -0.53c(n245)
+   signed move plac [-30,0] -0.38c(n1093) | [0,10] -0.39c(n1072) | [10,60] -0.20c(n1048)
+
+=== LEAD: share of the [-60,+60] favourable move already in the price at the message (1.00 = price fully led, 0.00 = message first) ===
+cs2 kill                                             real 0.45 [0.41, 0.49] events 1407 matches 29 | placebo 0.47 [0.46, 0.48] events 6460 matches 29
+cs2 kill headshot                                    real 0.44 [0.39, 0.48] events 1850 matches 28 | placebo 0.48 [0.47, 0.49] events 8093 matches 30
+cs2 round end wintype 1                              real 0.47 [0.39, 0.57] events 39 matches 17 | placebo 0.40 [0.33, 0.47] events 193 matches 28
+cs2 round end wintype 2                              real 0.41 [0.31, 0.52] events 56 matches 20 | placebo 0.51 [0.46, 0.56] events 256 matches 28
+cs2 round end wintype 3                              real 0.76 [0.54, 1.10] events 15 matches 11 | placebo 0.49 [0.35, 0.61] events 82 matches 18
+cs2 round end wintype 4                              real 0.40 [0.31, 0.49] events 106 matches 26 | placebo 0.49 [0.44, 0.53] events 465 matches 29
+cs2 round end wintype 5                              real 0.54 [0.46, 0.60] events 104 matches 26 | placebo 0.45 [0.42, 0.49] events 577 matches 27
+dota NW lead crosses +10k                            real n/a (too few) | placebo 0.54 [0.38, 0.74] events 46 matches 12
+dota NW lead crosses +20k                            real n/a (too few) | placebo 0.47 [0.32, 0.66] events 23 matches 11
+dota NW lead crosses +5k                             real 0.49 [0.33, 0.62] events 23 matches 11 | placebo 0.49 [0.31, 0.60] events 84 matches 16
+dota NW lead flips                                   real 0.51 [0.42, 0.61] events 63 matches 16 | placebo 0.47 [0.38, 0.58] events 310 matches 18
+dota all barracks gone (megacreeps)                  real n/a (too few) | placebo 0.13 [-0.12, 0.32] events 9 matches 4
+dota barracks destroyed                              real n/a (too few) | placebo 0.57 [0.39, 0.75] events 54 matches 14
+dota first blood                                     real 0.34 [0.01, 0.61] events 12 matches 10 | placebo 0.57 [0.43, 0.74] events 35 matches 12
+dota game ends (feed status change)                  real n/a (too few) | placebo n/a (too few)
+dota kill                                            real 0.43 [0.38, 0.48] events 280 matches 18 | placebo 0.46 [0.44, 0.50] events 1132 matches 18
+dota roshan killed (aegis side)                      real 0.16 [-0.10, 0.35] events 8 matches 4 | placebo 0.47 [0.04, 0.63] events 35 matches 8
+dota team down to <=3 towers                         real n/a (too few) | placebo 0.48 [0.27, 0.67] events 20 matches 11
+dota tower destroyed                                 real 0.49 [0.32, 0.71] events 43 matches 14 | placebo 0.47 [0.40, 0.55] events 293 matches 18
+lol event type 1                                     real n/a (too few) | placebo n/a (too few)
+lol event type 2                                     real n/a (too few) | placebo n/a (too few)
+lol event type 3                                     real n/a (too few) | placebo n/a (too few)
+lol event type 4                                     real n/a (too few) | placebo n/a (too few)
+tennis any point (decisive)                          real 0.86 [0.83, 0.89] events 936 matches 93 | placebo 0.48 [0.45, 0.50] events 2574 matches 96
+tennis any point (listed)                            real 0.60 [0.58, 0.61] events 3561 matches 97 | placebo 0.48 [0.47, 0.49] events 10685 matches 97
+tennis break point converted (decisive)              real 0.97 [0.93, 1.00] events 306 matches 85 | placebo 0.43 [0.38, 0.48] events 754 matches 90
+tennis break point converted (listed)                real n/a (too few) | placebo n/a (too few)
+tennis break point saved (listed)                    real 0.52 [0.47, 0.58] events 256 matches 71 | placebo 0.54 [0.50, 0.58] events 730 matches 76
+tennis set point converted (decisive)                real 0.99 [0.96, 1.01] events 60 matches 54 | placebo 0.46 [0.39, 0.54] events 270 matches 83
+tennis set point saved (listed)                      real 0.46 [0.33, 0.58] events 35 matches 18 | placebo 0.40 [0.28, 0.53] events 127 matches 37
+tennis tiebreak point (decisive)                     real 1.03 [1.01, 1.07] events 13 matches 12 | placebo 0.44 [0.32, 0.58] events 60 matches 24
+tennis tiebreak point (listed)                       real 0.67 [0.63, 0.71] events 160 matches 28 | placebo 0.42 [0.37, 0.47] events 391 matches 27

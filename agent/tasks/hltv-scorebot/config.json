@@ -1,0 +1,47 @@
+{
+ "note": "Run 2 (IEM Beijing playoffs, 6 Nov). HLTV match ids from hltv.org/events/8245/matches, read 4 Nov 11:45Z. Polymarket side discovered automatically (tier-1 CS2 events live or starting within 1 h).",
+ "matches": [
+  {
+   "hltv_id": 2400006,
+   "label": "IEM Beijing Quarter-final #1"
+  },
+  {
+   "hltv_id": 2400007,
+   "label": "IEM Beijing Quarter-final #2"
+  },
+  {
+   "hltv_id": 2400008,
+   "label": "IEM Beijing Semi-final #1"
+  },
+  {
+   "hltv_id": 2400009,
+   "label": "IEM Beijing Semi-final #2"
+  },
+  {
+   "hltv_id": 2400010,
+   "label": "IEM Beijing 3rd place decider"
+  },
+  {
+   "hltv_id": 2400011,
+   "label": "IEM Beijing Grand final"
+  }
+ ],
+ "scorebot_fallback_urls": [
+  "https://scorebot-lb.hltv.org",
+  "https://scorebot-secure.hltv.org",
+  "https://scorebot2.hltv.org"
+ ],
+ "tier1_keywords": [
+  "iem ",
+  "esl pro league",
+  "blast",
+  "pgl",
+  "major",
+  "starladder",
+  "thunderpick",
+  "fissure",
+  "perfect world",
+  "cs asia"
+ ],
+ "book_poll_s": 1.0
+}
