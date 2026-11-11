@@ -52,6 +52,22 @@ build_and_push() {
     case "$rel" in rn1/scores/thesports/final-topics-32295b-slim/*)
       fpath="$STAGE/files/${rel#rn1/scores/thesports/final-topics-32295b-slim/}"
       if [ -f "$fpath" ]; then
+        # size guard (thesports-markets-overwritten-2026-11-11): a cumulative
+        # .jsonl.gz that shrank >5% vs the committed one is a truncated source,
+        # never push it. Look up the committed blob size on TIP.
+        case "$rel" in
+          */markets.jsonl.gz|*/pmws.jsonl.gz|*/log.jsonl.gz|*/ts_poll.jsonl.gz)
+            oldb=$(git ls-tree "$TIP" -- "$rel" | awk '{print $3}')
+            oldsz=0
+            if [ -n "$oldb" ] && [ "$oldb" != "0000000000000000000000000000000000000000" ]; then
+              oldsz=$(git cat-file -s "$oldb" 2>/dev/null || echo 0)
+            fi
+            newsz=$(stat -c%s "$fpath")
+            if [ -n "$oldsz" ] && [ "${oldsz:-0}" -gt 0 ] && [ "$newsz" -lt $(( oldsz * 95 / 100 )) ]; then
+              echo "SKIP $rel: shrunk ${oldsz}->${newsz} (-$( printf '%.1f' $(echo "scale=3;100*(1-$newsz/$oldsz)"|bc) )%)" >&2
+              continue
+            fi;;
+        esac
         blob=$(git hash-object -w "$fpath")
         git update-index --add --cacheinfo 100644,$blob,"$rel" 2>/dev/null && n=$((n+1))
       fi;;
