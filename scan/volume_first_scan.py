@@ -550,6 +550,21 @@ def title_key(t):
     return " ".join(t.split()[:6])
 
 
+NO_SPORTS = False
+SPORT_TAGS = {"sports", "nba", "nfl", "nhl", "mlb", "soccer", "epl", "premier-league", "la-liga", "serie-a", "bundesliga", "ligue-1",
+              "champions-league", "ucl", "mls", "tennis", "atp", "wta", "ufc", "mma", "boxing", "golf", "cricket", "rugby", "f1",
+              "formula-1", "cfb", "college-football", "ncaab", "college-basketball", "wnba", "esports", "cs2", "lol", "dota-2",
+              "valorant", "basketball", "football", "baseball", "hockey", "olympics"}
+_KCAT = {}
+
+
+def kal_is_sport(series):
+    if not _KCAT:
+        for sr in (get(f"{KAL}/series", {"limit": 5000}, sleep=0.4) or {}).get("series", []):
+            _KCAT[sr["ticker"]] = sr.get("category") or ""
+    return _KCAT.get(series, "") == "Sports" or bool(KAL_LEAGUE.match(series))
+
+
 def pm_universe(since, max_events=1500):
     evs, off = [], 0
     iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(since))
@@ -565,6 +580,8 @@ def pm_universe(since, max_events=1500):
     out = []
     for ev in evs:
         cat, _ = pm_cat(ev)
+        if NO_SPORTS and (set(t.get("slug", "") for t in ev.get("tags") or []) & SPORT_TAGS or cat in SPORT_TAGS):
+            continue
         if cat.startswith("EXCL") or cat.lower() in ALREADY_SCANNED or "up or down" in (ev.get("title") or "").lower():
             continue
         evvol = fl(ev.get("volume")) * PM_FACTOR
@@ -621,6 +638,10 @@ def kal_universe(since, max_pages=70):
         series = et.split("-")[0]
         if ALREADY_RE.match(series):
             continue
+        if NO_SPORTS and kal_is_sport(series):
+            continue
+        if re.fullmatch(r"KXAAAGASD[A-Z]{2}", series):
+            series = "KXAAAGASD??"
         vol = sum(fl(m.get("volume_fp")) for m in lst) * 0.5
         if vol < 50_000:
             continue
@@ -771,6 +792,7 @@ def why(series, evs):
 
 
 def main_step1(a):
+    global NO_SPORTS, WIN_K_DAYS
     random.seed(SEED)
     now = time.time(); lines = []
     def P(s=""): print(s, flush=True); lines.append(s)
@@ -778,12 +800,17 @@ def main_step1(a):
     P("Universe: resolved events, >= $50k adj volume, excluding weather, 5-minute up/down, and everything already scanned in this project. "
       f"PM = last {WIN_PM_DAYS}d (top 1,500 events by volume), Kalshi = last {WIN_K_DAYS}d. No stats tests, no rules, no P&L.")
     P("'Late' = the eventual winner's price (YES for the winning bucket, or the winning side of a single contract) only STAYS above 50c after 70% of the market's life.\n")
-    pu = pm_universe(now - WIN_PM_DAYS * 86400); ku = kal_universe(now - WIN_K_DAYS * 86400)
+    NO_SPORTS = a.no_sports
+    if a.no_sports:
+        WIN_K_DAYS = 45
+        P("NON-SPORTS ONLY (sports go to the faster-feed search). Kalshi window widened to 45 days.\n")
+    pu = pm_universe(now - WIN_PM_DAYS * 86400); ku = kal_universe(now - WIN_K_DAYS * 86400, max_pages=150 if a.no_sports else 70)
     series = defaultdict(lambda: {"evs": [], "days": 0})
     for e in pu:
         series[e["series"]]["evs"].append(e); series[e["series"]]["days"] = WIN_PM_DAYS
     for e in ku:
         series[e["series"]]["evs"].append(e); series[e["series"]]["days"] = WIN_K_DAYS
+    P(f"Universe after filters: PM {len(pu)} events, Kalshi {len(ku)} events, {len(series)} series.")
     rows = []
     for name, sr in sorted(series.items(), key=lambda kv: -sum(e["vol"] for e in kv[1]["evs"]))[:a.max_series]:
         evs = sr["evs"]
@@ -804,13 +831,20 @@ def main_step1(a):
         fs = np.array(fs)
         vol_day = sum(e["vol"] for e in evs) / sr["days"]
         rows.append({"series": name, "vol_day": vol_day, "n_res": len(pool), "n_ev": len(evs), "n": len(fs),
-                     "late": float((fs > 0.7).mean()), "mean": float(fs.mean()), "why": why(name, evs)})
+                     "late": float((fs > 0.7).mean()), "early": float((fs <= 0.10).mean()), "mean": float(fs.mean()), "why": why(name, evs)})
         print(f"- {name}: {len(fs)} winners, late {rows[-1]['late']:.0%}", flush=True)
     rows.sort(key=lambda r: -(r["vol_day"] * r["late"]))
-    P("\n| # | series | volume $/day | resolved markets (events) | winners measured | share of winners emerging after 70% of life | mean emergence (fraction of life) | why (guess) |")
+    P("\n### A. Late winners (ranked by volume x late share)")
+    P("| # | series | volume $/day | resolved markets (events) | winners measured | late share (>70% of life) | mean emergence | why (guess) |")
     P("|---|---|---:|---|---:|---:|---:|---|")
     for i, r in enumerate(rows, 1):
         P(f"| {i} | {r['series']} | {usd(r['vol_day'])} | {r['n_res']} ({r['n_ev']}) | {r['n']} | {r['late']*100:.0f}% | {r['mean']:.2f} | {r['why']} |")
+    P("\n### B. Opposite pattern: early leader nearly always wins (winner above 50c within the first 10% of life), ranked by volume x early share")
+    P("Flag only: whether buying the early leader pays depends on its price (see scan/gas_leader.py for the gas test).")
+    P("| # | series | volume $/day | winners measured | early-leader share (<=10% of life) | mean emergence |")
+    P("|---|---|---:|---:|---:|---:|")
+    for i, r in enumerate(sorted(rows, key=lambda r: -(r["vol_day"] * r["early"])), 1):
+        P(f"| {i} | {r['series']} | {usd(r['vol_day'])} | {r['n']} | {r['early']*100:.0f}% | {r['mean']:.2f} |")
     P("\nRanked by volume x late share. Volume = event volume (PM gamma x0.5; Kalshi contracts x0.5), averaged over the window.")
     open(a.out, "w").write("\n".join(lines) + "\n")
 
@@ -922,5 +956,6 @@ if __name__ == "__main__":
         ap.add_argument("--stat-markets", type=int, default=120)
         ap.add_argument("--out", default="scan/OUT-late-winner-scan.md")
         ap.add_argument("--per-series", type=int, default=40)
+        ap.add_argument("--no-sports", action="store_true")
         args = ap.parse_args()
         (main_late if args.mode == "late" else main_step1)(args)
