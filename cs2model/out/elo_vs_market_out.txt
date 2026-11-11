@@ -1,4 +1,0 @@
-maps 82, matches 46; home win rate 0.55
-logit(y) = 0.38 + 1.13*logit(market) + 0.27*elo_diff/400   | bootstrap SE: 0.32 / 0.35 / 1.33
-   (market slope 1 and Elo coef 0 = market already has it all)
-Brier (leave-one-match-out): market raw 0.1841 | market recalibrated 0.1850 | Elo only 0.2294 | market+Elo 0.1898 | coin 0.25

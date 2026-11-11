@@ -1,5 +1,0 @@
-movie train weeks 179 test weeks 23 stay rate train 0.42 test 0.39 w [-1.45, 0.32, 0.67, 1.35, 1.04] | TSV test logloss model 0.486 base 0.671
-show train weeks 149 test weeks 23 stay rate train 0.42 test 0.43 w [-2.07, 1.92, 0.33, 1.64, 0.49] | TSV test logloss model 0.727 base 0.685
-ALL: windows(with fills)=12 bets=3 stake=$9 pnl=$-9 placebo=$-14±27 excess=+0.2 sd
-train: windows(with fills)=7 bets=1 stake=$1 pnl=$-1 placebo=$-8±25 excess=+0.3 sd
-TEST: windows(with fills)=5 bets=2 stake=$8 pnl=$-8 placebo=$-7±9 excess=-0.1 sd
