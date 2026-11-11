@@ -332,6 +332,8 @@ def observations(m, path):
 
     ls = [i for i in life if 0.02 < mid[i] <= 0.10]
     fav = [i for i in life if 0.85 <= mid[i] < 0.98]
+    cheap = [i for i in life if 0.03 < mid[i] <= 0.30]
+    add("CHEAP_BUY", "Y", cheap); add("CHEAP_FADE", "N", cheap)
     add("LS_fade", "N", ls); add("LS_buy", "Y", ls)
     add("FAV_buy", "Y", fav); add("FAV_fade", "N", fav)
     # drift after big move: first hour (with 1h delay) where |mid[i]-mid[i-H]| >= MOVE_C
@@ -506,5 +508,298 @@ def main():
     open(a.out, "w").write("\n".join(lines) + "\n")
 
 
+# ====================================================================== LATE-WINNER MODE (default)
+# Nick 11 Nov 03:28Z: target PROFIT POTENTIAL. Tell = good-size markets whose winning bucket only emerges late.
+WIN_PM_DAYS, WIN_K_DAYS = 60, 21
+LOW_PX = 0.30
+ALREADY_RE = re.compile(r"^KX(BTC|ETH|SOL|XRP|DOGE|CPI|GAS|FED|HIGH|LOW|RAIN|SNOW|TEMP|WIND|HURR|ELON|TRUMPTWEET|TWEET|MENTION|"
+                        r"BOXOFFICE|NETFLIX|CHESS|CRICKET|RUGBY|TENNIS|ITF|WTA|ATP|CHALL|NBA|NFL|NHL|NCAA|WNBA|CFB|CBB)")
+
+
+def pm_trades(cond, tok, maxpages=20):
+    """BUY trades of token `tok` (newest first). Returns (list[(price,size)], truncated)."""
+    out, cur, trunc = [], None, False
+    for pg in range(maxpages):
+        d = get("https://data-api.polymarket.com/v2/trades", {"condition": cond, "limit": 500, **({"cursor": cur} if cur else {})}, sleep=0.2)
+        if not d:
+            break
+        for t in d.get("data", []):
+            if t.get("token_id") == tok and t.get("side") == "BUY":
+                out.append((fl(t["price"]), fl(t["size"])))
+        pg_ = d.get("pagination") or {}
+        cur = pg_.get("next_cursor")
+        if not (pg_.get("has_more") and cur):
+            return out, False
+    return out, True
+
+
+def emergence(pw):
+    """fraction of life at which winner-side price first STAYS above 0.5 (0 = always above)."""
+    n = len(pw)
+    below = np.where(pw <= 0.5)[0]
+    if len(below) == 0:
+        return 0.0
+    if below[-1] >= n - 1:
+        return None
+    return float((below[-1] + 1) / n)
+
+
+def title_key(t):
+    t = re.sub(r"\d+(\.\d+)?", "#", (t or "").lower())
+    t = re.sub(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\b", "M", t)
+    return " ".join(t.split()[:6])
+
+
+def pm_universe(since, max_events=1500):
+    evs, off = [], 0
+    iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(since))
+    while off < max_events:
+        d = get(f"{GAMMA}/events", {"closed": "true", "end_date_min": iso, "order": "volume", "ascending": "false",
+                                    "limit": 100, "offset": off})
+        if not d:
+            break
+        evs += d
+        if len(d) < 100:
+            break
+        off += 100
+    out = []
+    for ev in evs:
+        cat, _ = pm_cat(ev)
+        if cat.startswith("EXCL") or cat.lower() in ALREADY_SCANNED or "up or down" in (ev.get("title") or "").lower():
+            continue
+        evvol = fl(ev.get("volume")) * PM_FACTOR
+        if evvol < 50_000:
+            continue
+        ms = []
+        for m in ev.get("markets", []):
+            try:
+                pr = [float(x) for x in jl(m.get("outcomePrices"))]; toks = jl(m.get("clobTokenIds"))
+            except Exception:
+                continue
+            if len(pr) != 2 or max(pr) < 0.99 or len(toks) != 2:
+                continue
+            fs = m.get("feeSchedule") or {}
+            ct = (m.get("closedTime") or ev.get("closedTime") or "")[:19].replace("T", " ")
+            try:
+                cts = time.mktime(time.strptime(ct, "%Y-%m-%d %H:%M:%S"))
+            except Exception:
+                continue
+            if cts < since:
+                continue
+            ms.append({"id": m["conditionId"], "ev": ev["id"], "toks": toks, "y": 1 if pr[0] > 0.5 else 0, "close": cts,
+                       "vol": fl(m.get("volumeNum")) * PM_FACTOR, "rate": fl(fs.get("rate")) if m.get("feesEnabled") else 0.0})
+        if ms:
+            out.append({"ev": ev["id"], "cat": cat, "title": ev.get("title"), "vol": evvol, "markets": ms,
+                        "multi": len(ms) >= 3, "tkey": title_key(ev.get("title"))})
+    cnt = defaultdict(int)
+    for e in out:
+        cnt[e["tkey"]] += 1
+    for e in out:
+        e["series"] = ("PM " + e["tkey"]) if cnt[e["tkey"]] >= 3 else ("PM cat:" + e["cat"])
+    return out
+
+
+def kal_universe(since, max_pages=70):
+    ms, cur = [], None
+    for _ in range(max_pages):
+        p = {"status": "settled", "min_close_ts": int(since), "limit": 1000, "mve_filter": "exclude"}
+        if cur:
+            p["cursor"] = cur
+        d = get(f"{KAL}/markets", p, sleep=0.4)
+        if not d:
+            break
+        ms += d.get("markets", [])
+        cur = d.get("cursor")
+        if not cur:
+            break
+    evs = defaultdict(list)
+    for m in ms:
+        if m.get("result") in ("yes", "no") and m.get("event_ticker"):
+            evs[m["event_ticker"]].append(m)
+    out = []
+    for et, lst in evs.items():
+        series = et.split("-")[0]
+        if ALREADY_RE.match(series):
+            continue
+        vol = sum(fl(m.get("volume_fp")) for m in lst) * 0.5
+        if vol < 50_000:
+            continue
+        mk = []
+        for m in lst:
+            try:
+                ct = time.mktime(time.strptime(m["close_time"][:19], "%Y-%m-%dT%H:%M:%S")) - time.timezone
+                ot = time.mktime(time.strptime(m["open_time"][:19], "%Y-%m-%dT%H:%M:%S")) - time.timezone
+            except Exception:
+                continue
+            mk.append({"id": m["ticker"], "ev": et, "series": series, "y": int(m["result"] == "yes"), "close": ct,
+                       "open": ot, "vol": fl(m.get("volume_fp")) * 0.5, "rate": 0.07})
+        if mk:
+            out.append({"ev": et, "series": "K " + series, "vol": vol, "markets": mk, "multi": len(mk) >= 3})
+    return out
+
+
+def kal_winner_stats(m):
+    """returns (emergence f, ceiling $ on cheap winner, cheap $ traded) from hourly candles; contracts*0.5 = taker-buy share."""
+    start = max(m["open"], m["close"] - 21 * 86400)
+    d = get(f"{KAL}/series/{m['series']}/markets/{m['id']}/candlesticks",
+            {"start_ts": int(start), "end_ts": int(m["close"]), "period_interval": 60}, sleep=0.3)
+    c = (d or {}).get("candlesticks") or []
+    if len(c) < 8:
+        return None
+    mid, vol, la, lb = [], [], None, None
+    for x in c:
+        a = fl((x.get("yes_ask") or {}).get("close_dollars"), -1); b = fl((x.get("yes_bid") or {}).get("close_dollars"), -1)
+        la = a if a >= 0 else la; lb = b if b >= 0 else lb
+        mid.append(np.nan if la is None or lb is None else (la + lb) / 2)
+        vol.append(fl(x.get("volume_fp")))
+    mid, vol = np.array(mid), np.array(vol)
+    ok = ~np.isnan(mid)
+    if ok.sum() < 8:
+        return None
+    mid, vol = mid[ok], vol[ok]
+    pw = mid if m["y"] == 1 else 1 - mid
+    f = emergence(pw)
+    if f is None:
+        return None
+    cheap = pw <= LOW_PX
+    ceil = float((vol[cheap] * 0.5 * (1 - pw[cheap])).sum())
+    cheap_usd = float((vol[cheap] * 0.5 * pw[cheap]).sum())
+    return f, ceil, cheap_usd
+
+
+def pm_winner_stats(m, side):
+    tok = m["toks"][0 if side == "Y" else 1]
+    d = get(f"{CLOB}/prices-history", {"market": tok, "interval": "max", "fidelity": 60}, sleep=0.2)
+    h = (d or {}).get("history") or []
+    pw = np.array([x["p"] for x in h if x["t"] <= m["close"]], float)
+    if len(pw) < 8:
+        return None
+    f = emergence(pw)
+    if f is None:
+        return None
+    tr, trunc = pm_trades(m["id"], tok)
+    lo = [(p, s) for p, s in tr if p <= LOW_PX]
+    return f, float(sum(s * (1 - p) for p, s in lo)), float(sum(s * p for p, s in lo)), trunc
+
+
+def winners(ev):
+    """list of (market, side) whose winning-side path is the object of study."""
+    if ev["multi"]:
+        return [(m, "Y") for m in ev["markets"] if m["y"] == 1]
+    return [(m, "Y" if m["y"] == 1 else "N") for m in ev["markets"]]
+
+
+def main_late(a):
+    rng = np.random.default_rng(SEED); random.seed(SEED)
+    now = time.time()
+    lines = []
+    def P(s=""): print(s, flush=True); lines.append(s)
+    P(f"# Late-winner scan {time.strftime('%Y-%m-%d %H:%MZ', time.gmtime(now))}")
+    P("Universe: resolved events, event size >= $50k adj, NOT already scanned in this project, weather/5-min excluded. "
+      f"PM window {WIN_PM_DAYS}d (top by volume), Kalshi window {WIN_K_DAYS}d.\n")
+    pu = pm_universe(now - WIN_PM_DAYS * 86400)
+    ku = kal_universe(now - WIN_K_DAYS * 86400)
+    P(f"Universe: PM {len(pu)} events, Kalshi {len(ku)} events.")
+    series = defaultdict(lambda: {"evs": [], "days": 0})
+    for e in pu:
+        series[e["series"]]["evs"].append(e); series[e["series"]]["days"] = WIN_PM_DAYS
+    for e in ku:
+        series[e["series"]]["evs"].append(e); series[e["series"]]["days"] = WIN_K_DAYS
+    # ---- screen: emergence + cheap-winner ceiling per series (sampled winners, extrapolated)
+    rows = []
+    nsamp = a.screen_per_series
+    for name, sr in sorted(series.items(), key=lambda kv: -sum(e["vol"] for e in kv[1]["evs"]))[:a.max_series]:
+        evs = sr["evs"]
+        pool = [(e, m, side) for e in evs for (m, side) in winners(e)]
+        if len(pool) < 3:
+            continue
+        random.shuffle(pool)
+        stats = []
+        for e, m, side in pool[:nsamp]:
+            r = kal_winner_stats(m) if name.startswith("K ") else pm_winner_stats(m, side)
+            if r:
+                stats.append((e, r))
+        if len(stats) < 3:
+            continue
+        f = np.array([r[0] for _, r in stats]); ceil = np.array([r[1] for _, r in stats]); cu = np.array([r[2] for _, r in stats])
+        trunc = sum(1 for _, r in stats if len(r) > 3 and r[3])
+        n_w = len(pool)
+        days = sr["days"]
+        vol_day = sum(e["vol"] for e in evs) / days
+        rows.append({"series": name, "events": len(evs), "winners": n_w, "n": len(stats), "vol_day": vol_day,
+                     "f_mean": float(f.mean()), "late_share": float((f >= 0.7).mean()),
+                     "ceil_day": float(ceil.mean() * n_w / days), "cheap_usd_day": float(cu.mean() * n_w / days),
+                     "trunc": trunc, "evs": evs})
+        P(f"- screened {name}: {len(stats)}/{n_w} winners, f_mean {f.mean():.2f}, ceiling ${rows[-1]['ceil_day']:,.0f}/day")
+    rows.sort(key=lambda r: -r["ceil_day"])
+    P("\n## SCREEN - ranked by hindsight ceiling (cheap-winner profit potential, NOT P&L)")
+    P("Ceiling = sum over winner shares bought at <=30c of (1 - price), per day; assumes we knew the winner. Extrapolated from sampled winners.")
+    P("| # | series | events | volume $/day | winners sampled/total | winner emerges at (mean life) | share emerging after 70% | ceiling $/day | tier | trunc |")
+    P("|---|---|---:|---:|---|---:|---:|---:|---|---:|")
+    for i, r in enumerate(rows, 1):
+        tier = ">=10k" if r["ceil_day"] >= 10_000 else ("1-10k" if r["ceil_day"] >= 1_000 else "<1k")
+        P(f"| {i} | {r['series']} | {r['events']} | {usd(r['vol_day'])} | {r['n']}/{r['winners']} | {r['f_mean']:.2f} | "
+          f"{r['late_share']*100:.0f}% | {usd(r['ceil_day'])} | {tier} | {r['trunc']} |")
+    top = [r for r in rows if r["ceil_day"] >= 1_000 and r["late_share"] >= 0.3][:a.top_n]
+    P(f"\nSeries carried to the stat check: {len(top)} (ceiling >= $1k/day and >= 30% of winners emerging after 70% of life).")
+    # ---- stat check
+    rules = ["CHEAP_BUY", "CHEAP_FADE"]
+    ntests = max(1, len(top) * len(rules))
+    table = []
+    for r in top:
+        isk = r["series"].startswith("K ")
+        mk = [(m, e) for e in r["evs"] for m in e["markets"]]
+        random.shuffle(mk)
+        obs = defaultdict(list); used = 0
+        for m, e in mk[:a.stat_markets]:
+            if isk:
+                path = kal_path(m)
+            else:
+                m = dict(m, tok=m["toks"][0]); path = pm_path(m)
+            if not path:
+                continue
+            used += 1
+            for rule, lst in observations(m, path).items():
+                for side, cost, ret in lst:
+                    obs[rule].append({"close": m["close"], "ev": m["ev"], "mid_id": m["id"], "side": side, "cost": cost,
+                                      "ret": ret, "fee": fee(cost, m["rate"])})
+        P(f"- stat check {r['series']}: {used} markets with paths (winners AND losers, so no hindsight)")
+        for rule in rules:
+            res = evaluate(obs.get(rule, []), rule, rng, ntests)
+            if not res:
+                table.append({"series": r["series"], "rule": rule, "res": None, "cap": 0.0, "ceil": r["ceil_day"]}); continue
+            share = min(1.0, len(obs[rule]) / max(1, used * 3))
+            deploy = min(CAP_USD, PARTICIPATION * r["vol_day"] * share)
+            lb = max(0.0, res["test_lo"]) if res["pass"] else 0.0
+            table.append({"series": r["series"], "rule": rule, "res": res, "cap": deploy * lb, "ceil": r["ceil_day"], "deploy": deploy})
+    table.sort(key=lambda t: (-t["cap"], -(t["res"]["z"] if t["res"] and t["res"]["z"] == t["res"]["z"] else -9)))
+    P("\n## RESULT - ranked by capturable $/day (PASS only, else $0)")
+    P("Rules: at 25/50/75% of a market's life, buy every bucket priced 3-30c (CHEAP_BUY) or fade it (CHEAP_FADE), fills at ask/bid + fees, held to settlement. "
+      "If late emergence were an inefficiency, CHEAP_BUY would earn more than the fair-price placebo.")
+    P("| # | series | rule | hindsight ceiling $/day | n | markets | train net/$ | TEST net/$ | TEST lo95 | placebo z (need) | top3 | verdict | capturable $/day |")
+    P("|---|---|---|---:|---:|---:|---:|---:|---:|---|---:|---|---:|")
+    for i, t in enumerate(table, 1):
+        x = t["res"]
+        if not x:
+            P(f"| {i} | {t['series']} | {t['rule']} | {usd(t['ceil'])} | <30 | - | - | - | - | - | - | too few | $0 |"); continue
+        P(f"| {i} | {t['series']} | {t['rule']} | {usd(t['ceil'])} | {x['n']} | {x['markets']} | {x['train']*100:+.1f}% | {x['test']*100:+.1f}% | "
+          f"{x['test_lo']*100:+.1f}% | {x['z']:+.1f} ({x['zthr']:.1f}) | {'n/a' if x['top3']!=x['top3'] else str(round(x['top3']*100))+'%'} | "
+          f"{'PASS' if x['pass'] else 'FAIL'} | {usd(t['cap'])} |")
+    P(f"\n{sum(1 for t in table if t['res'] and t['res']['pass'])} of {len(table)} tests pass.")
+    open(a.out, "w").write("\n".join(lines) + "\n")
+
+
 if __name__ == "__main__":
-    main()
+    import sys
+    if "--mode" in sys.argv and sys.argv[sys.argv.index("--mode") + 1] == "gate":
+        sys.argv = [x for i, x in enumerate(sys.argv) if x != "--mode" and (i == 0 or sys.argv[i - 1] != "--mode")]
+        main()
+    else:
+        ap = argparse.ArgumentParser()
+        ap.add_argument("--mode", default="late")
+        ap.add_argument("--max-series", type=int, default=60)
+        ap.add_argument("--screen-per-series", type=int, default=12)
+        ap.add_argument("--top-n", type=int, default=8)
+        ap.add_argument("--stat-markets", type=int, default=120)
+        ap.add_argument("--out", default="scan/OUT-late-winner-scan.md")
+        main_late(ap.parse_args())
