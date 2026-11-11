@@ -689,6 +689,132 @@ def winners(ev):
     return [(m, "Y" if m["y"] == 1 else "N") for m in ev["markets"]]
 
 
+def _fit_logit(lp, y, iters=25):
+    X = np.column_stack([np.ones_like(lp), lp]); b = np.array([0.0, 1.0])
+    for _ in range(iters):
+        pr = 1 / (1 + np.exp(-X @ b)); W = pr * (1 - pr) + 1e-9
+        H = X.T @ (X * W[:, None]) + 1e-6 * np.eye(2)
+        b = b + np.linalg.solve(H, X.T @ (y - pr))
+        b = np.clip(b, -10, 10)
+    return b
+
+
+def calib_screen(ob, rng):
+    ob = sorted(ob, key=lambda o: o[0])
+    if len({o[1] for o in ob}) < 8 or len(ob) < 40:
+        return None
+    h = len(ob) // 2
+    tr, te = ob[:h], ob[h:]
+    lg = lambda p: np.log(p / (1 - p))
+    p_tr = np.array([o[2] for o in tr]); y_tr = np.array([o[3] for o in tr], float)
+    b = _fit_logit(lg(p_tr), y_tr)
+    p_te = np.array([o[2] for o in te]); y_te = np.array([o[3] for o in te], float)
+    q = 1 / (1 + np.exp(-(b[0] + b[1] * lg(p_te))))
+    ll = lambda p: y_te * np.log(p) + (1 - y_te) * np.log(1 - p)
+    d = ll(q) - ll(p_te)
+    evs = np.array([o[1] for o in te])
+    keys = sorted(set(evs)); idx = {k: np.where(evs == k)[0] for k in keys}
+    def clmean(v):
+        sm = np.array([v[idx[k]].sum() for k in keys]); ct = np.array([len(idx[k]) for k in keys])
+        return sm, ct
+    sm, ct = clmean(d)
+    bs = rng.integers(0, len(keys), (1000, len(keys)))
+    means = sm[bs].sum(1) / ct[bs].sum(1)
+    # winner-side price vs calibrated expectation, all obs
+    pa = np.array([o[2] for o in ob]); ya = np.array([o[3] for o in ob], float)
+    real = ya * pa + (1 - ya) * (1 - pa); exp_ = pa ** 2 + (1 - pa) ** 2
+    ea = np.array([o[1] for o in ob]); ka = sorted(set(ea))
+    g = np.array([(real - exp_)[ea == k].mean() for k in ka])
+    wz = g.mean() / (g.std(ddof=1) / math.sqrt(len(g)) + 1e-12)
+    return {"events": len(keys), "n": len(ob), "slope": float(b[1]), "dll": float(sm.sum() / ct.sum()),
+            "dll_lo": float(np.percentile(means, 2.5)), "wgap": float(g.mean()), "wz": float(wz)}
+
+
+DRIVERS = [("soccer|premier|liga|ucl|champions|bundes|ligue|vs\\.|fc |serie|mls|copa|efl|uefa", "team strength + lineups/injuries/xG, in-play score and red cards, referee, rest days"),
+           ("finance|nasdaq|inxu|gold|stock|ipo|earnings|fed|rate", "scheduled data releases, futures/option-implied vol, consensus forecasts"),
+           ("geopol|war|iran|ceasefire|peace|russia|ukraine|israel|china", "news flow, official statements, diplomatic calendar (hard to model; text/news model)"),
+           ("tech|ai|openai|gpt|model|release|apple|nvda|ceo", "release calendars, benchmark/leaderboard data, company filings"),
+           ("ufc|mma|boxing", "fighter records, odds from sharp books, weigh-ins"),
+           ("mlb|rays|guardians|baseball", "starting pitchers, bullpen, park/weather, lineups"),
+           ("midterm|vote|senate|house|impeach|poll", "polls, fundamentals, early-vote data, official count feeds"),
+           ("ytview|views|spotify|netflix|chart|billboard", "daily chart/view data and growth curves"),
+           ("tennis|itf|atp|wta", "player form/surface, point-level feed")]
+
+
+def drivers(series, evs):
+    t = (series + " " + " ".join((e.get("title") or "") for e in evs[:3])).lower()
+    for pat, txt in DRIVERS:
+        if re.search(pat, t):
+            return txt
+    return "unknown, read the market rules (resolution source = the data a model needs)"
+
+
+def pm_winner_f(m, side):
+    tok = m["toks"][0 if side == "Y" else 1]
+    d = get(f"{CLOB}/prices-history", {"market": tok, "interval": "max", "fidelity": 60}, sleep=0.2)
+    h = (d or {}).get("history") or []
+    pw = np.array([x["p"] for x in h if x["t"] <= m["close"]], float)
+    return emergence(pw) if len(pw) >= 8 else None
+
+
+def why(series, evs):
+    t = (series + " " + " ".join((e.get("title") or "") for e in evs[:3])).lower()
+    if re.search(r"inxu|nasdaq|gold|index|open|close|stock|btc|eth|price|above|below", t):
+        return "late data: price path decided near expiry (intraday/index-style)"
+    if re.search(r"soccer|premier|liga|ucl|champions|bundes|ligue|vs\\.|fc |serie|mls|copa|efl|uefa|ufc|mlb|rays|tennis|itf|cs2|game", t):
+        return "late data: in-play events decide it (goals, rounds, innings)"
+    if re.search(r"geopol|war|iran|ceasefire|peace|russia|ukraine|israel|china|impeach|midterm|vote|senate", t):
+        return "hard to model: news/political event flow"
+    if re.search(r"finance|fed|rate|cpi|jobs|earnings|ipo|tech|ai|release|ceo", t):
+        return "late data: scheduled release or announcement"
+    return "unknown (read the market rules)"
+
+
+def main_step1(a):
+    random.seed(SEED)
+    now = time.time(); lines = []
+    def P(s=""): print(s, flush=True); lines.append(s)
+    P(f"# Step 1: which series have the winner emerge late ({time.strftime('%Y-%m-%d %H:%MZ', time.gmtime(now))})")
+    P("Universe: resolved events, >= $50k adj volume, excluding weather, 5-minute up/down, and everything already scanned in this project. "
+      f"PM = last {WIN_PM_DAYS}d (top 1,500 events by volume), Kalshi = last {WIN_K_DAYS}d. No stats tests, no rules, no P&L.")
+    P("'Late' = the eventual winner's price (YES for the winning bucket, or the winning side of a single contract) only STAYS above 50c after 70% of the market's life.\n")
+    pu = pm_universe(now - WIN_PM_DAYS * 86400); ku = kal_universe(now - WIN_K_DAYS * 86400)
+    series = defaultdict(lambda: {"evs": [], "days": 0})
+    for e in pu:
+        series[e["series"]]["evs"].append(e); series[e["series"]]["days"] = WIN_PM_DAYS
+    for e in ku:
+        series[e["series"]]["evs"].append(e); series[e["series"]]["days"] = WIN_K_DAYS
+    rows = []
+    for name, sr in sorted(series.items(), key=lambda kv: -sum(e["vol"] for e in kv[1]["evs"]))[:a.max_series]:
+        evs = sr["evs"]
+        pool = [(e, m, side) for e in evs for (m, side) in winners(e)]
+        if len(pool) < 5:
+            continue
+        random.shuffle(pool)
+        fs = []
+        for e, m, side in pool[:a.per_series]:
+            if name.startswith("K "):
+                r = kal_winner_stats(m); f = r[0] if r else None
+            else:
+                f = pm_winner_f(m, side)
+            if f is not None:
+                fs.append(f)
+        if len(fs) < 5:
+            continue
+        fs = np.array(fs)
+        vol_day = sum(e["vol"] for e in evs) / sr["days"]
+        rows.append({"series": name, "vol_day": vol_day, "n_res": len(pool), "n_ev": len(evs), "n": len(fs),
+                     "late": float((fs > 0.7).mean()), "mean": float(fs.mean()), "why": why(name, evs)})
+        print(f"- {name}: {len(fs)} winners, late {rows[-1]['late']:.0%}", flush=True)
+    rows.sort(key=lambda r: -(r["vol_day"] * r["late"]))
+    P("\n| # | series | volume $/day | resolved markets (events) | winners measured | share of winners emerging after 70% of life | mean emergence (fraction of life) | why (guess) |")
+    P("|---|---|---:|---|---:|---:|---:|---|")
+    for i, r in enumerate(rows, 1):
+        P(f"| {i} | {r['series']} | {usd(r['vol_day'])} | {r['n_res']} ({r['n_ev']}) | {r['n']} | {r['late']*100:.0f}% | {r['mean']:.2f} | {r['why']} |")
+    P("\nRanked by volume x late share. Volume = event volume (PM gamma x0.5; Kalshi contracts x0.5), averaged over the window.")
+    open(a.out, "w").write("\n".join(lines) + "\n")
+
+
 def main_late(a):
     rng = np.random.default_rng(SEED); random.seed(SEED)
     now = time.time()
@@ -740,17 +866,15 @@ def main_late(a):
         tier = ">=10k" if r["ceil_day"] >= 10_000 else ("1-10k" if r["ceil_day"] >= 1_000 else "<1k")
         P(f"| {i} | {r['series']} | {r['events']} | {usd(r['vol_day'])} | {r['n']}/{r['winners']} | {r['f_mean']:.2f} | "
           f"{r['late_share']*100:.0f}% | {usd(r['ceil_day'])} | {tier} | {r['trunc']} |")
-    top = [r for r in rows if r["ceil_day"] >= 1_000 and r["late_share"] >= 0.3][:a.top_n]
-    P(f"\nSeries carried to the stat check: {len(top)} (ceiling >= $1k/day and >= 30% of winners emerging after 70% of life).")
-    # ---- stat check
-    rules = ["CHEAP_BUY", "CHEAP_FADE"]
-    ntests = max(1, len(top) * len(rules))
-    table = []
-    for r in top:
+    # ---- PHASE 2: is mid-life pricing miscalibrated? (screen only, NO trading rule is backtested)
+    cand = [r for r in rows if r["ceil_day"] >= a.min_ceiling or r["vol_day"] >= 1e6][:a.top_n]
+    P(f"\nSeries carried to the calibration screen: {len(cand)} (hindsight ceiling >= {usd(a.min_ceiling)}/day or volume >= $1M/day).")
+    out2 = []
+    for r in cand:
         isk = r["series"].startswith("K ")
         mk = [(m, e) for e in r["evs"] for m in e["markets"]]
         random.shuffle(mk)
-        obs = defaultdict(list); used = 0
+        ob, used = [], 0
         for m, e in mk[:a.stat_markets]:
             if isk:
                 path = kal_path(m)
@@ -759,33 +883,27 @@ def main_late(a):
             if not path:
                 continue
             used += 1
-            for rule, lst in observations(m, path).items():
-                for side, cost, ret in lst:
-                    obs[rule].append({"close": m["close"], "ev": m["ev"], "mid_id": m["id"], "side": side, "cost": cost,
-                                      "ret": ret, "fee": fee(cost, m["rate"])})
-        P(f"- stat check {r['series']}: {used} markets with paths (winners AND losers, so no hindsight)")
-        for rule in rules:
-            res = evaluate(obs.get(rule, []), rule, rng, ntests)
-            if not res:
-                table.append({"series": r["series"], "rule": rule, "res": None, "cap": 0.0, "ceil": r["ceil_day"]}); continue
-            share = min(1.0, len(obs[rule]) / max(1, used * 3))
-            deploy = min(CAP_USD, PARTICIPATION * r["vol_day"] * share)
-            lb = max(0.0, res["test_lo"]) if res["pass"] else 0.0
-            table.append({"series": r["series"], "rule": rule, "res": res, "cap": deploy * lb, "ceil": r["ceil_day"], "deploy": deploy})
-    table.sort(key=lambda t: (-t["cap"], -(t["res"]["z"] if t["res"] and t["res"]["z"] == t["res"]["z"] else -9)))
-    P("\n## RESULT - ranked by capturable $/day (PASS only, else $0)")
-    P("Rules: at 25/50/75% of a market's life, buy every bucket priced 3-30c (CHEAP_BUY) or fade it (CHEAP_FADE), fills at ask/bid + fees, held to settlement. "
-      "If late emergence were an inefficiency, CHEAP_BUY would earn more than the fair-price placebo.")
-    P("| # | series | rule | hindsight ceiling $/day | n | markets | train net/$ | TEST net/$ | TEST lo95 | placebo z (need) | top3 | verdict | capturable $/day |")
-    P("|---|---|---|---:|---:|---:|---:|---:|---:|---|---:|---|---:|")
-    for i, t in enumerate(table, 1):
-        x = t["res"]
-        if not x:
-            P(f"| {i} | {t['series']} | {t['rule']} | {usd(t['ceil'])} | <30 | - | - | - | - | - | - | too few | $0 |"); continue
-        P(f"| {i} | {t['series']} | {t['rule']} | {usd(t['ceil'])} | {x['n']} | {x['markets']} | {x['train']*100:+.1f}% | {x['test']*100:+.1f}% | "
-          f"{x['test_lo']*100:+.1f}% | {x['z']:+.1f} ({x['zthr']:.1f}) | {'n/a' if x['top3']!=x['top3'] else str(round(x['top3']*100))+'%'} | "
-          f"{'PASS' if x['pass'] else 'FAIL'} | {usd(t['cap'])} |")
-    P(f"\n{sum(1 for t in table if t['res'] and t['res']['pass'])} of {len(table)} tests pass.")
+            n = len(path["mid"])
+            for fr in (0.25, 0.5, 0.75):
+                pp = float(path["mid"][int(n * fr)])
+                if 0.02 <= pp <= 0.98:
+                    ob.append((m["close"], m["ev"], pp, m["y"]))
+        out2.append(dict(r, cal=calib_screen(ob, rng), used=used))
+        P(f"- calibration {r['series']}: {used} markets, {len({o[1] for o in ob})} events")
+    out2.sort(key=lambda x: -(x["cal"]["dll_lo"] if x["cal"] and x["cal"]["dll_lo"] == x["cal"]["dll_lo"] else -9))
+    P("\n## CANDIDATE MARKET TYPES (screen, not a trade rule)")
+    P("Late emergence = how late the winner first stays above 50c. Mid-life miss = log-loss improvement (nats per price, TEST half) from a 2-parameter recalibration "
+      "fitted on the TRAIN half; lo95 is an event-clustered bootstrap. lo95 > 0 means mid-life prices are systematically miscalibrated in a way a model could use.")
+    P("| # | series | volume $/day | hindsight ceiling $/day | winner emerges (mean life / share after 70%) | events / obs | calib slope (1 = fair) | mid-life miss: test dLL (lo95) | winner-price gap vs fair | flag | what drives the outcome (data a model needs) |")
+    P("|---|---|---:|---:|---|---|---:|---|---:|---|---|")
+    for i, x in enumerate(out2, 1):
+        c = x["cal"]
+        if not c:
+            P(f"| {i} | {x['series']} | {usd(x['vol_day'])} | {usd(x['ceil_day'])} | {x['f_mean']:.2f} / {x['late_share']*100:.0f}% | too few events | - | - | - | - | {drivers(x['series'], x['evs'])} |"); continue
+        flag = "FLAG" if c["dll_lo"] > 0 else ("weak" if c["dll"] > 0 else "no")
+        P(f"| {i} | {x['series']} | {usd(x['vol_day'])} | {usd(x['ceil_day'])} | {x['f_mean']:.2f} / {x['late_share']*100:.0f}% | {c['events']} / {c['n']} | {c['slope']:.2f} | "
+          f"{c['dll']:+.4f} ({c['dll_lo']:+.4f}) | {c['wgap']:+.3f} (z {c['wz']:+.1f}) | {flag} | {drivers(x['series'], x['evs'])} |")
+    P("\nNo trading rule was tested. FLAG = a model has room; it still needs its own locked held-out test before any dollar claim.")
     open(a.out, "w").write("\n".join(lines) + "\n")
 
 
@@ -796,10 +914,13 @@ if __name__ == "__main__":
         main()
     else:
         ap = argparse.ArgumentParser()
-        ap.add_argument("--mode", default="late")
+        ap.add_argument("--mode", default="step1")
         ap.add_argument("--max-series", type=int, default=60)
         ap.add_argument("--screen-per-series", type=int, default=12)
-        ap.add_argument("--top-n", type=int, default=8)
+        ap.add_argument("--top-n", type=int, default=14)
+        ap.add_argument("--min-ceiling", type=float, default=300)
         ap.add_argument("--stat-markets", type=int, default=120)
         ap.add_argument("--out", default="scan/OUT-late-winner-scan.md")
-        main_late(ap.parse_args())
+        ap.add_argument("--per-series", type=int, default=40)
+        args = ap.parse_args()
+        (main_late if args.mode == "late" else main_step1)(args)
