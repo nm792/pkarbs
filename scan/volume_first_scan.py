@@ -40,6 +40,16 @@ RULES = ["LS_fade", "LS_buy", "FAV_buy", "FAV_fade", "MOVE_follow", "MOVE_fade"]
 N_SIM = 2000
 SEED = int(os.environ.get("SCAN_SEED", 7))
 
+# Nick 11 Nov 03:09Z: never re-check markets already scanned in this project. Matched on lower-case unit name.
+ALREADY_SCANNED = {
+    # tested by this script on 11 Nov (scan/OUT-volume-first-scan-2026-11-11.md)
+    "nba", "elections", "politics", "fed", "league:nba", "league:ncaaf", "league:nfl", "league:ncaamb", "league:nhl",
+    # earlier project work
+    "nhl", "nfl", "cfb", "tennis", "atp", "wta", "league:atp", "league:wta", "cs2", "counter-strike", "league-of-legends",
+    "lol", "dota-2", "esports", "league:cs2", "league:lol", "league:dota", "rugby", "chess", "cricket", "mentions",
+    "elon-musk", "tweet-markets", "box-office", "movies", "netflix", "bitcoin", "ethereum", "crypto", "league:valorant",
+    "inflation", "economy", "gas", "weather",
+}
 GAMMA = "https://gamma-api.polymarket.com"
 CLOB = "https://clob.polymarket.com"
 KAL = "https://api.elections.kalshi.com/trade-api/v2"
@@ -415,12 +425,16 @@ def main():
         if c.startswith("EXCL"):
             P(f"| PM | {c} | {usd(o['d1'])} | {usd(o['d7'])} | - | excluded |"); continue
         gv = min(o["d1"], o["d7"]) if o["d7"] else o["d1"]
+        if c.lower() in ALREADY_SCANNED:
+            P(f"| PM | {c} | {usd(o['d1'])} | {usd(o['d7'])} | - | already scanned, skipped |"); continue
         ok = gv >= GATE_USD and o["slug"]
         if o["d1"] >= 0.3 * GATE_USD or ok:
             P(f"| PM | {c} ({o['n']} events) | {usd(o['d1'])} | {usd(o['d7'])} | {usd(gv)} | {'PASS' if ok else 'no'} |")
         if ok:
             units.append({"venue": "PM", "name": c, "slug": o["slug"], "daily": gv})
     for c, o in sorted(kl.items(), key=lambda kv: -kv[1]["d1"]):
+        if c.lower() in ALREADY_SCANNED or any(x.lower() in ALREADY_SCANNED for x in ("league:" + c,)):
+            continue
         ok = o["d1"] >= GATE_USD
         if o["d1"] >= 0.3 * GATE_USD:
             P(f"| Kalshi | {c} [{o['cat']}] ({o['n']} mkts) | {usd(o['d1'])} | n/a | {usd(o['d1'])} | {'PASS' if ok else 'no'} |")
