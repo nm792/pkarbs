@@ -9,6 +9,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
 import volume_first_scan as v
 
+ONLY = os.environ.get("UD_ONLY", "")
 SHARE = 0.05            # assumed share of taker volume we could rest against
 now = time.time()
 iso4 = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(now - 4 * 86400))
@@ -32,7 +33,7 @@ def tf(t):
 
 # ---- Polymarket: closed events last 4 days (volume per day), open events (book)
 ev, off = [], 0
-while off < 4000:
+while off < 14000:
     d = v.get(v.GAMMA + "/events", {"closed": "true", "end_date_min": iso4, "limit": 100, "offset": off, "order": "endDate", "ascending": "false",
                                    "tag_slug": "up-or-down"})
     if not d: break
@@ -50,7 +51,8 @@ for e in ev:
     t = e.get("title") or ""
     if not re.search(r"up or down", t, re.I): continue
     k = (asset(t), tf(t))
-    if k[1] == "5-min": continue
+    if k[1] == "5-min" and "Bitcoin" in k[0]: continue
+    if ONLY and not k[0].startswith(ONLY): continue
     ser[k]["vol"] += v.fl(e.get("volume")) * v.PM_FACTOR; ser[k]["n"] += 1; ser[k]["ev"].append(e)
 # book sample from OPEN events
 opn = {}
@@ -58,7 +60,7 @@ for tg in ["up-or-down", "spx", "equities", "stocks"]:
     d = v.get(v.GAMMA + "/events", {"closed": "false", "limit": 100, "tag_slug": tg, "order": "volume24hr", "ascending": "false"})
     for e in d or []:
         t = e.get("title") or ""
-        if re.search(r"up or down", t, re.I) and tf(t) != "5-min": opn.setdefault((asset(t), tf(t)), []).append(e)
+        if re.search(r"up or down", t, re.I) and not (tf(t) == "5-min" and "Bitcoin" in asset(t)): opn.setdefault((asset(t), tf(t)), []).append(e)
 def book(tok):
     d = v.get(v.CLOB + "/book", {"token_id": tok}, sleep=0.15)
     if not d or not d.get("bids") or not d.get("asks"): return None
@@ -129,4 +131,4 @@ for i, r in enumerate(rows, 1):
     note = ("NO REBATE: fee-free market" if r["venue"] == "PM" and not r["rate"] else "") if r["venue"] == "PM" else f"Kalshi: no maker rebate on this series (fee_type {r.get('ft')})"
     P(f"| {i} | {r['venue']} {r['name']} | ${r['vol_day']:,.0f} | {r['rate']*100:.1f}% | {r['reb']*100:.0f}% | "
       f"{'n/a' if r['spread'] is None else f'{r['spread']*100:.1f}c'} | {'n/a' if r['depth'] is None else f'${r['depth']:,.0f}'} | ${r['rebate_d']:,.0f} | ${r['spread_d']:,.0f} | ${r['tot']:,.0f} | {note} |")
-open("scan/OUT-updown-mm-2026-11-11.md", "w").write("\n".join(L) + "\n")
+open("scan/OUT-updown-mm-2026-11-11%s.md" % ("-" + ONLY.lower() if ONLY else ""), "w").write("\n".join(L) + "\n")
