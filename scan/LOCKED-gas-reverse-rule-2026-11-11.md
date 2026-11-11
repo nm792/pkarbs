@@ -10,3 +10,5 @@ Fill at the ask (YES) or 1 - bid (NO), Kalshi fee 0.07 p(1-p), hold to settlemen
 **One test, no variants.** Pooled over the fresh states, event-clustered bootstrap CI on the gap (win rate - ask - fee), plus sign-flip placebo (2000 draws).
 **PASS only if:** pooled gap > 0 with 95% lower bound > 0, hit rate above market-implied, placebo z >= 2.0, and at least 100 strikes from at least 40 events.
 Anything else = FAIL / unproven (no re-picking the rule, band, or horizon on this data).
+
+**State list (fixed by event count, before running):** IL, NJ, WA, NC, OH, PA, GA, VA.
