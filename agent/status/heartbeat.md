@@ -1,12 +1,7 @@
-# Fleet heartbeat — 2026-11-11 ~05:45Z (cron sweep)
-
-Alive. This turn (05:12-05:45Z) on the claude/project-thread-vg2ckg thread:
-
-- **thesports-markets-overwritten URGENT** resolved: full re-export of the four cumulative files (markets/pmws/log/ts_poll) from the current spool, commit `0e384c85`; plus the >5% shrink guard in `export_timer_2h.sh`, commit `15407a49`; reply in `agent/outbox/thesports-markets-overwritten-2026-11-11.md` (commit `04dbde9d`).
-- Diary refresh 11-11 already pushed by the earlier round (246a067 / 5b3d150).
-- Capture scheduler cron and netflix/charts/mentions timers are live.
-- OBSERVED: `pkarbs-netflix-recorder.service` times out each 30-min run (TimeoutStartSec=600 kills it; repeated 04:40/05:10/05:40Z); `wn_daily.jsonl` still grows across runs but `books.jsonl.gz` is 0 bytes — flagging for the next pocket of work / reviewer.
-
-Drives: / 50% (18.2G free), /mnt/...107247271 71% (14.5G free). No floor breach.
-
-UTC: 2026-11-11 ~05:45Z.
+# Fleet heartbeat — 2026-11-12 ~03:45Z (cron sweep)
+- Live captures both running: thesports capture-b (pid 2818605, final-topics-32295b, ts_mqtt 6.2G live 03:47Z) and thesports-capture-cricket (pid 1829238, scope active, timeout 172800).
+- DATA GAP: origin newest slim ts_mqtt = 21:10Z Nov 11 (f80025b293 @00:23Z); capture live 03:47Z. ~6.5h stranded; last timer run push_rc:1. Next timer 04:00Z (CB15 fix active).
+- CB9/10/11 recorders live (netflix/charts/mentions); netflix 600s TimeoutStart flagged, self-heals per Restart=always.
+- FLOOR BREACH: VOL2 /mnt/HC_Volume_107257520 94% used, 6.3G free — below clause-8 15G floor (OPEN row D, in TO-IT). Dominant: shadow/data-v2 64G + thesports raw 16G; no box route yet (writers.conf pkarbs row points at empty shadow/data).
+Drives: / 50% (18G free), /mnt/...107247271 65% (16.7G free), VOL2 94% (6.3G free, FLOOR BREACH).
+UTC: 2026-11-12 ~03:45Z.
