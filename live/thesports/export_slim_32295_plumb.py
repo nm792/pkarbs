@@ -89,6 +89,10 @@ for n in ('markets.jsonl', 'pmws.jsonl', 'ts_poll.jsonl', 'log.jsonl'):
         # only carry if it grew (2h window) — carry unconditionally if different
         p = staged(n + ".gz"); os.makedirs(os.path.dirname(p), exist_ok=True)
         with open(srcp, 'rb') as fi, gzip.open(p, 'wb') as go: shutil.copyfileobj(fi, go)
+        if os.path.getsize(p) > 950_000:
+            print("SKIP %s.gz %.0f B > 950KB (1MB pre-push hook); raw kept on VOL2; project to rule on split or box+manifest route (row 13 precedent)" % (n, os.path.getsize(p)), flush=True)
+            os.remove(p)
+            continue
         written.append(("rn1/scores/thesports/final-topics-32295b-slim/" + n + ".gz", p))
 # counts
 cnt = collections.defaultdict(int)

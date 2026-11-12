@@ -1,8 +1,8 @@
 # thesports-trial status
-state: running (capture-b scope active, writing ts_mqtt/books)
-last heartbeat (UTC): 2026-11-09 02:20Z (server-member dispatch round)
-export: 2h timer cron '0 */2 * * *' armed; slim-export loop running; all slim exports on origin (last 22:24Z eca4c7cc0 + continuing).
-process: capture pid 2818605 alive (systemd-run thesports-capture-b.service absent by that name; scope runner start_writer.sh); RSS 276 MB < 650 MB cap, VmSwap 0 — no OOM (monitor 'oom' flag is stale noise). ts_mqtt.jsonl 1.85 GB, last write 02:18:58Z (live).
-rugby: C+D 10 raw files gzipped and committed to claude/project-thread-vg2ckg under rugby/live-2026-11/ (commit 0844e739 / bd969718 + reply 0308e7a2f) — D_espn split into 4 pieces per 1MB gz hook. Reviewer's lag pass can proceed.
-errors: none this round.
-output: slim final-topics-32295b-slim on origin (ts_mqtt/ markets/ log full); diary json rn1/scores/thesports.
+state: running (capture-b active pid 2818605; capture-cricket active pid 1829238); export timer cron `0 */2` live, no stale slim.lock
+last export on origin (UTC): 2026-11-12 07:30Z merge (29254c153) — newest slim ts_mqtt 1794461599, past 11-11 10:00Z deadline
+data gap: CLOSED (was ~16h stranding; export commits 05:32Z/07:30Z were NFF-rejected on a stale base; merged onto origin tip 13ce7cf and pushed 07:5xZ)
+markets.jsonl.gz: 2,866 rows on origin (was 2,374)
+volume: /dev/sda1 50% / 19.3G free; VOL2 handled by the concurrent dispatch (OPEN row D)
+errors: export push race (non-fast-forward) resolved by merge; export_timer_2h.sh bash -n OK
+next scheduled export: 08:00Z cron
