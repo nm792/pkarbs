@@ -32,3 +32,11 @@ Otherwise report "unknown" (N too small) or "fail". Never "promising".
 
 ## Honest timing
 Live weekend data accrues 1 weekend per 7 days. 20 weekends = ~5 months. To avoid waiting: Step 0 backfill from venue historical candles (if available) for the same signal, clearly labelled backfill, same rule. Forward test confirms.
+
+## Amendment 1 (12 Nov 2026 ~03:05Z, still before any data; from Nick's Webb perps summary)
+- Differs from Webb: Webb measured perp-vs-stock gaps DURING trading hours (1-3 bp US, 15-25 bp Korea vs 2-12 bp round-trip costs). This test is weekend perp price vs the NEXT CASH OPEN. Do not retest Webb's cross-venue gaps.
+- Entry delay (Webb lesson: only 1 of the edges survived a one-bar delay): all P&L-style numbers use entry one 60 s poll AFTER the signal, at the far side of the book (ask to buy, bid to sell). Report with and without delay.
+- Costs hurdle uses Webb's range as a floor check: 2-12 bp round trip. Weekend half-spread is measured, not assumed.
+- Tradeable leg: a perp-only trade cannot capture its own prediction. The test of a real gap is the LAGGING instrument (a weekend CFD priced by the broker, or Polymarket/Kalshi index markets). Step 2, only if prediction passes: compare that instrument's quote at T-30min with the perp-implied open.
+- Korean names are listed but flagged: Webb found their gaps pay only on 24 h holds, and Binance/Bybit are not usable by Nick.
+- Save EVERY input and helper file next to the results (Webb's Lighter/IBKR scripts could not be rerun because inputs were not saved).
