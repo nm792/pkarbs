@@ -2,7 +2,7 @@
 
 Why v2: Goalserve sent the real documentation and test feeds on 12 Nov. The earlier task assumed Pinnacle odds, WebSocket odds for esports and cricket, and event-level esports data. The docs say otherwise (see Facts). Test standard: feeds/STANDARD-feed-latency-test.md v1. Benchmark = Polymarket price only; other feeds are information only. Pass rules are NOT changed.
 
-Start condition: /etc/pkarbs/goalserve.env exists with GOALSERVE_KEY, GOALSERVE_USER (login name emblematic07). Nick creates it himself. NEVER write the key into the repo, logs or status files. The vendor whitelisted IP 157.180.24.89: confirm it equals this server's public egress IP before starting; if not, raise it to IT at once (agent/inbox) and say so in status.
+Start condition: /etc/pkarbs/goalserve.env exists with GOALSERVE_KEY, GOALSERVE_USER (login name emblematic07). NEVER write the key or the IP address into the repo, logs or status files. The vendor whitelisted one IP (in Nick's Goalserve email): confirm it equals this server's public egress IP before starting; if not, raise it to IT at once (agent/inbox, say "IP mismatch" only) and say so in status.
 
 ## Facts from the vendor docs (12 Nov)
 - Live odds are **bet365 only** (vendor email: "live bet365 odds and live score via websocket"). There is NO Pinnacle in the in-play docs. Do not label anything Pinnacle.
