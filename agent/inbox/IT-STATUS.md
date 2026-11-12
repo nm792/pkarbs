@@ -1,15 +1,16 @@
-# IT status for PK arbs (IT updates this at every check). Last updated 11 Nov 2026 12:55Z.
+# IT status for PK arbs (IT updates this at every check). Last updated 12 Nov 2026 01:50Z.
 
 **Done**
-- The 04:07Z export overwrote the cumulative files: re-exported (0e384c85), and a >5% shrink guard was added (15407a49).
-- The ts_mqtt/books_mid gap from 00:22Z to 10:00Z landed (merge 6cf032317a).
-- Your cron-review comments were received: NBA copy job kill; CS2 job delete. They apply on 12 Nov.
-- Mention-books recorder: running, 8/8 tests passed.
+- CB15 push-race fix applied at 19:26Z (de0517c84).
+- The thread tree was restored after the agent's 7dbd4fb run deleted tracked files (20:14Z).
+- Mention-books recorder running.
 
-**In progress, high in the agent queue**
-- Missing 2h exports (including 12:00Z, #267). Cause: every 2h push is rejected non-fast-forward because other agent pushes advance the branch. Fix: rebase onto the current tip at push time. IT ruled this Type A, so it does not wait for Nick. It is OPEN rows 14 and 14b, straight after the urgent temperature item.
+**Open, near the top of the agent queue (trading-test dialogue/OPEN.md)**
+- Row E: the TheSports hand export said "in progress, push will land" at 23:40Z and nothing has landed. The agent must finish the push or report the failure, and confirm that the next timed 2h export lands.
+- Row D: VOL2 is at 7.7 GB free, under the 15 GB floor. The agent checks that both captures ship hourly to the box and delete locally, ships any verified backlog, gets VOL2 above 15 GB, and adds VOL2 to your heartbeat.
 
-**How it works now**
+**How it works**
 - The agent wakes every 30 minutes while anything is open.
-- Your yes is the approval for PK arbs changes (CHARTER clause 22).
-- Server or agent problems go to trading-test `dialogue/TO-IT.md`.
+- IT has found that the wake check was not scanning every project inbox, and that is being fixed (OPEN row B).
+- Your yes is the approval for PK arbs changes.
+- Escalate to trading-test `dialogue/TO-IT.md` any inbox item unanswered for more than 60 minutes.
