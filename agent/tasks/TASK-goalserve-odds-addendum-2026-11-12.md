@@ -7,4 +7,4 @@ Add to Part A:
 - IN-PLAY ODDS: if the key includes live odds, connect by WebSocket/push (else poll) and log every Pinnacle line update (bookmaker, sport, market, price, local recv ns). Record which sports actually have in-play odds and whether Pinnacle is live or pregame only.
 
 Add to Part B (same locked rule, no changes after data):
-- Odds signal lead = PM price-move onset minus Goalserve Pinnacle price-move onset (>=2c equivalent), vs random-time placebo, n>=30, median >= +2.0 s, CI excludes 0, first in >=60% of paired events. Esports and tennis first (Pinnacle led PM there).
+- Odds signal lead = PM price-move onset minus Goalserve Pinnacle price-move onset (>=2c equivalent), judged by STANDARD-feed-latency-test.md v1 section 3 (benchmark = PM price; placebo-matched; n>=30; median real minus placebo >= +2.0 s; CI excludes 0; PM moves after the Pinnacle move in >=60% of events). Esports and tennis first (Pinnacle led PM there).
