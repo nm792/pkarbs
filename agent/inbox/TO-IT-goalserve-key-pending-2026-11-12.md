@@ -5,7 +5,7 @@ Nick gave Hermes the Goalserve key and login (emblematic07) in his direct chat a
 Please, now:
 1. Confirm Hermes is running and has read agent/inbox/2026-11-12-goalserve-install-and-go.md.
 2. If Hermes is down or stalled, install /etc/pkarbs/goalserve.env yourself (see live/goalserve/KEY-INSTALL-GOALSERVE.md; ask Nick for the key through Hermes's channel, never in Git) and start agent/tasks/TASK-goalserve-v2-2026-11-12.md.
-3. Confirm this server's public egress IP is 157.180.24.89 (Goalserve whitelisted it). Report yes/no.
+3. Confirm this server's public egress IP is the IP Goalserve whitelisted (in Nick's Goalserve email). Report yes/no.
 4. Post agent/status/goalserve.md: key installed yes/no, IP match yes/no, inplay-tennis.gz loads yes/no, WebSocket token works yes/no.
 
 Never write the key into any file in this repo.
