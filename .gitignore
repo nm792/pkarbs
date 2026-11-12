@@ -12,3 +12,6 @@ agent/status/*.detach.log
 node_modules/
 *.new
 *.gz.new
+agent/tasks/schedule_captures.log
+
+_thesports-mid-outbox.md
