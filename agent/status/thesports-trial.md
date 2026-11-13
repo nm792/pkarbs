@@ -1,7 +1,7 @@
 # thesports-trial status
 state: running (capture-b active; 2h slim timer armed 2026-11-08; approved timer-fix applied 2026-11-09)
-last export (UTC): 14:38:44Z
-push_rc: 1
+last export (UTC): 18:55:05Z build (60e644526584), landed 21:45:47Z as b0358c9113
+push_rc: 1 (non-fast-forward race on the direct push; additive landing on tip succeeded)
 
 ## 306 status, due 17:00Z — posted 16:14Z (diagnosis measured; no change applied)
 
@@ -21,3 +21,17 @@ push_rc: 1
   D1 still needs 40 paired games; post-12 Nov games need #21.
 - **No unit restarted, no file edited this pass** (class 4 not applied without the daily approval).
   Full reply: `agent/outbox/thesports-pm-recorder-stale-2026-11-13.md`.
+
+## P10 status, posted 2026-11-13 22:09Z (owed within 60 min of the 20:07Z URGENT; LATE - deadline 21:07Z, IT flagged the miss 21:10Z)
+
+- **Diary gap closed:** dota2/csgo/lol/tennis for 12 and 13 Nov fetched **21:25:08-21:25:10Z**,
+  committed `b17b066da4` (21:41:07Z), exported. Outbox reply:
+  `agent/outbox/thesports-diary-gap-and-split-ruling-2026-11-13.md`.
+- **pmws split applied** to `live/thesports/export_slim_32295_plumb.py` in `b17b066da4`
+  (diff sha256 `69d25fd38240...`; backup `.pre-pmws-split-20261113T2138Z`). Parts NOT on origin yet:
+  `pmws.jsonl.gz` is still 1,026,005 B because the in-flight 2h build (pid 1182958, started 20:31Z,
+  mid-index 22:05Z) predates the edit; next build produces `pmws.part*` + manifest.
+- **2h export since 64a2a79757: cause = non-fast-forward push race** (log: 13:08:56Z +12,909 rc=1;
+  18:55:03Z +17,723 rc=1, both rejected). Stranded 18:55Z build landed additively
+  **21:45:47Z `b0358c9113`** (+17,718 files, 0 deleted, newest slim ts_mqtt 17:05:32Z).
+- Nothing restarted, no capture logic changed this run.
