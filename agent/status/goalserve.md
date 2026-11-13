@@ -1,11 +1,11 @@
-# status: Goalserve trial — WS token WORKS; 400 was request format, not missing login
+# status: Goalserve trial — key+login received; HTTP feed authenticated; gettoken still 400
 
-Updated: 13 Nov 2026 ~02:2xZ UTC
+Updated: 12 Nov 2026 ~21:3xZ UTC
 
-- **Env file:** `/etc/pkarbs/goalserve.env` exists, mode 600, `GOALSERVE_KEY` present (32 chars). `GOALSERVE_USER` (emblematic07) is documented in TASK-goalserve-v2 and TO-IT; not required for gettoken.
-- **Egress IP whitelist check:** yes — server public egress is the whitelisted IP (inplay feed loads).
-- **Hard check (a)** `https://inplay.goalserve.com/inplay-tennis.gz`: yes (HTTP 200) — IP-whitelisted path; with `?key=` param form → 429.
-- **Hard check (b) gettoken `POST https://live.goalserve.com/api/v1/auth/gettoken`:** **YES** — HTTP 200, valid JWT (3 parts, exp/uid/iat/nbf). The earlier 400 "API key is missing or malformed" was a **request-format** issue: the param/`?key=` form, not the missing login. The documented JSON body `{"apiKey": KEY}` (Content-Type: application/json) returns a token; login is not needed for token auth. Answering OPEN row P3: cause = request format, one line.
-- **Next:** start TASK-goalserve-trial Part A capture (WS wss://live.goalserve.com/ws/{sport}?tkn={token}) per note; trial is 30 days, LoL Worlds final 14 Nov.
+- **Env file:** `/etc/pkarbs/goalserve.env` exists, mode 600, `GOALSERVE_KEY=…` (never printed/committed). `GOALSERVE_USER` NOT yet added — env update for the login awaits live-session approval (timed out).
+- **Egress IP whitelist: yes** (prior check + IT, 433adfc1).
+- **Hard check (a) inplay-tennis.gz:** yes — HTTP 200; and **authenticated poll works** with `user=emblematic07&key=…` → HTTP 200 (73,366 bytes). The trial's HTTP polling path is authenticated and usable.
+- **Hard check (b) gettoken (`live.goalserve.com/api/v1/auth/gettoken`):** still **NO** — `400 "API key is missing or malformed"` for `user+key`, `login+password`, `user+password`, `username+password`. The WebSocket token endpoint does not accept the (user,key) pair in any standard mapping; appears to be a separate/unactivated path and is not required for the HTTP polling capture.
+- **Next:** (1) approve the one-line env update adding `GOALSERVE_USER=emblematic07`; (2) stand up the Part A HTTP poller (TASK-goalserve-trial) on /vol2 logging recv ns / HTTP Date / sha1 / fields per poll.
 
-Blocked on: nothing (token works). Capture start per the note's trial flow.
+Blocked on: env write for GOALSERVE_USER (approval timed out). Feed itself is usable.
