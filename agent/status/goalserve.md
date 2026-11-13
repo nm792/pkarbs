@@ -130,3 +130,23 @@ at 16:2xZ), not a mount. The off-root move is filed as class 4 in `dialogue/APPR
 delete root copies only after row counts match. Root free 17.56 GB (above the 15 GB floor) and the store self-stops
 at the floor, so waiting for the daily approval loses nothing. Revert: restore the pre-edit capture copy and point
 the paths back.
+
+## P3 closed - WebSocket token verified end to end, 13 Nov 16:33Z (OPEN row P3)
+
+Measured this session on Prime; no code, config or unit was changed.
+
+- **WS token: yes.** `POST .../api/v1/auth/gettoken` with `{"apiKey": KEY}` -> HTTP 200,
+  181 B, `token` field present (169 chars), re-run 16:21Z and 16:33Z. `{"key": KEY}` ->
+  400 `API key is missing or malformed.`
+- **Cause of the earlier 400, one line: the JSON field name** (`key` rejected,
+  `apiKey` accepted) - not the missing login.
+- **Socket proof:** `wss://live.goalserve.com/ws/tennis?tkn=<token>` -> 5 messages, all
+  `mt:"updt"`, in 0.6 s; `wss://live.goalserve.com/ws/esports?tkn=<token>` -> 5
+  `mt:"updt"` in 4.9 s, no auth error, no close code. (Vendor facts in the v2 task say
+  the WS has no esports channel; measured here it answers - recorded as measured.)
+- **Login:** `GOALSERVE_USER` was already in the Goalserve env file (mode 600, written
+  13 Nov 02:37Z; lengths only - user 12 chars, key 32 chars; value never printed, logged
+  or committed), so no env edit was needed and the "login in no session" branch of P3
+  does not apply.
+- Replies filed this push: `agent/outbox/TO-IT-goalserve-missing-login-2026-11-12.md`,
+  `agent/outbox/TO-IT-goalserve-key-pending-2026-11-12.md`.
