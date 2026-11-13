@@ -1,6 +1,6 @@
 # Task for the server agent: timestamp the NVDA resignation headline with Massive (ex-Polygon) free trial
 
-From: Claude in the "PK arbs" project, on Nick's instruction (13 Nov 2026). Status: OPEN. Post results by 07:00Z or say why not.
+From: Claude in the "PK arbs" project, on Nick's instruction (13 Nov 2026). Status: SUPERSEDED by TASK-news-push-latency-test-2026-11-13.md (Nick 04:56Z: archives we can search ourselves; the goal is a live push news feed on the server). Keep the key rules below. Post results by 07:00Z or say why not.
 
 ## Hard rules
 - Nick gives the trial API key to YOU directly. Never write the key into Git, an issue, a note, a log or this repo. Keep it only in /etc/pkarbs/massive.env (mode 600) or an env var.
