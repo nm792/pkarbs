@@ -85,3 +85,48 @@ esports RUNNING since 14:04:31Z (APPROVALS item 18 applied; 1-hour MB/day due 15
   (b) mount the 98 GB disk at `/vol2`, (c) accept root with the existing 15 GB auto-stop.
   The store stops itself at the floor either way (`esports_payloads_STOP.log`).
 - Free space at every step above the floor; no stop line written.
+
+## Dota 2 coverage 16:15Z (inbox #304; posted 16:10Z, within the 16:15Z deadline — counts are bounded to the windows named below)
+
+Method: read-only parse of the stored payloads `/vol2/goalserve/esports_payloads/esports_2026111315.jsonl.gz` +
+`esports_2026111316.jsonl.gz` and the hash/size log `/vol2/goalserve/goalserve_20261113.jsonl`; PM markets from the
+public gamma search API. Script `/root/_dota_counts.py`, raw output `/root/_dota_counts_out.json`.
+
+1. **Dota 2 matches in `inplay-esports.gz`: bodies exist only from 15:09:30Z (the payload store start), so the
+   match count below covers 15:09:30Z-16:08:06Z. For 14:04:31-15:09:35Z no bodies were stored (hash/size/changed
+   only) — that window cannot be counted by match; it holds 2,135 esports polls, 2,015 with `changed=true`
+   (14:04:31Z-16:05:33Z total: 3,957 polls / 3,757 changed; post-store 15:09:35Z+: 1,822 / 1,742).**
+   3 distinct Dota 2 matches in the stored bodies, all with a Polymarket Game-N-Winner market (matched by team names):
+   - `141165675` **PARIVISION vs Yellow Submarine** (DOTA2 - 1win Essence) 15:09:30Z-15:51:01Z, 1,299 stored
+     payloads — PM: "Game 1 Winner" (closed, 1/0), "Game 2 Winner" (active), plus the BO3 "Match Winner" market
+     on the 1win Essence / PGL Wallachia events.
+   - `141165637` **Froglings vs PuckChamp** (DOTA2 - DreamLeague Div 2) 15:09:30Z-16:08:06Z, 1,821 payloads —
+     PM: "Game 1 Winner" (0.9995) and "Game 2 Winner" (0.93) active.
+   - `141165682` **Team Liquid vs LGD Gaming** (DOTA2 - 1win Essence) 16:00:03Z-16:08:06Z, 237 payloads —
+     PM: "Game 1 Winner" (0.625), "Game 2 Winner" (0.605) and "Match Winner" active.
+2. **bet365 odds-move events (stored payloads only; an "odds move" = two consecutive stored payloads whose event
+   odds block differs, i.e. any participant `value_eu` or `suspend` change):** total 474 across the 3 matches —
+   **PARIVISION vs Yellow Submarine 221, Froglings vs PuckChamp 253, Team Liquid vs LGD Gaming 0** (joined 16:00:03Z,
+   odds block unchanged in its first 8 min, consistent with a pre-match/suspended line). No content before 15:09:35Z
+   exists, so odds moves for 14:04-15:09Z are not measurable and are not claimed.
+3. **ESTIMATE (not a projection fit): at the observed rate of 3 distinct in-play Dota matches in 59 min of body
+   coverage, and 2-3 priced PM markets per BO3 (Game 1/Game 2/Match Winner), ~10 distinct matches and ~30 priced
+   Dota events are reached in roughly 3-4 h of continued slate — i.e. on today's session if the current slate holds
+   (assumptions: the ~1/s poll keeps returning the same in-play-only feed, every in-play Dota match gets a PM
+   listing as all 3/3 did here, and evening leagues keep running). BLAST Slam from 17 Nov is the tier-1 slate that
+   should deliver 10 distinct PM-listed matches on its own; treat 13-15 Nov as the thin pre-tournament window.
+   Rate rests on 59 minutes of observation — thin.**
+
+**Payload parse check (still owed):** a stored payload parses cleanly and shows team names — `info.name`
+("PARIVISION vs Yellow Submarine") and `team_info.home/away.name`; per-game stat snapshots are present under `stats`
+(`kills`, `towers`, `roshans`, `barracks`, `gold_def`, `res`). **Verdict wording: Goalserve has no Dota game events —
+no timestamped kills/towers event stream at all, only per-poll stat counters plus bet365 odds. Never an edge until
+it passes the locked test.** No round field exists in this feed. 145.1 MB of raw body across 1,745 stored payloads
+(15:09:30Z-16:05:34Z); hour-15 gz 8.8 MB, hour-16 1.06 MB at 16:04Z.
+
+**Disk (P7): the store still writes to root** — `/vol2` is a plain directory on the root volume (260 MB used there
+at 16:2xZ), not a mount. The off-root move is filed as class 4 in `dialogue/APPROVALS.md` (open approval #20,
+(filed 16:10Z): repoint `PAYDIR` + `OUT` to `/mnt/HC_Volume_107257520/pkarbs/goalserve/` (70 GB free), move, restart,
+delete root copies only after row counts match. Root free 17.56 GB (above the 15 GB floor) and the store self-stops
+at the floor, so waiting for the daily approval loses nothing. Revert: restore the pre-edit capture copy and point
+the paths back.
