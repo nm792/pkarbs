@@ -159,3 +159,55 @@ Measured this session on Prime; no code, config or unit was changed.
 - **Registration counter:** `markets.jsonl` 2,847 -> **3,161 rows** (+314) by 17:06:10Z - registration is moving again.
 - **Other streams after the restart:** books newest 17:06:54Z, pmws 17:06:53Z, ts_mqtt 17:05:32Z - all live; no other stream was stale.
 - **Not changed:** no other line of the file. The relaunch keeps the original `timeout 552000`, which expires 14 Nov about 09:06Z with no restart guard anywhere on the box (no cron or unit references capture.py) - flagged as one TO-IT line, not touched here.
+
+## LoL final start — MEASURED 13 Nov 22:46Z (P9; inbox `2026-11-13-lol-final-start-time-and-recorder-timeout.md` item 1)
+
+- **Worlds 2026 final scheduled start: 2026-11-14 19:00:00Z** (Saturday 14 Nov, Barclays Center, New York).
+- Source: the official schedule call `esports-api.lolesports.com/persisted/gw/getSchedule`
+  (`hl=en-US`, `leagueId=98767975604431411` = Worlds, the id from this repo's own
+  `rn1/scores/lol/winmodel/list_games.py`), **HTTP 200, response fetched 2026-11-13T22:46:24Z**
+  (request and body both inside that second).
+- Event in the response: `blockName: "Finals"`, `state: "unstarted"`, match id `115660540726095133`,
+  **Gen.G Esports vs BILIBILI GAMING** — the only Worlds event with `startTime >= 2026-11-12`
+  among the 80 events read.
+- Corroboration: `getEventDetails` for the same match id returned HTTP 200 at 2026-11-13T22:46:55Z
+  with the same two teams; its event-level `startTime` is null, so the time above comes from
+  `getSchedule` only.
+- Label: **MEASURED** — read from the API response at the times above, not from memory or web search.
+  This is the start time to plan the 14 Nov capture window against (it lands after the old
+  09:06Z timeout, which is now gone — see below).
+
+## P9 recorder confirmation — measured 13 Nov 22:48Z (inbox #311/#312 item 2; IT deadline 14 Nov 06:00Z)
+
+Guard work was already pushed at `ae85a3d4c9` + `3fc673c556` (OPEN row P9 status); this is the
+confirmation the note asks for.
+
+- **No `timeout 552000` on the live path.** Unit text now (`thesports-capture-b.service`, transient
+  systemd-run): `ExecStart="/usr/bin/python3" "-I" ".../live/thesports/capture.py" "<data-vol>/final-topics-32295b" "160" "--share" "<data-vol>/final-topics-32295b/share"`,
+  `EnvironmentFile=/etc/pkarbs/thesports.env`, **no timeout line anywhere in the unit**; capture.py
+  bounds itself at 160 h. The guard's relaunch line carries no `timeout` either (`live/thesports/guard_capture_b.sh`).
+- **Restart guard:** `*/5 * * * * bash /root/pkarbs/live/thesports/guard_capture_b.sh >> /var/log/thesports_capture_guard.log`
+  (flock-guarded). Rule (v2, IT 18:10Z): process absent OR newest row older than 600 s across
+  books/pmws/ts_mqtt/log → TERM capture pids + relaunch with the env file (ts_poll excluded:
+  written only on body change); every restart logged. Guard ticks `rc=0` through **22:45:01Z**;
+  live process **pid 898340, started by the guard at 18:16:51Z** (4 h 31 m up at 22:48Z), relaunch
+  proven live 18:16:51Z with `creds:true` (`ae85a3d4c9`), STALE branch dry-run tested with
+  `GUARD_MAX_AGE=-1` (`3fc673c556`).
+- **Revert:** restore the pre-guard crontab backup `crontab.pre-p9-guard-20261113T1818Z.txt` and
+  `rm /root/pkarbs/live/thesports/guard_capture_b.sh`.
+- **Newest row UTC per stream** (data volume, measured 22:48:04Z):
+
+| stream | file | newest row UTC | age at 22:48:04Z |
+|---|---|---|---|
+| PM market registration | `markets.jsonl` | 2026-11-13 22:44:09.169Z | 4 min (live again since the P8 `limit=50` fix) |
+| CLOB books (1 s) | `books.jsonl` | 2026-11-13 22:48:04.276Z | 0 s |
+| PM sports WS rows | `pmws.jsonl` | 2026-11-13 22:47:59.897Z | 4 s |
+| TheSports MQTT | `ts_mqtt.jsonl` | 2026-11-13 22:48:04.642Z | 0 s |
+| PM trades | (none) | not recorded by this capture | `capture.py` has no trade reader — outbox reply 16:29Z §3 |
+
+- All four recorded streams are inside the 10-minute rule (max age 4 min).
+- **Goalserve esports + PandaScore still flowing:** goalserve hash log row
+  `2026-11-13T22:51:36.313Z` and payload row `recv_ns 1794610296946369046` (22:51:36.9Z);
+  pandascore newest complete row 2026-11-13 22:44:35.580Z (append-streamed gzip, read tolerantly);
+  both processes running at 22:51Z (`live/goalserve/capture.py` pid 547524, `live/pandascore/ll_capture.py` pid 548127).
+- Benchmark context cited, not restated: `feeds/STANDARD-feed-latency-test.md`.
