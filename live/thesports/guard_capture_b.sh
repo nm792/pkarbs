@@ -1,14 +1,18 @@
 #!/bin/bash
 # P9 restart guard for thesports-capture-b — OPEN row P9 (pkarbs), Type A / charter clause 22A.
-# Cron runs this every 5 min: if live/thesports/capture.py is not running, relaunch the
-# same command line as a transient unit WITH the TheSports env file.
+# (IT reply 13 Nov 18:10Z merged #311/#312 item 2 into P9.)
+# Cron runs this every 5 min:
+#   1. capture.py not running -> relaunch with /etc/pkarbs/thesports.env
+#   2. newest row older than $GUARD_MAX_AGE (default 600 s) across books/pmws/ts_mqtt/log
+#      -> restart (TERM the capture pids, then relaunch), every restart logged
+# ts_poll is excluded from the freshness set: it is written only when a polled body
+# changes, so its age is not a liveness signal.
 # Why the env file: the 17:06:03Z transient launch had an empty Environment, so capture.py
 # logged 'thesports_no_creds' and ts_mqtt/ts_poll stopped (last ts_mqtt row 17:05:32Z).
-# Why no `timeout 552000` wrapper on relaunch: the urgent note of 13 Nov 17:35Z (Type A)
-# asks for the timeout removed; capture.py already bounds itself (END = start + 160 h) and
-# this guard relaunches it when it exits, so an external timer only cuts a run short.
-# Revert: delete this script's crontab line (backup /root/crontab.pre-p9-guard-<stamp>.txt)
-# then `rm /root/pkarbs/live/thesports/guard_capture_b.sh`. While capture.py is alive this
+# No `timeout 552000` on relaunch (#311 item 1): capture.py bounds itself at 160 h and this
+# guard relaunches it when it exits, so an external timer only cuts a run short.
+# Revert: delete this script's crontab line (backup /root/crontab.pre-p9-guard-20261113T1818Z.txt)
+# then `rm /root/pkarbs/live/thesports/guard_capture_b.sh`. While capture.py is healthy this
 # script exits without acting.
 set -u
 LOG=/var/log/thesports_capture_guard.log
@@ -16,33 +20,66 @@ UNIT=thesports-capture-b
 ENVF=/etc/pkarbs/thesports.env
 SCRIPT=/root/pkarbs/live/thesports/capture.py
 OUT=/mnt/HC_Volume_107257520/pkarbs/thesports/final-topics-32295b
+MAX_AGE=${GUARD_MAX_AGE:-600}
+DRYRUN=${GUARD_DRYRUN:-0}
 
 exec 9>/run/thesports_capture_guard.lock
 flock -n 9 || exit 0
 
-# Process-absence check: read /proc cmdlines directly (never pgrep -f, which matches
-# the checker itself).
-alive=0
-for p in /proc/[0-9]*; do
-  [ -r "$p/cmdline" ] || continue
-  cmd=$(tr '\0' ' ' < "$p/cmdline" 2>/dev/null || true)
-  case "$cmd" in
-    *"python3 -I $SCRIPT"*) alive=1; break ;;
-  esac
-done
+log() { echo "$(date -u +%FT%TZ) $*" >> "$LOG"; }
 
-if [ "$alive" = 1 ]; then
-  [ "${GUARD_VERBOSE:-0}" = "1" ] && echo "$(date -u +%FT%TZ) ALIVE (no action)"
+# Process check: read /proc cmdlines directly (never pgrep -f, which matches the checker).
+capture_pids() {
+  local p cmd
+  for p in /proc/[0-9]*; do
+    [ -r "$p/cmdline" ] || continue
+    cmd=$(tr '\0' ' ' < "$p/cmdline" 2>/dev/null || true)
+    case "$cmd" in *"python3 -I $SCRIPT"*) echo "${p#/proc/}" ;; esac
+  done
+}
+
+relaunch() {
+  systemctl reset-failed "$UNIT" >/dev/null 2>&1 || true
+  if systemd-run --quiet --unit="$UNIT" -p EnvironmentFile="$ENVF" \
+      python3 -I "$SCRIPT" "$OUT" 160 --share "$OUT/share" >> "$LOG" 2>&1; then
+    log "relaunched $UNIT ok"
+    return 0
+  fi
+  rc=$?
+  log "RELAUNCH FAILED rc=$rc"
+  return "$rc"
+}
+
+PIDS=$(capture_pids)
+if [ -z "$PIDS" ]; then
+  log "ABSENT - relaunching $UNIT with env $ENVF"
+  relaunch
+  exit $?
+fi
+
+newest=0
+for f in books pmws ts_mqtt log; do
+  p="$OUT/$f.jsonl"
+  [ -f "$p" ] || continue
+  m=$(stat -c %Y "$p" 2>/dev/null || echo 0)
+  [ "$m" -gt "$newest" ] && newest=$m
+done
+if [ "$newest" -gt 0 ]; then
+  age=$(( $(date -u +%s) - newest ))
+  if [ "$age" -gt "$MAX_AGE" ]; then
+    if [ "$DRYRUN" = "1" ]; then
+      echo "$(date -u +%FT%TZ) STALE ${age}s > ${MAX_AGE}s - DRYRUN, would restart $UNIT"
+      exit 0
+    fi
+    log "STALE ${age}s > ${MAX_AGE}s across books/pmws/ts_mqtt/log - restarting $UNIT"
+    for pid in $PIDS; do kill -TERM "$pid" 2>/dev/null || true; done
+    i=0
+    while [ -n "$(capture_pids)" ] && [ "$i" -lt 10 ]; do sleep 1; i=$((i + 1)); done
+    relaunch
+    exit $?
+  fi
+  [ "${GUARD_VERBOSE:-0}" = "1" ] && echo "$(date -u +%FT%TZ) ALIVE age=${age}s"
   exit 0
 fi
-
-echo "$(date -u +%FT%TZ) ABSENT - relaunching $UNIT with env $ENVF" >> "$LOG"
-systemctl reset-failed "$UNIT" >/dev/null 2>&1 || true
-if systemd-run --quiet --unit="$UNIT" -p EnvironmentFile="$ENVF" \
-    python3 -I "$SCRIPT" "$OUT" 160 --share "$OUT/share" >> "$LOG" 2>&1; then
-  echo "$(date -u +%FT%TZ) relaunched $UNIT ok" >> "$LOG"
-else
-  rc=$?
-  echo "$(date -u +%FT%TZ) RELAUNCH FAILED rc=$rc" >> "$LOG"
-  exit "$rc"
-fi
+[ "${GUARD_VERBOSE:-0}" = "1" ] && echo "$(date -u +%FT%TZ) ALIVE (no stream files to age)"
+exit 0
