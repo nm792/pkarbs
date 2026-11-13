@@ -69,3 +69,10 @@ stale**; adding one would be a new collector (class 4).
 
 Nick has not been asked for anything by this reply; #20 and #21 are already filed for
 the daily approval batch.
+
+## Update 17:06Z - part 2 of this note applied (approval #21, IT ruled Type A, clause 22A)
+
+- The gamma fix is **live**: `discover_pm()` sends `limit=50` with stride 50 (plus the break-threshold companion line 100 -> 50); backup `live/thesports/capture.py.pre-limit50-20261113T170314Z`; `py_compile` OK; the unit was restarted **17:06:03Z** (`thesports-capture-b.service`, MainPID 465179).
+- **Proof of the 200 discover line:** `log.jsonl` 17:06:10Z `discover_pm tokens=216 new=216`; last `discover_pm_err 406` was 16:58:36Z. `markets.jsonl` 2,847 -> 3,161 rows (+314) on the first run, so registration is moving again - that was the only stale stream in this note.
+- Part 1 (per-stream table, match binding, no esports PM trade stream) stands as filed at 16:29Z. books 17:06:54Z, pmws 17:06:53Z, ts_mqtt 17:05:32Z after the restart.
+- Restart gap about 70 s; no key, login or server address appears in this reply.

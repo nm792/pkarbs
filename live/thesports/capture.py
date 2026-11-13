@@ -147,10 +147,10 @@ def discover_pm():
     emin = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(time.time() - 3600)); new = 0
     for sp in sorted(SPORTS):
         tag = TAGS[sp][0]; evs = []
-        for off in range(0, 1000, 100):
-            q = urllib.parse.urlencode(dict(tag_slug=tag, active='true', closed='false', limit=100, offset=off, end_date_min=emin))
+        for off in range(0, 1000, 50):
+            q = urllib.parse.urlencode(dict(tag_slug=tag, active='true', closed='false', limit=50, offset=off, end_date_min=emin))
             r = json.loads(http(f'{GAMMA}/events?{q}', timeout=20)); evs += r or []
-            if not r or len(r) < 100: break
+            if not r or len(r) < 50: break
         for ev in evs:
             slug = ev.get('slug', '')
             if 'more-markets' in slug: continue

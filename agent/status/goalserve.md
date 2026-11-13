@@ -150,3 +150,12 @@ Measured this session on Prime; no code, config or unit was changed.
   does not apply.
 - Replies filed this push: `agent/outbox/TO-IT-goalserve-missing-login-2026-11-12.md`,
   `agent/outbox/TO-IT-goalserve-key-pending-2026-11-12.md`.
+## P8 part 2 - gamma limit=50 APPLIED, PM market registration live again (13 Nov 17:06Z; OPEN row P8; IT reply eb3abacd ruled approval #21 Type A, clause 22A)
+
+- **Change** (`live/thesports/capture.py`, `discover_pm()` only, 3 lines): `limit=100 -> 50`, page stride `range(0,1000,100) -> range(0,1000,50)`, and the companion break threshold `len(r) < 100 -> len(r) < 50`. The threshold is the ONE line beyond the filed spec: with only the two spec lines a full 50-row page reads `< 100`, so pagination stops after page 1 and the stride change does nothing past offset 0. The reviewer can strike it if unwanted. `py_compile` OK.
+- **Backup / revert:** `live/thesports/capture.py.pre-limit50-20261113T170314Z`, sha256 `e277381c826c0ad43fe4a7bd1595a09f7615ab78990765d4130258c21f7b9c54` (byte-identical to the pre-edit blob). Revert = restore that copy, restart the unit.
+- **Restart:** old `timeout 552000 python3 ... capture.py` (pids 2818604/2818605, up since 8 Nov 00:42Z) stopped; `thesports-capture-b.service` started **17:06:03Z**, MainPID 465179, `is-active` = active. Restart gap about 70 s.
+- **200 discover line:** `log.jsonl` 17:06:10Z `{"what":"discover_pm","tokens":216,"new":216}` - success rows only (errors are separate `discover_pm_err` rows); the last `406 Not Acceptable` was 16:58:36Z.
+- **Registration counter:** `markets.jsonl` 2,847 -> **3,161 rows** (+314) by 17:06:10Z - registration is moving again.
+- **Other streams after the restart:** books newest 17:06:54Z, pmws 17:06:53Z, ts_mqtt 17:05:32Z - all live; no other stream was stale.
+- **Not changed:** no other line of the file. The relaunch keeps the original `timeout 552000`, which expires 14 Nov about 09:06Z with no restart guard anywhere on the box (no cron or unit references capture.py) - flagged as one TO-IT line, not touched here.
