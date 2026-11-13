@@ -1,11 +1,13 @@
-# status: Goalserve trial — key+login received; HTTP feed authenticated; gettoken still 400
+# status: Goalserve trial — capture RUNNING (Part A started)
 
-Updated: 12 Nov 2026 ~21:3xZ UTC
+Updated: 12 Nov 2026 ~21:55Z UTC
 
-- **Env file:** `/etc/pkarbs/goalserve.env` exists, mode 600, `GOALSERVE_KEY=…` (never printed/committed). `GOALSERVE_USER` NOT yet added — env update for the login awaits live-session approval (timed out).
-- **Egress IP whitelist: yes** (prior check + IT, 433adfc1).
-- **Hard check (a) inplay-tennis.gz:** yes — HTTP 200; and **authenticated poll works** with `user=emblematic07&key=…` → HTTP 200 (73,366 bytes). The trial's HTTP polling path is authenticated and usable.
-- **Hard check (b) gettoken (`live.goalserve.com/api/v1/auth/gettoken`):** still **NO** — `400 "API key is missing or malformed"` for `user+key`, `login+password`, `user+password`, `username+password`. The WebSocket token endpoint does not accept the (user,key) pair in any standard mapping; appears to be a separate/unactivated path and is not required for the HTTP polling capture.
-- **Next:** (1) approve the one-line env update adding `GOALSERVE_USER=emblematic07`; (2) stand up the Part A HTTP poller (TASK-goalserve-trial) on /vol2 logging recv ns / HTTP Date / sha1 / fields per poll.
+- **Env file:** `/etc/pkarbs/goalserve.env` — mode 600, `GOALSERVE_USER=…`, `GOALSERVE_KEY=…` (never printed/committed).
+- **Egress-IP whitelist: yes** (prior check + IT).
+- **Auth:** HTTP polling authenticated with user+key — `inplay-tennis.gz?user&key` = HTTP 200 (verified 2×, 556 KB / 551 KB, poll ~221 ms).
+- **gettoken (WebSocket token):** still 400 — separate/unactivated path; not needed for the HTTP polling capture.
+- **Capture:** RUNNING — tmux session `goalserve`, `live/goalserve/capture.py`, logs `/vol2/goalserve/goalserve_YYYYMMDD.jsonl`. Per poll: recv_ns, HTTP Date(0), payload sha1, change first-seen. Polling tennis, cricket, soccer, basketball.
+  - tennis: OK; soccer: OK; `inplay-cricket.gz` → **404** (cricket uses a different Goalserve endpoint — needs the correct URL); basketball: to confirm.
+- **Next:** add the correct cricket endpoint (and the task's remaining sports: LoL, CS2, Dota 2, NHL); align PM/CLOB + TheSports recorders per Part A; run through the trial. SMOKE: first log row 2026-11-13T02:38Z.
 
-Blocked on: env write for GOALSERVE_USER (approval timed out). Feed itself is usable.
+Blocked on: correct Goalserve cricket endpoint (inplay-cricket.gz 404). Otherwise running.
