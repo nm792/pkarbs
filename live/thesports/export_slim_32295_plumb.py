@@ -82,6 +82,43 @@ for bucket in sorted(book_new):
             g.write(json.dumps({"ms": ms, "tk": tk, "bb": bb_, "ba": ba_, "q": q}) + "\n")
     written.append(("rn1/scores/thesports/final-topics-32295b-slim/" + rel, p))
 
+def _write_parts(lines, prefix, limit, out):
+    """Gzip one chunk of raw lines to the next free part name; halve it if over limit."""
+    p = "%s.part%03d.jsonl.gz" % (prefix, len(out) + 1)
+    with gzip.open(p, "wb") as g:
+        for ln in lines:
+            g.write(ln)
+    if os.path.getsize(p) > limit and len(lines) > 1:
+        os.remove(p)
+        mid = len(lines) // 2
+        _write_parts(lines[:mid], prefix, limit, out)
+        _write_parts(lines[mid:], prefix, limit, out)
+        return
+    if os.path.getsize(p) > limit:
+        print("WARN single line kept whole, over limit: %s (%d B)" % (p, os.path.getsize(p)), flush=True)
+    out.append(p)
+
+
+def split_gz_parts(raw_path, prefix, limit, gz_full):
+    """Split a cumulative raw jsonl into gz parts each <= limit bytes (project ruling
+    13 Nov 16:48Z). Chunk size comes from the full-file compression ratio; cuts are on
+    line boundaries so no line ever straddles two parts."""
+    with open(raw_path, "rb") as fh:
+        lines = fh.readlines()
+    total = sum(len(x) for x in lines) or 1
+    target = max(1, int(total * (limit * 0.95) / max(1, gz_full)))
+    out, buf, sz = [], [], 0
+    for ln in lines:
+        buf.append(ln)
+        sz += len(ln)
+        if sz >= target:
+            _write_parts(buf, prefix, limit, out)
+            buf, sz = [], 0
+    if buf:
+        _write_parts(buf, prefix, limit, out)
+    return out
+
+
 # flat copies (only if changed size) + counts + diary
 for n in ('markets.jsonl', 'pmws.jsonl', 'ts_poll.jsonl', 'log.jsonl'):
     srcp = os.path.join(os.path.dirname(SRC), n)
@@ -89,9 +126,25 @@ for n in ('markets.jsonl', 'pmws.jsonl', 'ts_poll.jsonl', 'log.jsonl'):
         # only carry if it grew (2h window) — carry unconditionally if different
         p = staged(n + ".gz"); os.makedirs(os.path.dirname(p), exist_ok=True)
         with open(srcp, 'rb') as fi, gzip.open(p, 'wb') as go: shutil.copyfileobj(fi, go)
-        if os.path.getsize(p) > 950_000:
-            print("SKIP %s.gz %.0f B > 950KB (1MB pre-push hook); raw kept on VOL2; project to rule on split or box+manifest route (row 13 precedent)" % (n, os.path.getsize(p)), flush=True)
+        gzsz = os.path.getsize(p)
+        if gzsz > 950_000:
+            # SPLIT route (project ruling 13 Nov 16:48Z, inbox abb9c671 / OPEN row P10):
+            # an over-limit cumulative file becomes parts under 950 KB plus a one-line
+            # manifest, so the repo copy stays complete. Split on LINE boundaries so each
+            # part is a valid gzip on its own; readers take part001, part002, ... in order.
             os.remove(p)
+            parts = split_gz_parts(srcp, staged(n), 900_000, gzsz)
+            base = "rn1/scores/thesports/final-topics-32295b-slim/"
+            for i, pp in enumerate(parts, 1):
+                written.append(("%s%s.part%03d.jsonl.gz" % (base, n, i), pp))
+            man = staged(n + ".parts.txt")
+            with open(man, "w") as fh:
+                fh.write(" ".join(os.path.basename(x) for x in parts) + "\n")
+            written.append((base + n + ".parts.txt", man))
+            print("SPLIT %s.gz %.0f B -> %d parts %s" % (
+                n, gzsz, len(parts),
+                ", ".join("%s=%d" % (os.path.basename(x), os.path.getsize(x)) for x in parts)),
+                flush=True)
             continue
         written.append(("rn1/scores/thesports/final-topics-32295b-slim/" + n + ".gz", p))
 # counts

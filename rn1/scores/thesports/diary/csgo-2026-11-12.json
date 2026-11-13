@@ -1,0 +1,297 @@
+{
+ "code": 0,
+ "query": {
+  "total": 24,
+  "type": "diary"
+ },
+ "results": [],
+ "results_extra": {
+  "stage": [
+   {
+    "id": "gy0or596uemwzv3",
+    "name": "Group play"
+   },
+   {
+    "id": "jednm928tkxryox",
+    "name": "Playoffs"
+   },
+   {
+    "id": "e4wyrnxzf8wm86p",
+    "name": "Single Elimination Bracket"
+   },
+   {
+    "id": "56ypq3e6h02md7o",
+    "name": "Group B"
+   }
+  ],
+  "team": [
+   {
+    "id": "1l4rje7h675m7vx",
+    "logo": "https://eimg.thesports.com/csgo/team/cc2c5ee620ef30f56b2fcadf03aafd30.png",
+    "name": "MOUZ"
+   },
+   {
+    "id": "vjxm89wujxdq6od",
+    "logo": "https://eimg.thesports.com/csgo/team/f2110cd752d9d1fc5d496b3087fd0bf5.png",
+    "name": "Virtus.pro"
+   },
+   {
+    "id": "vjxm89wupnnq6od",
+    "logo": "https://eimg.thesports.com/csgo/team/FrN2KCCW5KEXFfBLiZ5sN-LEKO9J",
+    "name": "Spirit"
+   },
+   {
+    "id": "l7oqd9ou1lnm510",
+    "logo": "https://eimg.thesports.com/csgo/team/n52dbdba9adc8b883ff077b42a62f3a1d.png",
+    "name": "Nexus"
+   },
+   {
+    "id": "y39mp8zhkw1qojx",
+    "logo": "https://eimg.thesports.com/csgo/team/n1f3d58f3b0ecac428b4130f43414a00d.png",
+    "name": "Spirit Academy"
+   },
+   {
+    "id": "l5erg5xi2oom8k0",
+    "logo": "https://eimg.thesports.com/csgo/team/f7e955d738aefc7e6afc6acc126013d0.png",
+    "name": "FURIA"
+   },
+   {
+    "id": "pxwrx8gh37gqyk0",
+    "logo": "https://eimg.thesports.com/csgo/team/47faaf4cfa22735c8ead07b89c44c139.png",
+    "name": "Lilmix"
+   },
+   {
+    "id": "dn1m1e6hl4vqoep",
+    "logo": "https://eimg.thesports.com/csgo/team/n1c8fed73a5aaf4ffb30a6d1d6754cfe7.png",
+    "name": "9INE"
+   },
+   {
+    "id": "n54qle2hwexmvy9",
+    "logo": "https://eimg.thesports.com/csgo/team/4da25e21050aaaeecfc46b9a368a5b34.png",
+    "name": "MASONIC"
+   },
+   {
+    "id": "4wyrnxzf129m86p",
+    "logo": "https://eimg.thesports.com/csgo/team/ndd61ab267a44d081b56ebe0f12f67d8c.png",
+    "name": "Brandbergen Shooters"
+   },
+   {
+    "id": "6ypq3e6hd9xmd7o",
+    "logo": "https://eimg.thesports.com/csgo/team/n5bcb78b205b0babddab42fb9a2851c32.png",
+    "name": "Honv\u00e9d"
+   },
+   {
+    "id": "8yomowyfo09r0j6",
+    "logo": "https://eimg.thesports.com/csgo/team/nf9d024371f95adbadc985cbfb90ff3a0.png",
+    "name": "Falcons"
+   },
+   {
+    "id": "y39mp8zhn86qojx",
+    "logo": "https://eimg.thesports.com/csgo/team/ncb00b55949f072d4d91fda8d98c72c15.png",
+    "name": "GenOne"
+   },
+   {
+    "id": "l7oqd9ouw18m510",
+    "logo": "https://eimg.thesports.com/csgo/team/ne92da448c33f65be4e4977e9aee903a8.png",
+    "name": "BAKS"
+   },
+   {
+    "id": "6ypq3e6hx89md7o",
+    "logo": "https://eimg.thesports.com/csgo/team/n08c8b77ab2284dd74032878bca8b1246.png",
+    "name": "Alliance"
+   },
+   {
+    "id": "y39mp8zh3v73qoj",
+    "logo": "https://eimg.thesports.com/csgo/team/n19d00742615f203d5fbab9c697ab8c6f.png",
+    "name": "Galorys"
+   },
+   {
+    "id": "dn1m1e6h4ez1qoe",
+    "logo": "https://eimg.thesports.com/csgo/team/n85e1a7a4f0202b9588f6097aef18347b.png",
+    "name": "FORZE Reload"
+   },
+   {
+    "id": "318q6g3fo467ro9",
+    "logo": "https://eimg.thesports.com/csgo/team/ne1ef36d4067dc5d7fcb052b14c92c382.png",
+    "name": "RED Canids Academy"
+   },
+   {
+    "id": "1l4rje7h6xdem7v",
+    "logo": "https://eimg.thesports.com/csgo/team/nad5c3ccce79a9a082c556faad127437f.png",
+    "name": "PCIFIC"
+   },
+   {
+    "id": "dn1m1e6h4833qoe",
+    "logo": "https://eimg.thesports.com/csgo/team/Frf_PcA7GEnH_uMP5zlBfqLYAQgp",
+    "name": "Iberian Soul"
+   },
+   {
+    "id": "y39mp8zh3kjpqoj",
+    "logo": "https://eimg.thesports.com/csgo/team/Fpy0S0CxGVOqzvm0_Z6s0_pc9VQt",
+    "name": "33"
+   },
+   {
+    "id": "dj2ryyvfk4k8r1z",
+    "logo": "https://eimg.thesports.com/csgo/team/FnyrLosUHHDShif7pj5jjNE4ifpR",
+    "name": "Omega"
+   },
+   {
+    "id": "pxwrx8ghg338qyk",
+    "logo": "https://eimg.thesports.com/csgo/team/Fp-8qMoAauDpz4B_uAhKjgxojNXK",
+    "name": "STATE"
+   },
+   {
+    "id": "3glrww5fw31grdy",
+    "logo": "https://eimg.thesports.com/csgo/team/FkF1GJLRh8kUOryJ35vSPU-LQzwV",
+    "name": "Inner Circle Academy"
+   },
+   {
+    "id": "965mk65f726jq1g",
+    "logo": "https://eimg.thesports.com/csgo/team/FqF95JqXqiGbQGWuqmLfzl5SqnV1",
+    "name": "KUUSAMO"
+   },
+   {
+    "id": "y0or596ulnlpmwz",
+    "logo": "",
+    "name": "Lavked"
+   },
+   {
+    "id": "318q6g3fowv6ro9",
+    "logo": "https://eimg.thesports.com/csgo/team/FpyEcwkxlf48-XSyoN_NmuP8H1nN",
+    "name": "ALKA"
+   },
+   {
+    "id": "965mk65f7k0lq1g",
+    "logo": "https://eimg.thesports.com/csgo/team/Fu6rnJSrxPi5GM8yO-WS1X7CIZdY",
+    "name": "Noir Verse"
+   },
+   {
+    "id": "y0or596ul87emwz",
+    "logo": "",
+    "name": "Ex-rustec"
+   },
+   {
+    "id": "1l4rje7h69v3m7v",
+    "logo": "",
+    "name": "Borracheiros"
+   },
+   {
+    "id": "4jwq2e6h4g6jq0v",
+    "logo": "https://eimg.thesports.com/csgo/team/Fg1Rxkzq8P3GjWvkGdqElwO2Wgcb",
+    "name": "MAYBE"
+   },
+   {
+    "id": "dn1m1e6h49zxqoe",
+    "logo": "https://eimg.thesports.com/csgo/team/FpwWOisMgMgp7T3nYOMVyIT9o_RH",
+    "name": "Azuolas"
+   },
+   {
+    "id": "n54qle2h24ojmvy",
+    "logo": "https://eimg.thesports.com/csgo/team/FpSS4b1afXkt0LZw9prgB2DE9LDQ",
+    "name": "NT"
+   },
+   {
+    "id": "8yomowyf7yn2r0j",
+    "logo": "",
+    "name": "Saint-sinners"
+   },
+   {
+    "id": "dj2ryyvfkp22r1z",
+    "logo": "",
+    "name": "Low Cortisol"
+   },
+   {
+    "id": "4wyrnxzf8w6xm86",
+    "logo": "https://eimg.thesports.com/csgo/team/FkpdgxaAWkmyE-s9M9UdRmuIzsND",
+    "name": "6yuBoJlbl"
+   },
+   {
+    "id": "vjxm89wu40knq6o",
+    "logo": "https://eimg.thesports.com/csgo/team/Fm5rT1hTWfEPSJG3WtOEOT1NDQOp",
+    "name": "Lfo 10"
+   },
+   {
+    "id": "dn1m1e6h4xwwqoe",
+    "logo": "",
+    "name": "BARCA"
+   },
+   {
+    "id": "pxwrx8ghg0pxqyk",
+    "logo": "",
+    "name": "Ex-inox"
+   },
+   {
+    "id": "dn1m1e6h4gneqoe",
+    "logo": "",
+    "name": "Balkan Outlaws"
+   },
+   {
+    "id": "x7lm79xuk20xr2w",
+    "logo": "",
+    "name": "Converge"
+   },
+   {
+    "id": "y0or596ulwe5mwz",
+    "logo": "",
+    "name": "Talent-factory"
+   },
+   {
+    "id": "6ypq3e6h0pw8md7",
+    "logo": "",
+    "name": "Mint"
+   },
+   {
+    "id": "vjxm89wu4786q6o",
+    "logo": "",
+    "name": "LUNTIKI"
+   }
+  ],
+  "tournament": [
+   {
+    "id": "vjxm89wuk8nq6od",
+    "logo": "https://eimg.thesports.com/csgo/tournament/FtSFPtLG7a1R_VfezEy7o2Mn4fpk",
+    "name": "BLAST Rivals 2026 Season 2"
+   },
+   {
+    "id": "8yomowyf6v7r0j6",
+    "logo": "https://eimg.thesports.com/csgo/tournament/Fu4DqwOiKCCU1dtTQSQ6oVRahed2",
+    "name": "ESL Challenger League Season 52 Europe Cup 12"
+   },
+   {
+    "id": "ednm928tpvwryox",
+    "logo": "https://eimg.thesports.com/csgo/tournament/FvhD8axPeaLobK3bdJNDt9LiUwsb",
+    "name": "PGL Cluj-Napoca 2027 Open Qualifier 2"
+   },
+   {
+    "id": "y0or596uw0nmwzv",
+    "logo": "https://eimg.thesports.com/csgo/tournament/Fs-yd9Sc_qvK3sujzIoBmsQv8kTw",
+    "name": "CCT 2026 Europe Series 13"
+   },
+   {
+    "id": "1l4rje7hd3dm7vx",
+    "logo": "https://eimg.thesports.com/csgo/tournament/FklUcAc7xa-qm0sMbw6z_n1QdTrs",
+    "name": "NODWIN Clutch Series 14"
+   },
+   {
+    "id": "4jwq2e6h50dq0ve",
+    "logo": "https://eimg.thesports.com/csgo/tournament/Fi4-__McgWqWrtqV2mmT9ddxLyeD",
+    "name": "CCT 2026 South America Series 8"
+   },
+   {
+    "id": "965mk65f0gdq1ge",
+    "logo": "https://eimg.thesports.com/csgo/tournament/Fs-yd9Sc_qvK3sujzIoBmsQv8kTw",
+    "name": "CCT 2026 Europe Series 14"
+   },
+   {
+    "id": "l7oqd9ou9d4m510",
+    "logo": "https://eimg.thesports.com/csgo/tournament/FrC0cjS3u0k88RgCLfbIeurC7yCA",
+    "name": "European Pro League Series 10"
+   },
+   {
+    "id": "8yomowyf69zr0j6",
+    "logo": "https://eimg.thesports.com/csgo/tournament/FrKFVnWnNWI98E60t5xTRVSTYMKW",
+    "name": "Svenska Cupen 2026 Closed Qualifier"
+   }
+  ]
+ }
+}

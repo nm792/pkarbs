@@ -1,0 +1,254 @@
+{
+ "code": 0,
+ "query": {
+  "total": 17,
+  "type": "diary"
+ },
+ "results": [
+  {
+   "away_score": 2,
+   "away_team_id": "3glrwwgio1wrdyj",
+   "box": 3,
+   "description": "",
+   "home_score": 1,
+   "home_team_id": "vjxm89khxjgq6od",
+   "id": "wyrnxkild536m86",
+   "match_time": 1794585600,
+   "stage_id": "d23xmvxdikrg8ny",
+   "status_id": 3,
+   "tournament_id": "8yomowki25yr0j6",
+   "updated_at": 1794599464
+  },
+  {
+   "away_score": 0,
+   "away_team_id": "1l4rjekt6pv6m7v",
+   "box": 3,
+   "description": "",
+   "home_score": 2,
+   "home_team_id": "pxwrx8otgwdwqyk",
+   "id": "jxm89khwjo43q6o",
+   "match_time": 1794592860,
+   "stage_id": "gy0or59nh4mwzv3",
+   "status_id": 3,
+   "tournament_id": "pxwrx8ot920qyk0",
+   "updated_at": 1794602273
+  },
+  {
+   "away_score": 0,
+   "away_team_id": "dn1m1ept4zvkqoe",
+   "box": 3,
+   "description": "",
+   "home_score": 2,
+   "home_team_id": "vjxm89kh4w74q6o",
+   "id": "glrwwgipjej0rdy",
+   "match_time": 1794593880,
+   "stage_id": "gy0or59nh8dmwzv",
+   "status_id": 3,
+   "tournament_id": "dj2ryy2ijd1r1zp",
+   "updated_at": 1794601874
+  },
+  {
+   "away_score": 1,
+   "away_team_id": "1l4rjekt6g02m7v",
+   "box": 3,
+   "description": "",
+   "home_score": 1,
+   "home_team_id": "23xmvxdi3041rg8",
+   "id": "w2r08et0xgezqz8",
+   "match_time": 1794598620,
+   "stage_id": "d23xmvxdikrg8ny",
+   "status_id": 2,
+   "tournament_id": "6ypq3egtz48md7o",
+   "updated_at": 1794604354
+  },
+  {
+   "away_score": 1,
+   "away_team_id": "23xmvxdi3jokrg8",
+   "box": 3,
+   "description": "",
+   "home_score": 0,
+   "home_team_id": "l7oqd9xh10ym510",
+   "id": "n1m1ept0ngj2qoe",
+   "match_time": 1794600660,
+   "stage_id": "d23xmvxdikrg8ny",
+   "status_id": 2,
+   "tournament_id": "8yomowki25yr0j6",
+   "updated_at": 1794604503
+  }
+ ],
+ "results_extra": {
+  "stage": [
+   {
+    "id": "gy0or59nh4mwzv3",
+    "name": "Playoffs"
+   },
+   {
+    "id": "d23xmvxdikrg8ny",
+    "name": "Group Stage"
+   },
+   {
+    "id": "gy0or59nh8dmwzv",
+    "name": "Phase ungrouped"
+   }
+  ],
+  "team": [
+   {
+    "id": "3glrwwgio1wrdyj",
+    "logo": "https://eimg.thesports.com/dota/team/FvVeFDbhw4ju10i2FumA_yr7ZOVB",
+    "name": "LGD Gaming"
+   },
+   {
+    "id": "6ypq3egt15xmd7o",
+    "logo": "https://eimg.thesports.com/dota/team/FhOWo7PCFlSEW04qpSm20LS9ykbN",
+    "name": "Execration"
+   },
+   {
+    "id": "vjxm89khxjgq6od",
+    "logo": "https://eimg.thesports.com/dota/team/FqkUN7Sur7ZqyKKJ8pAjgfiiz5ZF",
+    "name": "Team Liquid"
+   },
+   {
+    "id": "l7oqd9xh10ym510",
+    "logo": "https://eimg.thesports.com/dota/team/FvNaMGxW_gPGcu4fDT6TW5SRLdUg",
+    "name": "Team Spirit"
+   },
+   {
+    "id": "2y8m4egt166ql07",
+    "logo": "https://eimg.thesports.com/dota/team/575ccae50f19707d7a7cb80775da0553.png",
+    "name": "Yellow Submarine"
+   },
+   {
+    "id": "1l4rjektedxm7vx",
+    "logo": "https://eimg.thesports.com/dota/team/FoQEhoWflgIsk5CobDeRJ81o-6Vm",
+    "name": "Nemiga Gaming"
+   },
+   {
+    "id": "318q6g2uon7ero9",
+    "logo": "https://eimg.thesports.com/dota/team/Fjvyhtsgkuwx9ttwaXG7AUGvM7Oj",
+    "name": "Yangon Galacticos"
+   },
+   {
+    "id": "k82repwiv6p0qep",
+    "logo": "https://eimg.thesports.com/dota/team/Fgcn6tyu-d0YsLnqANBIrysMqLzH",
+    "name": "Interactive Philippines"
+   },
+   {
+    "id": "23xmvxdi3041rg8",
+    "logo": "https://eimg.thesports.com/dota/team/FtpKB6F2rUXxnp9XU7UZwJcEmefR",
+    "name": "Puckchamp"
+   },
+   {
+    "id": "vjxm89kh4w74q6o",
+    "logo": "https://eimg.thesports.com/dota/team/FuJni3OHzQUwFm-Li5MoHwRtKHGG",
+    "name": "No Hoodwink"
+   },
+   {
+    "id": "dn1m1ept40dyqoe",
+    "logo": "https://eimg.thesports.com/dota/team/FpXeZmHJzWfyrx4XGvkwv6TLfIZx",
+    "name": "Potn9ki-"
+   },
+   {
+    "id": "x7lm792hkjzvr2w",
+    "logo": "https://eimg.thesports.com/dota/team/FoLBpwgqmsbrjdUaBX1fMPwPruQd",
+    "name": "Team Legion"
+   },
+   {
+    "id": "1l4rjekt6g02m7v",
+    "logo": "https://eimg.thesports.com/dota/team/FuJn76Om8VeSi1c8T-Deaut09lS-",
+    "name": "Zero Tenacity"
+   },
+   {
+    "id": "jw2r08etldl0qz8",
+    "logo": "https://eimg.thesports.com/dota/team/FlJWeae99luCCaP3nHVvcENSlndv",
+    "name": "Cloud Rising"
+   },
+   {
+    "id": "zp5rz51cje78r82",
+    "logo": "https://eimg.thesports.com/dota/team/Fj6z-elM4JuVyCXbBVZ93Cl4ujpb",
+    "name": "Team Spirit Academy"
+   },
+   {
+    "id": "6ypq3egt0d19md7",
+    "logo": "https://eimg.thesports.com/dota/team/Fmkz4KvbCtJhXiuHzuLIBSNh7n47",
+    "name": "Inner Circle X Insanity"
+   },
+   {
+    "id": "1l4rjekt6pv6m7v",
+    "logo": "https://eimg.thesports.com/dota/team/FsWyV3-HVRHpaWzl_L6cSRa1aGjc",
+    "name": "Xipto Esports"
+   },
+   {
+    "id": "pxwrx8otgwdwqyk",
+    "logo": "https://eimg.thesports.com/dota/team/FkGftdXK0Rw5Y32GapZftfiSagiR",
+    "name": "CyberHero"
+   },
+   {
+    "id": "dn1m1ept4zvkqoe",
+    "logo": "",
+    "name": "Old Blood"
+   },
+   {
+    "id": "n54qle1t265lmvy",
+    "logo": "https://eimg.thesports.com/dota/team/Fir1luFcKzVJemBL9c3RrFPqZNs-",
+    "name": "Team Nemesis Academy"
+   },
+   {
+    "id": "965mk6pi7x7eq1g",
+    "logo": "",
+    "name": "Resp Gaming"
+   },
+   {
+    "id": "x7lm792hkek6r2w",
+    "logo": "https://eimg.thesports.com/dota/team/FhcuZtBX80VEKBtSkN6EfTHFt8lC",
+    "name": "Angry Birds"
+   },
+   {
+    "id": "23xmvxdi3jokrg8",
+    "logo": "",
+    "name": "Froglings"
+   },
+   {
+    "id": "zp5rz51cj97xr82",
+    "logo": "",
+    "name": "DO KONCA"
+   },
+   {
+    "id": "ednm920fk496ryo",
+    "logo": "",
+    "name": "Ryvex Esports"
+   }
+  ],
+  "tournament": [
+   {
+    "id": "dj2ryy2ijd1r1zp",
+    "logo": "https://eimg.thesports.com/dota/tournament/FnzwRj4Ys5so-THUhWS_hDkbr-zi",
+    "name": "Esports Pro Circuit Season 3"
+   },
+   {
+    "id": "8yomowki25yr0j6",
+    "logo": "https://eimg.thesports.com/dota/tournament/FqdikrHsAJIxrSi_eKtq_Sw7al8-",
+    "name": "1win Essence III"
+   },
+   {
+    "id": "6ypq3egtz48md7o",
+    "logo": "https://eimg.thesports.com/dota/tournament/FjYKfDvcg4x4cWCTyLmlxMx9Da7h",
+    "name": "Asgard Championship S2"
+   },
+   {
+    "id": "pxwrx8ot920qyk0",
+    "logo": "https://eimg.thesports.com/dota/tournament/FhtvBYUe2Jjj0pbKFoSaRq2HsZaK",
+    "name": "DreamLeague Division 2 Series 5"
+   },
+   {
+    "id": "3glrwwgijlerdyj",
+    "logo": "https://eimg.thesports.com/dota/tournament/Fvaw7gQVHoKO8ZYuau0LVCpWuqSW",
+    "name": "European Pro League Season 41"
+   },
+   {
+    "id": "vjxm89khj26q6od",
+    "logo": "https://eimg.thesports.com/dota/tournament/Fvaw7gQVHoKO8ZYuau0LVCpWuqSW",
+    "name": "European Pro League World Series Southeast Asia Season 20"
+   }
+  ]
+ }
+}
