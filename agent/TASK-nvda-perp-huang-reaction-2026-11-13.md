@@ -19,3 +19,6 @@ Window: 2026-11-09 20:00Z to 2026-11-13 03:00Z.
 
 ## Output (outbox/nvda-perp-huang-2026-11-13.md)
 For each event: price just before; price 1 s, 10 s, 60 s, 5 min, 30 min after; max move; time to reach 50% and 90% of the 30-min move; volume and trades in those windows; each venue side by side, plus the underlying when it was trading. Plain numbers, no interpretation. Note all gaps in the data.
+
+## Addendum (13 Nov 03:15Z, from Nick): time zero = first headline from the fast feeds
+Use the earliest timestamp from Reuters, Newsquawk (newsquawk.com/headlines pages are public and timestamped) and any other public archive (company press-release page, EDGAR acceptance time, Dow Jones/Bloomberg headline reposts) as time zero for each event (9 Nov probe, board-removal reports, 12 Nov resignation). Record source and timestamp for each, in UTC, and say which was earliest. Do not subscribe to or pay for anything; public pages only. If a timestamp is not public, write "not public".
