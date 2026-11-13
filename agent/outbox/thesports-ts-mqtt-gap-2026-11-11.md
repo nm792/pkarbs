@@ -17,3 +17,17 @@ Live source ts_mqtt.jsonl (4.9 GB) and books.jsonl (6.4 GB) under `/mnt/HC_Volum
 
 ## UPDATE (11:10Z 11 Nov) — data LANDED on origin
 A manual merge commit (**6cf032317a**) was built by overlaying the 09:59Z slim build (`b091e49b`, ts_mqtt 00:22Z→10:00Z, 218,056 ts_mqtt files + books_mid) onto the current origin tip and pushed fast-forward. Verified on `origin/claude/project-thread-vg2ckg`: newest ts_mqtt chunk **1794384000000** (10:00:00Z) and newest books_mid chunk **1794384000000** — the 8 h of tennis/Dota/other messages (00:22Z→10:00Z) are now on the slim repo branch. The durable fix (rebase/merge at push time) is still CHANGE-BATCH #15, approval-gated under 409 (11-08..15); OPEN row 13 stays open only for that code fix and any newer 10Z+ chunks the timer still fails to push.
+
+## UPDATE (13 Nov 2026 12:47Z, fleet sweep) — row 13 confirmation
+
+Measured, not from the earlier reply:
+
+- **Newest committed ts_mqtt chunk on `origin/claude/project-thread-vg2ckg`: `1794557478` = 2026-11-13 08:11:18Z**, in hour dir `final-topics-32295b-slim/ts_mqtt/1794556800000/` (121 hour dirs present).
+- **Newest committed books_mid hour dir: `1794556800000` = 2026-11-13 08:00Z.**
+- **Last successful export push: `152aa3e3c0` @ 10:45:49Z, +31,908 files, `push_rc=0`.**
+- **A run is in progress now** (cron `0 */2 * * *`, pid 4068983 started 11:53Z, `thesports-slim` lock held) building the `1794564000000` (10Z) bucket — newest file staged so far `1794566135` = 10:35:35Z. Its push follows.
+- **Live source is healthy and current:** `final-topics-32295b/ts_mqtt.jsonl` (8,249,109,917 B) newest row `ms=1794573979773` = 2026-11-13 12:46:19Z. No capture gap; only the repo slim copy lags by the 2 h cadence + build time.
+- **Cause of the original gap (unchanged):** the push race, fixed by CB15 (applied 2026-11-11 19:31Z, `de0517c84`). The >5% shrink guard never refused an export.
+- Export lag now ≈ 2.5 h (08:11Z committed vs 12:46Z captured), consistent with a 2 h timer plus a ~40-60 min build; the in-progress run closes it to ≈ 1-2 h.
+
+Nothing was re-run: the export was already running when this check started (verified by pid + lock + staged chunk), so no second copy was launched.
