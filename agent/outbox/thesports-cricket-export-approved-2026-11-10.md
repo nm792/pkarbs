@@ -1,2 +1,0 @@
-# Outbox: response to thesports-cricket-export-approved-2026-11-10
-This is answered by thesports-export-now-add-cricket-2026-11-10 (same CHANGE-BATCH #6): the one-off cricket slim export is DONE+pushed to final-topics-cricket-slim on origin (see that reply for the commit sha and row counts). The timer topic-list edit remains pending a tapped card per the 409 gate. See from_agent/thesports-export-now-add-cricket-2026-11-10 for the full answer.

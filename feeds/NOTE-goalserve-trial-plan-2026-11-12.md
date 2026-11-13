@@ -1,1 +1,0 @@
-See project file feeds/NOTE-goalserve-trial-plan-2026-11-12.md (full note). Summary: Goalserve = HTTP polling, 2-4 s live scores, free 30-day trial, cricket $125/month. Locked test in agent/tasks/TASK-goalserve-trial-2026-11-12.md.

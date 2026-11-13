@@ -1,3 +1,0 @@
-BASE     round logloss (4-fold CV, all maps) 0.6063 | map Brier: market 0.1404 model 0.1531 score-only 0.1533 | 84 maps 3678 points
-+PRATE(bo3) round logloss (4-fold CV, all maps) 0.6059 | map Brier: market 0.1404 model 0.1532 score-only 0.1535 | 84 maps 3678 points
-+PRATE+ELO+SERIES round logloss (4-fold CV, all maps) 0.6056 | map Brier: market 0.1404 model 0.1527 score-only 0.1536 | 84 maps 3678 points
