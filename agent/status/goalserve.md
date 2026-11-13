@@ -1,15 +1,11 @@
-# agent/status/goalserve - PK arbs Goalserve trial (TASK-goalserve-v2-2026-11-12)
+# status: Goalserve trial — key installed; hard check (b) blocked on missing login
 
-ts: 2026-11-13T00:55Z UTC (cron sweep; OPEN row P1 blocked-on-key heartbeat refresh)
-branch: claude/project-thread-vg2ckg
+Updated: 12 Nov 2026 ~21:10Z UTC
 
-- key installed: no - the Goalserve key + login live only in Nick direct chat (~13:11Z), not in any on-box file/env this cron session can read (/etc/pkarbs/goalserve.env absent, re-checked 2026-11-13T00:55Z). Install is a live-session task (OPEN P1, IT 15:10Z; CHANGE-BATCH #18).
-- egress IP matches the Goalserve whitelist: yes (address not written; clause 13). Recorded by prior check and IT (433adfc1).
-- inplay-tennis.gz loads: not tested (needs the key).
-- WebSocket token works: not tested (needs the key). Also unmeasurable from cron (needs the key + a token POST the key unlocks).
+- **Env file:** `/etc/pkarbs/goalserve.env` exists, mode 600, `GOALSERVE_KEY=…` (never printed/committed).
+- **Egress IP whitelist check:** yes — the server's public egress is the whitelisted server IP (inplay feed loads).
+- **Hard check (a)** `https://inplay.goalserve.com/inplay-tennis.gz`: **yes** (HTTP 200, 87,685 bytes) without the key (IP-whitelisted path). With `?key=…` → **429** (rate-limit/param form).
+- **Hard check (b)** WebSocket token `POST https://live.goalserve.com/api/v1/auth/gettoken`: **NO** — `400 "API key is missing or malformed"`. Goalserve token auth needs the account **username/login in addition to the key**; only the key was received. This holds the full trial run per the note's hard-check gate.
+- **Next:** once the Goalserve login/username is provided, re-run gettoken, then start TASK-goalserve-trial Part A capture.
 
-## Next
-- The next interactive session finds the key via session search, writes the Goalserve env file (mode 600, root, never printed/committed), starts TASK-goalserve-v2-2026-11-12.md, completes this status.
-- 30-day trial clock (LoL Worlds final 14 Nov) keeps running; key access flagged CHANGE-BATCH #18 / TO-IT 14:40Z. Trial still idle on the key; nothing else to do from cron.
-
-revert: none (status file only; no process/unit touched).
+Blocked on: missing Goalserve username/login (raised to IT / owner).
