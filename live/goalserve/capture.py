@@ -3,7 +3,7 @@
 logs to /vol2/goalserve/. Reads /etc/pkarbs/goalserve.env (USER/KEY, mode 600).
 Per TASK-goalserve-trial: per poll log recv ns, HTTP Date, payload sha1, change first-seen.
 """
-import os, sys, time, gzip, json, hashlib, datetime, urllib.request, urllib.parse
+import os, sys, time, gzip, json, hashlib, shutil, datetime, urllib.request, urllib.parse
 
 def load_creds():
     d = {}
@@ -29,6 +29,33 @@ SPORTS = {
     # inplay-basket.gz / inplay-volleyball.gz measured HTTP 200 on 13 Nov but are OUT of
     # approved scope; inplay-cricket.gz is 404 (no such feed).
 }
+PAYDIR = "/vol2/goalserve/esports_payloads"   # Nick yes 14:43:42Z 13 Nov (inbox #300)
+_payload_stopped = False
+
+def store_payload(recv_ns, data):
+    """Esports-only: append the changed raw body, gzipped, one file per UTC hour.
+    Stops (and logs once) if the output filesystem is at or below the 15 GB floor."""
+    global _payload_stopped
+    try:
+        if shutil.disk_usage("/vol2").free <= 15e9:
+            if not _payload_stopped:
+                _payload_stopped = True
+                with open(os.path.join(OUT, "esports_payloads_STOP.log"), "a") as f:
+                    f.write(json.dumps({"t": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                                        "free_b": shutil.disk_usage("/vol2").free,
+                                        "action": "payload store stopped: free <= 15 GB"}) + "\n")
+            return
+        os.makedirs(PAYDIR, exist_ok=True)
+        hour = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d%H")
+        with gzip.open(os.path.join(PAYDIR, f"esports_{hour}.jsonl.gz"), "at") as pf:
+            pf.write(json.dumps({"recv_ns": recv_ns, "body": data.decode("utf-8", "replace")}) + "\n")
+    except Exception as ex:
+        if not _payload_stopped:
+            _payload_stopped = True
+            with open(os.path.join(OUT, "esports_payloads_STOP.log"), "a") as f:
+                f.write(json.dumps({"t": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                                    "err": repr(ex)[:300]}) + "\n")
+
 os.makedirs(OUT, exist_ok=True)
 
 def fetch(rel):
@@ -57,6 +84,8 @@ def main():
                     first = last[sport][1] if (not changed and sport in last) else recv_ns
                     if changed:
                         last[sport] = (sha1, recv_ns)
+                    if changed and sport == "esports":
+                        store_payload(recv_ns, data)
                     row[sport] = {
                         "recv_ns": recv_ns, "send_ns": t0, "http_date_us": 0,
                         "sha1": sha1, "bytes": len(data), "changed": changed,

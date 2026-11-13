@@ -57,3 +57,31 @@ esports RUNNING since 14:04:31Z (APPROVALS item 18 applied; 1-hour MB/day due 15
 - Not in place, nothing invented: pause hook (no disk_gate/start_writer on disk for a
   tmux capture) and trial end date (not named in the goalserve task files). Reviewer to
   specify both.
+
+## 1-hour figure + payload store — 13 Nov 15:17Z (P5, APPROVALS 18 / inbox #300)
+
+- **1-hour hash-capture figure (14:04:31Z-15:04:31Z, the window the note asks for):**
+  1,971 esports polls in the window (1,862 with `changed=true`), 2,236,840 B of log line
+  bytes for the whole file in that window -> **53.7 MB/day** projection for the hash/size
+  log (consistent with the earlier 52.5 MB/day one-minute figure).
+  Esports response bodies totalled **269.4 MB in the hour** (network only; NOT stored
+  before 15:09Z — the capture records recv_ns/sha1/bytes/changed only).
+- **Changed-payload store (Nick yes 14:43:42Z, inbox #300): APPLIED 15:08:45Z, live 15:09:35Z.**
+  Revert copy `live/goalserve/capture.py.pre-esports-payloads-20261113T150845Z`
+  (sha256 `52068242107afaf7…` = the pre-edit file), `py_compile` OK, diff = +30/-1 lines
+  (adds `store_payload()`, esports-only, gzip per UTC hour, 15 GB auto-stop).
+  Restart gap 15:09:28Z -> first new row 15:09:35Z (7 s); hash capture kept running.
+- **Measured over 7.6 min (15:09:35-15:17:08Z): 240 payload rows, 1,464,685 B gzipped ->
+  279 MB/day gzipped** (raw bodies 23.2 MB in the same span -> ~17:1 gzip).
+  Raw would be ~6.5 GB/day uncompressed; only the gzipped form is written.
+- **CRITICAL (measured, please rule): `/vol2` is NOT a mounted volume on this box.**
+  `findmnt -T /vol2` -> `/dev/sda1` mounted on `/` (root), `ls -ld /vol2` is a plain
+  directory; root free = 17,564,192,768 B (55%). The real 98 GB data disk is mounted at
+  `/mnt/HC_Volume_107257520` (69 GB free). So both this payload store and the pandascore
+  capture write to ROOT, against charter clause 2 ("PK arbs data never on root"). At
+  279 MB/day the payload store alone consumes the 2.56 GB between root free and the 15 GB
+  floor in ~9 days; root also carries every other writer. Nothing moved — path is exactly
+  what inbox #300 named. Options for IT: (a) point `PAYDIR` at the 98 GB disk and re-run,
+  (b) mount the 98 GB disk at `/vol2`, (c) accept root with the existing 15 GB auto-stop.
+  The store stops itself at the floor either way (`esports_payloads_STOP.log`).
+- Free space at every step above the floor; no stop line written.
