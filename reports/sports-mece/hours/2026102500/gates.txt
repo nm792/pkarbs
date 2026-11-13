@@ -1,0 +1,38 @@
+Running as unit: run-p3322879-i3313143.scope; invocation ID: 7c55e441792247d3b2a8aa07493847e6
+events.jsonl: kept 6296 snapshot lines for hour 2026102500
+hour 2026102500: 46 runs detected; rescan said: ['messages: 3718239 runs written to /tmp/gates-2026102500-axp3ki5w/out/runs.jsonl', 'resets=0 skipped_s=0.0 dedup_changes=391013 dedup_runs=0 crossed_checks=5037 unseeded_checks=84464 corrupt_members_skipped=0 top_checks=3338959 top_mismatch_before_repair=13244 levels_dropped=18806', "trade_prints: {'2026102500': 1325}"]
+PASS  G2 detector quotes == sim book at t0  (0 of 46 runs differ)
+PASS  G2 delay-0 fill >= 95% on every leg, >= 95% of runs with dur > 0.05 s  (30 of 31 pass; all runs: 44 of 46)
+PASS  G3 no run opened on a crossed leg  (0 runs)
+PASS  G3 no run opened on an unseeded leg  (0 runs)
+PASS  G5 at t0 every leg's top equals the exchange's last best_bid/best_ask  (0 of 46 runs differ)
+  low fill: 1171951 CA San Lorenzo de Almagro vs. CA Newell's Old Boys no 1792886964.274 dur 0.162 min_fill 0.529 quotes0 [[0.01, 125.0], [0.988, 101.21], [0.01, 85.0]]
+PASS  G4 printed sim= equals CSV pnl_usd sum  (printed={('yes', '0'): 1.79, ('yes', 'market'): -11.66, ('no', '0'): 5.47, ('no', 'market'): -10.73})
+PASS  G4 rebate_usd == R x fees_usd  (rebate=0.5405 R*fees=0.5406)
+PASS  G5 no traded run meets a crossed leg at match or unwind time  (0 leg-times crossed)
+saved to reports/sports-mece/hours/2026102500/
+
+8 of 8 gates pass
+	Command being timed: "timeout 1800 /usr/bin/python3 shadow/test_gates.py --real-data /mnt/HC_Volume_107257520/pkarbs/shadow/data-v2 --hour 2026102500 --save reports/sports-mece/hours/2026102500/"
+	User time (seconds): 414.63
+	System time (seconds): 3.82
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 7:02.37
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 200296
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 226161
+	Voluntary context switches: 10254
+	Involuntary context switches: 4491
+	Swaps: 0
+	File system inputs: 2229080
+	File system outputs: 136
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

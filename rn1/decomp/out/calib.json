@@ -1,0 +1,152 @@
+{
+ "ALL": {
+  "points": 63925552,
+  "mean_payout_minus_price_c": -0.0,
+  "mean_price": 0.5
+ },
+ "ALL:p0.2-0.4": {
+  "points": 12164956,
+  "mean_payout_minus_price_c": 4.466,
+  "mean_price": 0.298
+ },
+ "ALL:p0.4-0.6": {
+  "points": 18018367,
+  "mean_payout_minus_price_c": -0.04,
+  "mean_price": 0.498
+ },
+ "ALL:p0.6-0.8": {
+  "points": 12245950,
+  "mean_payout_minus_price_c": -4.3,
+  "mean_price": 0.698
+ },
+ "ALL:p<0.2": {
+  "points": 10645423,
+  "mean_payout_minus_price_c": 6.203,
+  "mean_price": 0.098
+ },
+ "ALL:p>=0.8": {
+  "points": 10850856,
+  "mean_payout_minus_price_c": -6.172,
+  "mean_price": 0.9
+ },
+ "cs2": {
+  "points": 881992,
+  "mean_payout_minus_price_c": -0.0,
+  "mean_price": 0.5
+ },
+ "cs2:p0.2-0.4": {
+  "points": 186881,
+  "mean_payout_minus_price_c": 4.761,
+  "mean_price": 0.32
+ },
+ "cs2:p0.4-0.6": {
+  "points": 451358,
+  "mean_payout_minus_price_c": 0.239,
+  "mean_price": 0.499
+ },
+ "cs2:p0.6-0.8": {
+  "points": 192357,
+  "mean_payout_minus_price_c": -5.188,
+  "mean_price": 0.678
+ },
+ "cs2:p<0.2": {
+  "points": 25547,
+  "mean_payout_minus_price_c": 2.143,
+  "mean_price": 0.152
+ },
+ "cs2:p>=0.8": {
+  "points": 25849,
+  "mean_payout_minus_price_c": -2.115,
+  "mean_price": 0.847
+ },
+ "soccer_other": {
+  "points": 53187331,
+  "mean_payout_minus_price_c": -0.0,
+  "mean_price": 0.5
+ },
+ "soccer_other:p0.2-0.4": {
+  "points": 9946342,
+  "mean_payout_minus_price_c": 3.113,
+  "mean_price": 0.295
+ },
+ "soccer_other:p0.4-0.6": {
+  "points": 13602222,
+  "mean_payout_minus_price_c": -0.082,
+  "mean_price": 0.498
+ },
+ "soccer_other:p0.6-0.8": {
+  "points": 9985873,
+  "mean_payout_minus_price_c": -2.923,
+  "mean_price": 0.702
+ },
+ "soccer_other:p<0.2": {
+  "points": 9740918,
+  "mean_payout_minus_price_c": 5.283,
+  "mean_price": 0.094
+ },
+ "soccer_other:p>=0.8": {
+  "points": 9911976,
+  "mean_payout_minus_price_c": -5.259,
+  "mean_price": 0.904
+ },
+ "tennis": {
+  "points": 1330613,
+  "mean_payout_minus_price_c": 0.0,
+  "mean_price": 0.5
+ },
+ "tennis:p0.2-0.4": {
+  "points": 314262,
+  "mean_payout_minus_price_c": -2.601,
+  "mean_price": 0.317
+ },
+ "tennis:p0.4-0.6": {
+  "points": 428748,
+  "mean_payout_minus_price_c": 0.001,
+  "mean_price": 0.498
+ },
+ "tennis:p0.6-0.8": {
+  "points": 318740,
+  "mean_payout_minus_price_c": 2.502,
+  "mean_price": 0.681
+ },
+ "tennis:p<0.2": {
+  "points": 133265,
+  "mean_payout_minus_price_c": -1.468,
+  "mean_price": 0.129
+ },
+ "tennis:p>=0.8": {
+  "points": 135598,
+  "mean_payout_minus_price_c": 1.587,
+  "mean_price": 0.87
+ },
+ "us": {
+  "points": 8525616,
+  "mean_payout_minus_price_c": 0.0,
+  "mean_price": 0.5
+ },
+ "us:p0.2-0.4": {
+  "points": 1717471,
+  "mean_payout_minus_price_c": 13.566,
+  "mean_price": 0.309
+ },
+ "us:p0.4-0.6": {
+  "points": 3536039,
+  "mean_payout_minus_price_c": 0.077,
+  "mean_price": 0.498
+ },
+ "us:p0.6-0.8": {
+  "points": 1748980,
+  "mean_payout_minus_price_c": -13.307,
+  "mean_price": 0.686
+ },
+ "us:p<0.2": {
+  "points": 745693,
+  "mean_payout_minus_price_c": 19.726,
+  "mean_price": 0.132
+ },
+ "us:p>=0.8": {
+  "points": 777433,
+  "mean_payout_minus_price_c": -19.303,
+  "mean_price": 0.865
+ }
+}

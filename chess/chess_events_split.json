@@ -1,0 +1,1026 @@
+[
+ {
+  "title": "Matthias Bluebaum vs. Andrey Esipenko - FIDE Candidates 2026 Open (Round 3)",
+  "start": "2026-03-31 12:45:00+00",
+  "gamma_vol": 2751.919691,
+  "inplay": 2596.170230519632,
+  "n": 31,
+  "inplay_mid": 0.944919646036362,
+  "pre": 67.21234763552269
+ },
+ {
+  "title": "Praggnanandhaa R vs. Javokhir Sindarov - FIDE Candidates 2026 Open (Round 3)",
+  "start": "2026-03-31 12:45:00+00",
+  "gamma_vol": 25374.068165,
+  "post": 1327.36133,
+  "n": 66,
+  "inplay": 3159.310713679912,
+  "inplay_mid": 76.8274282050404,
+  "pre": 62.789055127736205
+ },
+ {
+  "title": "Fabiano Caruana vs. Yi Wei - FIDE Candidates 2026 Open (Round 3)",
+  "start": "2026-03-31 12:45:00+00",
+  "gamma_vol": 1759.108616,
+  "inplay": 1118.201765903893,
+  "n": 25,
+  "pre": 176.71202561520923,
+  "inplay_mid": 34.19175
+ },
+ {
+  "title": "Hikaru Nakamura vs. Anish Giri - FIDE Candidates 2026 Open (Round 3)",
+  "start": "2026-03-31 12:45:00+00",
+  "gamma_vol": 4115.850007,
+  "inplay": 2095.50305328293,
+  "n": 62,
+  "inplay_mid": 117.88751239465203,
+  "pre": 802.7503154267016
+ },
+ {
+  "title": "Andrey Esipenko vs. Anish Giri - FIDE Candidates 2026 Open (Round 4)",
+  "start": "2026-04-01 12:45:00+00",
+  "gamma_vol": 4971.874606,
+  "inplay": 3021.503756983776,
+  "n": 91,
+  "inplay_mid": 178.08900955780257,
+  "pre": 289.12085125290207
+ },
+ {
+  "title": "Yi Wei vs. Hikaru Nakamura - FIDE Candidates 2026 Open (Round 4)",
+  "start": "2026-04-01 12:45:00+00",
+  "gamma_vol": 21184.21972,
+  "inplay": 5004.566808298228,
+  "n": 328,
+  "inplay_mid": 3215.826005594534,
+  "pre": 3288.0485214768923
+ },
+ {
+  "title": "Javokhir Sindarov vs. Fabiano Caruana - FIDE Candidates 2026 Open (Round 4)",
+  "start": "2026-04-01 12:45:00+00",
+  "gamma_vol": 16301.986782000004,
+  "inplay": 4138.8086316771305,
+  "n": 267,
+  "inplay_mid": 1991.8540310008796,
+  "pre": 3575.8293444099872
+ },
+ {
+  "title": "Matthias Bluebaum vs. Praggnanandhaa R - FIDE Candidates 2026 Open (Round 4)",
+  "start": "2026-04-01 12:45:00+00",
+  "gamma_vol": 7854.971807000002,
+  "inplay": 1259.8681054731132,
+  "n": 85,
+  "inplay_mid": 80.96135521171175,
+  "pre": 558.9619765937522
+ },
+ {
+  "title": "Praggnanandhaa R vs. Andrey Esipenko - FIDE Candidates 2026 Open (Round 5)",
+  "start": "2026-04-03 12:45:00+00",
+  "gamma_vol": 7662.771792999998,
+  "inplay": 703.7453670883963,
+  "n": 113,
+  "inplay_mid": 344.1571937505695,
+  "pre": 2631.09102017964
+ },
+ {
+  "title": "Fabiano Caruana vs. Matthias Bluebaum - FIDE Candidates 2026 Open (Round 5)",
+  "start": "2026-04-03 12:45:00+00",
+  "gamma_vol": 8524.145791,
+  "post": 186.52836,
+  "n": 194,
+  "inplay": 1701.9375573997395,
+  "inplay_mid": 769.8104750463643,
+  "pre": 2665.5049899648025
+ },
+ {
+  "title": "Hikaru Nakamura vs. Javokhir Sindarov - FIDE Candidates 2026 Open (Round 5)",
+  "start": "2026-04-03 12:45:00+00",
+  "gamma_vol": 44148.74505499999,
+  "inplay": 5263.740187895955,
+  "n": 422,
+  "inplay_mid": 1596.6509817991916,
+  "pre": 8864.445281511322
+ },
+ {
+  "title": "Anish Giri vs. Yi Wei - FIDE Candidates 2026 Open (Round 5)",
+  "start": "2026-04-03 12:45:00+00",
+  "gamma_vol": 15188.544645000002,
+  "post": 34.81125599999999,
+  "n": 198,
+  "inplay": 2241.403329565912,
+  "inplay_mid": 373.6996834885984,
+  "pre": 3639.4420839498976
+ },
+ {
+  "title": "Aleksandra Goryachkina vs. Anna Muzychuk - FIDE Candidates 2026 Women (Round 5)",
+  "start": "2026-04-03 12:45:00+00",
+  "gamma_vol": 932.806437,
+  "inplay": 808.467062959901,
+  "n": 8,
+  "pre": 85.1872455983305
+ },
+ {
+  "title": "Jiner Zhu vs. Rameshbabu Vaishali - FIDE Candidates 2026 Women (Round 5)",
+  "start": "2026-04-03 12:45:00+00",
+  "gamma_vol": 603.5008690000001,
+  "inplay": 272.81013785842686,
+  "n": 42,
+  "inplay_mid": 39.67542105842688,
+  "pre": 170.67159433373493
+ },
+ {
+  "title": "Zhongyi Tan vs. Divya Deshmukh - FIDE Candidates 2026 Women (Round 5)",
+  "start": "2026-04-03 12:45:00+00",
+  "gamma_vol": 31.142221000000003,
+  "inplay": 279.46078032550764,
+  "n": 4,
+  "pre": 0.9670050148475475
+ },
+ {
+  "title": "Kateryna Lagno vs. Bibisara Assaubayeva - FIDE Candidates 2026 Women (Round 5)",
+  "start": "2026-04-03 12:45:00+00",
+  "gamma_vol": 662.570024,
+  "inplay": 355.6147400142733,
+  "n": 13,
+  "inplay_mid": 52.301419414273305,
+  "pre": 156.04468502329289
+ },
+ {
+  "title": "Jiner Zhu vs. Anna Muzychuk - FIDE Candidates 2026 Women (Round 6)",
+  "start": "2026-04-04 12:45:00+00",
+  "gamma_vol": 1217.50846,
+  "inplay": 76.67282193814799,
+  "n": 20,
+  "inplay_mid": 43.31239773814797,
+  "pre": 740.5689744252685
+ },
+ {
+  "title": "Zhongyi Tan vs. Aleksandra Goryachkina - FIDE Candidates 2026 Women (Round 6)",
+  "start": "2026-04-04 12:45:00+00",
+  "gamma_vol": 305.112605,
+  "inplay": 253.1641347357645,
+  "n": 18,
+  "pre": 35.06964162276882,
+  "inplay_mid": 47.909249999004004
+ },
+ {
+  "title": "Kateryna Lagno vs. Rameshbabu Vaishali - FIDE Candidates 2026 Women (Round 6)",
+  "start": "2026-04-04 12:45:00+00",
+  "gamma_vol": 2278.801839,
+  "inplay": 2090.5026222331107,
+  "n": 23,
+  "inplay_mid": 33.1458546331034,
+  "pre": 88.33008189959558
+ },
+ {
+  "title": "Bibisara Assaubayeva vs. Divya Deshmukh - FIDE Candidates 2026 Women (Round 6)",
+  "start": "2026-04-04 12:45:00+00",
+  "gamma_vol": 441.24916799999994,
+  "inplay": 284.920707057576,
+  "n": 31,
+  "inplay_mid": 47.718336857575984,
+  "pre": 67.89242101970308
+ },
+ {
+  "title": "Fabiano Caruana vs. Andrey Esipenko - FIDE Candidates 2026 Open (Round 6)",
+  "start": "2026-04-04 12:45:00+00",
+  "gamma_vol": 17705.254763999998,
+  "inplay": 448.8026231949559,
+  "n": 70,
+  "inplay_mid": 231.86386857196072,
+  "pre": 1106.9243925799422
+ },
+ {
+  "title": "Anna Muzychuk vs. Bibisara Assaubayeva - FIDE Candidates 2026 Women (Round 7)",
+  "start": "2026-04-05 12:45:00+00",
+  "gamma_vol": 2574.88797,
+  "inplay": 751.5275396311325,
+  "n": 20,
+  "pre": 1.948415410640922
+ },
+ {
+  "title": "Hikaru Nakamura vs. Praggnanandhaa R - FIDE Candidates 2026 Open (Round 6)",
+  "start": "2026-04-04 12:45:00+00",
+  "gamma_vol": 1479.897739,
+  "inplay": 627.8411803413636,
+  "inplay_mid": 460.01209714220244,
+  "n": 35,
+  "pre": 380.39952300306885
+ },
+ {
+  "title": "Divya Deshmukh vs. Kateryna Lagno - FIDE Candidates 2026 Women (Round 7)",
+  "start": "2026-04-05 12:45:00+00",
+  "gamma_vol": 505.525332,
+  "inplay": 418.075767449069,
+  "n": 23,
+  "pre": 5.82001942225422,
+  "inplay_mid": 0.997006
+ },
+ {
+  "title": "Anish Giri vs. Matthias Bluebaum - FIDE Candidates 2026 Open (Round 6)",
+  "start": "2026-04-04 12:45:00+00",
+  "gamma_vol": 1704.1685579999998,
+  "inplay": 503.6747506732088,
+  "n": 61,
+  "inplay_mid": 204.21909814390634,
+  "pre": 374.7830461450549,
+  "post": 1.96803
+ },
+ {
+  "title": "Rameshbabu Vaishali vs. Zhongyi Tan - FIDE Candidates 2026 Women (Round 7)",
+  "start": "2026-04-05 12:45:00+00",
+  "gamma_vol": 2176.309576,
+  "inplay": 1964.3963948749954,
+  "n": 27,
+  "inplay_mid": 23.970124957862055,
+  "pre": 69.55445555946918
+ },
+ {
+  "title": "Yi Wei vs. Javokhir Sindarov - FIDE Candidates 2026 Open (Round 6)",
+  "start": "2026-04-04 12:45:00+00",
+  "gamma_vol": 17048.338889000006,
+  "inplay": 2574.287994021779,
+  "n": 222,
+  "inplay_mid": 1297.550361479339,
+  "pre": 4004.0314262370453
+ },
+ {
+  "title": "Aleksandra Goryachkina vs. Jiner Zhu - FIDE Candidates 2026 Women (Round 7)",
+  "start": "2026-04-05 12:45:00+00",
+  "gamma_vol": 732.517075,
+  "inplay": 673.8796993176267,
+  "n": 20,
+  "pre": 2.9214124206920573,
+  "post": 1.58841
+ },
+ {
+  "title": "Andrey Esipenko vs. Yi Wei - FIDE Candidates 2026 Open (Round 7)",
+  "start": "2026-04-05 12:45:00+00",
+  "gamma_vol": 4428.292951,
+  "inplay": 1796.4850853898893,
+  "n": 83,
+  "inplay_mid": 104.00893970387716,
+  "pre": 247.78551742548706
+ },
+ {
+  "title": "Javokhir Sindarov vs. Anish Giri - FIDE Candidates 2026 Open (Round 7)",
+  "start": "2026-04-05 12:45:00+00",
+  "gamma_vol": 25488.77081100002,
+  "inplay": 3466.270574317653,
+  "n": 333,
+  "inplay_mid": 1349.2955220120093,
+  "pre": 7274.5018034508885,
+  "post": 98.7012
+ },
+ {
+  "title": "Matthias Bluebaum vs. Hikaru Nakamura - FIDE Candidates 2026 Open (Round 7)",
+  "start": "2026-04-05 12:45:00+00",
+  "gamma_vol": 13038.932753999998,
+  "inplay": 1781.6953421249689,
+  "n": 130,
+  "inplay_mid": 222.78014789274832,
+  "pre": 2674.2727799040395
+ },
+ {
+  "title": "Praggnanandhaa R vs. Fabiano Caruana - FIDE Candidates 2026 Open (Round 7)",
+  "start": "2026-04-05 12:45:00+00",
+  "gamma_vol": 20368.653672000004,
+  "inplay": 1256.8575670721586,
+  "n": 170,
+  "inplay_mid": 535.8608153320453,
+  "pre": 4970.912116332655
+ },
+ {
+  "title": "Anna Muzychuk vs. Divya Deshmukh - FIDE Candidates 2026 Women (Round 8)",
+  "start": "2026-04-07 12:45:00+00",
+  "gamma_vol": 243.574308,
+  "inplay": 160.96464937807954,
+  "n": 22,
+  "inplay_mid": 72.40524697405078,
+  "pre": 22.578161169051118
+ },
+ {
+  "title": "Andrey Esipenko vs. Javokhir Sindarov - FIDE Candidates 2026 Open (Round 8)",
+  "start": "2026-04-07 12:45:00+00",
+  "gamma_vol": 40902.096491,
+  "inplay": 1494.4957123844538,
+  "n": 176,
+  "inplay_mid": 1039.8546498946207,
+  "pre": 9167.780853608112
+ },
+ {
+  "title": "Bibisara Assaubayeva vs. Rameshbabu Vaishali - FIDE Candidates 2026 Women (Round 8)",
+  "start": "2026-04-07 12:45:00+00",
+  "gamma_vol": 188.161305,
+  "inplay": 94.54523375728482,
+  "n": 15,
+  "pre": 40.008407509213264,
+  "inplay_mid": 38.74952515728483
+ },
+ {
+  "title": "Yi Wei vs. Matthias Bluebaum - FIDE Candidates 2026 Open (Round 8)",
+  "start": "2026-04-07 12:45:00+00",
+  "gamma_vol": 4836.5204699999995,
+  "inplay": 1006.1541459241348,
+  "n": 71,
+  "inplay_mid": 329.19210190663307,
+  "pre": 1301.591199340607
+ },
+ {
+  "title": "Kateryna Lagno vs. Aleksandra Goryachkina - FIDE Candidates 2026 Women (Round 8)",
+  "start": "2026-04-07 12:45:00+00",
+  "gamma_vol": 140.025556,
+  "inplay": 73.30527464022379,
+  "n": 21,
+  "inplay_mid": 10.476069199999998,
+  "pre": 21.24463216180468
+ },
+ {
+  "title": "Anish Giri vs. Praggnanandhaa R - FIDE Candidates 2026 Open (Round 8)",
+  "start": "2026-04-07 12:45:00+00",
+  "gamma_vol": 14748.903482999995,
+  "post": 70.13978999999999,
+  "n": 92,
+  "inplay": 856.9887282076024,
+  "inplay_mid": 158.23165570627805,
+  "pre": 6371.154633397653
+ },
+ {
+  "title": "Zhongyi Tan vs. Jiner Zhu - FIDE Candidates 2026 Women (Round 8)",
+  "start": "2026-04-07 12:45:00+00",
+  "gamma_vol": 395.53242800000004,
+  "inplay": 386.998045884273,
+  "n": 10,
+  "inplay_mid": 9.964002799859994,
+  "pre": 1.422209
+ },
+ {
+  "title": "Hikaru Nakamura vs. Fabiano Caruana - FIDE Candidates 2026 Open (Round 8)",
+  "start": "2026-04-07 12:45:00+00",
+  "gamma_vol": 14870.059532000001,
+  "post": 59.33061,
+  "n": 259,
+  "inplay": 5393.068692860166,
+  "inplay_mid": 353.23837001868134,
+  "pre": 3016.449666796828
+ },
+ {
+  "title": "Hikaru Nakamura vs. Andrey Esipenko - FIDE Candidates 2026 Open (Round 9)",
+  "start": "2026-04-08 12:45:00+00",
+  "gamma_vol": 6672.610223,
+  "post": 27.49248,
+  "n": 195,
+  "inplay": 2533.5331630927753,
+  "inplay_mid": 1506.136483150734,
+  "pre": 1461.9171366316948
+ },
+ {
+  "title": "Zhongyi Tan vs. Anna Muzychuk - FIDE Candidates 2026 Women (Round 9)",
+  "start": "2026-04-08 12:45:00+00",
+  "gamma_vol": 552.840012,
+  "inplay": 379.37776313519674,
+  "n": 14,
+  "pre": 2.9196076303473064
+ },
+ {
+  "title": "Fabiano Caruana vs. Anish Giri - FIDE Candidates 2026 Open (Round 9)",
+  "start": "2026-04-08 12:45:00+00",
+  "gamma_vol": 7267.390880999999,
+  "inplay": 1532.9099412382477,
+  "n": 123,
+  "inplay_mid": 329.7543384344535,
+  "pre": 1867.2816346592347
+ },
+ {
+  "title": "Jiner Zhu vs. Kateryna Lagno - FIDE Candidates 2026 Women (Round 9)",
+  "start": "2026-04-08 12:45:00+00",
+  "gamma_vol": 253.16111,
+  "inplay": 248.96647065982248,
+  "n": 8,
+  "pre": 0.9940049999999999
+ },
+ {
+  "title": "Praggnanandhaa R vs. Yi Wei - FIDE Candidates 2026 Open (Round 9)",
+  "start": "2026-04-08 12:45:00+00",
+  "gamma_vol": 11373.461667999998,
+  "inplay": 3421.52589431818,
+  "n": 113,
+  "inplay_mid": 300.18060526854083,
+  "pre": 1665.5949762520695,
+  "post": 10.2897
+ },
+ {
+  "title": "Aleksandra Goryachkina vs. Bibisara Assaubayeva - FIDE Candidates 2026 Women (Round 9)",
+  "start": "2026-04-08 12:45:00+00",
+  "gamma_vol": 538.747649,
+  "inplay": 528.6489756067656,
+  "n": 22,
+  "inplay_mid": 4.73575,
+  "pre": 3.9118126300055294
+ },
+ {
+  "title": "Matthias Bluebaum vs. Javokhir Sindarov - FIDE Candidates 2026 Open (Round 9)",
+  "start": "2026-04-08 12:45:00+00",
+  "gamma_vol": 35416.396296000006,
+  "inplay": 9414.220998736198,
+  "n": 240,
+  "inplay_mid": 3617.402648252958,
+  "pre": 9873.470086676261
+ },
+ {
+  "title": "Rameshbabu Vaishali vs. Divya Deshmukh - FIDE Candidates 2026 Women (Round 9)",
+  "start": "2026-04-08 12:45:00+00",
+  "gamma_vol": 431.882145,
+  "inplay": 392.5067919314625,
+  "n": 23,
+  "pre": 9.273944406239119
+ },
+ {
+  "title": "Anna Muzychuk vs. Rameshbabu Vaishali - FIDE Candidates 2026 Women (Round 10)",
+  "start": "2026-04-09 12:45:00+00",
+  "gamma_vol": 1119.30187,
+  "inplay": 518.2696431121533,
+  "n": 39,
+  "pre": 335.4401593233812,
+  "inplay_mid": 0.9561996236519243
+ },
+ {
+  "title": "Andrey Esipenko vs. Matthias Bluebaum - FIDE Candidates 2026 Open (Round 10)",
+  "start": "2026-04-09 12:45:00+00",
+  "gamma_vol": 1283.103543,
+  "inplay": 475.18942411,
+  "n": 41,
+  "inplay_mid": 128.08566280000002,
+  "pre": 416.507763456557,
+  "post": 7.602390000000001
+ },
+ {
+  "title": "Divya Deshmukh vs. Aleksandra Goryachkina - FIDE Candidates 2026 Women (Round 10)",
+  "start": "2026-04-09 12:45:00+00",
+  "gamma_vol": 593.1779680000001,
+  "inplay": 255.0859958276221,
+  "n": 28,
+  "pre": 166.08134494301382
+ },
+ {
+  "title": "Javokhir Sindarov vs. Praggnanandhaa R - FIDE Candidates 2026 Open (Round 10)",
+  "start": "2026-04-09 12:45:00+00",
+  "gamma_vol": 9784.524896,
+  "post": 308.21147999999994,
+  "n": 269,
+  "inplay": 2944.738659985997,
+  "inplay_mid": 1453.1060423107426,
+  "pre": 2366.3881857971555
+ },
+ {
+  "title": "Bibisara Assaubayeva vs. Jiner Zhu - FIDE Candidates 2026 Women (Round 10)",
+  "start": "2026-04-09 12:45:00+00",
+  "gamma_vol": 494.27578000000005,
+  "inplay": 218.81770233256816,
+  "n": 29,
+  "pre": 162.4314736396368
+ },
+ {
+  "title": "Yi Wei vs. Fabiano Caruana - FIDE Candidates 2026 Open (Round 10)",
+  "start": "2026-04-09 12:45:00+00",
+  "gamma_vol": 5858.766475,
+  "inplay": 1444.8318381282936,
+  "n": 102,
+  "inplay_mid": 340.6301739034399,
+  "pre": 1507.2658158871338,
+  "post": 681.2480699999999
+ },
+ {
+  "title": "Kateryna Lagno vs. Zhongyi Tan - FIDE Candidates 2026 Women (Round 10)",
+  "start": "2026-04-09 12:45:00+00",
+  "gamma_vol": 811.0319519999999,
+  "inplay": 367.8461577469557,
+  "n": 21,
+  "pre": 152.3166700677725,
+  "post": 7.602390000000001,
+  "inplay_mid": 2.926200823615437
+ },
+ {
+  "title": "Anish Giri vs. Hikaru Nakamura - FIDE Candidates 2026 Open (Round 10)",
+  "start": "2026-04-09 12:45:00+00",
+  "gamma_vol": 4540.753434,
+  "inplay": 746.0008615732451,
+  "n": 97,
+  "inplay_mid": 363.0758290197985,
+  "pre": 1341.5977746906567
+ },
+ {
+  "title": "Anish Giri vs. Andrey Esipenko - FIDE Candidates 2026 Open (Round 11)",
+  "start": "2026-04-11 12:45:00+00",
+  "gamma_vol": 2464.117542,
+  "inplay": 989.0174337606937,
+  "n": 95,
+  "inplay_mid": 315.48777669252587,
+  "pre": 595.6469612302503
+ },
+ {
+  "title": "Kateryna Lagno vs. Anna Muzychuk - FIDE Candidates 2026 Women (Round 11)",
+  "start": "2026-04-11 12:45:00+00",
+  "gamma_vol": 3111.880476,
+  "post": 2213.4689913020834,
+  "n": 62,
+  "inplay": 318.2270004273118,
+  "inplay_mid": 28.4145,
+  "pre": 8.031091230889853
+ },
+ {
+  "title": "Hikaru Nakamura vs. Yi Wei - FIDE Candidates 2026 Open (Round 11)",
+  "start": "2026-04-11 12:45:00+00",
+  "gamma_vol": 4662.848466,
+  "inplay": 2654.3040612477903,
+  "n": 89,
+  "inplay_mid": 133.40852510203138,
+  "pre": 599.4711308031925
+ },
+ {
+  "title": "Zhongyi Tan vs. Bibisara Assaubayeva - FIDE Candidates 2026 Women (Round 11)",
+  "start": "2026-04-11 12:45:00+00",
+  "gamma_vol": 24039.877859,
+  "post": 1358.7520992095535,
+  "n": 52,
+  "inplay": 39.452029800000005,
+  "inplay_mid": 28.4145,
+  "pre": 70.92722543635564
+ },
+ {
+  "title": "Fabiano Caruana vs. Javokhir Sindarov - FIDE Candidates 2026 Open (Round 11)",
+  "start": "2026-04-11 12:45:00+00",
+  "gamma_vol": 18042.893444000005,
+  "post": 1988.5725908533188,
+  "n": 192,
+  "inplay": 1274.7136308231368,
+  "inplay_mid": 709.9831290470722,
+  "pre": 2779.7742630188895
+ },
+ {
+  "title": "Jiner Zhu vs. Divya Deshmukh - FIDE Candidates 2026 Women (Round 11)",
+  "start": "2026-04-11 12:45:00+00",
+  "gamma_vol": 4279.203692,
+  "post": 50.12975742501613,
+  "n": 36,
+  "inplay": 613.239842906739,
+  "pre": 131.20967356240217,
+  "inplay_mid": 35.9072394
+ },
+ {
+  "title": "Praggnanandhaa R vs. Matthias Bluebaum - FIDE Candidates 2026 Open (Round 11)",
+  "start": "2026-04-11 12:45:00+00",
+  "gamma_vol": 2229.306708,
+  "post": 29.97,
+  "n": 71,
+  "inplay": 603.4019071818038,
+  "inplay_mid": 217.55026518626934,
+  "pre": 446.021594340591
+ },
+ {
+  "title": "Aleksandra Goryachkina vs. Rameshbabu Vaishali - FIDE Candidates 2026 Women (Round 11)",
+  "start": "2026-04-11 12:45:00+00",
+  "gamma_vol": 3057.134418,
+  "post": 347.93349724630514,
+  "n": 38,
+  "inplay": 565.510991289028,
+  "pre": 85.8968064
+ },
+ {
+  "title": "Andrey Esipenko vs. Praggnanandhaa R - FIDE Candidates 2026 Open (Round 12)",
+  "start": "2026-04-12 12:45:00+00",
+  "gamma_vol": 768.286486,
+  "inplay": 532.2196819882471,
+  "n": 38,
+  "inplay_mid": 110.47811193383029,
+  "pre": 72.97115583783135
+ },
+ {
+  "title": "Anna Muzychuk vs. Aleksandra Goryachkina - FIDE Candidates 2026 Women (Round 12)",
+  "start": "2026-04-12 12:45:00+00",
+  "gamma_vol": 8279.889678,
+  "inplay": 5820.699802675469,
+  "n": 52,
+  "inplay_mid": 61.07626500444725,
+  "post": 573.41158528,
+  "pre": 4.912645307698996
+ },
+ {
+  "title": "Matthias Bluebaum vs. Fabiano Caruana - FIDE Candidates 2026 Open (Round 12)",
+  "start": "2026-04-12 12:45:00+00",
+  "gamma_vol": 614.639259,
+  "inplay": 446.65791121929084,
+  "n": 27,
+  "inplay_mid": 58.499173098669246,
+  "pre": 47.68701409745708
+ },
+ {
+  "title": "Rameshbabu Vaishali vs. Jiner Zhu - FIDE Candidates 2026 Women (Round 12)",
+  "start": "2026-04-12 12:45:00+00",
+  "gamma_vol": 430.637,
+  "inplay": 408.35606163451115,
+  "n": 14,
+  "pre": 10.061075,
+  "inplay_mid": 3.57776
+ },
+ {
+  "title": "Javokhir Sindarov vs. Hikaru Nakamura - FIDE Candidates 2026 Open (Round 12)",
+  "start": "2026-04-12 12:45:00+00",
+  "gamma_vol": 47073.136415999994,
+  "inplay": 2738.500162910941,
+  "n": 233,
+  "inplay_mid": 146.95716347413776,
+  "pre": 3903.3237053862576
+ },
+ {
+  "title": "Divya Deshmukh vs. Zhongyi Tan - FIDE Candidates 2026 Women (Round 12)",
+  "start": "2026-04-12 12:45:00+00",
+  "gamma_vol": 303.1286,
+  "inplay": 292.8877078912459,
+  "n": 9,
+  "pre": 4.916262975584257
+ },
+ {
+  "title": "Yi Wei vs. Anish Giri - FIDE Candidates 2026 Open (Round 12)",
+  "start": "2026-04-12 12:45:00+00",
+  "gamma_vol": 2980.9613659999995,
+  "inplay": 1342.3146898631746,
+  "n": 62,
+  "inplay_mid": 435.5085473627555,
+  "pre": 78.678696055831,
+  "post": 49.28580939794025
+ },
+ {
+  "title": "Bibisara Assaubayeva vs. Kateryna Lagno - FIDE Candidates 2026 Women (Round 12)",
+  "start": "2026-04-12 12:45:00+00",
+  "gamma_vol": 496.469803,
+  "inplay": 482.13617202332136,
+  "n": 11,
+  "pre": 4.901966519309012,
+  "inplay_mid": 2.37503
+ },
+ {
+  "title": "Yi Wei vs. Andrey Esipenko - FIDE Candidates 2026 Open (Round 13)",
+  "start": "2026-04-14 12:45:00+00",
+  "gamma_vol": 6880.4642890000005,
+  "post": 14.275241800000002,
+  "n": 55,
+  "inplay": 1244.706680687809,
+  "inplay_mid": 53.572489121952366,
+  "pre": 1170.2374509200238
+ },
+ {
+  "title": "Bibisara Assaubayeva vs. Anna Muzychuk - FIDE Candidates 2026 Women (Round 13)",
+  "start": "2026-04-14 12:45:00+00",
+  "gamma_vol": 207.206552,
+  "inplay": 27.308979160000003,
+  "n": 13,
+  "pre": 87.5232102761094,
+  "inplay_mid": 10.5114051
+ },
+ {
+  "title": "Kateryna Lagno vs. Divya Deshmukh - FIDE Candidates 2026 Women (Round 13)",
+  "start": "2026-04-14 12:45:00+00",
+  "gamma_vol": 2314.643572,
+  "inplay": 521.5707791958245,
+  "n": 37,
+  "pre": 237.5385826834701,
+  "post": 284.49521999999996,
+  "inplay_mid": 10.5114051
+ },
+ {
+  "title": "Anish Giri vs. Javokhir Sindarov - FIDE Candidates 2026 Open (Round 13)",
+  "start": "2026-04-14 12:45:00+00",
+  "gamma_vol": 4329.550153,
+  "inplay": 1949.7002624756142,
+  "n": 112,
+  "inplay_mid": 169.36711816605657,
+  "pre": 944.0845367051809
+ },
+ {
+  "title": "Zhongyi Tan vs. Rameshbabu Vaishali - FIDE Candidates 2026 Women (Round 13)",
+  "start": "2026-04-14 12:45:00+00",
+  "gamma_vol": 2180.412423,
+  "post": 44.73622,
+  "n": 39,
+  "inplay": 424.5678013919521,
+  "pre": 256.3987028378629
+ },
+ {
+  "title": "Hikaru Nakamura vs. Matthias Bluebaum - FIDE Candidates 2026 Open (Round 13)",
+  "start": "2026-04-14 12:45:00+00",
+  "gamma_vol": 14557.809517000002,
+  "post": 289.71,
+  "n": 190,
+  "inplay": 415.65928540173826,
+  "inplay_mid": 150.81211433932177,
+  "pre": 3974.317451133223
+ },
+ {
+  "title": "Jiner Zhu vs. Aleksandra Goryachkina - FIDE Candidates 2026 Women (Round 13)",
+  "start": "2026-04-14 12:45:00+00",
+  "gamma_vol": 997.9171729999999,
+  "inplay": 380.02586884232056,
+  "n": 16,
+  "pre": 240.64350254052843
+ },
+ {
+  "title": "Fabiano Caruana vs. Praggnanandhaa R - FIDE Candidates 2026 Open (Round 13)",
+  "start": "2026-04-14 12:45:00+00",
+  "gamma_vol": 3206.427627,
+  "inplay": 496.6145634542013,
+  "n": 123,
+  "inplay_mid": 260.2877589989363,
+  "pre": 639.9784551444616
+ },
+ {
+  "title": "Anna Muzychuk vs. Jiner Zhu - FIDE Candidates 2026 Women (Round 14)",
+  "start": "2026-04-15 12:45:00+00",
+  "gamma_vol": 344.320587,
+  "inplay": 332.80833716654786,
+  "n": 8,
+  "pre": 0.9808094030704704
+ },
+ {
+  "title": "Andrey Esipenko vs. Fabiano Caruana - FIDE Candidates 2026 Open (Round 14)",
+  "start": "2026-04-15 12:45:00+00",
+  "gamma_vol": 2979.985964,
+  "inplay": 2650.0754931126485,
+  "n": 127,
+  "inplay_mid": 130.66533183336608,
+  "pre": 57.651842202766545
+ },
+ {
+  "title": "Praggnanandhaa R vs. Hikaru Nakamura - FIDE Candidates 2026 Open (Round 14)",
+  "start": "2026-04-15 12:45:00+00",
+  "gamma_vol": 1480.800599,
+  "inplay": 299.19974943707086,
+  "n": 56,
+  "inplay_mid": 72.98820856441147,
+  "pre": 267.97012512455535
+ },
+ {
+  "title": "Aleksandra Goryachkina vs. Zhongyi Tan - FIDE Candidates 2026 Women (Round 14)",
+  "start": "2026-04-15 12:45:00+00",
+  "gamma_vol": 452.472031,
+  "inplay": 433.0498118086529,
+  "n": 12,
+  "pre": 10.631626121764652
+ },
+ {
+  "title": "Matthias Bluebaum vs. Anish Giri - FIDE Candidates 2026 Open (Round 14)",
+  "start": "2026-04-15 12:45:00+00",
+  "gamma_vol": 4201.380954,
+  "inplay": 657.3608282283808,
+  "n": 156,
+  "inplay_mid": 200.84913427581688,
+  "pre": 1212.3834654036516
+ },
+ {
+  "title": "Rameshbabu Vaishali vs. Kateryna Lagno - FIDE Candidates 2026 Women (Round 14)",
+  "start": "2026-04-15 12:45:00+00",
+  "gamma_vol": 1119.664207,
+  "inplay": 574.3556288417147,
+  "n": 29,
+  "inplay_mid": 21.3428394507779,
+  "pre": 281.8430595728894
+ },
+ {
+  "title": "Javokhir Sindarov vs. Yi Wei - FIDE Candidates 2026 Open (Round 14)",
+  "start": "2026-04-15 12:45:00+00",
+  "gamma_vol": 17409.321893,
+  "inplay": 991.8973449740677,
+  "n": 142,
+  "inplay_mid": 40.79641694,
+  "pre": 1692.120944820658
+ },
+ {
+  "title": "Divya Deshmukh vs. Bibisara Assaubayeva - FIDE Candidates 2026 Women (Round 14)",
+  "start": "2026-04-15 12:45:00+00",
+  "gamma_vol": 1810.3226230000002,
+  "inplay": 416.7700256682825,
+  "n": 51,
+  "inplay_mid": 58.308570598298,
+  "pre": 564.1529124911505
+ },
+ {
+  "title": "Maxime Vachier-Lagrave vs. Javokhir Sindarov - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 6)",
+  "start": "2026-05-06 15:03:00+00",
+  "gamma_vol": 3901.163925,
+  "post": 3698.513299972922,
+  "n": 23,
+  "inplay": 93.34045500005489,
+  "inplay_mid": 26.71349200041193
+ },
+ {
+  "title": "Fabiano Caruana vs. Jan-Krzysztof Duda - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 6)",
+  "start": "2026-05-06 15:03:00+00",
+  "gamma_vol": 5026.64,
+  "post": 4986.007900156802,
+  "n": 8
+ },
+ {
+  "title": "Vladimir Fedoseev vs. Radoslaw Wojtaszek - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 6)",
+  "start": "2026-05-06 15:03:00+00",
+  "gamma_vol": 3832.1800000000003,
+  "post": 3755.155100001365,
+  "n": 9
+ },
+ {
+  "title": "Alireza Firouzja vs. Hans Moke Niemann - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 6)",
+  "start": "2026-05-06 15:03:00+00",
+  "gamma_vol": 3845.5099999999998,
+  "post": 3804.48720006846,
+  "n": 6
+ },
+ {
+  "title": "Hans Moke Niemann vs. Wesley So - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 7)",
+  "start": "2026-05-07 12:03:00+00",
+  "gamma_vol": 949.876753,
+  "inplay": 414.123000000845,
+  "n": 12,
+  "pre": 4.999996999729852
+ },
+ {
+  "title": "D Gukesh vs. Maxime Vachier-Lagrave - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 7)",
+  "start": "2026-05-07 12:03:00+00",
+  "gamma_vol": 2612.578064,
+  "inplay": 2111.1381099618984,
+  "n": 169,
+  "pre": 140.7875220001049,
+  "inplay_mid": 23.0
+ },
+ {
+  "title": "Jan-Krzysztof Duda vs. Alireza Firouzja - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 7)",
+  "start": "2026-05-07 12:03:00+00",
+  "gamma_vol": 647.7821,
+  "inplay": 564.154606999356,
+  "n": 17,
+  "inplay_mid": 19.0
+ },
+ {
+  "title": "Javokhir Sindarov vs. Vladimir Fedoseev - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 7)",
+  "start": "2026-05-07 12:03:00+00",
+  "gamma_vol": 395.53,
+  "inplay": 388.83269999999993,
+  "n": 7,
+  "inplay_mid": 21.0
+ },
+ {
+  "title": "Radoslaw Wojtaszek vs. Fabiano Caruana - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 7)",
+  "start": "2026-05-07 12:03:00+00",
+  "gamma_vol": 931.69,
+  "inplay": 431.951099996435,
+  "n": 7
+ },
+ {
+  "title": "Fabiano Caruana vs. Javokhir Sindarov - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 8)",
+  "start": "2026-05-07 13:33:00+00",
+  "gamma_vol": 614.0598330000001,
+  "inplay": 579.246883004488,
+  "n": 14
+ },
+ {
+  "title": "Alireza Firouzja vs. Radoslaw Wojtaszek - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 8)",
+  "start": "2026-05-07 13:33:00+00",
+  "gamma_vol": 517.26125,
+  "inplay": 500.4533640121962,
+  "n": 19,
+  "inplay_mid": 5.92
+ },
+ {
+  "title": "Vladimir Fedoseev vs. D Gukesh - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 8)",
+  "start": "2026-05-07 13:33:00+00",
+  "gamma_vol": 744.551749,
+  "inplay": 739.7788049987762,
+  "n": 17
+ },
+ {
+  "title": "Wesley So vs. Maxime Vachier-Lagrave - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 8)",
+  "start": "2026-05-07 13:33:00+00",
+  "gamma_vol": 1486.609333,
+  "inplay": 752.5454230003376,
+  "n": 27
+ },
+ {
+  "title": "Hans Moke Niemann vs. Jan-Krzysztof Duda - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 8)",
+  "start": "2026-05-07 13:33:00+00",
+  "gamma_vol": 801.879166,
+  "inplay": 686.7443890087617,
+  "n": 37,
+  "inplay_mid": 21.0
+ },
+ {
+  "title": "Maxime Vachier-Lagrave vs. Vladimir Fedoseev - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 9)",
+  "start": "2026-05-07 15:03:00+00",
+  "gamma_vol": 1125.1000000000001,
+  "post": 1121.3018099948192,
+  "n": 27
+ },
+ {
+  "title": "Jan-Krzysztof Duda vs. Wesley So - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 9)",
+  "start": "2026-05-07 15:03:00+00",
+  "gamma_vol": 1621.691408,
+  "inplay": 1424.038219002225,
+  "n": 126,
+  "inplay_mid": 0.9999990000538559
+ },
+ {
+  "title": "Radoslaw Wojtaszek vs. Hans Moke Niemann - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 9)",
+  "start": "2026-05-07 15:03:00+00",
+  "gamma_vol": 466.71000000000004,
+  "inplay": 384.98609998864197,
+  "n": 10
+ },
+ {
+  "title": "Javokhir Sindarov vs. Alireza Firouzja - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 9)",
+  "start": "2026-05-07 15:03:00+00",
+  "gamma_vol": 620.404531,
+  "post": 227.17829499886398,
+  "n": 23,
+  "inplay": 217.7862210098255,
+  "pre": 1.9999989997959955
+ },
+ {
+  "title": "D Gukesh vs. Fabiano Caruana - GCT: Super Rapid & Blitz Poland 2026 | Rapid (Round 9)",
+  "start": "2026-05-07 15:03:00+00",
+  "gamma_vol": 379.073511,
+  "post": 330.299200001112,
+  "n": 17,
+  "inplay": 1.4000000000000004,
+  "inplay_mid": 1.2000000000000002,
+  "pre": 5.7099980001230435
+ },
+ {
+  "title": "Hans Moke Niemann vs. Vladimir Fedoseev - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 11)",
+  "start": "2026-05-09 12:30:00+00",
+  "gamma_vol": 1417.9985680000002,
+  "inplay": 127.14604099800835,
+  "n": 46,
+  "pre": 788.6358660015977
+ },
+ {
+  "title": "Radoslaw Wojtaszek vs. Vladimir Fedoseev - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 23)",
+  "start": "2026-05-09 14:00:00+00",
+  "gamma_vol": null
+ },
+ {
+  "title": "D Gukesh vs. Fabiano Caruana - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 23)",
+  "start": "2026-05-09 14:00:00+00",
+  "gamma_vol": null
+ },
+ {
+  "title": "Maxime Vachier-Lagrave vs. D Gukesh - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 24)",
+  "start": "2026-05-09 14:30:00+00",
+  "gamma_vol": null
+ },
+ {
+  "title": "Hans Moke Niemann vs. Javokhir Sindarov - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 24)",
+  "start": "2026-05-09 14:30:00+00",
+  "gamma_vol": null
+ },
+ {
+  "title": "Vladimir Fedoseev vs. Alireza Firouzja - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 24)",
+  "start": "2026-05-09 14:30:00+00",
+  "gamma_vol": null
+ },
+ {
+  "title": "Javokhir Sindarov vs. Vladimir Fedoseev - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 25)",
+  "start": "2026-05-09 15:00:00+00",
+  "gamma_vol": null
+ },
+ {
+  "title": "Alireza Firouzja vs. Wesley So - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 25)",
+  "start": "2026-05-09 15:00:00+00",
+  "gamma_vol": null
+ },
+ {
+  "title": "Maxime Vachier-Lagrave vs. Radoslaw Wojtaszek - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 26)",
+  "start": "2026-05-09 15:30:00+00",
+  "gamma_vol": null
+ },
+ {
+  "title": "Fabiano Caruana vs. Alireza Firouzja - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 26)",
+  "start": "2026-05-09 15:30:00+00",
+  "gamma_vol": null
+ },
+ {
+  "title": "Hans Moke Niemann vs. Jan-Krzysztof Duda - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 26)",
+  "start": "2026-05-09 15:30:00+00",
+  "gamma_vol": null
+ },
+ {
+  "title": "D Gukesh vs. Javokhir Sindarov - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 26)",
+  "start": "2026-05-09 15:30:00+00",
+  "gamma_vol": null
+ },
+ {
+  "title": "Wesley So vs. Vladimir Fedoseev - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 26)",
+  "start": "2026-05-09 15:30:00+00",
+  "gamma_vol": null
+ },
+ {
+  "title": "Alireza Firouzja vs. Maxime Vachier-Lagrave - GCT: Super Rapid & Blitz Poland 2026 | Blitz (Round 27)",
+  "start": "2026-05-09 16:00:00+00",
+  "gamma_vol": null
+ }
+]
