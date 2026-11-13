@@ -24,8 +24,10 @@ SPORTS = {
     "soccer":   "/inplay-soccer.gz",
     "baseball": "/inplay-baseball.gz",
     "hockey_nhl": "/inplay-hockey.gz",
-    # basketball (no inplay-*.gz on this trial: 404), cricket + esports (LoL/CS2/Dota2)
-    # have no Goalserve inplay feed; cricket overlap captured via TheSports/ESPN per task.
+    "esports":   "/inplay-esports.gz",
+    # esports added 13 Nov 14:0xZ under APPROVALS item 18 (Nick yes 13:46Z); poll stays 1.0 s.
+    # inplay-basket.gz / inplay-volleyball.gz measured HTTP 200 on 13 Nov but are OUT of
+    # approved scope; inplay-cricket.gz is 404 (no such feed).
 }
 os.makedirs(OUT, exist_ok=True)
 
