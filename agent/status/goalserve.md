@@ -1,13 +1,14 @@
-# status: Goalserve trial — capture RUNNING (Part A started)
+# status: Goalserve trial — capture RUNNING (Part A), 4 sports
 
-Updated: 12 Nov 2026 ~21:55Z UTC
+Updated: 12 Nov 2026 ~21:56Z UTC
 
-- **Env file:** `/etc/pkarbs/goalserve.env` — mode 600, `GOALSERVE_USER=…`, `GOALSERVE_KEY=…` (never printed/committed).
+- **Env file:** `/etc/pkarbs/goalserve.env` — mode 600, GOALSERVE_USER + GOALSERVE_KEY (never printed/committed).
 - **Egress-IP whitelist: yes** (prior check + IT).
-- **Auth:** HTTP polling authenticated with user+key — `inplay-tennis.gz?user&key` = HTTP 200 (verified 2×, 556 KB / 551 KB, poll ~221 ms).
-- **gettoken (WebSocket token):** still 400 — separate/unactivated path; not needed for the HTTP polling capture.
-- **Capture:** RUNNING — tmux session `goalserve`, `live/goalserve/capture.py`, logs `/vol2/goalserve/goalserve_YYYYMMDD.jsonl`. Per poll: recv_ns, HTTP Date(0), payload sha1, change first-seen. Polling tennis, cricket, soccer, basketball.
-  - tennis: OK; soccer: OK; `inplay-cricket.gz` → **404** (cricket uses a different Goalserve endpoint — needs the correct URL); basketball: to confirm.
-- **Next:** add the correct cricket endpoint (and the task's remaining sports: LoL, CS2, Dota 2, NHL); align PM/CLOB + TheSports recorders per Part A; run through the trial. SMOKE: first log row 2026-11-13T02:38Z.
+- **Auth:** user+key authenticated — `inplay-tennis.gz?user&key` HTTP 200 (~221 ms).
+- **GET TOKEN (`live.goalserve.com/api/v1/auth/gettoken`):** 400 in every field mapping — separate/unactivated; not needed for HTTP polling.
+- **Capture:** RUNNING, tmux `goalserve`, `live/goalserve/capture.py`, log `/vol2/goalserve/goalserve_YYYYMMDD.jsonl` (recv_ns, sha1, change first-seen per poll).
+  - Polling (verified OK): **tennis, soccer, baseball, hockey (NHL)**.
+  - Not available as a Goalserve inplay feed on this trial: basketball (404), cricket (404), esports Lol/CS2/Dota2 (404/empty). Cricket overlap is captured via TheSports/ESPN per the task; the task's esports items need a Goalserve feed that does not exist.
+- Started 02:38Z 13 Nov; ~1 poll/s, error-safe (429/404 logged and skipped).
 
-Blocked on: correct Goalserve cricket endpoint (inplay-cricket.gz 404). Otherwise running.
+Next: bind the PM/CLOB + TheSports recorders for the matching markets (Part A alignment); cricket/esports request to IT if the endpoints are meant to exist (inplay-cricket.gz 404).

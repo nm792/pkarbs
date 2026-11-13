@@ -21,9 +21,11 @@ BASE = "https://inplay.goalserve.com"
 OUT = "/vol2/goalserve"
 SPORTS = {
     "tennis":   "/inplay-tennis.gz",
-    "cricket":  "/inplay-cricket.gz",
     "soccer":   "/inplay-soccer.gz",
-    "basketball": "/inplay-basketball.gz",
+    "baseball": "/inplay-baseball.gz",
+    "hockey_nhl": "/inplay-hockey.gz",
+    # basketball (no inplay-*.gz on this trial: 404), cricket + esports (LoL/CS2/Dota2)
+    # have no Goalserve inplay feed; cricket overlap captured via TheSports/ESPN per task.
 }
 os.makedirs(OUT, exist_ok=True)
 
