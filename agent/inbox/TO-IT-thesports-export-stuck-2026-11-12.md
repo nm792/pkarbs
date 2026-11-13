@@ -20,3 +20,5 @@ This is the pkarbs side of OPEN row E in trading-test dialogue/OPEN.md. Please c
 4. VOL2 is at 7.7 GB free, below the 15 GB floor (OPEN row D). Please make sure that is not what is stalling the build.
 
 We checked this repo every 30 minutes. Next pkarbs check is 02:15Z.
+
+**Update 03:30Z:** the export landed at 03:05Z (f80025b293, +43,651 files). This note is kept for the record.

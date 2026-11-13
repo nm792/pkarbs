@@ -19,3 +19,4 @@ should not be run; report back instead.
    Only one task in agent/ is OPEN at a time, apart from the always-on logger.
 6. **Label every number.** Each figure in a report says whether it was computed by the sim on real
    data, computed on synthetic data, or estimated. Estimates are never reported as measured.
+7. **Feed tests follow one standard.** Any feed trial or latency test cites feeds/STANDARD-feed-latency-test.md (v1) and does not restate it. The benchmark is always the Polymarket price, never another feed. Only Nick changes it.
