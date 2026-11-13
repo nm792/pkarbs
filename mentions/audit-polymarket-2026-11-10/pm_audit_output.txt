@@ -1,0 +1,113 @@
+ALL909 thr=0.03 causal=False: bets 338/909 pnl $1732 on $3898 fees(listed) $48 fees(all@4%) $81 net $1684/$1652 | P1 $1017±419 z=1.71 | P2 $1027±460 z=1.54 | paired t=1.49 clusterM t=2.40(17) clusterW(real-pl) t=1.51(62) | top3 $465 exTop10 $712 | wins 195/338 | LS 0.1248 t=7.2 n=2525
+ALL909 thr=0.05 causal=False: bets 328/909 pnl $2178 on $3656 fees(listed) $45 fees(all@4%) $79 net $2134/$2100 | P1 $1029±408 z=2.82 | P2 $1036±457 z=2.48 | paired t=2.55 clusterM t=2.83(17) clusterW(real-pl) t=2.70(62) | top3 $510 exTop10 $1017 | wins 187/328 | LS 0.1248 t=7.2 n=2525
+ALL909 thr=0.1 causal=False: bets 285/909 pnl $2409 on $3001 fees(listed) $41 fees(all@4%) $69 net $2368/$2340 | P1 $925±365 z=4.06 | P2 $975±420 z=3.41 | paired t=3.68 clusterM t=3.82(17) clusterW(real-pl) t=3.82(61) | top3 $510 exTop10 $1325 | wins 161/285 | LS 0.1248 t=7.2 n=2525
+ALL909 thr=0.03 causal=True: bets 337/909 pnl $1637 on $3807 fees(listed) $47 fees(all@4%) $80 net $1589/$1556 | P1 $1017±422 z=1.47 | P2 $1045±470 z=1.22 | paired t=1.32 clusterM t=2.30(17) clusterW(real-pl) t=1.25(62) | top3 $465 exTop10 $616 | wins 189/337 | LS 0.1212 t=7.0 n=2525
+ALL909 thr=0.05 causal=True: bets 325/909 pnl $2087 on $3660 fees(listed) $45 fees(all@4%) $79 net $2043/$2008 | P1 $992±412 z=2.66 | P2 $1051±453 z=2.28 | paired t=2.40 clusterM t=2.77(17) clusterW(real-pl) t=2.50(62) | top3 $510 exTop10 $925 | wins 182/325 | LS 0.1212 t=7.0 n=2525
+ALL909 thr=0.1 causal=True: bets 285/909 pnl $2342 on $2970 fees(listed) $40 fees(all@4%) $68 net $2302/$2274 | P1 $857±343 z=4.33 | P2 $917±389 z=3.66 | paired t=3.81 clusterM t=3.74(17) clusterW(real-pl) t=3.98(61) | top3 $510 exTop10 $1258 | wins 159/285 | LS 0.1212 t=7.0 n=2525
+median t0 2026-07-02 19:42:17.623601 events 909
+thr 0.03 EARLIER half (calendar): bets 149/454 pnl $354 on $1970 fees(listed) $11 fees(all@4%) $40 net $342/$314 | P1 $110±361 z=0.68 | P2 $-289±364 z=1.45 | paired t=0.55 clusterM t=0.96(13) clusterW(real-pl) t=0.52(44) | top3 $465 exTop10 $-467 | wins 73/149
+thr 0.03 LATER half (calendar): bets 188/455 pnl $1283 on $1836 fees(listed) $36 fees(all@4%) $40 net $1247/$1243 | P1 $887±206 z=1.92 | P2 $1101±256 z=0.73 | paired t=1.94 clusterM t=2.66(5) clusterW(real-pl) t=2.07(19) | top3 $286 exTop10 $709 | wins 116/188
+thr 0.03 per-family later half (build style): bets 185/456 pnl $1146 on $1798 fees(listed) $35 fees(all@4%) $40 net $1110/$1106 | P1 $853±206 z=1.42 | P2 $1097±251 z=0.19 | paired t=1.41 clusterM t=2.06(8) clusterW(real-pl) t=1.50(29) | top3 $286 exTop10 $572 | wins 111/185
+thr 0.05 EARLIER half (calendar): bets 143/454 pnl $720 on $1877 fees(listed) $8 fees(all@4%) $39 net $712/$681 | P1 $142±350 z=1.65 | P2 $-169±370 z=2.13 | paired t=1.46 clusterM t=1.63(13) clusterW(real-pl) t=1.53(44) | top3 $510 exTop10 $-263 | wins 69/143
+thr 0.05 LATER half (calendar): bets 182/455 pnl $1367 on $1784 fees(listed) $36 fees(all@4%) $40 net $1331/$1327 | P1 $867±204 z=2.45 | P2 $1121±243 z=1.02 | paired t=2.41 clusterM t=2.65(5) clusterW(real-pl) t=2.45(19) | top3 $286 exTop10 $785 | wins 113/182
+thr 0.05 per-family later half (build style): bets 181/456 pnl $1244 on $1757 fees(listed) $36 fees(all@4%) $40 net $1208/$1204 | P1 $839±197 z=2.06 | P2 $1137±257 z=0.39 | paired t=1.88 clusterM t=2.05(8) clusterW(real-pl) t=1.84(29) | top3 $286 exTop10 $662 | wins 108/181
+thr 0.1 EARLIER half (calendar): bets 117/454 pnl $966 on $1404 fees(listed) $7 fees(all@4%) $32 net $959/$934 | P1 $137±303 z=2.74 | P2 $-130±301 z=3.30 | paired t=2.44 clusterM t=2.69(13) clusterW(real-pl) t=2.56(43) | top3 $510 exTop10 $-17 | wins 56/117
+thr 0.1 LATER half (calendar): bets 168/455 pnl $1376 on $1566 fees(listed) $33 fees(all@4%) $36 net $1342/$1339 | P1 $733±168 z=3.82 | P2 $959±193 z=2.13 | paired t=3.58 clusterM t=3.20(5) clusterW(real-pl) t=3.73(19) | top3 $208 exTop10 $870 | wins 103/168
+thr 0.1 per-family later half (build style): bets 167/456 pnl $1244 on $1534 fees(listed) $32 fees(all@4%) $36 net $1211/$1208 | P1 $715±174 z=3.03 | P2 $999±201 z=1.21 | paired t=2.85 clusterM t=2.32(8) clusterW(real-pl) t=2.91(29) | top3 $208 exTop10 $738 | wins 98/167
+== by family (causal 3c / 5c / 10c)
+ trump-event thr 0.03: bets 144/271 pnl $354 on $1714 fees(listed) $13 fees(all@4%) $36 net $341/$318 | P1 $122±305 z=0.76 | P2 $43±343 z=0.92 | paired t=0.70 clusterM t=1.08(17) clusterW(real-pl) t=0.72(59) | top3 $380 exTop10 $-311 | wins 64/144
+ other thr 0.03: bets 100/376 pnl $645 on $1064 fees(listed) $14 fees(all@4%) $22 net $630/$623 | P1 $306±200 z=1.69 | P2 $429±239 z=0.95 | paired t=1.45 clusterM t=2.39(10) clusterW(real-pl) t=1.85(37) | top3 $304 exTop10 $82 | wins 61/100
+ trump-weekly thr 0.03: bets 19/83 pnl $222 on $197 fees(listed) $3 fees(all@4%) $4 net $218/$217 | P1 $117±89 z=1.18 | P2 $147±76 z=0.89 | paired t=1.42 clusterM t=1.96(12) clusterW(real-pl) t=1.38(17) | top3 $131 exTop10 $-22 | wins 15/19
+ earnings-call thr 0.03: bets 34/112 pnl $374 on $373 fees(listed) $7 fees(all@4%) $8 net $367/$365 | P1 $251±85 z=1.45 | P2 $290±113 z=0.73 | paired t=1.75 clusterM t=1.68(9) clusterW(real-pl) t=2.50(16) | top3 $196 exTop10 $33 | wins 25/34
+ sports-announcers thr 0.03: bets 40/67 pnl $43 on $458 fees(listed) $10 fees(all@4%) $10 net $33/$33 | P1 $225±160 z=-1.13 | P2 $137±181 z=-0.55 | paired t=-0.78 clusterM t=0.33(5) clusterW(real-pl) t=-0.67(6) | top3 $86 exTop10 $-166 | wins 24/40
+ trump-event thr 0.05: bets 141/271 pnl $618 on $1780 fees(listed) $14 fees(all@4%) $39 net $604/$579 | P1 $178±321 z=1.37 | P2 $33±358 z=1.68 | paired t=1.19 clusterM t=1.62(17) clusterW(real-pl) t=1.20(58) | top3 $495 exTop10 $-217 | wins 63/141
+ other thr 0.05: bets 96/376 pnl $640 on $997 fees(listed) $14 fees(all@4%) $21 net $626/$618 | P1 $292±196 z=1.77 | P2 $441±242 z=0.81 | paired t=1.51 clusterM t=2.28(10) clusterW(real-pl) t=1.92(35) | top3 $304 exTop10 $77 | wins 57/96
+ trump-weekly thr 0.05: bets 17/83 pnl $221 on $194 fees(listed) $3 fees(all@4%) $4 net $218/$217 | P1 $115±90 z=1.18 | P2 $148±74 z=0.81 | paired t=1.42 clusterM t=1.95(12) clusterW(real-pl) t=1.39(15) | top3 $131 exTop10 $-23 | wins 13/17
+ earnings-call thr 0.05: bets 32/112 pnl $389 on $358 fees(listed) $7 fees(all@4%) $8 net $382/$381 | P1 $251±87 z=1.59 | P2 $290±107 z=0.93 | paired t=2.00 clusterM t=1.59(9) clusterW(real-pl) t=2.88(16) | top3 $196 exTop10 $34 | wins 24/32
+ sports-announcers thr 0.05: bets 39/67 pnl $220 on $331 fees(listed) $7 fees(all@4%) $7 net $213/$213 | P1 $170±64 z=0.77 | P2 $140±75 z=1.06 | paired t=0.76 clusterM t=1.61(5) clusterW(real-pl) t=0.64(6) | top3 $91 exTop10 $4 | wins 25/39
+ trump-event thr 0.1: bets 125/271 pnl $1064 on $1342 fees(listed) $12 fees(all@4%) $32 net $1052/$1033 | P1 $161±255 z=3.54 | P2 $8±280 z=3.68 | paired t=3.09 clusterM t=3.67(17) clusterW(real-pl) t=2.99(55) | top3 $495 exTop10 $218 | wins 62/125
+ other thr 0.1: bets 82/376 pnl $537 on $860 fees(listed) $13 fees(all@4%) $20 net $524/$517 | P1 $257±197 z=1.42 | P2 $423±234 z=0.48 | paired t=1.21 clusterM t=2.37(10) clusterW(real-pl) t=1.52(32) | top3 $304 exTop10 $-9 | wins 44/82
+ trump-weekly thr 0.1: bets 15/83 pnl $221 on $192 fees(listed) $3 fees(all@4%) $4 net $217/$216 | P1 $119±90 z=1.13 | P2 $148±73 z=0.85 | paired t=1.43 clusterM t=1.95(12) clusterW(real-pl) t=1.40(13) | top3 $131 exTop10 $-23 | wins 11/15
+ earnings-call thr 0.1: bets 28/112 pnl $325 on $285 fees(listed) $6 fees(all@4%) $6 net $320/$319 | P1 $174±61 z=2.49 | P2 $216±75 z=1.43 | paired t=2.56 clusterM t=1.92(9) clusterW(real-pl) t=3.75(16) | top3 $119 exTop10 $49 | wins 21/28
+ sports-announcers thr 0.1: bets 35/67 pnl $195 on $292 fees(listed) $6 fees(all@4%) $6 net $188/$188 | P1 $145±66 z=0.75 | P2 $121±76 z=0.91 | paired t=0.71 clusterM t=1.61(5) clusterW(real-pl) t=0.61(6) | top3 $91 exTop10 $-23 | wins 21/35
+== by fee era: events started before/after 2026-03-01 (fees)
+thr 0.03 pre-fee era: bets 66/176 pnl $144 on $983 fees(listed) $0 fees(all@4%) $20 net $144/$125 | P1 $-45±270 z=0.70 | P2 $-188±265 z=1.19 | paired t=0.60 clusterM t=0.48(8) clusterW(real-pl) t=0.61(26) | top3 $368 exTop10 $-397 | wins 28/66
+thr 0.03 fee era: bets 271/733 pnl $1492 on $2824 fees(listed) $47 fees(all@4%) $61 net $1445/$1432 | P1 $1057±316 z=1.38 | P2 $1174±382 z=0.84 | paired t=1.20 clusterM t=2.56(9) clusterW(real-pl) t=1.09(36) | top3 $382 exTop10 $706 | wins 161/271
+thr 0.05 pre-fee era: bets 64/176 pnl $329 on $1041 fees(listed) $0 fees(all@4%) $22 net $329/$307 | P1 $34±290 z=1.02 | P2 $-212±294 z=1.80 | paired t=0.93 clusterM t=0.93(8) clusterW(real-pl) t=0.95(26) | top3 $495 exTop10 $-391 | wins 27/64
+thr 0.05 fee era: bets 261/733 pnl $1758 on $2619 fees(listed) $45 fees(all@4%) $58 net $1714/$1701 | P1 $972±271 z=2.90 | P2 $1199±347 z=1.56 | paired t=2.49 clusterM t=2.91(9) clusterW(real-pl) t=2.66(36) | top3 $382 exTop10 $972 | wins 155/261
+thr 0.1 pre-fee era: bets 52/176 pnl $574 on $699 fees(listed) $0 fees(all@4%) $17 net $574/$557 | P1 $15±230 z=2.43 | P2 $-175±236 z=3.03 | paired t=2.18 clusterM t=2.72(8) clusterW(real-pl) t=2.16(25) | top3 $495 exTop10 $-147 | wins 26/52
+thr 0.1 fee era: bets 233/733 pnl $1768 on $2271 fees(listed) $40 fees(all@4%) $52 net $1728/$1717 | P1 $835±254 z=3.67 | P2 $1015±289 z=2.52 | paired t=3.16 clusterM t=3.24(9) clusterW(real-pl) t=3.39(36) | top3 $323 exTop10 $1058 | wins 133/233
+== 300-event sample (seed 7), causal
+sample300 thr 0.03: bets 123/300 pnl $620 on $966 fees(listed) $14 fees(all@4%) $22 net $606/$598 | P1 $301±214 z=1.49 | P2 $348±242 z=1.09 | paired t=1.34 clusterM t=2.13(17) clusterW(real-pl) t=1.36(50) | top3 $297 exTop10 $102 | wins 65/123 | LS 0.1233 t=4.2 n=835
+sample300 thr 0.03 later half: bets 70/155 pnl $318 on $530 fees(listed) $12 fees(all@4%) $13 net $306/$306 | P1 $325±132 z=-0.05 | P2 $308±133 z=-0.06 | paired t=-0.08 clusterM t=3.10(5) clusterW(real-pl) t=-0.09(19) | top3 $121 exTop10 $19 | wins 41/70
+sample300 thr 0.05: bets 118/300 pnl $594 on $923 fees(listed) $13 fees(all@4%) $21 net $581/$573 | P1 $272±223 z=1.45 | P2 $342±241 z=1.01 | paired t=1.34 clusterM t=2.06(17) clusterW(real-pl) t=1.36(50) | top3 $297 exTop10 $76 | wins 60/118 | LS 0.1233 t=4.2 n=835
+sample300 thr 0.05 later half: bets 66/155 pnl $293 on $488 fees(listed) $12 fees(all@4%) $12 net $281/$281 | P1 $306±133 z=-0.10 | P2 $299±129 z=-0.15 | paired t=-0.09 clusterM t=2.80(5) clusterW(real-pl) t=-0.09(19) | top3 $121 exTop10 $-7 | wins 37/66
+sample300 thr 0.1: bets 108/300 pnl $619 on $946 fees(listed) $12 fees(all@4%) $22 net $606/$597 | P1 $174±227 z=1.96 | P2 $294±217 z=1.48 | paired t=1.97 clusterM t=1.90(17) clusterW(real-pl) t=2.06(47) | top3 $297 exTop10 $82 | wins 57/108 | LS 0.1233 t=4.2 n=835
+sample300 thr 0.1 later half: bets 63/155 pnl $368 on $483 fees(listed) $11 fees(all@4%) $12 net $357/$356 | P1 $227±100 z=1.41 | P2 $315±102 z=0.37 | paired t=1.36 clusterM t=2.71(5) clusterW(real-pl) t=1.95(19) | top3 $137 exTop10 $43 | wins 37/63
+== delay sensitivity (all 909, causal)
+thr 0.03 delay 0s: bets 337/909 pnl $1637 on $3807 fees(listed) $47 fees(all@4%) $80 net $1589/$1556 | P1 $1004±419 z=1.51 | P2 $1045±477 z=1.23 | paired t=1.32 clusterM t=2.30(17) clusterW(real-pl) t=1.25(62) | top3 $465 exTop10 $616 | wins 189/337
+thr 0.03 delay 5s: bets 337/909 pnl $1637 on $3807 fees(listed) $47 fees(all@4%) $80 net $1589/$1556 | P1 $1004±419 z=1.51 | P2 $1045±477 z=1.23 | paired t=1.32 clusterM t=2.30(17) clusterW(real-pl) t=1.25(62) | top3 $465 exTop10 $616 | wins 189/337
+thr 0.03 delay 30s: bets 337/909 pnl $1637 on $3807 fees(listed) $47 fees(all@4%) $80 net $1589/$1556 | P1 $1004±419 z=1.51 | P2 $1045±477 z=1.23 | paired t=1.32 clusterM t=2.30(17) clusterW(real-pl) t=1.25(62) | top3 $465 exTop10 $616 | wins 189/337
+thr 0.03 delay 60s: bets 337/909 pnl $1637 on $3807 fees(listed) $47 fees(all@4%) $80 net $1589/$1556 | P1 $1004±419 z=1.51 | P2 $1045±477 z=1.23 | paired t=1.32 clusterM t=2.30(17) clusterW(real-pl) t=1.25(62) | top3 $465 exTop10 $616 | wins 189/337
+thr 0.03 delay 300s: bets 336/909 pnl $1632 on $3836 fees(listed) $48 fees(all@4%) $80 net $1585/$1552 | P1 $1018±424 z=1.45 | P2 $1048±469 z=1.19 | paired t=1.33 clusterM t=2.31(17) clusterW(real-pl) t=1.26(62) | top3 $465 exTop10 $612 | wins 188/336
+thr 0.03 delay 900s: bets 327/909 pnl $1509 on $3729 fees(listed) $48 fees(all@4%) $79 net $1461/$1431 | P1 $998±391 z=1.31 | P2 $1008±443 z=1.13 | paired t=1.11 clusterM t=2.19(17) clusterW(real-pl) t=1.00(61) | top3 $437 exTop10 $598 | wins 180/327
+thr 0.1 delay 0s: bets 285/909 pnl $2342 on $2970 fees(listed) $40 fees(all@4%) $68 net $2302/$2274 | P1 $866±341 z=4.33 | P2 $917±371 z=3.86 | paired t=3.81 clusterM t=3.74(17) clusterW(real-pl) t=3.98(61) | top3 $510 exTop10 $1258 | wins 159/285
+thr 0.1 delay 5s: bets 285/909 pnl $2342 on $2970 fees(listed) $40 fees(all@4%) $68 net $2302/$2274 | P1 $866±341 z=4.33 | P2 $917±371 z=3.86 | paired t=3.81 clusterM t=3.74(17) clusterW(real-pl) t=3.98(61) | top3 $510 exTop10 $1258 | wins 159/285
+thr 0.1 delay 30s: bets 285/909 pnl $2342 on $2970 fees(listed) $40 fees(all@4%) $68 net $2302/$2274 | P1 $866±341 z=4.33 | P2 $917±371 z=3.86 | paired t=3.81 clusterM t=3.74(17) clusterW(real-pl) t=3.98(61) | top3 $510 exTop10 $1258 | wins 159/285
+thr 0.1 delay 60s: bets 285/909 pnl $2342 on $2970 fees(listed) $40 fees(all@4%) $68 net $2302/$2274 | P1 $866±341 z=4.33 | P2 $917±371 z=3.86 | paired t=3.81 clusterM t=3.74(17) clusterW(real-pl) t=3.98(61) | top3 $510 exTop10 $1258 | wins 159/285
+thr 0.1 delay 300s: bets 284/909 pnl $2338 on $2999 fees(listed) $40 fees(all@4%) $69 net $2297/$2269 | P1 $852±346 z=4.30 | P2 $919±378 z=3.78 | paired t=3.82 clusterM t=3.76(17) clusterW(real-pl) t=4.00(61) | top3 $510 exTop10 $1254 | wins 158/284
+thr 0.1 delay 900s: bets 276/909 pnl $2173 on $2882 fees(listed) $41 fees(all@4%) $67 net $2132/$2106 | P1 $816±328 z=4.14 | P2 $923±354 z=3.54 | paired t=3.79 clusterM t=3.59(17) clusterW(real-pl) t=3.74(60) | top3 $495 exTop10 $1199 | wins 152/276
+== size cap
+thr 0.03 cap 10 shares: bets 337/909 pnl $525 on $1131 fees(listed) $15 fees(all@4%) $23 net $510/$503 | P1 $270±65 z=3.91 | P2 $305±74 z=2.89 | paired t=3.60 clusterM t=2.61(17) clusterW(real-pl) t=3.35(62) | top3 $28 exTop10 $434 | wins 189/337
+thr 0.03 cap 25 shares: bets 337/909 pnl $1085 on $2210 fees(listed) $31 fees(all@4%) $45 net $1054/$1040 | P1 $573±140 z=3.66 | P2 $651±159 z=2.68 | paired t=3.39 clusterM t=2.64(17) clusterW(real-pl) t=3.16(62) | top3 $68 exTop10 $860 | wins 189/337
+thr 0.03 cap 100 shares: bets 337/909 pnl $1566 on $3260 fees(listed) $44 fees(all@4%) $68 net $1523/$1498 | P1 $845±261 z=2.77 | P2 $950±302 z=2.03 | paired t=2.63 clusterM t=2.48(17) clusterW(real-pl) t=2.50(62) | top3 $233 exTop10 $911 | wins 189/337
+thr 0.1 cap 10 shares: bets 285/909 pnl $590 on $865 fees(listed) $13 fees(all@4%) $19 net $577/$571 | P1 $255±60 z=5.55 | P2 $294±72 z=4.06 | paired t=5.01 clusterM t=2.91(17) clusterW(real-pl) t=4.94(61) | top3 $28 exTop10 $499 | wins 159/285
+thr 0.1 cap 25 shares: bets 285/909 pnl $1232 on $1745 fees(listed) $28 fees(all@4%) $39 net $1204/$1193 | P1 $540±130 z=5.33 | P2 $636±152 z=3.91 | paired t=4.74 clusterM t=3.00(17) clusterW(real-pl) t=4.75(61) | top3 $68 exTop10 $1006 | wins 159/285
+thr 0.1 cap 100 shares: bets 285/909 pnl $1961 on $2621 fees(listed) $40 fees(all@4%) $60 net $1921/$1901 | P1 $804±241 z=4.81 | P2 $916±272 z=3.87 | paired t=4.41 clusterM t=3.15(17) clusterW(real-pl) t=4.52(61) | top3 $233 exTop10 $1301 | wins 159/285
+== anchor on first trade of event instead of market startDate
+thr 0.03 anchor=first trade: bets 513/909 pnl $2404 on $6207 fees(listed) $85 fees(all@4%) $131 net $2319/$2273 | P1 $1374±561 z=1.84 | P2 $1583±789 z=1.04 | paired t=1.53 clusterM t=2.65(17) clusterW(real-pl) t=1.58(64) | top3 $465 exTop10 $1254 | wins 282/513 | LS 0.0910 t=7.0 n=4160
+thr 0.1 anchor=first trade: bets 434/909 pnl $3550 on $5008 fees(listed) $73 fees(all@4%) $114 net $3477/$3436 | P1 $1145±419 z=5.75 | P2 $1578±691 z=2.86 | paired t=4.60 clusterM t=3.58(17) clusterW(real-pl) t=4.48(63) | top3 $510 exTop10 $2249 | wins 237/434 | LS 0.0910 t=7.0 n=4160
+== window length
+thr 0.03 window 900s: bets 43/909 pnl $342 on $364 fees(listed) $3 fees(all@4%) $8 net $339/$334 | P1 $245±42 z=2.32 | P2 $96±167 z=1.36 | paired t=1.36 clusterM t=1.78(17) clusterW(real-pl) t=1.15(23) | top3 $228 exTop10 $-17 | wins 24/43
+thr 0.03 window 21600s: bets 645/909 pnl $3718 on $7953 fees(listed) $99 fees(all@4%) $169 net $3619/$3549 | P1 $350±837 z=4.03 | P2 $1385±835 z=2.83 | paired t=3.43 clusterM t=3.63(17) clusterW(real-pl) t=3.80(67) | top3 $875 exTop10 $1920 | wins 349/645
+thr 0.03 window 86400s: bets 836/909 pnl $2304 on $11938 fees(listed) $130 fees(all@4%) $258 net $2174/$2046 | P1 $-46±1594 z=1.47 | P2 $827±1682 z=0.87 | paired t=1.93 clusterM t=1.39(17) clusterW(real-pl) t=1.98(67) | top3 $875 exTop10 $458 | wins 436/836
+thr 0.1 window 900s: bets 37/909 pnl $350 on $354 fees(listed) $3 fees(all@4%) $8 net $347/$342 | P1 $259±43 z=2.14 | P2 $107±167 z=1.29 | paired t=1.27 clusterM t=1.80(17) clusterW(real-pl) t=1.07(21) | top3 $228 exTop10 $-10 | wins 20/37
+thr 0.1 window 21600s: bets 599/909 pnl $5073 on $6740 fees(listed) $92 fees(all@4%) $157 net $4982/$4917 | P1 $370±779 z=6.04 | P2 $1354±785 z=4.73 | paired t=5.23 clusterM t=4.48(17) clusterW(real-pl) t=5.77(67) | top3 $875 exTop10 $3165 | wins 318/599
+thr 0.1 window 86400s: bets 807/909 pnl $4304 on $11093 fees(listed) $125 fees(all@4%) $264 net $4179/$4040 | P1 $-185±1550 z=2.90 | P2 $932±1643 z=2.09 | paired t=3.60 clusterM t=2.60(17) clusterW(real-pl) t=3.25(67) | top3 $905 exTop10 $2121 | wins 394/807
+== lag stats
+bet lag pctiles 10/25/50/75/90 [815, 1177, 1823, 2604, 3157]
+first-trade lag after startDate pctiles [654, 1074, 2209, 5972, 15013] events with trades 909
+== robustness: alpha, burn (robustness only, not selection)
+thr .10 alpha 1.0: bets 295/909 pnl $2326 on $3063 fees(listed) $40 fees(all@4%) $69 net $2286/$2257 | P1 $864±334 z=4.37 | P2 $900±388 z=3.62 | paired t=3.77 clusterM t=3.61(17) clusterW(real-pl) t=3.91(61) | top3 $510 exTop10 $1243 | wins 170/295
+thr .10 alpha 5.0: bets 278/909 pnl $2242 on $2827 fees(listed) $40 fees(all@4%) $68 net $2202/$2174 | P1 $921±357 z=3.71 | P2 $1071±416 z=2.77 | paired t=3.27 clusterM t=3.75(17) clusterW(real-pl) t=3.47(60) | top3 $510 exTop10 $1149 | wins 148/278
+thr .10 burn 0.15: bets 285/1104 pnl $2342 on $2970 fees(listed) $40 fees(all@4%) $68 net $2302/$2274 | P1 $866±341 z=4.33 | P2 $917±371 z=3.86 | paired t=3.81 clusterM t=3.34(25) clusterW(real-pl) t=3.98(61) | top3 $510 exTop10 $1258 | wins 159/285
+thr .03 burn 0.15: bets 337/1104 pnl $1637 on $3807 fees(listed) $47 fees(all@4%) $80 net $1589/$1556 | P1 $1004±419 z=1.51 | P2 $1045±477 z=1.23 | paired t=1.32 clusterM t=2.21(25) clusterW(real-pl) t=1.25(62) | top3 $465 exTop10 $616 | wins 189/337
+thr .10 burn 0.5: bets 218/649 pnl $1500 on $1873 fees(listed) $37 fees(all@4%) $43 net $1463/$1457 | P1 $750±181 z=4.15 | P2 $875±213 z=2.94 | paired t=3.68 clusterM t=2.56(11) clusterW(real-pl) t=3.36(41) | top3 $208 exTop10 $994 | wins 127/218
+thr .03 burn 0.5: bets 255/649 pnl $1172 on $2502 fees(listed) $41 fees(all@4%) $53 net $1131/$1118 | P1 $899±293 z=0.93 | P2 $1063±319 z=0.30 | paired t=0.88 clusterM t=1.75(11) clusterW(real-pl) t=0.89(42) | top3 $286 exTop10 $597 | wins 150/255
+== p range
+thr .10 p in [0.02,0.98]: bets 286/909 pnl $2368 on $2953 fees(listed) $40 fees(all@4%) $68 net $2327/$2300 | P1 $820±359 z=4.31 | P2 $911±390 z=3.59 | paired t=3.84 clusterM t=3.68(17) clusterW(real-pl) t=4.02(61) | top3 $510 exTop10 $1284 | wins 157/286
+thr .10 p in [0.1,0.9]: bets 279/909 pnl $2320 on $2997 fees(listed) $41 fees(all@4%) $69 net $2279/$2251 | P1 $948±347 z=3.95 | P2 $826±382 z=3.92 | paired t=3.47 clusterM t=3.76(17) clusterW(real-pl) t=3.53(61) | top3 $510 exTop10 $1236 | wins 158/279
+== price bucket of 10c bets
+('NO', 0) n 39 stake 120 pnl 298 win% 41 avg p 13
+('NO', 20) n 49 stake 442 pnl 452 win% 49 avg p 28
+('NO', 40) n 48 stake 873 pnl 424 win% 62 avg p 48
+('NO', 60) n 11 stake 109 pnl 19 win% 64 avg p 67
+('NO', 80) n 3 stake 38 pnl 8 win% 100 avg p 81
+('YES', 0) n 37 stake 80 pnl 300 win% 49 avg p 11
+('YES', 20) n 41 stake 492 pnl 373 win% 44 avg p 28
+('YES', 40) n 50 stake 688 pnl 442 win% 74 avg p 50
+('YES', 60) n 6 stake 123 pnl 24 win% 83 avg p 72
+('YES', 80) n 1 stake 5 pnl 1 win% 100 avg p 80
+avg stake $ 10.4 median shares 21.0
+span days 477 pnl/day 4.91
+events 587 mean 0.1152 event t 4.02
+week-cluster t 3.17 65
+earlier 293 0.1846 3.72
+later 294 0.0461 1.62
+trump-event 215 0.1939 3.83
+other 217 0.0513 0.99
+trump-weekly 32 0.2922 1.92
+earnings-call 68 0.044 0.98
+sports-announcers 55 0.0449 1.23
+events file 1363 ok 1296
+{'lt3': 28, 'unresolved/void': 39}

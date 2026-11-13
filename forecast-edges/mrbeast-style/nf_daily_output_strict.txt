@@ -1,0 +1,73 @@
+resolved events 391 Counter({('global', 'movie', 1): 55, ('global', 'show', 1): 52, ('global', 'show', 2): 48, ('US', 'show', 1): 48, ('global', 'movie', 2): 47, ('US', 'movie', 1): 47, ('US', 'show', 2): 47, ('US', 'movie', 2): 47})
+[US TH=0.05 WIN=2h strict:lists published before T (day fully over)] ALL: event-units=88 bets=28 stake=$387 pnl=$150 | placebo(v2)=$8±29 excess=+4.9 sd | t/event=1.77 | w/l=15/13
+[US TH=0.05 WIN=2h strict:lists published before T (day fully over)] train: event-units=55 bets=17 stake=$239 pnl=$128 | placebo(v2)=$8±25 excess=+4.7 sd | t/event=1.58 | w/l=8/9
+[US TH=0.05 WIN=2h strict:lists published before T (day fully over)] TEST: event-units=33 bets=11 stake=$148 pnl=$22 | placebo(v2)=$-18±15 excess=+2.6 sd | t/event=0.93 | w/l=7/4
+[US TH=0.05 WIN=2h strict:lists published before T (day fully over)] TEST rank1: event-units=20 bets=8 stake=$130 pnl=$13 | placebo(v2)=$-19±8 excess=+4.2 sd | t/event=0.58 | w/l=5/3
+[US TH=0.05 WIN=2h strict:lists published before T (day fully over)] TEST rank2: event-units=13 bets=3 stake=$18 pnl=$9 | placebo(v2)=$2±0 excess=+24.7 sd | t/event=1.27 | w/l=2/1
+   params={'movie': (0.6, 0.0, 12), 'show': (0.0, 0.4, 11)} events_with_lists=165/189; test candidate Brier model 0.0434 vs market first print 0.0309 (n=238)
+[US TH=0.05 WIN=6h strict:lists published before T (day fully over)] ALL: event-units=139 bets=60 stake=$4092 pnl=$3053 | placebo(v2)=$45±113 excess=+26.7 sd | t/event=1.11 | w/l=36/24
+[US TH=0.05 WIN=6h strict:lists published before T (day fully over)] train: event-units=82 bets=36 stake=$3565 pnl=$2953 | placebo(v2)=$54±136 excess=+21.4 sd | t/event=1.07 | w/l=20/16
+[US TH=0.05 WIN=6h strict:lists published before T (day fully over)] TEST: event-units=57 bets=24 stake=$527 pnl=$100 | placebo(v2)=$7±21 excess=+4.5 sd | t/event=1.45 | w/l=16/8
+[US TH=0.05 WIN=6h strict:lists published before T (day fully over)] TEST rank1: event-units=30 bets=16 stake=$432 pnl=$52 | placebo(v2)=$-5±17 excess=+3.4 sd | t/event=0.79 | w/l=9/7
+[US TH=0.05 WIN=6h strict:lists published before T (day fully over)] TEST rank2: event-units=27 bets=8 stake=$95 pnl=$48 | placebo(v2)=$8±9 excess=+4.3 sd | t/event=2.45 | w/l=7/1
+   params={'movie': (0.6, 0.0, 12), 'show': (0.0, 0.4, 11)} events_with_lists=165/189; test candidate Brier model 0.0434 vs market first print 0.0309 (n=238)
+[US TH=0.03 WIN=2h strict:lists published before T (day fully over)] ALL: event-units=88 bets=35 stake=$528 pnl=$162 | placebo(v2)=$12±28 excess=+5.3 sd | t/event=1.91 | w/l=22/13
+[US TH=0.03 WIN=2h strict:lists published before T (day fully over)] train: event-units=55 bets=21 stake=$368 pnl=$142 | placebo(v2)=$9±26 excess=+5.1 sd | t/event=1.75 | w/l=13/8
+[US TH=0.03 WIN=2h strict:lists published before T (day fully over)] TEST: event-units=33 bets=14 stake=$161 pnl=$21 | placebo(v2)=$-18±15 excess=+2.5 sd | t/event=0.87 | w/l=9/5
+[US TH=0.03 WIN=2h strict:lists published before T (day fully over)] TEST rank1: event-units=20 bets=10 stake=$141 pnl=$14 | placebo(v2)=$-19±8 excess=+4.1 sd | t/event=0.61 | w/l=7/3
+[US TH=0.03 WIN=2h strict:lists published before T (day fully over)] TEST rank2: event-units=13 bets=4 stake=$20 pnl=$7 | placebo(v2)=$2±0 excess=+17.9 sd | t/event=0.94 | w/l=2/2
+   params={'movie': (0.6, 0.0, 12), 'show': (0.0, 0.4, 11)} events_with_lists=165/189; test candidate Brier model 0.0434 vs market first print 0.0309 (n=238)
+[US TH=0.03 WIN=6h strict:lists published before T (day fully over)] ALL: event-units=139 bets=71 stake=$4343 pnl=$3079 | placebo(v2)=$54±123 excess=+24.7 sd | t/event=1.12 | w/l=50/21
+[US TH=0.03 WIN=6h strict:lists published before T (day fully over)] train: event-units=82 bets=41 stake=$3711 pnl=$2964 | placebo(v2)=$57±127 excess=+23.0 sd | t/event=1.08 | w/l=28/13
+[US TH=0.03 WIN=6h strict:lists published before T (day fully over)] TEST: event-units=57 bets=30 stake=$632 pnl=$114 | placebo(v2)=$12±19 excess=+5.4 sd | t/event=1.73 | w/l=22/8
+[US TH=0.03 WIN=6h strict:lists published before T (day fully over)] TEST rank1: event-units=30 bets=18 stake=$467 pnl=$70 | placebo(v2)=$3±15 excess=+4.6 sd | t/event=1.11 | w/l=12/6
+[US TH=0.03 WIN=6h strict:lists published before T (day fully over)] TEST rank2: event-units=27 bets=12 stake=$165 pnl=$44 | placebo(v2)=$14±4 excess=+6.9 sd | t/event=2.35 | w/l=10/2
+   params={'movie': (0.6, 0.0, 12), 'show': (0.0, 0.4, 11)} events_with_lists=165/189; test candidate Brier model 0.0434 vs market first print 0.0309 (n=238)
+[US TH=0.1 WIN=2h strict:lists published before T (day fully over)] ALL: event-units=88 bets=24 stake=$309 pnl=$141 | placebo(v2)=$6±28 excess=+4.8 sd | t/event=1.66 | w/l=12/12
+[US TH=0.1 WIN=2h strict:lists published before T (day fully over)] train: event-units=55 bets=15 stake=$187 pnl=$126 | placebo(v2)=$8±25 excess=+4.7 sd | t/event=1.55 | w/l=7/8
+[US TH=0.1 WIN=2h strict:lists published before T (day fully over)] TEST: event-units=33 bets=9 stake=$122 pnl=$15 | placebo(v2)=$-14±13 excess=+2.3 sd | t/event=0.67 | w/l=5/4
+[US TH=0.1 WIN=2h strict:lists published before T (day fully over)] TEST rank1: event-units=20 bets=6 stake=$104 pnl=$7 | placebo(v2)=$-11±6 excess=+2.9 sd | t/event=0.30 | w/l=3/3
+[US TH=0.1 WIN=2h strict:lists published before T (day fully over)] TEST rank2: event-units=13 bets=3 stake=$18 pnl=$9 | placebo(v2)=$2±0 excess=+24.7 sd | t/event=1.27 | w/l=2/1
+   params={'movie': (0.6, 0.0, 12), 'show': (0.0, 0.4, 11)} events_with_lists=165/189; test candidate Brier model 0.0434 vs market first print 0.0309 (n=238)
+[US TH=0.1 WIN=6h strict:lists published before T (day fully over)] ALL: event-units=139 bets=50 stake=$3984 pnl=$3040 | placebo(v2)=$38±112 excess=+26.9 sd | t/event=1.10 | w/l=29/21
+[US TH=0.1 WIN=6h strict:lists published before T (day fully over)] train: event-units=82 bets=29 stake=$3493 pnl=$2948 | placebo(v2)=$51±132 excess=+21.9 sd | t/event=1.07 | w/l=16/13
+[US TH=0.1 WIN=6h strict:lists published before T (day fully over)] TEST: event-units=57 bets=21 stake=$492 pnl=$92 | placebo(v2)=$1±20 excess=+4.7 sd | t/event=1.33 | w/l=13/8
+[US TH=0.1 WIN=6h strict:lists published before T (day fully over)] TEST rank1: event-units=30 bets=14 stake=$406 pnl=$46 | placebo(v2)=$-7±16 excess=+3.4 sd | t/event=0.69 | w/l=7/7
+[US TH=0.1 WIN=6h strict:lists published before T (day fully over)] TEST rank2: event-units=27 bets=7 stake=$86 pnl=$46 | placebo(v2)=$9±9 excess=+4.2 sd | t/event=2.35 | w/l=6/1
+   params={'movie': (0.6, 0.0, 12), 'show': (0.0, 0.4, 11)} events_with_lists=165/189; test candidate Brier model 0.0434 vs market first print 0.0309 (n=238)
+[global TH=0.05 WIN=2h strict:lists published before T (day fully over)] ALL: event-units=95 bets=39 stake=$553 pnl=$93 | placebo(v2)=$25±35 excess=+1.9 sd | t/event=1.14 | w/l=23/16
+[global TH=0.05 WIN=2h strict:lists published before T (day fully over)] train: event-units=57 bets=23 stake=$274 pnl=$-25 | placebo(v2)=$-26±28 excess=+0.1 sd | t/event=-0.34 | w/l=10/13
+[global TH=0.05 WIN=2h strict:lists published before T (day fully over)] TEST: event-units=38 bets=16 stake=$280 pnl=$117 | placebo(v2)=$52±25 excess=+2.6 sd | t/event=3.38 | w/l=13/3
+[global TH=0.05 WIN=2h strict:lists published before T (day fully over)] TEST rank1: event-units=22 bets=10 stake=$181 pnl=$69 | placebo(v2)=$27±15 excess=+2.9 sd | t/event=2.51 | w/l=7/3
+[global TH=0.05 WIN=2h strict:lists published before T (day fully over)] TEST rank2: event-units=16 bets=6 stake=$99 pnl=$49 | placebo(v2)=$18±12 excess=+2.6 sd | t/event=2.27 | w/l=6/0
+   params={'movie': (0.2, 0.4, 14), 'show': (0.0, 0.4, 16)} events_with_lists=175/202; test candidate Brier model 0.0382 vs market first print 0.0339 (n=224)
+[global TH=0.05 WIN=6h strict:lists published before T (day fully over)] ALL: event-units=136 bets=67 stake=$5674 pnl=$6548 | placebo(v2)=$-90±534 excess=+12.4 sd | t/event=1.22 | w/l=34/33
+[global TH=0.05 WIN=6h strict:lists published before T (day fully over)] train: event-units=83 bets=41 stake=$551 pnl=$1089 | placebo(v2)=$1±70 excess=+15.5 sd | t/event=1.20 | w/l=16/25
+[global TH=0.05 WIN=6h strict:lists published before T (day fully over)] TEST: event-units=53 bets=26 stake=$5123 pnl=$5459 | placebo(v2)=$-496±1499 excess=+4.0 sd | t/event=1.04 | w/l=18/8
+[global TH=0.05 WIN=6h strict:lists published before T (day fully over)] TEST rank1: event-units=32 bets=16 stake=$5000 pnl=$5430 | placebo(v2)=$40±18 excess=+300.8 sd | t/event=1.04 | w/l=11/5
+[global TH=0.05 WIN=6h strict:lists published before T (day fully over)] TEST rank2: event-units=21 bets=10 stake=$123 pnl=$29 | placebo(v2)=$15±15 excess=+0.9 sd | t/event=1.02 | w/l=7/3
+   params={'movie': (0.2, 0.4, 14), 'show': (0.0, 0.4, 16)} events_with_lists=175/202; test candidate Brier model 0.0382 vs market first print 0.0339 (n=224)
+[global TH=0.03 WIN=2h strict:lists published before T (day fully over)] ALL: event-units=95 bets=44 stake=$956 pnl=$103 | placebo(v2)=$25±37 excess=+2.1 sd | t/event=1.25 | w/l=27/17
+[global TH=0.03 WIN=2h strict:lists published before T (day fully over)] train: event-units=57 bets=27 stake=$675 pnl=$-14 | placebo(v2)=$-30±30 excess=+0.5 sd | t/event=-0.19 | w/l=13/14
+[global TH=0.03 WIN=2h strict:lists published before T (day fully over)] TEST: event-units=38 bets=17 stake=$281 pnl=$117 | placebo(v2)=$51±26 excess=+2.6 sd | t/event=3.38 | w/l=14/3
+[global TH=0.03 WIN=2h strict:lists published before T (day fully over)] TEST rank1: event-units=22 bets=11 stake=$182 pnl=$69 | placebo(v2)=$27±14 excess=+2.9 sd | t/event=2.52 | w/l=8/3
+[global TH=0.03 WIN=2h strict:lists published before T (day fully over)] TEST rank2: event-units=16 bets=6 stake=$99 pnl=$49 | placebo(v2)=$17±12 excess=+2.6 sd | t/event=2.27 | w/l=6/0
+   params={'movie': (0.2, 0.4, 14), 'show': (0.0, 0.4, 16)} events_with_lists=175/202; test candidate Brier model 0.0382 vs market first print 0.0339 (n=224)
+[global TH=0.03 WIN=6h strict:lists published before T (day fully over)] ALL: event-units=136 bets=79 stake=$6194 pnl=$6568 | placebo(v2)=$-92±513 excess=+13.0 sd | t/event=1.22 | w/l=45/34
+[global TH=0.03 WIN=6h strict:lists published before T (day fully over)] train: event-units=83 bets=48 stake=$1021 pnl=$1108 | placebo(v2)=$-6±65 excess=+17.3 sd | t/event=1.22 | w/l=23/25
+[global TH=0.03 WIN=6h strict:lists published before T (day fully over)] TEST: event-units=53 bets=31 stake=$5173 pnl=$5460 | placebo(v2)=$-453±1448 excess=+4.1 sd | t/event=1.04 | w/l=22/9
+[global TH=0.03 WIN=6h strict:lists published before T (day fully over)] TEST rank1: event-units=32 bets=18 stake=$5014 pnl=$5431 | placebo(v2)=$40±18 excess=+303.9 sd | t/event=1.04 | w/l=13/5
+[global TH=0.03 WIN=6h strict:lists published before T (day fully over)] TEST rank2: event-units=21 bets=13 stake=$159 pnl=$29 | placebo(v2)=$15±15 excess=+1.0 sd | t/event=1.03 | w/l=9/4
+   params={'movie': (0.2, 0.4, 14), 'show': (0.0, 0.4, 16)} events_with_lists=175/202; test candidate Brier model 0.0382 vs market first print 0.0339 (n=224)
+[global TH=0.1 WIN=2h strict:lists published before T (day fully over)] ALL: event-units=95 bets=34 stake=$573 pnl=$146 | placebo(v2)=$30±36 excess=+3.2 sd | t/event=1.58 | w/l=19/15
+[global TH=0.1 WIN=2h strict:lists published before T (day fully over)] train: event-units=57 bets=20 stake=$307 pnl=$36 | placebo(v2)=$-23±33 excess=+1.8 sd | t/event=0.41 | w/l=7/13
+[global TH=0.1 WIN=2h strict:lists published before T (day fully over)] TEST: event-units=38 bets=14 stake=$266 pnl=$111 | placebo(v2)=$47±24 excess=+2.7 sd | t/event=3.29 | w/l=12/2
+[global TH=0.1 WIN=2h strict:lists published before T (day fully over)] TEST rank1: event-units=22 bets=8 stake=$168 pnl=$62 | placebo(v2)=$20±13 excess=+3.1 sd | t/event=2.39 | w/l=6/2
+[global TH=0.1 WIN=2h strict:lists published before T (day fully over)] TEST rank2: event-units=16 bets=6 stake=$99 pnl=$49 | placebo(v2)=$17±12 excess=+2.6 sd | t/event=2.27 | w/l=6/0
+   params={'movie': (0.2, 0.4, 14), 'show': (0.0, 0.4, 16)} events_with_lists=175/202; test candidate Brier model 0.0382 vs market first print 0.0339 (n=224)
+[global TH=0.1 WIN=6h strict:lists published before T (day fully over)] ALL: event-units=136 bets=55 stake=$5633 pnl=$6618 | placebo(v2)=$-81±461 excess=+14.5 sd | t/event=1.23 | w/l=28/27
+[global TH=0.1 WIN=6h strict:lists published before T (day fully over)] train: event-units=83 bets=32 stake=$541 pnl=$1167 | placebo(v2)=$0±68 excess=+17.1 sd | t/event=1.28 | w/l=12/20
+[global TH=0.1 WIN=6h strict:lists published before T (day fully over)] TEST: event-units=53 bets=23 stake=$5092 pnl=$5450 | placebo(v2)=$-533±1536 excess=+3.9 sd | t/event=1.03 | w/l=16/7
+[global TH=0.1 WIN=6h strict:lists published before T (day fully over)] TEST rank1: event-units=32 bets=13 stake=$4968 pnl=$5421 | placebo(v2)=$33±18 excess=+306.7 sd | t/event=1.04 | w/l=9/4
+[global TH=0.1 WIN=6h strict:lists published before T (day fully over)] TEST rank2: event-units=21 bets=10 stake=$123 pnl=$29 | placebo(v2)=$15±15 excess=+0.9 sd | t/event=1.02 | w/l=7/3
+   params={'movie': (0.2, 0.4, 14), 'show': (0.0, 0.4, 16)} events_with_lists=175/202; test candidate Brier model 0.0382 vs market first print 0.0339 (n=224)

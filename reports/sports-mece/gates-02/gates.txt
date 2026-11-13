@@ -1,0 +1,24 @@
+events.jsonl: kept 5983 snapshot lines for hour 2026102502
+hour 2026102502: 98 runs detected; rescan said: ['messages: 4183671 runs written to /tmp/gates-2026102502-0m_uxj18/out/runs.jsonl', 'resets=1 skipped_s=46.6 dedup_changes=502494 dedup_runs=0 crossed_checks=251326 unseeded_checks=52173 corrupt_members_skipped=1', "trade_prints: {'2026102502': 1382}"]
+PASS  G2 detector quotes == sim book at t0  (0 of 98 runs differ)
+PASS  G2 delay-0 fill >= 95% on every leg, >= 95% of runs with dur > 0.05 s  (74 of 74 pass; all runs: 98 of 98)
+PASS  G3 no run opened on a crossed leg  (0 runs)
+PASS  G3 no run opened on an unseeded leg  (0 runs)
+PASS  G4 printed sim= equals CSV pnl_usd sum  (printed={('yes', '0'): 32.96, ('yes', 'market'): -29.83, ('no', '0'): 9.29, ('no', 'market'): -26.54})
+PASS  G4 rebate_usd == R x fees_usd  (rebate=1.3106 R*fees=1.3105)
+saved to reports/sports-mece/gates-02/
+
+6 of 6 gates pass
+
+--- cleanup ---
+ps aux --sort=-rss | head -5:
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root     2951556 24.0  7.4 659212 589864 pts/2   Sl+  02:51  36:09 /usr/bin/python3 shadow/shadow_logger.py --out /mnt/HC_Volume_107257520/pkarbs/shadow/data-v2/
+root     3077840 32.7  5.4 500876 429536 ?       S    05:20   0:36 /root/polymarket-temperature-trading/venv/bin/python3 main.py
+root     3017898  2.9  4.1 727996 326152 ?       SNsl 04:12   2:03 /usr/bin/python3 -W ignore /root/mm-books/rec_ws.py
+root     3051208  0.8  3.0 675820 245724 ?       Ssl  04:43   0:18 /usr/bin/python3 -W ignore /root/mm-books/rec_ws_ff.py
+
+free -m:
+               total        used        free      shared  buff/cache   available
+Mem:            7746        3830         549         341        4016        3915
+Swap:           4095        4093           2

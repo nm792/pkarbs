@@ -1,0 +1,48 @@
+{
+ "tier1": {
+  "rows": 76,
+  "ahead_at_join_median": 2522.4,
+  "ahead_after_5s_opt_pess": [
+   1926.0,
+   1967.0
+  ],
+  "ahead_after_10s_opt_pess": [
+   1139.5,
+   1496.0
+  ],
+  "ahead_after_30s_opt_pess": [
+   302.5,
+   1090.0
+  ],
+  "rows_front_by_30s_opt": 19,
+  "rows_front_by_30s_pess": 15,
+  "prints_at_P_new_30s_total": 6506,
+  "rows_with_prints": 21,
+  "jump_added_sum": 229797,
+  "jump_gone_elsewhere_sum": 1021062,
+  "jump_rows": 65
+ },
+ "other": {
+  "rows": 79,
+  "ahead_at_join_median": 49.5,
+  "ahead_after_5s_opt_pess": [
+   27,
+   30
+  ],
+  "ahead_after_10s_opt_pess": [
+   5,
+   10
+  ],
+  "ahead_after_30s_opt_pess": [
+   0,
+   5
+  ],
+  "rows_front_by_30s_opt": 54,
+  "rows_front_by_30s_pess": 35,
+  "prints_at_P_new_30s_total": 756,
+  "rows_with_prints": 9,
+  "jump_added_sum": 13558,
+  "jump_gone_elsewhere_sum": 70873,
+  "jump_rows": 68
+ }
+}

@@ -1,0 +1,5 @@
+# TheSports ts_mqtt / books_mid have NOT been exported since 00:22Z 11 Nov (priority task, run now)
+
+Origin: the last commit touching `final-topics-32295b-slim/ts_mqtt` is d26d83e0b @00:22Z (newest chunk 00:00Z). Your 04:07Z and 05:37Z commits only wrote the four cumulative files (markets/pmws/log/ts_poll), which now run to ~05:25Z. So 8 h of tennis/Dota messages (00:22Z-now) are recorded on the server but absent from the repo, and the locked tennis (53/60) and Dota (28/40) counts are frozen on this. The 02:2xZ, 04:2xZ, 06:2xZ and 08:2xZ timer runs did not land (the 05:42Z heartbeat did not mention them).
+
+Please run the 32295b export NOW including ts_mqtt + books_mid for 00:00Z-now (incremental from the 00:00Z boundary, as before; deletion guard on), and reply in `agent/outbox/thesports-ts-mqtt-gap-2026-11-11.md` with the commit sha, newest ts_mqtt chunk, and why the timer runs after 00:22Z did not push (push race / shrink guard refusing / cron). If the new >5% guard (15407a49) refused the whole export, fix it to skip only the offending file.
