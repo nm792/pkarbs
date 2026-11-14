@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Goalserve trial Part A capture (start). Polls authenticated inplay feeds at ~1s,
-logs to /vol2/goalserve/. Reads /etc/pkarbs/goalserve.env (USER/KEY, mode 600).
+logs to /mnt/HC_Volume_107257520/pkarbs/goalserve/. Reads /etc/pkarbs/goalserve.env (USER/KEY, mode 600).
 Per TASK-goalserve-trial: per poll log recv ns, HTTP Date, payload sha1, change first-seen.
 """
 import os, sys, time, gzip, json, hashlib, shutil, datetime, urllib.request, urllib.parse
@@ -18,7 +18,7 @@ def load_creds():
 ENV = load_creds()
 USER, KEY = ENV.get("GOALSERVE_USER", ""), ENV.get("GOALSERVE_KEY", "")
 BASE = "https://inplay.goalserve.com"
-OUT = "/vol2/goalserve"
+OUT = "/mnt/HC_Volume_107257520/pkarbs/goalserve"
 SPORTS = {
     "tennis":   "/inplay-tennis.gz",
     "soccer":   "/inplay-soccer.gz",
@@ -29,7 +29,7 @@ SPORTS = {
     # inplay-basket.gz / inplay-volleyball.gz measured HTTP 200 on 13 Nov but are OUT of
     # approved scope; inplay-cricket.gz is 404 (no such feed).
 }
-PAYDIR = "/vol2/goalserve/esports_payloads"   # Nick yes 14:43:42Z 13 Nov (inbox #300)
+PAYDIR = "/mnt/HC_Volume_107257520/pkarbs/goalserve/esports_payloads"   # Nick yes 14:43:42Z 13 Nov (inbox #300)
 _payload_stopped = False
 
 def store_payload(recv_ns, data):
@@ -37,12 +37,12 @@ def store_payload(recv_ns, data):
     Stops (and logs once) if the output filesystem is at or below the 15 GB floor."""
     global _payload_stopped
     try:
-        if shutil.disk_usage("/vol2").free <= 15e9:
+        if shutil.disk_usage("/mnt/HC_Volume_107257520/pkarbs/goalserve").free <= 15e9:
             if not _payload_stopped:
                 _payload_stopped = True
                 with open(os.path.join(OUT, "esports_payloads_STOP.log"), "a") as f:
                     f.write(json.dumps({"t": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-                                        "free_b": shutil.disk_usage("/vol2").free,
+                                        "free_b": shutil.disk_usage("/mnt/HC_Volume_107257520/pkarbs/goalserve").free,
                                         "action": "payload store stopped: free <= 15 GB"}) + "\n")
             return
         os.makedirs(PAYDIR, exist_ok=True)

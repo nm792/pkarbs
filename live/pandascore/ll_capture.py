@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PandaScore low-latency feed capture - TASK-pandascore-trial-2026-11-12.md Part A (v2).
 Discovery every 60 s (Bearer), one socket per Dota 2 / CS2 match at or after endpoint.opens_at,
-raw payload logged with recv_ns + sha1 + updated_at, gzip per UTC hour under /vol2/pandascore/.
+raw payload logged with recv_ns + sha1 + updated_at, gzip per UTC hour under /mnt/HC_Volume_107257520/pkarbs/pandascore/.
 Token: /etc/pkarbs/pandascore.env (mode 600) if present, else /root/API_KEYS/pandascore/.env.
 Never prints or logs the token; the socket URL (which carries ?token=) is never logged.
 """
@@ -25,8 +25,8 @@ if not TOKEN:
     print("FATAL: no PANDASCORE token found", flush=True)
     sys.exit(1)
 
-OUT = "/vol2/pandascore/raw"
-EV = "/vol2/pandascore/events.jsonl.gz"
+OUT = "/mnt/HC_Volume_107257520/pkarbs/pandascore/raw"
+EV = "/mnt/HC_Volume_107257520/pkarbs/pandascore/events.jsonl.gz"
 GAME_SLUGS = {"cs-go", "dota-2"}          # cs-go = CS2; LoL excluded per task
 FLOOR = 15e9
 os.makedirs(OUT, exist_ok=True)
@@ -38,7 +38,7 @@ def now_iso():
 
 def free_ok():
     import shutil
-    return shutil.disk_usage("/vol2").free > FLOOR
+    return shutil.disk_usage("/mnt/HC_Volume_107257520/pkarbs/pandascore").free > FLOOR
 
 def ev(**kw):
     kw["t"] = now_iso()
@@ -102,7 +102,7 @@ class Hourly:
         self.h = None; self.hour = None
     def write(self, obj):
         if not free_ok():
-            ev(kind="stopped", reason="free space <= 15 GB on /vol2", free_b=__import__("shutil").disk_usage("/vol2").free)
+            ev(kind="stopped", reason="free space <= 15 GB on /mnt/HC_Volume_107257520/pkarbs/pandascore", free_b=__import__("shutil").disk_usage("/mnt/HC_Volume_107257520/pkarbs/pandascore").free)
             sys.exit(0)
         hour = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d%H")
         if self.hour != hour:
@@ -123,7 +123,7 @@ async def socket_for(mid, meta):
     backoff = 1
     while True:
         if not free_ok():
-            ev(match_id=mid, kind="stopped", reason="free space <= 15 GB on /vol2")
+            ev(match_id=mid, kind="stopped", reason="free space <= 15 GB on /mnt/HC_Volume_107257520/pkarbs/pandascore")
             return
         if datetime.datetime.now(datetime.timezone.utc).timestamp() < open_ts(meta["opens_at"]) - 5:
             await asyncio.sleep(5); continue
@@ -188,7 +188,7 @@ async def main():
     seen = set()
     while True:
         if not free_ok():
-            ev(kind="stopped", reason="free space <= 15 GB on /vol2")
+            ev(kind="stopped", reason="free space <= 15 GB on /mnt/HC_Volume_107257520/pkarbs/pandascore")
             return
         feeds = discovery()
         now = time.time()

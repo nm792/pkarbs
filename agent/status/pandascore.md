@@ -86,3 +86,12 @@ Revert: restore the pre-edit copy and point the paths back.
 - **Registration counter:** `markets.jsonl` 2,847 -> **3,161 rows** (+314) by 17:06:10Z - registration is moving again.
 - **Other streams after the restart:** books newest 17:06:54Z, pmws 17:06:53Z, ts_mqtt 17:05:32Z - all live; no other stream was stale.
 - **Not changed:** no other line of the file. The relaunch keeps the original `timeout 552000`, which expires 14 Nov about 09:06Z with no restart guard anywhere on the box (no cron or unit references capture.py) - flagged as one TO-IT line, not touched here.
+
+## P7 — PandaScore writer off root: DONE, recorded 14 Nov 03:15Z (OPEN row P7; IT ruling `IT-REPLY-captures-disk-2026-11-13.md` option (a), clause 22A Type A)
+
+- **Code:** `live/pandascore/ll_capture.py` `OUT`, `EV` and the floor guard now read `/mnt/HC_Volume_107257520/pkarbs/pandascore/…`; edit 13 Nov 17:38:02Z, `py_compile` OK, sha256 `a6d7d06a962b3eeb…`. Revert copy `live/pandascore/ll_capture.py.pre-p7-20261113T173734Z`.
+- **Restart:** tmux session `pandascore` recreated 17:39:46Z (pid 548127); its own `kind=start` event `2026-11-13T17:39:46.559+00:00` records `out=/mnt/HC_Volume_107257520/pkarbs/pandascore/raw` — the process itself proves the new path.
+- **First file on the real VOL2 mount:** first hour file written on the new path is `raw/pandascore_2026111317.jsonl.gz` (129,068 B, reached `<box>` 23:43:09Z).
+- **Rows preserved before any local delete:** `<box>` `pkarbs/pandascore/raw/` holds every closed hour `pandascore_2026111315` … `pandascore_2026111321` (330,887 / 341,531 / 129,068 / 263,784 / 371,760 / 254,000 / 234,003 B); ship.log shows 7 `pandascore shipped=1 deleted=1 kept=0` runs 18:01Z–01:30Z, i.e. the local copy was removed only after the ship reported success.
+- **df /:** before 17,564,192,768 B (13 Nov 15:17Z) → after 17,209,139,200 B (14 Nov 03:11Z); data disk 72,141,205,504 B free. `/proc/548127/fd` shows both output fds on the data disk. `/vol2` is a symlink to that mount since 17:44Z.
+- **Open, not fixed (a code change, so gated):** hour 22 `raw/pandascore_2026111322.jsonl.gz` reads BADGZ to the shipper (append-streamed gzip, no end marker) on every run 01:00Z–03:00Z → it never ships and never deletes (88,771 B local). Fix = a tolerant reader in `ship_raw.sh`.
