@@ -1,52 +1,265 @@
 {
-  "generated_utc": "2026-11-14T11:16Z",
-  "method": "Existing read-only /vol2/pkarbs/scratch/p318-recount/recount.py executed at 11:13Z; exit 0. No code or rule change.",
-  "pandascore": {
-    "window_start_utc": "2026-11-13T15:12:29Z",
-    "raw_files": 11,
-    "malformed_current_append_gzip_rows": 1,
-    "distinct_matches": 21,
-    "totals": {
-      "alive_flips": 4108,
-      "round_score_side_changes": 482,
-      "kills_side_changes": 835,
-      "kills_increases": 823,
-      "towers_side_changes": 183,
-      "towers_increases": 175,
-      "roshans_side_changes": 33,
-      "roshans_increases": 27,
-      "barracks_side_changes": 55,
-      "barracks_increases": 53
+  "first_30_utc": {
+    "('cs2', '<25k')": "2026-11-13T18:05:58.911000+00:00",
+    "('cs2', '>=25k')": "2026-11-14T08:47:17.764000+00:00",
+    "('dota2', '<25k')": "2026-11-13T17:13:00.268000+00:00",
+    "('dota2', '>=25k')": "2026-11-14T12:37:27.252000+00:00"
+  },
+  "goalserve": {
+    "change_payloads": 11867,
+    "distinct_odds_change_events": 11867,
+    "files": 24,
+    "input_integrity": {
+      "handling": "Skipped the one malformed JSON body; valid outer rows and remaining payloads were counted.",
+      "malformed_body_rows": 1,
+      "outer_gzip_or_jsonl_errors": 0
     },
-    "close_errors": {
-      "total": 4553,
-      "by_code": {
-        "4004": 4549,
-        "missing_code": 4
+    "malformed_body": 1,
+    "matches": 24,
+    "participant_field_changes": 188759,
+    "per_match": {
+      "140832465": {
+        "change_payloads": 705,
+        "distinct_odds_change_events": 705,
+        "name": "KUUSAMO vs MayBe",
+        "participant_field_changes": 8478,
+        "payloads": 6063,
+        "sport": "CS2"
       },
-      "by_match_code": [
-        {
-          "match_id": "1789154",
-          "code": "4004",
-          "count": 4549
-        },
-        {
-          "match_id": "1789154",
-          "code": "None",
-          "count": 3
-        },
-        {
-          "match_id": "1793327",
-          "code": "None",
-          "count": 1
-        }
-      ]
+      "141116256": {
+        "change_payloads": 449,
+        "distinct_odds_change_events": 449,
+        "name": "Alliance vs Four Magic",
+        "participant_field_changes": 5069,
+        "payloads": 3362,
+        "sport": "CS2"
+      },
+      "141163317": {
+        "change_payloads": 359,
+        "distinct_odds_change_events": 359,
+        "name": "Apogee vs Leo Team",
+        "participant_field_changes": 4132,
+        "payloads": 3295,
+        "sport": "CS2"
+      },
+      "141164392": {
+        "change_payloads": 396,
+        "distinct_odds_change_events": 396,
+        "name": "MayBe vs mixLVLT",
+        "participant_field_changes": 3440,
+        "payloads": 2519,
+        "sport": "CS2"
+      },
+      "141164409": {
+        "change_payloads": 43,
+        "distinct_odds_change_events": 43,
+        "name": "Saint Sinners vs Balkan Outlaws",
+        "participant_field_changes": 337,
+        "payloads": 297,
+        "sport": "CS2"
+      },
+      "141164753": {
+        "change_payloads": 420,
+        "distinct_odds_change_events": 420,
+        "name": "ex-RUSTEC vs Nexus",
+        "participant_field_changes": 5042,
+        "payloads": 3244,
+        "sport": "CS2"
+      },
+      "141164775": {
+        "change_payloads": 665,
+        "distinct_odds_change_events": 665,
+        "name": "Omega vs Inner Circle Academy",
+        "participant_field_changes": 7269,
+        "payloads": 5100,
+        "sport": "CS2"
+      },
+      "141165637": {
+        "change_payloads": 253,
+        "distinct_odds_change_events": 253,
+        "name": "Froglings vs PuckChamp",
+        "participant_field_changes": 1052,
+        "payloads": 1898,
+        "sport": "Dota 2"
+      },
+      "141165643": {
+        "change_payloads": 793,
+        "distinct_odds_change_events": 793,
+        "name": "CyberHero vs Xipto",
+        "participant_field_changes": 4864,
+        "payloads": 4045,
+        "sport": "Dota 2"
+      },
+      "141165675": {
+        "change_payloads": 219,
+        "distinct_odds_change_events": 219,
+        "name": "PARIVISION vs Yellow Submarine",
+        "participant_field_changes": 898,
+        "payloads": 1299,
+        "sport": "Dota 2"
+      },
+      "141165682": {
+        "change_payloads": 662,
+        "distinct_odds_change_events": 662,
+        "name": "Team Liquid vs LGD Gaming",
+        "participant_field_changes": 3427,
+        "payloads": 6742,
+        "sport": "Dota 2"
+      },
+      "141165693": {
+        "change_payloads": 546,
+        "distinct_odds_change_events": 546,
+        "name": "Team Spirit vs Froglings",
+        "participant_field_changes": 3612,
+        "payloads": 4348,
+        "sport": "Dota 2"
+      },
+      "141192093": {
+        "change_payloads": 366,
+        "distinct_odds_change_events": 366,
+        "name": "STATE vs EYEBALLERS",
+        "participant_field_changes": 4775,
+        "payloads": 3228,
+        "sport": "CS2"
+      },
+      "141196669": {
+        "change_payloads": 534,
+        "distinct_odds_change_events": 534,
+        "name": "CPH Wolves vs Teletubisie",
+        "participant_field_changes": 7707,
+        "payloads": 4749,
+        "sport": "CS2"
+      },
+      "141199605": {
+        "change_payloads": 374,
+        "distinct_odds_change_events": 374,
+        "name": "Noir Verse vs 6yuBoJlbl",
+        "participant_field_changes": 4222,
+        "payloads": 3102,
+        "sport": "CS2"
+      },
+      "141199608": {
+        "change_payloads": 344,
+        "distinct_odds_change_events": 344,
+        "name": "Lavked vs Alliance",
+        "participant_field_changes": 4623,
+        "payloads": 2999,
+        "sport": "CS2"
+      },
+      "141199612": {
+        "change_payloads": 307,
+        "distinct_odds_change_events": 307,
+        "name": "ex-INOX vs Saint Sinners",
+        "participant_field_changes": 3690,
+        "payloads": 2612,
+        "sport": "other esports"
+      },
+      "141202857": {
+        "change_payloads": 952,
+        "distinct_odds_change_events": 952,
+        "name": "GenOne vs Balkan Outlaws",
+        "participant_field_changes": 10751,
+        "payloads": 7982,
+        "sport": "CS2"
+      },
+      "141202874": {
+        "change_payloads": 5,
+        "distinct_odds_change_events": 5,
+        "name": "9INE vs PCIFIC",
+        "participant_field_changes": 278,
+        "payloads": 4749,
+        "sport": "CS2"
+      },
+      "141216876": {
+        "change_payloads": 531,
+        "distinct_odds_change_events": 531,
+        "name": "LGD Gaming vs Legion",
+        "participant_field_changes": 4049,
+        "payloads": 5350,
+        "sport": "Dota 2"
+      },
+      "141216882": {
+        "change_payloads": 374,
+        "distinct_odds_change_events": 374,
+        "name": "DO KONCA vs Yellow Submarine",
+        "participant_field_changes": 3904,
+        "payloads": 3953,
+        "sport": "Dota 2"
+      },
+      "141216926": {
+        "change_payloads": 569,
+        "distinct_odds_change_events": 569,
+        "name": "Team Spirit vs MOUZ",
+        "participant_field_changes": 36710,
+        "payloads": 3865,
+        "sport": "CS2"
+      },
+      "141216927": {
+        "change_payloads": 1218,
+        "distinct_odds_change_events": 1218,
+        "name": "Inner Circle vs Nemiga",
+        "participant_field_changes": 5282,
+        "payloads": 6954,
+        "sport": "Dota 2"
+      },
+      "141216970": {
+        "change_payloads": 783,
+        "distinct_odds_change_events": 783,
+        "name": "FURIA vs Falcons",
+        "participant_field_changes": 55148,
+        "payloads": 6599,
+        "sport": "CS2"
+      }
     },
+    "per_sport": {
+      "CS2": 6964,
+      "Dota 2": 4596,
+      "other esports": 307
+    },
+    "window_end_utc": "2026-11-14T13:25:00.000Z"
+  },
+  "matched_events_per_day_rate": {
+    "('cs2', '<25k')": 265.792,
+    "('cs2', '>=25k')": 314.225,
+    "('dota2', '<25k')": 649.713,
+    "('dota2', '>=25k')": 92.141
+  },
+  "pandascore": {
+    "close_by_match": [
+      {
+        "code": "4004",
+        "count": 5322,
+        "match_id": "1789154"
+      },
+      {
+        "code": "None",
+        "count": 3,
+        "match_id": "1789154"
+      },
+      {
+        "code": "None",
+        "count": 1,
+        "match_id": "1793327"
+      }
+    ],
+    "close_codes": {
+      "4004": 5322,
+      "None": 4
+    },
+    "files": 16,
+    "input_integrity": {
+      "append_stream_note": "Hour 13 was still append-streamed at cutoff; tolerant reader stopped at the incomplete gzip tail after retaining complete JSON rows. The completed hour 12 file decoded cleanly.",
+      "code_4004_gap_result": "not measurable: no status rows for that match in the interval",
+      "code_4004_match_id": "1789154",
+      "code_4004_match_status_rows": 0,
+      "malformed_complete_json_lines": 0
+    },
+    "matches": 26,
     "per_match": {
       "1762447": {
         "counts": {
-          "alive_flips": 258,
-          "round_score_side_changes": 26
+          "alive_flips": 480,
+          "round_score_side_changes": 50
         },
         "fields": [
           "bomb",
@@ -57,17 +270,18 @@
           "round_timer",
           "side"
         ],
-        "first": "2026-11-14T09:00:03.164129+00:00",
-        "gaps_gt60": 1,
-        "last": "2026-11-14T09:52:24.109483+00:00",
-        "max_gap_s": 125.654,
-        "status_rows": 394,
-        "title": "Spirit vs MOUZ",
-        "title_slug": "cs-go"
+        "first_ns": 1794643212140608136,
+        "game": "cs-go",
+        "gaps_gt60": 6,
+        "last_ns": 1794649944109483116,
+        "max_gap_s": 520.548,
+        "status_rows": 733,
+        "title": "Spirit vs MOUZ"
       },
       "1762448": {
         "counts": {
-          "alive_flips": 6
+          "alive_flips": 569,
+          "round_score_side_changes": 54
         },
         "fields": [
           "bomb",
@@ -78,13 +292,13 @@
           "round_timer",
           "side"
         ],
-        "first": "2026-11-14T11:00:54.771198+00:00",
-        "gaps_gt60": 1,
-        "last": "2026-11-14T11:13:39.106848+00:00",
-        "max_gap_s": 138.849,
-        "status_rows": 61,
-        "title": "FURIA vs Team Falcons",
-        "title_slug": "cs-go"
+        "first_ns": 1794652419709812310,
+        "game": "cs-go",
+        "gaps_gt60": 11,
+        "last_ns": 1794662648420267076,
+        "max_gap_s": 547.599,
+        "status_rows": 1107,
+        "title": "FURIA vs Team Falcons"
       },
       "1785753": {
         "counts": {
@@ -109,13 +323,24 @@
           "roshans",
           "towers"
         ],
-        "first": "2026-11-13T19:07:17.523185+00:00",
+        "first_ns": 1794596837523185507,
+        "game": "dota-2",
         "gaps_gt60": 7,
-        "last": "2026-11-13T22:02:39.897472+00:00",
+        "last_ns": 1794607359897471755,
         "max_gap_s": 903.811,
         "status_rows": 1906,
-        "title": "PuckChamp vs Zero Tenacity",
-        "title_slug": "dota-2"
+        "title": "PuckChamp vs Zero Tenacity"
+      },
+      "1785760": {
+        "counts": {},
+        "fields": [],
+        "first_ns": 1794661484071301949,
+        "game": "dota-2",
+        "gaps_gt60": 0,
+        "last_ns": 1794661485643981423,
+        "max_gap_s": 1.573,
+        "status_rows": 2,
+        "title": "InterActive Philippines vs potn9ki"
       },
       "1785771": {
         "counts": {
@@ -140,13 +365,13 @@
           "roshans",
           "towers"
         ],
-        "first": "2026-11-13T15:13:41.967061+00:00",
+        "first_ns": 1794582821967061180,
+        "game": "dota-2",
         "gaps_gt60": 4,
-        "last": "2026-11-13T17:27:49.309700+00:00",
+        "last_ns": 1794590869309700351,
         "max_gap_s": 943.794,
         "status_rows": 1619,
-        "title": "Team Allied vs potn9ki",
-        "title_slug": "dota-2"
+        "title": "Team Allied vs potn9ki"
       },
       "1786827": {
         "counts": {
@@ -162,13 +387,13 @@
           "round_timer",
           "side"
         ],
-        "first": "2026-11-13T18:02:56.197573+00:00",
+        "first_ns": 1794592976197572508,
+        "game": "cs-go",
         "gaps_gt60": 6,
-        "last": "2026-11-13T20:49:33.391315+00:00",
+        "last_ns": 1794602973391315197,
         "max_gap_s": 733.05,
         "status_rows": 1093,
-        "title": "Omega vs Inner Circle Academy",
-        "title_slug": "cs-go"
+        "title": "Omega vs Inner Circle Academy"
       },
       "1786828": {
         "counts": {
@@ -184,13 +409,35 @@
           "round_timer",
           "side"
         ],
-        "first": "2026-11-13T15:30:12.589106+00:00",
+        "first_ns": 1794583812589105710,
+        "game": "cs-go",
         "gaps_gt60": 5,
-        "last": "2026-11-13T17:02:48.277974+00:00",
+        "last_ns": 1794589368277974143,
         "max_gap_s": 581.999,
         "status_rows": 579,
-        "title": "Apogee Esports vs Leo Team",
-        "title_slug": "cs-go"
+        "title": "Apogee Esports vs Leo Team"
+      },
+      "1786830": {
+        "counts": {
+          "alive_flips": 307,
+          "round_score_side_changes": 34
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first_ns": 1794657669347735584,
+        "game": "cs-go",
+        "gaps_gt60": 8,
+        "last_ns": 1794662697309336712,
+        "max_gap_s": 918.71,
+        "status_rows": 602,
+        "title": "Virtus.pro vs BakS eSports"
       },
       "1789156": {
         "counts": {
@@ -206,24 +453,24 @@
           "round_timer",
           "side"
         ],
-        "first": "2026-11-13T15:12:30.814615+00:00",
+        "first_ns": 1794582750814615569,
+        "game": "cs-go",
         "gaps_gt60": 5,
-        "last": "2026-11-13T16:00:12.710517+00:00",
+        "last_ns": 1794585612710516886,
         "max_gap_s": 130.044,
         "status_rows": 271,
-        "title": "ex-Zero Tenacity vs BakS eSports",
-        "title_slug": "cs-go"
+        "title": "ex-Zero Tenacity vs BakS eSports"
       },
       "1789157": {
         "counts": {},
         "fields": [],
-        "first": "2026-11-13T15:18:27.536050+00:00",
+        "first_ns": 1794583107536049573,
+        "game": "cs-go",
         "gaps_gt60": 0,
-        "last": "2026-11-13T15:18:27.595043+00:00",
+        "last_ns": 1794583107595043124,
         "max_gap_s": 0.025,
         "status_rows": 4,
-        "title": "FORZE Reload vs Walczaki",
-        "title_slug": "cs-go"
+        "title": "FORZE Reload vs Walczaki"
       },
       "1789158": {
         "counts": {
@@ -239,13 +486,13 @@
           "round_timer",
           "side"
         ],
-        "first": "2026-11-13T18:07:18.896061+00:00",
+        "first_ns": 1794593238896061518,
+        "game": "cs-go",
         "gaps_gt60": 4,
-        "last": "2026-11-13T19:45:21.513151+00:00",
+        "last_ns": 1794599121513150593,
         "max_gap_s": 762.296,
         "status_rows": 633,
-        "title": "ex-RUSTEC vs Nexus",
-        "title_slug": "cs-go"
+        "title": "ex-RUSTEC vs Nexus"
       },
       "1791798": {
         "counts": {
@@ -270,13 +517,13 @@
           "roshans",
           "towers"
         ],
-        "first": "2026-11-13T15:12:35.175895+00:00",
+        "first_ns": 1794582755175895283,
+        "game": "dota-2",
         "gaps_gt60": 5,
-        "last": "2026-11-13T16:10:33.809281+00:00",
+        "last_ns": 1794586233809280909,
         "max_gap_s": 621.799,
         "status_rows": 452,
-        "title": "Froglings vs PuckChamp",
-        "title_slug": "dota-2"
+        "title": "Froglings vs PuckChamp"
       },
       "1791799": {
         "counts": {
@@ -301,29 +548,44 @@
           "roshans",
           "towers"
         ],
-        "first": "2026-11-13T18:02:49.741511+00:00",
+        "first_ns": 1794592969741511024,
+        "game": "dota-2",
         "gaps_gt60": 7,
-        "last": "2026-11-13T20:10:05.666399+00:00",
+        "last_ns": 1794600605666399238,
         "max_gap_s": 624.522,
         "status_rows": 1251,
-        "title": "CyberHero vs Xipto Esports",
-        "title_slug": "dota-2"
+        "title": "CyberHero vs Xipto Esports"
       },
       "1791800": {
-        "counts": {},
+        "counts": {
+          "barracks_increases": 11,
+          "barracks_side_changes": 11,
+          "kills_increases": 128,
+          "kills_side_changes": 132,
+          "roshans_increases": 6,
+          "roshans_side_changes": 10,
+          "towers_increases": 36,
+          "towers_side_changes": 36
+        },
         "fields": [
           "barracks",
           "game_timer",
           "kills",
+          "net_worth",
+          "player_alive",
+          "player_hero_id",
+          "player_name",
+          "player_net_worth",
+          "roshans",
           "towers"
         ],
-        "first": "2026-11-14T11:10:33.235774+00:00",
-        "gaps_gt60": 0,
-        "last": "2026-11-14T11:11:33.373847+00:00",
-        "max_gap_s": 31.361,
-        "status_rows": 3,
-        "title": "Inner Circle x Insanity vs Nemiga Gaming",
-        "title_slug": "dota-2"
+        "first_ns": 1794650422316373769,
+        "game": "dota-2",
+        "gaps_gt60": 7,
+        "last_ns": 1794662543031061806,
+        "max_gap_s": 938.698,
+        "status_rows": 2010,
+        "title": "Inner Circle x Insanity vs Nemiga Gaming"
       },
       "1793318": {
         "counts": {
@@ -348,22 +610,24 @@
           "roshans",
           "towers"
         ],
-        "first": "2026-11-13T15:12:33.094479+00:00",
+        "first_ns": 1794582753094478705,
+        "game": "dota-2",
         "gaps_gt60": 0,
-        "last": "2026-11-13T15:50:46.671026+00:00",
+        "last_ns": 1794585046671025528,
         "max_gap_s": 49.57,
         "status_rows": 524,
-        "title": "PARIVISION vs Yellow Submarine",
-        "title_slug": "dota-2"
+        "title": "PARIVISION vs Yellow Submarine"
       },
-      "1793323": {
+      "1793319": {
         "counts": {
-          "kills_increases": 51,
-          "kills_side_changes": 53,
+          "barracks_increases": 4,
+          "barracks_side_changes": 4,
+          "kills_increases": 60,
+          "kills_side_changes": 60,
           "roshans_increases": 2,
-          "roshans_side_changes": 4,
-          "towers_increases": 7,
-          "towers_side_changes": 9
+          "roshans_side_changes": 2,
+          "towers_increases": 10,
+          "towers_side_changes": 10
         },
         "fields": [
           "barracks",
@@ -377,13 +641,44 @@
           "roshans",
           "towers"
         ],
-        "first": "2026-11-14T09:02:28.744210+00:00",
+        "first_ns": 1794655625961634999,
+        "game": "dota-2",
         "gaps_gt60": 3,
-        "last": "2026-11-14T11:13:45.076139+00:00",
-        "max_gap_s": 3651.436,
-        "status_rows": 968,
-        "title": "LGD Gaming vs LEGION",
-        "title_slug": "dota-2"
+        "last_ns": 1794662686302666186,
+        "max_gap_s": 2311.972,
+        "status_rows": 1709,
+        "title": "DO KONCA vs Yellow Submarine"
+      },
+      "1793323": {
+        "counts": {
+          "barracks_increases": 8,
+          "barracks_side_changes": 8,
+          "kills_increases": 109,
+          "kills_side_changes": 109,
+          "roshans_increases": 5,
+          "roshans_side_changes": 5,
+          "towers_increases": 29,
+          "towers_side_changes": 29
+        },
+        "fields": [
+          "barracks",
+          "game_timer",
+          "kills",
+          "net_worth",
+          "player_alive",
+          "player_hero_id",
+          "player_name",
+          "player_net_worth",
+          "roshans",
+          "towers"
+        ],
+        "first_ns": 1794646948744210543,
+        "game": "dota-2",
+        "gaps_gt60": 5,
+        "last_ns": 1794656758506378358,
+        "max_gap_s": 649.467,
+        "status_rows": 1801,
+        "title": "LGD Gaming vs LEGION"
       },
       "1793327": {
         "counts": {
@@ -408,18 +703,18 @@
           "roshans",
           "towers"
         ],
-        "first": "2026-11-13T18:54:29.668768+00:00",
+        "first_ns": 1794596069668767746,
+        "game": "dota-2",
         "gaps_gt60": 6,
-        "last": "2026-11-13T22:31:53.093609+00:00",
+        "last_ns": 1794609113093608762,
         "max_gap_s": 3562.839,
         "status_rows": 1550,
-        "title": "Team Spirit vs Froglings",
-        "title_slug": "dota-2"
+        "title": "Team Spirit vs Froglings"
       },
       "1796489": {
         "counts": {
-          "alive_flips": 87,
-          "round_score_side_changes": 20
+          "alive_flips": 162,
+          "round_score_side_changes": 41
         },
         "fields": [
           "bomb",
@@ -430,18 +725,40 @@
           "round_timer",
           "side"
         ],
-        "first": "2026-11-14T09:07:20.995996+00:00",
+        "first_ns": 1794647240995996508,
+        "game": "cs-go",
+        "gaps_gt60": 5,
+        "last_ns": 1794653681376998344,
+        "max_gap_s": 962.411,
+        "status_rows": 621,
+        "title": "FORZE Reload vs Nice Try"
+      },
+      "1796496": {
+        "counts": {
+          "alive_flips": 131,
+          "round_score_side_changes": 28
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first_ns": 1794658122339575342,
+        "game": "cs-go",
         "gaps_gt60": 2,
-        "last": "2026-11-14T09:53:26.753831+00:00",
-        "max_gap_s": 99.027,
-        "status_rows": 328,
-        "title": "FORZE Reload vs Nice Try",
-        "title_slug": "cs-go"
+        "last_ns": 1794662697074267270,
+        "max_gap_s": 959.58,
+        "status_rows": 591,
+        "title": "Phantom vs Hype Tech"
       },
       "1803635": {
         "counts": {
-          "alive_flips": 347,
-          "round_score_side_changes": 31
+          "alive_flips": 993,
+          "round_score_side_changes": 85
         },
         "fields": [
           "bomb",
@@ -452,13 +769,30 @@
           "round_timer",
           "side"
         ],
-        "first": "2026-11-14T09:14:40.902054+00:00",
-        "gaps_gt60": 2,
-        "last": "2026-11-14T11:13:38.208651+00:00",
-        "max_gap_s": 3619.246,
-        "status_rows": 449,
-        "title": "GenOne vs Balkan Outlaws",
-        "title_slug": "cs-go"
+        "first_ns": 1794647680902053747,
+        "game": "cs-go",
+        "gaps_gt60": 8,
+        "last_ns": 1794660073363480762,
+        "max_gap_s": 926.845,
+        "status_rows": 1598,
+        "title": "GenOne vs Balkan Outlaws"
+      },
+      "1803636": {
+        "counts": {
+          "round_score_side_changes": 5
+        },
+        "fields": [
+          "map_id",
+          "round_score",
+          "side"
+        ],
+        "first_ns": 1794655062934670195,
+        "game": "cs-go",
+        "gaps_gt60": 3,
+        "last_ns": 1794661321908241178,
+        "max_gap_s": 4734.37,
+        "status_rows": 12,
+        "title": "9INE vs WRAITH PCIFIC"
       },
       "1806970": {
         "counts": {
@@ -483,13 +817,13 @@
           "roshans",
           "towers"
         ],
-        "first": "2026-11-13T15:52:34.650429+00:00",
+        "first_ns": 1794585154650428394,
+        "game": "dota-2",
         "gaps_gt60": 5,
-        "last": "2026-11-13T19:51:40.996985+00:00",
+        "last_ns": 1794599500996984820,
         "max_gap_s": 1305.641,
         "status_rows": 2267,
-        "title": "Team Liquid vs LGD Gaming",
-        "title_slug": "dota-2"
+        "title": "Team Liquid vs LGD Gaming"
       },
       "1809115": {
         "counts": {
@@ -505,13 +839,13 @@
           "round_timer",
           "side"
         ],
-        "first": "2026-11-13T15:12:32.681279+00:00",
+        "first_ns": 1794582752681278678,
+        "game": "cs-go",
         "gaps_gt60": 3,
-        "last": "2026-11-13T17:21:13.140105+00:00",
+        "last_ns": 1794590473140104339,
         "max_gap_s": 623.541,
         "status_rows": 853,
-        "title": "STATE vs BBL",
-        "title_slug": "cs-go"
+        "title": "STATE vs BBL"
       },
       "1809116": {
         "counts": {
@@ -527,13 +861,13 @@
           "round_timer",
           "side"
         ],
-        "first": "2026-11-13T15:12:32.009645+00:00",
+        "first_ns": 1794582752009644473,
+        "game": "cs-go",
         "gaps_gt60": 9,
-        "last": "2026-11-13T18:23:05.984901+00:00",
+        "last_ns": 1794594185984901383,
         "max_gap_s": 735.026,
         "status_rows": 1187,
-        "title": "LUNTIKI vs 33",
-        "title_slug": "cs-go"
+        "title": "LUNTIKI vs 33"
       },
       "1809117": {
         "counts": {
@@ -549,199 +883,91 @@
           "round_timer",
           "side"
         ],
-        "first": "2026-11-13T17:26:50.483090+00:00",
+        "first_ns": 1794590810483089735,
+        "game": "cs-go",
         "gaps_gt60": 9,
-        "last": "2026-11-13T22:32:42.967687+00:00",
+        "last_ns": 1794609162967686745,
         "max_gap_s": 3405.86,
         "status_rows": 1488,
-        "title": "STATE",
-        "title_slug": "cs-go"
+        "title": "STATE"
       }
-    }
-  },
-  "goalserve": {
-    "window_start_utc": "2026-11-13T15:09Z",
-    "files": 19,
-    "malformed_rows": 1,
-    "total_matches": 21,
-    "total_changes": 78112,
-    "per_sport": {
-      "CS2": 62908,
-      "Dota 2": 12009,
-      "other esports": 3195
     },
-    "per_match": [
-      {
-        "match_id": "140832465",
-        "name": "KUUSAMO vs MayBe",
-        "payloads": 6063,
-        "odds_changes": 7076
-      },
-      {
-        "match_id": "141116256",
-        "name": "Alliance vs Four Magic",
-        "payloads": 3362,
-        "odds_changes": 4352
-      },
-      {
-        "match_id": "141163317",
-        "name": "Apogee vs Leo Team",
-        "payloads": 3295,
-        "odds_changes": 3504
-      },
-      {
-        "match_id": "141164392",
-        "name": "MayBe vs mixLVLT",
-        "payloads": 2519,
-        "odds_changes": 3386
-      },
-      {
-        "match_id": "141164409",
-        "name": "Saint Sinners vs Balkan Outlaws",
-        "payloads": 297,
-        "odds_changes": 306
-      },
-      {
-        "match_id": "141164753",
-        "name": "ex-RUSTEC vs Nexus",
-        "payloads": 3244,
-        "odds_changes": 4322
-      },
-      {
-        "match_id": "141164775",
-        "name": "Omega vs Inner Circle Academy",
-        "payloads": 5100,
-        "odds_changes": 6129
-      },
-      {
-        "match_id": "141165637",
-        "name": "Froglings vs PuckChamp",
-        "payloads": 1898,
-        "odds_changes": 774
-      },
-      {
-        "match_id": "141165643",
-        "name": "CyberHero vs Xipto",
-        "payloads": 4045,
-        "odds_changes": 3470
-      },
-      {
-        "match_id": "141165675",
-        "name": "PARIVISION vs Yellow Submarine",
-        "payloads": 1299,
-        "odds_changes": 640
-      },
-      {
-        "match_id": "141165682",
-        "name": "Team Liquid vs LGD Gaming",
-        "payloads": 6742,
-        "odds_changes": 2577
-      },
-      {
-        "match_id": "141165693",
-        "name": "Team Spirit vs Froglings",
-        "payloads": 4348,
-        "odds_changes": 2806
-      },
-      {
-        "match_id": "141192093",
-        "name": "STATE vs EYEBALLERS",
-        "payloads": 1922,
-        "odds_changes": 2149
-      },
-      {
-        "match_id": "141199605",
-        "name": "Noir Verse vs 6yuBoJlbl",
-        "payloads": 3102,
-        "odds_changes": 3654
-      },
-      {
-        "match_id": "141199608",
-        "name": "Lavked vs Alliance",
-        "payloads": 2999,
-        "odds_changes": 3968
-      },
-      {
-        "match_id": "141199612",
-        "name": "ex-INOX vs Saint Sinners",
-        "payloads": 2612,
-        "odds_changes": 3195
-      },
-      {
-        "match_id": "141202857",
-        "name": "GenOne vs Balkan Outlaws",
-        "payloads": 2339,
-        "odds_changes": 2998
-      },
-      {
-        "match_id": "141216876",
-        "name": "LGD Gaming vs Legion",
-        "payloads": 2339,
-        "odds_changes": 1658
-      },
-      {
-        "match_id": "141216926",
-        "name": "Team Spirit vs MOUZ",
-        "payloads": 1882,
-        "odds_changes": 18022
-      },
-      {
-        "match_id": "141216927",
-        "name": "Inner Circle vs Nemiga",
-        "payloads": 449,
-        "odds_changes": 84
-      },
-      {
-        "match_id": "141216970",
-        "name": "FURIA vs Falcons",
-        "payloads": 417,
-        "odds_changes": 3042
-      }
-    ]
+    "totals": {
+      "alive_flips": 6052,
+      "barracks_increases": 76,
+      "barracks_side_changes": 78,
+      "kills_increases": 1069,
+      "kills_side_changes": 1083,
+      "roshans_increases": 38,
+      "roshans_side_changes": 46,
+      "round_score_side_changes": 702,
+      "towers_increases": 243,
+      "towers_side_changes": 249
+    },
+    "window_end_utc": "2026-11-14T13:25:00.000Z"
   },
   "polymarket": {
-    "window_start_utc": "2026-11-13T17:06Z",
-    "registered_matches": 345,
-    "registered_tokens": 1858,
-    "book_rows": 1022334,
-    "matches_with_book_rows": 90,
-    "malformed_book_rows": 0,
-    "volume_strata": {
-      "threshold_usd": 25000,
-      "volume_basis": "captured Polymarket trade notional, price*size, window start to file end",
-      "matches_by_stratum": {
-        "<25k": 338,
-        ">=25k": 7
+    "bad_book_lines": 0,
+    "bad_trade_lines": 0,
+    "book_rows": 1321762,
+    "book_summary": {
+      "('cs2', '<25k')": {
+        "matches": 54,
+        "rows": 576019
       },
-      "trades_in_window": 19772,
-      "trade_rows_malformed": 0,
-      "per_title_and_stratum": {
-        "('cs2', '<25k')": {
-          "matches": 220,
-          "rows": 586041
-        },
-        "('dota2', '<25k')": {
-          "matches": 118,
-          "rows": 245567
-        },
-        "('cs2', '>=25k')": {
-          "matches": 5,
-          "rows": 126691
-        },
-        "('dota2', '>=25k')": {
-          "matches": 2,
-          "rows": 64035
-        }
+      "('cs2', '>=25k')": {
+        "matches": 10,
+        "rows": 326266
       },
-      "traded_matches": 41,
-      "dota2": {
-        "<25k": 118,
-        ">=25k": 2
+      "('dota2', '<25k')": {
+        "matches": 24,
+        "rows": 262795
       },
-      "cs2": {
-        "<25k": 220,
-        ">=25k": 5
+      "('dota2', '>=25k')": {
+        "matches": 4,
+        "rows": 156682
       }
+    },
+    "booked_matches": 92,
+    "registered_matches": 347,
+    "registered_tokens": 1870,
+    "strata_matches": {
+      "<25k": 333,
+      ">=25k": 14
+    },
+    "trade_rows": 40575,
+    "volume_matches": 42,
+    "window_end_utc": "2026-11-14T13:25:00.000Z"
+  },
+  "priced_events": {
+    "('cs2', '<25k')": {
+      "count": 225,
+      "matches": 5
+    },
+    "('cs2', '>=25k')": {
+      "count": 266,
+      "matches": 5
+    },
+    "('dota2', '<25k')": {
+      "count": 550,
+      "matches": 4
+    },
+    "('dota2', '>=25k')": {
+      "count": 78,
+      "matches": 1
     }
+  },
+  "scope": {
+    "kind": "count-only; no lead, price direction, or verdict computed",
+    "method_script": "/vol2/pkarbs/scratch/p318-recount/full_recount_1325.py",
+    "standard": "feeds/STANDARD-feed-latency-test.md v1",
+    "window_end_utc": "2026-11-14T13:25:00Z",
+    "window_start_utc": "2026-11-13T15:12:29Z"
+  },
+  "total_events": {
+    "('cs2', '<25k')": 378,
+    "('cs2', '>=25k')": 266,
+    "('dota2', '<25k')": 776,
+    "('dota2', '>=25k')": 78
   }
 }
