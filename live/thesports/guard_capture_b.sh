@@ -7,6 +7,10 @@
 #      -> restart (TERM the capture pids, then relaunch), every restart logged
 # ts_poll is excluded from the freshness set: it is written only when a polled body
 # changes, so its age is not a liveness signal.
+# P9 addendum (OPEN row P11, note #315 item 4, 14 Nov): the freshness set now includes
+# trades, and the PM trade recorder (thesports-pmtrades, pm_trades_capture.py) is
+# process-guarded here the same way capture.py is - absent -> relaunch.
+# Revert for this addendum: cp guard_capture_b.sh.bak-p11-<stamp> guard_capture_b.sh
 # Why the env file: the 17:06:03Z transient launch had an empty Environment, so capture.py
 # logged 'thesports_no_creds' and ts_mqtt/ts_poll stopped (last ts_mqtt row 17:05:32Z).
 # No `timeout 552000` on relaunch (#311 item 1): capture.py bounds itself at 160 h and this
@@ -19,6 +23,8 @@ LOG=/var/log/thesports_capture_guard.log
 UNIT=thesports-capture-b
 ENVF=/etc/pkarbs/thesports.env
 SCRIPT=/root/pkarbs/live/thesports/capture.py
+TSCRIPT=/root/pkarbs/live/thesports/pm_trades_capture.py
+TUNIT=thesports-pmtrades
 OUT=/mnt/HC_Volume_107257520/pkarbs/thesports/final-topics-32295b
 MAX_AGE=${GUARD_MAX_AGE:-600}
 DRYRUN=${GUARD_DRYRUN:-0}
@@ -27,6 +33,27 @@ exec 9>/run/thesports_capture_guard.lock
 flock -n 9 || exit 0
 
 log() { echo "$(date -u +%FT%TZ) $*" >> "$LOG"; }
+
+# PM trade recorder (note #315 item 1): absent -> relaunch with the same output dir.
+trades_pids() {
+  local p cmd
+  for p in /proc/[0-9]*; do
+    [ -r "$p/cmdline" ] || continue
+    cmd=$(tr '\0' ' ' < "$p/cmdline" 2>/dev/null || true)
+    case "$cmd" in *"$TSCRIPT"*) echo "${p#/proc/}" ;; esac
+  done
+}
+
+trades_check() {
+  if [ -n "$(trades_pids)" ]; then return 0; fi
+  if [ "$DRYRUN" = "1" ]; then log "DRYRUN: $TUNIT absent, would relaunch"; return 0; fi
+  systemctl reset-failed "$TUNIT" >/dev/null 2>&1 || true
+  if systemd-run --quiet --unit="$TUNIT" python3 -I "$TSCRIPT" "$OUT" --interval 30 >> "$LOG" 2>&1; then
+    log "relaunched $TUNIT ok"
+  else
+    log "TRADES RELAUNCH FAILED rc=$?"
+  fi
+}
 
 # Process check: read /proc cmdlines directly (never pgrep -f, which matches the checker).
 capture_pids() {
@@ -50,6 +77,7 @@ relaunch() {
   return "$rc"
 }
 
+trades_check          # runs every tick, before any exit path below
 PIDS=$(capture_pids)
 if [ -z "$PIDS" ]; then
   log "ABSENT - relaunching $UNIT with env $ENVF"
@@ -58,7 +86,7 @@ if [ -z "$PIDS" ]; then
 fi
 
 newest=0
-for f in books pmws ts_mqtt log; do
+for f in books pmws ts_mqtt log trades; do
   p="$OUT/$f.jsonl"
   [ -f "$p" ] || continue
   m=$(stat -c %Y "$p" 2>/dev/null || echo 0)
