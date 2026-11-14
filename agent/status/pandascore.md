@@ -134,3 +134,10 @@ Close errors in included event rows: 4,553 (4,549 code 4004; four without code).
 - Live file SHA-256 is `be437551ef871437a0a168f25ef09886dc161569c72060243393bbe8241dc8f7`; it matches the approved edits, and `python3 -m py_compile` passes. The running process (PID 548127) started 13 Nov 17:39:46Z, before the edit, so the change is not live.
 - **Restart held:** latest raw status rows at 14:07:58Z showed matches 1793319, 1803636, and 1807005 running. A fresh sample at 14:08Z still showed those three active; restarting would violate the approved no-live-match condition. Capture logs continued growing on the data volume through 14:08Z.
 - **OPEN / NOT VERIFIED:** wait until no match is live, then restart and verify the new process plus post-restart 4004 retry behavior. No additional approval is needed; no restart was attempted.
+
+
+## #339 PandaScore 4004 retry-loop fix — safe restart recheck (14 Nov 14:18Z)
+
+- Approved staged file remains SHA-256 `be437551ef871437a0a168f25ef09886dc161569c72060243393bbe8241dc8f7`; backup remains `a6d7d06a962b3eeb86fac6711e6a8a47f7b6358eca7403979732245833d698ba`.
+- Latest raw status rows through 14:17:46Z show seven matches running: 1762448, 1785760, 1786830, 1793319, 1796496, 1803636, 1807005. PID 548127 is still the pre-edit process. The 14:17:46Z row confirms output is continuing.
+- Restart not attempted because the approved no-live-match precondition is not met.
