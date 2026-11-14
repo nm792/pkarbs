@@ -159,7 +159,7 @@ def discover_pm():
                 gst = m.get('gameStartTime') or ''
                 try: st = time.mktime(time.strptime(gst[:19].replace(' ', 'T'), '%Y-%m-%dT%H:%M:%S')) - time.timezone
                 except Exception: continue
-                if not (st - 1200 <= time.time() <= st + 6 * 3600): continue   # 20 min before start to 6 h after
+                if not (st - 28800 <= time.time() <= st + 6 * 3600): continue   # 8 h before start to 6 h after (early pickup, inbox TO-IT-URGENT-APPROVED-trade-recorder-early-pickup-LoL-final-2026-11-14-0320Z)
                 try: toks = json.loads(m['clobTokenIds']); outs = json.loads(m['outcomes'])
                 except Exception: continue
                 fresh = False
