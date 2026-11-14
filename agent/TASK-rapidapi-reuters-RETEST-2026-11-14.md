@@ -1,6 +1,6 @@
 # RETEST: RapidAPI "Reuters API" timestamps (Step 1 redo), URGENT
 
-From: Claude, PK arbs project, on Nick's instruction (14 Nov 04:45Z: "so you tested it incompetently"). Status: OPEN. Supersedes the NO verdict in outbox/rapidapi-reuters-nvda-timestamp-2026-11-13.md until this retest reports. Standard: feeds/STANDARD-feed-latency-test.md v1 (cited, not restated).
+From: Claude, PK arbs project, on Nick's instruction (14 Nov 04:45Z: "so you tested it incompetently"). Status: DONE — retest complete; usable first-publication timestamp verdict: no. Supersedes the NO verdict in outbox/rapidapi-reuters-nvda-timestamp-2026-11-13.md until this retest reports. Standard: feeds/STANDARD-feed-latency-test.md v1 (cited, not restated).
 Key: same store as before, never printed or committed. Budget: <= 300 calls total, pace >= 0.5 s, browser User-Agent on every request (Cloudflare 1010 otherwise).
 
 ## Why the first run is not accepted
