@@ -149,3 +149,12 @@ Close errors in included event rows: 4,553 (4,549 code 4004; four without code).
 - No-live-match precondition remains unproven: the latest raw status rows at 14:33:22Z showed four matches with `match_status=running` (1791805, 1793319, 1796496, 1807005). Checks at 14:36:21Z and 14:37:21Z found no newer status rows; this does not establish that the matches ended.
 - Restart not attempted. The approved gate is not met; the running capture process remains PID 548127, started 13 Nov 17:39:46Z.
 - Evidence: `/mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026111414.jsonl.gz` (append-streamed; incomplete gzip at read).
+
+
+## #339 PandaScore 4004 fix — safe-restart recheck (2026-11-14 14:51Z)
+
+- Approved patch remains staged only: live `live/pandascore/ll_capture.py` SHA-256 `be437551ef871437a0a168f25ef09886dc161569c72060243393bbe8241dc8f7`; backup `live/pandascore/ll_capture.py.pre-339-20261114T135600Z` SHA-256 `a6d7d06a962b3eeb86fac6711e6a8a47f7b6358eca7403979732245833d698ba`; `python3 -m py_compile` passes.
+- Restart gate remains unmet. The latest complete hourly raw file (13:00–14:00Z) has latest `match_status=running` for 1793319 and 1803636. The current hour file is append-streamed and ends in an incomplete gzip; tolerant reading recovered 555 status rows through 14:33:09Z and found six matches with latest `match_status=running` (1785760, 1791805, 1793319, 1796496, 1803636, 1807005). No newer status rows were present at 14:51Z, so this does not establish that matches ended.
+- Independent live event-log check confirms the old process still retries match 1789154 on code 4004 every 10 seconds: 17 `connected`, 17 `close_error(4004)`, and 17 `recheck_discovery` events from 14:48Z through 14:50Z. This is the pre-edit process behavior; restart remains prohibited until no live match is evidenced.
+- Capture PID 548127 is still running from 13 Nov 17:39:46Z; raw-hour file mtime remained 14:45:25Z at the 14:50Z check. No restart attempted.
+- **OPEN / NOT VERIFIED:** approved change has not been loaded by the process; safe restart and post-restart 4004 behavior remain unverified. Recheck the raw status stream when it advances; restart only after the approved no-live-match condition is established.
