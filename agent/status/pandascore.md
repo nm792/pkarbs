@@ -127,3 +127,10 @@ Corrected A: 21 matches (12 CS2, 9 Dota 2), not zero state events. Dota increase
 | 1809117 | STATE | 1488 | 0 | 0 | 0 | 0 | 82 | 932 | 9 | 3405.860 |
 
 Close errors in included event rows: 4,553 (4,549 code 4004; four without code). Coded rows: match 1789154; missing-code rows: 3 match 1789154, 1 match 1793327. Receive gaps >60s exist; files do not prove churn caused data loss.
+
+## #339 PandaScore 4004 retry-loop fix — code staged, safe restart held (14 Nov 13:56Z)
+
+- IT approved the three specified edits in `agent/inbox/IT-REPLY-4004-fix-2026-11-14.md`; no additional user approval is pending. Byte-identical pre-edit backup: `live/pandascore/ll_capture.py.pre-339-20261114T135600Z`, SHA-256 `a6d7d06a962b3eeb86fac6711e6a8a47f7b6358eca7403979732245833d698ba`.
+- Edited `live/pandascore/ll_capture.py`: 4004 now exits the socket task and logs a per-match counter; discovery can retry after the 300-second task-completion cooldown; connection waits until `opens_at`. New SHA-256 `be437551ef871437a0a168f25ef09886dc161569c72060243393bbe8241dc8f7`; `python3 -m py_compile` passed.
+- Restart NOT run: at 13:56:28Z the newest raw status rows showed matches 1796496, 1793319 and 1803636 as `running`; stopping/restarting now would violate the note's no-live-match condition. PID 548127 remains active and still has the pre-edit code loaded; the disk edit is not yet live.
+- **OPEN / NOT VERIFIED:** restart time, post-restart process/file proof, and 4004 retry behavior after restart.

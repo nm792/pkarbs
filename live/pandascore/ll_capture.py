@@ -125,7 +125,7 @@ async def socket_for(mid, meta):
         if not free_ok():
             ev(match_id=mid, kind="stopped", reason="free space <= 15 GB on /mnt/HC_Volume_107257520/pkarbs/pandascore")
             return
-        if datetime.datetime.now(datetime.timezone.utc).timestamp() < open_ts(meta["opens_at"]) - 5:
+        if datetime.datetime.now(datetime.timezone.utc).timestamp() < open_ts(meta["opens_at"]):
             await asyncio.sleep(5); continue
         try:
             async with websockets.connect(url, open_timeout=20, max_size=None) as ws:
@@ -163,8 +163,11 @@ async def socket_for(mid, meta):
             txt = redact(repr(ex))
             ev(match_id=mid, kind="close_error", code=code, err=txt[:300])
             if code == 4004:
-                ev(match_id=mid, kind="recheck_discovery", note="match unavailable - discovery will retry")
-                await asyncio.sleep(10); continue
+                count = state.setdefault("4004_count", {}).get(mid, 0) + 1
+                state["4004_count"][mid] = count
+                ev(match_id=mid, kind="4004_count", count=count)
+                ev(match_id=mid, kind="recheck_discovery", note="match unavailable - discovery retry eligible after 300 s")
+                return
             if code in (4001, 4003, 4029):
                 ev(match_id=mid, kind="stop_for_match", code=code, note="logged, never retried for this match")
                 return
@@ -185,7 +188,8 @@ async def silence_watcher():
 
 async def main():
     ev(kind="start", pid=os.getpid(), out=OUT, token_src=SRC)
-    seen = set()
+    # None means a task is active; a float is its last completion time.
+    seen = {}
     while True:
         if not free_ok():
             ev(kind="stopped", reason="free space <= 15 GB on /mnt/HC_Volume_107257520/pkarbs/pandascore")
@@ -193,12 +197,14 @@ async def main():
         feeds = discovery()
         now = time.time()
         for mid, meta in feeds.items():
-            if mid in seen:
+            last_end = seen.get(mid)
+            if mid in seen and (last_end is None or now - last_end < 300):
                 continue
             if open_ts(meta["opens_at"]) > now + 900:
                 continue                       # not connectable yet (opens_at 15 min before start)
-            seen.add(mid)
-            asyncio.create_task(socket_for(mid, meta))
+            seen[mid] = None
+            task = asyncio.create_task(socket_for(mid, meta))
+            task.add_done_callback(lambda _task, match_id=mid: seen.__setitem__(match_id, time.time()))
             ev(match_id=mid, kind="task_started", label=meta["label"], slug=meta["slug"],
                opens_at=meta["opens_at"])
         await asyncio.sleep(60)
