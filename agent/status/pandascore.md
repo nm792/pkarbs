@@ -13,3 +13,10 @@
 - Restart gate still fails: tolerant read of the open 15:00Z gzip has latest status rows at 15:23:35Z for matches 1786831 and 1789161; both report `running`. Restart not attempted.
 - Capture PID 548127 remains on the pre-edit process (started 13 Nov 17:39:46Z). Match 1789154 continues producing code-4004 closes every ~10 seconds through 15:23Z.
 - OPEN / NOT VERIFIED: safe restart and post-restart behavior. Recheck only after fresh data establishes no match is live.
+
+
+## #339 safe-restart gate recheck — 2026-11-14 15:33Z
+
+- Fresh tolerant read recovered 315 status rows from the open current-hour gzip; latest observed statuses at 15:33:25Z (1786831) and 15:33:26Z (1789161) are both `running`. No-live-match gate remains false; restart not attempted.
+- Capture PID 548127 remains active, started 13 Nov 17:39:46Z. Approved source SHA is still `be437551ef871437a0a168f25ef09886dc161569c72060243393bbe8241dc8f7`; running process remains pre-edit.
+- OPEN / NOT VERIFIED: restart and post-restart behavior, held until fresh source rows establish no live match.
