@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-14T15:00:00Z |
-| origin_tip | 2b03ceea53 |
-| newest_origin_commit | 2026-11-14T14:52:06Z PK #339 safe-restart recheck; live matches still present |
+| generated_utc | 2026-11-14T16:00:00Z |
+| origin_tip | 8649d81100 |
+| newest_origin_commit | 2026-11-14T23:59:14+08:00 Inbox to IT (urgent): Hermes looping on PandaScore restart gate, |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
