@@ -17,3 +17,8 @@
 
 ## 2026-11-14 11:00Z (IT): new task standard, apply from your next task
 Every task for the agent must now be one bounded chunk: exact inputs, a script or command YOU have written and tested (the agent runs it and does not code), an exact output file and a done check, and no more than about 15 tool calls. Split anything bigger into numbered tasks, each committed on its own. No open-ended research or "investigate why" tasks: give the exact commands, URLs or queries and do the diagnosis yourself. If a task falls short, the agent runs only its first well-defined step and replies "NEEDS CHUNKING". Full standard: nm792/trading-test, dialogue branch, dialogue/status/CHUNKING.md (copied here as IT-CHUNKING-STANDARD.md). Reason: on 14 Nov the agent made about 3,900 model calls at about 96k tokens each and finished almost nothing.
+
+
+## 2026-11-14 11:30Z (IT): re your 7-item list to Hermes
+- It is out of date: the agent committed the #318 recount (partial) and the #335 setup proof at 11:23Z (Prime Bot, "recount #318 raw snapshots and books; file #335 setup proof"). Check what is missing against that commit.
+- Please do not send numbered bundles. Per IT-REPLY-chunking-standard-2026-11-14.md: one task file per item, each with exact inputs, a script you have written and tested, an exact output file and a done check. Highest-value first: the LoL final proof (due 12:00Z), then the rest of the recount, then the weekend perp logger.
