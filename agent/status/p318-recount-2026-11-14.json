@@ -1,0 +1,747 @@
+{
+  "generated_utc": "2026-11-14T11:16Z",
+  "method": "Existing read-only /vol2/pkarbs/scratch/p318-recount/recount.py executed at 11:13Z; exit 0. No code or rule change.",
+  "pandascore": {
+    "window_start_utc": "2026-11-13T15:12:29Z",
+    "raw_files": 11,
+    "malformed_current_append_gzip_rows": 1,
+    "distinct_matches": 21,
+    "totals": {
+      "alive_flips": 4108,
+      "round_score_side_changes": 482,
+      "kills_side_changes": 835,
+      "kills_increases": 823,
+      "towers_side_changes": 183,
+      "towers_increases": 175,
+      "roshans_side_changes": 33,
+      "roshans_increases": 27,
+      "barracks_side_changes": 55,
+      "barracks_increases": 53
+    },
+    "close_errors": {
+      "total": 4553,
+      "by_code": {
+        "4004": 4549,
+        "missing_code": 4
+      },
+      "by_match_code": [
+        {
+          "match_id": "1789154",
+          "code": "4004",
+          "count": 4549
+        },
+        {
+          "match_id": "1789154",
+          "code": "None",
+          "count": 3
+        },
+        {
+          "match_id": "1793327",
+          "code": "None",
+          "count": 1
+        }
+      ]
+    },
+    "per_match": {
+      "1762447": {
+        "counts": {
+          "alive_flips": 258,
+          "round_score_side_changes": 26
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first": "2026-11-14T09:00:03.164129+00:00",
+        "gaps_gt60": 1,
+        "last": "2026-11-14T09:52:24.109483+00:00",
+        "max_gap_s": 125.654,
+        "status_rows": 394,
+        "title": "Spirit vs MOUZ",
+        "title_slug": "cs-go"
+      },
+      "1762448": {
+        "counts": {
+          "alive_flips": 6
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first": "2026-11-14T11:00:54.771198+00:00",
+        "gaps_gt60": 1,
+        "last": "2026-11-14T11:13:39.106848+00:00",
+        "max_gap_s": 138.849,
+        "status_rows": 61,
+        "title": "FURIA vs Team Falcons",
+        "title_slug": "cs-go"
+      },
+      "1785753": {
+        "counts": {
+          "barracks_increases": 8,
+          "barracks_side_changes": 9,
+          "kills_increases": 141,
+          "kills_side_changes": 143,
+          "roshans_increases": 4,
+          "roshans_side_changes": 4,
+          "towers_increases": 28,
+          "towers_side_changes": 30
+        },
+        "fields": [
+          "barracks",
+          "game_timer",
+          "kills",
+          "net_worth",
+          "player_alive",
+          "player_hero_id",
+          "player_name",
+          "player_net_worth",
+          "roshans",
+          "towers"
+        ],
+        "first": "2026-11-13T19:07:17.523185+00:00",
+        "gaps_gt60": 7,
+        "last": "2026-11-13T22:02:39.897472+00:00",
+        "max_gap_s": 903.811,
+        "status_rows": 1906,
+        "title": "PuckChamp vs Zero Tenacity",
+        "title_slug": "dota-2"
+      },
+      "1785771": {
+        "counts": {
+          "barracks_increases": 6,
+          "barracks_side_changes": 6,
+          "kills_increases": 127,
+          "kills_side_changes": 127,
+          "roshans_increases": 4,
+          "roshans_side_changes": 4,
+          "towers_increases": 25,
+          "towers_side_changes": 25
+        },
+        "fields": [
+          "barracks",
+          "game_timer",
+          "kills",
+          "net_worth",
+          "player_alive",
+          "player_hero_id",
+          "player_name",
+          "player_net_worth",
+          "roshans",
+          "towers"
+        ],
+        "first": "2026-11-13T15:13:41.967061+00:00",
+        "gaps_gt60": 4,
+        "last": "2026-11-13T17:27:49.309700+00:00",
+        "max_gap_s": 943.794,
+        "status_rows": 1619,
+        "title": "Team Allied vs potn9ki",
+        "title_slug": "dota-2"
+      },
+      "1786827": {
+        "counts": {
+          "alive_flips": 758,
+          "round_score_side_changes": 79
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first": "2026-11-13T18:02:56.197573+00:00",
+        "gaps_gt60": 6,
+        "last": "2026-11-13T20:49:33.391315+00:00",
+        "max_gap_s": 733.05,
+        "status_rows": 1093,
+        "title": "Omega vs Inner Circle Academy",
+        "title_slug": "cs-go"
+      },
+      "1786828": {
+        "counts": {
+          "alive_flips": 425,
+          "round_score_side_changes": 48
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first": "2026-11-13T15:30:12.589106+00:00",
+        "gaps_gt60": 5,
+        "last": "2026-11-13T17:02:48.277974+00:00",
+        "max_gap_s": 581.999,
+        "status_rows": 579,
+        "title": "Apogee Esports vs Leo Team",
+        "title_slug": "cs-go"
+      },
+      "1789156": {
+        "counts": {
+          "alive_flips": 223,
+          "round_score_side_changes": 21
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first": "2026-11-13T15:12:30.814615+00:00",
+        "gaps_gt60": 5,
+        "last": "2026-11-13T16:00:12.710517+00:00",
+        "max_gap_s": 130.044,
+        "status_rows": 271,
+        "title": "ex-Zero Tenacity vs BakS eSports",
+        "title_slug": "cs-go"
+      },
+      "1789157": {
+        "counts": {},
+        "fields": [],
+        "first": "2026-11-13T15:18:27.536050+00:00",
+        "gaps_gt60": 0,
+        "last": "2026-11-13T15:18:27.595043+00:00",
+        "max_gap_s": 0.025,
+        "status_rows": 4,
+        "title": "FORZE Reload vs Walczaki",
+        "title_slug": "cs-go"
+      },
+      "1789158": {
+        "counts": {
+          "alive_flips": 474,
+          "round_score_side_changes": 45
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first": "2026-11-13T18:07:18.896061+00:00",
+        "gaps_gt60": 4,
+        "last": "2026-11-13T19:45:21.513151+00:00",
+        "max_gap_s": 762.296,
+        "status_rows": 633,
+        "title": "ex-RUSTEC vs Nexus",
+        "title_slug": "cs-go"
+      },
+      "1791798": {
+        "counts": {
+          "barracks_increases": 7,
+          "barracks_side_changes": 7,
+          "kills_increases": 36,
+          "kills_side_changes": 38,
+          "roshans_increases": 1,
+          "roshans_side_changes": 2,
+          "towers_increases": 15,
+          "towers_side_changes": 15
+        },
+        "fields": [
+          "barracks",
+          "game_timer",
+          "kills",
+          "net_worth",
+          "player_alive",
+          "player_hero_id",
+          "player_name",
+          "player_net_worth",
+          "roshans",
+          "towers"
+        ],
+        "first": "2026-11-13T15:12:35.175895+00:00",
+        "gaps_gt60": 5,
+        "last": "2026-11-13T16:10:33.809281+00:00",
+        "max_gap_s": 621.799,
+        "status_rows": 452,
+        "title": "Froglings vs PuckChamp",
+        "title_slug": "dota-2"
+      },
+      "1791799": {
+        "counts": {
+          "barracks_increases": 6,
+          "barracks_side_changes": 6,
+          "kills_increases": 122,
+          "kills_side_changes": 124,
+          "roshans_increases": 3,
+          "roshans_side_changes": 5,
+          "towers_increases": 21,
+          "towers_side_changes": 21
+        },
+        "fields": [
+          "barracks",
+          "game_timer",
+          "kills",
+          "net_worth",
+          "player_alive",
+          "player_hero_id",
+          "player_name",
+          "player_net_worth",
+          "roshans",
+          "towers"
+        ],
+        "first": "2026-11-13T18:02:49.741511+00:00",
+        "gaps_gt60": 7,
+        "last": "2026-11-13T20:10:05.666399+00:00",
+        "max_gap_s": 624.522,
+        "status_rows": 1251,
+        "title": "CyberHero vs Xipto Esports",
+        "title_slug": "dota-2"
+      },
+      "1791800": {
+        "counts": {},
+        "fields": [
+          "barracks",
+          "game_timer",
+          "kills",
+          "towers"
+        ],
+        "first": "2026-11-14T11:10:33.235774+00:00",
+        "gaps_gt60": 0,
+        "last": "2026-11-14T11:11:33.373847+00:00",
+        "max_gap_s": 31.361,
+        "status_rows": 3,
+        "title": "Inner Circle x Insanity vs Nemiga Gaming",
+        "title_slug": "dota-2"
+      },
+      "1793318": {
+        "counts": {
+          "barracks_increases": 4,
+          "barracks_side_changes": 4,
+          "kills_increases": 61,
+          "kills_side_changes": 61,
+          "roshans_increases": 1,
+          "roshans_side_changes": 1,
+          "towers_increases": 12,
+          "towers_side_changes": 12
+        },
+        "fields": [
+          "barracks",
+          "game_timer",
+          "kills",
+          "net_worth",
+          "player_alive",
+          "player_hero_id",
+          "player_name",
+          "player_net_worth",
+          "roshans",
+          "towers"
+        ],
+        "first": "2026-11-13T15:12:33.094479+00:00",
+        "gaps_gt60": 0,
+        "last": "2026-11-13T15:50:46.671026+00:00",
+        "max_gap_s": 49.57,
+        "status_rows": 524,
+        "title": "PARIVISION vs Yellow Submarine",
+        "title_slug": "dota-2"
+      },
+      "1793323": {
+        "counts": {
+          "kills_increases": 51,
+          "kills_side_changes": 53,
+          "roshans_increases": 2,
+          "roshans_side_changes": 4,
+          "towers_increases": 7,
+          "towers_side_changes": 9
+        },
+        "fields": [
+          "barracks",
+          "game_timer",
+          "kills",
+          "net_worth",
+          "player_alive",
+          "player_hero_id",
+          "player_name",
+          "player_net_worth",
+          "roshans",
+          "towers"
+        ],
+        "first": "2026-11-14T09:02:28.744210+00:00",
+        "gaps_gt60": 3,
+        "last": "2026-11-14T11:13:45.076139+00:00",
+        "max_gap_s": 3651.436,
+        "status_rows": 968,
+        "title": "LGD Gaming vs LEGION",
+        "title_slug": "dota-2"
+      },
+      "1793327": {
+        "counts": {
+          "barracks_increases": 7,
+          "barracks_side_changes": 7,
+          "kills_increases": 127,
+          "kills_side_changes": 127,
+          "roshans_increases": 6,
+          "roshans_side_changes": 6,
+          "towers_increases": 28,
+          "towers_side_changes": 28
+        },
+        "fields": [
+          "barracks",
+          "game_timer",
+          "kills",
+          "net_worth",
+          "player_alive",
+          "player_hero_id",
+          "player_name",
+          "player_net_worth",
+          "roshans",
+          "towers"
+        ],
+        "first": "2026-11-13T18:54:29.668768+00:00",
+        "gaps_gt60": 6,
+        "last": "2026-11-13T22:31:53.093609+00:00",
+        "max_gap_s": 3562.839,
+        "status_rows": 1550,
+        "title": "Team Spirit vs Froglings",
+        "title_slug": "dota-2"
+      },
+      "1796489": {
+        "counts": {
+          "alive_flips": 87,
+          "round_score_side_changes": 20
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first": "2026-11-14T09:07:20.995996+00:00",
+        "gaps_gt60": 2,
+        "last": "2026-11-14T09:53:26.753831+00:00",
+        "max_gap_s": 99.027,
+        "status_rows": 328,
+        "title": "FORZE Reload vs Nice Try",
+        "title_slug": "cs-go"
+      },
+      "1803635": {
+        "counts": {
+          "alive_flips": 347,
+          "round_score_side_changes": 31
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first": "2026-11-14T09:14:40.902054+00:00",
+        "gaps_gt60": 2,
+        "last": "2026-11-14T11:13:38.208651+00:00",
+        "max_gap_s": 3619.246,
+        "status_rows": 449,
+        "title": "GenOne vs Balkan Outlaws",
+        "title_slug": "cs-go"
+      },
+      "1806970": {
+        "counts": {
+          "barracks_increases": 15,
+          "barracks_side_changes": 16,
+          "kills_increases": 158,
+          "kills_side_changes": 162,
+          "roshans_increases": 6,
+          "roshans_side_changes": 7,
+          "towers_increases": 39,
+          "towers_side_changes": 43
+        },
+        "fields": [
+          "barracks",
+          "game_timer",
+          "kills",
+          "net_worth",
+          "player_alive",
+          "player_hero_id",
+          "player_name",
+          "player_net_worth",
+          "roshans",
+          "towers"
+        ],
+        "first": "2026-11-13T15:52:34.650429+00:00",
+        "gaps_gt60": 5,
+        "last": "2026-11-13T19:51:40.996985+00:00",
+        "max_gap_s": 1305.641,
+        "status_rows": 2267,
+        "title": "Team Liquid vs LGD Gaming",
+        "title_slug": "dota-2"
+      },
+      "1809115": {
+        "counts": {
+          "alive_flips": 242,
+          "round_score_side_changes": 54
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first": "2026-11-13T15:12:32.681279+00:00",
+        "gaps_gt60": 3,
+        "last": "2026-11-13T17:21:13.140105+00:00",
+        "max_gap_s": 623.541,
+        "status_rows": 853,
+        "title": "STATE vs BBL",
+        "title_slug": "cs-go"
+      },
+      "1809116": {
+        "counts": {
+          "alive_flips": 356,
+          "round_score_side_changes": 76
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first": "2026-11-13T15:12:32.009645+00:00",
+        "gaps_gt60": 9,
+        "last": "2026-11-13T18:23:05.984901+00:00",
+        "max_gap_s": 735.026,
+        "status_rows": 1187,
+        "title": "LUNTIKI vs 33",
+        "title_slug": "cs-go"
+      },
+      "1809117": {
+        "counts": {
+          "alive_flips": 932,
+          "round_score_side_changes": 82
+        },
+        "fields": [
+          "bomb",
+          "map_id",
+          "player_alive",
+          "player_name",
+          "round_score",
+          "round_timer",
+          "side"
+        ],
+        "first": "2026-11-13T17:26:50.483090+00:00",
+        "gaps_gt60": 9,
+        "last": "2026-11-13T22:32:42.967687+00:00",
+        "max_gap_s": 3405.86,
+        "status_rows": 1488,
+        "title": "STATE",
+        "title_slug": "cs-go"
+      }
+    }
+  },
+  "goalserve": {
+    "window_start_utc": "2026-11-13T15:09Z",
+    "files": 19,
+    "malformed_rows": 1,
+    "total_matches": 21,
+    "total_changes": 78112,
+    "per_sport": {
+      "CS2": 62908,
+      "Dota 2": 12009,
+      "other esports": 3195
+    },
+    "per_match": [
+      {
+        "match_id": "140832465",
+        "name": "KUUSAMO vs MayBe",
+        "payloads": 6063,
+        "odds_changes": 7076
+      },
+      {
+        "match_id": "141116256",
+        "name": "Alliance vs Four Magic",
+        "payloads": 3362,
+        "odds_changes": 4352
+      },
+      {
+        "match_id": "141163317",
+        "name": "Apogee vs Leo Team",
+        "payloads": 3295,
+        "odds_changes": 3504
+      },
+      {
+        "match_id": "141164392",
+        "name": "MayBe vs mixLVLT",
+        "payloads": 2519,
+        "odds_changes": 3386
+      },
+      {
+        "match_id": "141164409",
+        "name": "Saint Sinners vs Balkan Outlaws",
+        "payloads": 297,
+        "odds_changes": 306
+      },
+      {
+        "match_id": "141164753",
+        "name": "ex-RUSTEC vs Nexus",
+        "payloads": 3244,
+        "odds_changes": 4322
+      },
+      {
+        "match_id": "141164775",
+        "name": "Omega vs Inner Circle Academy",
+        "payloads": 5100,
+        "odds_changes": 6129
+      },
+      {
+        "match_id": "141165637",
+        "name": "Froglings vs PuckChamp",
+        "payloads": 1898,
+        "odds_changes": 774
+      },
+      {
+        "match_id": "141165643",
+        "name": "CyberHero vs Xipto",
+        "payloads": 4045,
+        "odds_changes": 3470
+      },
+      {
+        "match_id": "141165675",
+        "name": "PARIVISION vs Yellow Submarine",
+        "payloads": 1299,
+        "odds_changes": 640
+      },
+      {
+        "match_id": "141165682",
+        "name": "Team Liquid vs LGD Gaming",
+        "payloads": 6742,
+        "odds_changes": 2577
+      },
+      {
+        "match_id": "141165693",
+        "name": "Team Spirit vs Froglings",
+        "payloads": 4348,
+        "odds_changes": 2806
+      },
+      {
+        "match_id": "141192093",
+        "name": "STATE vs EYEBALLERS",
+        "payloads": 1922,
+        "odds_changes": 2149
+      },
+      {
+        "match_id": "141199605",
+        "name": "Noir Verse vs 6yuBoJlbl",
+        "payloads": 3102,
+        "odds_changes": 3654
+      },
+      {
+        "match_id": "141199608",
+        "name": "Lavked vs Alliance",
+        "payloads": 2999,
+        "odds_changes": 3968
+      },
+      {
+        "match_id": "141199612",
+        "name": "ex-INOX vs Saint Sinners",
+        "payloads": 2612,
+        "odds_changes": 3195
+      },
+      {
+        "match_id": "141202857",
+        "name": "GenOne vs Balkan Outlaws",
+        "payloads": 2339,
+        "odds_changes": 2998
+      },
+      {
+        "match_id": "141216876",
+        "name": "LGD Gaming vs Legion",
+        "payloads": 2339,
+        "odds_changes": 1658
+      },
+      {
+        "match_id": "141216926",
+        "name": "Team Spirit vs MOUZ",
+        "payloads": 1882,
+        "odds_changes": 18022
+      },
+      {
+        "match_id": "141216927",
+        "name": "Inner Circle vs Nemiga",
+        "payloads": 449,
+        "odds_changes": 84
+      },
+      {
+        "match_id": "141216970",
+        "name": "FURIA vs Falcons",
+        "payloads": 417,
+        "odds_changes": 3042
+      }
+    ]
+  },
+  "polymarket": {
+    "window_start_utc": "2026-11-13T17:06Z",
+    "registered_matches": 345,
+    "registered_tokens": 1858,
+    "book_rows": 1022334,
+    "matches_with_book_rows": 90,
+    "malformed_book_rows": 0,
+    "volume_strata": {
+      "threshold_usd": 25000,
+      "volume_basis": "captured Polymarket trade notional, price*size, window start to file end",
+      "matches_by_stratum": {
+        "<25k": 338,
+        ">=25k": 7
+      },
+      "trades_in_window": 19772,
+      "trade_rows_malformed": 0,
+      "per_title_and_stratum": {
+        "('cs2', '<25k')": {
+          "matches": 220,
+          "rows": 586041
+        },
+        "('dota2', '<25k')": {
+          "matches": 118,
+          "rows": 245567
+        },
+        "('cs2', '>=25k')": {
+          "matches": 5,
+          "rows": 126691
+        },
+        "('dota2', '>=25k')": {
+          "matches": 2,
+          "rows": 64035
+        }
+      },
+      "traded_matches": 41,
+      "dota2": {
+        "<25k": 118,
+        ">=25k": 2
+      },
+      "cs2": {
+        "<25k": 220,
+        ">=25k": 5
+      }
+    }
+  }
+}

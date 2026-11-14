@@ -96,13 +96,34 @@ Revert: restore the pre-edit copy and point the paths back.
 - **df /:** before 17,564,192,768 B (13 Nov 15:17Z) → after 17,209,139,200 B (14 Nov 03:11Z); data disk 72,141,205,504 B free. `/proc/548127/fd` shows both output fds on the data disk. `/vol2` is a symlink to that mount since 17:44Z.
 - **Open, not fixed (a code change, so gated):** hour 22 `raw/pandascore_2026111322.jsonl.gz` reads BADGZ to the shipper (append-streamed gzip, no end marker) on every run 01:00Z–03:00Z → it never ships and never deletes (88,771 B local). Fix = a tolerant reader in `ship_raw.sh`.
 
-## #318 count-only, PandaScore leg — posted 14 Nov 04:15Z (deadline 04:15Z; PARTIAL, gaps named below)
+## #318 recount — corrected from raw status snapshots (14 Nov 11:16Z; PARTIAL)
 
-Script `agent/tasks/p318_event_count.py`; output `agent/status/p318-count-output.json` (raw run to `/tmp/p318-a.json`). Read-only: no price outcome read, no lead computed, no rule changed (not a peek under STANDARD section 4).
+Read-only run of existing `/vol2/pkarbs/scratch/p318-recount/recount.py`, exit 0. Included 11 raw hourly files; the script explicitly excludes completed 10:00–11:00Z file and includes partial 11:00Z append file (one malformed row). Thus the count is partial for the requested full interval. Full per-match JSON: `agent/status/p318-recount-2026-11-14.json`; execution log: `/vol2/pkarbs/scratch/p318-recount/run-20261114-1114.log`.
 
-1. **Matches captured:** 20 distinct `match_id` with `task_started` in `pandascore/events.jsonl.gz`, 13 Nov 15:12:29Z → 14 Nov 04:00Z — 12 `cs-go`, 8 `dota-2` (full list in the output JSON). PM books recorded per match: **NOT MEASURED this pass** — `books.jsonl` is 8.9 GB and the per-match oldest/newest scan did not complete before the deadline (see blocked list).
-2. **Qualifying events inside a book window: 0** (total; per stratum 0 and 0; distinct matches 0). `events.jsonl.gz` holds only lifecycle rows — `connected` 1,991, `close_error` 1,967, `recheck_discovery` 1,964, `task_started` 26, `closed` 17, `start` 2 — and **zero** state rows (kills / towers / barracks / roshans / round score / alive) for the whole run since 15:12Z 13 Nov. The raw hour files carry `status` snapshots only (hour 22: 664 `status` + 1 `hello`, 0 event rows), so the absence is in the capture, not in my filter. `ll_capture.py` emits `ev(kind=...)` for lifecycle only, and its WS path shows ~1,965 `close_error` + ~1,965 `recheck_discovery` against 1,991 `connected` — a reconnect churn consistent with no state events ever reaching the file.
-3. **Matches per day, last 24 h:** 20 matches task_started in the 12 h 48 m since 15:12Z → **~37/day (estimate)**. Date to reach 30 per volume stratum: **not projectable** — events per match is 0, so the stratum split cannot be computed; on the current file the projection is "never at this event rate", which is a capture defect, not a sample-size wait.
-4. Strata (PM match volume < $25k / >= $25k) and the Goalserve CS2 feed-resolution answer are in the Goalserve leg below / blocked as named.
+Corrected A: 21 matches (12 CS2, 9 Dota 2), not zero state events. Dota increases: kills 823, towers 175, barracks 53, Roshan 27. CS2: 482 score-side changes, 4,108 alive flips. The earlier lifecycle-only event-file count did not measure raw status diffs and is superseded.
 
-**Blocked at 04:15Z (as the note allows):** (a) per-match PM book coverage — needs one bounded pass over `books.jsonl` for the 1,006 registered cs2/dota2/lol tokens; (b) volume strata — needs `markets.jsonl` volume joined to those book windows; (c) whether state events are structurally never written (code read: `ev()` is lifecycle-only) or blocked by the WS churn — a read of the WS message path, not a count.
+| ID | Match | rows | kills | towers | barracks | roshan | CS2 score | alive | gaps >60s | max gap s |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1762447 | Spirit vs MOUZ | 394 | 0 | 0 | 0 | 0 | 26 | 258 | 1 | 125.654 |
+| 1762448 | FURIA vs Team Falcons | 61 | 0 | 0 | 0 | 0 | 0 | 6 | 1 | 138.849 |
+| 1785753 | PuckChamp vs Zero Tenacity | 1906 | 141 | 28 | 8 | 4 | 0 | 0 | 7 | 903.811 |
+| 1785771 | Team Allied vs potn9ki | 1619 | 127 | 25 | 6 | 4 | 0 | 0 | 4 | 943.794 |
+| 1786827 | Omega vs Inner Circle Academy | 1093 | 0 | 0 | 0 | 0 | 79 | 758 | 6 | 733.050 |
+| 1786828 | Apogee Esports vs Leo Team | 579 | 0 | 0 | 0 | 0 | 48 | 425 | 5 | 581.999 |
+| 1789156 | ex-Zero Tenacity vs BakS eSports | 271 | 0 | 0 | 0 | 0 | 21 | 223 | 5 | 130.044 |
+| 1789157 | FORZE Reload vs Walczaki | 4 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0.025 |
+| 1789158 | ex-RUSTEC vs Nexus | 633 | 0 | 0 | 0 | 0 | 45 | 474 | 4 | 762.296 |
+| 1791798 | Froglings vs PuckChamp | 452 | 36 | 15 | 7 | 1 | 0 | 0 | 5 | 621.799 |
+| 1791799 | CyberHero vs Xipto Esports | 1251 | 122 | 21 | 6 | 3 | 0 | 0 | 7 | 624.522 |
+| 1791800 | Inner Circle x Insanity vs Nemiga Gaming | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 31.361 |
+| 1793318 | PARIVISION vs Yellow Submarine | 524 | 61 | 12 | 4 | 1 | 0 | 0 | 0 | 49.570 |
+| 1793323 | LGD Gaming vs LEGION | 968 | 51 | 7 | 0 | 2 | 0 | 0 | 3 | 3651.436 |
+| 1793327 | Team Spirit vs Froglings | 1550 | 127 | 28 | 7 | 6 | 0 | 0 | 6 | 3562.839 |
+| 1796489 | FORZE Reload vs Nice Try | 328 | 0 | 0 | 0 | 0 | 20 | 87 | 2 | 99.027 |
+| 1803635 | GenOne vs Balkan Outlaws | 449 | 0 | 0 | 0 | 0 | 31 | 347 | 2 | 3619.246 |
+| 1806970 | Team Liquid vs LGD Gaming | 2267 | 158 | 39 | 15 | 6 | 0 | 0 | 5 | 1305.641 |
+| 1809115 | STATE vs BBL | 853 | 0 | 0 | 0 | 0 | 54 | 242 | 3 | 623.541 |
+| 1809116 | LUNTIKI vs 33 | 1187 | 0 | 0 | 0 | 0 | 76 | 356 | 9 | 735.026 |
+| 1809117 | STATE | 1488 | 0 | 0 | 0 | 0 | 82 | 932 | 9 | 3405.860 |
+
+Close errors in included event rows: 4,553 (4,549 code 4004; four without code). Coded rows: match 1789154; missing-code rows: 3 match 1789154, 1 match 1793327. Receive gaps >60s exist; files do not prove churn caused data loss.

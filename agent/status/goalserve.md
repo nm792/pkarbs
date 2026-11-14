@@ -222,13 +222,34 @@ confirmation the note asks for.
 - **Clause-2 route verified live:** writers.conf row `goalserve|/mnt/HC_Volume_107257520/pkarbs/goalserve|pkarbs/goalserve|-|y|hourly`; shipper `ship_raw.sh` every 30 min; ship.log `goalserve shipped=1 deleted=1 kept=0 freed=325186` at 02:30:45Z; `<box>` `pkarbs/goalserve/esports_payloads/` holds the closed hour files `esports_2026111317` … `esports_2026111400` (325 KB – 14.0 MB each), so payload bytes left the disk only after landing on the box.
 - **Open, not fixed (a code change, so gated):** the day's hash log is still local-only (the day file stays open until 15 Nov 00:00Z, so the shipper reports `nothing eligible`), and `pandascore BADGZ raw/pandascore_2026111322.jsonl.gz` on every ship run since 01:00Z — that append-streamed gzip has no end marker, the shipper refuses it, so hour 22 neither ships nor deletes (88,771 B local). Fix = a tolerant reader in `ship_raw.sh`.
 
-## #318 count-only, Goalserve leg — posted 14 Nov 04:15Z (deadline 04:15Z; PARTIAL, gaps named below)
+## #318 recount — Goalserve odds changes (14 Nov 11:16Z; PARTIAL)
 
-Script `agent/tasks/p318_event_count.py`; output `agent/status/p318-count-output.json`. Read-only (STANDARD section 4: no outcome, no lead, no rule change).
+Read-only existing script `/vol2/pkarbs/scratch/p318-recount/recount.py`, exit 0. It included 19 hourly files through 09:00Z, explicitly excluding the completed 10:00–11:00Z file; one malformed row skipped. Accordingly the result is partial for the requested interval. Full per-match JSON: `agent/status/p318-recount-2026-11-14.json`; run log: `/vol2/pkarbs/scratch/p318-recount/run-20261114-1114.log`.
 
-1. **Matches captured with PM books:** **0 in the locally held window.** The local store `goalserve/esports_payloads/` holds only `esports_2026111402.jsonl.gz` (1,907 rows) and `esports_2026111403.jsonl.gz` (1,654 rows) — earlier hours were shipped to `<box>` and deleted per clause 2 — and **every one of the 3,659 rows parses `events: {}`**, so there are 0 distinct matches to look up in `books.jsonl`. `goalserve_20261113.jsonl` is the poll-hash log (52,602 rows, sha1/bytes per sport), not an odds/event stream, and is not a source of matches.
-2. **Goalserve Dota 2 bet365 odds moves >= 2c:** **0** total (0 per stratum, 0 distinct matches) in hours 14 Nov 02:00–04:00Z. The 2c implied-probability diff was computed per `(match, market)` across consecutive updates; no update existed to diff.
-3. **Matches per day, last 24 h:** not computable from the local store (only 2 of the last ~12 hours are local) — **blocked**: the earlier hours live on `<box>` and need a pull before any per-day count or projection. No projection offered rather than a guess.
-4. **Goalserve CS2 round-result feed resolution:** per `agent/tasks/TASK-goalserve-v2-2026-11-12.md` (Facts, line 13) the esports livescore REST `esports/home` **refreshes every 1 minute** (score level, CS2 map and round results with win type; no kill/tower/Baron events). At a 60 s refresh the round-result feed **cannot** resolve a +2 s lead — the granularity is ~30x the bar. Observed locally: 0 round-result rows in the 2 hours held (no non-empty `events` at all).
+Changed participant payloads (consecutive `value_eu`/`suspend` comparison): 78,112 total; CS2 62,908, Dota 2 12,009, other esports 3,195.
 
-**Blocked at 04:15Z:** the pre-02:00Z 14 Nov hours (on `<box>` only) and the `books.jsonl` per-match join for any match those hours contain.
+| ID | Match | payloads | changed payloads |
+|---|---|---:|---:|
+| 140832465 | KUUSAMO vs MayBe | 6063 | 7076 |
+| 141116256 | Alliance vs Four Magic | 3362 | 4352 |
+| 141163317 | Apogee vs Leo Team | 3295 | 3504 |
+| 141164392 | MayBe vs mixLVLT | 2519 | 3386 |
+| 141164409 | Saint Sinners vs Balkan Outlaws | 297 | 306 |
+| 141164753 | ex-RUSTEC vs Nexus | 3244 | 4322 |
+| 141164775 | Omega vs Inner Circle Academy | 5100 | 6129 |
+| 141165637 | Froglings vs PuckChamp | 1898 | 774 |
+| 141165643 | CyberHero vs Xipto | 4045 | 3470 |
+| 141165675 | PARIVISION vs Yellow Submarine | 1299 | 640 |
+| 141165682 | Team Liquid vs LGD Gaming | 6742 | 2577 |
+| 141165693 | Team Spirit vs Froglings | 4348 | 2806 |
+| 141192093 | STATE vs EYEBALLERS | 1922 | 2149 |
+| 141199605 | Noir Verse vs 6yuBoJlbl | 3102 | 3654 |
+| 141199608 | Lavked vs Alliance | 2999 | 3968 |
+| 141199612 | ex-INOX vs Saint Sinners | 2612 | 3195 |
+| 141202857 | GenOne vs Balkan Outlaws | 2339 | 2998 |
+| 141216876 | LGD Gaming vs Legion | 2339 | 1658 |
+| 141216926 | Team Spirit vs MOUZ | 1882 | 18022 |
+| 141216927 | Inner Circle vs Nemiga | 449 | 84 |
+| 141216970 | FURIA vs Falcons | 417 | 3042 |
+
+Polymarket books since 13 Nov 17:06Z: 345 registered matches / 1,858 tokens; 1,022,334 book rows; 90 covered matches; 0 malformed book rows. Captured volume strata: 338 matches <$25k, 7 >=$25k. Book rows by sport/stratum: CS2 <$25k 586,041 (220 covered), CS2 >=$25k 126,691 (5), Dota <$25k 245,567 (118), Dota >=$25k 64,035 (2). PandaScore joined 18 matches; 3 had no registered PM market.
