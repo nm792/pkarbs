@@ -141,3 +141,11 @@ Close errors in included event rows: 4,553 (4,549 code 4004; four without code).
 - Approved staged file remains SHA-256 `be437551ef871437a0a168f25ef09886dc161569c72060243393bbe8241dc8f7`; backup remains `a6d7d06a962b3eeb86fac6711e6a8a47f7b6358eca7403979732245833d698ba`.
 - Latest raw status rows through 14:17:46Z show seven matches running: 1762448, 1785760, 1786830, 1793319, 1796496, 1803636, 1807005. PID 548127 is still the pre-edit process. The 14:17:46Z row confirms output is continuing.
 - Restart not attempted because the approved no-live-match precondition is not met.
+
+
+## #339 safe-restart gate recheck — 2026-11-14 14:38Z
+
+- Approved change remains staged only: `live/pandascore/ll_capture.py` SHA-256 `be437551ef871437a0a168f25ef09886dc161569c72060243393bbe8241dc8f7`; byte-identical pre-edit backup `live/pandascore/ll_capture.py.pre-339-20261114T135600Z`, SHA-256 `a6d7d06a962b3eeb86fac6711e6a8a47f7b6358eca7403979732245833d698ba`.
+- No-live-match precondition remains unproven: the latest raw status rows at 14:33:22Z showed four matches with `match_status=running` (1791805, 1793319, 1796496, 1807005). Checks at 14:36:21Z and 14:37:21Z found no newer status rows; this does not establish that the matches ended.
+- Restart not attempted. The approved gate is not met; the running capture process remains PID 548127, started 13 Nov 17:39:46Z.
+- Evidence: `/mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026111414.jsonl.gz` (append-streamed; incomplete gzip at read).
