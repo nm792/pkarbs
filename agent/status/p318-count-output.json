@@ -1,0 +1,147 @@
+{
+ "files": [
+  "esports_2026111402.jsonl.gz",
+  "esports_2026111403.jsonl.gz"
+ ],
+ "rows": 3659,
+ "rows_with_events": 0,
+ "matches": 0,
+ "odds_moves_ge2c": 0,
+ "score_field_changes": 0,
+ "score_changes_per_file": {},
+ "per_match": {},
+ "pandascore": {
+  "kinds": {
+   "start": 2,
+   "task_started": 26,
+   "connected": 1991,
+   "closed": 17,
+   "close_error": 1967,
+   "recheck_discovery": 1964
+  },
+  "matches": 20,
+  "match_list": {
+   "1789157": {
+    "label": "FORZE Reload vs Walczaki",
+    "slug": "cs-go",
+    "opens_at": "2026-11-13T15:15:00.000000Z",
+    "first_seen": "2026-11-13T15:12:29.471+00:00"
+   },
+   "1791798": {
+    "label": "Froglings vs PuckChamp",
+    "slug": "dota-2",
+    "opens_at": "2026-11-13T14:15:00.000000Z",
+    "first_seen": "2026-11-13T15:12:29.471+00:00"
+   },
+   "1786828": {
+    "label": "Apogee Esports vs Leo Team",
+    "slug": "cs-go",
+    "opens_at": "2026-11-13T15:15:00.000000Z",
+    "first_seen": "2026-11-13T15:12:29.472+00:00"
+   },
+   "1809115": {
+    "label": "STATE vs BBL",
+    "slug": "cs-go",
+    "opens_at": "2026-11-13T14:45:00.000000Z",
+    "first_seen": "2026-11-13T15:12:29.473+00:00"
+   },
+   "1796486": {
+    "label": "LUNTIKI vs Drama eSports",
+    "slug": "cs-go",
+    "opens_at": "2026-11-13T14:45:00.000000Z",
+    "first_seen": "2026-11-13T15:12:29.473+00:00"
+   },
+   "1793318": {
+    "label": "PARIVISION vs Yellow Submarine",
+    "slug": "dota-2",
+    "opens_at": "2026-11-13T13:40:00.000000Z",
+    "first_seen": "2026-11-13T15:12:29.474+00:00"
+   },
+   "1786826": {
+    "label": "PRIVATE vs Butterfly",
+    "slug": "cs-go",
+    "opens_at": "2026-11-13T12:15:00.000000Z",
+    "first_seen": "2026-11-13T15:12:29.474+00:00"
+   },
+   "1789154": {
+    "label": "MINT vs Honv\u00e9d",
+    "slug": "cs-go",
+    "opens_at": "2026-11-12T17:45:00.000000Z",
+    "first_seen": "2026-11-13T17:39:46.744+00:00"
+   },
+   "1785771": {
+    "label": "Team Allied vs potn9ki",
+    "slug": "dota-2",
+    "opens_at": "2026-11-13T15:05:00.000000Z",
+    "first_seen": "2026-11-13T17:39:46.745+00:00"
+   },
+   "1809116": {
+    "label": "LUNTIKI vs 33",
+    "slug": "cs-go",
+    "opens_at": "2026-11-13T14:45:00.000000Z",
+    "first_seen": "2026-11-13T17:39:46.745+00:00"
+   },
+   "1789156": {
+    "label": "ex-Zero Tenacity vs BakS eSports",
+    "slug": "cs-go",
+    "opens_at": "2026-11-13T11:45:00.000000Z",
+    "first_seen": "2026-11-13T15:12:29.476+00:00"
+   },
+   "1806970": {
+    "label": "Team Liquid vs LGD Gaming",
+    "slug": "dota-2",
+    "opens_at": "2026-11-13T15:55:00.000000Z",
+    "first_seen": "2026-11-13T17:39:46.744+00:00"
+   },
+   "1785772": {
+    "label": "Team Synapse vs Time to Sleep",
+    "slug": "dota-2",
+    "opens_at": "2026-11-13T15:45:00.000000Z",
+    "first_seen": "2026-11-13T17:39:46.746+00:00"
+   },
+   "1809117": {
+    "label": "STATE",
+    "slug": "cs-go",
+    "opens_at": "2026-11-13T18:15:00.000000Z",
+    "first_seen": "2026-11-13T18:00:51.142+00:00"
+   },
+   "1796488": {
+    "label": "ex-INOX Division vs BakS eSports",
+    "slug": "cs-go",
+    "opens_at": "2026-11-13T17:45:00.000000Z",
+    "first_seen": "2026-11-13T17:45:47.996+00:00"
+   },
+   "1791799": {
+    "label": "CyberHero vs Xipto Esports",
+    "slug": "dota-2",
+    "opens_at": "2026-11-13T17:45:00.000000Z",
+    "first_seen": "2026-11-13T17:45:47.999+00:00"
+   },
+   "1786827": {
+    "label": "Omega vs Inner Circle Academy",
+    "slug": "cs-go",
+    "opens_at": "2026-11-13T17:45:00.000000Z",
+    "first_seen": "2026-11-13T17:45:47.999+00:00"
+   },
+   "1789158": {
+    "label": "ex-RUSTEC vs Nexus",
+    "slug": "cs-go",
+    "opens_at": "2026-11-13T17:45:00.000000Z",
+    "first_seen": "2026-11-13T17:45:47.999+00:00"
+   },
+   "1793327": {
+    "label": "Team Spirit vs Froglings",
+    "slug": "dota-2",
+    "opens_at": "2026-11-13T18:45:00.000000Z",
+    "first_seen": "2026-11-13T18:46:05.048+00:00"
+   },
+   "1785753": {
+    "label": "PuckChamp vs Zero Tenacity",
+    "slug": "dota-2",
+    "opens_at": "2026-11-13T18:45:00.000000Z",
+    "first_seen": "2026-11-13T18:46:05.052+00:00"
+   }
+  },
+  "state_events": 0
+ }
+}
