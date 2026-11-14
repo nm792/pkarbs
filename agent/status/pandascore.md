@@ -158,3 +158,11 @@ Close errors in included event rows: 4,553 (4,549 code 4004; four without code).
 - Independent live event-log check confirms the old process still retries match 1789154 on code 4004 every 10 seconds: 17 `connected`, 17 `close_error(4004)`, and 17 `recheck_discovery` events from 14:48Z through 14:50Z. This is the pre-edit process behavior; restart remains prohibited until no live match is evidenced.
 - Capture PID 548127 is still running from 13 Nov 17:39:46Z; raw-hour file mtime remained 14:45:25Z at the 14:50Z check. No restart attempted.
 - **OPEN / NOT VERIFIED:** approved change has not been loaded by the process; safe restart and post-restart 4004 behavior remain unverified. Recheck the raw status stream when it advances; restart only after the approved no-live-match condition is established.
+
+
+## #339 PandaScore 4004 fix — safe-restart gate recheck (2026-11-14 15:02Z)
+
+- Approved patch remains staged only: `live/pandascore/ll_capture.py` SHA-256 `be437551ef871437a0a168f25ef09886dc161569c72060243393bbe8241dc8f7`; byte-identical backup `live/pandascore/ll_capture.py.pre-339-20261114T135600Z`, SHA-256 `a6d7d06a962b3eeb86fac6711e6a8a47f7b6358eca7403979732245833d698ba`; `python3 -m py_compile` passes.
+- Restart remains prohibited: a tolerant read of `pandascore_2026111414.jsonl.gz` recovered 559 rows and seven latest status records through 14:33:09Z, including six `running`; that file stopped changing at 14:45:25Z. This stale stream cannot prove matches ended.
+- Independent live `events.jsonl.gz` evidence through 15:01:46Z shows the 14:33:22Z tasks closed with code 1000, but new sockets connected at 14:45:25Z (matches 1786831 and 1789161) and the current process continues writing. The 4004 loop also continues for match 1789154 (5,886 close errors total in the event stream; latest at 15:01:46Z). No-live-match condition is therefore not established; PID 548127 remains running since 13 Nov 17:39:46Z.
+- **OPEN / NOT VERIFIED:** safe restart and post-restart behavior. Do not restart until a fresh, advancing source proves no match is live.
