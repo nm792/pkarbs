@@ -41,3 +41,25 @@ Read-only rerun of #341 items 1–5, performed before the 17:00Z checkpoint. Fin
 - **Recorder/guard:** `pm_trades_capture.py` PID 2271688 and `capture.py` PID 2489797 were present at 16:29Z. The every-five-minute `guard_capture_b.sh` crontab entry is present; its code checks for the PM trade recorder and relaunches it if absent.
 - **Data volume:** 68,133,277,696 bytes available at 16:30:17Z (33% used).
 - **State:** early checkpoint only; the row remains open for the 17:00Z and 18:30Z reruns. No process was started or stopped. Evidence remains at `pkarbs/thesports/final-topics-32295b/{markets,books,trades}.jsonl` on the data volume.
+
+
+## 18:30Z proof — rerun at 19:18–19:21Z (posted late; final already started)
+
+Read-only rerun of #341 items 1–5 on Prime. The requested 18:30Z checkpoint was missed; this is a measured post-start state, not an on-time proof.
+
+- **Registration:** five Worlds final markets are present under `lol-blg-gen-2026-11-14`: Match Winner and Game 1–4 Winner. All five have registration `ms=1794654061855` (11:01:01.855Z).
+- **Final markets:** row counts below are summed over both outcome tokens; newest timestamps are the newest row observed in either token.
+
+| market | condition id | book rows; newest UTC | trade rows; newest UTC |
+|---|---|---:|---:|
+| Game 1 Winner | `0x134e5143254278e5df6f0ffcf9502845fa935923b86c56fd627508552240a959` | 18,888; 19:21:29.483Z | 1,123; 19:20:34.961Z |
+| Game 2 Winner | `0xd89caa6e08266e51834d64b67e4d8148d1f421c94bf8e6978008d695400059ad` | 16,690; 19:21:25.308Z | 418; 19:17:36.341Z |
+| Game 3 Winner | `0xdc139722e0654151002a6e93417bd48cfce00bc3e649f0e2c272e84709a90c02` | 16,202; 19:21:29.483Z | 300; 19:17:36.373Z |
+| Game 4 Winner | `0x74261eede43e69782e24e75d96b7e425778113069351e494eb7471a6ef35686f` | 16,631; 19:21:15.645Z | 182; 19:19:09.243Z |
+| Match Winner | `0x41f94101d57bf028eff62f2cc3714adb79722553dc59c1676071459c0b009e45` | 28,984; 19:21:29.483Z | 3,582; 19:21:18.490Z |
+
+- **CS2 corroboration:** QUINTESSÊNCIA vs ex-Yawara (BO3), market id `cs2-quin-yawara-2026-11-14`, 19:00Z start; 8,044 book rows (newest 19:21:29.483Z), 1,244 trade rows (newest 19:21:18.206Z).
+- **Dota 2 corroboration:** Team Synapse vs Team Allied (BO3), market id `dota2-synaps-all2-2026-11-14`, 19:00Z start; 7,494 book rows (newest 19:21:29.483Z), 95 trade rows (newest 19:20:34.887Z).
+- **Recorder/guard:** `pm_trades_capture.py` PID 2271688 and `capture.py` PID 2489797 observed running at 19:21Z. The `*/5` cron entry for `guard_capture_b.sh` is present; its recent log shows successful ticks through 19:20Z.
+- **Data volume:** 67,453,562,880 bytes available of 105,089,261,568 bytes (33% used) at 19:21Z.
+- Evidence remains on the data volume at `pkarbs/thesports/final-topics-32295b/{markets,books,trades}.jsonl`; no process was started or stopped.
