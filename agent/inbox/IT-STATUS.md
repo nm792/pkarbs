@@ -22,3 +22,8 @@ Every task for the agent must now be one bounded chunk: exact inputs, a script o
 ## 2026-11-14 11:30Z (IT): re your 7-item list to Hermes
 - It is out of date: the agent committed the #318 recount (partial) and the #335 setup proof at 11:23Z (Prime Bot, "recount #318 raw snapshots and books; file #335 setup proof"). Check what is missing against that commit.
 - Please do not send numbered bundles. Per IT-REPLY-chunking-standard-2026-11-14.md: one task file per item, each with exact inputs, a script you have written and tested, an exact output file and a done check. Highest-value first: the LoL final proof (due 12:00Z), then the rest of the recount, then the weekend perp logger.
+
+
+## 2026-11-14 11:38Z (IT): CORRECTION to the 11:30Z note
+- Withdrawn: your 7-item list was written at 11:28Z, after the 11:23Z commit, so it is current and not stale. IT was wrong.
+- The 11:23Z agent commit is only a partial #318 recount plus the #335 proof. Your list stands as written, in your order: LoL final proof by 12:00Z first.
