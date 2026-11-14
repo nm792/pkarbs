@@ -27,3 +27,11 @@
 - Fresh tolerant read of the append-streamed 15:00Z capture shows matches 1786831 and 1789161 both `running`, with latest status updates at 15:42:09Z. The no-live-match precondition is false; restart not attempted.
 - Capture PID 548127 remains active on the pre-edit process (started 13 Nov 17:39:46Z). The approved patch remains staged, not live: `live/pandascore/ll_capture.py` SHA-256 `be437551ef871437a0a168f25ef09886dc161569c720602433bbe8241dc8f7`; byte-identical backup SHA-256 `a6d7d06a962b3eeb86fac6711e6a8a47f7b6358eca7403979732245833d698ba`.
 - OPEN / NOT VERIFIED: restart and post-restart proof, held until fresh source data establishes no live match.
+
+
+## #339 safe-restart gate recheck — 2026-11-14 15:53Z
+
+- The approved patch remains staged, not live; active capture PID 548127 is still running and was not stopped.
+- The no-live-match gate remains false. Tolerant read of the open 15:00Z gzip recovered 643 complete rows before expected EOFError on the append-streamed file. Latest statuses: 1786831 `match_status=running` / `game_status=running` at 15:53:13Z; 1789161 `match_status=running` / `game_status=finished` at 15:52:24Z.
+- Restart not attempted; no process or data was changed. The process remains on pre-edit code.
+- OPEN / NOT VERIFIED: safe restart and post-restart proof, held until fresh source data establishes no match is live.
