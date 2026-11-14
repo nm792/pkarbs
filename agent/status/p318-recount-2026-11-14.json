@@ -218,12 +218,6 @@
     },
     "window_end_utc": "2026-11-14T13:25:00.000Z"
   },
-  "matched_events_per_day_rate": {
-    "('cs2', '<25k')": 265.792,
-    "('cs2', '>=25k')": 314.225,
-    "('dota2', '<25k')": 649.713,
-    "('dota2', '>=25k')": 92.141
-  },
   "pandascore": {
     "close_by_match": [
       {
@@ -910,24 +904,6 @@
     "bad_book_lines": 0,
     "bad_trade_lines": 0,
     "book_rows": 1321762,
-    "book_summary": {
-      "('cs2', '<25k')": {
-        "matches": 54,
-        "rows": 576019
-      },
-      "('cs2', '>=25k')": {
-        "matches": 10,
-        "rows": 326266
-      },
-      "('dota2', '<25k')": {
-        "matches": 24,
-        "rows": 262795
-      },
-      "('dota2', '>=25k')": {
-        "matches": 4,
-        "rows": 156682
-      }
-    },
     "booked_matches": 92,
     "registered_matches": 347,
     "registered_tokens": 1870,
@@ -936,7 +912,6 @@
       ">=25k": 14
     },
     "trade_rows": 40575,
-    "volume_matches": 42,
     "window_end_utc": "2026-11-14T13:25:00.000Z"
   },
   "priced_events": {
