@@ -1,0 +1,77 @@
+{
+  "as_of_utc": "2026-11-15T09:13:20Z",
+  "note": "agent/inbox/TO-IT-URGENT-pandascore-lead-test-run-script-2026-11-15-0540Z.md",
+  "status": "partial_blocked_input_schema",
+  "lead_cells_computed": false,
+  "verdicts_computed": false,
+  "independent_audit_run": false,
+  "inputs": {
+    "pandascore_raw_dir": "/vol2/pkarbs/pandascore/raw",
+    "pandascore_hourly_files": [
+      "pandascore_2026111507.jsonl.gz",
+      "pandascore_2026111508.jsonl.gz",
+      "pandascore_2026111509.jsonl.gz"
+    ],
+    "pandascore_current_match_ids": 4,
+    "pandascore_current_counter_increases": 27,
+    "pandascore_current_exact_normalized_name_joins": 2,
+    "pm_capture_dir": "/vol2/pkarbs/thesports/final-topics-32295b",
+    "pm_book_keys": [
+      "asks",
+      "bids",
+      "ms",
+      "sent",
+      "tk",
+      "ts"
+    ],
+    "runner_expected_book_keys": [
+      "asset",
+      "recv_ms"
+    ],
+    "pm_market_keys": [
+      "cond",
+      "gid",
+      "ms",
+      "outcomes",
+      "q",
+      "slug",
+      "smt",
+      "sport",
+      "start",
+      "title",
+      "tokens"
+    ],
+    "pm_cs2_dota_market_rows": 1184,
+    "pm_market_has_runner_kind_field": false,
+    "pm_market_has_runner_volume_field": false,
+    "historical_pandascore_dir": "/vol2/pkarbs/scratch/p318-recount/pandascore",
+    "historical_pandascore_match_ids": 23,
+    "historical_pandascore_counter_increases": 1912,
+    "historical_pm_book_export": "/vol2/pkarbs/thesports/final-topics-32295b/share/books.jsonl.gz",
+    "historical_pm_book_export_bytes": 2040243608,
+    "historical_pm_book_export_schema": [
+      "asks",
+      "bids",
+      "ms",
+      "sent",
+      "tk",
+      "ts"
+    ]
+  },
+  "prior_count_recount_2026_11_14": {
+    "cs2_round_changes": 702,
+    "dota_kills": 1069,
+    "dota_towers": 243,
+    "dota_barracks": 76,
+    "dota_roshans": 38
+  },
+  "unverified": [
+    "three-match setup table with before/after mids",
+    "volume strata",
+    "full lead cells",
+    "independent audit",
+    "PM book timing resolution"
+  ],
+  "blocker": "runner schema does not match the live or exported PM schema: book rows use tk/ms, not asset/recv_ms; registered market rows have no volume field for the pre-registered strata. Historical source rows exist but cannot be safely evaluated with this runner without a reviewed adapter and volume source.",
+  "no_code_or_live_process_changed": true
+}
