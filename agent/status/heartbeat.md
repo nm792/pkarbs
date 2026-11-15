@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-15T10:00:00Z |
-| origin_tip | 52cd8ad8fe |
-| newest_origin_commit | 2026-11-15T17:35:58+08:00 ps_lead_test: read live PM schema (tk/ms, cond/q/smt), optional  |
+| generated_utc | 2026-11-15T11:00:00Z |
+| origin_tip | 6b8a585b3a |
+| newest_origin_commit | 2026-11-15T18:11:00+08:00 IT reply: #350 PS rerun and #351 PT/PL deadlines routed (10:10Z) |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
