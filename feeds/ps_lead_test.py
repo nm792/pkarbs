@@ -100,11 +100,30 @@ def load_ps(psdir):
 
 
 def load_pm(dirs):
-    mk = []
+    """Accepts the live PM schema (cond, q, smt, title, sport, outcomes, tokens) and the older recorder schema
+    (kind, vol). Derives kind = 'Map N Winner' or 'Match Winner' from the question text; unknown -> skipped."""
+    mk, seen = [], set()
     for d in dirs:
         p = find(d, "markets")
-        if p:
-            mk += list(lines(p))
+        if not p:
+            continue
+        for m in lines(p):
+            if not m.get("outcomes") or not m.get("tokens"):
+                continue
+            c = m.get("cond")
+            if c in seen:
+                continue
+            seen.add(c)
+            if not m.get("kind"):
+                q = m.get("q") or m.get("title") or ""
+                mm = re.search(r"(?:map|game)\s*(\d+)", q, re.I)
+                if mm:
+                    m["kind"] = "Map %s Winner" % mm.group(1)
+                elif (m.get("smt") or "moneyline") == "moneyline" or re.search(r"match\s*winner", q, re.I):
+                    m["kind"] = "Match Winner"
+                else:
+                    continue
+            mk.append(m)
     return mk
 
 
@@ -123,10 +142,17 @@ def main():
     ap.add_argument("--ps", required=True)
     ap.add_argument("--pm", action="append", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--vol", help="optional JSON {condition_id: volume_usd}; without it strata are NOT computed")
     a = ap.parse_args()
     rnd = random.Random(SEED)
     ev, stats = load_ps(a.ps)
-    idx = mk_index(load_pm(a.pm))
+    volmap = json.load(open(a.vol)) if a.vol else {}
+    mkl = load_pm(a.pm)
+    for m in mkl:
+        if m.get("vol") is None and m.get("cond") in volmap:
+            m["vol"] = volmap[m["cond"]]
+    have_vol = any(m.get("vol") is not None for m in mkl)
+    idx = mk_index(mkl)
     # team names per match from events
     teams = collections.defaultdict(set)
     for e in ev:
@@ -161,14 +187,17 @@ def main():
         if not p:
             continue
         for r in lines(p):
-            t = r.get("asset")
+            t = r.get("asset") or r.get("tk")
             if t not in need_tokens:
+                continue
+            tms = r.get("recv_ms") or r.get("ms")
+            if tms is None:
                 continue
             b = [float(x["price"]) for x in r.get("bids") or []]
             s = [float(x["price"]) for x in r.get("asks") or []]
             if not b or not s:
                 continue
-            series[t].append((r["recv_ms"] / 1000.0, (max(b) + min(s)) / 2.0))
+            series[t].append((tms / 1000.0, (max(b) + min(s)) / 2.0))
     for t in series:
         series[t].sort()
     ts_cache = {t: [x[0] for x in v] for t, v in series.items()}
@@ -195,7 +224,9 @@ def main():
         return None
 
     def vol_stratum(m):
-        return ">=25k" if (m.get("vol") or 0) >= 25000 else "<25k"
+        if m.get("vol") is None:
+            return "unknown"
+        return ">=25k" if m["vol"] >= 25000 else "<25k"
 
     rows = []  # per event: title, match, stratum, series, real lead, placebo leads
     evt_times = collections.defaultdict(list)
@@ -264,11 +295,11 @@ def main():
         return [out[int(.025 * len(out))], out[int(.975 * len(out))]] if len(out) > 20 else None
 
     res = {"seed": SEED, "ps_messages": stats["messages"], "ps_events_total": len(ev),
-           "ps_matches_seen": len(both), "ps_matches_unmatched_to_pm": len(unmatched),
+           "ps_matches_seen": len(both), "ps_matches_unmatched_to_pm": len(unmatched), "strata_computed": have_vol,
            "events_without_market": {str(k): v for k, v in nev_no_market.items()}, "cells": {}}
     for title in ("cs2", "dota2"):
         for series_ in ("map", "match"):
-            for strat in ("all", "<25k", ">=25k"):
+            for strat in (("all", "<25k", ">=25k") if have_vol else ("all",)):
                 R = [r for r in rows if r["title"] == title and r["series"] == series_ and (strat == "all" or r["stratum"] == strat)]
                 P = [r for r in plc if r["title"] == title and r["series"] == series_ and (strat == "all" or r["stratum"] == strat)]
                 rl = [r["lead"] for r in R if r["lead"] is not None]
