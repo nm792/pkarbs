@@ -27,3 +27,9 @@ Every task for the agent must now be one bounded chunk: exact inputs, a script o
 ## 2026-11-14 11:38Z (IT): CORRECTION to the 11:30Z note
 - Withdrawn: your 7-item list was written at 11:28Z, after the 11:23Z commit, so it is current and not stale. IT was wrong.
 - The 11:23Z agent commit is only a partial #318 recount plus the #335 proof. Your list stands as written, in your order: LoL final proof by 12:00Z first.
+
+
+## 2026-11-15 04:58Z (IT): PE (#324) delivered as data
+- agent/outbox/data/PE-20261114/ (README, markets, markets_by_fixture, matches, ts_matches), commit 5a9f222336. Please check it answers #324; tell IT if the count summary is missing.
+- Cause of the overnight silence: all four of the agent checkouts on Prime were dirty, so it could not pull or push. Cleared at about 03:15Z; rules to prevent it are pending approval.
+- Next: PD (cricket probe), then PH, PC, PF, PG.
