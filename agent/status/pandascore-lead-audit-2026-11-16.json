@@ -1,0 +1,678 @@
+{
+  "audit": {
+    "seed": 20261116,
+    "A_isolated": {
+      "cs2|map|all_events": {
+        "n_events": 424,
+        "n_matches": 10,
+        "pct_real_with_onset": 70.75471698113208,
+        "pct_placebo_with_onset": 15.0,
+        "median_real_lead_s": -30.6205176115036,
+        "median_placebo_lead_s": -2.4522666931152344,
+        "diff_s": -28.168250918388367,
+        "pct_price_after_feed": 11.666666666666666,
+        "ci95": [
+          -47.22047448158264,
+          -6.832917928695679
+        ],
+        "audit_word": "no lead reproduced"
+      },
+      "cs2|map|isolated_gap>=60s": {
+        "n_events": 398,
+        "n_matches": 10,
+        "pct_real_with_onset": 71.35678391959799,
+        "pct_placebo_with_onset": 13.0,
+        "median_real_lead_s": -30.6205176115036,
+        "median_placebo_lead_s": -4.914021730422974,
+        "diff_s": -25.706495881080627,
+        "pct_price_after_feed": 11.971830985915492,
+        "ci95": [
+          -75.72274112701416,
+          5.0897345542907715
+        ],
+        "audit_word": "no lead reproduced"
+      },
+      "cs2|match|all_events": {
+        "n_events": 528,
+        "n_matches": 10,
+        "pct_real_with_onset": 62.121212121212125,
+        "pct_placebo_with_onset": 16.0,
+        "median_real_lead_s": -29.01902401447296,
+        "median_placebo_lead_s": 2.13077449798584,
+        "diff_s": -31.1497985124588,
+        "pct_price_after_feed": 12.5,
+        "ci95": [
+          -57.69169628620148,
+          -8.831357717514038
+        ],
+        "audit_word": "no lead reproduced"
+      },
+      "cs2|match|isolated_gap>=60s": {
+        "n_events": 498,
+        "n_matches": 10,
+        "pct_real_with_onset": 63.05220883534137,
+        "pct_placebo_with_onset": 10.0,
+        "median_real_lead_s": -28.663268208503723,
+        "median_placebo_lead_s": -10.298036456108093,
+        "diff_s": -18.36523175239563,
+        "pct_price_after_feed": 12.101910828025478,
+        "ci95": [
+          -50.66363525390625,
+          -3.2673134803771973
+        ],
+        "audit_word": "no lead reproduced"
+      },
+      "dota2|map|all_events": {
+        "n_events": 979,
+        "n_matches": 8,
+        "pct_real_with_onset": 52.706843718079675,
+        "pct_placebo_with_onset": 5.633802816901408,
+        "median_real_lead_s": -23.95372247695923,
+        "median_placebo_lead_s": 21.13694131374359,
+        "diff_s": -45.09066379070282,
+        "pct_price_after_feed": 18.6046511627907,
+        "ci95": [
+          -79.67255401611328,
+          -3.763424873352051
+        ],
+        "audit_word": "no lead reproduced"
+      },
+      "dota2|map|isolated_gap>=60s": {
+        "n_events": 36,
+        "n_matches": 8,
+        "pct_real_with_onset": 44.44444444444444,
+        "pct_placebo_with_onset": 11.267605633802816,
+        "median_real_lead_s": -6.879461288452148,
+        "median_placebo_lead_s": -47.46353602409363,
+        "diff_s": 40.58407473564148,
+        "pct_price_after_feed": 37.5,
+        "ci95": [
+          28.329689264297485,
+          43.50063872337341
+        ],
+        "audit_word": "not confirmed as no-lead"
+      },
+      "dota2|match|all_events": {
+        "n_events": 1114,
+        "n_matches": 8,
+        "pct_real_with_onset": 45.511669658886895,
+        "pct_placebo_with_onset": 8.571428571428571,
+        "median_real_lead_s": -14.14254641532898,
+        "median_placebo_lead_s": 28.562090754508972,
+        "diff_s": -42.70463716983795,
+        "pct_price_after_feed": 30.76923076923077,
+        "ci95": [
+          -54.472272992134094,
+          -29.95387101173401
+        ],
+        "audit_word": "no lead reproduced"
+      },
+      "dota2|match|isolated_gap>=60s": {
+        "n_events": 43,
+        "n_matches": 8,
+        "pct_real_with_onset": 34.883720930232556,
+        "pct_placebo_with_onset": 9.859154929577464,
+        "median_real_lead_s": -23.13856315612793,
+        "median_placebo_lead_s": 9.94222354888916,
+        "diff_s": -33.08078670501709,
+        "pct_price_after_feed": 0.0,
+        "ci95": [
+          -44.35363149642944,
+          52.85498523712158
+        ],
+        "audit_word": "no lead reproduced"
+      }
+    },
+    "A_gap_buckets": {
+      "cs2|map|gap 0-10s": {
+        "n_events": 0,
+        "n_with_onset": 0,
+        "pct_price_after_feed": null,
+        "median_real_lead_s": null
+      },
+      "cs2|map|gap 10-30s": {
+        "n_events": 0,
+        "n_with_onset": 0,
+        "pct_price_after_feed": null,
+        "median_real_lead_s": null
+      },
+      "cs2|map|gap 30-60s": {
+        "n_events": 26,
+        "n_with_onset": 16,
+        "pct_price_after_feed": 6.25,
+        "median_real_lead_s": -29.16247057914734
+      },
+      "cs2|map|gap 60-infs": {
+        "n_events": 398,
+        "n_with_onset": 284,
+        "pct_price_after_feed": 11.971830985915492,
+        "median_real_lead_s": -30.6205176115036
+      },
+      "cs2|match|gap 0-10s": {
+        "n_events": 0,
+        "n_with_onset": 0,
+        "pct_price_after_feed": null,
+        "median_real_lead_s": null
+      },
+      "cs2|match|gap 10-30s": {
+        "n_events": 0,
+        "n_with_onset": 0,
+        "pct_price_after_feed": null,
+        "median_real_lead_s": null
+      },
+      "cs2|match|gap 30-60s": {
+        "n_events": 30,
+        "n_with_onset": 14,
+        "pct_price_after_feed": 21.428571428571427,
+        "median_real_lead_s": -39.074692130088806
+      },
+      "cs2|match|gap 60-infs": {
+        "n_events": 498,
+        "n_with_onset": 314,
+        "pct_price_after_feed": 12.101910828025478,
+        "median_real_lead_s": -28.663268208503723
+      },
+      "dota2|map|gap 0-10s": {
+        "n_events": 569,
+        "n_with_onset": 299,
+        "pct_price_after_feed": 19.06354515050167,
+        "median_real_lead_s": -21.492238759994507
+      },
+      "dota2|map|gap 10-30s": {
+        "n_events": 243,
+        "n_with_onset": 128,
+        "pct_price_after_feed": 15.625,
+        "median_real_lead_s": -30.58989953994751
+      },
+      "dota2|map|gap 30-60s": {
+        "n_events": 131,
+        "n_with_onset": 73,
+        "pct_price_after_feed": 17.80821917808219,
+        "median_real_lead_s": -37.24824857711792
+      },
+      "dota2|map|gap 60-infs": {
+        "n_events": 36,
+        "n_with_onset": 16,
+        "pct_price_after_feed": 37.5,
+        "median_real_lead_s": -6.879461288452148
+      },
+      "dota2|match|gap 0-10s": {
+        "n_events": 652,
+        "n_with_onset": 307,
+        "pct_price_after_feed": 32.24755700325733,
+        "median_real_lead_s": -10.37061333656311
+      },
+      "dota2|match|gap 10-30s": {
+        "n_events": 276,
+        "n_with_onset": 122,
+        "pct_price_after_feed": 30.327868852459016,
+        "median_real_lead_s": -15.175196290016174
+      },
+      "dota2|match|gap 30-60s": {
+        "n_events": 143,
+        "n_with_onset": 63,
+        "pct_price_after_feed": 31.746031746031747,
+        "median_real_lead_s": -28.017961978912354
+      },
+      "dota2|match|gap 60-infs": {
+        "n_events": 43,
+        "n_with_onset": 15,
+        "pct_price_after_feed": 0.0,
+        "median_real_lead_s": -23.13856315612793
+      }
+    },
+    "B_reconciliation": {
+      "per_match": {
+        "1809116": {
+          "increases": {
+            "round": 75
+          },
+          "any_change": {
+            "round": 75
+          }
+        },
+        "1793323": {
+          "increases": {
+            "kills": 109,
+            "towers": 29,
+            "roshans": 5,
+            "barracks": 8
+          },
+          "any_change": {
+            "kills": 109,
+            "towers": 29,
+            "roshans": 5,
+            "barracks": 8
+          }
+        },
+        "1803635": {
+          "increases": {
+            "round": 77
+          },
+          "any_change": {
+            "round": 77
+          }
+        },
+        "1785753": {
+          "increases": {
+            "kills": 141,
+            "towers": 28,
+            "roshans": 4,
+            "barracks": 8
+          },
+          "any_change": {
+            "kills": 141,
+            "towers": 28,
+            "roshans": 4,
+            "barracks": 8
+          }
+        },
+        "1785771": {
+          "increases": {
+            "kills": 127,
+            "towers": 25,
+            "roshans": 4,
+            "barracks": 6
+          },
+          "any_change": {
+            "kills": 127,
+            "towers": 25,
+            "roshans": 4,
+            "barracks": 6
+          }
+        },
+        "1793327": {
+          "increases": {
+            "kills": 127,
+            "towers": 28,
+            "roshans": 6,
+            "barracks": 7
+          },
+          "any_change": {
+            "kills": 127,
+            "towers": 28,
+            "roshans": 6,
+            "barracks": 7
+          }
+        },
+        "1791799": {
+          "increases": {
+            "kills": 122,
+            "towers": 21,
+            "roshans": 3,
+            "barracks": 6
+          },
+          "any_change": {
+            "kills": 122,
+            "towers": 21,
+            "roshans": 5,
+            "barracks": 6
+          }
+        },
+        "1793318": {
+          "increases": {
+            "kills": 61,
+            "towers": 12,
+            "roshans": 1,
+            "barracks": 4
+          },
+          "any_change": {
+            "kills": 61,
+            "towers": 12,
+            "roshans": 1,
+            "barracks": 4
+          }
+        },
+        "1789158": {
+          "increases": {
+            "round": 39
+          },
+          "any_change": {
+            "round": 39
+          }
+        },
+        "1809117": {
+          "increases": {
+            "round": 82
+          },
+          "any_change": {
+            "round": 82
+          }
+        },
+        "1786827": {
+          "increases": {
+            "round": 69
+          },
+          "any_change": {
+            "round": 69
+          }
+        },
+        "1809115": {
+          "increases": {
+            "round": 52
+          },
+          "any_change": {
+            "round": 52
+          }
+        },
+        "1793319": {
+          "increases": {
+            "kills": 20,
+            "towers": 3
+          },
+          "any_change": {
+            "kills": 20,
+            "towers": 3
+          }
+        },
+        "1762448": {
+          "increases": {
+            "round": 33
+          },
+          "any_change": {
+            "round": 33
+          }
+        },
+        "1796489": {
+          "increases": {
+            "round": 39
+          },
+          "any_change": {
+            "round": 39
+          }
+        },
+        "1791798": {
+          "increases": {
+            "kills": 36,
+            "towers": 15,
+            "barracks": 7,
+            "roshans": 1
+          },
+          "any_change": {
+            "kills": 36,
+            "towers": 15,
+            "barracks": 7,
+            "roshans": 2
+          }
+        },
+        "1786828": {
+          "increases": {
+            "round": 40
+          },
+          "any_change": {
+            "round": 40
+          }
+        },
+        "1806970": {
+          "increases": {
+            "kills": 158,
+            "towers": 39,
+            "roshans": 6,
+            "barracks": 15
+          },
+          "any_change": {
+            "kills": 158,
+            "towers": 39,
+            "roshans": 6,
+            "barracks": 15
+          }
+        },
+        "1789156": {
+          "increases": {
+            "round": 21
+          },
+          "any_change": {
+            "round": 21
+          }
+        },
+        "1786830": {
+          "increases": {
+            "round": 18
+          },
+          "any_change": {
+            "round": 18
+          }
+        },
+        "1796496": {
+          "increases": {
+            "round": 9
+          },
+          "any_change": {
+            "round": 9
+          }
+        },
+        "1762447": {
+          "increases": {
+            "round": 44
+          },
+          "any_change": {
+            "round": 44
+          }
+        },
+        "1791800": {
+          "increases": {
+            "kills": 88,
+            "towers": 23,
+            "roshans": 3,
+            "barracks": 7
+          },
+          "any_change": {
+            "kills": 88,
+            "towers": 23,
+            "roshans": 5,
+            "barracks": 7
+          }
+        }
+      },
+      "totals_increases": {
+        "round": 598,
+        "kills": 989,
+        "towers": 223,
+        "roshans": 33,
+        "barracks": 68
+      },
+      "totals_any_change": {
+        "round": 598,
+        "kills": 989,
+        "towers": 223,
+        "roshans": 38,
+        "barracks": 68
+      },
+      "match_ids_in_recount_not_in_ps_dir": [
+        "1785760"
+      ],
+      "match_ids_in_ps_dir_not_in_recount": [
+        "1785772",
+        "1785773",
+        "1786826",
+        "1789154",
+        "1789159",
+        "1789160",
+        "1796486",
+        "1796488"
+      ],
+      "recount_per_match_same_matches": {
+        "alive_flips": 6052,
+        "round_score_side_changes": 702,
+        "barracks_increases": 76,
+        "barracks_side_changes": 78,
+        "kills_increases": 1069,
+        "kills_side_changes": 1083,
+        "roshans_increases": 38,
+        "roshans_side_changes": 46,
+        "towers_increases": 243,
+        "towers_side_changes": 249
+      }
+    },
+    "C_unmatched": {
+      "1789156": {
+        "ps_names": [
+          "baks esports",
+          "ex zero tenacity"
+        ],
+        "title": "cs2",
+        "ps_events": 21,
+        "pm_markets_sharing_a_name_token": [
+          {
+            "outcomes": [
+              "ex-RUSTEC",
+              "Nexus"
+            ],
+            "q": "Counter-Strike: ex-RUSTEC vs Nexus - Map 1 Winner",
+            "kind": "Map 1 Winner"
+          },
+          {
+            "outcomes": [
+              "ex-RUSTEC",
+              "Nexus"
+            ],
+            "q": "Counter-Strike: ex-RUSTEC vs Nexus - Map 2 Winner",
+            "kind": "Map 2 Winner"
+          },
+          {
+            "outcomes": [
+              "ex-RUSTEC",
+              "Nexus"
+            ],
+            "q": "Counter-Strike: ex-RUSTEC vs Nexus (BO3) - CCT Europe Group Stage",
+            "kind": "Match Winner"
+          },
+          {
+            "outcomes": [
+              "PuckChamp",
+              "Zero Tenacity"
+            ],
+            "q": "Dota 2: PuckChamp vs Zero Tenacity - Game 1 Winner",
+            "kind": "Map 1 Winner"
+          },
+          {
+            "outcomes": [
+              "PuckChamp",
+              "Zero Tenacity"
+            ],
+            "q": "Dota 2: PuckChamp vs Zero Tenacity - Game 2 Winner",
+            "kind": "Map 2 Winner"
+          },
+          {
+            "outcomes": [
+              "PuckChamp",
+              "Zero Tenacity"
+            ],
+            "q": "Dota 2: PuckChamp vs Zero Tenacity (BO3) - Asgard Championship Group A",
+            "kind": "Match Winner"
+          }
+        ]
+      },
+      "1793318": {
+        "ps_names": [
+          "parivision",
+          "yellow submarine"
+        ],
+        "title": "dota2",
+        "ps_events": 78,
+        "pm_markets_sharing_a_name_token": [
+          {
+            "outcomes": [
+              "DO KONCA",
+              "Yellow Submarine"
+            ],
+            "q": "Dota 2: DO KONCA vs Yellow Submarine - Game 1 Winner",
+            "kind": "Map 1 Winner"
+          },
+          {
+            "outcomes": [
+              "DO KONCA",
+              "Yellow Submarine"
+            ],
+            "q": "Dota 2: DO KONCA vs Yellow Submarine - Game 2 Winner",
+            "kind": "Map 2 Winner"
+          },
+          {
+            "outcomes": [
+              "DO KONCA",
+              "Yellow Submarine"
+            ],
+            "q": "Dota 2: DO KONCA vs Yellow Submarine (BO3) - 1win Essence Group A",
+            "kind": "Match Winner"
+          }
+        ]
+      },
+      "1786828": {
+        "ps_names": [
+          "apogee esports",
+          "leo team"
+        ],
+        "title": "cs2",
+        "ps_events": 40,
+        "pm_markets_sharing_a_name_token": []
+      },
+      "1791800": {
+        "ps_names": [
+          "inner circle x insanity",
+          "nemiga gaming"
+        ],
+        "title": "dota2",
+        "ps_events": 121,
+        "pm_markets_sharing_a_name_token": [
+          {
+            "outcomes": [
+              "Omega",
+              "Inner Circle Academy"
+            ],
+            "q": "Counter-Strike: Omega vs Inner Circle Academy - Map 1 Winner",
+            "kind": "Map 1 Winner"
+          },
+          {
+            "outcomes": [
+              "Omega",
+              "Inner Circle Academy"
+            ],
+            "q": "Counter-Strike: Omega vs Inner Circle Academy - Map 2 Winner",
+            "kind": "Map 2 Winner"
+          },
+          {
+            "outcomes": [
+              "Omega",
+              "Inner Circle Academy"
+            ],
+            "q": "Counter-Strike: Omega vs Inner Circle Academy (BO3) - CCT Europe Playoffs",
+            "kind": "Match Winner"
+          }
+        ]
+      },
+      "1796496": {
+        "ps_names": [
+          "hype tech",
+          "phantom"
+        ],
+        "title": "cs2",
+        "ps_events": 9,
+        "pm_markets_sharing_a_name_token": []
+      }
+    },
+    "matched_ps_matches": 18,
+    "unmatched_ps_matches": 5
+  },
+  "provenance": {
+    "run_utc": "2026-11-16 02:32 UTC session",
+    "independent_of_test_runner": true,
+    "test_runner_run_utc": "2026-11-16 01:33 UTC (per locked pre-registration)",
+    "audit_script_sha256": "90a55fd8e8e9d4eade0802e2ee727275826e38e12de93ad4f3f7f1d21e845587",
+    "inputs": {
+      "ps": "/vol2/pkarbs/scratch/p318-recount/pandascore",
+      "pm": "/vol2/pkarbs/scratch/ps-lead-20261115/aligned",
+      "recount": "agent/status/p318-recount-2026-11-14.json",
+      "volume": "/vol2/pkarbs/scratch/ps-lead-20261115/volume-window.json"
+    },
+    "execution": {
+      "exit_code": 0,
+      "elapsed_seconds": 10.22,
+      "max_rss_kib": 88096
+    },
+    "limitations": [
+      "Volume-map provenance/source was not independently verified.",
+      "The audit script percent_price_after_feed denominator is events with a detected onset; STANDARD v1 says percent of events.",
+      "The script directory-ID comparison differs from the locked rule\u2019s 23 event-bearing match IDs; exact reconciliation is calculated in the report."
+    ]
+  }
+}
