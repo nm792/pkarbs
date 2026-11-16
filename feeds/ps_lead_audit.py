@@ -10,9 +10,15 @@ B. Count reconciliation: per match, per type, increases vs any-change, for the 2
    match ids appear in the 14 Nov recount JSON (--recount) but not in --ps.
 C. Unmatched matches: for each PandaScore match with no exact normalised-name PM market, list the PS names and the
    PM markets sharing at least one normalised name token (information only, never joined into the result).
+D. Timestamp and message-lag check (added 16 Nov 02:50Z, before any audit run): the test used OUR receive time
+   (`recv_ns` in the capture row, local chrony clock) for the feed and the book row `ms` (same host) for the price;
+   PandaScore `updated_at` is logged, never used for lead. D reports recv_ns - updated_at per title and per message
+   kind (message that produced a counted event vs other messages), and for CS2 the delay between the first message
+   showing all five players of a team dead (current_round.<team>.players[].alive) and the round-score increase that
+   follows in the same game. It also reports the PM-side `ms - sent`. Field names are quoted in the output.
 Usage: ps_lead_audit.py --ps DIR --pm DIR [--pm DIR ...] [--recount p318-recount-2026-11-14.json] [--vol vol.json] --out out.json
 """
-import argparse, bisect, collections, glob, gzip, json, os, random, re
+import argparse, bisect, collections, datetime, glob, gzip, json, os, random, re
 
 W, THR, SEED = 60.0, 0.02, 20261116
 
@@ -65,6 +71,17 @@ def main():
     cnt_inc = collections.defaultdict(collections.Counter)   # increases
     cnt_chg = collections.defaultdict(collections.Counter)   # any change (incl. decreases)
     slugs = {}
+    lags = collections.defaultdict(list)       # (title, kind) -> recv - updated_at seconds
+    elim = {}                                   # (match, game) -> recv time of first all-dead message this round
+    elim_delay = []                             # seconds from all-dead message to round-score increase
+    fields_seen = collections.Counter()
+
+    def parse_ts(x):
+        try:
+            return datetime.datetime.fromisoformat(str(x).replace("Z", "+00:00")).timestamp()
+        except Exception:
+            return None
+
     for p in sorted(glob.glob(os.path.join(a.ps, "pandascore_*.jsonl*"))):
         for r in lines(p):
             m = r.get("payload") or {}
@@ -96,7 +113,25 @@ def main():
                             cur[(t.get("team_name"), f)] = t[f]
             prev = last.get((mid, gid))
             last[(mid, gid)] = cur
+            ua = parse_ts(r.get("updated_at") or m.get("updated_at"))
+            lag = (r["recv_ns"] / 1e9 - ua) if ua else None
+            title = "cs2" if cs else "dota2"
+            fields_seen["recv_ns (capture row)"] += 1
+            if ua:
+                fields_seen["updated_at (capture row or payload)"] += 1
+            produced = False
+            if cs and "player_alive" in af:
+                cr = m.get("current_round") or {}
+                dead = False
+                for sd in ("home_team", "away_team"):
+                    pl = (cr.get(sd) or {}).get("players") or []
+                    if len(pl) >= 1 and all(x.get("alive") is False for x in pl):
+                        dead = True
+                if dead and (mid, gid) not in elim:
+                    elim[(mid, gid)] = r["recv_ns"] / 1e9
             if prev is None:
+                if lag is not None:
+                    lags[(title, "other")].append(lag)
                 continue
             for k, v in cur.items():
                 pv = prev.get(k)
@@ -104,9 +139,16 @@ def main():
                     continue
                 cnt_chg[mid][k[1]] += 1
                 if v > pv:
+                    produced = True
+                    if cs and (mid, gid) in elim:
+                        elim_delay.append(r["recv_ns"] / 1e9 - elim.pop((mid, gid)))
+                    elif cs:
+                        elim.pop((mid, gid), None)
                     cnt_inc[mid][k[1]] += 1
                     events.append(dict(match=mid, title="cs2" if cs else "dota2", game=gord[mid].index(gid) + 1,
                                        t=r["recv_ns"] / 1e9, team=k[0], field=k[1]))
+            if lag is not None:
+                lags[(title, "event_message" if produced else "other")].append(lag)
 
     # ---- B reconciliation
     rec = {"per_match": {}, "totals_increases": collections.Counter(), "totals_any_change": collections.Counter()}
@@ -291,6 +333,20 @@ def main():
                     n_events=len(B), n_with_onset=len(rl),
                     pct_price_after_feed=100 * sum(1 for x in rl if x > 0) / len(rl) if rl else None,
                     median_real_lead_s=med(rl))
+    def q(x):
+        x = sorted(x)
+        n = len(x)
+        if not n:
+            return None
+        return {"n": n, "p10": x[int(.1 * (n - 1))], "median": x[n // 2], "p90": x[int(.9 * (n - 1))], "max": x[-1]}
+    res["D_timestamps"] = {
+        "feed_clock_used_by_test": "recv_ns (our receipt, capture host clock); updated_at NOT used for lead",
+        "price_clock_used_by_test": "ms on the PM book row (same host); `sent` is the exchange send time, logged only",
+        "fields_seen": dict(fields_seen),
+        "recv_minus_updated_at_seconds": {"%s|%s" % k: q(v) for k, v in lags.items()},
+        "cs2_all_dead_message_to_round_score_increase_seconds": q(elim_delay),
+        "note": "negative recv-updated_at means the two clocks disagree; a large positive median means the delay is "
+                "before our socket (PandaScore side) or in our receive path; compare event_message vs other"}
     json.dump(res, open(a.out, "w"), indent=1, default=str)
     print(json.dumps(res, indent=1, default=str)[:6000])
 
