@@ -1,0 +1,3 @@
+Backfill of the weekend perp test (LOCKED-RULE.md Amendment 2), run 16 Nov 2026 ~09:00-10:00Z from a container with public read access. No keys, no orders.
+Order to rerun: fetch.py (pull Hyperliquid xyz candles/funding, Yahoo daily bars into data/), analyze.py (locked metrics -> result.json, rows.json), pm.py (Polymarket perp mark at T-30 for the same cells -> pm_rows.json). The PM entry-to-exit table (pm_pnl.json) was produced by an inline script, reproduced in REPORT-backfill-2026-11-16.md. Raw data is in data/ (2.5 MB). Report: ../REPORT-backfill-2026-11-16.md
+Paths inside the scripts point at /tmp/wp (where they were run); edit D and OUT to rerun elsewhere.
