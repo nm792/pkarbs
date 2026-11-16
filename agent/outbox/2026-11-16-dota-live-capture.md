@@ -1,6 +1,6 @@
-# Dota 2 live capture — 16–17 Nov (update 12:47Z)
+# Dota 2 live capture — 16–17 Nov (update 13:07Z)
 
-- Capture was active at 12:47Z: timeout and Node processes were both present; output files advanced through 12:47:27Z. Current rows: books 18,627; league_games 2,959; opendota_live 509; realtime 24,264; rt_polls 56,668; sportsws 1,163.
-- Publisher remains blocked before transfer by storage-box authentication. The latest publisher attempt at 12:30Z failed with rsync exit 255 (public-key/password authentication denied); the 12:30 attempt also recorded exit 12. The local publisher manifest remains at 11:04Z (56 rows), with 10 compressed chunks retained locally; publisher offsets remain at the 11:04Z values and did not advance on these failures. The latest verified remote manifest remains commit `27f7b9ee0bedc5d8f8613b154a318c3d0327ba8e`.
-- No code, configuration, crontab or credential change was made. Credential values were not read. Final capture coverage/pass-fail remains unmeasured.
-- Blocker/unblock: valid storage-box authentication is required before the existing publisher can transfer the retained chunks.
+- The capture remains active: timeout and Node processes started 06:26:55Z and were present at 13:07Z. All six JSONL outputs advanced during verification; newest valid rows were timestamped 13:07:09–13:07:24Z. Counts / bytes: books 21,296 / 10,969,484; league_games 3,192 / 18,295,338; opendota_live 549 / 119,070; realtime 26,574 / 21,772,038; rt_polls 61,440 / 8,718,571; sportsws 1,341 / 275,532.
+- The 13:00Z publisher attempt failed before transfer (rsync exit 255; storage-box authentication denied). Eleven complete compressed chunks remain on the data volume, spanning 09:00Z–13:00Z. The local manifest and offsets remain unchanged at 11:04Z (56 rows); the latest verified remote manifest remains commit `27f7b9ee0bedc5d8f8613b154a318c3d0327ba8e`.
+- No code, config, crontab or credential change was made; credential values were not read. Raw capture data was not added to Git.
+- Final capture coverage/pass-fail is not yet measurable; the run ends 17 Nov 20:30Z. Blocker: valid storage-box authentication is needed before the existing publisher can transfer retained chunks.
