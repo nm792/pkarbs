@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-16T19:00:00Z |
-| origin_tip | c687e3916f |
-| newest_origin_commit | 2026-11-16T18:22:02Z pkarbs: post-restart PandaScore readback |
+| generated_utc | 2026-11-16T20:00:00Z |
+| origin_tip | 6003e12a8d |
+| newest_origin_commit | 2026-11-16T19:43:29Z Report completed weekend perp logger smoke |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
