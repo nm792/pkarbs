@@ -108,11 +108,17 @@ def main():
         local.unlink()
         sent += 1
         print(f'BOX_OK file={chunk_name} rows={rows} raw_bytes={len(payload)} gzip_bytes={len(gzip.compress(payload))} sha256={sha}')
-    if sent == 0:
+    if not MANIFEST.exists():
         print('NO_NEW_COMPLETE_ROWS')
         return 0
     subprocess.run(['git', '-C', str(REPO), 'fetch', '-q', 'origin', BRANCH], check=True)
     tip = subprocess.check_output(['git', '-C', str(REPO), 'rev-parse', f'origin/{BRANCH}'], text=True).strip()
+    remote_manifest = subprocess.run(
+        ['git', '-C', str(REPO), 'show', f'origin/{BRANCH}:{REPO_MANIFEST}'],
+        text=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    if sent == 0 and remote_manifest.returncode == 0 and remote_manifest.stdout == MANIFEST.read_text():
+        print('NO_NEW_COMPLETE_ROWS; manifest already current on origin')
+        return 0
     index = WORK / 'git-index'
     index.unlink(missing_ok=True)
     git_env = os.environ.copy()
