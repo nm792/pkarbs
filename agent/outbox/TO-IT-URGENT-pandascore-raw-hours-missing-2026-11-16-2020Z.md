@@ -1,16 +1,17 @@
 APPROVALS NEEDED:
-- None. Read-only; ship_raw.sh was not edited.
+- None. Read-only reconciliation; no code, shipper or live process changed.
 
 RESULT
-- Step 1: box copies for 13:00Z, 14:00Z and 15:00Z passed gzip integrity and contained 1,676, 2,277 and 2,336 rows. The local copies had been deleted after verified shipping; all three hours exist on the box.
-- Step 2: the local 12:00Z gzip fails full-stream integrity. Tolerant reading recovered 588 complete JSONL rows from the old process (12:00:04–12:24:56Z) and 1,091 from the next gzip member (12:25:22–12:59:59Z). Total recoverable: 1,679 rows; 0 malformed JSON lines among those recovered. The new-process count is recovered from the member after the damaged stream, not a clean full-file gzip test.
-- Proposed, not applied: make ship_raw.sh test gzip members independently and salvage complete JSONL records from readable members when a later member is damaged; write and validate a separate partial artifact, then checksum-verify the box copy before any deletion. Preserve the original and log recovered/dropped counts. This addresses BADGZ without changing the live shipper in this read-only step.
-- Per feeds/STANDARD-feed-latency-test.md v1: counts only; no lead or verdict.
+- Step 3: both `ps_lead_test_current.py` runs used the same 14 hourly inputs: 13 Nov 15–22Z and 14 Nov 07–12Z. The independent audit used the latter directory too. The run logs show 22,884 messages and 1,911 counter increases across 23 matches. The gzip-valid analysis copy has 22,977 JSON rows; the corresponding 14 Nov 12Z historical source has a truncated gzip trailer, but 1,641 complete JSON rows parse.
+- The full 13–16 Nov box set is not complete: 54 hourly files exist, but coverage is 13 Nov 15–22Z; 14 Nov 07–23Z; 15 Nov 00–01Z and 07–22Z; 16 Nov 08–11Z and 13–19Z. The 16 Nov 12Z source is corrupt; 13–15Z were checksum-verified on the box in the prior report. No complete 13–16 Nov set was found.
+- Step 4: the capture writer flushes each row and closes the prior gzip when its first row for a new UTC hour is written. Safest rollover is to leave it running through that transition; verify the previous hour with `gzip -t` before shipping. If a manual stop is unavoidable, use a graceful interrupt so the writer's `finally` closes the gzip, wait for process exit, then test integrity before restart/ship. Do not use a force kill or ship the current open-hour file.
+- Read-only source checked: `feeds/STANDARD-feed-latency-test.md` v1. No lead or verdict added.
 
 DATA
-- Prime raw input: pkarbs/pandascore/raw/pandascore_2026111612.jsonl.gz. Box checks for hours 13–15 and retry history: /root/ship/ship.log and /root/ship/manifest/manifest.tsv.
+- Run source lists and logs: `/vol2/pkarbs/scratch/ps-lead-20261115/run-final-20261116.stderr`, `run-historical-final-20261116.stderr`, and `audit-20261116-D.stderr`; inputs under `/vol2/pkarbs/scratch/ps-lead-20261115/ps-window/` and `/vol2/pkarbs/scratch/p318-recount/pandascore/`.
+- Box inventory: `/root/ship/ship.log`; 13–15Z row counts and integrity are in the prior report.
 
 OPEN / NOT VERIFIED
-- Steps 3–4 remain: identify which hours each lead-test run read and state a safe restart/rollover procedure. No code or process changed.
+- None for steps 3–4. The underlying 13–16 Nov capture has gaps; this report does not reconstruct missing hours.
 
-Count: notes run 1, outstanding 1, PENDING open 0
+Count: notes run 1, outstanding 0, PENDING open 0
