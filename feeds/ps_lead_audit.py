@@ -302,10 +302,10 @@ def main():
 
     def placebo(R, iso):
         P = []
-        for key in {(r["match"], r["series"]) for r in R}:
+        for key in sorted({(r["match"], r["series"]) for r in R}, key=str):
             ev = by_match[key[0]]
             lo, hi = ev[0], ev[-1]
-            toks = list({m["tokens"][i] for (mm, k), m in sel.items() if mm == key[0] for i in (0, 1)})
+            toks = sorted({m["tokens"][i] for (mm, k), m in sel.items() if mm == key[0] for i in (0, 1)}, key=str)
             got = tries = 0
             while got < 10 and tries < 500 and toks:
                 tries += 1

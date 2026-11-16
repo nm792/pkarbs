@@ -260,7 +260,7 @@ def main():
         et = sorted(evt_times[r["match"]])
         lo, hi = et[0], et[-1]
         ms = [x for x in rows if (x["match"], x["series"]) == key[:2]]
-        toks = list({x["tok"] for x in ms})
+        toks = sorted({x["tok"] for x in ms}, key=str)
         got = 0
         tries = 0
         while got < 10 and tries < 400:
