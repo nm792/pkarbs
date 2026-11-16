@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-16T18:00:00Z |
-| origin_tip | 8636d5e070 |
-| newest_origin_commit | 2026-11-16T17:00:11Z heartbeat 2026-11-16T17:00:00Z (no-model status_heartbeat.sh, R1) |
+| generated_utc | 2026-11-16T19:00:00Z |
+| origin_tip | c687e3916f |
+| newest_origin_commit | 2026-11-16T18:22:02Z pkarbs: post-restart PandaScore readback |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
