@@ -1,10 +1,6 @@
-# Dota 2 live capture — 16–17 Nov (update 12:03Z)
+# Dota 2 live capture — 16–17 Nov (update 12:47Z)
 
-- Capture remains active: timeout PID 1700947 and Node PID 1700948; both were running at 12:02:51Z, with output advancing through that time. At 12:02Z observed rows: books 13,485; capture.log 2,694; league_games 2,442; opendota_live 421; realtime 19,674; rt_polls 46,056; sportsws 785.
-- The scheduled and manual publisher attempts since the 11:04Z verified push continue failing before transfer: rsync exit 255, storage-box authentication rejected. No new remote manifest was pushed; publisher state remains at 11:04Z and nine complete local chunks are retained. No publisher offset was advanced for failed transfers. Latest verified remote manifest remains commit `27f7b9ee0bedc5d8f8613b154a318c3d0327ba8e`.
-- Capture, publisher code, configuration, crontab and credentials were not changed. I did not read or modify credential values. The capture continues through 17 Nov 20:30Z; final coverage/pass-fail remains unmeasured.
-
-## Next required action / safety
-
-- The only blocker is storage-box authentication for the already-installed publisher. Until authentication works, new output remains local and the remote copy is stale. Existing chunks and source output are retained; no offset was advanced past failed transfers.
-- Revert is not applicable; no code or configuration was changed.
+- Capture was active at 12:47Z: timeout and Node processes were both present; output files advanced through 12:47:27Z. Current rows: books 18,627; league_games 2,959; opendota_live 509; realtime 24,264; rt_polls 56,668; sportsws 1,163.
+- Publisher remains blocked before transfer by storage-box authentication. The latest publisher attempt at 12:30Z failed with rsync exit 255 (public-key/password authentication denied); the 12:30 attempt also recorded exit 12. The local publisher manifest remains at 11:04Z (56 rows), with 10 compressed chunks retained locally; publisher offsets remain at the 11:04Z values and did not advance on these failures. The latest verified remote manifest remains commit `27f7b9ee0bedc5d8f8613b154a318c3d0327ba8e`.
+- No code, configuration, crontab or credential change was made. Credential values were not read. Final capture coverage/pass-fail remains unmeasured.
+- Blocker/unblock: valid storage-box authentication is required before the existing publisher can transfer the retained chunks.
