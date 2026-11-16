@@ -32,18 +32,17 @@ Cells from the runner, pasted as calculated. Leads are seconds; positive means t
 
 The <25k / >=25k mapping is from the archived volume file supplied to the corrected runner. These labels are conditional on that volume file and its capture window; the runner output is not an independent audit. No pass/fail claim is made. The table does not satisfy the Standard's minimum sample per stratum for Dota >=25k.
 
-- Prior recount comparison: PS rows used by this runner contain 598 CS2 round increases versus 702 in the Nov 14 recount (-14.8%); Dota increases are kills 989 vs 1,069 (-7.5%), towers 223 vs 243 (-8.2%), barracks 68 vs 76 (-10.5%), Roshan 33 vs 38 (-13.2%). These exceed the note's 5% tolerance. The correction is not a settled coverage explanation: the comparison must be resolved before treating these cells as the pre-registered full-window result. The runner does not count every PS capture file: it uses the 13–14 Nov historical directory. The segment count above is the script's output over the exact source directory used.
+- Prior recount comparison: PS rows used by this runner contain 598 CS2 round increases versus 702 in the Nov 14 recount (-14.8%); Dota increases are kills 989 vs 1,069 (-7.5%), towers 223 vs 243 (-8.2%), barracks 68 vs 76 (-10.5%), Roshan 33 vs 38 (-13.2%). These exceed the note's 5% tolerance. The comparison remains unresolved; treat the cells as preliminary, not the pre-registered full-window result.
 - The independent event-count recomputation confirms the runner: 1,911 counter increases across 23 PS match IDs (CS2 rounds 598; Dota kills 989, towers 223, barracks 68, Roshan 33). It is below the 14 Nov recount (CS2 702; Dota 1,069/243/76/38) by 14.8%, 7.5%, 8.2%, 10.5%, and 13.2%, respectively. The difference exceeds the note’s 5% tolerance; it is not reconciled, so the counts and cells remain preliminary.
 - The 09:45 note requested a separate `/vol2/pkarbs/pandascore/raw` run if the historical directory lacks the full 13–14 Nov span. Its current raw directory contains only a later 15 Nov file; no comparable 13–14 Nov continuation is available there. The result therefore does not combine later raw capture with the historical sample.
 - Five exact-name PM unmatched matches: Apogee Esports vs Leo Team; BAKS Esports vs EX-Zero Tenacity; Hype Tech vs Phantom; Inner Circle x Insanity vs Nemiga Gaming; PARIVISION vs Yellow Submarine.
 
 OPEN / NOT VERIFIED
-- The independent exact-source parser finds 2,251 counter increases, not the runner JSON's 1,911; resolve the difference before using the computed cells as the complete pre-registered sample.
 - Independent audit required by STANDARD v1 section 4 has not run; no pass/fail conclusion is available.
 - The 13 Nov 17:06Z+ market-volume source used for strata and actual registered match volumes must be audited independently.
 
 DATA
-- Reproducible result JSON: `/vol2/pkarbs/scratch/ps-lead-20261115/result-final-20261116.json`; archived runner stdout is `/tmp/ps-run-origin-current.log`.
+- Reproducible result JSON: `/vol2/pkarbs/scratch/ps-lead-20261115/result-final-20261116.json`.
 - Historical-only rerun JSON: `/vol2/pkarbs/scratch/ps-lead-20261115/result-historical-final-20261116.json` (same 23-match dataset; separate PM capture root gives different bootstrap placebo draws, not a second independent sample).
 - Setup rows, source counts, run log and `/usr/bin/time -v` output are in `/vol2/pkarbs/scratch/ps-lead-20261115/`.
 

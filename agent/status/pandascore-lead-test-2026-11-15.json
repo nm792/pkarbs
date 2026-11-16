@@ -1,5 +1,5 @@
 {
-  "as_of_utc": "2026-11-16T01:35:00Z",
+  "as_of_utc": "2026-11-16T01:37:00Z",
   "note": "agent/inbox/TO-IT-URGENT-pandascore-lead-test-rerun-adapter-fixed-2026-11-15-0945Z.md",
   "status": "partial_results_preliminary_audit_pending",
   "lead_cells_computed": true,
@@ -26,7 +26,21 @@
     "pm_minus_sent_range_ms": [
       52,
       8571
-    ]
+    ],
+    "independent_event_counts_by_type": {
+      "cs2_round": 598,
+      "dota_kills": 989,
+      "dota_towers": 223,
+      "dota_barracks": 68,
+      "dota_roshans": 33
+    },
+    "prior_recount_deviation_pct": {
+      "cs2_round": -14.8,
+      "dota_kills": -7.5,
+      "dota_towers": -8.2,
+      "dota_barracks": -10.5,
+      "dota_roshans": -13.2
+    }
   },
   "prior_count_recount_2026_11_14": {
     "cs2_round_changes": 702,
@@ -39,8 +53,8 @@
     "independent STANDARD v1 audit",
     "cause of event-count difference from 14 Nov recount (greater than 5% across all listed categories)",
     "external review of volume strata source and capture window",
-    "complete 13-14 Nov continued raw source in /vol2/pkarbs/pandascore/raw is not available; result uses historical source"
+    "complete later raw capture data; results use historical source files"
   ],
-  "blocker": "Results are preliminary: event counts differ from the 14 Nov recount by more than 5% and STANDARD v1 independent audit is pending. No pass/fail claim.",
+  "blocker": "Preliminary output only: independently recounted 1,911 events differ from the Nov 14 recount by >5% in every reported event category. Independent audit pending; no pass/fail conclusion.",
   "no_code_or_live_process_changed": true
 }
