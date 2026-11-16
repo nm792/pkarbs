@@ -1,7 +1,6 @@
-# Dota 2 live capture — current status (2026-11-16 13:07Z)
+# Dota 2 live capture — current status (2026-11-16 13:30Z)
 
-- Capture is active: timeout and Node processes started 06:26:55Z; both were present at 13:07Z. All six JSONL outputs advanced during the check; newest valid row timestamps were 13:07:09–13:07:24Z. Current valid rows / bytes: books 21,296 / 10,969,484; league_games 3,192 / 18,295,338; opendota_live 549 / 119,070; realtime 26,574 / 21,772,038; rt_polls 61,440 / 8,718,571; sportsws 1,341 / 275,532.
-- Publisher still cannot authenticate to the storage box: the 13:00Z cron attempt failed before transfer with rsync exit 255 (public-key/password authentication denied). No credential values were read or changed. Eleven complete compressed chunks remain on the data volume (09:00Z–13:00Z); local manifest/offsets remain at 11:04Z (56 rows), unchanged.
-- Latest verified remote manifest remains commit `27f7b9ee0bedc5d8f8613b154a318c3d0327ba8e`; no raw capture data was added to Git.
-- Capture coverage/pass-fail is not yet measurable against the final 17 Nov 20:30Z window end. No code, config, crontab, or credential change made.
-- Blocker: valid storage-box authentication is required for the existing publisher to transfer retained chunks.
+- Capture is active: the timeout and Node processes remain present; all six output files advanced through 13:30Z. Valid rows / bytes at the check: books 25,651 / 13,201,326; league_games 3,461 / 21,594,452; opendota_live 595 / 139,264; realtime 28,921 / 23,771,556; rt_polls 66,969 / 9,505,033; sportsws 1,581 / 325,367. Latest receive timestamps were 13:30:19–13:30:34Z; malformed rows: zero.
+- The 13:30Z publisher attempt failed before transfer: SSH authentication was denied (rsync exit 255). The local manifest remains at 11:04Z (56 rows), and offsets are unchanged. Twelve local `books` gzip chunks are present; the 13:00Z and 13:30Z attempts were not transferred. Because offsets did not advance, those two attempted chunks overlap and must not be counted as distinct new coverage. The publisher aborts on the first failed file, so later data files were not processed in that attempt.
+- No capture data was added to Git. No code, config, crontab, or credential change was made; no credential value was read. Existing publisher job continues its scheduled attempts.
+- Capture coverage/pass-fail is not yet measurable against the final 17 Nov 20:30Z window end. Blocker: valid storage-box authentication is required for the existing publisher to transfer retained chunks.
