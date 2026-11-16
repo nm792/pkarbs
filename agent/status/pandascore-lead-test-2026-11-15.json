@@ -1,61 +1,31 @@
 {
-  "as_of_utc": "2026-11-15T09:13:20Z",
-  "note": "agent/inbox/TO-IT-URGENT-pandascore-lead-test-run-script-2026-11-15-0540Z.md",
-  "status": "partial_blocked_input_schema",
-  "lead_cells_computed": false,
-  "verdicts_computed": false,
+  "as_of_utc": "2026-11-16T01:35:00Z",
+  "note": "agent/inbox/TO-IT-URGENT-pandascore-lead-test-rerun-adapter-fixed-2026-11-15-0945Z.md",
+  "status": "partial_results_preliminary_audit_pending",
+  "lead_cells_computed": true,
+  "verdicts_computed": true,
   "independent_audit_run": false,
   "inputs": {
-    "pandascore_raw_dir": "/vol2/pkarbs/pandascore/raw",
-    "pandascore_hourly_files": [
-      "pandascore_2026111507.jsonl.gz",
-      "pandascore_2026111508.jsonl.gz",
-      "pandascore_2026111509.jsonl.gz"
-    ],
-    "pandascore_current_match_ids": 4,
-    "pandascore_current_counter_increases": 27,
-    "pandascore_current_exact_normalized_name_joins": 2,
-    "pm_capture_dir": "/vol2/pkarbs/thesports/final-topics-32295b",
-    "pm_book_keys": [
-      "asks",
-      "bids",
-      "ms",
-      "sent",
-      "tk",
-      "ts"
-    ],
-    "runner_expected_book_keys": [
-      "asset",
-      "recv_ms"
-    ],
-    "pm_market_keys": [
-      "cond",
-      "gid",
-      "ms",
-      "outcomes",
-      "q",
-      "slug",
-      "smt",
-      "sport",
-      "start",
-      "title",
-      "tokens"
-    ],
-    "pm_cs2_dota_market_rows": 1184,
-    "pm_market_has_runner_kind_field": false,
-    "pm_market_has_runner_volume_field": false,
-    "historical_pandascore_dir": "/vol2/pkarbs/scratch/p318-recount/pandascore",
-    "historical_pandascore_match_ids": 23,
-    "historical_pandascore_counter_increases": 1912,
-    "historical_pm_book_export": "/vol2/pkarbs/thesports/final-topics-32295b/share/books.jsonl.gz",
-    "historical_pm_book_export_bytes": 2040243608,
-    "historical_pm_book_export_schema": [
-      "asks",
-      "bids",
-      "ms",
-      "sent",
-      "tk",
-      "ts"
+    "pandascore_source_dir": "/vol2/pkarbs/scratch/p318-recount/pandascore",
+    "pandascore_match_ids": 23,
+    "pandascore_counter_increases": 1911,
+    "independent_recount_counter_increases": 1911,
+    "polymarket_capture_dir": "/vol2/pkarbs/scratch/ps-lead-20261115/pm",
+    "polymarket_book_rows": 520905,
+    "exact_name_matched_ps_matches": 18,
+    "unmatched_ps_matches": 5,
+    "lead_json": "/vol2/pkarbs/scratch/ps-lead-20261115/result-final-20261116.json",
+    "runner_sha256": "fbe4baf5ac6fa9a6df2a94c49ef254e318673723b9ce8e353b39f192667636b7",
+    "run_exit_status": 0,
+    "run_elapsed_seconds": 10.96,
+    "peak_rss_kib": 84856,
+    "ps_clock_field": "recv_ns",
+    "pm_clock_field": "ms",
+    "pm_minus_sent_median_ms": 156,
+    "pm_minus_sent_p90_ms": 422,
+    "pm_minus_sent_range_ms": [
+      52,
+      8571
     ]
   },
   "prior_count_recount_2026_11_14": {
@@ -66,12 +36,11 @@
     "dota_roshans": 38
   },
   "unverified": [
-    "three-match setup table with before/after mids",
-    "volume strata",
-    "full lead cells",
-    "independent audit",
-    "PM book timing resolution"
+    "independent STANDARD v1 audit",
+    "cause of event-count difference from 14 Nov recount (greater than 5% across all listed categories)",
+    "external review of volume strata source and capture window",
+    "complete 13-14 Nov continued raw source in /vol2/pkarbs/pandascore/raw is not available; result uses historical source"
   ],
-  "blocker": "runner schema does not match the live or exported PM schema: book rows use tk/ms, not asset/recv_ms; registered market rows have no volume field for the pre-registered strata. Historical source rows exist but cannot be safely evaluated with this runner without a reviewed adapter and volume source.",
+  "blocker": "Results are preliminary: event counts differ from the 14 Nov recount by more than 5% and STANDARD v1 independent audit is pending. No pass/fail claim.",
   "no_code_or_live_process_changed": true
 }
