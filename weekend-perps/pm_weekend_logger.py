@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Read-only logger of Polymarket perp public data (api.perpetuals.polymarket.com). No keys, no orders.
-Usage: python3 pm_weekend_logger.py --out DIR [--interval 60] [--symbols SP500-USD,NAS100-USD,NVDA-USD,SNDK-USD,MU-USD,AMD-USD,GOOG-USD]
+Usage: python3 pm_weekend_logger.py --out DIR [--interval 60] [--symbols SP500-USD,NAS100-USD,NVDA-USD,SNDK-USD,MU-USD,AMD-USD,GOOG-USD,GOLD-USD,SILVER-USD,WTIOIL-USD,BRENTOIL-USD]
 Writes DIR/pm_YYYYMMDD.jsonl.gz: per symbol per poll: tickers row (index/mark/last/mid/OI/...) plus top 5 book levels.
 Smoke-tested 16 Nov 2026. Same locked rule as hl_weekend_logger.py (weekend-perps/LOCKED-RULE.md).
 """
@@ -12,7 +12,7 @@ def get(path, timeout=15):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True); ap.add_argument("--interval", type=int, default=60)
-    ap.add_argument("--symbols", default="SP500-USD,NAS100-USD,NVDA-USD,SNDK-USD,MU-USD,AMD-USD,GOOG-USD")
+    ap.add_argument("--symbols", default="SP500-USD,NAS100-USD,NVDA-USD,SNDK-USD,MU-USD,AMD-USD,GOOG-USD,GOLD-USD,SILVER-USD,WTIOIL-USD,BRENTOIL-USD")
     a = ap.parse_args(); want = set(s.strip() for s in a.symbols.split(",") if s.strip())
     while True:
         t = time.time(); ts = datetime.datetime.fromtimestamp(t, datetime.timezone.utc)
