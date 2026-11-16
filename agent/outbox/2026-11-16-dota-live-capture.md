@@ -1,6 +1,6 @@
-# Dota live capture — update at 2026-11-16 10:23Z
+# Dota live capture — update at 2026-11-16 10:45Z
 
-- Capture is active as `dotacap-2026-11-16.service` (Node PID 1700948; unit MainPID 1700947), started 06:26:55Z; 400 MiB cap and zero swap. Output advanced through 10:22Z.
-- The scheduled publisher failed at 09:00Z, 09:30Z, and 10:00Z with storage-box authentication errors. Manual execution of the existing approved publisher at 10:22Z succeeded: seven complete gzip deltas were transferred and checksum-verified, then the manifest was pushed. Row counts: books 5,210; league_games 1,008; opendota_live 175; realtime 7,614; rt_polls 18,604; sportsws 332; capture log 47.
-- Manifest `manifest/dotacap-2026-11-16.tsv` has 42 entries; manifest commit `4d76d5dbc8bf496c7c34d1c07f88cbec6e42a641`. Raw data remains on `<box>`, not Git.
-- Final coverage/pass-fail is not yet established. Capture continues through 17 Nov 20:30Z.
+- Capture remains active (timeout PID 1700947, Node PID 1700948), started 06:26:55Z with 400 MiB cap and zero swap. Output advanced through 10:44Z; observed totals: realtime 11,980 rows, rt_polls 28,171, books 7,539.
+- Scheduled publisher attempts at 09:00Z, 09:30Z, 10:00Z, and 10:30Z failed with storage-box authentication errors. The existing approved publisher ran manually at 10:45Z and caught up seven complete gzip deltas; all seven transfers passed checksum dry-runs. New chunk rows: books 2,240; league_games 261; opendota_live 44; realtime 2,098; rt_polls 4,682; sportsws 142; capture log 6.
+- Manifest `manifest/dotacap-2026-11-16.tsv` was pushed at `7da31552586b1c4e1e955dc271386f6c407cdc86`. Raw data remains on `<box>`, not Git. Code, config and crontab are unchanged.
+- Final coverage/pass-fail remains unmeasured; the capture continues through 17 Nov 20:30Z.
