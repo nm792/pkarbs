@@ -1,5 +1,7 @@
-# Dota live capture start — 16 Nov 2026
+# Dota live capture — status at 2026-11-16 07:33Z
 
-Capture started at 2026-11-16T06:26:55Z as `dotacap-2026-11-16.service`, a transient systemd service with a 400 MiB memory cap and no swap. Node PID 1700948 is active; it waits until 08:30Z, then captures through 20:30Z on 17 Nov. NTP reported synchronized. Output is on the data volume at `/mnt/HC_Volume_107257520/pkarbs/dotacap/run-2026-11-16/out/`.
+The existing capture is active as `dotacap-2026-11-16.service` (Node PID 1700948; timeout PID 1700947), started 06:26:55Z with a 400 MiB memory cap and zero swap. Its output is on the data volume. The capture window begins 08:30Z and ends 2026-11-17 20:30Z; at 07:32Z its only output was `capture.log` (192 bytes), stating NTP synchronized and waiting until 08:30Z. No match or book data has been collected yet.
 
-The task's 30-minute gzip/repository-copy publisher was not installed: there was no existing runner or cron line, and adding one requires a new runner/configuration change. This blocker is recorded in the project's status; no capture rows exist yet because the window has not started. Status: `agent/status/dota-live-capture-2026-11-16.md`.
+The approved 30-minute gzip/push publisher is not installed. The Prime crontab has no Dota publisher line. This scheduled run's delivery instruction prohibits creating or updating cron jobs, so I did not install the requested no-model cron line. Consequently, the capture output will not be copied to `winmodels/raw/dotacap-2026-11-16/` by a recurring publisher in this run. I made no code/config changes and did not alter the running capture.
+
+The live service was confirmed active at 07:32Z. No feed reachability or capture pass result is available before the 08:30Z window.
