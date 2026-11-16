@@ -1,6 +1,6 @@
 # Result: does the Monday open overshoot or undershoot the weekend perp? (rule: LOCKED-RULE-overshoot-2026-11-16.md, merged before any number)
 
-Sample: 1,005 cells with |S| >= 50 bp, 61 symbols, 29 weekends (2 Apr-Nov 2026 backfill). D = sign(S) x (O - S): positive = open went further than the perp, negative = open fell back toward Friday close. Median hurdle 14.8 bp. CIs by weekend-cluster bootstrap. "wk neg" = weekends (with >= 3 cells) where mean D < 0.
+Sample: 1,005 cells with |S| >= 50 bp, 61 symbols, 29 weekends (22 Apr-16 Nov 2026 backfill). D = sign(S) x (O - S): positive = open went further than the perp, negative = open fell back toward Friday close. Median hurdle 14.8 bp. CIs by weekend-cluster bootstrap. "wk neg" = weekends (with >= 3 cells) where mean D < 0.
 
 | Cut | n | Mean D (bp) | 99.5% CI | wk neg |
 |---|---|---|---|---|
