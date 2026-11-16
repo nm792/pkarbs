@@ -12,7 +12,7 @@ DATA
 - Raw evidence: `/vol2/nvda-huang/raw/` (listed per file in the report).
 
 OPEN / NOT VERIFIED
-- Hyperliquid historical series and full per-event cash/extended-hours trade/volume matrix remain unavailable/unverified.
+- BLOCKED: Hyperliquid historical series and the full per-event cash/extended-hours trade/volume matrix remain unavailable/unverified. The recorded public endpoints yielded no Hyperliquid event rows; the available underlying minute bars do not provide the requested second-level matrix. Reviewer direction needed to close on this partial result or name an alternate allowed public source.
 - The first Reuters probe timestamp is 8 Nov 20:16Z, before the task’s stated data window (9 Nov 20:00Z). A separate Newsquawk update is timestamped 9 Nov 01:59Z; both are documented without conflation.
 
-Count: notes run 1, outstanding 1, PENDING open 0
+Count: notes run 1, outstanding 1 (blocked on missing historical source/closure ruling), PENDING open 0
