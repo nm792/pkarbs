@@ -1,0 +1,604 @@
+[
+ {
+  "label": "dota2-frogli-ic-2026-11-16",
+  "title": "Dota 2: Froglings vs Inner Circle (BO3) - DreamLeague Division 2 Playoffs",
+  "scheduled_start_utc": "2026-11-16T13:30:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: Froglings vs Inner Circle - Game 1 Winner",
+    "cond": "0x2b253b1218136d7faf89771dbae1879327b9531ec335f86c5cd0eda2e2cf01a4",
+    "tokens": [
+     "12164847941948588024329793110438923113607308747990723962966543339885090889547",
+     "95690580570462012171416938164501928578848084781380901682603237651275634817481"
+    ],
+    "outcomes": [
+     "Froglings",
+     "Inner Circle"
+    ]
+   },
+   {
+    "q": "Dota 2: Froglings vs Inner Circle - Game 2 Winner",
+    "cond": "0xa95eaeb4963fcd8727769c41250fab472c75a21dcbb551ff68976388bd9225a7",
+    "tokens": [
+     "104905973761387146922691060249909629393277266654289320514878989895369202489265",
+     "71681108944826658915489536280662385239118827886876125395899187541907856984265"
+    ],
+    "outcomes": [
+     "Froglings",
+     "Inner Circle"
+    ]
+   },
+   {
+    "q": "Dota 2: Froglings vs Inner Circle (BO3) - DreamLeague Division 2 Playoffs",
+    "cond": "0xe63f9a5c90feed41463e2fec0c8721130e57b1decb8a6f3b5738b6d1bd33c827",
+    "tokens": [
+     "105881780693928707708836622006889677678072540814104399541695960270014411693474",
+     "97933911267645659512557205645845639518281773104364354027022463676903471421937"
+    ],
+    "outcomes": [
+     "Froglings",
+     "Inner Circle"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-z10-playti-2026-11-16",
+  "title": "Dota 2: Zero Tenacity vs PlayTime (BO3) - DreamLeague Division 2 Playoffs",
+  "scheduled_start_utc": "2026-11-16T17:30:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: Zero Tenacity vs PlayTime - Game 1 Winner",
+    "cond": "0x1181483f9be5c8c16e25e50e407225b3487175196d0b557b344315dd1eb92fd9",
+    "tokens": [
+     "99560191617278291349664223074966609918064450584589280358293607039521502196938",
+     "41605924636901970247933738997099330862808237700888651702184260028511713456332"
+    ],
+    "outcomes": [
+     "Zero Tenacity",
+     "PlayTime"
+    ]
+   },
+   {
+    "q": "Dota 2: Zero Tenacity vs PlayTime - Game 2 Winner",
+    "cond": "0x22814e244cb232950c1b90bb3c046c9c6b631abd2274266477781a1f56c4cc87",
+    "tokens": [
+     "44077942155237047923159911616673457425589438862189088795067558794348810541564",
+     "100685872467867628285669288193363648993234652813275063737102669919137741484761"
+    ],
+    "outcomes": [
+     "Zero Tenacity",
+     "PlayTime"
+    ]
+   },
+   {
+    "q": "Dota 2: Zero Tenacity vs PlayTime (BO3) - DreamLeague Division 2 Playoffs",
+    "cond": "0xc0559bd94278dc9ebc198d5e41c77ecd548e78d4b3bccd492daf8f2a3a50de99",
+    "tokens": [
+     "72902454634741994266553200829543828152721822714597926472408443726977958429727",
+     "41802699155276803762545525481555277188314516067225314270344207676395551078073"
+    ],
+    "outcomes": [
+     "Zero Tenacity",
+     "PlayTime"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-synaps-pckcp-2026-11-16",
+  "title": "Dota 2: Team Synapse vs PuckChamp (BO3) - European Pro League Group B",
+  "scheduled_start_utc": "2026-11-16T16:00:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: Team Synapse vs PuckChamp - Game 1 Winner",
+    "cond": "0x4f1ee48a5a8181e947ddfcf57a6659b6df9617c56b09bbd4f31ca8b6e21e4bae",
+    "tokens": [
+     "6474684172110189790990188317070943741019101266612398299480351049987334215561",
+     "107812836388087641289450506907082613514267358245577125657929493219297240749835"
+    ],
+    "outcomes": [
+     "Team Synapse",
+     "PuckChamp"
+    ]
+   },
+   {
+    "q": "Dota 2: Team Synapse vs PuckChamp - Game 2 Winner",
+    "cond": "0x3f1cc084da2005f5d58af4dbef838fa2128daea2f7c4cf5f51091caa56356138",
+    "tokens": [
+     "87002106353022844473864552802016245793005178408121463885888351793638207493020",
+     "72142357601744957983805596457992091698139250778157339702427157023823156160862"
+    ],
+    "outcomes": [
+     "Team Synapse",
+     "PuckChamp"
+    ]
+   },
+   {
+    "q": "Dota 2: Team Synapse vs PuckChamp (BO3) - European Pro League Group B",
+    "cond": "0x6a761949f355be5e9aff975aff9fc2abb99297e2866753ea9231cd8d694f307f",
+    "tokens": [
+     "22654501752504154227443171134851936380805087903190740716163191684059338586123",
+     "32944371316240461601981513056532779211890957614198092880595623618541111817732"
+    ],
+    "outcomes": [
+     "Team Synapse",
+     "PuckChamp"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-frogli-konca-2026-11-16",
+  "title": "Dota 2: Froglings vs DO KONCA (BO3) - 1win Essence Playoffs",
+  "scheduled_start_utc": "2026-11-16T10:00:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: Froglings vs DO KONCA - Game 1 Winner",
+    "cond": "0x27c79c557f62d3b320ad6f935dab1548319ddaddd94ae6985abb0df17cf7fb14",
+    "tokens": [
+     "20677776295468626465597365808703278282304534736081189694037096237746326506514",
+     "23383735813565091014310379191708268415058738762606079370602702014423672651593"
+    ],
+    "outcomes": [
+     "Froglings",
+     "DO KONCA"
+    ]
+   },
+   {
+    "q": "Dota 2: Froglings vs DO KONCA - Game 2 Winner",
+    "cond": "0xa01a6a0e65f95b897ed5e4c3e069d6039301cf436aa50aa6232e89bd7515bf0f",
+    "tokens": [
+     "77106174112969606923094239770235758168832661546084291565621501603523147496909",
+     "96220277300931795980808996817270732637470592187645688620284672263525142396575"
+    ],
+    "outcomes": [
+     "Froglings",
+     "DO KONCA"
+    ]
+   },
+   {
+    "q": "Dota 2: Froglings vs DO KONCA (BO3) - 1win Essence Playoffs",
+    "cond": "0xd2b9aec4c07527d38e965f530ce7ba7abd8e5a64ba688eb5ec409a104d3713d9",
+    "tokens": [
+     "99635883068235432552451459342087708803963714678058797025211063208197410547265",
+     "57209706803869815535960289701103054896858365933784785393313126535217522314797"
+    ],
+    "outcomes": [
+     "Froglings",
+     "DO KONCA"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-legion1-aur1-2026-11-16",
+  "title": "Dota 2: LEGION vs Aurora (BO3) - 1win Essence Playoffs",
+  "scheduled_start_utc": "2026-11-16T19:00:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: LEGION vs Aurora - Game 1 Winner",
+    "cond": "0x6ebdd9744434422e3618ddce8f98c2239866faa6b1e934b18a7ffb0e3c12ff7f",
+    "tokens": [
+     "67917950985904824797691648263941262554071862193517234009517321400894371692460",
+     "109752952146089840305373635724141611264936137397052465523019599924454894058364"
+    ],
+    "outcomes": [
+     "LEGION",
+     "Aurora"
+    ]
+   },
+   {
+    "q": "Dota 2: LEGION vs Aurora - Game 2 Winner",
+    "cond": "0x1f212c5426d4910e51f46ae252be18bf197e378fcc3fdfca40db620b8bd2cd62",
+    "tokens": [
+     "34406464525548150173502557625000673441499889061218588644739401737304713036445",
+     "109003999582552358089302791556672675216483772675263872324352555496130802242584"
+    ],
+    "outcomes": [
+     "LEGION",
+     "Aurora"
+    ]
+   },
+   {
+    "q": "Dota 2: LEGION vs Aurora (BO3) - 1win Essence Playoffs",
+    "cond": "0x18d4393eabe4af08289c6e1a22febcda48efbef694197155f5300fc95b19c7ff",
+    "tokens": [
+     "65553081088740778054850163519983806232823148502329061047249403253818031604909",
+     "98518882446809850979583168253329595283037925093413873588466160615201168406009"
+    ],
+    "outcomes": [
+     "LEGION",
+     "Aurora"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-pckcp-nemiga-2026-11-17",
+  "title": "Dota 2: PuckChamp vs Nemiga Gaming (BO3) - DreamLeague Division 2 Playoffs",
+  "scheduled_start_utc": "2026-11-17T13:30:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: PuckChamp vs Nemiga Gaming - Game 1 Winner",
+    "cond": "0xdef9ef475214803e1b41f8b8b45d1736599832cd8742712391a774a14d09ebab",
+    "tokens": [
+     "93866505551488605301441754059388858084865205653535775996458067647646018174443",
+     "62554813180652450829154685991842246616530148405085949522129857261203410996292"
+    ],
+    "outcomes": [
+     "PuckChamp",
+     "Nemiga Gaming"
+    ]
+   },
+   {
+    "q": "Dota 2: PuckChamp vs Nemiga Gaming - Game 2 Winner",
+    "cond": "0x05338772b0683b7aff34add0c1928862a94be331c39fbcc5c3bfaabb2a9ae82d",
+    "tokens": [
+     "95402131706651111165031055564993330585404676701464389640302547968399313741493",
+     "81414844446681688426767335504708938922348320010206763241830717628814390026262"
+    ],
+    "outcomes": [
+     "PuckChamp",
+     "Nemiga Gaming"
+    ]
+   },
+   {
+    "q": "Dota 2: PuckChamp vs Nemiga Gaming (BO3) - DreamLeague Division 2 Playoffs",
+    "cond": "0xd36f0bb90aab237ae44d7df9dddb1a299c30743cb28c6a3a5be1d849962194cc",
+    "tokens": [
+     "95601663733757161913574872780974792438514874902188474411697634352508623024716",
+     "112158134081627307015065801023344549727173358666455031934505689482126589370769"
+    ],
+    "outcomes": [
+     "PuckChamp",
+     "Nemiga Gaming"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-gl-lgd-2026-11-16",
+  "title": "Dota 2: GamerLegion vs LGD Gaming (BO3) - 1win Essence Playoffs",
+  "scheduled_start_utc": "2026-11-16T13:00:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: GamerLegion vs LGD Gaming - Game 1 Winner",
+    "cond": "0xd090d77276977819ba138e63c17fe8729cc5d88886896fabe26284ef40d07623",
+    "tokens": [
+     "87366636752800528933336921935561923606229203840599584463331558856183958791000",
+     "111306609201752857806584323126033591123910458062606185393849598811353375091431"
+    ],
+    "outcomes": [
+     "GamerLegion",
+     "LGD Gaming"
+    ]
+   },
+   {
+    "q": "Dota 2: GamerLegion vs LGD Gaming - Game 2 Winner",
+    "cond": "0x2cbffad9b932deab8774433e989cd462b7d4832badead718575f98de5cf457d0",
+    "tokens": [
+     "61019114275763701356510911000980892707954050169174635694855164914674712576482",
+     "22422418371547552344448871073501997337869455272653373613652291036705574365975"
+    ],
+    "outcomes": [
+     "GamerLegion",
+     "LGD Gaming"
+    ]
+   },
+   {
+    "q": "Dota 2: GamerLegion vs LGD Gaming (BO3) - 1win Essence Playoffs",
+    "cond": "0x7e79036ea9e9418d11b4fb27052243eecad245b0233a816935f4980b835c65d0",
+    "tokens": [
+     "96768165404708977256135140629971019915077629653570554713938943413430669048106",
+     "28842597063865061208107383940365614741350858090970490674528035099130854831995"
+    ],
+    "outcomes": [
+     "GamerLegion",
+     "LGD Gaming"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-pari-ts8-2026-11-16",
+  "title": "Dota 2: PARIVISION vs Team Spirit (BO3) - 1win Essence Playoffs",
+  "scheduled_start_utc": "2026-11-16T16:00:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: PARIVISION vs Team Spirit - Game 1 Winner",
+    "cond": "0x858b9a2556c9417b71e8fb6971692240c077345a6c401950a46baf351c047726",
+    "tokens": [
+     "68420632012486277242054198357794034372644218236600518639801720762195299951893",
+     "6922813970042741183468630485226819377324477925371291193507685022449933811274"
+    ],
+    "outcomes": [
+     "PARIVISION",
+     "Team Spirit"
+    ]
+   },
+   {
+    "q": "Dota 2: PARIVISION vs Team Spirit - Game 2 Winner",
+    "cond": "0x06ff4c983101b8927225f3589d4a6b7ca4b33dcac14971fa5b6bcea7697f8173",
+    "tokens": [
+     "22304366845571634733951714554242746356426193005050482083140995798449996438020",
+     "46891488612114228081299520624030462611168663854737237057377802054385219889879"
+    ],
+    "outcomes": [
+     "PARIVISION",
+     "Team Spirit"
+    ]
+   },
+   {
+    "q": "Dota 2: PARIVISION vs Team Spirit (BO3) - 1win Essence Playoffs",
+    "cond": "0xa935724ee0f11814f8d32b2a6d44cb04a083e38e6f3c87665ea25e17fdae0a92",
+    "tokens": [
+     "35885220286619992467996638170366756631863469406490789477612452333749547575452",
+     "40082164445351226466030579900057625913799753330760776529277497375968579622441"
+    ],
+    "outcomes": [
+     "PARIVISION",
+     "Team Spirit"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-angryb-lynx-2026-11-16",
+  "title": "Dota 2: angry birds vs Team Lynx (BO3) - Asgard Championship Playoffs",
+  "scheduled_start_utc": "2026-11-16T09:00:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: angry birds vs Team Lynx - Game 1 Winner",
+    "cond": "0x53cb63772cc50f73c2f6133f889a58ee98add4b97b8ec599b426d3e1656602c2",
+    "tokens": [
+     "104147020678242382331235279891348744633834036499640282510937776826670101288678",
+     "101832434790517979089674751632988440627880408586312235700853059202919094841366"
+    ],
+    "outcomes": [
+     "angry birds",
+     "Team Lynx"
+    ]
+   },
+   {
+    "q": "Dota 2: angry birds vs Team Lynx - Game 2 Winner",
+    "cond": "0x40e941daec658c0f59ea6285909361b857e571fe3f45191e25e0ad5f1a9491bf",
+    "tokens": [
+     "23310357384075758922519613125818597491633560663189684336074034945082514042805",
+     "39661612113345754269916960366578823041226336269877298613032976420622164153686"
+    ],
+    "outcomes": [
+     "angry birds",
+     "Team Lynx"
+    ]
+   },
+   {
+    "q": "Dota 2: angry birds vs Team Lynx (BO3) - Asgard Championship Playoffs",
+    "cond": "0xbd1a5f0b460eb709465120173a19d7c4e884ed963b8e9d32b31f32d6ffaac4c3",
+    "tokens": [
+     "98998560432434858452265451174421523615644712132065356355260718581357186270115",
+     "48323730173402253754464749581840999535971009000232599666633155828512279624153"
+    ],
+    "outcomes": [
+     "angry birds",
+     "Team Lynx"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-p-angryb-2026-11-16",
+  "title": "Dota 2: potn9ki vs angry birds (BO3) - Esports Pro Circuit  Playoffs",
+  "scheduled_start_utc": "2026-11-16T12:00:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: potn9ki vs angry birds - Game 1 Winner",
+    "cond": "0xf49381c2c4febf1c2d60cc9d2a443cd2a827e0de9f577fbbac9a08a61c5578df",
+    "tokens": [
+     "19893337136579598358888767716248744359177672936465242027444394756049395020525",
+     "10728105805205091051773205364431638059894443949912972250669506105332879232436"
+    ],
+    "outcomes": [
+     "potn9ki",
+     "angry birds"
+    ]
+   },
+   {
+    "q": "Dota 2: potn9ki vs angry birds - Game 2 Winner",
+    "cond": "0x06538aeb68cb5dc77ed6c908ec56ac87cc74b5b709a64d054c540ff54f2703ea",
+    "tokens": [
+     "51016578852588861587766712351944308900464220907638221975928243983581488812964",
+     "114126590027648561878135336911989231795208797359446801871730061292630709086966"
+    ],
+    "outcomes": [
+     "potn9ki",
+     "angry birds"
+    ]
+   },
+   {
+    "q": "Dota 2: potn9ki vs angry birds (BO3) - Esports Pro Circuit  Playoffs",
+    "cond": "0xbdcafe5a0f4b1f54ad13481726e0e733eddc98ee2425cd3f23d8ea6ca3007bd5",
+    "tokens": [
+     "104485729396715571106948012258171919753519291193926203645299709915798047519714",
+     "108919570734891629500236409311413193235277244104566987065689779796929932810821"
+    ],
+    "outcomes": [
+     "potn9ki",
+     "angry birds"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-xe-all2-2026-11-16",
+  "title": "Dota 2: Xipto Esports vs Team Allied (BO3) - Asgard Championship Playoffs",
+  "scheduled_start_utc": "2026-11-16T12:00:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: Xipto Esports vs Team Allied - Game 1 Winner",
+    "cond": "0x8684d210d31dcb1d000b250f6ef010d27433411e0da2052de15248cdc00de6a9",
+    "tokens": [
+     "99995823848424095131427116393282721012096195058120017456938632763080556577773",
+     "28305007090683987848560669081876697665659044164795967481928799040249601145889"
+    ],
+    "outcomes": [
+     "Xipto Esports",
+     "Team Allied"
+    ]
+   },
+   {
+    "q": "Dota 2: Xipto Esports vs Team Allied - Game 2 Winner",
+    "cond": "0x21c5811434e3d77f367b49567bd4fce8b28e45f2528a2dd0488b029e83b41207",
+    "tokens": [
+     "102504080959939629367024437961880741842058198282689809352102721934940278345715",
+     "7809943142647069548663528801014895346943007639122079473965384022831538680125"
+    ],
+    "outcomes": [
+     "Xipto Esports",
+     "Team Allied"
+    ]
+   },
+   {
+    "q": "Dota 2: Xipto Esports vs Team Allied (BO3) - Asgard Championship Playoffs",
+    "cond": "0xa60b1d291a36b73c98f1fd252d347ce6dd698858c01ad27687bc120bf2291877",
+    "tokens": [
+     "19321526331547654975532083184345469688618814902203086310305370571418067290975",
+     "89015257995290831806339158357012640753407276119449349302934556232777535108893"
+    ],
+    "outcomes": [
+     "Xipto Esports",
+     "Team Allied"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-iac-pr1-2026-11-16",
+  "title": "Dota 2: InterActive Philippines vs Power Rangers (BO3) - European Pro League Group B",
+  "scheduled_start_utc": "2026-11-16T13:00:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: InterActive Philippines vs Power Rangers - Game 1 Winner",
+    "cond": "0x17fa7b53432876a9edaee995b9d4214bed4b30d0a3cc0eb3442a8ebd07e7f321",
+    "tokens": [
+     "108580873014334746542747457200673771141810601608612131769299282479329895256654",
+     "33398006710653131338031285144257033279390358640163402086610974963841061776005"
+    ],
+    "outcomes": [
+     "InterActive Philippines",
+     "Power Rangers"
+    ]
+   },
+   {
+    "q": "Dota 2: InterActive Philippines vs Power Rangers - Game 2 Winner",
+    "cond": "0xc5094d6dd1cbc27433367c98b777d5c37f85d7e2a0178d1c189cbeb0e19e7ee9",
+    "tokens": [
+     "61445830996302086506312486234646576712066460998948995948444228759475717375914",
+     "100829357350979357479932777446825644665030728873103806835810752189263694712796"
+    ],
+    "outcomes": [
+     "InterActive Philippines",
+     "Power Rangers"
+    ]
+   },
+   {
+    "q": "Dota 2: InterActive Philippines vs Power Rangers (BO3) - European Pro League Group B",
+    "cond": "0x7e380f277de97f3682a90e900191fa7ceabfe29ee8a984ccc8d4f5371eb266b4",
+    "tokens": [
+     "13480748970271555276381045747343522308162704554502370524050315236327364899141",
+     "78576057776854420186083752619527187088903051575378002042042920188814324891569"
+    ],
+    "outcomes": [
+     "InterActive Philippines",
+     "Power Rangers"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-nemiga-ch1-2026-11-16",
+  "title": "Dota 2: Nemiga Gaming vs CyberHero (BO3) - Asgard Championship Playoffs",
+  "scheduled_start_utc": "2026-11-16T16:00:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: Nemiga Gaming vs CyberHero - Game 1 Winner",
+    "cond": "0xa506a4578c6e227ace5e322a6428695ce2625e24f400215bac17634be21069e8",
+    "tokens": [
+     "30034242145902968603539711698681508804080387880863214713243449536383314454464",
+     "41271112761809787482875923702195300869268570367223088194025889361056642662663"
+    ],
+    "outcomes": [
+     "Nemiga Gaming",
+     "CyberHero"
+    ]
+   },
+   {
+    "q": "Dota 2: Nemiga Gaming vs CyberHero - Game 2 Winner",
+    "cond": "0x14c066cef63965b9c179b04155bdd99880116ef171723ca566c3a974936fe635",
+    "tokens": [
+     "92639649067716964367011378646560382726523921008080992518096748526683850233770",
+     "89616339229385439248265190638014070281488118809761914445874620850942375611319"
+    ],
+    "outcomes": [
+     "Nemiga Gaming",
+     "CyberHero"
+    ]
+   },
+   {
+    "q": "Dota 2: Nemiga Gaming vs CyberHero (BO3) - Asgard Championship Playoffs",
+    "cond": "0x97290ba5a2de8f5cadc41557a797a3069de1e7b289881402f411be14940a81f8",
+    "tokens": [
+     "85297371161920825909017880266909451645055571789678536361296982998441534770644",
+     "18589881637402907347721494087095368260206140915142642783969317432128662231901"
+    ],
+    "outcomes": [
+     "Nemiga Gaming",
+     "CyberHero"
+    ]
+   }
+  ]
+ },
+ {
+  "label": "dota2-spirit1-synaps-2026-11-16",
+  "title": "Dota 2: Spirit Academy vs Team Synapse (BO3) - Asgard Championship Playoffs",
+  "scheduled_start_utc": "2026-11-16T19:00:00Z",
+  "markets": [
+   {
+    "q": "Dota 2: Spirit Academy vs Team Synapse - Game 1 Winner",
+    "cond": "0x01cdbb1f23e97aa5b552c55710d0dbc1d9340f4ecae5a63bfd35986d69ec0bef",
+    "tokens": [
+     "55804124883670984741114191611316905118592241013139653475452616507640684485890",
+     "83312068782218650849524821182607324765289202281635138658720081167035525850621"
+    ],
+    "outcomes": [
+     "Spirit Academy",
+     "Team Synapse"
+    ]
+   },
+   {
+    "q": "Dota 2: Spirit Academy vs Team Synapse - Game 2 Winner",
+    "cond": "0xee91db7c1d49f462e36e8965bb62bb7eda2c21ed976a1ef7cc49a12fc2896096",
+    "tokens": [
+     "96386332672055538768973034738992227549256939911059729335396545233582391259947",
+     "47074310399296326409338243235465071611620123768922724807177438952553198989657"
+    ],
+    "outcomes": [
+     "Spirit Academy",
+     "Team Synapse"
+    ]
+   },
+   {
+    "q": "Dota 2: Spirit Academy vs Team Synapse (BO3) - Asgard Championship Playoffs",
+    "cond": "0x1c4b2a4729617d8fedb756ecc45f019cfc09b17edd30c89eda77367e8e2f0309",
+    "tokens": [
+     "2140178847492553406293297838470684664164440389388143685528596660355490324589",
+     "31527543012823255367190480766679525008110579186791776757267993026255407800826"
+    ],
+    "outcomes": [
+     "Spirit Academy",
+     "Team Synapse"
+    ]
+   }
+  ]
+ }
+]
