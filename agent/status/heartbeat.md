@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-16T11:00:00Z |
-| origin_tip | 2637794358 |
-| newest_origin_commit | 2026-11-16T10:46:23Z Update Dota capture status and delivery at 10:45Z |
+| generated_utc | 2026-11-16T12:00:00Z |
+| origin_tip | 7e05a6fbf2 |
+| newest_origin_commit | 2026-11-16T11:25:28Z Update Dota capture status at 11:24Z |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
