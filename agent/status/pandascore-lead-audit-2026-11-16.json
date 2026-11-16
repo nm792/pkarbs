@@ -5,14 +5,14 @@
    "n_events": 424,
    "n_matches": 10,
    "pct_real_with_onset": 70.75471698113208,
-   "pct_placebo_with_onset": 12.0,
+   "pct_placebo_with_onset": 5.0,
    "median_real_lead_s": -30.6205176115036,
-   "median_placebo_lead_s": 32.58395457267761,
-   "diff_s": -63.20447218418121,
+   "median_placebo_lead_s": 37.462406158447266,
+   "diff_s": -68.08292376995087,
    "pct_price_after_feed": 11.666666666666666,
    "ci95": [
-    -86.3664972782135,
-    -23.552472949028015
+    -86.14338493347168,
+    -36.51407337188721
    ],
    "audit_word": "no lead reproduced"
   },
@@ -20,14 +20,14 @@
    "n_events": 398,
    "n_matches": 10,
    "pct_real_with_onset": 71.35678391959799,
-   "pct_placebo_with_onset": 21.0,
+   "pct_placebo_with_onset": 13.0,
    "median_real_lead_s": -30.6205176115036,
-   "median_placebo_lead_s": 8.907180547714233,
-   "diff_s": -39.527698159217834,
+   "median_placebo_lead_s": 24.625421285629272,
+   "diff_s": -55.24593889713287,
    "pct_price_after_feed": 11.971830985915492,
    "ci95": [
-    -76.19224071502686,
-    -19.770039319992065
+    -75.98380255699158,
+    -27.017723083496094
    ],
    "audit_word": "no lead reproduced"
   },
@@ -35,14 +35,14 @@
    "n_events": 528,
    "n_matches": 10,
    "pct_real_with_onset": 62.121212121212125,
-   "pct_placebo_with_onset": 11.0,
+   "pct_placebo_with_onset": 9.0,
    "median_real_lead_s": -29.01902401447296,
-   "median_placebo_lead_s": -15.561119079589844,
-   "diff_s": -13.457904934883118,
+   "median_placebo_lead_s": 39.01919078826904,
+   "diff_s": -68.038214802742,
    "pct_price_after_feed": 12.5,
    "ci95": [
-    -55.28495466709137,
-    -3.4845449924468994
+    -76.34114170074463,
+    14.4244704246521
    ],
    "audit_word": "no lead reproduced"
   },
@@ -50,76 +50,76 @@
    "n_events": 498,
    "n_matches": 10,
    "pct_real_with_onset": 63.05220883534137,
-   "pct_placebo_with_onset": 11.0,
+   "pct_placebo_with_onset": 8.0,
    "median_real_lead_s": -28.663268208503723,
-   "median_placebo_lead_s": -9.32420301437378,
-   "diff_s": -19.339065194129944,
+   "median_placebo_lead_s": -0.0598522424697876,
+   "diff_s": -28.603415966033936,
    "pct_price_after_feed": 12.101910828025478,
    "ci95": [
-    -49.104607701301575,
-    21.787513494491577
+    -59.07882332801819,
+    29.566635370254517
    ],
    "audit_word": "no lead reproduced"
   },
   "dota2|map|all_events": {
    "n_events": 979,
    "n_matches": 8,
-   "pct_real_with_onset": 52.706843718079675,
-   "pct_placebo_with_onset": 11.267605633802816,
-   "median_real_lead_s": -23.95372247695923,
-   "median_placebo_lead_s": -17.83357870578766,
-   "diff_s": -6.12014377117157,
-   "pct_price_after_feed": 18.6046511627907,
+   "pct_real_with_onset": 48.212461695607765,
+   "pct_placebo_with_onset": 9.722222222222221,
+   "median_real_lead_s": -22.692448496818542,
+   "median_placebo_lead_s": 7.31230902671814,
+   "diff_s": -30.004757523536682,
+   "pct_price_after_feed": 24.152542372881356,
    "ci95": [
-    -14.152235507965088,
-    27.84472918510437
+    -48.39045608043671,
+    14.909889817237854
    ],
    "audit_word": "no lead reproduced"
   },
   "dota2|map|isolated_gap>=60s": {
    "n_events": 36,
    "n_matches": 8,
-   "pct_real_with_onset": 44.44444444444444,
-   "pct_placebo_with_onset": 11.428571428571429,
-   "median_real_lead_s": -6.879461288452148,
-   "median_placebo_lead_s": -32.4130699634552,
-   "diff_s": 25.53360867500305,
-   "pct_price_after_feed": 37.5,
+   "pct_real_with_onset": 41.666666666666664,
+   "pct_placebo_with_onset": 5.555555555555555,
+   "median_real_lead_s": -4.875811576843262,
+   "median_placebo_lead_s": -2.8574447631835938,
+   "diff_s": -2.018366813659668,
+   "pct_price_after_feed": 40.0,
    "ci95": [
-    0.9746215343475342,
-    44.687538623809814
+    -41.10490036010742,
+    51.01246953010559
    ],
-   "audit_word": "not confirmed as no-lead"
+   "audit_word": "no lead reproduced"
   },
   "dota2|match|all_events": {
    "n_events": 1114,
    "n_matches": 8,
-   "pct_real_with_onset": 45.511669658886895,
-   "pct_placebo_with_onset": 7.142857142857143,
+   "pct_real_with_onset": 42.28007181328546,
+   "pct_placebo_with_onset": 8.450704225352112,
    "median_real_lead_s": -14.14254641532898,
-   "median_placebo_lead_s": -29.33005380630493,
-   "diff_s": 15.187507390975952,
-   "pct_price_after_feed": 30.76923076923077,
+   "median_placebo_lead_s": -1.1634840965270996,
+   "diff_s": -12.97906231880188,
+   "pct_price_after_feed": 30.78556263269639,
    "ci95": [
-    -19.802181243896484,
-    21.144612550735474
+    -25.016242384910583,
+    4.507181525230408
    ],
-   "audit_word": "not confirmed as no-lead"
+   "audit_word": "no lead reproduced"
   },
   "dota2|match|isolated_gap>=60s": {
    "n_events": 43,
    "n_matches": 8,
-   "pct_real_with_onset": 34.883720930232556,
-   "pct_placebo_with_onset": 9.722222222222221,
-   "median_real_lead_s": -23.13856315612793,
-   "median_placebo_lead_s": -39.726247787475586,
-   "diff_s": 16.587684631347656,
+   "pct_real_with_onset": 30.232558139534884,
+   "pct_placebo_with_onset": 10.0,
+   "median_real_lead_s": -6.8040876388549805,
+   "median_placebo_lead_s": 9.692769765853882,
+   "diff_s": -16.496857404708862,
    "pct_price_after_feed": 0.0,
    "ci95": [
-    -24.1165589094162,
-    52.31274771690369
+    -57.8703498840332,
+    30.331586122512817
    ],
-   "audit_word": "not confirmed as no-lead"
+   "audit_word": "no lead reproduced"
   }
  },
  "A_gap_buckets": {
@@ -173,63 +173,55 @@
   },
   "dota2|map|gap 0-10s": {
    "n_events": 569,
-   "n_with_onset": 299,
-   "pct_price_after_feed": 19.06354515050167,
-   "median_real_lead_s": -21.492238759994507
+   "n_with_onset": 273,
+   "pct_price_after_feed": 24.90842490842491,
+   "median_real_lead_s": -20.53615093231201
   },
   "dota2|map|gap 10-30s": {
    "n_events": 243,
-   "n_with_onset": 128,
-   "pct_price_after_feed": 15.625,
-   "median_real_lead_s": -30.58989953994751
+   "n_with_onset": 121,
+   "pct_price_after_feed": 23.96694214876033,
+   "median_real_lead_s": -24.869647979736328
   },
   "dota2|map|gap 30-60s": {
    "n_events": 131,
-   "n_with_onset": 73,
-   "pct_price_after_feed": 17.80821917808219,
-   "median_real_lead_s": -37.24824857711792
+   "n_with_onset": 63,
+   "pct_price_after_feed": 17.46031746031746,
+   "median_real_lead_s": -42.05937194824219
   },
   "dota2|map|gap 60-infs": {
    "n_events": 36,
-   "n_with_onset": 16,
-   "pct_price_after_feed": 37.5,
-   "median_real_lead_s": -6.879461288452148
+   "n_with_onset": 15,
+   "pct_price_after_feed": 40.0,
+   "median_real_lead_s": -4.875811576843262
   },
   "dota2|match|gap 0-10s": {
    "n_events": 652,
-   "n_with_onset": 307,
-   "pct_price_after_feed": 32.24755700325733,
-   "median_real_lead_s": -10.37061333656311
+   "n_with_onset": 274,
+   "pct_price_after_feed": 32.11678832116788,
+   "median_real_lead_s": -11.615021705627441
   },
   "dota2|match|gap 10-30s": {
    "n_events": 276,
    "n_with_onset": 122,
-   "pct_price_after_feed": 30.327868852459016,
-   "median_real_lead_s": -15.175196290016174
+   "pct_price_after_feed": 29.508196721311474,
+   "median_real_lead_s": -14.201364040374756
   },
   "dota2|match|gap 30-60s": {
    "n_events": 143,
-   "n_with_onset": 63,
-   "pct_price_after_feed": 31.746031746031747,
-   "median_real_lead_s": -28.017961978912354
+   "n_with_onset": 62,
+   "pct_price_after_feed": 33.87096774193548,
+   "median_real_lead_s": -25.773262977600098
   },
   "dota2|match|gap 60-infs": {
    "n_events": 43,
-   "n_with_onset": 15,
+   "n_with_onset": 13,
    "pct_price_after_feed": 0.0,
-   "median_real_lead_s": -23.13856315612793
+   "median_real_lead_s": -6.8040876388549805
   }
  },
  "B_reconciliation": {
   "per_match": {
-   "1786828": {
-    "increases": {
-     "round": 40
-    },
-    "any_change": {
-     "round": 40
-    }
-   },
    "1791799": {
     "increases": {
      "kills": 122,
@@ -241,6 +233,138 @@
      "kills": 122,
      "towers": 21,
      "roshans": 5,
+     "barracks": 6
+    }
+   },
+   "1786830": {
+    "increases": {
+     "round": 18
+    },
+    "any_change": {
+     "round": 18
+    }
+   },
+   "1785753": {
+    "increases": {
+     "kills": 141,
+     "towers": 28,
+     "roshans": 4,
+     "barracks": 8
+    },
+    "any_change": {
+     "kills": 141,
+     "towers": 28,
+     "roshans": 4,
+     "barracks": 8
+    }
+   },
+   "1789156": {
+    "increases": {
+     "round": 21
+    },
+    "any_change": {
+     "round": 21
+    }
+   },
+   "1762447": {
+    "increases": {
+     "round": 44
+    },
+    "any_change": {
+     "round": 44
+    }
+   },
+   "1793323": {
+    "increases": {
+     "kills": 109,
+     "towers": 29,
+     "roshans": 5,
+     "barracks": 8
+    },
+    "any_change": {
+     "kills": 109,
+     "towers": 29,
+     "roshans": 5,
+     "barracks": 8
+    }
+   },
+   "1789158": {
+    "increases": {
+     "round": 39
+    },
+    "any_change": {
+     "round": 39
+    }
+   },
+   "1803635": {
+    "increases": {
+     "round": 77
+    },
+    "any_change": {
+     "round": 77
+    }
+   },
+   "1806970": {
+    "increases": {
+     "kills": 158,
+     "towers": 39,
+     "roshans": 6,
+     "barracks": 15
+    },
+    "any_change": {
+     "kills": 158,
+     "towers": 39,
+     "roshans": 6,
+     "barracks": 15
+    }
+   },
+   "1809115": {
+    "increases": {
+     "round": 52
+    },
+    "any_change": {
+     "round": 52
+    }
+   },
+   "1793327": {
+    "increases": {
+     "kills": 127,
+     "towers": 28,
+     "roshans": 6,
+     "barracks": 7
+    },
+    "any_change": {
+     "kills": 127,
+     "towers": 28,
+     "roshans": 6,
+     "barracks": 7
+    }
+   },
+   "1791800": {
+    "increases": {
+     "kills": 88,
+     "towers": 23,
+     "roshans": 3,
+     "barracks": 7
+    },
+    "any_change": {
+     "kills": 88,
+     "towers": 23,
+     "roshans": 5,
+     "barracks": 7
+    }
+   },
+   "1785771": {
+    "increases": {
+     "kills": 127,
+     "towers": 25,
+     "roshans": 4,
+     "barracks": 6
+    },
+    "any_change": {
+     "kills": 127,
+     "towers": 25,
+     "roshans": 4,
      "barracks": 6
     }
    },
@@ -266,50 +390,6 @@
      "roshans": 2
     }
    },
-   "1809117": {
-    "increases": {
-     "round": 82
-    },
-    "any_change": {
-     "round": 82
-    }
-   },
-   "1803635": {
-    "increases": {
-     "round": 77
-    },
-    "any_change": {
-     "round": 77
-    }
-   },
-   "1806970": {
-    "increases": {
-     "kills": 158,
-     "towers": 39,
-     "roshans": 6,
-     "barracks": 15
-    },
-    "any_change": {
-     "kills": 158,
-     "towers": 39,
-     "roshans": 6,
-     "barracks": 15
-    }
-   },
-   "1793327": {
-    "increases": {
-     "kills": 127,
-     "towers": 28,
-     "roshans": 6,
-     "barracks": 7
-    },
-    "any_change": {
-     "kills": 127,
-     "towers": 28,
-     "roshans": 6,
-     "barracks": 7
-    }
-   },
    "1786827": {
     "increases": {
      "round": 69
@@ -318,26 +398,54 @@
      "round": 69
     }
    },
-   "1762447": {
+   "1796496": {
     "increases": {
-     "round": 44
+     "round": 9
     },
     "any_change": {
-     "round": 44
+     "round": 9
     }
    },
-   "1785753": {
+   "1809116": {
     "increases": {
-     "kills": 141,
-     "towers": 28,
-     "roshans": 4,
-     "barracks": 8
+     "round": 75
     },
     "any_change": {
-     "kills": 141,
-     "towers": 28,
-     "roshans": 4,
-     "barracks": 8
+     "round": 75
+    }
+   },
+   "1793319": {
+    "increases": {
+     "kills": 20,
+     "towers": 3
+    },
+    "any_change": {
+     "kills": 20,
+     "towers": 3
+    }
+   },
+   "1786828": {
+    "increases": {
+     "round": 40
+    },
+    "any_change": {
+     "round": 40
+    }
+   },
+   "1809117": {
+    "increases": {
+     "round": 82
+    },
+    "any_change": {
+     "round": 82
+    }
+   },
+   "1762448": {
+    "increases": {
+     "round": 33
+    },
+    "any_change": {
+     "round": 33
     }
    },
    "1793318": {
@@ -353,129 +461,21 @@
      "roshans": 1,
      "barracks": 4
     }
-   },
-   "1796496": {
-    "increases": {
-     "round": 9
-    },
-    "any_change": {
-     "round": 9
-    }
-   },
-   "1762448": {
-    "increases": {
-     "round": 33
-    },
-    "any_change": {
-     "round": 33
-    }
-   },
-   "1793319": {
-    "increases": {
-     "kills": 20,
-     "towers": 3
-    },
-    "any_change": {
-     "kills": 20,
-     "towers": 3
-    }
-   },
-   "1809115": {
-    "increases": {
-     "round": 52
-    },
-    "any_change": {
-     "round": 52
-    }
-   },
-   "1793323": {
-    "increases": {
-     "kills": 109,
-     "towers": 29,
-     "roshans": 5,
-     "barracks": 8
-    },
-    "any_change": {
-     "kills": 109,
-     "towers": 29,
-     "roshans": 5,
-     "barracks": 8
-    }
-   },
-   "1789156": {
-    "increases": {
-     "round": 21
-    },
-    "any_change": {
-     "round": 21
-    }
-   },
-   "1786830": {
-    "increases": {
-     "round": 18
-    },
-    "any_change": {
-     "round": 18
-    }
-   },
-   "1791800": {
-    "increases": {
-     "kills": 88,
-     "towers": 23,
-     "roshans": 3,
-     "barracks": 7
-    },
-    "any_change": {
-     "kills": 88,
-     "towers": 23,
-     "roshans": 5,
-     "barracks": 7
-    }
-   },
-   "1789158": {
-    "increases": {
-     "round": 39
-    },
-    "any_change": {
-     "round": 39
-    }
-   },
-   "1809116": {
-    "increases": {
-     "round": 75
-    },
-    "any_change": {
-     "round": 75
-    }
-   },
-   "1785771": {
-    "increases": {
-     "kills": 127,
-     "towers": 25,
-     "roshans": 4,
-     "barracks": 6
-    },
-    "any_change": {
-     "kills": 127,
-     "towers": 25,
-     "roshans": 4,
-     "barracks": 6
-    }
    }
   },
   "totals_increases": {
-   "round": 598,
    "kills": 989,
    "towers": 223,
    "roshans": 33,
-   "barracks": 68
+   "barracks": 68,
+   "round": 598
   },
   "totals_any_change": {
-   "round": 598,
    "kills": 989,
    "towers": 223,
    "roshans": 38,
-   "barracks": 68
+   "barracks": 68,
+   "round": 598
   },
   "match_ids_in_recount_not_in_ps_dir": [
    "1785760"
@@ -514,6 +514,30 @@
    "pm_markets_sharing_a_name_token": [
     {
      "outcomes": [
+      "PuckChamp",
+      "Zero Tenacity"
+     ],
+     "q": "Dota 2: PuckChamp vs Zero Tenacity - Game 1 Winner",
+     "kind": "Map 1 Winner"
+    },
+    {
+     "outcomes": [
+      "PuckChamp",
+      "Zero Tenacity"
+     ],
+     "q": "Dota 2: PuckChamp vs Zero Tenacity - Game 2 Winner",
+     "kind": "Map 2 Winner"
+    },
+    {
+     "outcomes": [
+      "PuckChamp",
+      "Zero Tenacity"
+     ],
+     "q": "Dota 2: PuckChamp vs Zero Tenacity (BO3) - DreamLeague Division 2 Group B",
+     "kind": "Match Winner"
+    },
+    {
+     "outcomes": [
       "ex-RUSTEC",
       "Nexus"
      ],
@@ -534,30 +558,6 @@
       "Nexus"
      ],
      "q": "Counter-Strike: ex-RUSTEC vs Nexus (BO3) - CCT Europe Group Stage",
-     "kind": "Match Winner"
-    },
-    {
-     "outcomes": [
-      "PuckChamp",
-      "Zero Tenacity"
-     ],
-     "q": "Dota 2: PuckChamp vs Zero Tenacity - Game 1 Winner",
-     "kind": "Map 1 Winner"
-    },
-    {
-     "outcomes": [
-      "PuckChamp",
-      "Zero Tenacity"
-     ],
-     "q": "Dota 2: PuckChamp vs Zero Tenacity - Game 2 Winner",
-     "kind": "Map 2 Winner"
-    },
-    {
-     "outcomes": [
-      "PuckChamp",
-      "Zero Tenacity"
-     ],
-     "q": "Dota 2: PuckChamp vs Zero Tenacity (BO3) - Asgard Championship Group A",
      "kind": "Match Winner"
     }
    ]
