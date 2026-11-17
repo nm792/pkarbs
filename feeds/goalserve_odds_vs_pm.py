@@ -2,7 +2,9 @@
 """Goalserve bet365 esports in-play odds vs Polymarket price: lead test per feeds/STANDARD-feed-latency-test.md v1 (sections 2-3).
 Read-only. Bookmaker = whatever Goalserve sends (docs: bet365 only); this script never assumes a bookmaker name and reports the `bm` values seen.
 Input A: hour files esports_<hour>.jsonl.gz of {"recv_ns","body"} (live/goalserve/capture.py store_payload; body = whole in-play file, changed polls only).
-Input B: --pm DIR (repeatable) with markets.jsonl(.gz) and books.jsonl(.gz), same format as feeds/ps_lead_test.py.
+Input B: --pm DIR (repeatable) with markets.jsonl(.gz) and books.jsonl(.gz), same format as feeds/ps_lead_test.py. Book row time (amendment item 11, 17 Nov 12:50Z): `recv_ms` if present, else `ms`
+(live/thesports/capture.py docstring and books_thread: `ms` = OUR receive time after the CLOB /books response, `sent` = start of that poll cycle; rows are written only when a book CHANGES). Each source is counted
+(drops.pm_book_rows_time_from_recv_ms / _from_ms). Resolution used in bar 4 = max(1.0 s, p90 gap between consecutive distinct `sent` values inside the Goalserve event window (the measured poll cycle)); if no `sent`, p90 gap between book rows.
 Rules (pre-registered 17 Nov, locked; code mirrors ps_lead_test.py, which supplies lines/norm/find/load_pm/mk_index):
  R1 (amended 17 Nov 10:58Z after the stored-odds inventory showed the real names) winner market names, after norm(): exactly 'home away' (Goalserve "Home/Away") -> kind Match Winner;
     'home away (map|game) N' (Goalserve "Home/Away (map N)") -> kind Map N Winner. Every other market name is EXCLUDED
@@ -21,6 +23,7 @@ Rules (pre-registered 17 Nov, locked; code mirrors ps_lead_test.py, which suppli
     Fewer than 30 events = 'unknown (n<30), preliminary'. Fewer than 30 placebo onsets or placebo onsets in fewer than 30 matches = 'unknown (placebo too thin)'. Placebo excludes +-2W (120 s) around any event of the match.
     Money bar only if this passes.
  R7 seed 20261117 (--seed only for the self test). Verdicts are PRELIMINARY until the rule-to-code table is signed by another project thread and an independent audit is done.
+Planted-edge check on the REAL PM series (checker condition 4): the same command with --pm-shift-s 5, 15 and 25 (PM book times moved later by that many seconds); the report shows all four runs.
 Usage: python3 -I feeds/goalserve_odds_vs_pm.py --files '<glob of esports_*.jsonl.gz>' --pm DIR [--pm DIR] --poll-log '<glob of goalserve_*.jsonl>' --clock-note 'PM recorder host X, Goalserve capture host Y, same chrony' --out result.json
 Self test (planted edge): python3 -I feeds/test_goalserve_odds_vs_pm.py
 """
@@ -165,6 +168,7 @@ def main():
     ap.add_argument("--poll-log", action="append", default=[])
     ap.add_argument("--clock-note", required=True, help="text: PM recorder host, Goalserve capture host, same chrony clock?")
     ap.add_argument("--seed", type=int, default=SEED, help="locked default; only the self test changes it")
+    ap.add_argument("--pm-shift-s", type=float, default=0.0, help="planted-edge check only (amendment item 11): add this many seconds to every PM book time, i.e. PM reacts that much LATER. Real run = 0.")
     a = ap.parse_args()
     rnd = random.Random(a.seed)
     files = sorted({f for g in a.files for f in glob.glob(g)})
@@ -199,24 +203,33 @@ def main():
             drops["events_no_pm_market" if rec["n_pm_candidates"] == 0 else "events_ambiguous_rematch_excluded"] += rec["n_events"]
     need = {tk for m in sel.values() for tk in m["tokens"]}
     series = collections.defaultdict(list)
+    sent_vals = set()
+    w_lo, w_hi = (min(e[2] for e in ev) - W, max(e[2] for e in ev) + W) if ev else (0.0, 0.0)
     for d in a.pm:
         p = find(d, "books")
         if not p:
             continue
         for r in counted_lines(p, drops, "pm_books"):
+            tms = r.get("recv_ms")
+            if tms is not None:
+                src = "pm_book_rows_time_from_recv_ms"
+            else:
+                tms, src = r.get("ms"), "pm_book_rows_time_from_ms"
+            if r.get("sent") is not None and tms is not None and w_lo <= tms / 1000.0 <= w_hi:
+                sent_vals.add(r["sent"])
             tk = r.get("asset") or r.get("tk")
             if tk not in need:
                 continue
-            tms = r.get("recv_ms")
             if tms is None:
                 drops["book_rows_no_recv_ms"] += 1
                 continue
+            drops[src] += 1
             b = [float(x["price"]) for x in r.get("bids") or []]
             s = [float(x["price"]) for x in r.get("asks") or []]
             if not b or not s:
                 drops["book_rows_one_sided"] += 1
                 continue
-            series[tk].append((tms / 1000.0, (max(b) + min(s)) / 2.0))
+            series[tk].append((tms / 1000.0 + a.pm_shift_s, (max(b) + min(s)) / 2.0))
     ts = {}
     bgaps = []
     for tk in series:
@@ -225,7 +238,10 @@ def main():
         bgaps.extend(y - x for x, y in zip(ts[tk], ts[tk][1:]))
     bgaps.sort()
     book_gap = dict(n_gaps=len(bgaps), median_s=statistics.median(bgaps), p90_s=bgaps[int(.9 * len(bgaps))]) if bgaps else dict(n_gaps=0)
-    res_eff = max(RES, book_gap.get("p90_s", RES))
+    sv = sorted(sent_vals)
+    cyc = sorted((y - x) / 1000.0 for x, y in zip(sv, sv[1:]))
+    cycle = dict(n_cycles=len(cyc), median_s=statistics.median(cyc), p90_s=cyc[int(.9 * len(cyc))]) if cyc else dict(n_cycles=0, note="no 'sent' field in books rows in the Goalserve window")
+    res_eff = max(RES, cycle["p90_s"] if cyc else book_gap.get("p90_s", RES))
 
     def mid_at(tk, t):
         i = bisect.bisect_right(ts.get(tk, []), t) - 1
@@ -298,8 +314,8 @@ def main():
         out.sort()
         return [out[int(.025 * len(out))], out[int(.975 * len(out))]] if len(out) > 20 else None
 
-    res = dict(seed=a.seed, clock_note=a.clock_note, poll_interval_measured=poll_gaps(a.poll_log) if a.poll_log else "NOT MEASURED (no --poll-log)",
-               book_row_spacing_measured=book_gap, resolution_used_in_bar4_s=res_eff, files=len(files), goalserve_events_total=len(ev), drops=dict(drops), audit=audit, cells={},
+    res = dict(seed=a.seed, pm_shift_s=a.pm_shift_s, clock_note=a.clock_note, poll_interval_measured=poll_gaps(a.poll_log) if a.poll_log else "NOT MEASURED (no --poll-log)",
+               book_row_spacing_measured=book_gap, book_poll_cycle_measured=cycle, resolution_used_in_bar4_s=res_eff, files=len(files), goalserve_events_total=len(ev), drops=dict(drops), audit=audit, cells={},
                match_list=sorted(matchlist.values(), key=lambda r: (str(r["eid"]), r["kind"])))
     for cell in sorted({r["cell"] for r in rows}):
         R = [r for r in rows if r["cell"] == cell]

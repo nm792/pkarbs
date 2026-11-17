@@ -3,7 +3,8 @@
 Builds 40 matches x 3 odds toggles (Goalserve first-seen times) plus PM books where the rising team's token jumps +3c / the other falls -3c at
 t_event + SHIFT, with sparse random +-3c blips as noise. Checks: SHIFT=5.0 recovers the lead (median real lead within 1.5 s of 5), SHIFT=15.0 recovers it and meets the bar; SHIFT=0.0 and SHIFT=-5.0 do not;
 no-edge (PM never reacts) does not; excluded market names are counted and printed. v2: shifts 0, no-edge and 15 are repeated over 20 seeds and the FALSE-PASS rate (must be <= 5%) and the planted-shift pass rates at 15 s (reported) and 25 s (must be >= 75%) are reported.
-v4 (17 Nov 10:58Z): the builder uses the REAL Goalserve names seen in the stored inventory: market 'Home/Away', 'Home/Away (map 1)', participants 'Home'/'Away', info.sport 'Esports', info.league 'CS2 - Test League'."""
+v4 (17 Nov 10:58Z): the builder uses the REAL Goalserve names seen in the stored inventory: market 'Home/Away', 'Home/Away (map 1)', participants 'Home'/'Away', info.sport 'Esports', info.league 'CS2 - Test League'.
+v5 (17 Nov 12:50Z): the PM book rows use the REAL recorder schema from live/thesports/capture.py (ms, sent, tk, bids, asks; no recv_ms/asset); the test asserts time comes from ms, the poll cycle is measured from distinct sent values, and --pm-shift-s recovers a planted lead."""
 import os, sys, gzip, json, tempfile, subprocess, random
 here = os.path.dirname(os.path.abspath(__file__))
 fails = []
@@ -45,7 +46,7 @@ def build(shift, react=True, seed=7):
             pts.sort()
             for t in [pts[0][0] + j * 1.0 for j in range(int((pts[-1][0] - pts[0][0]) / 1.0) + 2)]:
                 lv = [p for (x, p) in pts if x <= t][-1]
-                books.append({"asset": tk, "recv_ms": int(t * 1000), "bids": [{"price": str(round(lv - 0.005, 4))}], "asks": [{"price": str(round(lv + 0.005, 4))}]})
+                books.append({"ms": int(t * 1000), "sent": int(t * 1000) - 80, "tk": tk, "bids": [{"price": str(round(lv - 0.005, 4))}], "asks": [{"price": str(round(lv + 0.005, 4))}]})
     with open(os.path.join(pmd, "markets.jsonl"), "w") as f:
         for m in markets: f.write(json.dumps(m) + "\n")
     with open(os.path.join(pmd, "books.jsonl"), "w") as f:
@@ -77,11 +78,11 @@ def build(shift, react=True, seed=7):
     return tmp, gdir, pmd
 
 CELL = "cs2|'bet365'|Match Winner"
-def run(shift, react=True, seed=7):
+def run(shift, react=True, seed=7, pm_shift=0.0):
     tmp, gdir, pmd = build(shift, react, seed)
     out = os.path.join(tmp, "res.json")
     r = subprocess.run([sys.executable, "-I", os.path.join(here, "goalserve_odds_vs_pm.py"), "--files", os.path.join(gdir, "*.jsonl.gz"), "--pm", pmd,
-                        "--clock-note", "selftest", "--seed", str(seed), "--out", out], capture_output=True, text=True)
+                        "--clock-note", "selftest", "--seed", str(seed), "--pm-shift-s", str(pm_shift), "--out", out], capture_output=True, text=True)
     j = json.load(open(out)) if os.path.exists(out) else None
     return r, j, ((j or {}).get("cells", {}).get(CELL, {}))
 
@@ -99,6 +100,12 @@ check("'Total Rounds' excluded and counted, bm bet365 reported", "Total Rounds" 
 check("match list printed with 40 matched markets, drops dict present", len(j5["match_list"]) == 40 and all("pm_cond" in m for m in j5["match_list"]) and "drops" in j5)
 check("bad lines counted: goalserve 1, PM books 1", a.get("counters", {}).get("goalserve_rows_bad_lines") == 1 and j5["drops"].get("pm_books_bad_lines") == 1)
 check("book spacing measured (p90 about 1 s) and used in bar 4", abs(j5["book_row_spacing_measured"]["p90_s"] - 1.0) < 0.05 and j5["resolution_used_in_bar4_s"] == 1.0)
+d5 = j5["drops"]
+check("real book schema: time taken from ms (counted), none from recv_ms, none dropped for missing time", d5.get("pm_book_rows_time_from_ms", 0) > 1000 and d5.get("pm_book_rows_time_from_recv_ms", 0) == 0 and d5.get("book_rows_no_recv_ms", 0) == 0)
+cy = j5["book_poll_cycle_measured"]
+check("poll cycle measured from distinct 'sent' values (median 1 s, p90 1 s)", cy.get("n_cycles", 0) > 100 and abs(cy["median_s"] - 1.0) < 0.05 and abs(cy["p90_s"] - 1.0) < 0.05)
+_, _, cs = run(0.0, True, 7, pm_shift=5.0)
+check("--pm-shift-s 5 on a zero-shift series recovers a 5 s lead within 1.5 s (same as building the shift in)", cs.get("median_real_lead_s") is not None and abs(cs["median_real_lead_s"] - 5.0) <= 1.5)
 SEEDS = range(1, 21)
 res = {"plant15": [], "plant25": [], "shift0": [], "noedge": []}
 for sd in SEEDS:
