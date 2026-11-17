@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-17T20:00:00Z |
-| origin_tip | 08574f5d25 |
-| newest_origin_commit | 2026-11-17T19:00:13Z heartbeat 2026-11-17T19:00:00Z (no-model status_heartbeat.sh, R1) |
+| generated_utc | 2026-11-17T21:00:00Z |
+| origin_tip | b42e11c938 |
+| newest_origin_commit | 2026-11-17T20:47:39Z Record PX Dota capture session |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
