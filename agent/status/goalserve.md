@@ -304,3 +304,64 @@ drwxr-xr-x              3 2026/11/17 11:00:01 tennis_payloads
 ```
 - Pickup proof: `date -u` = `2026-11-17T12:21:31Z`; the ship log at 11:30:47Z records `goalserve shipped=4 deleted=4 kept=0 freed=123277093`; the destination has hourly payload folders for all four streams. `df -B1` reports 41,282,875,392 bytes available on the data volume.
 - Read-only; no copy, process, or configuration changed.
+
+
+## P15b2 shipper pickup (2026-11-17 12:56Z)
+
+- `date -u +%FT%TZ`: `2026-11-17T12:56:16Z`
+- `grep goalserve /root/ship/ship.log | tail -20`:
+```text
+2026-11-17T03:00:31Z goalserve nothing eligible local_bytes=218385622
+2026-11-17T03:30:40Z goalserve shipped=1 deleted=1 kept=0 freed=371459
+2026-11-17T04:00:36Z goalserve nothing eligible local_bytes=221131001
+2026-11-17T04:30:34Z goalserve shipped=1 deleted=1 kept=0 freed=367294
+2026-11-17T05:00:35Z goalserve nothing eligible local_bytes=223885330
+2026-11-17T05:30:37Z goalserve shipped=1 deleted=1 kept=0 freed=376349
+2026-11-17T06:00:41Z goalserve nothing eligible local_bytes=226468995
+2026-11-17T06:30:40Z goalserve shipped=1 deleted=1 kept=0 freed=377495
+2026-11-17T07:00:33Z goalserve nothing eligible local_bytes=228925070
+2026-11-17T07:30:36Z goalserve shipped=1 deleted=1 kept=0 freed=360388
+2026-11-17T08:00:48Z goalserve nothing eligible local_bytes=231405828
+2026-11-17T08:30:36Z goalserve shipped=1 deleted=1 kept=0 freed=343642
+2026-11-17T09:00:36Z goalserve nothing eligible local_bytes=235628131
+2026-11-17T09:30:35Z goalserve shipped=1 deleted=1 kept=0 freed=346824
+2026-11-17T10:00:39Z goalserve nothing eligible local_bytes=361774240
+2026-11-17T10:30:44Z goalserve shipped=2 deleted=2 kept=0 freed=234377117
+2026-11-17T11:00:36Z goalserve nothing eligible local_bytes=279248232
+2026-11-17T11:30:47Z goalserve shipped=4 deleted=4 kept=0 freed=123277093
+2026-11-17T12:00:40Z goalserve nothing eligible local_bytes=318023323
+2026-11-17T12:30:38Z goalserve shipped=4 deleted=4 kept=0 freed=149268644
+```
+- `ls -la --time-style=full-iso <data-volume>/pkarbs/goalserve/*_payloads/ | tail -30`:
+```text
+<data-volume>/pkarbs/goalserve/basketball_payloads/:
+total 78864
+drwxr-xr-x 2 root root     4096 2026-11-17 12:30:38.144428118 +0000 .
+drwxr-xr-x 6 root root     4096 2026-11-17 10:30:44.732166735 +0000 ..
+-rw-r--r-- 1 root root 47495579 2026-11-17 11:59:58.203803235 +0000 basketball_2026111711.jsonl.gz
+-rw-r--r-- 1 root root 33241226 2026-11-17 12:56:15.150919325 +0000 basketball_2026111712.jsonl.gz
+
+<data-volume>/pkarbs/goalserve/esports_payloads/:
+total 26564
+drwxr-xr-x 2 root root     4096 2026-11-17 12:30:38.222427889 +0000 .
+drwxr-xr-x 6 root root     4096 2026-11-17 10:30:44.732166735 +0000 ..
+-rw-r--r-- 1 root root 17664117 2026-11-17 11:59:57.994803844 +0000 esports_2026111711.jsonl.gz
+-rw-r--r-- 1 root root  9516487 2026-11-17 12:56:14.983919814 +0000 esports_2026111712.jsonl.gz
+
+<data-volume>/pkarbs/goalserve/hockey_nhl_payloads/:
+total 10284
+drwxr-xr-x 2 root root    4096 2026-11-17 12:30:38.262427771 +0000 .
+drwxr-xr-x 6 root root    4096 2026-11-17 10:30:44.732427771 +0000 ..
+-rw-r--r-- 1 root root 4518836 2026-11-17 11:59:59.878798354 +0000 hockey_nhl_2026111711.jsonl.gz
+-rw-r--r-- 1 root root 5988738 2026-11-17 12:56:14.844920222 +0000 hockey_nhl_2026111712.jsonl.gz
+
+drwxr-xr-x 2 root root    4096 2026-11-17 12:30:38.576426850 +0000 ..
+-rw-r--r-- 1 root root 89871182 2026-11-17 11:59:59.434799648 +0000 tennis_2026111711.jsonl.gz
+-rw-r--r-- 1 root root 78129252 2026-11-17 12:56:16.389915693 +0000 tennis_2026111712.jsonl.gz
+```
+- `df -B1 <data-volume>`:
+```text
+Filesystem        1B-blocks        Used   Available Use% Mounted on
+/dev/sdc       105089261568 57025425408 42678349824  58% <data-volume>
+```
+- Read-only pickup proof: the 11:30Z ship run recorded four Goalserve items shipped; latest ship run at 12:30Z also shipped four. The active 12:xx hour files were still growing at the 12:56Z check. No process or configuration changed.
