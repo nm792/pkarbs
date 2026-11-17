@@ -5,9 +5,9 @@ The author thread's own draft table and check are in verify-2026-11-17/ (#376). 
 
 ## Sign-off
 
-**UPDATE 05:45Z: M1-M8 are verified fixed in #378 (see the re-check section). Sign-off is now UNCONDITIONAL for metrics 1-5, Test 1 and Test 2, and for Test 3 apart from R1 (the sourced-only ex-post bound line). Original text: CONDITIONAL; the history tests match the locked rules as amended once the MUST-FIX items below are done, and Test 1 must not be run for a verdict until M1 and M5 are fixed.** Items marked DECLARE need one sentence in the write-up and no code change. Nothing here changes a threshold, event definition, window, bootstrap size or seed.
+**UPDATE 05:35Z: M1-M8 are verified fixed in #378 (see the re-check section). Sign-off is now UNCONDITIONAL for metrics 1-5, Test 1 and Test 2, and for Test 3 apart from R1 (the sourced-only ex-post bound line). Original text: CONDITIONAL; the history tests match the locked rules as amended once the MUST-FIX items below are done, and Test 1 must not be run for a verdict until M1 and M5 are fixed.** Items marked DECLARE need one sentence in the write-up and no code change. Nothing here changes a threshold, event definition, window, bootstrap size or seed.
 
-## Re-check of M1-M8 against #378 (dbd36d665a), 17 Nov 05:45Z
+## Re-check of M1-M8 against #378 (dbd36d665a), 17 Nov 05:35Z
 
 | # | Result | How checked |
 |---|---|---|
