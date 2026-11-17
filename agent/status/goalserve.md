@@ -12,8 +12,8 @@ are corrected in place — see "Corrections 13:25Z")
   only mapping tested that returns 400 ("API key is missing or malformed"). Full forms in
   `agent/status/goalserve-probe.md`.
 - **Capture:** RUNNING, tmux `goalserve`, `live/goalserve/capture.py`, log
-  `/vol2/goalserve/goalserve_YYYYMMDD.jsonl` (recv_ns, sha1, change first-seen per poll).
-  Newest row 13:23:47Z, no errors, 22.1 MB today.
+  `/mnt/HC_Volume_107257520/pkarbs/goalserve/goalserve_YYYYMMDD.jsonl` (recv_ns, sha1, change first-seen per poll).
+  P15b store-all variant installed 17 Nov 09:00:02Z, sha256 `3461f58e1909de94ffe7d4d77656934e8ea3da05bb78362e7c4f02aa8fbd8a36`; backup `capture.py.pre-store-all-20261117T090002Z`. Restarted once 09:00:06Z, PID 4045212; 09:04:49.562Z heartbeat row observed with no fetch errors. New payload folders are growing for esports, tennis, hockey_nhl and basketball. See P15b section below for counts, disk, and unverified ship pickup.
   - Polling (verified OK): **tennis, soccer, baseball, hockey (NHL)**.
 - Started 02:38Z 13 Nov; ~1 poll/s, error-safe (429/404 logged and skipped).
 
@@ -253,3 +253,14 @@ Changed participant payloads (consecutive `value_eu`/`suspend` comparison): 78,1
 | 141216970 | FURIA vs Falcons | 417 | 3042 |
 
 Polymarket books since 13 Nov 17:06Z: 345 registered matches / 1,858 tokens; 1,022,334 book rows; 90 covered matches; 0 malformed book rows. Captured volume strata: 338 matches <$25k, 7 >=$25k. Book rows by sport/stratum: CS2 <$25k 586,041 (220 covered), CS2 >=$25k 126,691 (5), Dota <$25k 245,567 (118), Dota >=$25k 64,035 (2). PandaScore joined 18 matches; 3 had no registered PM market.
+
+## P15b — Chunk A store-all capture install (2026-11-17)
+
+- Source: `agent/inbox/TO-IT-URGENT-CHUNK-A-B-install-store-all-and-run-bookmaker-dictionary-2026-11-17-0750Z.md`; Nick approval recorded 06:24:54Z. The task source and code were read from the fetched project branch before execution.
+- Validation: `python3 -I live/goalserve/test_capture_store_all.py` — **ALL PASS, 15 checks**; `python3 -m py_compile live/goalserve/capture_store_all.py` — pass. Tests were run on a volume-backed temporary directory because Prime's `/tmp` tmpfs had only 386,408,448 B free, below the test's simulated 15 GB store floor; the default `/tmp` run falsely stopped all four writes, so it was not accepted as a pass. No code/test files were added to the project repo.
+- Pre-change live `capture.py` sha256 `279da8f1bea2ad17a5839e83600d3f698f8833c36ad769a0ed0c9dad38c6787b` matched the required base. Byte-identical backup: `live/goalserve/capture.py.pre-store-all-20261117T090002Z`. Installed sha256 `3461f58e1909de94ffe7d4d77656934e8ea3da05bb78362e7c4f02aa8fbd8a36`; post-copy compile passed.
+- Restarted tmux `goalserve` once at 09:00:06Z; old PID 547524 exited and PID 4045212 was active at 09:50Z. The 09:00 daily log has no pre-restart row, so the restart gap cannot be measured from it. The earliest current-hour stored rows are esports 09:00:01.376Z, hockey_nhl 09:00:06.988Z, basketball 09:00:07.237Z and tennis 09:00:08.480Z; the esports row predates the recorded restart, so exact first-row attribution is unresolved. All four files continued growing at 09:50Z.
+- Compressed bytes in timestamped rows from 09:00:06–09:15:06Z: esports 1.401 MB, tennis 19.685 MB, hockey_nhl 2.185 MB, basketball 5.897 MB; total 29.168 MB / 15 min, projected 2.800 GB/day. This is a short-window projection, not a daily observation; the esports file's first row predates restart, so it is not a clean post-restart-only sample.
+- At 09:50:30Z data-disk free space was 42,514,247,680 B; headroom above the 15 GB floor was 27,514,247,680 B, or about **9.8 days** at the measured combined rate—below the note's 14-day criterion. Proposed cut for reviewer decision: store changed bodies only when their payload contains live events; the current implementation stores every changed full body. No further code change was made.
+- `writers.conf` has the existing Goalserve data-disk route to `pkarbs/goalserve`; `ship_raw.sh` recursively includes subdirectories. A dry run at 09:49Z found nothing eligible because all hour files were still younger than the 90-minute minimum age. **Box pickup of the new folders is not yet verified.**
+- Revert: stop tmux `goalserve`; restore `live/goalserve/capture.py.pre-store-all-20261117T090002Z` to `live/goalserve/capture.py`; relaunch with the prior command only if rollback is directed. No other process, key, env, unit or cron configuration was changed.
