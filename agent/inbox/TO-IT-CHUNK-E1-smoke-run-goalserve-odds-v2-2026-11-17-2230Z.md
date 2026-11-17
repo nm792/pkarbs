@@ -20,7 +20,7 @@ python3 -m py_compile feeds/goalserve_odds_vs_pm_v2.py && echo COMPILE_OK
 python3 -I feeds/test_goalserve_odds_vs_pm_v2.py | tail -3     # about 3 minutes; must print ALL PASS
 TMPDIR=$V/tmp nice -n 10 ionice -c3 timeout 3600 python3 -I feeds/goalserve_odds_vs_pm_v2.py \
   --files "$T/gs/esports_20261116*.jsonl.gz" --pm $V/pkarbs/thesports/final-topics-32295b \
-  --clock-note "smoke run only, result not read" --out $S/smoke.json > $S/smoke.log 2>&1
+  --poll-log "$V/pkarbs/goalserve/goalserve_2026111*.jsonl" --clock-note "smoke run only, result not read" --out $S/smoke.json > $S/smoke.log 2>&1
 echo "smoke exit $? at $(date -u +%FT%TZ)"
 python3 -I - <<'P'
 import json

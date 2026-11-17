@@ -12,7 +12,7 @@ def check(n, c):
     print(("PASS " if c else "FAIL ") + n)
     if not c: fails.append(n)
 
-def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True):
+def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True, outage=False):
     rnd = random.Random(seed)
     tmp = tempfile.mkdtemp(); pmd = os.path.join(tmp, "pm"); os.makedirs(pmd)
     T0 = 1_800_000_000.0
@@ -58,8 +58,20 @@ def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True):
         for m in markets: f.write(json.dumps(m) + "\n")
     with open(os.path.join(pmd, "books.jsonl"), "w") as f:
         for b in books: f.write(json.dumps(b) + "\n")
+        f.write(json.dumps({"tk": "tA0", "sent": 1, "bids": [{"price": "0.5"}], "asks": [{"price": "0.51"}]}) + "\n")   # a row with no time
     cur = {i: ((1.8, 2.2), 0) for i in range(N)}
     tl.sort()
+    gap = None
+    if outage:
+        te3 = sorted(x[0] for x in tl if x[1] == 3 and x[2] in ((1.6, 2.4), (2.4, 1.6)))[1]    # 2nd true odds event of match 3
+        gap = (te3 - 60, te3 + 0.01)
+    pl = os.path.join(tmp, "polls"); os.makedirs(pl)
+    with open(os.path.join(pl, "goalserve_2026111800.jsonl"), "w") as f:
+        x = T0 - 100
+        while x < max(tt for (tt, _, _, _) in tl) + 5:
+            if not (gap and gap[0] <= x <= gap[1]):
+                f.write(json.dumps({"esports": {"recv_ns": int(x * 1e9)}}) + "\n")
+            x += 2.0
     gdir = os.path.join(tmp, "gs"); os.makedirs(gdir)
     with gzip.open(os.path.join(gdir, "esports_2026111800.jsonl.gz"), "wt") as g:
         for (t, i, st, sus) in tl:
@@ -74,13 +86,13 @@ def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True):
                         "41": {"id": 41, "name": "Odd", "value_eu": 1.9, "suspend": 0}, "42": {"id": 42, "name": "Even", "value_eu": 1.9, "suspend": 0}}}}
                 evs["E%d" % j] = {"info": {"sport": "Esports", "league": "CS2 - Test League"}, "team_info": {"home": {"name": "Team A%d" % j}, "away": {"name": "Team B%d" % j}}, "odds": mk}
             g.write(json.dumps({"recv_ns": int(t * 1e9), "body": json.dumps({"bm": "", "events": evs})}) + "\n")
-    return tmp, gdir, pmd
+    return tmp, gdir, pmd, pl
 
 CELL = "cs2|Match Winner"
 def run(shift, mode="mirror", react=True, seed=7, **kw):
-    tmp, gdir, pmd = build(shift, mode, react, seed, **kw)
+    tmp, gdir, pmd, pl = build(shift, mode, react, seed, **kw)
     out = os.path.join(tmp, "res.json")
-    r = subprocess.run([sys.executable, "-I", os.path.join(here, "goalserve_odds_vs_pm_v2.py"), "--files", os.path.join(gdir, "*.jsonl.gz"), "--pm", pmd,
+    r = subprocess.run([sys.executable, "-I", os.path.join(here, "goalserve_odds_vs_pm_v2.py"), "--files", os.path.join(gdir, "*.jsonl.gz"), "--pm", pmd, "--poll-log", os.path.join(pl, "*.jsonl"),
                         "--clock-note", "selftest", "--seed", str(seed), "--out", out], capture_output=True, text=True)
     if r.returncode != 0: print(r.stderr[-800:])
     j = json.load(open(out)) if os.path.exists(out) else None
@@ -96,6 +108,12 @@ check("baseline cleared on suspended payloads (counted)", j["audit"]["counters"]
 check("real names used, Odd/Even excluded and counted, bm '' reported", set(j["audit"]["market_names_used"]) == {"Home/Away"} and "Odd/Even (1st map)" in j["audit"]["market_names_excluded"] and "''" in j["audit"]["bm_values"])
 check("planted +15 s: bar met and the 1c power check detected", meets(c) and c["plant_detected"] is True)
 check("match list: 20 matched PM markets, cell cs2|Match Winner", len(j["match_list"]) == 20 and all("excluded" not in m for m in j["match_list"]))
+check("book rows without a time counted (1) and time source counted from ms", j["drops"].get("book_rows_no_time") == 1 and j["drops"].get("pm_book_rows_time_from_ms", 0) > 1000 and j["drops"].get("pm_book_rows_time_from_recv_ms", 0) == 0)
+check("cs2|Match Winner is a primary cell; primary list is exactly cs2 and dota2 Match Winner; wording present; plant_c 0.01 and seed 20261118 recorded when omitted from the CLI",
+      c.get("role") == "primary" and j["primary_cells"] == ["cs2|Match Winner", "dota2|Match Winner"] and "never 'lead of N seconds'" in j["wording"])
+check("first 20 events of the biggest cell printed with token and R", j["first20_events_biggest_cell"]["cell"] == "cs2|Match Winner" and len(j["first20_events_biggest_cell"]["rows"]) == 20 and "token" in j["first20_events_biggest_cell"]["rows"][0])
+_, jo2, co2 = run(15.0, outage=True)
+check("capture outage (no polls for the 60 s up to one event): that event is NOT counted (79), baselines cleared and counted", co2.get("n_events") == 79 and jo2["audit"]["counters"].get("payloads_after_poll_gap_gt_10s", 0) >= 1 and jo2["audit"]["counters"].get("baseline_cleared_poll_gap_gt_10s", 0) >= 1)
 _, jn, cn = run(0.0, react=False)
 check("no-edge: not 'meets bar'; 1c plant detectable on this noise (verdict 'no lead detected')", not meets(cn) and cn.get("plant_detected") is True and str(cn.get("verdict", "")).startswith("no lead"))
 _, jf, cf = run(-20.0)

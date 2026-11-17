@@ -22,6 +22,10 @@ Signer: fill the last column with MATCH or DIFFERS plus the exact difference for
 | 15 | Cell statistic = mean over matches of per-match mean d; CI = match-clustered bootstrap 2000, seed 20261118 | `main`: `md`, `boot`, `SEED` | |
 | 16 | Bar: >= 12 matches, >= 60 events, mean d >= 0.005, CI lower > 0, share R_real > placebo mean >= 55%; CI upper < 0 = PM moved first; else no lead detected | `MIN_MATCHES`, `MIN_EVENTS`, `MIN_EFFECT`, `MIN_SHARE`, verdict block | |
 | 17 | Power check: d - md + 0.01 must meet the same bar (CI lower - md + 0.01 > 0, share >= 55%), else 'unknown (underpowered)'; min_detectable_effect = md - CI lower printed | `plant_ok`, `PLANT_C`, `min_detectable_effect` | |
+| 19 | Row 9 fix (checker DIFFERS): book rows with no time are dropped AND counted; the time source (recv_ms or ms) is counted | `main` books loop: `book_rows_no_time`, `pm_book_rows_time_from_recv_ms`, `pm_book_rows_time_from_ms` | |
+| 20 | G2: `--poll-log` required; a payload with no poll in the preceding 10 s clears all baselines, counted | `load_polls`, `open_events`: `OUTAGE_S`, `baseline_cleared_poll_gap_gt_10s`, `payloads_after_poll_gap_gt_10s` | |
+| 21 | G3: primary cells cs2|Match Winner and dota2|Match Winner; all others labelled informational, verdict prefixed '(informational)' | `PRIMARY`, cell `role`, verdict prefix | |
+| 22 | Reporting: wording string in the JSON, tie count, hand check of the first 20 events of the biggest cell, plant_c and seed recorded | `wording`, `ties_d_zero`, `first20_events_biggest_cell`, `plant_c`, `seed` | |
 | 18 | Result carries clock note (required argument), bm values, drops, match list | `--clock-note`, `audit.bm_values`, `drops`, `match_list` | |
 
 Author's own weak points, please test hardest: (a) rows 11 and 14 (windows of 60 s cannot resolve a lead under about 5 s); (b) row 6 relies on the stored payload sequence: if capture.py stores only changed polls, a market absent for one payload clears the baseline; (c) row 8 assumes map-N alignment; (d) `rnd` is shared between cap sampling, placebo draws and bootstrap, so results depend on iteration order (deterministic for fixed files).
