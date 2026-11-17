@@ -2,6 +2,6 @@ P15d2 step 1/3 completed on Prime (2026-11-17 13:36:06–13:40Z). Data-volume fr
 
 The test's first attempt failed because its default temporary directory was on a full `/tmp` tmpfs (4,096 bytes available), not because the test failed. Re-running unchanged with `TMPDIR` on the data volume passed. The staged source files were extracted from the fetched origin commit because the shared checkout lacks them; no code was changed.
 
-The prescribed rsync plus `cp -n` input collection completed: 95 files in `$T/gs`, from `esports_2026111315.jsonl.gz` through `esports_2026111713.jsonl.gz`, totaling 550 MB. `$T` remains at `/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-odds-vs-pm-20261117`; its `gs` directory is retained for the audit. No four-shift run was started, as P15d2 is step 1/3 and explicitly forbids starting the runs. No script, process, or configuration was changed.
+The prescribed rsync plus `cp -n` input collection completed: 95 files in `$T/gs`, from `esports_2026111315.jsonl.gz` through `esports_2026111713.jsonl.gz`, totaling 550 MB. `$T` remains at the task scratch path; its `gs` directory is retained for the audit. No four-shift run was started, as P15d2 is step 1/3 and explicitly forbids starting the runs. No script, process, or configuration was changed.
 
 Step 1's required checks and input preparation are complete. Steps 2–3 remain for their separately queued rows; no result JSONs or run logs exist yet.
