@@ -23,10 +23,23 @@ Self test (planted edge): python3 -I feeds/test_goalserve_odds_vs_pm.py
 """
 import argparse, bisect, collections, glob, gzip, json, os, random, re, statistics, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from ps_lead_test import lines, norm, find, load_pm, mk_index
+from ps_lead_test import lines, norm, find, load_pm, mk_index, opn
 
 W, THR, SEED, RES = 60.0, 0.02, 20261117, 1.0
 MAP_RE = re.compile(r"^(?:map|game) (\d+) winner$")
+
+
+def counted_lines(p, cnt, key):
+    """Like ps_lead_test.lines() but COUNTS unparsable lines (key_bad_lines) and truncated/unreadable files (key_truncated_files)."""
+    try:
+        with opn(p) as f:
+            for l in f:
+                try:
+                    yield json.loads(l)
+                except Exception:
+                    cnt[key + "_bad_lines"] += 1
+    except (EOFError, OSError):
+        cnt[key + "_truncated_files"] += 1
 
 
 def market_kind(name):
@@ -52,7 +65,7 @@ def goalserve_events(files):
     base = {}
     ev = []
     for p in sorted(files):
-        for r in lines(p):
+        for r in counted_lines(p, A, "goalserve_rows"):
             body, t = r.get("body"), r.get("recv_ns")
             if not isinstance(body, str) or t is None:
                 A["rows_unusable"] += 1
@@ -121,10 +134,10 @@ def med(x):
 
 def poll_gaps(globs):
     """Measured Goalserve esports poll interval from capture.py logs (goalserve_<date>.jsonl rows, row['esports']['recv_ns'])."""
-    ts, errs = [], 0
+    ts, errs, cnt = [], 0, collections.Counter()
     for g in globs:
         for p in sorted(glob.glob(g)):
-            for r in lines(p):
+            for r in counted_lines(p, cnt, "poll_log"):
                 e = r.get("esports") or {}
                 if "err" in e:
                     errs += 1
@@ -133,8 +146,8 @@ def poll_gaps(globs):
     ts.sort()
     gaps = sorted(b - a for a, b in zip(ts, ts[1:]))
     if not gaps:
-        return dict(n_polls=len(ts), poll_errors=errs, note="no polls read")
-    return dict(n_polls=len(ts), poll_errors=errs, median_gap_s=statistics.median(gaps), p90_gap_s=gaps[int(.9 * len(gaps))],
+        return dict(n_polls=len(ts), poll_errors=errs, skipped=dict(cnt), note="no polls read")
+    return dict(n_polls=len(ts), poll_errors=errs, skipped=dict(cnt), median_gap_s=statistics.median(gaps), p90_gap_s=gaps[int(.9 * len(gaps))],
                 p99_gap_s=gaps[min(len(gaps) - 1, int(.99 * len(gaps)))])
 
 
@@ -154,6 +167,11 @@ def main():
     ev, audit = goalserve_events(files)
     drops = collections.Counter()
     pmlist = load_pm(a.pm)
+    for d in a.pm:
+        mp = find(d, "markets")
+        if mp:
+            for _ in counted_lines(mp, drops, "pm_markets"):
+                pass
     idx = mk_index(pmlist)
     sel, matchlist = {}, {}
     for (eid, kind, t, rise, h, a_, title, bm) in ev:
@@ -167,6 +185,7 @@ def main():
             sel[key] = c[0]
             rec["pm_cond"] = c[0].get("cond")
         else:
+            drops["events_no_pm_market" if not c else "events_ambiguous_rematch_excluded"] += 0
             rec["excluded"] = "no PM market with these exact names and kind" if not c else "more than one PM market (rematch); start time not available, excluded"
         matchlist[key] = rec
     for rec in matchlist.values():
@@ -178,7 +197,7 @@ def main():
         p = find(d, "books")
         if not p:
             continue
-        for r in lines(p):
+        for r in counted_lines(p, drops, "pm_books"):
             tk = r.get("asset") or r.get("tk")
             if tk not in need:
                 continue
@@ -193,9 +212,14 @@ def main():
                 continue
             series[tk].append((tms / 1000.0, (max(b) + min(s)) / 2.0))
     ts = {}
+    bgaps = []
     for tk in series:
         series[tk].sort()
         ts[tk] = [x[0] for x in series[tk]]
+        bgaps.extend(y - x for x, y in zip(ts[tk], ts[tk][1:]))
+    bgaps.sort()
+    book_gap = dict(n_gaps=len(bgaps), median_s=statistics.median(bgaps), p90_s=bgaps[int(.9 * len(bgaps))]) if bgaps else dict(n_gaps=0)
+    res_eff = max(RES, book_gap.get("p90_s", RES))
 
     def mid_at(tk, t):
         i = bisect.bisect_right(ts.get(tk, []), t) - 1
@@ -269,7 +293,7 @@ def main():
         return [out[int(.025 * len(out))], out[int(.975 * len(out))]] if len(out) > 20 else None
 
     res = dict(seed=a.seed, clock_note=a.clock_note, poll_interval_measured=poll_gaps(a.poll_log) if a.poll_log else "NOT MEASURED (no --poll-log)",
-               resolution_book_s=RES, files=len(files), goalserve_events_total=len(ev), drops=dict(drops), audit=audit, cells={},
+               book_row_spacing_measured=book_gap, resolution_used_in_bar4_s=res_eff, files=len(files), goalserve_events_total=len(ev), drops=dict(drops), audit=audit, cells={},
                match_list=sorted(matchlist.values(), key=lambda r: (str(r["eid"]), r["kind"])))
     for cell in sorted({r["cell"] for r in rows}):
         R = [r for r in rows if r["cell"] == cell]
@@ -280,7 +304,7 @@ def main():
         c = dict(n_events=n, n_matches=len({r["match"] for r in R}), n_with_onset=len(rl), n_placebo=len(P), n_placebo_with_onset=len(pl),
                  n_matches_with_placebo_onset=pm_on, placebo_onset_rate=(len(pl) / len(P)) if P else None,
                  median_real_lead_s=med(rl), median_placebo_lead_s=med(pl), diff_s=(med(rl) - med(pl)) if rl and pl else None,
-                 pct_all_events_lead_ge_res=100.0 * sum(1 for x in rl if x >= RES) / n,
+                 pct_all_events_lead_ge_res=100.0 * sum(1 for x in rl if x >= res_eff) / n,
                  pct_all_events_lead_gt0=100.0 * sum(1 for x in rl if x > 0) / n,
                  pct_with_onset_lead_gt0=(100.0 * sum(1 for x in rl if x > 0) / len(rl)) if rl else None,
                  pct_placebo_lead_gt0=(100.0 * sum(1 for x in pl if x > 0) / len(pl)) if pl else None,

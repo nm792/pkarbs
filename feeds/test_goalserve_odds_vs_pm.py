@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Self test (v2) for goalserve_odds_vs_pm.py on synthetic data with a PLANTED edge. PASS/FAIL lines; exit 0 only if all pass. Takes about 100 s.
+"""Self test (v3) for goalserve_odds_vs_pm.py on synthetic data with a PLANTED edge. PASS/FAIL lines; exit 0 only if all pass. Takes about 100 s.
 Builds 40 matches x 3 odds toggles (Goalserve first-seen times) plus PM books where the rising team's token jumps +3c / the other falls -3c at
-t_event + SHIFT, with sparse random +-3c blips as noise. Checks: SHIFT=5.0 recovers the lead (median real lead within 1.5 s of 5);
-match list, drop counters and excluded market names are printed. v2: shifts 0, no-edge, 15 and 25 are repeated over 20 seeds; the FALSE-PASS rate at shift 0 and no-edge must be <= 5%,
-the planted 25 s pass rate must be >= 75%, and the 15 s pass rate is only reported (detection power, see feeds/AMENDMENT-goalserve-odds-prereg-2026-11-17.md)."""
+t_event + SHIFT, with sparse random +-3c blips as noise, one unparsable line in each input. Checks: SHIFT=5.0 recovers the lead (median real lead within 1.5 s of 5);
+match list, drop counters, skipped-line counters, measured book spacing and excluded market names are printed. Shifts 0, no-edge, 15 and 25 are repeated over 20 seeds; the FALSE-PASS count at shift 0
+and no-edge must be <= 1 of 20 (an upper 95% bound of about 14%, so the checker thread's 40-seed run adds evidence), the planted 25 s pass count must be >= 15 of 20, and the 15 s count is only reported
+(detection power, see feeds/AMENDMENT-goalserve-odds-prereg-2026-11-17.md)."""
 import os, sys, gzip, json, tempfile, subprocess, random
 here = os.path.dirname(os.path.abspath(__file__))
 fails = []
@@ -49,6 +50,7 @@ def build(shift, react=True, seed=7):
         for m in markets: f.write(json.dumps(m) + "\n")
     with open(os.path.join(pmd, "books.jsonl"), "w") as f:
         for b in books: f.write(json.dumps(b) + "\n")
+        f.write("{bad pm line\n")
     # goalserve bodies: one per change time, whole state
     cur = {i: (1.8, 2.2) for i in range(N)}
     tl.sort()
@@ -66,6 +68,7 @@ def build(shift, react=True, seed=7):
                         "21": {"id": 21, "name": "Over", "value_eu": 1.9, "suspend": 0}, "22": {"id": 22, "name": "Under", "value_eu": 1.9, "suspend": 0}}}}
                 evs["E%d" % j] = {"info": {"sport": "cs2"}, "team_info": {"home": {"name": "Team A%d" % j}, "away": {"name": "Team B%d" % j}}, "odds": mk}
             g.write(json.dumps({"recv_ns": int(t * 1e9), "body": json.dumps({"bm": "bet365", "events": evs})}) + "\n")
+        g.write("{bad goalserve line\n")
     return tmp, gdir, pmd
 
 CELL = "cs2|'bet365'|Match Winner"
@@ -87,6 +90,8 @@ check("shift 5.0: planted lead RECOVERED within 1.5 s (bar not required: see AME
 a = j5["audit"] if j5 else {}
 check("'Total Rounds' excluded and counted, bm bet365 reported", "Total Rounds" in a.get("market_names_excluded", {}) and "'bet365'" in a.get("bm_values", {}))
 check("match list printed with 40 matched markets, drops dict present", len(j5["match_list"]) == 40 and all("pm_cond" in m for m in j5["match_list"]) and "drops" in j5)
+check("bad lines counted: goalserve 1, PM books 1", a.get("counters", {}).get("goalserve_rows_bad_lines") == 1 and j5["drops"].get("pm_books_bad_lines") == 1)
+check("book spacing measured (p90 about 1 s) and used in bar 4", abs(j5["book_row_spacing_measured"]["p90_s"] - 1.0) < 0.05 and j5["resolution_used_in_bar4_s"] == 1.0)
 SEEDS = range(1, 21)
 res = {"plant15": [], "plant25": [], "shift0": [], "noedge": []}
 for sd in SEEDS:
@@ -96,8 +101,8 @@ for sd in SEEDS:
     res["noedge"].append(passes(run(5.0, False, sd)[2]))
 for k, v in res.items():
     print("  %s: pass in %d of %d seeds" % (k, sum(v), len(v)))
-check("false-pass rate at shift 0.0 <= 5%% (%d of 20)" % sum(res["shift0"]), sum(res["shift0"]) <= 1)
-check("false-pass rate at no-edge <= 5%% (%d of 20)" % sum(res["noedge"]), sum(res["noedge"]) <= 1)
+check("false passes at shift 0.0 <= 1 of 20 (%d)" % sum(res["shift0"]), sum(res["shift0"]) <= 1)
+check("false passes at no-edge <= 1 of 20 (%d)" % sum(res["noedge"]), sum(res["noedge"]) <= 1)
 print("  (15 s pass rate is REPORTED only: minimum detectable lead of this statistic at n=120 is about 25 s)")
-check("planted 25.0 s passes the bar in >= 75%% of seeds (%d of 20)" % sum(res["plant25"]), sum(res["plant25"]) >= 15)
+check("planted 25.0 s passes the bar in >= 15 of 20 seeds (%d)" % sum(res["plant25"]), sum(res["plant25"]) >= 15)
 print("ALL PASS" if not fails else "FAILED: " + "; ".join(fails)); sys.exit(1 if fails else 0)
