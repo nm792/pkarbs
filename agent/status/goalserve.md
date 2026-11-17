@@ -365,3 +365,20 @@ Filesystem        1B-blocks        Used   Available Use% Mounted on
 /dev/sdc       105089261568 57025425408 42678349824  58% <data-volume>
 ```
 - Read-only pickup proof: the 11:30Z ship run recorded four Goalserve items shipped; latest ship run at 12:30Z also shipped four. The active 12:xx hour files were still growing at the 12:56Z check. No process or configuration changed.
+## P15d run (2026-11-17)
+
+APPROVALS NEEDED: none; P15d is read-only and was run as instructed.
+
+RESULT
+- Pre-run data-volume free space was 42,678,349,824 bytes at the 12:56Z P15b2 check; at the P15d check 13:00Z it was 42,225,184,768 bytes (>20 GB). Code commit `1cb5c8474b1f64040ec0a8978d866f5b5bc43e2e` is present on origin.
+- Source files and checksums: `feeds/goalserve_odds_vs_pm.py` `a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5`; `feeds/test_goalserve_odds_vs_pm.py` `b977ea1bea9edb4aa63b5444da87a1fda08b068e5ff3542f4370fd99cfc97e8e`; `feeds/ps_lead_test.py` `0cbd918ed6e346c91293edbac8f648a30c47a5b3e244fb8af7a08f81804cfc99`.
+- P15d stopped before any data copy or test run: at the actual 13:00Z prerequisite check only 3 local esports hour files were present, and the PM `books.jsonl` was 19,460,079,096 bytes and still growing. The prescribed four-run test would reread that large active file; P15d explicitly forbids starting other jobs while it runs. No run was started, no partial output was created, and no script/process/config was changed.
+
+DATA
+- Measured prerequisites: data-volume free bytes 42,225,184,768; PM files `markets.jsonl` 3,112,241 bytes and `books.jsonl` 19,460,079,096 bytes at 13:00Z; 3 local Goalserve esports hour files.
+- Source task: `agent/inbox/TO-IT-CHUNK-D-P15d-run-goalserve-bet365-odds-vs-pm-test-2026-11-17-1250Z.md`.
+
+OPEN / NOT VERIFIED
+- The four result JSONs and run logs were not produced; no P15d run was attempted. The note's copy/run gate remains unfulfilled.
+
+Count: notes run 1 (P15b2), outstanding 1 (P15d not started; data/read-volume gate), PENDING open 0
