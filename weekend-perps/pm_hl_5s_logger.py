@@ -14,6 +14,7 @@ def main():
     ins = {i["symbol"]: i for i in get(PM + "/v1/info/instruments")["data"] if isinstance(get(PM + "/v1/info/instruments"), dict)} if False else {}
     r = get(PM + "/v1/info/instruments"); r = r["data"] if isinstance(r, dict) else r
     eq = {i["symbol"]: i["instrument_id"] for i in r if i["category"] in ("equity", "index")}
+    hot = {}
     while True:
         t0 = time.time(); rec = {"t": t0, "pm": [], "books": {}, "hl": {}}
         try:
@@ -23,7 +24,8 @@ def main():
                     rec["pm"].append([x["symbol"], x["index_price"], x["mark_price"], x["mid_price"], x["last_price"]])
                     try: g = abs(float(x["mid_price"]) / float(x["index_price"]) - 1) * 1e4
                     except Exception: g = 0
-                    if g >= 20 or x["symbol"] in ALWAYS:
+                    if g >= 20: hot[x["symbol"]] = t0 + 360
+                    if g >= 20 or x["symbol"] in ALWAYS or hot.get(x["symbol"], 0) > t0:
                         try:
                             b = get(PM + "/v1/info/book?instrument_id=%d" % eq[x["symbol"]]); rec["books"][x["symbol"]] = b.get("data", b)
                         except Exception as e: rec["books"][x["symbol"]] = {"err": str(e)[:60]}
