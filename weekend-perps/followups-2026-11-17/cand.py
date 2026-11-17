@@ -14,7 +14,7 @@ def f(coin):
         b=requests.post(HL,json={"type":"l2Book","coin":coin},timeout=20).json()["levels"]
         bid,ask=float(b[0][0]["px"]),float(b[1][0]["px"]);sp=(ask-bid)/((ask+bid)/2)*1e4/2
     except Exception: pass
-    return coin,{x["t"]:float(x["c"]) for x in rows},sp
+    return coin,{x["t"]:[float(x["o"]),float(x["c"])] for x in rows},sp
 out={};hs={}
 with cf.ThreadPoolExecutor(4) as ex:
     for c,r,sp in ex.map(f,syms): out[c]=r;hs[c]=sp
