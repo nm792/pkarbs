@@ -277,3 +277,30 @@ Polymarket books since 13 Nov 17:06Z: 345 registered matches / 1,858 tokens; 1,0
   - `hockey_nhl_payloads/` — directory, timestamp 2026/11/17 11:00:01
   - `tennis_payloads/` — directory, timestamp 2026/11/17 11:00:01
 - Result: Goalserve data is present at the configured `<box>` destination. Read-only; no files or processes changed.
+## P15d1 evidence addendum — 2026-11-17 12:21Z
+
+- `grep -rn goalserve /root/ship/ --include='*.sh'`: no matches (exit 1). The shipper script routes `pkarbs/goalserve` through the rsync-only `<box>` route.
+- `<box>` destination listing via `rsync --list-only` (last 10 lines):
+```text
+drwxrwxr-x              7 2026/11/17 11:30:45 .
+-rw-r--r--    233,129,110 2026/11/17 09:00:04 goalserve_20261113.jsonl
+drwxr-xr-x              3 2026/11/17 11:00:00 basketball_payloads
+drwxr-xr-x             93 2026/11/17 11:00:02 esports_payloads
+drwxr-xr-x              3 2026/11/17 11:00:01 hockey_nhl_payloads
+drwxr-xr-x              3 2026/11/17 11:00:01 tennis_payloads
+```
+- The supplied path `/mnt/HC_Volume_107247271/pkarbs/thesports/final-topics-32295b` does not exist; the prescribed head/tail reads there returned `No such file or directory`. The live directory is `/mnt/HC_Volume_107257520/pkarbs/thesports/final-topics-32295b`.
+- `markets.jsonl first row` (first 700 characters):
+```text
+{"ms":1794096683720,"sport":"cs2","slug":"cs2-brutes-dep5-2026-11-07","gid":1790239,"title":"Counter-Strike: BRUTE SQ vs Dynamo Eclot Phoenix (BO3) - M\u010cR Group B","start":"2026-11-07 20:50:00+00","q":"Counter-Strike: BRUTE SQ vs Dynamo Eclot Phoenix - Map 1 Winner","smt":"child_moneyline","cond":"0x3353b6d09e2de6abf7ef74fd1d823c731489538ce553cd9a0135c61fff97f2fc","tokens":["72930058691690840260214938622627575229668345824698200070741576420246665869231","114385124318960419143301220070223282160314560327435621194258742719178209514014"],"outcomes":["BRUTE SQ","Dynamo Eclot Phoenix"]}
+```
+- `books.jsonl first row` (first 700 characters):
+```text
+{"ms":1794096690610,"sent":1794096690535,"tk":"101643267323468970588561042405489555306714373111518318303584698481188371105726","ts":"1794096581127","bids":[],"asks":[{"price":"0.001","size":"165693.28"},{"price":"0.009","size":"777"},{"price":"0.01","size":"20446"},{"price":"0.049","size":"12.52"},{"price":"0.05","size":"1332"},{"price":"0.1","size":"500"},{"price":"0.11","size":"28.57"},{"price":"0.16","size":"101.97"},{"price":"0.2","size":"549.99"},{"price":"0.23","size":"60"},{"price":"0.231","size":"60"},{"price":"0.232","size":"660"},{"price":"0.233","size":"60"},{"price":"0.25","size":"100"},{"price":"0.29","size":"500"}]}
+```
+- `books.jsonl last row` (first 700 characters):
+```text
+{"ms":1794918153829,"sent":1794918149602,"tk":"30653925463027268749967186965176091115139105188720902430101873061984361378880","ts":"1794918153655","bids":[{"price":"0.006","size":"775.19"}],"asks":[{"price":"0.03","size":"30"},{"price":"0.04","size":"138"},{"price":"0.049","size":"200"},{"price":"0.05","size":"4986"},{"price":"0.052","size":"100"},{"price":"0.053","size":"15000"},{"price":"0.06","size":"15206"},{"price":"0.07","size":"8791"},{"price":"0.073","size":"200"},{"price":"0.08","size":"50"},{"price":"0.91","size":"510"},{"price":"0.989","size":"926"},{"price":"0.99","size":"650"},{"price":"0.998","size":"5000"}]}
+```
+- Pickup proof: `date -u` = `2026-11-17T12:21:31Z`; the ship log at 11:30:47Z records `goalserve shipped=4 deleted=4 kept=0 freed=123277093`; the destination has hourly payload folders for all four streams. `df -B1` reports 41,282,875,392 bytes available on the data volume.
+- Read-only; no copy, process, or configuration changed.
