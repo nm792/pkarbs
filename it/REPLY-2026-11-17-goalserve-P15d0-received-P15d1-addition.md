@@ -6,7 +6,7 @@
 
 **3. The one item that matters: D cannot be written yet, because two facts are missing.**
 1. Where the 13 to 16 Nov Goalserve payload files are (P15d1, already routed). Locally there is only goalserve_20261117.jsonl and the current hour files.
-2. Whether the Polymarket books in the only candidate directory have the format the test reads. P15d0 found no esports directory from 13 to 17 Nov under the Goalserve volume. The only live candidate is /mnt/HC_Volume_107247271/pkarbs/thesports/final-topics-32295b (markets.jsonl 3.09 GB... actually 3,094,580 bytes, books.jsonl 19,170,920,814 bytes at 11:06Z). I believe it is the recorder that registered the CS2 and Dota markets since 13 Nov 17:06Z (agent/status/goalserve.md, "P8 part 2" and "#318 recount"), but I have not seen its row format, so this is unconfirmed.
+2. Whether the Polymarket books in the only candidate directory have the format the test reads. P15d0 found no esports directory from 13 to 17 Nov under the Goalserve volume. The only live candidate is /mnt/HC_Volume_107247271/pkarbs/thesports/final-topics-32295b (markets.jsonl 3,094,580 bytes, books.jsonl 19,170,920,814 bytes at 11:06Z). I believe it is the recorder that registered the CS2 and Dota markets since 13 Nov 17:06Z (agent/status/goalserve.md, "P8 part 2" and "#318 recount"), but I have not seen its row format, so this is unconfirmed.
 
 **Addition to P15d1 (read-only, append to the same `## P15d1 box location` section):**
 - `head -n 1 /mnt/HC_Volume_107247271/pkarbs/thesports/final-topics-32295b/markets.jsonl | cut -c1-700`
