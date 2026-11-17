@@ -1,0 +1,7 @@
+COMMAND_EXIT=1
+Traceback (most recent call last):
+  File "winmodels/dota/livelag/lag.py", line 19, in <module>
+    cfg = json.load(open(CFG))
+FileNotFoundError: [Errno 2] No such file or directory: '../../../agent/tasks/dota-live-capture-2026-11-16/config.json'
+
+The requested local input directory $HOME/dotacap/out-2026-11-16 is also absent on Prime, so no lag analysis or JSON result was produced. The task config exists on origin but is absent from the dirty working tree; no checkout or restore was performed.
