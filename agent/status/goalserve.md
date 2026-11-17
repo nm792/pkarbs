@@ -219,7 +219,7 @@ confirmation the note asks for.
 - **First file on the real VOL2 mount:** `/mnt/HC_Volume_107257520/pkarbs/goalserve/goalserve_20261113.jsonl`, moved intact — 51,232 rows, first row `2026-11-13T02:38:08.116+00:00` (capture start), last `2026-11-14T03:11:15.190+00:00`, still appending. Path proof: `/proc/547524/fd/3` points at that file.
 - **`/vol2` can no longer resolve to root:** since 13 Nov 17:44Z `/vol2` is a symlink to the data-disk mount (`ls -ld /vol2` shows `-> /mnt/HC_Volume_107257520`); `findmnt -T /vol2` returns the data disk, not `/`.
 - **df /:** before — 17,564,192,768 B free, recorded 13 Nov 15:17Z (pre-move, both status files); after — 17,209,139,200 B free at 14 Nov 03:11Z. Root did not gain the moved bytes because other root writers kept writing across the 11 h between the two readings; the material fact is that neither capture opens a root fd any more, and the data disk holds 72,141,205,504 B free (28% used).
-- **Clause-2 route verified live:** writers.conf row `goalserve|/mnt/HC_Volume_107257520/pkarbs/goalserve|pkarbs/goalserve|-|y|hourly`; shipper `ship_raw.sh` every 30 min; ship.log `goalserve shipped=1 deleted=1 kept=0 freed=325186` at 02:30:45Z; `<box>` `pkarbs/goalserve/esports_payloads/` holds the closed hour files `esports_2026111317` … `esports_2026111400` (325 KB – 14.0 MB each), so payload bytes left the disk only after landing on the box.
+- **Clause-2 route verified live:** writers.conf row `goalserve|<data-volume>/pkarbs/goalserve|pkarbs/goalserve|-|y|hourly`; shipper `ship_raw.sh` every 30 min; ship.log `goalserve shipped=1 deleted=1 kept=0 freed=325186` at 02:30:45Z; `<box>` `pkarbs/goalserve/esports_payloads/` holds the closed hour files `esports_2026111317` … `esports_2026111400` (325 KB – 14.0 MB each), so payload bytes left the disk only after landing on the box.
 - **Open, not fixed (a code change, so gated):** the day's hash log is still local-only (the day file stays open until 15 Nov 00:00Z, so the shipper reports `nothing eligible`), and `pandascore BADGZ raw/pandascore_2026111322.jsonl.gz` on every ship run since 01:00Z — that append-streamed gzip has no end marker, the shipper refuses it, so hour 22 neither ships nor deletes (88,771 B local). Fix = a tolerant reader in `ship_raw.sh`.
 
 ## #318 recount — Goalserve odds changes (14 Nov 11:16Z; PARTIAL)
@@ -264,3 +264,16 @@ Polymarket books since 13 Nov 17:06Z: 345 registered matches / 1,858 tokens; 1,0
 - At 09:50:30Z data-disk free space was 42,514,247,680 B; headroom above the 15 GB floor was 27,514,247,680 B, or about **9.8 days** at the measured combined rate—below the note's 14-day criterion. Proposed cut for reviewer decision: store changed bodies only when their payload contains live events; the current implementation stores every changed full body. No further code change was made.
 - `writers.conf` has the existing Goalserve data-disk route to `pkarbs/goalserve`; `ship_raw.sh` recursively includes subdirectories. A dry run at 09:49Z found nothing eligible because all hour files were still younger than the 90-minute minimum age. **Box pickup of the new folders is not yet verified.**
 - Revert: stop tmux `goalserve`; restore `live/goalserve/capture.py.pre-store-all-20261117T090002Z` to `live/goalserve/capture.py`; relaunch with the prior command only if rollback is directed. No other process, key, env, unit or cron configuration was changed.
+
+
+## P15d1 box location (2026-11-17 11:47Z)
+
+- `grep -rn goalserve /root/ship/ --include='*.sh'`: no matching lines (exit 1). The configured writer route is in `writers.conf`: `goalserve|<data-volume>/pkarbs/goalserve|pkarbs/goalserve|-|y|hourly`.
+- The storage-box endpoint is rsync-only for reads, so used `rsync --list-only -e "$RSYNC_RSH" "$BOX_ROOT/pkarbs/goalserve/" | tail -10` (the same route used by the shipper). Output:
+  - `.` — directory, timestamp 2026/11/17 11:30:45
+  - `goalserve_20261113.jsonl` — 233,129,110 bytes, timestamp 2026/11/17 09:00:04
+  - `basketball_payloads/` — directory, timestamp 2026/11/17 11:00:00
+  - `esports_payloads/` — directory, timestamp 2026/11/17 11:00:02
+  - `hockey_nhl_payloads/` — directory, timestamp 2026/11/17 11:00:01
+  - `tennis_payloads/` — directory, timestamp 2026/11/17 11:00:01
+- Result: Goalserve data is present at the configured `<box>` destination. Read-only; no files or processes changed.
