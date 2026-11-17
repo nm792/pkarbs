@@ -1,0 +1,16 @@
+[Unit]
+Description=Polymarket/Hyperliquid 5 s divergence logger (read-only, no keys)
+After=network-online.target
+Wants=network-online.target
+RequiresMountsFor=/mnt/HC_Volume_107257520
+
+[Service]
+Type=simple
+WorkingDirectory=/mnt/HC_Volume_107257520
+ExecStartPre=/bin/mkdir -p /mnt/HC_Volume_107257520/pmhl5s
+ExecStart=/usr/bin/python3 REPO_PATH/weekend-perps/pm_hl_5s_logger.py --out /mnt/HC_Volume_107257520/pmhl5s --interval 5
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
