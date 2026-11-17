@@ -5,7 +5,27 @@ The author thread's own draft table and check are in verify-2026-11-17/ (#376). 
 
 ## Sign-off
 
-**CONDITIONAL. The history tests (analyze.py metrics 1-4, sample_an.py, follow23.py Tests 2 and 3) match the locked rules as amended, once the MUST-FIX items below are done. Test 1 (eval1.py) must not be run for a verdict until M1 and M5 are fixed.** Items marked DECLARE need one sentence in the write-up and no code change. Nothing here changes a threshold, event definition, window, bootstrap size or seed.
+**UPDATE 05:45Z: M1-M8 are verified fixed in #378 (see the re-check section). Sign-off is now UNCONDITIONAL for metrics 1-5, Test 1 and Test 2, and for Test 3 apart from R1 (the sourced-only ex-post bound line). Original text: CONDITIONAL; the history tests match the locked rules as amended once the MUST-FIX items below are done, and Test 1 must not be run for a verdict until M1 and M5 are fixed.** Items marked DECLARE need one sentence in the write-up and no code change. Nothing here changes a threshold, event definition, window, bootstrap size or seed.
+
+## Re-check of M1-M8 against #378 (dbd36d665a), 17 Nov 05:45Z
+
+| # | Result | How checked |
+|---|---|---|
+| M1 | FIXED | eval1.py has `--after` (default 1794881580). checker_planted_edge_test.py now asserts that the default cut-off drops pre-merge sessions (0 polls on synthetic September logs) and that `--after 0` gives the full run. |
+| M2 | FIXED for metric 4 and Test 2; **Test 3 ex-post bound NOT done (R1)** | analyze.py and follow23.py now give the verdict on the sourced (growth-mode xyz) subset only, print all trades as "COST UNCHECKED, no verdict", and print the net at the old 9 bp beside. Synthetic run: flx+km cell prints "no sourced-cost trades: NO VERDICT"; xyz cells give sourced-only n, net and CI. |
+| M3 | FIXED (968ed68b45) | follow23.py:75 uses the premium of the hour before the reset hour. Planted slope 0.50. |
+| M4 | FIXED | "logistic: no episode rows, not run" and exit; see R2 for one remaining edge. |
+| M5 | FIXED | eval1.py caches funding in LOGDIR/funding_cache.json and forces PRELIMINARY when any settlement has no rate. Tested: an empty funding file on the edge world (137 events, 1 missing rate) gives "PRELIMINARY / NOT PASS (funding settlements without a rate force PRELIMINARY)". Operational need: run eval1 at least every 24 h, or the early settlements stay missing. |
+| M6 | FIXED | growth.py committed. Run live: {'xyz': 145, 'flx': 16, 'km': 23}; fee_info gives xyz:NVDA and xyz:SP500 (0.9, checked), xyz:GOLD (9.0, unchecked), flx:OIL (0.9, unchecked), km:BMNR (9.0), unknown symbol (9.0, unchecked). growth.json must be re-run and committed with the run. |
+| M7 | FIXED | MAXGAP 7.5 s; tested with every 4th sample 4 s late: "signals dropped because sample spacing > 7.5 s: 578" and fewer events. Cosmetic: dropped signals are also counted under "no usable book". DECLARE the dropped count in the result; the placebo goes through the same function, so it is dropped the same way. |
+| M8 | FIXED | `is_weekend(t - H)`, missing-funding count (Test 2), perplib comment filename. |
+
+Planted-edge / no-edge check against the fixed code: 16 of 16 pass (checker_planted_edge_test.py); the author reports 42 of 42 for planted_edge_check.py (read, not re-run).
+
+**Remaining after the re-check:**
+- **R1 (needed for Test 3 only):** follow23.py ex-post bound (the "no tradable jump" verdict) is still computed and printed on all trades, with only a count of COST UNCHECKED. Add a sourced-only line (trades with the checked flag) and label the all-trades line "no verdict".
+- **R2 (minor):** with episode rows from a single calendar week, `trn` is empty and `Xtr.shape[1]` raises IndexError. Real data spans many weeks; guard `if not trn or not tst`.
+- **R3 (cosmetic):** the Test 2 sensitivity runs (k = 3, 12) also print "VERDICT PASS=" lines; they are sensitivity only.
 
 ## Rulings on the four AMBIGUOUS rows the coordinator asked about
 

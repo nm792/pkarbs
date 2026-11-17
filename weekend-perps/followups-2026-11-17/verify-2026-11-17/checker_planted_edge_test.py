@@ -76,7 +76,9 @@ def expect(name, ok, detail=""):
 for world, edge in (("edge", True), ("noedge", False)):
     d = "%s/%s" % (W, world); hist_world(d, edge, 1); log_world(d, edge, 2)
     a = run([sys.executable, HERE + "/analyze.py", d], cwd=d); f = run([sys.executable, HERE + "/follow23.py", d], cwd=d)
-    e = run([sys.executable, HERE + "/eval1.py", d + "/logs", "--funding", d + "/funding.json"], cwd=d)
+    e0 = run([sys.executable, HERE + "/eval1.py", d + "/logs", "--funding", d + "/funding.json"], cwd=d)     # default --after (merge cut-off): synthetic Sept data must be EXCLUDED
+    expect(world + ": eval1 default --after cut-off drops pre-merge sessions (M1)", re.search(r"polls 0 ", e0.stdout) is not None and "VERDICT: PRELIMINARY (no events)" in e0.stdout, e0.stdout.splitlines()[0] if e0.stdout else e0.stderr[-120:])
+    e = run([sys.executable, HERE + "/eval1.py", d + "/logs", "--funding", d + "/funding.json", "--after", "0"], cwd=d)
     open(d + "/analyze.out", "w").write(a.stdout + a.stderr); open(d + "/follow23.out", "w").write(f.stdout + f.stderr); open(d + "/eval1.out", "w").write(e.stdout + e.stderr)
     expect(world + ": scripts ran", a.returncode == 0 and f.returncode == 0 and e.returncode == 0, "rc %d %d %d" % (a.returncode, f.returncode, e.returncode))
     tr = [l for l in a.stdout.splitlines() if "reversion trade" in l]
