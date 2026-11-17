@@ -26,7 +26,7 @@ def carry(k):
             persist = all((t - i * H) in P and abs(P[t - i * H]) >= 100 and sg(P[t - i * H]) == sg(P[t]) for i in range(3))
             ev.append(dict(s=s, wk=cal_week(t), net=g + fr - cost[s], g=g, fr=fr, persist=persist, grp=grp(s), tier=tier(s), chk=FI[s][1], fee=FI[s][0])); free = t + k * H
     return ev
-def report(ev, label):
+def report(ev, label, primary=True):
     print("==", label)
     cells = collections.defaultdict(list)
     for e in ev:
@@ -42,9 +42,10 @@ def report(ev, label):
             snet = np.mean([x["net"] for x in sv]); sci = boot([(x["wk"], x["net"]) for x in sv]); swk = len(set(x["wk"] for x in sv))
             verdict = f"VERDICT PASS={bool(len(sv) >= 30 and swk >= 8 and snet > 0 and sci[0] > 0)} (sourced n={len(sv)} weeks={swk} net={snet:.1f} CI={sci})"
         else: verdict = "no sourced-cost trades: NO VERDICT"
+        if not primary: verdict = "sensitivity only, NO VERDICT"
         print(f"{key[0]:10s}{key[1]:7s} n={len(v):5d} weeks={wks:2d} gross={np.mean([x['g'] for x in v]):7.1f} funding={np.mean([x['fr'] for x in v]):6.1f} net={net:7.1f} CI={ci} | net at old 9 bp {n9:.1f} | COST UNCHECKED {sum(1 for x in v if not x['chk'])} of {len(v)} | {verdict}")
 for k in (6, 3, 12):
-    MISS[0] = 0; ev_ = carry(k); print('funding records missing (treated as 0):', MISS[0]); report(ev_, f"Test 2 carry k={k} ({'primary' if k == 6 else 'sensitivity only'})")
+    MISS[0] = 0; ev_ = carry(k); print('funding records missing (treated as 0):', MISS[0]); report(ev_, f"Test 2 carry k={k} ({'primary' if k == 6 else 'sensitivity only'})", primary=(k == 6))
 # ---------- Test 3
 eps = []
 for s in syms:
@@ -85,12 +86,15 @@ for e in eps:
         if ent and cost[s] is not None:
             pos = -e["sign"]; g = pos * (c_reset[1] / ent[1] - 1) * 1e4; FRs = S[s][1]
             fr = sum(-pos * FRs.get(t, 0) for t in range(t3 + H, e["reset_t"] + 1, H))
-            tr.append((cal_week(e["start"]), g + fr - cost[s], g, fr, grp(s), FI[s][1]))
+            tr.append((cal_week(e["start"]), g + fr - cost[s], g, fr, grp(s), FI[s][1], FI[s][0]))
 print("reset episodes with a reset-hour candle", len(y), "| ex-post trades with COST UNCHECKED:", sum(1 for a in tr if not a[5]), "of", len(tr))
 if len(y) > 5:
     y = np.array(y); x = np.array(x)
     print("candle return toward the oracle in the reset hour (bp): mean", y.mean().round(1), "median", np.median(y).round(1), "mean |premium| before", x.mean().round(1), "slope", np.polyfit(x, y, 1)[0].round(3), "corr", np.corrcoef(x, y)[0, 1].round(3))
-    print("ex-post bound (enter close of 3rd hour, exit close of reset hour): n", len(tr), "gross", np.mean([a[2] for a in tr]).round(1), "funding", np.mean([a[3] for a in tr]).round(1), "net", np.mean([a[1] for a in tr]).round(1), "CI", boot([(a[0], a[1]) for a in tr]), "weeks", len(set(a[0] for a in tr)))
+    print("ex-post bound ALL TRADES (NO VERDICT: includes COST UNCHECKED assets) (enter close of 3rd hour, exit close of reset hour): n", len(tr), "gross", np.mean([a[2] for a in tr]).round(1), "funding", np.mean([a[3] for a in tr]).round(1), "net", np.mean([a[1] for a in tr]).round(1), "CI", boot([(a[0], a[1]) for a in tr]), "weeks", len(set(a[0] for a in tr)))
+    sv3 = [a for a in tr if a[5]]
+    if sv3: print("ex-post bound SOURCED-COST ONLY (growth-mode xyz; this line carries the verdict): n", len(sv3), "gross", np.mean([a[2] for a in sv3]).round(1), "funding", np.mean([a[3] for a in sv3]).round(1), "net", np.mean([a[1] for a in sv3]).round(1), "CI", boot([(a[0], a[1]) for a in sv3]), "weeks", len(set(a[0] for a in sv3)), "| net at old 9 bp", np.mean([a[1] - 2 * (9.0 - a[6]) for a in sv3]).round(1))
+    else: print("ex-post bound SOURCED-COST ONLY: no sourced trades, NO VERDICT")
     for gname in ("xyz", "flx+km"):
         v = [a for a in tr if a[4] == gname]
         if len(v) >= 5: print("  ", gname, len(v), "net", np.mean([a[1] for a in v]).round(1), boot([(a[0], a[1]) for a in v]))
@@ -105,6 +109,7 @@ for e in eps:
 if not rows: print("logistic: no episode rows, not run"); sys.exit(0)
 wks = sorted(set(r[0] for r in rows)); cutw = set(wks[:int(len(wks) * 0.7)])
 trn = [r for r in rows if r[0] in cutw]; tst = [r for r in rows if r[0] not in cutw]
+if not trn or not tst: print("logistic: train or test split empty (too few calendar weeks), not run"); sys.exit(0)
 Xtr = np.array([r[1] for r in trn], float); ytr = np.array([r[2] for r in trn], float); Xte = np.array([r[1] for r in tst], float); yte = np.array([r[2] for r in tst], float)
 w = np.zeros(Xtr.shape[1])
 for _ in range(50):

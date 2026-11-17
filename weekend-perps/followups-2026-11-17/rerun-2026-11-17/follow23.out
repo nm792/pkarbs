@@ -1,0 +1,56 @@
+symbols 145 no live half-spread (excluded from every trade): ['flx:COIN', 'flx:COPPER', 'flx:CRCL', 'flx:GAS', 'flx:GOLD', 'flx:NVDA', 'flx:OIL', 'flx:PALLADIUM', 'flx:PLATINUM', 'flx:SILVER', 'flx:TSLA', 'flx:USA100', 'flx:USA500', 'flx:USDE', 'flx:XMR', 'km:AAPL', 'km:BABA', 'km:BMNR', 'km:EUR', 'km:GLDMINE', 'km:GOLD', 'km:GOOGL', 'km:MU', 'km:NVDA', 'km:PLTR', 'km:RTX', 'km:SEMI', 'km:SILVER', 'km:SMALL2000', 'km:TENCENT', 'km:TSLA', 'km:US500', 'km:USBOND', 'km:USENERGY', 'km:USOIL', 'km:USTECH', 'km:XIAOMI']
+funding records missing (treated as 0): 0
+== Test 2 carry k=6 (primary)
+all       all     n= 4871 weeks=31 gross=    7.6 funding=   8.5 net=  -26.3 CI=(-40.8, -11.6) | net at old 9 bp -41.9 | COST UNCHECKED 193 of 4871 | VERDICT PASS=False (sourced n=4678 weeks=31 net=-27.0 CI=(-42.0, -12.1))
+all       liquid  n= 1310 weeks=31 gross=   -4.6 funding=   7.7 net=   -4.0 CI=(-33.7, 24.6) | net at old 9 bp -19.8 | COST UNCHECKED 37 of 1310 | VERDICT PASS=False (sourced n=1273 weeks=31 net=-3.5 CI=(-33.6, 25.7))
+all       mid     n= 1021 weeks=31 gross=    6.4 funding=   7.2 net=  -12.5 CI=(-40.1, 16.2) | net at old 9 bp -26.2 | COST UNCHECKED 156 of 1021 | VERDICT PASS=False (sourced n=865 weeks=31 net=-13.7 CI=(-43.6, 18.0))
+all       thin    n= 2540 weeks=31 gross=   14.5 funding=   9.4 net=  -43.4 CI=(-57.1, -29.3) | net at old 9 bp -59.6 | COST UNCHECKED 0 of 2540 | VERDICT PASS=False (sourced n=2540 weeks=31 net=-43.4 CI=(-57.1, -29.3))
+persistentall     n=  116 weeks=29 gross=  -26.5 funding=  32.6 net=  -30.9 CI=(-76.9, 12.4) | net at old 9 bp -46.8 | COST UNCHECKED 2 of 116 | VERDICT PASS=False (sourced n=114 weeks=29 net=-35.4 CI=(-81.9, 9.6))
+xyz       all     n= 4871 weeks=31 gross=    7.6 funding=   8.5 net=  -26.3 CI=(-40.8, -11.6) | net at old 9 bp -41.9 | COST UNCHECKED 193 of 4871 | VERDICT PASS=False (sourced n=4678 weeks=31 net=-27.0 CI=(-42.0, -12.1))
+xyz       liquid  n= 1310 weeks=31 gross=   -4.6 funding=   7.7 net=   -4.0 CI=(-33.7, 24.6) | net at old 9 bp -19.8 | COST UNCHECKED 37 of 1310 | VERDICT PASS=False (sourced n=1273 weeks=31 net=-3.5 CI=(-33.6, 25.7))
+xyz       mid     n= 1021 weeks=31 gross=    6.4 funding=   7.2 net=  -12.5 CI=(-40.1, 16.2) | net at old 9 bp -26.2 | COST UNCHECKED 156 of 1021 | VERDICT PASS=False (sourced n=865 weeks=31 net=-13.7 CI=(-43.6, 18.0))
+xyz       thin    n= 2540 weeks=31 gross=   14.5 funding=   9.4 net=  -43.4 CI=(-57.1, -29.3) | net at old 9 bp -59.6 | COST UNCHECKED 0 of 2540 | VERDICT PASS=False (sourced n=2540 weeks=31 net=-43.4 CI=(-57.1, -29.3))
+funding records missing (treated as 0): 2
+== Test 2 carry k=3 (sensitivity only)
+all       all     n= 6849 weeks=31 gross=    7.5 funding=   6.2 net=  -29.8 CI=(-38.4, -21.0) | net at old 9 bp -45.4 | COST UNCHECKED 251 of 6849 | sensitivity only, NO VERDICT
+all       liquid  n= 1822 weeks=31 gross=    4.2 funding=   6.1 net=    3.3 CI=(-11.6, 18.6) | net at old 9 bp -12.6 | COST UNCHECKED 41 of 1822 | sensitivity only, NO VERDICT
+all       mid     n= 1375 weeks=31 gross=    9.1 funding=   5.3 net=  -12.2 CI=(-26.2, 1.0) | net at old 9 bp -25.9 | COST UNCHECKED 210 of 1375 | sensitivity only, NO VERDICT
+all       thin    n= 3652 weeks=31 gross=    8.5 funding=   6.6 net=  -52.9 CI=(-62.8, -42.9) | net at old 9 bp -69.1 | COST UNCHECKED 0 of 3652 | sensitivity only, NO VERDICT
+persistentall     n=  248 weeks=29 gross=  -29.3 funding=  19.8 net=  -50.1 CI=(-79.7, -24.5) | net at old 9 bp -66.2 | COST UNCHECKED 2 of 248 | sensitivity only, NO VERDICT
+xyz       all     n= 6849 weeks=31 gross=    7.5 funding=   6.2 net=  -29.8 CI=(-38.4, -21.0) | net at old 9 bp -45.4 | COST UNCHECKED 251 of 6849 | sensitivity only, NO VERDICT
+xyz       liquid  n= 1822 weeks=31 gross=    4.2 funding=   6.1 net=    3.3 CI=(-11.6, 18.6) | net at old 9 bp -12.6 | COST UNCHECKED 41 of 1822 | sensitivity only, NO VERDICT
+xyz       mid     n= 1375 weeks=31 gross=    9.1 funding=   5.3 net=  -12.2 CI=(-26.2, 1.0) | net at old 9 bp -25.9 | COST UNCHECKED 210 of 1375 | sensitivity only, NO VERDICT
+xyz       thin    n= 3652 weeks=31 gross=    8.5 funding=   6.6 net=  -52.9 CI=(-62.8, -42.9) | net at old 9 bp -69.1 | COST UNCHECKED 0 of 3652 | sensitivity only, NO VERDICT
+funding records missing (treated as 0): 0
+== Test 2 carry k=12 (sensitivity only)
+all       all     n= 3499 weeks=31 gross=   21.1 funding=  10.9 net=   -9.1 CI=(-25.3, 9.6) | net at old 9 bp -24.6 | COST UNCHECKED 147 of 3499 | sensitivity only, NO VERDICT
+all       liquid  n=  950 weeks=31 gross=    7.2 funding=  10.4 net=   10.4 CI=(-26.9, 49.0) | net at old 9 bp -5.2 | COST UNCHECKED 35 of 950 | sensitivity only, NO VERDICT
+all       mid     n=  776 weeks=31 gross=   22.3 funding=   8.7 net=    5.9 CI=(-21.3, 34.8) | net at old 9 bp -7.9 | COST UNCHECKED 112 of 776 | sensitivity only, NO VERDICT
+all       thin    n= 1773 weeks=31 gross=   28.1 funding=  12.2 net=  -26.1 CI=(-48.5, -2.1) | net at old 9 bp -42.3 | COST UNCHECKED 0 of 1773 | sensitivity only, NO VERDICT
+persistentall     n=   47 weeks=19 gross=   18.0 funding=  52.1 net=   33.3 CI=(-70.3, 137.3) | net at old 9 bp 17.4 | COST UNCHECKED 1 of 47 | sensitivity only, NO VERDICT
+xyz       all     n= 3499 weeks=31 gross=   21.1 funding=  10.9 net=   -9.1 CI=(-25.3, 9.6) | net at old 9 bp -24.6 | COST UNCHECKED 147 of 3499 | sensitivity only, NO VERDICT
+xyz       liquid  n=  950 weeks=31 gross=    7.2 funding=  10.4 net=   10.4 CI=(-26.9, 49.0) | net at old 9 bp -5.2 | COST UNCHECKED 35 of 950 | sensitivity only, NO VERDICT
+xyz       mid     n=  776 weeks=31 gross=   22.3 funding=   8.7 net=    5.9 CI=(-21.3, 34.8) | net at old 9 bp -7.9 | COST UNCHECKED 112 of 776 | sensitivity only, NO VERDICT
+xyz       thin    n= 1773 weeks=31 gross=   28.1 funding=  12.2 net=  -26.1 CI=(-48.5, -2.1) | net at old 9 bp -42.3 | COST UNCHECKED 0 of 1773 | sensitivity only, NO VERDICT
+== Test 3: episodes 536 end: Counter({'reset': 536}) reset in the very next hour: 84
+xyz thin episodes 187 median run 4.0 p90 run 7.400000000000006 median |p| before end 124.0
+xyz mid episodes 39 median run 3.0 p90 run 5.0 median |p| before end 128.0
+xyz liquid episodes 123 median run 3.0 p90 run 9.799999999999997 median |p| before end 142.0
+flx+km thin episodes 187 median run 5.0 p90 run 11.0 median |p| before end 124.0
+hazard: run length n -> P(reset in the next hour | run reached n), episodes at risk
+3 536 0.075
+4 305 0.056
+5 196 0.031
+6 144 0.014
+7 111 0.063
+8 86 0.023
+9 68 0.029
+10 57 0.053
+11 44 0.045
+12 31 0.0
+reset episodes with a reset-hour candle 352 | ex-post trades with COST UNCHECKED: 3 of 270
+candle return toward the oracle in the reset hour (bp): mean 16.4 median 0.0 mean |premium| before 69.3 slope 0.26 corr 0.09
+ex-post bound ALL TRADES (NO VERDICT: includes COST UNCHECKED assets) (enter close of 3rd hour, exit close of reset hour): n 270 gross 9.2 funding 40.7 net 3.1 CI (-52.2, 49.3) weeks 31
+ex-post bound SOURCED-COST ONLY (growth-mode xyz; this line carries the verdict): n 267 gross 6.0 funding 40.7 net -0.4 CI (-57.1, 47.6) weeks 31 | net at old 9 bp -16.6
+   xyz 270 net 3.1 (-52.2, 49.3)
+logistic rows 1684 weeks 50 test weeks 15 train resets 64 test resets 20 AUC out-of-sample 0.7776086956521738 coefs [const,run,|p|/100,weekend] [-2.4  -0.03 -0.12 -0.72]
