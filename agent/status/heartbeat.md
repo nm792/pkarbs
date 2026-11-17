@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-17T09:00:00Z |
-| origin_tip | 12b877c3da |
-| newest_origin_commit | 2026-11-17T16:34:26+08:00 Goalserve: Nick approved the STANDARD v1 deviation (08:33Z), not |
+| generated_utc | 2026-11-17T10:00:00Z |
+| origin_tip | 026be71fe8 |
+| newest_origin_commit | 2026-11-17T09:53:45Z P15b Goalserve store-all capture: install and measured proof |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
