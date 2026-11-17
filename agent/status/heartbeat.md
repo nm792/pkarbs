@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-17T02:00:00Z |
-| origin_tip | 9995667dac |
-| newest_origin_commit | 2026-11-17T09:33:59+08:00 Weekend perps: funding-window divergence result (locked rule) (# |
+| generated_utc | 2026-11-17T03:00:00Z |
+| origin_tip | 98d9ba94ab |
+| newest_origin_commit | 2026-11-17T02:43:59Z Update Dota capture status 02:45Z |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
