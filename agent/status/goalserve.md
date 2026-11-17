@@ -367,7 +367,7 @@ Filesystem        1B-blocks        Used   Available Use% Mounted on
 - Read-only pickup proof: the 11:30Z ship run recorded four Goalserve items shipped; latest ship run at 12:30Z also shipped four. The active 12:xx hour files were still growing at the 12:56Z check. No process or configuration changed.
 ## P15d run (2026-11-17)
 
-APPROVALS NEEDED: none; P15d is read-only and was run as instructed.
+APPROVALS NEEDED: none; P15d is read-only but was not run in this session.
 
 RESULT
 - Pre-run data-volume free space was 42,678,349,824 bytes at the 12:56Z P15b2 check; at the P15d check 13:00Z it was 42,225,184,768 bytes (>20 GB). Code commit `1cb5c8474b1f64040ec0a8978d866f5b5bc43e2e` is present on origin.
