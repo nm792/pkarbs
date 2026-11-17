@@ -32,7 +32,7 @@ def report(ev, label):
         if e["persist"]: cells[("persistent", "all")].append(e)
     for key in sorted(cells):
         v = cells[key]
-        if len(v) < 10: continue
+        if len(v) < 10: print(f"{key[0]:10s}{key[1]:7s} n={len(v)} (< 10 events, not summarised)"); continue
         net = np.mean([x["net"] for x in v]); ci = boot([(x["wk"], x["net"]) for x in v]); wks = len(set(x["wk"] for x in v))
         print(f"{key[0]:10s}{key[1]:7s} n={len(v):5d} weeks={wks:2d} gross={np.mean([x['g'] for x in v]):7.1f} funding={np.mean([x['fr'] for x in v]):6.1f} net={net:7.1f} CI={ci} PASS={bool(len(v) >= 30 and wks >= 8 and net > 0 and ci[0] > 0)} {'COST UNCHECKED (%d of %d)' % (sum(1 for x in v if not x['chk']), len(v)) if any(not x['chk'] for x in v) else 'cost sourced'}")
 for k in (6, 3, 12): report(carry(k), f"Test 2 carry k={k} ({'primary' if k == 6 else 'sensitivity only'})")
@@ -64,14 +64,14 @@ for gname in ("xyz", "flx+km"):
 print("hazard: run length n -> P(reset in the next hour | run reached n), episodes at risk")
 for n in range(3, 13):
     risk = [e for e in eps if e["n"] >= n]
-    if len(risk) < 10: break
+    if len(risk) < 10: print("hazard table stops: fewer than 10 episodes at risk at n =", n); break
     print(n, len(risk), round(sum(1 for e in risk if e["n"] == n and e["immediate"]) / len(risk), 3))
 y = []; x = []; tr = []
 for e in eps:
     if not e["reset"]: continue
     s = e["s"]; cs = C[s]; c_reset = cs.get(e["reset_t"] - H)   # candle of the reset hour (open reset_t - H)
     if c_reset:
-        mv = (c_reset[1] / c_reset[0] - 1) * 1e4 * (-e["sign"]); y.append(mv); x.append(abs(e["p"]))
+        mv = (c_reset[1] / c_reset[0] - 1) * 1e4 * (-e["sign"]); y.append(mv); x.append(abs(S[s][0].get(e["reset_t"] - H, e["p"])))   # premium of the hour just before the reset hour
         t3 = e["start"] + 2 * H; ent = cs.get(t3 - H)    # close of the third hour of the episode
         if ent and cost[s] is not None:
             pos = -e["sign"]; g = pos * (c_reset[1] / ent[1] - 1) * 1e4; FRs = S[s][1]
@@ -93,6 +93,7 @@ for e in eps:
         t = e["start"] + (n - 1) * H; nxt = t + H
         if nxt not in P: continue
         rows.append((cal_week(t), [1, n, abs(P[t]) / 100, 1 if is_weekend(nxt - H) else 0], 1 if (n == e["n"] and e["immediate"]) else 0))
+if not rows: print("logistic: no episode rows, not run"); sys.exit(0)
 wks = sorted(set(r[0] for r in rows)); cutw = set(wks[:int(len(wks) * 0.7)])
 trn = [r for r in rows if r[0] in cutw]; tst = [r for r in rows if r[0] not in cutw]
 Xtr = np.array([r[1] for r in trn], float); ytr = np.array([r[2] for r in trn], float); Xte = np.array([r[1] for r in tst], float); yte = np.array([r[2] for r in tst], float)

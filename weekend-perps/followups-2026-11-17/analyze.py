@@ -34,7 +34,7 @@ out = {}
 for tr in ("thin", "mid", "liquid"):
     for se in ("weekend", "weekday-US", "weekday-other"):
         a = agg[(tr, se)]; p = np.array(a["p"])
-        if len(p) < 50: continue
+        if len(p) < 50: print(f"{tr} {se}: {len(p)} hours (< 50), not summarised"); continue
         ar = float(np.corrcoef(*zip(*a["ar"]))[0, 1]) if len(a["ar"]) > 50 else float("nan")
         row = dict(tier=tr, session=se, hours=len(p), med=float(np.median(p)), p90=float(np.percentile(p, 90)), p99=float(np.percentile(p, 99)),
                    s25=float((p >= 25).mean()), s50=float((p >= 50).mean()), n25=len(a["nxt"]), notrev=float(np.mean(a["nxt"])) if a["nxt"] else None,
