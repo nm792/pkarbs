@@ -1,7 +1,8 @@
-# Dota 2 live capture — current status (2026-11-17 02:45Z)
+# Dota 2 live capture — final status (2026-11-17 20:45Z)
 
-- Capture processes remain active: timeout PID 1700947 and Node PID 1700948, started 2026-11-16 06:26:55Z. Node RSS is 75,448 KiB; capture output is on /vol2. **CRITICAL: the command's 90,000-second timeout expires at approximately 2026-11-17 07:26:55Z, not the configured 20:30Z end.** Current process has not been changed; complete-window coverage is therefore not established.
-- At 02:43Z, cumulative file rows were books 107,624 (last write 2026-11-16 22:59Z), league_games 12,595, opendota_live 2,161, realtime 116,879, rt_polls 260,859, and sportsws 7,123 (last write 2026-11-16 23:29Z). Capture log has 497 league-query errors; latest observed error at 02:40Z was a null `games` response. Realtime remains active, but series-minute coverage and the task's 80% thresholds have not been computed.
-- The scheduled publisher continues to log storage-box authentication failures. The existing publisher was run manually at 02:42Z: five complete gzip deltas transferred and checksum-verified; manifest now has 75 chunks / 562,819 rows, pushed in `53daee4ac232962914b78668dd1d3f2aa8acddb5`. No credentials were read or changed; no capture/publisher code or crontab changes were made.
-- The 30-minute publisher and 20:35Z final-copy/removal crontab lines remain installed. The scheduled final copy has not run. Evidence: `manifest/dotacap-2026-11-16.tsv`.
-- Capture result remains open: book polling has been quiet since 22:59Z, the configured capture window extends beyond the live timeout, and final coverage is unverified. No process restart was attempted.
+- Capture stopped at 07:26:57Z when its 90,000-second timeout expired; configured end was 20:30Z. PIDs 1700947/1700948 were absent at 20:43Z. The window was short by 13h03m05s; books last advanced at 22:59:59Z on 16 Nov.
+- Final local valid JSONL rows / malformed: books 107,624 / 0; league_games 15,904 / 0; opendota_live 2,723 / 0; realtime 145,268 / 0; rt_polls 325,064 / 0; sportsws 7,158 / 0. Other streams last advanced 17 Nov 07:25:56–07:26:55Z.
+- PASS is not established: required per-series in-game-minute and 200-poll coverage calculations are absent, and capture ended early. No pass claim.
+- Final 20:35Z publisher failed on first transfer (rsync exit 12, box authentication denied). No final copy verified. The pushed manifest remains 75 chunks / 562,819 rows at commit `53daee4ac232962914b78668dd1d3f2aa8acddb5` (02:42:56Z). Later local output was not pushed.
+- Both publisher crontab lines removed at 20:44Z after final failure; backup `/root/crontab.pre-dota-final-20261117T204421Z.txt`. No capture process was restarted.
+- Code reference: `daf1447d6767634ae4b390d2a79047f6d0bc958b`.
