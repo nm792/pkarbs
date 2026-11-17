@@ -9,6 +9,9 @@ book from the public market WebSocket, and writes:
                                yes: buy every YES at the ask, pays 1; edge = 1 - sum(ask + fee)
                                no:  buy every NO, pays n - 1; the NO book mirrors the YES book
                                     (NO ask = 1 - YES bid), so edge = sum(YES bid - fee) - 1
+                               (the NO token books are now also subscribed and stored raw, and
+                                nocompare.jsonl logs YES vs NO top of book per leg each resync;
+                                the "no" run above still uses the mirror until a NO-ask detector is added)
                                Only events whose leg list is complete (no closed or missing leg).
 
 Usage: python3 shadow_logger.py --out data/ [--tags sports] [--minutes 0]
@@ -29,9 +32,13 @@ def now():
 
 
 def get_json(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "shadow-logger"})
+    # gamma serves /events and /events/keyset pages with limit > 50 compressed only (HTTP 406 gzip_required otherwise)
+    req = urllib.request.Request(url, headers={"User-Agent": "shadow-logger", "Accept-Encoding": "gzip"})
     with urllib.request.urlopen(req, timeout=20) as r:
-        return json.load(r)
+        body = r.read()
+        if r.headers.get("Content-Encoding") == "gzip":
+            body = gzip.decompress(body)
+        return json.loads(body)
 
 
 def parse_ts(s):
@@ -277,14 +284,17 @@ class Logger:
             self.close_run(t, eid)
         self.events = found
         self.asset_event = {leg["yes"]: eid for eid, ev in found.items() for leg in ev["legs"]}
-        self.books = {a: self.books.get(a) or Book() for a in self.asset_event}
+        # NO tokens are subscribed and stored as their own books (never derived from the YES book).
+        # They are not in asset_event, so a NO update never triggers the detector.
+        self.no_leg = {leg["no"]: leg["yes"] for ev in found.values() for leg in ev["legs"]}
+        self.books = {a: self.books.get(a) or Book() for a in list(self.asset_event) + list(self.no_leg)}
         for task in self.ws_tasks:
             task.cancel()
-        assets = list(self.asset_event)
+        assets = list(self.asset_event) + list(self.no_leg)
         chunks = []  # keep each event's legs on one connection
         cur = []
         for ev in found.values():
-            ids = [leg["yes"] for leg in ev["legs"]]
+            ids = [leg[k] for leg in ev["legs"] for k in ("yes", "no")]
             if cur and len(cur) + len(ids) > MAX_ASSETS_PER_WS:
                 chunks.append(cur)
                 cur = []
@@ -298,7 +308,7 @@ class Logger:
         """Re-seed every book from REST in case the stream dropped an update."""
         while True:
             await asyncio.sleep(every)
-            assets = list(self.asset_event)
+            assets = list(self.asset_event) + list(self.no_leg)
             if not assets:
                 continue
             try:
@@ -313,6 +323,24 @@ class Logger:
                 touched.update(self.apply(recv, m) or [])
             for eid in {self.asset_event.get(a) for a in touched}:
                 self.check(recv, eid)
+            self.log_no_compare(recv)
+
+    def log_no_compare(self, recv):
+        """One row per leg: the YES token's own top of book next to the NO token's own top of book,
+        each from its own stored orders. 'mirror' only reports whether NO ask == 1 - YES bid and
+        NO bid == 1 - YES ask at those prices; it is never used for pricing."""
+        for ev in self.events.values():
+            for leg in ev["legs"]:
+                y, n = self.books.get(leg["yes"]), self.books.get(leg["no"])
+                if y is None or n is None or not (y.ts and n.ts):
+                    continue
+                row = {"t": round(recv, 3), "event": ev["id"], "yes": leg["yes"], "no": leg["no"],
+                       "y_bid": y.best_bid(), "y_ask": y.best_ask(), "n_bid": n.best_bid(), "n_ask": n.best_ask(),
+                       "y_ts": y.ts, "n_ts": n.ts}
+                if None not in (row["y_bid"], row["y_ask"], row["n_bid"], row["n_ask"]):
+                    row["mirror"] = (abs(1 - row["y_bid"] - row["n_ask"]) < 1e-9
+                                     and abs(1 - row["y_ask"] - row["n_bid"]) < 1e-9)
+                self.append("nocompare.jsonl", row)
 
     async def run(self, minutes, refresh_s, resync_s):
         rs = asyncio.create_task(self.resync(resync_s))
