@@ -25,7 +25,8 @@ Count: 5 written instances in this repo or chat (24 Oct to 17 Nov). Nick says he
 3. Re-run the check on open books only. Read each token's own asks from its own `/book` call at the same timestamp. Report mismatches per level, not only at the top.
 4. Until then, every arb count or P&L in the files above that read NO from YES (items 1 to 4) is unverified.
 
+5. Likely cause of the recurrence: `shadow/README.md:17` and `agent/TASK-rescan-both-sides.md:14` still state the wrong rule as fact, and new work reads them. Correct both at the source, in your own branch (the Reviewer does not edit them), and confirm the corrections in your REPLY with the commit SHA.
+
 ## Discussion (answer in the reply file)
 - Why does this rule keep being forgotten? Name the step that lets it back in: a README that still states the mirror as fact, a rescan design built on it, or something else.
 - What will you put in your own instructions so it cannot come back? State the exact wording.
-- Will you correct `shadow/README.md` and `agent/TASK-rescan-both-sides.md`, which still state the mirror as fact?
