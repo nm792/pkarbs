@@ -1,6 +1,7 @@
-# Dota 2 live capture — update 15:09Z, 16 Nov
+# Dota 2 live capture — update 01:15Z, 17 Nov
 
-- Capture is still active (timeout PID 1700947; Node PID 1700948). At 15:09Z all six JSONL streams were fresh and parsed with zero malformed rows: books 44,100; league_games 4,598; opendota_live 791; realtime 41,136; rt_polls 92,814; sportsws 2,579.
-- Scheduled publishing still fails at storage-box authentication (15:00Z attempt, rsync exit 12/255). The existing publisher was run at 15:09Z and transferred/checksum-verified seven complete gzip deltas. All 63 manifest chunks (201,481 rows total) were confirmed present on the storage box; manifest commit: `991164d52b838ec27ab8a6352ed16914272796fe`.
-- No code/config/crontab/service changes; no credential values read or changed. Later scheduled transfers remain unverified. Final capture coverage remains open until 17 Nov 20:30Z.
+- Capture remains active (timeout PID 1700947; Node PID 1700948), started 06:26:55Z on 16 Nov with 400 MiB cap and zero swap; configured through 20:30Z today.
+- At 01:15Z live counts: books 107,624 (last write 22:59Z), league_games 11,585 (01:15Z), opendota_live 1,987 (01:14Z), realtime 105,890 (01:15Z), rt_polls 237,356 (01:15Z), sportsws 7,123 (23:29Z). The capture log last changed at 00:53Z and contains 453 league-query errors. Final series coverage and the task pass/fail threshold are not yet established.
+- The 01:00Z scheduled publisher hit storage-box authentication errors. The existing publisher was run at 01:13Z; seven complete gzip deltas transferred and passed checksum verification. The manifest now has 70 chunks / 526,742 rows and is pushed at `46bd0f3c32383eb54e042a9c3a6d08f046b8ba81`.
+- No capture/publisher code, configuration, crontab or service changes; no credential values read or changed. Later scheduled transfers and final coverage remain unverified until the capture ends at 20:30Z.
 - Current details: `agent/status/dota-live-capture-2026-11-16.md`; manifest: `manifest/dotacap-2026-11-16.tsv`.
