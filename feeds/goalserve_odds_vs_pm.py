@@ -4,14 +4,17 @@ Read-only. Bookmaker = whatever Goalserve sends (docs: bet365 only); this script
 Input A: hour files esports_<hour>.jsonl.gz of {"recv_ns","body"} (live/goalserve/capture.py store_payload; body = whole in-play file, changed polls only).
 Input B: --pm DIR (repeatable) with markets.jsonl(.gz) and books.jsonl(.gz), same format as feeds/ps_lead_test.py.
 Rules (pre-registered 17 Nov, locked; code mirrors ps_lead_test.py, which supplies lines/norm/find/load_pm/mk_index):
- R1 winner market names, after norm(): exactly 'match winner' -> kind Match Winner; '(map|game) N winner' -> kind Map N Winner. Every other market name is EXCLUDED
+ R1 (amended 17 Nov 10:58Z after the stored-odds inventory showed the real names) winner market names, after norm(): exactly 'home away' (Goalserve "Home/Away") -> kind Match Winner;
+    'home away (map|game) N' (Goalserve "Home/Away (map N)") -> kind Map N Winner. Every other market name is EXCLUDED
     and printed with counts (seen/used/excluded). No fuzzy name logic.
  R2 market must have exactly 2 participants, not suspended, both value_eu numeric > 1. p_i = (1/o_i) / sum(1/o). Rows failing this are skipped and COUNTED.
  R3 team mapping: Goalserve team_info home/away names -> PM market by EXACT normalised outcome names (frozenset of the two). Participant -> team by exact norm name
     equal to home or away; participant names '1'/'home' = home, '2'/'away' = away; anything else is EXCLUDED and counted. No match found = EXCLUDED and counted.
  R4 event: per (event id, market id) compare p_home with the previous valid stored payload (consecutive payloads, v2). A move of >= 0.02 is ONE event at that row's recv time
     (first-seen time; resolution = one poll, measured with --poll-log); the team whose probability rose is the direction. Slow drift below 2c per payload makes no event (known, by design).
-    Cells are per title (info.sport) x bookmaker (bm) x market kind (Match Winner, Map N Winner separately).
+    Cells are per game x bookmaker (bm) x market kind (Match Winner, Map N Winner separately). game = norm() of the text before the first ' - ' in info.league
+    (e.g. "DOTA2 - 1win Essence" -> 'dota2'); no ' - ' = 'unparsed'. info.sport is 'Esports' on every row so it cannot split games. The league prefixes seen are printed in the audit
+    (league_prefixes_seen); a prefix I have not seen in real data is NOT guessed at, it simply forms its own cell. Results must say: bookmaker not identified (bm empty; vendor docs say bet365).
  R5 PM side (STANDARD section 2): direction token = the rising team's outcome token. onset = first book mid inside [t-60,t+60] that is >= 2c above the mid at t-60 in the
     event direction. lead = onset - t (positive = Goalserve first). Placebo = 10 random times per (match, kind), no Goalserve event of that match within +-60 s, random token and direction, same procedure.
  R6 bar per cell: n_events >= 30, median(real - placebo) >= +2.0 s, match-clustered bootstrap 95% CI excludes 0, and lead >= 1.0 s (resolved, price after feed) in >= 60% of ALL events.
@@ -26,7 +29,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ps_lead_test import lines, norm, find, load_pm, mk_index, opn
 
 W, THR, SEED, RES = 60.0, 0.02, 20261117, 1.0
-MAP_RE = re.compile(r"^(?:map|game) (\d+) winner$")
+MAP_RE = re.compile(r"^home away (?:map|game) (\d+)$")
 
 
 def counted_lines(p, cnt, key):
@@ -44,7 +47,7 @@ def counted_lines(p, cnt, key):
 
 def market_kind(name):
     n = norm(name)
-    if n == "match winner":
+    if n == "home away":
         return "Match Winner"
     m = MAP_RE.match(n)
     return "Map %s Winner" % m.group(1) if m else None
@@ -61,7 +64,7 @@ def num(x):
 def goalserve_events(files):
     """-> events [(eid, kind, t_s, rising_team_norm, home_norm, away_norm, title, bm)], audit counters."""
     A = collections.Counter()
-    seen_names, used_names, excl_names, bms = collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter()
+    seen_names, used_names, excl_names, bms, prefixes = collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter()
     base = {}
     ev = []
     for p in sorted(files):
@@ -81,7 +84,9 @@ def goalserve_events(files):
             for eid, e in (d.get("events") or {}).items():
                 if not isinstance(e, dict):
                     continue
-                title = (e.get("info") or {}).get("sport") or "?"
+                lg = str((e.get("info") or {}).get("league") or "")
+                title = norm(lg.split(" - ", 1)[0]) if " - " in lg else "unparsed"
+                prefixes[title] += 1
                 ti = e.get("team_info") or {}
                 h, a = norm((ti.get("home") or {}).get("name")), norm((ti.get("away") or {}).get("name"))
                 for mid, m in (e.get("odds") or {}).items():
@@ -122,7 +127,8 @@ def goalserve_events(files):
                         A["events"] += 1
                     base[k] = ph
     audit = dict(counters=dict(A), bm_values=dict(bms), market_names_seen=dict(seen_names.most_common(60)),
-                 market_names_used=dict(used_names), market_names_excluded=dict(excl_names.most_common(60)))
+                 market_names_used=dict(used_names), market_names_excluded=dict(excl_names.most_common(60)),
+                 league_prefixes_seen=dict(prefixes.most_common(40)))
     return ev, audit
 
 
