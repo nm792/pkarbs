@@ -59,12 +59,13 @@ xyz       mid     n=  328 weeks= 6 gross=   74.0 funding=   0.0 net=   56.9 CI=(
 xyz       thin    n=  411 weeks= 7 gross=   70.5 funding=   0.0 net=   55.1 CI=(52.2, 58.0) | net at old 9 bp 46.4 | COST UNCHECKED 189 of 411 | VERDICT PASS=False (sourced n=222 weeks=7 net=64.5 CI=(60.2, 69.8))
 funding records missing (treated as 0): 0
 == Test 2 carry k=3 (sensitivity only)
-all       all     n= 1797 weeks= 7 gross=   44.4 funding=   0.0 net=   25.5 CI=(24.8, 26.3) | net at old 9 bp 20.0 | COST UNCHECKED 1182 of 1797 | VERDICT PASS=False (sourced n=615 weeks=7 net=37.9 CI=(35.6, 41.0))
-all       liquid  n=  526 weeks= 6 gross=   46.2 funding=   0.0 net=   21.2 CI=(18.3, 23.4) | net at old 9 bp 21.2 | COST UNCHECKED 526 of 526 | no sourced-cost trades: NO VERDICT
-all       mid     n=  605 weeks= 6 gross=   44.0 funding=   0.0 net=   26.5 CI=(24.9, 27.9) | net at old 9 bp 19.6 | COST UNCHECKED 350 of 605 | VERDICT PASS=False (sourced n=255 weeks=6 net=38.2 CI=(36.4, 40.1))
-all       thin    n=  666 weeks= 7 gross=   43.5 funding=   0.0 net=   28.1 CI=(25.9, 30.3) | net at old 9 bp 19.4 | COST UNCHECKED 306 of 666 | VERDICT PASS=False (sourced n=360 weeks=7 net=37.7 CI=(34.5, 42.1))
-flx+km    all     n=  577 weeks= 6 gross=   46.1 funding=   0.0 net=   21.6 CI=(18.5, 24.0) | net at old 9 bp 21.6 | COST UNCHECKED 577 of 577 | no sourced-cost trades: NO VERDICT
-flx+km    liquid  n=  526 weeks= 6 gross=   46.2 funding=   0.0 net=   2
+all       all     n= 1797 weeks= 7 gross=   44.4 funding=   0.0 net=   25.5 CI=(24.8, 26.3) | net at old 9 bp 20.0 | COST UNCHECKED 1182 of 1797 | sensitivity only, NO VERDICT
+all       liquid  n=  526 weeks= 6 gross=   46.2 funding=   0.0 net=   21.2 CI=(18.3, 23.4) | net at old 9 bp 21.2 | COST UNCHECKED 526 of 526 | sensitivity only, NO VERDICT
+all       mid     n=  605 weeks= 6 gross=   44.0 funding=   0.0 net=   26.5 CI=(24.9, 27.9) | net at old 9 bp 19.6 | COST UNCHECKED 350 of 605 | sensitivity only, NO VERDICT
+all       thin    n=  666 weeks= 7 gross=   43.5 funding=   0.0 net=   28.1 CI=(25.9, 30.3) | net at old 9 bp 19.4 | COST UNCHECKED 306 of 666 | sensitivity only, NO VERDICT
+flx+km    all     n=  577 weeks= 6 gross=   46.1 funding=   0.0 net=   21.6 CI=(18.5, 24.0) | net at old 9 bp 21.6 | COST UNCHECKED 577 of 577 | sensitivity only, NO VERDICT
+flx+km    liquid  n=  526 weeks= 6 gross=   46.2 funding=   0.0 net=   21.2 CI=(18.3, 23.4) | net at old 9 bp 21.2 | COST UNCHECKED 526 of 526 | sensitivity only, NO VERDICT
+flx+km    mid     n=   51 w
 PASS | C5 follow23 Test 2 incl. persistent subset == reference | 32 cells over k=3/6/12 compared to independent reference (n exact, means within 0.05 bp); mismatches []
 PASS | C5 Test 3 episode count / immediate-reset count | expected episodes 792, immediate 529; actual ('792', "Counter({'reset': 792})", '529')
 PASS | C5 Test 3(c) reset-hour candle return toward oracle: mean = 0.5*mean|p|, slope about 0.16 (x = premium of the hour just before the reset, literal rule reading) | expected mean 100.8 slope 0.16; actual mean 100.8 slope 0.16

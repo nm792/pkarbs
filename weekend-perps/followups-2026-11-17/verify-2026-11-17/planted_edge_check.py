@@ -115,7 +115,7 @@ def build_edge(case, kind, seed, sign_mode="mixed", rate=0.0, rev=40.0):
             if kind == "edge": rt[e + 1] = -sg * rev / 1e4
         prem[s] = pr; ret[s] = rt; fund[s] = [rate] * NH
     return prem, ret, fund
-CARRY_RE = re.compile(r"^(all|xyz|flx\+km|persistent)\s*(all|thin|mid|liquid)\s+n=\s*(\d+) weeks=\s*(\d+) gross=\s*(\S+) funding=\s*(\S+) net=\s*(\S+) CI=\((\S+), (\S+)\) \| net at old 9 bp \S+ \| COST UNCHECKED \d+ of \d+ \| (?:VERDICT PASS=(\w+)|no sourced)")
+CARRY_RE = re.compile(r"^(all|xyz|flx\+km|persistent)\s*(all|thin|mid|liquid)\s+n=\s*(\d+) weeks=\s*(\d+) gross=\s*(\S+) funding=\s*(\S+) net=\s*(\S+) CI=\((\S+), (\S+)\) \| net at old 9 bp \S+ \| COST UNCHECKED \d+ of \d+ \| (?:VERDICT PASS=(\w+)|no sourced|sensitivity only)")
 def parse_carry(out):
     secs = {}; cur = None
     for l in out.splitlines():

@@ -1,0 +1,209 @@
+{
+ "hl/xyz/BIRD/498577": {
+  "n": 360,
+  "max_mid": 159.6961280836462,
+  "max_mark": 164.1888580297346,
+  "oracle_changes": 60,
+  "exceeded": true,
+  "secs_to_revert": null,
+  "reverted": false
+ },
+ "hl/xyz/BRENTOIL/498577": {
+  "n": 360,
+  "max_mid": 16.55333853528118,
+  "max_mark": 8.57747577141632,
+  "oracle_changes": 189,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "hl/xyz/CL/498577": {
+  "n": 360,
+  "max_mid": 7.611798287345817,
+  "max_mark": 2.73418925344604,
+  "oracle_changes": 202,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "hl/xyz/COPPER/498577": {
+  "n": 360,
+  "max_mid": 16.46497077467668,
+  "max_mark": 11.690129250019332,
+  "oracle_changes": 142,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "hl/xyz/EUR/498577": {
+  "n": 360,
+  "max_mid": 6.82687056253517,
+  "max_mark": 6.3711659233622875,
+  "oracle_changes": 67,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "hl/xyz/GOLD/498577": {
+  "n": 360,
+  "max_mid": 8.447482650171256,
+  "max_mark": 5.197100018190515,
+  "oracle_changes": 329,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "hl/xyz/NVDA/498577": {
+  "n": 360,
+  "max_mid": 37.905557340187634,
+  "max_mark": 21.201413427560656,
+  "oracle_changes": 262,
+  "exceeded": true,
+  "secs_to_revert": 140.00372290611267,
+  "reverted": true
+ },
+ "hl/xyz/PALLADIUM/498577": {
+  "n": 360,
+  "max_mid": 22.273543751603064,
+  "max_mark": 10.467980295565393,
+  "oracle_changes": 177,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "hl/xyz/PLATINUM/498577": {
+  "n": 360,
+  "max_mid": 11.953551912569083,
+  "max_mark": 4.789599726309213,
+  "oracle_changes": 323,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "hl/xyz/SILVER/498577": {
+  "n": 360,
+  "max_mid": 15.330891746869746,
+  "max_mark": 7.258598236588032,
+  "oracle_changes": 345,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "hl/xyz/SP500/498577": {
+  "n": 360,
+  "max_mid": 3.6367554753380382,
+  "max_mark": 1.8857758620693943,
+  "oracle_changes": 303,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "hl/xyz/URNM/498577": {
+  "n": 360,
+  "max_mid": 38.68651954267443,
+  "max_mark": 27.913653764355395,
+  "oracle_changes": 41,
+  "exceeded": true,
+  "secs_to_revert": null,
+  "reverted": false
+ },
+ "hl/xyz/XYZ100/498577": {
+  "n": 360,
+  "max_mid": 3.860719932345935,
+  "max_mark": 0.7343761474631894,
+  "oracle_changes": 306,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "pm//AMD-USD/498577": {
+  "n": 360,
+  "max_mid": 52.906907620973165,
+  "max_mark": 24.376226243087995,
+  "oracle_changes": 276,
+  "exceeded": true,
+  "secs_to_revert": 105.00289988517761,
+  "reverted": true
+ },
+ "pm//BRENTOIL-USD/498577": {
+  "n": 360,
+  "max_mid": 22.628469512875338,
+  "max_mark": 17.075892857143504,
+  "oracle_changes": 186,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "pm//GOLD-USD/498577": {
+  "n": 360,
+  "max_mid": 10.138033221556153,
+  "max_mark": 5.71666146970129,
+  "oracle_changes": 329,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "pm//MU-USD/498577": {
+  "n": 360,
+  "max_mid": 36.48673020629545,
+  "max_mark": 12.34807702980123,
+  "oracle_changes": 281,
+  "exceeded": true,
+  "secs_to_revert": 75.00198221206665,
+  "reverted": true
+ },
+ "pm//NAS100-USD/498577": {
+  "n": 360,
+  "max_mid": 6.985037314805043,
+  "max_mark": 3.7151475023899927,
+  "oracle_changes": 307,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "pm//NVDA-USD/498577": {
+  "n": 360,
+  "max_mid": 51.39736588499755,
+  "max_mark": 34.69099319028501,
+  "oracle_changes": 257,
+  "exceeded": true,
+  "secs_to_revert": null,
+  "reverted": false
+ },
+ "pm//SILVER-USD/498577": {
+  "n": 360,
+  "max_mid": 20.64752336150333,
+  "max_mark": 9.814589600802837,
+  "oracle_changes": 348,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "pm//SP500-USD/498577": {
+  "n": 360,
+  "max_mid": 7.137951004025922,
+  "max_mark": 5.25556888164358,
+  "oracle_changes": 311,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ },
+ "pm//TSLA-USD/498577": {
+  "n": 360,
+  "max_mid": 26.86402064842275,
+  "max_mark": 17.12013063976725,
+  "oracle_changes": 207,
+  "exceeded": true,
+  "secs_to_revert": 80.0020797252655,
+  "reverted": true
+ },
+ "pm//WTIOIL-USD/498577": {
+  "n": 360,
+  "max_mid": 9.881540567890923,
+  "max_mark": 5.120876503514893,
+  "oracle_changes": 207,
+  "exceeded": false,
+  "secs_to_revert": null,
+  "reverted": null
+ }
+}

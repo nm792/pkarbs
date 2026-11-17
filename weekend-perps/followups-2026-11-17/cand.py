@@ -8,7 +8,7 @@ def f(coin):
         for k in range(4):
             try: r=requests.post(HL,json={"type":"candleSnapshot","req":{"coin":coin,"interval":"1h","startTime":st,"endTime":e}},timeout=40).json();break
             except Exception: time.sleep(2);r=[]
-        rows+=r;st=e+1
+        rows+=(r if isinstance(r,list) else []);st=e+1
     sp=None
     try:
         b=requests.post(HL,json={"type":"l2Book","coin":coin},timeout=20).json()["levels"]
