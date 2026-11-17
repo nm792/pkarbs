@@ -1,0 +1,2 @@
+session	start_utc	end_utc	row_ids	model_requests	tool_calls	git_seconds	main_task_seconds	job_name
+session	2026-11-17T10:27:00Z	2026-11-17T10:32:00Z	P15c	unavailable-from-Prime	unavailable-from-Prime	unmeasured	~300	fleet-repo-sync+reviewer-note-protocol
