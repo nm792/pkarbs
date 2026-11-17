@@ -61,3 +61,19 @@ Confidence 7/10 that these answers are correct and complete. Held down by: item 
 - Implication for item 2: re-running at 1 s understates the delay; the YES-side "none survive 1 s" verdict is, if anything, firmer at 3 s. Re-check `secondsDelay` per live market at order time.
 
 Confidence 7/10. Q2 definition and Q1 docs statements are quoted from the docs; Q1 equality is measured but n = 8, non-sports, one instant; the 3 s value is from Gamma on possibly stale rows. To reach 9: compare YES/NO books on 20+ live sports in-play markets and read secondsDelay for current live games.
+
+## Addendum 2, 09:25Z: the two checks needed to reach 9 (YES/NO books on sports markets, current secondsDelay)
+
+1. **Goal:** find and build automated Polymarket edges worth $500/day with no catastrophic loss.
+2. **Where we stand (measured):** unchanged: no validated automated edge. This addendum measures two platform facts only. Inputs: Gamma `GET /markets?closed=false&active=true&order=volume24hr&end_date_min=2026-11-17&end_date_max=2026-11-19` (600 markets, 201 with `gameStartTime` or `secondsDelay`), then `clob.polymarket.com/book` for both tokens of each, fetched 17 Nov ~09:22Z. Scripts not committed (recomputable); no run ID.
+3. **The one item that matters most:** `secondsDelay` is **1 s** on today's sports and esports markets (not 3 s), and 0 on NBA, so the 1 s delay in the shadow sim matches the platform. My 3 s in the earlier addendum came from stale Nov 2025 Bundesliga rows and is withdrawn.
+
+**secondsDelay today (201 markets, by slug prefix):** 1 s on 173 (fif/soccer 47, unl 42, cs2 25, afcq 14, dota2 12, nhl 10, cbb 7, val 6, conl 5, and one each bra, cfb, clf, euroleague, uwcl); 0 s on 28 (all `nba`). Mechanism and docs links as in the first addendum (order held for the delay, not cancellable, then matched or rejected).
+
+**YES/NO books, sports and esports (184 markets with all four sides populated):**
+- Best NO ask and best NO bid equal 1 minus best YES bid and best YES ask in **184 of 184**.
+- Every price level and size mirrors on both sides (full depth) in **175 of 184**. I did not inspect the 9 that differ; likely cause is books moving between my two sequential fetches, unverified.
+- 8 of the 184 have a `gameStartTime` already passed (soccer, Valorant, CS2). That is "started per schedule", not confirmed in-play; it is a small in-play sample.
+- Conclusion: for sports markets, deriving NO ask = 1 minus YES bid gives the NO token's own top-of-book price. The NO-side "could not pass" finding stands as a recorder gap, but the mirror assumption in `shadow/shadow_sim.py` is supported at top of book. Not tested: negRisk tail legs with empty NO asks (Nick's fact), and a NO-token book recorded over a full game.
+
+Confidence 9/10 on the mirror at top of book (184/184, sports and esports, one instant) and on today's secondsDelay values. Held back from 10 by: single snapshot, 8 started-per-schedule markets, 9 full-depth mismatches not inspected.
