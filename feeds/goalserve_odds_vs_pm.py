@@ -9,21 +9,23 @@ Rules (pre-registered 17 Nov, locked; code mirrors ps_lead_test.py, which suppli
  R2 market must have exactly 2 participants, not suspended, both value_eu numeric > 1. p_i = (1/o_i) / sum(1/o). Rows failing this are skipped and COUNTED.
  R3 team mapping: Goalserve team_info home/away names -> PM market by EXACT normalised outcome names (frozenset of the two). Participant -> team by exact norm name
     equal to home or away; participant names '1'/'home' = home, '2'/'away' = away; anything else is EXCLUDED and counted. No match found = EXCLUDED and counted.
- R4 event: per (event id, market id) a baseline p_home is set at the first valid row. A later stored row whose p_home differs from the baseline by >= 0.02 is ONE event
-    at that row's recv time (first-seen time; resolution = one poll, about 1 s); the team whose probability rose is the direction; baseline := new p_home.
+ R4 event: per (event id, market id) compare p_home with the previous valid stored payload (consecutive payloads, v2). A move of >= 0.02 is ONE event at that row's recv time
+    (first-seen time; resolution = one poll, measured with --poll-log); the team whose probability rose is the direction. Slow drift below 2c per payload makes no event (known, by design).
+    Cells are per title (info.sport) x bookmaker (bm) x market kind (Match Winner, Map N Winner separately).
  R5 PM side (STANDARD section 2): direction token = the rising team's outcome token. onset = first book mid inside [t-60,t+60] that is >= 2c above the mid at t-60 in the
     event direction. lead = onset - t (positive = Goalserve first). Placebo = 10 random times per (match, kind), no Goalserve event of that match within +-60 s, random token and direction, same procedure.
- R6 bar per (kind) cell: n_events >= 30, median(real - placebo) >= +2.0 s, match-clustered bootstrap 95% CI excludes 0, price moves after feed (lead > 0) in >= 60% of events with an onset.
-    Fewer than 30 events = 'unknown (n<30), preliminary'. If the placebo has no onsets the difference is undefined = 'no lead (undefined placebo)'. Money bar only if this passes.
- R7 seed 20261117. Verdicts are PRELIMINARY until the rule-to-code table is signed by another project thread and an independent audit is done.
-Usage: python3 -I feeds/goalserve_odds_vs_pm.py --files '<glob of esports_*.jsonl.gz>' --pm DIR [--pm DIR] --out result.json
+ R6 bar per cell: n_events >= 30, median(real - placebo) >= +2.0 s, match-clustered bootstrap 95% CI excludes 0, and lead >= 1.0 s (resolved, price after feed) in >= 60% of ALL events.
+    Fewer than 30 events = 'unknown (n<30), preliminary'. Fewer than 30 placebo onsets or placebo onsets in fewer than 30 matches = 'unknown (placebo too thin)'. Placebo excludes +-2W (120 s) around any event of the match.
+    Money bar only if this passes.
+ R7 seed 20261117 (--seed only for the self test). Verdicts are PRELIMINARY until the rule-to-code table is signed by another project thread and an independent audit is done.
+Usage: python3 -I feeds/goalserve_odds_vs_pm.py --files '<glob of esports_*.jsonl.gz>' --pm DIR [--pm DIR] --poll-log '<glob of goalserve_*.jsonl>' --clock-note 'PM recorder host X, Goalserve capture host Y, same chrony' --out result.json
 Self test (planted edge): python3 -I feeds/test_goalserve_odds_vs_pm.py
 """
-import argparse, bisect, collections, glob, gzip, json, os, random, re, sys
+import argparse, bisect, collections, glob, gzip, json, os, random, re, statistics, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ps_lead_test import lines, norm, find, load_pm, mk_index
 
-W, THR, SEED = 60.0, 0.02, 20261117
+W, THR, SEED, RES = 60.0, 0.02, 20261117, 1.0
 MAP_RE = re.compile(r"^(?:map|game) (\d+) winner$")
 
 
@@ -44,7 +46,7 @@ def num(x):
 
 
 def goalserve_events(files):
-    """-> events [(eid, kind, t_s, rising_team_norm, home_norm, away_norm)], audit counters."""
+    """-> events [(eid, kind, t_s, rising_team_norm, home_norm, away_norm, title, bm)], audit counters."""
     A = collections.Counter()
     seen_names, used_names, excl_names, bms = collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter()
     base = {}
@@ -61,10 +63,12 @@ def goalserve_events(files):
                 A["rows_bad_json"] += 1
                 continue
             A["rows"] += 1
-            bms[repr(d.get("bm"))] += 1
+            bm = repr(d.get("bm"))
+            bms[bm] += 1
             for eid, e in (d.get("events") or {}).items():
                 if not isinstance(e, dict):
                     continue
+                title = (e.get("info") or {}).get("sport") or "?"
                 ti = e.get("team_info") or {}
                 h, a = norm((ti.get("home") or {}).get("name")), norm((ti.get("away") or {}).get("name"))
                 for mid, m in (e.get("odds") or {}).items():
@@ -101,9 +105,9 @@ def goalserve_events(files):
                         base[k] = ph
                         continue
                     if abs(ph - base[k]) >= THR:
-                        ev.append((eid, kind, t / 1e9, h if ph > base[k] else a, h, a))
+                        ev.append((eid, kind, t / 1e9, h if ph > base[k] else a, h, a, title, bm))
                         A["events"] += 1
-                        base[k] = ph
+                    base[k] = ph
     audit = dict(counters=dict(A), bm_values=dict(bms), market_names_seen=dict(seen_names.most_common(60)),
                  market_names_used=dict(used_names), market_names_excluded=dict(excl_names.most_common(60)))
     return ev, audit
@@ -115,26 +119,59 @@ def med(x):
     return None if not n else (x[n // 2] if n % 2 else (x[n // 2 - 1] + x[n // 2]) / 2)
 
 
+def poll_gaps(globs):
+    """Measured Goalserve esports poll interval from capture.py logs (goalserve_<date>.jsonl rows, row['esports']['recv_ns'])."""
+    ts, errs = [], 0
+    for g in globs:
+        for p in sorted(glob.glob(g)):
+            for r in lines(p):
+                e = r.get("esports") or {}
+                if "err" in e:
+                    errs += 1
+                elif e.get("recv_ns"):
+                    ts.append(e["recv_ns"] / 1e9)
+    ts.sort()
+    gaps = sorted(b - a for a, b in zip(ts, ts[1:]))
+    if not gaps:
+        return dict(n_polls=len(ts), poll_errors=errs, note="no polls read")
+    return dict(n_polls=len(ts), poll_errors=errs, median_gap_s=statistics.median(gaps), p90_gap_s=gaps[int(.9 * len(gaps))],
+                p99_gap_s=gaps[min(len(gaps) - 1, int(.99 * len(gaps)))])
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--files", action="append", required=True)
     ap.add_argument("--pm", action="append", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--poll-log", action="append", default=[])
+    ap.add_argument("--clock-note", required=True, help="text: PM recorder host, Goalserve capture host, same chrony clock?")
+    ap.add_argument("--seed", type=int, default=SEED, help="locked default; only the self test changes it")
     a = ap.parse_args()
-    rnd = random.Random(SEED)
+    rnd = random.Random(a.seed)
     files = sorted({f for g in a.files for f in glob.glob(g)})
     if not files:
         raise SystemExit("no goalserve files matched")
     ev, audit = goalserve_events(files)
-    idx = mk_index(load_pm(a.pm))
-    sel, unmatched = {}, collections.Counter()
-    for (eid, kind, t, rise, h, a_) in ev:
-        c = idx.get(frozenset((h, a_)))
-        m = next((x for x in (c or []) if x["kind"] == kind), None)
-        if not m:
-            unmatched[(eid, kind)] += 1
+    drops = collections.Counter()
+    pmlist = load_pm(a.pm)
+    idx = mk_index(pmlist)
+    sel, matchlist = {}, {}
+    for (eid, kind, t, rise, h, a_, title, bm) in ev:
+        key = (eid, kind)
+        if key in matchlist:
+            matchlist[key]["n_events"] += 1
             continue
-        sel[(eid, kind)] = m
+        c = [x for x in (idx.get(frozenset((h, a_))) or []) if x["kind"] == kind]
+        rec = dict(eid=eid, title=title, bm=bm, kind=kind, home=h, away=a_, n_pm_candidates=len(c), n_events=1)
+        if len(c) == 1:
+            sel[key] = c[0]
+            rec["pm_cond"] = c[0].get("cond")
+        else:
+            rec["excluded"] = "no PM market with these exact names and kind" if not c else "more than one PM market (rematch); start time not available, excluded"
+        matchlist[key] = rec
+    for rec in matchlist.values():
+        if "excluded" in rec:
+            drops["events_no_pm_market" if rec["n_pm_candidates"] == 0 else "events_ambiguous_rematch_excluded"] += rec["n_events"]
     need = {tk for m in sel.values() for tk in m["tokens"]}
     series = collections.defaultdict(list)
     for d in a.pm:
@@ -143,13 +180,18 @@ def main():
             continue
         for r in lines(p):
             tk = r.get("asset") or r.get("tk")
-            tms = r.get("recv_ms") or r.get("ms")
-            if tk not in need or tms is None:
+            if tk not in need:
+                continue
+            tms = r.get("recv_ms")
+            if tms is None:
+                drops["book_rows_no_recv_ms"] += 1
                 continue
             b = [float(x["price"]) for x in r.get("bids") or []]
             s = [float(x["price"]) for x in r.get("asks") or []]
-            if b and s:
-                series[tk].append((tms / 1000.0, (max(b) + min(s)) / 2.0))
+            if not b or not s:
+                drops["book_rows_one_sided"] += 1
+                continue
+            series[tk].append((tms / 1000.0, (max(b) + min(s)) / 2.0))
     ts = {}
     for tk in series:
         series[tk].sort()
@@ -160,46 +202,58 @@ def main():
         return series[tk][i][1] if i >= 0 else None
 
     def onset(tk, t0, sign):
+        """-> (status, lead): status 'ok' (lead set), 'none' (price did not move), 'nobase' (no mid at t-60)."""
         if tk not in series:
-            return None
+            return "nobase", None
         b = mid_at(tk, t0 - W)
         if b is None:
-            return None
+            return "nobase", None
         i = bisect.bisect_left(ts[tk], t0 - W)
         v = series[tk]
         while i < len(v) and v[i][0] <= t0 + W:
             if sign * (v[i][1] - b) >= THR:
-                return v[i][0] - t0
+                return "ok", v[i][0] - t0
             i += 1
-        return None
+        return "none", None
 
     rows, by_match_t = [], collections.defaultdict(list)
-    for (eid, kind, t, rise, h, a_) in ev:
+    for (eid, kind, t, rise, h, a_, title, bm) in ev:
         by_match_t[eid].append(t)
         m = sel.get((eid, kind))
         if not m:
             continue
         outs = [norm(o) for o in m["outcomes"]]
         if rise not in outs:
+            drops["events_rising_team_not_a_pm_outcome"] += 1
             continue
         tk = m["tokens"][outs.index(rise)]
-        rows.append(dict(kind=kind, match=eid, t=t, tok=tk, lead=onset(tk, t, +1)))
+        st, ld = onset(tk, t, +1)
+        if st == "nobase":
+            drops["real_events_no_pm_baseline_at_t_minus_60"] += 1
+        rows.append(dict(cell="%s|%s|%s" % (title, bm, kind), match=eid, t=t, tok=tk, lead=ld, status=st))
     plc, done = [], set()
     for r in rows:
-        key = (r["match"], r["kind"])
+        key = (r["match"], r["cell"])
         if key in done:
             continue
         done.add(key)
         et = sorted(by_match_t[r["match"]])
-        toks = sorted(sel[key]["tokens"], key=str)
+        mkey = (r["match"], r["cell"].split("|")[2])
+        toks = sorted(sel[mkey]["tokens"], key=str)
         got = tries = 0
         while got < 10 and tries < 400 and et[0] < et[-1]:
             tries += 1
             t = rnd.uniform(et[0], et[-1])
-            if any(abs(t - x) <= W for x in et):
+            if any(abs(t - x) <= 2 * W for x in et):
                 continue
-            plc.append(dict(kind=key[1], match=key[0], lead=onset(rnd.choice(toks), t, rnd.choice((-1, 1)))))
+            st, ld = onset(rnd.choice(toks), t, rnd.choice((-1, 1)))
+            if st == "nobase":
+                drops["placebo_draws_no_pm_baseline"] += 1
+            plc.append(dict(cell=r["cell"], match=r["match"], lead=ld, status=st))
             got += 1
+        if got < 10:
+            drops["placebo_shortfall_matches"] += 1
+            drops["placebo_draws_missing"] += 10 - got
 
     def boot(R, P, n=2000):
         ms = sorted({r["match"] for r in R})
@@ -214,30 +268,36 @@ def main():
         out.sort()
         return [out[int(.025 * len(out))], out[int(.975 * len(out))]] if len(out) > 20 else None
 
-    res = dict(seed=SEED, resolution="one poll (about 1 s); onset resolution = PM book snapshot spacing", files=len(files),
-               goalserve_events_total=len(ev), events_without_pm_market=sum(unmatched.values()), audit=audit, cells={})
-    for grp, test in (("match", lambda k: k == "Match Winner"), ("map", lambda k: k != "Match Winner")):
-        R = [r for r in rows if test(r["kind"])]
-        P = [r for r in plc if test(r["kind"])]
+    res = dict(seed=a.seed, clock_note=a.clock_note, poll_interval_measured=poll_gaps(a.poll_log) if a.poll_log else "NOT MEASURED (no --poll-log)",
+               resolution_book_s=RES, files=len(files), goalserve_events_total=len(ev), drops=dict(drops), audit=audit, cells={},
+               match_list=sorted(matchlist.values(), key=lambda r: (str(r["eid"]), r["kind"])))
+    for cell in sorted({r["cell"] for r in rows}):
+        R = [r for r in rows if r["cell"] == cell]
+        P = [r for r in plc if r["cell"] == cell]
         rl, pl = [r["lead"] for r in R if r["lead"] is not None], [r["lead"] for r in P if r["lead"] is not None]
         n = len(R)
+        pm_on = len({r["match"] for r in P if r["lead"] is not None})
         c = dict(n_events=n, n_matches=len({r["match"] for r in R}), n_with_onset=len(rl), n_placebo=len(P), n_placebo_with_onset=len(pl),
+                 n_matches_with_placebo_onset=pm_on, placebo_onset_rate=(len(pl) / len(P)) if P else None,
                  median_real_lead_s=med(rl), median_placebo_lead_s=med(pl), diff_s=(med(rl) - med(pl)) if rl and pl else None,
-                 pct_price_after_feed=(100.0 * sum(1 for x in rl if x > 0) / len(rl)) if rl else None,
-                 pct_placebo_after=(100.0 * sum(1 for x in pl if x > 0) / len(pl)) if pl else None,
+                 pct_all_events_lead_ge_res=100.0 * sum(1 for x in rl if x >= RES) / n,
+                 pct_all_events_lead_gt0=100.0 * sum(1 for x in rl if x > 0) / n,
+                 pct_with_onset_lead_gt0=(100.0 * sum(1 for x in rl if x > 0) / len(rl)) if rl else None,
+                 pct_placebo_lead_gt0=(100.0 * sum(1 for x in pl if x > 0) / len(pl)) if pl else None,
                  ci95_match_boot=boot(R, P) if n and pl else None)
         if n < 30:
             c["verdict"] = "unknown (n=%d < 30), preliminary" % n
-        elif c["diff_s"] is None:
-            c["verdict"] = "no lead (undefined placebo)"
+        elif len(pl) < 30 or pm_on < 30:
+            c["verdict"] = "unknown (placebo too thin: %d onsets in %d matches)" % (len(pl), pm_on)
         else:
-            ok = c["diff_s"] >= 2 and c["ci95_match_boot"] and c["ci95_match_boot"][0] > 0 and (c["pct_price_after_feed"] or 0) >= 60
+            ok = c["diff_s"] >= 2 and c["ci95_match_boot"] and c["ci95_match_boot"][0] > 0 and c["pct_all_events_lead_ge_res"] >= 60
             c["verdict"] = "meets bar (needs audit)" if ok else "no lead (needs audit)"
         c["real_leads_s_first500"] = [round(x, 2) for x in rl[:500]]
         c["placebo_leads_s_first500"] = [round(x, 2) for x in pl[:500]]
-        res["cells"][grp] = c
+        res["cells"][cell] = c
     json.dump(res, open(a.out, "w"), indent=1)
-    print(json.dumps(res, indent=1))
+    print(json.dumps({k: v for k, v in res.items() if k != "match_list"}, indent=1))
+    print("match_list rows:", len(res["match_list"]), "(full list in the JSON)")
 
 
 if __name__ == "__main__":

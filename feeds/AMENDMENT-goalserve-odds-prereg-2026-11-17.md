@@ -1,0 +1,14 @@
+# Amendment to the G2 pre-registration (Goalserve odds vs Polymarket), written 17 Nov 2026, BEFORE any real run
+
+Author: Goalserve thread. Reason: the Audit CS2 model thread's review (reviews/SIGNOFF-goalserve-odds-vs-pm-rule-to-code-2026-11-17.md) found differences between the pre-registration and the code. Each is settled below, in writing, in the direction of the stricter or more honest reading. No real data has been run.
+
+1. **Planted edge (pre-reg: shift REAL PM series by 5.0 s, must pass).** Amended. Real PM series are not available to the author, and on synthetic noisy series a 5 s lead is recovered (median real lead 5.5 s) but does NOT pass the bar at n=120 (placebo median too noisy). Measured over 20 seeds: false-pass at lead 0 = 0 of 20 and at no-edge = 0 of 20; pass at planted 15 s = 10 of 20; at planted 25 s = 15 of 20 (75%). So the smallest lead this test can reliably certify at n~120 is about 25 s. A real-series planted-edge run (shift the stored PM series by 5, 15 and 25 s and run the same script) is added as a second check for IT/Prime after the first real run; its result is reported next to the verdict. A real cell that shows a lead under 25 s will be reported as 'not distinguishable from zero at this n', never as proven.
+2. **Event definition.** Code now compares CONSECUTIVE stored payloads (as the pre-reg says), not a baseline that moves only at events. Slow drift under 2c per payload makes no event.
+3. **Placebo.** Excludes +-120 s (2W) around any event of the match; a cell needs >= 30 placebo onsets in >= 30 matches or it is 'unknown (placebo too thin)'.
+4. **Bar 4 (price moves after feed).** Now counted over ALL events, with lead >= 1.0 s (the book snapshot resolution), >= 60%. Share over events-with-onset and share lead > 0 are still printed.
+5. **Cells.** Per title (info.sport) x bookmaker (bm) x market kind, Match Winner and each Map N Winner separate. No pooling across titles or bookmakers.
+6. **Start time.** Neither the Goalserve body fields I have verified nor the PM recorder format carry a usable start time for matching. Rule: exact team names and kind; if more than one PM market matches (a rematch) the match is EXCLUDED and counted, never silently paired. Full match list printed in the output.
+7. **Drops.** Every drop is a counter in the output (`drops`, `audit.counters`). The `ms` fallback is removed: PM rows need `recv_ms`.
+8. **Resolution.** Reported as measured: the script computes median, p90 and p99 gap between consecutive esports polls from capture logs (`--poll-log`). capture.py polls five sports in sequence then sleeps 1.0 s, so the true interval is above 1 s. The PM recorder host and clock must be stated with `--clock-note`.
+
+Still open and stated: leads under about 2 s cannot be resolved; the verdict stays UNCHECKED until the signer thread re-signs and an independent audit runs.
