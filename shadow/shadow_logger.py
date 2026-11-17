@@ -7,11 +7,10 @@ book from the public market WebSocket, and writes:
   OUT/events.jsonl             leg lists, fee rates and secondsDelay snapshots
   OUT/runs.jsonl               each period where a full set is underpriced on either side:
                                yes: buy every YES at the ask, pays 1; edge = 1 - sum(ask + fee)
-                               no:  buy every NO, pays n - 1; the NO book mirrors the YES book
-                                    (NO ask = 1 - YES bid), so edge = sum(YES bid - fee) - 1
-                               (the NO token books are now also subscribed and stored raw, and
-                                nocompare.jsonl logs YES vs NO top of book per leg each resync;
-                                the "no" run above still uses the mirror until a NO-ask detector is added)
+                               no:  buy every NO at the NO token's own asks, pays n - 1;
+                                    edge = (n - 1) - sum(NO ask + fee). Both tokens are subscribed and
+                                    stored as separate books; nothing is derived from the other side.
+                                    nocompare.jsonl logs YES vs NO top of book per leg each resync.
                                Only events whose leg list is complete (no closed or missing leg).
 
 Usage: python3 shadow_logger.py --out data/ [--tags sports] [--minutes 0]
@@ -197,19 +196,20 @@ class Logger:
             return
         n = len(ev["legs"])
         for side in ("yes", "no"):
+            # Each side buys at its own token's own asks: the YES set from the YES books, the NO set
+            # from the NO books. A NO price is never derived from the YES book.
             cost, px, fee_sum, size, quotes = 0.0, 0.0, 0.0, float("inf"), []
             for leg in ev["legs"]:
-                b = self.books.get(leg["yes"])
-                p = (b.best_ask() if side == "yes" else b.best_bid()) if b else None
+                b = self.books.get(leg[side])
+                p = b.best_ask() if b else None
                 if p is None:
                     break
                 fee = leg["fee_rate"] * (p * (1 - p)) ** leg.get("fee_exp", 1)
-                px += (p if side == "yes" else 1 - p)
+                px += p
                 fee_sum += fee
-                cost += (p if side == "yes" else 1 - p) + fee
-                lvl = b.asks if side == "yes" else b.bids
-                size = min(size, lvl[p])
-                quotes.append([p, lvl[p]])
+                cost += p + fee
+                size = min(size, b.asks[p])
+                quotes.append([p, b.asks[p]])
             else:
                 payout = 1 if side == "yes" else n - 1
                 edge = payout - cost
@@ -222,7 +222,8 @@ class Logger:
                             "event": eid, "side": side, "title": ev["title"], "t0": recv, "cost0": cost,
                             "px0": px, "fee0": fee_sum, "edge_full_fee": 1 if edge_full > 0 else 0,
                             "payout": payout, "size0": size, "quotes0": quotes,
-                            "assets": [leg["yes"] for leg in ev["legs"]], "n_markets": ev.get("n_markets"),
+                            "assets": [leg[side] for leg in ev["legs"]], "own_book": True,
+                            "n_markets": ev.get("n_markets"),
                             "min_cost": cost, "max_edge_usd": edge * size, "updates": 1}
                     else:
                         run["updates"] += 1
@@ -283,14 +284,13 @@ class Logger:
         for eid in set(self.events) - set(found):
             self.close_run(t, eid)
         self.events = found
-        self.asset_event = {leg["yes"]: eid for eid, ev in found.items() for leg in ev["legs"]}
-        # NO tokens are subscribed and stored as their own books (never derived from the YES book).
-        # They are not in asset_event, so a NO update never triggers the detector.
-        self.no_leg = {leg["no"]: leg["yes"] for ev in found.values() for leg in ev["legs"]}
-        self.books = {a: self.books.get(a) or Book() for a in list(self.asset_event) + list(self.no_leg)}
+        # both tokens of every leg are subscribed and stored as their own books; an update to either
+        # re-checks the event. A NO price is never derived from the YES book.
+        self.asset_event = {leg[k]: eid for eid, ev in found.items() for leg in ev["legs"] for k in ("yes", "no")}
+        self.books = {a: self.books.get(a) or Book() for a in self.asset_event}
         for task in self.ws_tasks:
             task.cancel()
-        assets = list(self.asset_event) + list(self.no_leg)
+        assets = list(self.asset_event)
         chunks = []  # keep each event's legs on one connection
         cur = []
         for ev in found.values():
@@ -308,7 +308,7 @@ class Logger:
         """Re-seed every book from REST in case the stream dropped an update."""
         while True:
             await asyncio.sleep(every)
-            assets = list(self.asset_event) + list(self.no_leg)
+            assets = list(self.asset_event)
             if not assets:
                 continue
             try:

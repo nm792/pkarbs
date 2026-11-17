@@ -10,9 +10,9 @@ cannot be cancelled, so a set is never aborted once sent. Legs left over from a 
 set are sold back at the bid after another delay, paying taker fees.
 
 yes runs buy every YES; a full set pays $1.
-no runs buy every NO; a full set pays $(n - 1). NO books are taken as the mirror of
-the YES book (NO ask = 1 - YES bid, NO bid = 1 - YES ask), which is how the CLOB
-shows a single book for both tokens. Buying NO needs no inventory. Holding a NO on
+no runs buy every NO at the NO token's own asks (its own book from the raw files); a full set pays
+$(n - 1). Nothing is derived from the other token's book. Runs from loggers before the NO token was
+recorded (no "own_book" flag, priced from the YES mirror) are skipped and counted. Buying NO needs no inventory. Holding a NO on
 every leg can be converted back to $(n - 1) through negRisk conversion, or held
 to resolution.
 
@@ -72,10 +72,6 @@ def walk(levels, limit, qty, buy, rate=0.0, exp=1):
     return filled, notional, fees
 
 
-def mirror(levels):
-    return {round(1 - p, 6): s for p, s in levels.items()}
-
-
 def load(data, runs_path=None, limit=None, days=None, now=None):
     legs, by_token = {}, {}
     cutoff = (now - days * 86400.0) if (days and now) else None
@@ -90,15 +86,20 @@ def load(data, runs_path=None, limit=None, days=None, now=None):
         legs[ev["id"]] = ev["legs"]
         for leg in ev["legs"]:
             by_token[leg["yes"]] = leg
+            by_token[leg["no"]] = leg
     runs_path = runs_path or os.path.join(data, "runs.jsonl")
     runs = [json.loads(l) for l in open(runs_path)] if os.path.exists(runs_path) else []
     if cutoff is not None:
         runs = [r for r in runs if r.get("t0", 0) >= cutoff]
     old = 0
     kept = []
+    legacy_no = 0
     for r in runs:
         r.setdefault("side", "yes")
         r.setdefault("payout", 1)
+        if r["side"] == "no" and not r.get("own_book"):
+            legacy_no += 1  # priced from the YES mirror; the NO token's own book was never recorded
+            continue
         if "assets" in r:
             if limit is not None and not all(x in by_token for x in r["assets"]):
                 continue  # bounded load: drop runs whose legs are outside the loaded events slice
@@ -110,6 +111,8 @@ def load(data, runs_path=None, limit=None, days=None, now=None):
             old += 1
         kept.append(r)
     runs = kept
+    if legacy_no:
+        print(f"skipped {legacy_no} legacy NO runs priced from the YES mirror (no NO-token book was recorded)")
     if old:
         print(f"warning: {old} runs have no leg list from t0; quotes may pair with the wrong legs. "
               f"Use rescan.py output (--runs).")
@@ -193,13 +196,13 @@ def main():
     delays = a.delays.split(",")
     queries = []
     for i, r in enumerate(runs):
-        assets = [l["yes"] for l in r["legs"]]
+        assets = [l[r["side"]] for l in r["legs"]]
         queries.append((r["t0"] + 1e-6, (i, "t0"), assets))
         for d in delays:
             last = 0.0
             for k, leg in enumerate(r["legs"]):
                 tm = r["t0"] + a.one_way + (k // BATCH) * 2 * a.one_way + leg_delay(leg, d)
-                queries.append((tm, (i, d, "match", k), [leg["yes"]]))
+                queries.append((tm, (i, d, "match", k), [leg[r["side"]]]))
                 last = max(last, tm)
             dmax = max(leg_delay(l, d) for l in r["legs"])
             queries.append((last + a.one_way + dmax, (i, d, "unwind"), assets))
@@ -218,7 +221,7 @@ def main():
                 lg = r["legs"]
                 n = len(lg)
                 q = min(r["size0"], a.max_usd / r["cost0"])
-                prices = [p0 if side == "yes" else 1 - p0 for p0, _ in r["quotes0"]]
+                prices = [p0 for p0, _ in r["quotes0"]]
                 need = max((float(l.get("min_size") or 0) / (px if a.min_unit == "usdc" else 1))
                            for l, px in zip(lg, prices))
                 px0 = r.get("px0", r["cost0"])
@@ -233,7 +236,7 @@ def main():
                 elif (r["event"], side) in last_t1 and r["t0"] - last_t1[(r["event"], side)] < a.cooldown_s:
                     row["reason"] = "cooldown"
                     T["cooldown_skip"] += 1
-                elif not all(seeded_at[(i, d, "match", k)][leg["yes"]] for k, leg in enumerate(lg)):
+                elif not all(seeded_at[(i, d, "match", k)][leg[side]] for k, leg in enumerate(lg)):
                     row["reason"] = "unseeded"
                     T["unseeded_skip"] += 1
                 if row["reason"] != "none":
@@ -244,13 +247,13 @@ def main():
                 useed = seeded_at[(i, d, "unwind")]
                 fills, crossed = [], 0
                 for k, (leg, (p0, _)) in enumerate(zip(lg, r["quotes0"])):
-                    bids, asks = snaps[(i, d, "match", k)][leg["yes"]]
+                    bids, asks = snaps[(i, d, "match", k)][leg[side]]
                     if bids and asks and max(bids) >= min(asks):  # crossed leg counts as unfilled
                         crossed += 1
                         fills.append([leg, 0.0, 0.0, 0.0])
                         continue
-                    lim = on_tick(p0 if side == "yes" else 1 - p0, leg.get("tick"))
-                    f, notional, fees = walk(asks if side == "yes" else mirror(bids), lim, q, True,
+                    lim = on_tick(p0, leg.get("tick"))
+                    f, notional, fees = walk(asks, lim, q, True,
                                              leg["fee_rate"], leg.get("fee_exp", 1))
                     fills.append([leg, f, notional, fees])
                 T["crossed"] += 1 if crossed else 0
@@ -258,7 +261,7 @@ def main():
                 buy_fees = sum(fe for _, _, _, fe in fills)
                 wv = sum(f * (nt / f) * (1 - nt / f) for _, f, nt, _ in fills if f > 0)
                 h = min(f for _, f, _, _ in fills)
-                if any(not useed[leg["yes"]] for leg, f, _, _ in fills if f - h > 1e-9):
+                if any(not useed[leg[side]] for leg, f, _, _ in fills if f - h > 1e-9):
                     T["unwind_unseeded"] += 1
 
                 def dump(sets, held):
@@ -267,8 +270,8 @@ def main():
                     for leg, f in held:
                         extra = f - sets
                         if extra > 1e-9:
-                            ub, ua = u[leg["yes"]]
-                            _, nt, fe = walk(ub if side == "yes" else mirror(ua), 0.0, extra, False,
+                            ub, ua = u[leg[side]]
+                            _, nt, fe = walk(ub, 0.0, extra, False,
                                              leg["fee_rate"], leg.get("fee_exp", 1))
                             pr += nt - fe
                             fs += fe
@@ -284,8 +287,8 @@ def main():
                 for leg, f, _, _ in fills:
                     g = nt = fe = 0.0
                     if top - f > 1e-9:
-                        ub, ua = u[leg["yes"]]
-                        g, nt, fe = walk(ua if side == "yes" else mirror(ub), 1.0, top - f, True,
+                        ub, ua = u[leg[side]]
+                        g, nt, fe = walk(ua, 1.0, top - f, True,
                                          leg["fee_rate"], leg.get("fee_exp", 1))
                         if g > 0:
                             wv_b += g * (nt / g) * (1 - nt / g)
@@ -362,7 +365,7 @@ def main():
                         "rebate_usd", "wv_usd", "maker_rebate_usd"] + legcols)
             for x in per_run:
                 r, i, d = x["r"], x["i"], x["d"]
-                assets = [l["yes"] for l in r["legs"]]
+                assets = [l[r["side"]] for l in r["legs"]]
                 t0q = quotes((i, "t0"), assets)
                 legs = []
                 for k, aid in enumerate(assets):
