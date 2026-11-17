@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-17T08:00:00Z |
-| origin_tip | 4acb8253a4 |
-| newest_origin_commit | 2026-11-17T15:58:20+08:00 Goalserve chunk D v2: fixes for checker's 20-row review (placebo |
+| generated_utc | 2026-11-17T09:00:00Z |
+| origin_tip | 12b877c3da |
+| newest_origin_commit | 2026-11-17T16:34:26+08:00 Goalserve: Nick approved the STANDARD v1 deviation (08:33Z), not |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
