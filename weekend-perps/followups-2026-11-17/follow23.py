@@ -10,6 +10,7 @@ S = {s: series(F, s) for s in syms}
 noHS = sorted(s for s in syms if HS.get(s) is None); print("symbols", len(syms), "no live half-spread (excluded from every trade):", noHS)
 FI = {s: fee_info(s, GR) for s in syms}; cost = {s: cost_bp(HS.get(s), FI[s][0]) for s in syms}
 # ---------- Test 2: primary non-overlapping event stream; (c) is a subset of that stream
+MISS = [0]   # funding records absent from fundingHistory (counted as 0 bp, reported)
 def carry(k):
     ev = []
     for s in syms:
@@ -20,9 +21,10 @@ def carry(k):
             x0 = cs.get(t - H); x1 = cs.get(t + (k - 1) * H)   # close of hour h (open t-H) -> close of hour h+k (open t+(k-1)H)
             if not x0 or not x1: continue
             pos = -sg(P[t]); g = pos * (x1[1] / x0[1] - 1) * 1e4
+            MISS[0] += sum(1 for i in range(1, k + 1) if (t + i * H) not in FR)
             fr = sum(-pos * FR.get(t + i * H, 0) for i in range(1, k + 1))
             persist = all((t - i * H) in P and abs(P[t - i * H]) >= 100 and sg(P[t - i * H]) == sg(P[t]) for i in range(3))
-            ev.append(dict(s=s, wk=cal_week(t), net=g + fr - cost[s], g=g, fr=fr, persist=persist, grp=grp(s), tier=tier(s), chk=FI[s][1])); free = t + k * H
+            ev.append(dict(s=s, wk=cal_week(t), net=g + fr - cost[s], g=g, fr=fr, persist=persist, grp=grp(s), tier=tier(s), chk=FI[s][1], fee=FI[s][0])); free = t + k * H
     return ev
 def report(ev, label):
     print("==", label)
@@ -34,8 +36,15 @@ def report(ev, label):
         v = cells[key]
         if len(v) < 10: print(f"{key[0]:10s}{key[1]:7s} n={len(v)} (< 10 events, not summarised)"); continue
         net = np.mean([x["net"] for x in v]); ci = boot([(x["wk"], x["net"]) for x in v]); wks = len(set(x["wk"] for x in v))
-        print(f"{key[0]:10s}{key[1]:7s} n={len(v):5d} weeks={wks:2d} gross={np.mean([x['g'] for x in v]):7.1f} funding={np.mean([x['fr'] for x in v]):6.1f} net={net:7.1f} CI={ci} PASS={bool(len(v) >= 30 and wks >= 8 and net > 0 and ci[0] > 0)} {'COST UNCHECKED (%d of %d)' % (sum(1 for x in v if not x['chk']), len(v)) if any(not x['chk'] for x in v) else 'cost sourced'}")
-for k in (6, 3, 12): report(carry(k), f"Test 2 carry k={k} ({'primary' if k == 6 else 'sensitivity only'})")
+        n9 = np.mean([x["net"] - 2 * (9.0 - x["fee"]) for x in v])
+        sv = [x for x in v if x["chk"]]   # verdict only on the sourced-cost subset (growth-mode xyz)
+        if sv:
+            snet = np.mean([x["net"] for x in sv]); sci = boot([(x["wk"], x["net"]) for x in sv]); swk = len(set(x["wk"] for x in sv))
+            verdict = f"VERDICT PASS={bool(len(sv) >= 30 and swk >= 8 and snet > 0 and sci[0] > 0)} (sourced n={len(sv)} weeks={swk} net={snet:.1f} CI={sci})"
+        else: verdict = "no sourced-cost trades: NO VERDICT"
+        print(f"{key[0]:10s}{key[1]:7s} n={len(v):5d} weeks={wks:2d} gross={np.mean([x['g'] for x in v]):7.1f} funding={np.mean([x['fr'] for x in v]):6.1f} net={net:7.1f} CI={ci} | net at old 9 bp {n9:.1f} | COST UNCHECKED {sum(1 for x in v if not x['chk'])} of {len(v)} | {verdict}")
+for k in (6, 3, 12):
+    MISS[0] = 0; ev_ = carry(k); print('funding records missing (treated as 0):', MISS[0]); report(ev_, f"Test 2 carry k={k} ({'primary' if k == 6 else 'sensitivity only'})")
 # ---------- Test 3
 eps = []
 for s in syms:
@@ -92,7 +101,7 @@ for e in eps:
     for n in range(3, e["n"] + 1):
         t = e["start"] + (n - 1) * H; nxt = t + H
         if nxt not in P: continue
-        rows.append((cal_week(t), [1, n, abs(P[t]) / 100, 1 if is_weekend(nxt - H) else 0], 1 if (n == e["n"] and e["immediate"]) else 0))
+        rows.append((cal_week(t), [1, n, abs(P[t]) / 100, 1 if is_weekend(t - H) else 0], 1 if (n == e["n"] and e["immediate"]) else 0))
 if not rows: print("logistic: no episode rows, not run"); sys.exit(0)
 wks = sorted(set(r[0] for r in rows)); cutw = set(wks[:int(len(wks) * 0.7)])
 trn = [r for r in rows if r[0] in cutw]; tst = [r for r in rows if r[0] not in cutw]

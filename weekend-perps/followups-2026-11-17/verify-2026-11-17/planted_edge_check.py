@@ -115,7 +115,7 @@ def build_edge(case, kind, seed, sign_mode="mixed", rate=0.0, rev=40.0):
             if kind == "edge": rt[e + 1] = -sg * rev / 1e4
         prem[s] = pr; ret[s] = rt; fund[s] = [rate] * NH
     return prem, ret, fund
-CARRY_RE = re.compile(r"^(all|xyz|flx\+km|persistent)\s*(all|thin|mid|liquid)\s+n=\s*(\d+) weeks=\s*(\d+) gross=\s*(\S+) funding=\s*(\S+) net=\s*(\S+) CI=\((\S+), (\S+)\) PASS=(\w+)")
+CARRY_RE = re.compile(r"^(all|xyz|flx\+km|persistent)\s*(all|thin|mid|liquid)\s+n=\s*(\d+) weeks=\s*(\d+) gross=\s*(\S+) funding=\s*(\S+) net=\s*(\S+) CI=\((\S+), (\S+)\) \| net at old 9 bp \S+ \| COST UNCHECKED \d+ of \d+ \| (?:VERDICT PASS=(\w+)|no sourced)")
 def parse_carry(out):
     secs = {}; cur = None
     for l in out.splitlines():
@@ -260,8 +260,8 @@ def mk_log(name, build):
     return d
 def day_ts(day, hh, mm): return datetime.datetime(2026, 11, 2 + day, hh, mm, tzinfo=datetime.timezone.utc).timestamp()
 def ev1(d, fund=None):
-    args = [sys.executable, f"{NEW}/eval1.py", d]
-    if fund: args += ["--funding", fund]
+    args = [sys.executable, f"{NEW}/eval1.py", d, "--after", "0"]
+    args += ["--funding", fund or os.path.join(V, "fund_empty.json")]
     r = subprocess.run(args, capture_output=True, text=True, cwd=V)
     if r.returncode: print("CRASH eval1", r.stderr[-600:]); check("eval1 runs", False, "crashed")
     return r.stdout
@@ -286,7 +286,7 @@ def exp_event(sg, hs, deep):
     return pos * (ex / ep - 1) * 1e4
 # 4a planted gap reverting in book (two symbols: short side w/ deep book, long side), no funding crossing
 sd = {"AAA-USD": dict(sg=1, hs=2.0, deep=True), "BBB-USD": dict(sg=-1, hs=2.0, deep=False)}
-d = planted("4a", sd); fp = f"{V}/fund_empty.json"; json.dump({}, open(fp, "w")); out = ev1(d, fp); print(out)
+d = planted("4a", sd); fp = f"{V}/fund_empty.json"; json.dump({k: [[day_ts(dd, hh, 0), 0.0] for dd in range(3) for hh in range(24)] for k in sd}, open(fp, "w")); out = ev1(d, fp)   # zero-rate settlements for every hour: missing rates would (correctly) force PRELIMINARY; print(out)
 mm = re.search(r"events (\d+) missed .*? no usable book (\d+)", out)
 exg = {s: exp_event(v["sg"], v["hs"], v["deep"]) for s, v in sd.items()}
 per = {m_[1]: (int(m_[2]), float(m_[3])) for m_ in re.finditer(r"^\s+(\S+) (\d+) net (\S+)$", out, re.M)}

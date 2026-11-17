@@ -3,7 +3,7 @@ LOCKED-RULE-funding-window-divergence-2026-11-17.md or LOCKED-RULE-divergence-fo
 import json, datetime, collections, numpy as np
 H = 3600000
 NBOOT = 10000; SEED = 1; SPREAD_MULT = 3.0; SPREAD_FLOOR = 1.0
-# Fee model: see COST-TABLE-2026-11-17.md (source for every term). Hyperliquid base taker 4.5 bp (userFees API) x2 for HIP-3 builder dexes x0.1 when growthMode is enabled = 0.9 bp.
+# Fee model: see LOCKED-RULE-cost-table-2026-11-17.md (source for every term). Hyperliquid base taker 4.5 bp (userFees API) x2 for HIP-3 builder dexes x0.1 when growthMode is enabled = 0.9 bp.
 BASE_TAKER = 4.5; HIP3_MULT = 2.0; GROWTH_MULT = 0.1
 def load(d="."):
     h = json.load(open(d + "/hist.json")); c = json.load(open(d + "/cand.json"))
