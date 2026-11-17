@@ -29,6 +29,11 @@ check("every stored sport is polled", all(s in mod.SPORTS for s in mod.STORE_SPO
 check("soccer and baseball are NOT stored", "soccer" not in mod.STORE_SPORTS and "baseball" not in mod.STORE_SPORTS)
 
 hour = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d%H")
+# The test must not depend on the free space of whatever disk the temp dir is on (the box root disk is under the 15 GB floor):
+# fake 100 GB free for the normal-write checks, restore it before the floor section (which fakes 1 GB itself).
+class BIG: free = 100e9; total = 1e12; used = 0
+_real_du0 = shutil.disk_usage
+shutil.disk_usage = lambda path: BIG
 for i, s in enumerate(mod.STORE_SPORTS):
     body = json.dumps({"events": {"1": {"sport": s, "odds": [1.5 + i]}}}).encode()
     mod.store_payload(s, 1000 + i, body)
@@ -42,6 +47,7 @@ check("esports path unchanged (PAYDIR/esports_<hour>.jsonl.gz)", mod.PAYDIR.ends
 
 # second write appends
 mod.store_payload("tennis", 2000, b"{}")
+shutil.disk_usage = _real_du0
 p = os.path.join(mod.OUT, "tennis_payloads", f"tennis_{hour}.jsonl.gz")
 check("tennis second write appends", len([l for l in gzip.open(p, "rt")]) == 2)
 
