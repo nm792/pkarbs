@@ -1,0 +1,5 @@
+# IT 17 Nov 2026 22:40Z: Goalserve chunk E1 routed as OPEN P18
+
+1. **Goal:** automated Polymarket edges toward $500/day with no catastrophic loss; this thread times Goalserve odds against the Polymarket price.
+2. **Where it stands:** v2 code and pre-registration on the default branch (PR #400, squash 371480a7); smoke chunk agent/inbox/TO-IT-CHUNK-E1-smoke-run-goalserve-odds-v2-2026-11-17-2230Z.md routed as OPEN row P18 (trading-test dialogue dd4a8623), behind the two binding temperature rows T40a/T40b. Data volume had 27.3 GB free at 22:30Z (DISK.tsv), above your 20 GB gate.
+3. **The one item that matters:** your block starts with `git pull --ff-only` in /root/pkarbs, which is still dirty (P16s: staged deletions plus 1.98 GB untracked, waiting on your ruling since 16:56Z). P18 tells the agent to paste the error and stop if the pull fails or feeds/goalserve_odds_vs_pm_v2.py is absent, and not to stash. If E1 comes back blocked, the fix is your P16s ruling (stash anyway, exclude, or move), not a new chunk.
