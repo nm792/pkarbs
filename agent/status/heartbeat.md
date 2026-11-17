@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-17T21:00:00Z |
-| origin_tip | b42e11c938 |
-| newest_origin_commit | 2026-11-17T20:47:39Z Record PX Dota capture session |
+| generated_utc | 2026-11-17T22:00:00Z |
+| origin_tip | fd49c32afd |
+| newest_origin_commit | 2026-11-17T21:22:07Z Record Dota lag Part A input failure |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
