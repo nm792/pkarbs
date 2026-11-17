@@ -13,22 +13,37 @@ Rules (locked before any new data is read):
  V6 bar: >= 12 matches and >= 60 usable events in the cell; mean d >= 0.005 (0.5c) and CI lower bound > 0 and (share of events with R_real > mean placebo R) >= 55%. Else, with enough data, 'no lead detected'. If CI upper bound < 0: 'PM moved first (price ahead of the odds)'.
  V7 power check on the REAL series, same run (replaces v1's time-shift plant, which cannot move a fixed-window statistic): a planted edge of PLANT_C = 0.01 (1c, injected at t+10 s on the rising token, which adds exactly +0.01 to every R_real) is added on top of this cell's own noise,
     d_plant = d - (cell mean d) + 0.01. The plant is DETECTED if the V6 bar is met on d_plant (CI lower > 0, mean >= 0.005, share >= 55%). If not detected the cell verdict is capped at 'unknown (underpowered: a 1c edge would not be detected)'. min_detectable_effect = cell mean d - CI lower bound is reported.
+ V9 (checker signoff 17 Nov 23:00Z) capture outage: --poll-log is REQUIRED; a payload whose preceding poll is more than 10 s earlier (or has none) CLEARS all baselines (counted: baseline_cleared_poll_gap_gt_10s), so the first price after an outage is never an event.
+ V10 PRIMARY cells: cs2|Match Winner and dota2|Match Winner (alpha not corrected, 2 cells). All other cells are informational, printed with the prefix '(informational)', and cannot be called a pass. The real run omits --plant-c and --seed (the audit checks plant_c 0.01 and seed 20261118 in the JSON). Hand check: first20_events_biggest_cell is printed.
  V8 seed 20261118 (--seed only for the self test). Every verdict is UNCHECKED until the rule-to-code table is signed by another thread and an independent audit is done. Bookmaker is not identified (bm empty; vendor docs say bet365): say so with every result.
-Usage: python3 -I feeds/goalserve_odds_vs_pm_v2.py --files '<glob of esports_*.jsonl.gz>' --pm DIR [--pm DIR] --clock-note 'text' --out result.json
+Usage: python3 -I feeds/goalserve_odds_vs_pm_v2.py --files '<glob of esports_*.jsonl.gz>' --pm DIR [--pm DIR] --poll-log '<glob of goalserve_*.jsonl>' --clock-note 'text' --out result.json
 Self test: python3 -I feeds/test_goalserve_odds_vs_pm_v2.py
 """
 import argparse, bisect, collections, glob, json, os, random, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ps_lead_test import norm, find, load_pm, mk_index
-from goalserve_odds_vs_pm import counted_lines, market_kind, num, med
+from goalserve_odds_vs_pm import counted_lines, market_kind, num, med, poll_gaps
 
 THR, SEED, CAP, NPLC = 0.02, 20261118, 40, 10
 PLANT_C = 0.01
 MIN_MATCHES, MIN_EVENTS, MIN_EFFECT, MIN_SHARE = 12, 60, 0.005, 55.0
 OPEN = (0, "0", False, None)
+OUTAGE_S = 10.0
+PRIMARY = ("cs2|Match Winner", "dota2|Match Winner")
 
 
-def open_events(files):
+def load_polls(globs, cnt):
+    ts = []
+    for g in globs:
+        for p in sorted(glob.glob(g)):
+            for r in counted_lines(p, cnt, "poll_log"):
+                e = r.get("esports") or {}
+                if e.get("recv_ns") and "err" not in e:
+                    ts.append(e["recv_ns"] / 1e9)
+    return sorted(ts)
+
+
+def open_events(files, polls):
     """-> events [(eid, kind, t_s, rising_team_norm, home, away, game)], audit counters. Baseline cleared whenever the market is not valid+open in a payload."""
     A = collections.Counter()
     seen, used, excl, bms, prefixes = (collections.Counter() for _ in range(5))
@@ -46,6 +61,11 @@ def open_events(files):
                 continue
             A["rows"] += 1
             bms[repr(d.get("bm"))] += 1
+            i = bisect.bisect_left(polls, t / 1e9) - 1      # last poll strictly before this payload
+            if i < 0 or t / 1e9 - polls[i] > OUTAGE_S:
+                A["baseline_cleared_poll_gap_gt_10s"] += len(base)
+                A["payloads_after_poll_gap_gt_10s"] += 1
+                base.clear()
             valid = set()
             for eid, e in (d.get("events") or {}).items():
                 if not isinstance(e, dict):
@@ -102,6 +122,7 @@ def main():
     ap.add_argument("--pm", action="append", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--clock-note", required=True)
+    ap.add_argument("--poll-log", action="append", required=True, help="goalserve_<date>.jsonl poll logs (capture.py): used to detect capture outages (> 10 s between polls)")
     ap.add_argument("--seed", type=int, default=SEED)
     ap.add_argument("--plant-c", type=float, default=PLANT_C)
     a = ap.parse_args()
@@ -109,8 +130,11 @@ def main():
     files = sorted({f for g in a.files for f in glob.glob(g)})
     if not files:
         raise SystemExit("no goalserve files matched")
-    ev, audit = open_events(files)
     drops = collections.Counter()
+    polls = load_polls(a.poll_log, drops)
+    if not polls:
+        raise SystemExit("no polls read from --poll-log")
+    ev, audit = open_events(files, polls)
     idx = mk_index(load_pm(a.pm))
     sel, ml = {}, {}
     for (eid, kind, t, rise, h, a_, game) in ev:
@@ -135,8 +159,12 @@ def main():
             continue
         for r in counted_lines(p, drops, "pm_books"):
             tk, tms = r.get("tk") or r.get("asset"), r.get("recv_ms") if r.get("recv_ms") is not None else r.get("ms")
-            if tk not in need or tms is None:
+            if tk not in need:
                 continue
+            if tms is None:
+                drops["book_rows_no_time"] += 1
+                continue
+            drops["pm_book_rows_time_from_recv_ms" if r.get("recv_ms") is not None else "pm_book_rows_time_from_ms"] += 1
             b = [float(x["price"]) for x in r.get("bids") or []]
             s = [float(x["price"]) for x in r.get("asks") or []]
             if not b or not s:
@@ -197,7 +225,9 @@ def main():
                 drops["events_no_placebo"] += 1
                 continue
             mp = sum(pl) / len(pl)
-            cells["%s|%s" % (game, kind)][eid].append((r0 - mp, 1.0 if r0 > mp else 0.0, None, r0, mp))
+            if r0 == mp:
+                drops["events_tie_d_zero"] += 1
+            cells["%s|%s" % (game, kind)][eid].append((r0 - mp, 1.0 if r0 > mp else 0.0, None, r0, mp, t, eid, rise, tk))
 
     def mean(x):
         return sum(x) / len(x) if x else None
@@ -212,7 +242,10 @@ def main():
         return [out[int(.025 * n)], out[int(.975 * n)]]
 
     res = dict(seed=a.seed, plant_c=a.plant_c, clock_note=a.clock_note, files=len(files), goalserve_events_total=len(ev), drops=dict(drops), audit=audit, cells={},
+               poll_interval_measured=poll_gaps(a.poll_log), primary_cells=list(PRIMARY),
+               wording="Only primary cells can be called a pass. Say 'odds moved before the price within the 60 s window' or 'did not'; never 'lead of N seconds' (windows cannot resolve under about 5 s). Bookmaker not identified (bm empty; vendor docs say bet365). d is volatility-matched (sign-symmetric placebo), not momentum-matched.",
                match_list=sorted(ml.values(), key=lambda r: (str(r["eid"]), r["kind"])))
+    big = (0, None, [])
     for cell, by in sorted(cells.items()):
         evs = [e for k in by for e in by[k]]
         n_m, n_e = len(by), len(evs)
@@ -221,7 +254,7 @@ def main():
         share = 100.0 * sum(e[1] for e in evs) / n_e
         ex = [e[0] - md + a.plant_c for e in evs]
         plant_ok = bool(ci and ci[0] - md + a.plant_c > 0 and a.plant_c >= MIN_EFFECT and 100.0 * sum(1 for x in ex if x > 0) / n_e >= MIN_SHARE)
-        c = dict(n_matches=n_m, n_events=n_e, mean_d_per_match=md, ci95_match_boot=ci, share_events_real_gt_placebo_pct=share,
+        c = dict(role="primary" if cell in PRIMARY else "informational (cannot be called a pass)", n_matches=n_m, n_events=n_e, mean_d_per_match=md, ci95_match_boot=ci, share_events_real_gt_placebo_pct=share,
                  mean_R_real=mean([e[3] for e in evs]), mean_R_placebo=mean([e[4] for e in evs]),
                  plant_c=a.plant_c, plant_detected=plant_ok, min_detectable_effect=(md - ci[0]) if ci else None,
                  events_per_match=sorted((len(v) for v in by.values()), reverse=True)[:10])
@@ -235,7 +268,13 @@ def main():
             c["verdict"] = "PM moved first (needs audit)"
         else:
             c["verdict"] = "no lead detected (needs audit)"
+        if cell not in PRIMARY:
+            c["verdict"] = "(informational) " + c["verdict"]
+        c["ties_d_zero"] = sum(1 for e in evs if e[0] == 0)
         res["cells"][cell] = c
+        if n_e > big[0]:
+            big = (n_e, cell, sorted(evs, key=lambda e: e[5])[:20])
+    res["first20_events_biggest_cell"] = dict(cell=big[1], rows=[dict(t=e[5], match=e[6], rising_team=e[7], token=e[8], R_real=e[3], placebo_mean=e[4], d=e[0]) for e in big[2]])
     json.dump(res, open(a.out, "w"), indent=1)
     print(json.dumps({k: v for k, v in res.items() if k != "match_list"}, indent=1))
     print("match_list rows:", len(res["match_list"]))
