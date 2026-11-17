@@ -59,7 +59,7 @@ async def main():
         {"asset_id": "N1", "side": "SELL", "price": "0.58", "size": "50"}]})
     ok("T2 NO update touches only the NO book", touched == ["N1"] and lg.books["Y1"].bids == yb_before
        and lg.books["N1"].best_ask() == 0.58)
-    ok("T2 NO update triggers no detector run", lg.asset_event.get("N1") is None and not lg.runs)
+    ok("T2 NO update re-checks the event, but opens no run without an edge", lg.asset_event.get("N1") == "1" and not lg.runs)
 
     lg.apply(3.0, book("Y2", 10, [0.40], [0.45]))
     lg.apply(3.0, book("N2", 10, [0.55], [0.60]))
@@ -70,6 +70,51 @@ async def main():
     ok("T3 planted NO 2c below mirror: mirror=False, stored NO ask kept",
        r1["mirror"] is False and r1["n_ask"] == 0.58 and abs((1 - r1["y_bid"]) - r1["n_ask"]) > 0.01)
     ok("T3 NO equal to mirror: mirror=True", r2["mirror"] is True)
+    # T4 planted edge on the NO tokens' own asks: n = 2 legs, NO set pays 1, own asks 0.40 + 0.40 -> edge 0.20
+    lg2 = sl.Logger(tempfile.mkdtemp(), ["sports"], 0.0, 4, 0)
+    lg2.stream = fake_stream
+    await lg2.refresh()
+    for tok, bid, ask in (("Y1", 0.40, 0.45), ("Y2", 0.40, 0.45)):
+        lg2.apply(1.0, book(tok, 10, [bid], [ask]))
+    lg2.apply(1.0, book("N1", 10, [0.55], [0.40]))
+    lg2.apply(1.0, book("N2", 10, [0.55], [0.40]))
+    lg2.check(1.0, "1")
+    run = lg2.runs.get(("1", "no"))
+    ok("T4 planted NO own-ask edge opens a NO run priced at the NO asks",
+       run is not None and run["assets"] == ["N1", "N2"] and run["quotes0"] == [[0.40, 100.0], [0.40, 100.0]]
+       and run.get("own_book") is True and abs(run["px0"] - 0.80) < 1e-9)
+    # T5 mirror-only edge: YES bids 0.60 + 0.60 would make a mirrored NO set cost 0.80, but the NO tokens'
+    # own asks are 0.55 + 0.55 = 1.10 -> NO run must NOT open (a derived price would have opened one)
+    lg3 = sl.Logger(tempfile.mkdtemp(), ["sports"], 0.0, 4, 0)
+    lg3.stream = fake_stream
+    await lg3.refresh()
+    for tok in ("Y1", "Y2"):
+        lg3.apply(1.0, book(tok, 10, [0.60], [0.65]))
+    lg3.apply(1.0, book("N1", 10, [0.30], [0.55]))
+    lg3.apply(1.0, book("N2", 10, [0.30], [0.55]))
+    lg3.check(1.0, "1")
+    ok("T5 YES-mirror edge with no NO-ask edge opens no NO run", ("1", "no") not in lg3.runs)
+    # T6 sim: an own_book NO run is filled from the NO tokens' own asks (hand value 100 x (1 - 0.80) = 20);
+    # a legacy NO run (no own_book flag) is skipped and counted, never priced from the YES mirror
+    import gzip, subprocess
+    d = tempfile.mkdtemp()
+    legs = [dict(mkleg(1), fee_rate=0.0), dict(mkleg(2), fee_rate=0.0)]
+    json.dump({"t": 0, "id": "1", "title": "t", "complete": True, "n_markets": 2, "legs": legs}, open(os.path.join(d, "events.jsonl"), "w"))
+    T0 = 1792800000.0
+    with gzip.open(os.path.join(d, "raw-2026102500.jsonl.gz"), "wt") as f:
+        f.write(json.dumps({"r": T0 - 1, "m": [book("Y1", 1, [0.30], [0.70]), book("Y2", 1, [0.30], [0.70]),
+                                                book("N1", 1, [0.30], [0.40]), book("N2", 1, [0.30], [0.40])]}) + "\n")
+        f.write(json.dumps({"r": T0 + 5, "m": book("N1", 2, [0.30], [0.40])}) + "\n")
+    base = {"event": "1", "side": "no", "title": "t", "t0": T0, "t1": T0 + 1, "dur": 1, "cost0": 0.80, "px0": 0.80,
+            "fee0": 0.0, "edge_full_fee": 1, "payout": 1, "size0": 100.0, "quotes0": [[0.40, 100.0], [0.40, 100.0]]}
+    with open(os.path.join(d, "runs.jsonl"), "w") as f:
+        f.write(json.dumps(dict(base, assets=["N1", "N2"], own_book=True)) + "\n")
+        f.write(json.dumps(dict(base, assets=["Y1", "Y2"], t0=T0 + 50)) + "\n")
+    out = subprocess.run([sys.executable, os.path.join(HERE, "shadow_sim.py"), "--data", d, "--delays", "0"],
+                         capture_output=True, text=True).stdout
+    ok("T6 own_book NO run filled from NO asks: pnl 20.00", "side=no delay=     0" in out and "sim=$    20.00" in out)
+    ok("T6 legacy NO run skipped and counted", "skipped 1 legacy NO runs" in out)
+    print(out[-600:] if fails else "")
     print("FAILED" if fails else "ALL PASS")
     return 1 if fails else 0
 
