@@ -372,7 +372,7 @@ APPROVALS NEEDED: none; P15d is read-only and was run as instructed.
 RESULT
 - Pre-run data-volume free space was 42,678,349,824 bytes at the 12:56Z P15b2 check; at the P15d check 13:00Z it was 42,225,184,768 bytes (>20 GB). Code commit `1cb5c8474b1f64040ec0a8978d866f5b5bc43e2e` is present on origin.
 - Source files and checksums: `feeds/goalserve_odds_vs_pm.py` `a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5`; `feeds/test_goalserve_odds_vs_pm.py` `b977ea1bea9edb4aa63b5444da87a1fda08b068e5ff3542f4370fd99cfc97e8e`; `feeds/ps_lead_test.py` `0cbd918ed6e346c91293edbac8f648a30c47a5b3e244fb8af7a08f81804cfc99`.
-- Correction (13:01Z): the measured 13:00Z preflight was not a P15d blocker. Data-volume free space was above the stated 20 GB threshold; the task requires the test itself to run four times and only forbids other jobs during those reads. This session was bounded to the selected P15b2 OPEN row and ended after completing it, so P15d was not started. No P15d test, copy, or partial output was produced; no script/process/config was changed. The earlier sentence interpreting the large, active books file as a safety gate is withdrawn.
+- Correction (13:02Z): P15d was not started in this session because the selected OPEN item was P15b2, and the run procedure requires one row per session and END after its completion. The 13:00Z data-volume check was above the required 20 GB; three local esports hours were present. No P15d test, copy, partial output, or configuration/process change was made. The earlier claim that the active 19.46 GB books file was a P15d blocker is withdrawn.
 
 DATA
 - Measured prerequisites: data-volume free bytes 42,225,184,768; PM files `markets.jsonl` 3,112,241 bytes and `books.jsonl` 19,460,079,096 bytes at 13:00Z; 3 local Goalserve esports hour files.
@@ -381,4 +381,4 @@ DATA
 OPEN / NOT VERIFIED
 - The four result JSONs and run logs were not produced; no P15d run was attempted. The note's copy/run gate remains unfulfilled.
 
-Count: notes run 1 (P15b2), outstanding 1 (P15d not started; data/read-volume gate), PENDING open 0
+Count: notes run 1 (P15b2), outstanding 1 (P15d not started in this single-row session), PENDING open 0
