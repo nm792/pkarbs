@@ -54,3 +54,8 @@ Kalshi (A6) is used in `agent/tasks/TASK-mention-books-2026-11-10.md:1,14` and `
 4. Every later reply cites the SETTLED.md commit in its first lines.
 5. Any claim that contradicts this file is a REPEAT and is returned unread. To change a settled item, bring a primary source to the Reviewer; fixed facts change only on Nick's word.
 6. Tests: a test built on the same assumption as the code cannot find that assumption. Every test that touches A1 must contain a case where the NO book differs from 1 - YES and must fail if NO is read from YES.
+
+## Nick's fact: dead buckets (recorded 18 Nov 2026 18:15Z; Nick 17:52Z: "i already told you at least 24 hours ago that 0.9999 prices meant dead buckets")
+- **A Polymarket bucket or outcome priced at 0.99 or above (or, from the other side, at 0.01 or below) is dead.** The market has already settled it in practice.
+- **A decision or look on a dead bucket is a late trigger.** It is never "no EV", never "nothing to buy", never "no edge", and never a finding. Count such decisions separately and leave them out of every refusal, EV or edge analysis. The question they raise is why the model triggered so late.
+- REPEAT logged against the Reviewer, who re-presented dead-bucket refusals as analysis on 18 Nov (trading-test REVIEW-2026-11-18-32-refusals-explain faf2c7af, refusals-vs-public-prints ce08b5ab).
