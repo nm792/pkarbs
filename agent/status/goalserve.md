@@ -106,3 +106,10 @@ $ ls -1 <folder> | wc -l
 ```
 
 Largest measured consumers are `pkarbs/thesports` (40G) and `pkarbs/scratch` (8.4G). No files or processes were changed and nothing was deleted. Reviewer deletion list is still required before P18 is reopened.
+
+## G inventory (18 Nov) — waiting
+
+- The prescribed `git pull -q` failed because the checkout has local changes in tracked files and untracked files that would be overwritten. Exact error: `error: Your local changes to the following files would be overwritten by merge:`; `error: The following untracked working tree files would be overwritten by checkout:`; `Aborting`. No stash or cleanup was performed.
+- The inventory was not run. The command's script is present on the fetched origin branch but absent from the stale local checkout; following the task gate, no workaround or retry was attempted.
+- At 2026-11-18 05:04Z, `df -h / /mnt/HC_Volume_107257520` showed root 13G free and data volume 27G free.
+- Status: waiting for a safe checkout/pull; no inventory output is claimed.
