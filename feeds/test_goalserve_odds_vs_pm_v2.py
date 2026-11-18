@@ -12,10 +12,10 @@ def check(n, c):
     print(("PASS " if c else "FAIL ") + n)
     if not c: fails.append(n)
 
-def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True, outage=False, fname="esports_2026120723.jsonl.gz"):
+def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True, outage=False, fname="esports_2026120723.jsonl.gz", sport="esports"):
     rnd = random.Random(seed)
     tmp = tempfile.mkdtemp(); pmd = os.path.join(tmp, "pm"); os.makedirs(pmd)
-    T0 = 1794960000.0 + 3600.0      # inside the locked data window (T_START 2026-11-18T00:00Z)
+    T0 = 1794960000.0 + 3600.0 + (86400.0 if sport == "tennis" else 0.0)      # inside the locked data window (T_START 2026-11-18T00:00Z)
     markets, tl, books = [], [], []
     for i in range(N):
         A, B = "Team A%d" % i, "Team B%d" % i
@@ -66,18 +66,18 @@ def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True, outage
         te3 = sorted(x[0] for x in tl if x[1] == 3 and x[2] in ((1.6, 2.4), (2.4, 1.6)))[1]    # 2nd true odds event of match 3
         gap = (te3 - 60, te3 + 0.01)
     pl = os.path.join(tmp, "polls"); os.makedirs(pl)
-    hmark = fname[len("esports_"):len("esports_") + 10]
+    hmark = fname[fname.index("_") + 1:fname.index("_") + 11]
     t_last_end = calendar.timegm(time.strptime(hmark, "%Y%m%d%H")) + 3600.0
     t_data_end = max(tt for (tt, _, _, _) in tl)
     with open(os.path.join(pl, "goalserve_2026111800.jsonl"), "w") as f:
         x = T0 + 0.5
         while x < t_data_end + 5:
             if not (gap and gap[0] <= x <= gap[1]):
-                f.write(json.dumps({"esports": {"recv_ns": int(x * 1e9)}}) + "\n")
+                f.write(json.dumps({sport: {"recv_ns": int(x * 1e9)}}) + "\n")
             x += 2.0
         if t_last_end - 5 > t_data_end + 5:      # sparse polls out to the end of the target day (+60 s), only the last hour is polled
             for x in (t_last_end - 30, t_last_end - 5, t_last_end + 60):
-                f.write(json.dumps({"esports": {"recv_ns": int(x * 1e9)}}) + "\n")
+                f.write(json.dumps({sport: {"recv_ns": int(x * 1e9)}}) + "\n")
     # one heartbeat payload per hour (unchanged odds), so no polled hour is without a file (real data has a file in almost every hour)
     merged = [(tt, i_, st_, su_) for (tt, i_, st_, su_) in tl]
     h0 = int((T0 - 1794960000.0) // 3600)
@@ -93,7 +93,7 @@ def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True, outage
         evs = {}
         for j in range(N):
             (o1, o2), s_ = cur[j]
-            mk = {"1": {"id": 1, "name": "Home/Away", "suspend": s_, "participants": {
+            mk = {"1": {"id": 1, "name": "To Win" if sport == "tennis" else "Home/Away", "suspend": s_, "participants": {
                     "11": {"id": 11, "name": "Home", "value_eu": o1, "suspend": 0},
                     "12": {"id": 12, "name": "Away", "value_eu": o2, "suspend": 0}}},
                   "4": {"id": 4, "name": "Odd/Even (1st map)", "suspend": 0, "participants": {
@@ -102,7 +102,7 @@ def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True, outage
         byhour.setdefault(time.strftime("%Y%m%d%H", time.gmtime(t_)), []).append(json.dumps({"recv_ns": int(t_ * 1e9), "body": json.dumps({"bm": "", "events": evs})}))
     gdir = os.path.join(tmp, "gs"); os.makedirs(gdir)
     for k_, rows_ in sorted(byhour.items()):
-        with gzip.open(os.path.join(gdir, "esports_%s.jsonl.gz" % k_), "wt") as g:
+        with gzip.open(os.path.join(gdir, "%s_%s.jsonl.gz" % (sport, k_)), "wt") as g:
             for r_ in rows_:
                 g.write(r_ + "\n")
             if k_ == sorted(byhour)[0]:
@@ -160,6 +160,15 @@ tmpb, gdb, pmb, plb = build(15.0, fname="esports_2026111800.jsonl.gz")
 r0 = subprocess.run([sys.executable, "-I", os.path.join(here, "goalserve_odds_vs_pm_v2.py"), "--files", os.path.join(gdb, "*.jsonl.gz"), "--pm", pmb, "--poll-log", os.path.join(plb, "*.jsonl"), "--clock-note", "x", "--out", os.path.join(tmpb, "x.json")], capture_output=True, text=True)
 shutil.rmtree(tmpb, ignore_errors=True)
 check("no complete UTC day yet (last hour file is 2026-11-18 00h): the script refuses to run (no look 0)", r0.returncode != 0 and "outside 1..20" in (r0.stderr + r0.stdout))
+tt_, gt_, pt_, plt_ = build(15.0, fname="tennis_2026112023.jsonl.gz", sport="tennis", N=25, K=5)
+outt = os.path.join(tt_, "t.json")
+rt = subprocess.run([sys.executable, "-I", os.path.join(here, "goalserve_odds_vs_pm_v2.py"), "--sport", "tennis", "--files", os.path.join(gt_, "*.jsonl.gz"), "--pm", pt_, "--poll-log", os.path.join(plt_, "*.jsonl"), "--clock-note", "selftest", "--out", outt], capture_output=True, text=True)
+if rt.returncode != 0: print(rt.stderr[-600:])
+jt = json.load(open(outt)) if os.path.exists(outt) else {}
+shutil.rmtree(tt_, ignore_errors=True)
+ct = jt.get("cells", {}).get("tennis|Match Winner", {})
+check("tennis: --sport tennis reads 'To Win' + tennis hour files, look 2 (data from 19 Nov), primary cell tennis|Match Winner exists with matches and events", rt.returncode == 0 and jt.get("sport") == "tennis" and jt.get("look") == 2 and jt.get("primary_cells") == ["tennis|Match Winner"] and ct.get("n_matches_used", 0) >= 20 and ct.get("n_events", 0) >= 60)
+check("tennis: the +15 s edge gives positive z_eq and the +c plant is recovered on the tennis path", (ct.get("z_eq") or 0) > 0 and (ct.get("plant_recovery") or {}).get("plus_ok") is True)
 tmps, gds, pms, pls = build(15.0, fname="esports_2026111800.jsonl.gz")
 outs = os.path.join(tmps, "s.json")
 rs = subprocess.run([sys.executable, "-I", os.path.join(here, "goalserve_odds_vs_pm_v2.py"), "--smoke", "--files", os.path.join(gds, "*.jsonl.gz"), "--pm", pms, "--poll-log", os.path.join(pls, "*.jsonl"), "--clock-note", "x", "--out", outs], capture_output=True, text=True)
