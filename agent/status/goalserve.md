@@ -120,3 +120,24 @@ Largest measured consumers are `pkarbs/thesports` (40G) and `pkarbs/scratch` (8.
 - Per P18's explicit stop rule, the smoke, compile and tests were not run; no data-volume output was created and no pull, stash or cleanup was attempted.
 - The exact 02:12Z command recorded in the earlier P18 reply was `df -B1 --output=avail /mnt/HC_Volume_107247271`; it reported 10,917,199,872 bytes. The P18 note's named data-volume path is `/mnt/HC_Volume_107257520`, so the recorded command measured the other mount.
 - Status: waiting for the two required files to be present in the prescribed checkout; no smoke result is claimed.
+
+
+## E1 smoke (18 Nov 06:14Z)
+
+Status: **run attempted; required smoke pass condition not met.**
+
+- Data-volume gate passed at 06:14Z: 26,427,822,080 bytes available (>20 GB).
+- Exported `feeds/` from the fetched project branch tip `7ca1509d736a2349c3097c0b58b8da1b3fcfcfeb` into a fresh scratch directory; the checkout was not modified. Source SHA-256: `goalserve_odds_vs_pm_v2.py` `8885752f54c3dc0c13cc0b60270fa76698b2fc1aca1746b8e1f8f95357f5fd4c`; test `04f46d566359930851db9a8cfb77dd2453b4c90b4c346bc85aa3053275d3f6b1`.
+- `py_compile` passed and the self-test printed `ALL PASS`.
+- Smoke command exited 1 at 06:18Z. Exact output: `look K=-1 is outside 1..20 (no complete UTC day since 2026-11-18 or past the last look)`. No `smoke.json` was produced; therefore `files > 0` and `NO_TRACEBACK` pass criteria were not established. The final 600 bytes had no traceback/error text, but this does not change the failed run.
+- No cells or verdicts were read or reported. No other data-volume job was started by this run.
+
+Evidence: `agent/status/goalserve.md` section `E1 smoke (18 Nov 06:14Z)`; self-test and smoke logs in the P18 scratch output directory on the data volume.
+
+
+## G inventory (18 Nov) — completed
+
+- Ran the G2 read-only inventory script from the fetched origin branch copy, without pulling, stashing, cleaning, or changing the pkarbs checkout.
+- `df -B1 --output=avail` on the data volume: 29,353,795,584 bytes available.
+- Script exit=0; stdout 732 bytes; stderr empty. It found recorder directories: cricket (22 events, books 2026-11-05 15:10–17:46Z), scratch/reexport_full (cricket 35, cs2 110, dota2 67, lol 4, nba 27, nfl 14, tennis 1545; no books file), tennis (133 events, books 2026-11-05 15:10–21:10Z), and final-topics-32295b (cricket 101, cs2 397, dota2 168, lol 7, nba 73, nfl 27, tennis 3839; books 2026-11-08 00:11Z–2026-11-18 06:27Z).
+- Evidence: `/mnt/HC_Volume_107257520/pkarbs/scratch/P18-20261118/inventory.out`; script copied from `feeds/pm_recorder_inventory.py` at fetched origin tip.
