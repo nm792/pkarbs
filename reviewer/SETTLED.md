@@ -14,6 +14,7 @@ Why this file exists: each new session rebuilds its picture from this repo, and 
 5. **MECE gaps appear at transitions** (data releases, deciding events, score changes). A scan on a fixed time grid cannot pass; it samples between transitions.
 6. **Kalshi is not relevant here.**
 7. **Never trade or stage orders.** Ask Nick before any code or bot change.
+8. **Never infer availability or edge from a book read after resolution or after the decision moment (Nick, 18 Nov 07:32Z).** A book read once the outcome is decided, or at any time after the decision, says nothing about what was available at the decision. It cannot support "no asks", "can never fill" or "no edge". Any such claim is refused as a REPEAT. The only valid evidence is the book logged at the decision moment.
 
 ## B. Settled decisions and agreed lessons
 
