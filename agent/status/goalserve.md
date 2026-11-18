@@ -155,3 +155,24 @@ Evidence: `agent/status/goalserve.md` section `E1 smoke (18 Nov 06:14Z)`; self-t
 - No `*_STOP.log` existed. Available space on the data volume: 28,013,322,240 bytes.
 - Latest tennis JSONL structure: outer keys `body`, `recv_ns`; `body` is a string containing JSON. No key, URL, or credential was output.
 - Full command output for this check is retained in the session output, not committed; only the requested summary is recorded here.
+
+
+## I tennis probe (18 Nov)
+
+- Export commit: `322d8129253ea9b12d9f8b53e7126f3ae3d0ca07`; `feeds/gs_sport_probe.py` present, SHA-256 `5bc8d9dc2665254af0d0de19eff638c7efd34714446b8f78b9fca2947ac81304`.
+- Local 06/07 hour files were absent; retrieved the exact two files from the existing `<box>` copy. No capture or configuration was changed.
+- Probe exit 0; files=2, polls=44709, events=0, counters rows=3752, `market_names_used {}`, `league_prefixes_seen {"unparsed": 95671}`. No events matched the parser; no tennis verdict or market match is claimed. The probe itself truncates `market_names_excluded` to 1,500 characters.
+- Full stdout follows verbatim. Raw output: `/mnt/<data-volume>/pkarbs/scratch/P26-20261118/probe.out`.
+
+```text
+files 2 polls 44709 events 0
+counters {"rows": 3752}
+bm_values {"''": 3752}
+market_names_used {}
+market_names_excluded {"To Win": 94405, "Odd/Even": 90712, "Next Break Serve": 61650, "Go The Distance?": 50510, "Set 1 Winner": 49665, "Set 2 Winner": 47609, "Game Winner (1st Set)": 44883, "Game to Deuce (1st Set)": 44869, "Game Score (1st Set)": 44869, "Game Winner (2nd Set)": 39266, "Set 2 Score": 39260, "Game to Deuce (2nd Set)": 39260, "Total Sets": 34627, "Correct Score (1st Set)": 29433, "Set 1 Correct Score Group": 29240, "Set 1 Race to": 26999, "Set 1 to Break Serve": 25300, "Set 2 to Break Serve": 24569, "Set 1 Correct Score Any Player": 24122, "Set 1 Score after 6 Games": 21472, "Set 2 Race to": 21296, "Set 1 Lead after": 20458, "Set 2 Correct Score Any Player": 20347, "Correct Score Group (2nd Set)": 19762, "Correct Score Any Player (2nd Set)": 17818, "Set 1 Score after 4 Games": 16070, "Score after 6 Games (2nd Set)": 15882, "Lead after (2nd Set)": 14621, "Set Betting": 13311, "Score after 4 Games (2nd Set)": 11520, "Player 1 To Win in Straight Sets": 8583, "Setcast": 8583, "Double Result": 8583, "Player 2 To Win in Straight Sets": 8563, "Total Games in Set 1": 8161, "Set 1 Handicap": 7921, "Total Games in Set 2": 4728, "Set 2 Handicap": 4728, "Game Score (3rd Set)": 4291, "Game to Deuce (3rd Set)": 4291, "Game Winner (3rd Set)": 4291, "Total Tie Breaks In Match": 3838, "Tie Break Handicap": 3838, "Tie Break Score": 3838, "Correct Score Group (3rd Set)": 3684, "Correct Score (3rd Set)": 3684, "Tie Break - Total Points (1st Set)": 3366, "Tie Break Score (1st Set)": 3366, "Tie Break Sc
+league_prefixes_seen {"unparsed": 95671}
+sample teams Alberto Odiseo Alvarado Berrospi | Alan Fernando Rubio Fierros
+sample teams Hao Sheng Koay | Gunawan Trismuwantara
+sample teams Natsuki Yamamoto | Shaheed Alam
+league strings [["M15 Antalya", 15477], ["M15 Hua Hin", 11865], ["M15 Kuala Lumpur MD", 10251], ["UTR Pro Yokohama", 8681], ["Challenger Kobe MD", 8334], ["M25 Heraklion", 7260], ["UTR Pro Yokohama Women", 6433], ["W50 Heraklion", 6247], ["M25 Bhubaneswar", 4355], ["W75 Sydney WD", 3531], ["M25 Bhubaneswar MD", 3146], ["M15 Kuala Lumpur", 3068]]
+```
