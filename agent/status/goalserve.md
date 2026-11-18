@@ -29,3 +29,80 @@
 
 - At 2026-11-18 02:12Z, available bytes on the data volume: 10,917,199,872. The required gate is >20 GB free; it failed. No pull, scratch creation, compile, test, smoke run, or other data-volume job was started.
 - Result: NOT RUN. Reopen P18 only after the data-volume gate is met.
+
+
+## Disk inventory (18 Nov)
+
+Capture time: 2026-11-18 04:35Z. P18 measured the data-volume mount at 10,917,199,872 bytes free at 02:12Z; the same mount is `/mnt/HC_Volume_107257520` and now reports 28G free (above P18's 20 GB gate). This inventory does not authorize deletion or by itself reopen P18; no deletion list was produced.
+
+`df -B1 -h / /mnt/HC_Volume_107247271 /mnt/HC_Volume_107257520`:
+```text
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        38G   23G   13G  65% /
+/dev/sdb         49G   37G   11G  79% /mnt/HC_Volume_107247271
+/dev/sdc         98G   69G   28G  74% /mnt/HC_Volume_107257520
+```
+
+Data-volume depth-2 usage (`du -sh --max-depth=2` failed: `du: summarizing conflicts with --max-depth=2`; GNU du rejects `-s` with `--max-depth`. Equivalent `du -h --max-depth=2`, sorted descending, top 40):
+```text
+66G	/mnt/HC_Volume_107257520
+60G	/mnt/HC_Volume_107257520/pkarbs
+40G	/mnt/HC_Volume_107257520/pkarbs/thesports
+8.4G	/mnt/HC_Volume_107257520/pkarbs/scratch
+6.4G	/mnt/HC_Volume_107257520/pkarbs/from-vol
+3.2G	/mnt/HC_Volume_107257520/pkarbs-ps-step2
+2.8G	/mnt/HC_Volume_107257520/pkarbs-ps-step2/rn1
+1.9G	/mnt/HC_Volume_107257520/pkarbs/tennis
+1.5G	/mnt/HC_Volume_107257520/pkarbs/thesports-cricket
+650M	/mnt/HC_Volume_107257520/pkarbs/charts
+432M	/mnt/HC_Volume_107257520/pkarbs/dotacap
+327M	/mnt/HC_Volume_107257520/pkarbs/goalserve
+275M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/winmodels
+140M	/mnt/HC_Volume_107257520/pmhl5s
+115M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/live
+94M	/mnt/HC_Volume_107257520/weekend-perps
+88M	/mnt/HC_Volume_107257520/pkarbs/lol
+64M	/mnt/HC_Volume_107257520/.p4-20261116T2246Z
+46M	/mnt/HC_Volume_107257520/pkarbs/goalserve-audit-20261117
+18M	/mnt/HC_Volume_107257520/pkarbs/oddspapi
+17M	/mnt/HC_Volume_107257520/oddspapi
+16M	/mnt/HC_Volume_107257520/oddspapi/hist
+13M	/mnt/HC_Volume_107257520/nt_live_fire
+9.3M	/mnt/HC_Volume_107257520/nvda-huang
+9.2M	/mnt/HC_Volume_107257520/nvda-huang/raw
+8.8M	/mnt/HC_Volume_107257520/pkarbs/cricket
+7.0M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/rugby
+5.6M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/reports
+3.9M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/agent
+3.5M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/weekend-perps
+3.4M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/mentions
+2.9M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/chess
+1.7M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/forecast-edges
+1.3M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/reviews
+688K	/mnt/HC_Volume_107257520/nt_live_fire/.t40a-stage-224410
+664K	/mnt/HC_Volume_107257520/nt_live_fire/live
+632K	/mnt/HC_Volume_107257520/pkarbs-ps-step2/shadow
+604K	/mnt/HC_Volume_107257520/pkarbs-ps-step2/agent
+456K	/mnt/HC_Volume_107257520/pkarbs/mentions
+```
+
+`ship_raw` check: no live `ship_raw.sh` process found (the first `pgrep -af` invocation also matched its own checker command; that self-match was excluded). Crontab has:
+```text
+50:*/30 * * * * SHIP_HOME=/root/ship /root/ship/ship_raw.sh >> /root/ship/ship.log 2>&1  # note 252
+```
+
+`/root/ship/writers.conf` identifies the `goalserve` source folder as `/mnt/HC_Volume_107257520/pkarbs/goalserve`. Listing results:
+```text
+$ ls -1t <folder> | head -3
+goalserve_20261117.jsonl
+tennis_payloads
+hockey_nhl_payloads
+$ ls -1t <folder> | tail -3
+hockey_nhl_payloads
+esports_payloads
+basketball_payloads
+$ ls -1 <folder> | wc -l
+5
+```
+
+Largest measured consumers are `pkarbs/thesports` (40G) and `pkarbs/scratch` (8.4G). No files or processes were changed and nothing was deleted. Reviewer deletion list is still required before P18 is reopened.
