@@ -22,3 +22,10 @@ Nick: "i already told you I am not waiting hours just to see failed tests over a
 - If any figure is implausible (a coin missing, a maker with no quotes on a live book, fills far below what the volume allows), **kill the run, find the cause with file and line, fix and rerun at once** (paper-only, no Nick Go, B7).
 - **Never report or relay numbers from a run that has not passed this check.** A report without the committed 15-minute check is INVALID.
 - The Reviewer checks this first on every 5-minute run (price-and-plausibility before plumbing).
+
+## STANDING RULE: pre-run gate, no gate no run (Nick, 18 Nov 2026 18:20Z)
+Nick: "I told you no more tests that cannot be of any use". Cause: MFW S1-S5 makers could never post (DESIGN.md:31, live_score.py:104-105: bid + 0.01 on a 1-tick book = the ask); the Reviewer never desk-checked it.
+- **Before any run**, each rule must be shown on a **recorded live book** (committed snapshot) to: (1) place an order, (2) get a fill from the recorded prints, and (3) be able to fail as well as pass (a planted case where it must not post or must lose).
+- The project commits this gate output beside the spec. The **Reviewer desk-checks spec and code against it before clearance**: can every rule post and fill on a real book, and can the test fail?
+- **No gate, no run.** A run without a committed, Reviewer-checked gate is INVALID and its numbers are never reported.
+- Then the 15-minute plausibility check applies once the run starts.
