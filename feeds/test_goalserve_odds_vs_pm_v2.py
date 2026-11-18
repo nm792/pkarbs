@@ -5,22 +5,22 @@ PM: the rising team's own token jumps +3c at t+SHIFT (mode 'mirror': the other t
 TRAP: after each true event the market is suspended 100 s later and reopens 110 s later at a different price; PM does not react. v1 counted that reopen jump as an event; v2 must not.
 Checks: event count exact (trap not counted), baseline-cleared counted; planted +15 s meets the bar and the plant is recovered; no-edge never meets the bar over 20 seeds; PM-first (-20 s) is 'PM moved first'; own-book-only still meets the bar, other-side-only does NOT (no inference from the other book);
 match cap 40 applied and counted; too few matches = unknown."""
-import os, sys, gzip, json, tempfile, subprocess, random
+import os, sys, gzip, json, tempfile, subprocess, random, shutil
 here = os.path.dirname(os.path.abspath(__file__))
 fails = []
 def check(n, c):
     print(("PASS " if c else "FAIL ") + n)
     if not c: fails.append(n)
 
-def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True, outage=False):
+def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True, outage=False, fname="esports_2026120723.jsonl.gz"):
     rnd = random.Random(seed)
     tmp = tempfile.mkdtemp(); pmd = os.path.join(tmp, "pm"); os.makedirs(pmd)
-    T0 = 1_800_000_000.0
+    T0 = 1794960000.0 + 3600.0      # inside the locked data window (T_START 2026-11-18T00:00Z)
     markets, tl, books = [], [], []
     for i in range(N):
         A, B = "Team A%d" % i, "Team B%d" % i
         markets.append({"cond": "c%d" % i, "q": "%s vs %s" % (A, B), "smt": "moneyline", "outcomes": [A, B], "tokens": ["tA%d" % i, "tB%d" % i]})
-        t_first = T0 + i * 5000.0
+        t_first = T0 + i * 4000.0
         tl.append((t_first, i, (1.8, 2.2), 0))
         mids = {"tA%d" % i: [(t_first - 500, 0.5)], "tB%d" % i: [(t_first - 500, 0.5)]}
         up, last = True, t_first
@@ -73,7 +73,7 @@ def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True, outage
                 f.write(json.dumps({"esports": {"recv_ns": int(x * 1e9)}}) + "\n")
             x += 2.0
     gdir = os.path.join(tmp, "gs"); os.makedirs(gdir)
-    with gzip.open(os.path.join(gdir, "esports_2026111800.jsonl.gz"), "wt") as g:
+    with gzip.open(os.path.join(gdir, fname), "wt") as g:
         for (t, i, st, sus) in tl:
             cur[i] = (st, sus)
             evs = {}
@@ -89,20 +89,23 @@ def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True, outage
     return tmp, gdir, pmd, pl
 
 CELL = "cs2|Match Winner"
+LAST = [None]
 def run(shift, mode="mirror", react=True, seed=7, **kw):
     tmp, gdir, pmd, pl = build(shift, mode, react, seed, **kw)
+    LAST[0] = (tmp, gdir, pmd, pl)
     out = os.path.join(tmp, "res.json")
     r = subprocess.run([sys.executable, "-I", os.path.join(here, "goalserve_odds_vs_pm_v2.py"), "--files", os.path.join(gdir, "*.jsonl.gz"), "--pm", pmd, "--poll-log", os.path.join(pl, "*.jsonl"),
                         "--clock-note", "selftest", "--seed", str(seed), "--out", out], capture_output=True, text=True)
     if r.returncode != 0: print(r.stderr[-800:])
     j = json.load(open(out)) if os.path.exists(out) else None
+    shutil.rmtree(tmp, ignore_errors=True)
     return r, j, ((j or {}).get("cells", {}).get(CELL, {}))
 
 def meets(c): return str(c.get("verdict", "")).startswith("meets bar")
 
 r, j, c = run(15.0)
 check("planted +15 s run exits 0", r.returncode == 0)
-print("  +15 cell:", {k: c.get(k) for k in ("n_matches", "n_events", "mean_d_per_match", "ci95_match_boot", "share_events_real_gt_placebo_pct", "plant_detected", "min_detectable_effect", "verdict")})
+print("  +15 cell:", {k: c.get(k) for k in ("n_matches", "n_events", "mean_d_per_match", "z", "boundary_z", "share_events_real_gt_placebo_pct", "plant_detected", "min_detectable_effect_at_this_look", "verdict")})
 check("event count exact: 20 matches x 4 = 80 (suspend/reopen trap NOT counted)", j["goalserve_events_total"] == 80 and c.get("n_events") == 80)
 check("baseline cleared on suspended payloads (counted)", j["audit"]["counters"].get("baseline_cleared_not_valid_open", 0) >= 80)
 check("real names used, Odd/Even excluded and counted, bm '' reported", set(j["audit"]["market_names_used"]) == {"Home/Away"} and "Odd/Even (1st map)" in j["audit"]["market_names_excluded"] and "''" in j["audit"]["bm_values"])
@@ -117,7 +120,7 @@ check("capture outage (no polls for the 60 s up to one event): that event is NOT
 _, jn, cn = run(0.0, react=False)
 check("no-edge: not 'meets bar'; 1c plant detectable on this noise (verdict 'no lead detected')", not meets(cn) and cn.get("plant_detected") is True and str(cn.get("verdict", "")).startswith("no lead"))
 _, jf, cf = run(-20.0)
-print("  PM-first cell:", {k: cf.get(k) for k in ("mean_d_per_match", "ci95_match_boot", "plant_detected", "verdict")})
+print("  PM-first cell:", {k: cf.get(k) for k in ("mean_d_per_match", "z", "boundary_z", "plant_detected", "verdict")})
 check("PM moves 20 s BEFORE the odds -> 'PM moved first', never 'meets bar'", str(cf.get("verdict", "")).startswith("PM moved first") and not meets(cf))
 _, jo, co = run(15.0, mode="own_only")
 check("own book only (other token flat): still meets bar", meets(co))
@@ -127,6 +130,16 @@ _, jc, cc = run(15.0, K=50)
 check("cap: 50 events per match -> 40 kept, 200 dropped (20 matches x 10), counted", cc.get("n_events") == 800 and jc["drops"].get("events_dropped_by_match_cap") == 200)
 _, jt, ct = run(15.0, N=8)
 check("only 8 matches -> unknown (needs >= 12)", str(ct.get("verdict", "")).startswith("unknown"))
+_, jk1, ck1 = run(15.0, fname="esports_2026111823.jsonl.gz")
+check("look 1 (one complete day): boundary z = 2.39/sqrt(1/20) = 10.70 printed, look=1, plain_summary present", jk1["look"] == 1 and abs(jk1["boundary_z"] - 10.6885) < 0.01 and len(jk1["plain_summary"]) >= 1)
+_, jk1n, ck1n = run(0.0, react=False, fname="esports_2026111823.jsonl.gz")
+check("look 1 no-edge: never 'meets bar' (early look needs a huge effect)", not meets(ck1n))
+tmpb, gdb, pmb, plb = build(15.0, fname="esports_2026111800.jsonl.gz")
+r0 = subprocess.run([sys.executable, "-I", os.path.join(here, "goalserve_odds_vs_pm_v2.py"), "--files", os.path.join(gdb, "*.jsonl.gz"), "--pm", pmb, "--poll-log", os.path.join(plb, "*.jsonl"), "--clock-note", "x", "--out", os.path.join(tmpb, "x.json")], capture_output=True, text=True)
+shutil.rmtree(tmpb, ignore_errors=True)
+check("no complete UTC day yet (last hour file is 2026-11-18 00h): the script refuses to run (no look 0)", r0.returncode != 0 and "outside 1..20" in (r0.stderr + r0.stdout))
+_, jlate, clate = run(15.0, fname="esports_2026120923.jsonl.gz")
+check("after the last look (hour file 9 Dec 23h = look 22): the script refuses, no result file", jlate is None)
 SEEDS = range(1, 21)
 p15 = [meets(run(15.0, seed=s)[2]) for s in SEEDS]
 p0 = [meets(run(0.0, react=False, seed=s)[2]) for s in SEEDS]

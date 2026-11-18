@@ -15,11 +15,15 @@ Rules (locked before any new data is read):
     d_plant = d - (cell mean d) + 0.01. The plant is DETECTED if the V6 bar is met on d_plant (CI lower > 0, mean >= 0.005, share >= 55%). If not detected the cell verdict is capped at 'unknown (underpowered: a 1c edge would not be detected)'. min_detectable_effect = cell mean d - CI lower bound is reported.
  V9 (checker signoff 17 Nov 23:00Z) capture outage: --poll-log is REQUIRED; a payload whose preceding poll is more than 10 s earlier (or has none) CLEARS all baselines (counted: baseline_cleared_poll_gap_gt_10s), so the first price after an outage is never an event.
  V10 PRIMARY cells: cs2|Match Winner and dota2|Match Winner (alpha not corrected, 2 cells). All other cells are informational, printed with the prefix '(informational)', and cannot be called a pass. The real run omits --plant-c and --seed (the audit checks plant_c 0.01 and seed 20261118 in the JSON). Hand check: first20_events_biggest_cell is printed.
+ V12 (sequential, 18 Nov 01:40Z, Nick: check daily) Only payloads from 2026-11-18T00:00Z (T_START) count. Look number K = number of COMPLETE UTC days between T_START and the end of the last hour file given (read from the file names); data of an incomplete day is ignored. K is never a command-line option; K must be 1..20.
+    A look uses ALL complete days so far. Boundary z_K = C_OBF / sqrt(K/LOOKS) with C_OBF = 2.39 (simulated: P(any of 20 looks has Z >= C/sqrt(t)) = 0.0122 under the null, one-sided, per primary cell, so <= 0.025 over the 2 primary cells). Statistic z = cell mean d / SE, SE = standard deviation of the match-clustered bootstrap (5000 draws) of the cell mean.
+    'meets bar' needs z >= z_K plus the V6 conditions (12 matches, 60 events, mean d >= 0.005, share >= 55%); 'PM moved first' needs z <= -z_K; the V7 power check becomes z_K * SE < PLANT_C (a 1c edge would pass this look). Early looks therefore pass only on a very large effect. Looks 1..20 are on 19 Nov..8 Dec; no look after 20; a pass at any look is a pass, later looks never overturn it but the audit reads it.
+    Daily output for every cell: matches_by_day (matches with at least one usable event that day) and the cumulative count.
  V8 seed 20261118 (--seed only for the self test). Every verdict is UNCHECKED until the rule-to-code table is signed by another thread and an independent audit is done. Bookmaker is not identified (bm empty; vendor docs say bet365): say so with every result.
 Usage: python3 -I feeds/goalserve_odds_vs_pm_v2.py --files '<glob of esports_*.jsonl.gz>' --pm DIR [--pm DIR] --poll-log '<glob of goalserve_*.jsonl>' --clock-note 'text' --out result.json
 Self test: python3 -I feeds/test_goalserve_odds_vs_pm_v2.py
 """
-import argparse, bisect, collections, glob, json, os, random, sys
+import argparse, bisect, calendar, collections, glob, json, math, os, random, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ps_lead_test import norm, find, load_pm, mk_index
 from goalserve_odds_vs_pm import counted_lines, market_kind, num, med, poll_gaps
@@ -29,6 +33,8 @@ PLANT_C = 0.01
 MIN_MATCHES, MIN_EVENTS, MIN_EFFECT, MIN_SHARE = 12, 60, 0.005, 55.0
 OPEN = (0, "0", False, None)
 OUTAGE_S = 10.0
+T_START = 1794960000.0        # 2026-11-18T00:00:00Z: only data from here on is used (earlier data is already seen)
+LOOKS, C_OBF = 20, 2.39       # sequential rule V12: one look per complete UTC day, 20 looks; O'Brien-Fleming boundary z_k = C_OBF / sqrt(k/LOOKS)
 PRIMARY = ("cs2|Match Winner", "dota2|Match Winner")
 
 
@@ -43,7 +49,7 @@ def load_polls(globs, cnt):
     return sorted(ts)
 
 
-def open_events(files, polls):
+def open_events(files, polls, t_lo, t_hi):
     """-> events [(eid, kind, t_s, rising_team_norm, home, away, game)], audit counters. Baseline cleared whenever the market is not valid+open in a payload."""
     A = collections.Counter()
     seen, used, excl, bms, prefixes = (collections.Counter() for _ in range(5))
@@ -58,6 +64,9 @@ def open_events(files, polls):
                 d = json.loads(body)
             except Exception:
                 A["rows_bad_json"] += 1
+                continue
+            if not (t_lo <= t / 1e9 < t_hi):
+                A["payloads_outside_look_window"] += 1
                 continue
             A["rows"] += 1
             bms[repr(d.get("bm"))] += 1
@@ -134,7 +143,18 @@ def main():
     polls = load_polls(a.poll_log, drops)
     if not polls:
         raise SystemExit("no polls read from --poll-log")
-    ev, audit = open_events(files, polls)
+    hrs = []
+    for f in files:
+        m = re.search(r"esports_(\d{10})", os.path.basename(f))
+        if not m:
+            raise SystemExit("cannot read the hour from file name %s" % f)
+        hrs.append(calendar.timegm(__import__("time").strptime(m.group(1), "%Y%m%d%H")) + 3600.0)
+    K = int((max(hrs) - T_START) // 86400)
+    if not 1 <= K <= LOOKS:
+        raise SystemExit("look K=%d is outside 1..%d (no complete UTC day since 2026-11-18 or past the last look)" % (K, LOOKS))
+    t_hi = T_START + K * 86400.0
+    zb = C_OBF / math.sqrt(K / LOOKS)
+    ev, audit = open_events(files, polls, T_START, t_hi)
     idx = mk_index(load_pm(a.pm))
     sel, ml = {}, {}
     for (eid, kind, t, rise, h, a_, game) in ev:
@@ -232,16 +252,17 @@ def main():
     def mean(x):
         return sum(x) / len(x) if x else None
 
-    def boot(by, pick, n=2000):
+    def boot(by, pick, n=5000):
         ms = sorted(by)
         pm_ = {k: mean([pick(e) for e in by[k] if pick(e) is not None]) for k in ms}
         ms = [k for k in ms if pm_[k] is not None]
         if len(ms) < 2:
-            return None
+            return None, None
         out = sorted(mean([pm_[rnd.choice(ms)] for _ in ms]) for _ in range(n))
-        return [out[int(.025 * n)], out[int(.975 * n)]]
+        mu = sum(out) / n
+        return [out[int(.025 * n)], out[int(.975 * n)]], (sum((x - mu) ** 2 for x in out) / (n - 1)) ** 0.5
 
-    res = dict(seed=a.seed, plant_c=a.plant_c, clock_note=a.clock_note, files=len(files), goalserve_events_total=len(ev), drops=dict(drops), audit=audit, cells={},
+    res = dict(look=K, looks_total=LOOKS, boundary_z=zb, c_obf=C_OBF, data_from_utc=T_START, data_through_utc=t_hi, seed=a.seed, plant_c=a.plant_c, clock_note=a.clock_note, files=len(files), goalserve_events_total=len(ev), drops=dict(drops), audit=audit, cells={},
                poll_interval_measured=poll_gaps(a.poll_log), primary_cells=list(PRIMARY),
                wording="Only primary cells can be called a pass. Say 'odds moved before the price within the 60 s window' or 'did not'; never 'lead of N seconds' (windows cannot resolve under about 5 s). Bookmaker not identified (bm empty; vendor docs say bet365). d is volatility-matched (sign-symmetric placebo), not momentum-matched.",
                match_list=sorted(ml.values(), key=lambda r: (str(r["eid"]), r["kind"])))
@@ -250,30 +271,44 @@ def main():
         evs = [e for k in by for e in by[k]]
         n_m, n_e = len(by), len(evs)
         md = mean([mean([e[0] for e in by[k]]) for k in by])
-        ci = boot(by, lambda e: e[0])
+        ci, se = boot(by, lambda e: e[0])
         share = 100.0 * sum(e[1] for e in evs) / n_e
+        zstat = (md / se) if se else None
         ex = [e[0] - md + a.plant_c for e in evs]
-        plant_ok = bool(ci and ci[0] - md + a.plant_c > 0 and a.plant_c >= MIN_EFFECT and 100.0 * sum(1 for x in ex if x > 0) / n_e >= MIN_SHARE)
-        c = dict(role="primary" if cell in PRIMARY else "informational (cannot be called a pass)", n_matches=n_m, n_events=n_e, mean_d_per_match=md, ci95_match_boot=ci, share_events_real_gt_placebo_pct=share,
+        plant_ok = bool(se and zb * se < a.plant_c and a.plant_c >= MIN_EFFECT and 100.0 * sum(1 for x in ex if x > 0) / n_e >= MIN_SHARE)
+        days = collections.defaultdict(set)
+        for m_, L_ in by.items():
+            for e in L_:
+                days[int((e[5] - T_START) // 86400) + 1].add(m_)
+        seen_m, cum = set(), {}
+        for dd in sorted(days):
+            seen_m |= days[dd]
+            cum[dd] = len(seen_m)
+        c = dict(role="primary" if cell in PRIMARY else "informational (cannot be called a pass)", n_matches=n_m, n_events=n_e, mean_d_per_match=md, se_match_boot=se, z=zstat, boundary_z=zb,
+                 ci95_match_boot_descriptive=ci, share_events_real_gt_placebo_pct=share,
                  mean_R_real=mean([e[3] for e in evs]), mean_R_placebo=mean([e[4] for e in evs]),
-                 plant_c=a.plant_c, plant_detected=plant_ok, min_detectable_effect=(md - ci[0]) if ci else None,
+                 plant_c=a.plant_c, plant_detected=plant_ok, min_detectable_effect_at_this_look=(zb * se) if se else None,
+                 matches_by_day={str(k_): len(v_) for k_, v_ in sorted(days.items())}, matches_cumulative_by_day={str(k_): v_ for k_, v_ in cum.items()},
                  events_per_match=sorted((len(v) for v in by.values()), reverse=True)[:10])
         if n_m < MIN_MATCHES or n_e < MIN_EVENTS:
             c["verdict"] = "unknown (%d matches, %d events; needs >= %d and >= %d)" % (n_m, n_e, MIN_MATCHES, MIN_EVENTS)
         elif not plant_ok:
-            c["verdict"] = "unknown (underpowered: a %.0fc edge would not be detected)" % (100 * a.plant_c)
-        elif ci and ci[0] > 0 and md >= MIN_EFFECT and share >= MIN_SHARE:
-            c["verdict"] = "meets bar (needs audit)"
-        elif ci and ci[1] < 0:
-            c["verdict"] = "PM moved first (needs audit)"
+            c["verdict"] = "unknown (underpowered at look %d: a %.0fc edge would not pass the boundary)" % (K, 100 * a.plant_c)
+        elif zstat is not None and zstat >= zb and md >= MIN_EFFECT and share >= MIN_SHARE:
+            c["verdict"] = "meets bar at look %d (needs audit)" % K
+        elif zstat is not None and zstat <= -zb:
+            c["verdict"] = "PM moved first at look %d (needs audit)" % K
         else:
-            c["verdict"] = "no lead detected (needs audit)"
+            c["verdict"] = "no lead detected at look %d (needs audit)" % K
         if cell not in PRIMARY:
             c["verdict"] = "(informational) " + c["verdict"]
         c["ties_d_zero"] = sum(1 for e in evs if e[0] == 0)
         res["cells"][cell] = c
         if n_e > big[0]:
             big = (n_e, cell, sorted(evs, key=lambda e: e[5])[:20])
+    res["plain_summary"] = ["%s [%s]: look %d of %d (data through %s UTC), %d matches, z %s vs boundary %.2f, a planted 1c edge %s at this look, verdict: %s" % (
+        k_, v_["role"].split(" ")[0], K, LOOKS, __import__("time").strftime("%Y-%m-%d", __import__("time").gmtime(t_hi - 1)), v_["n_matches"], "%.2f" % v_["z"] if v_["z"] is not None else "n/a", zb,
+        "WOULD pass (power ok)" if v_["plant_detected"] else "would NOT pass (underpowered)", v_["verdict"]) for k_, v_ in res["cells"].items()]
     res["first20_events_biggest_cell"] = dict(cell=big[1], rows=[dict(t=e[5], match=e[6], rising_team=e[7], token=e[8], R_real=e[3], placebo_mean=e[4], d=e[0]) for e in big[2]])
     json.dump(res, open(a.out, "w"), indent=1)
     print(json.dumps({k: v for k, v in res.items() if k != "match_list"}, indent=1))
