@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-run-tree/feeds/ps_lead_test.py", line 329, in <module>
+    main()
+    ~~~~^^
+  File "/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-run-tree/feeds/ps_lead_test.py", line 148, in main
+    ev, stats = load_ps(a.ps)
+                ~~~~~~~^^^^^^
+  File "/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-run-tree/feeds/ps_lead_test.py", line 76, in load_ps
+    for r in lines(p):
+             ~~~~~^^^
+  File "/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-run-tree/feeds/ps_lead_test.py", line 32, in lines
+    for l in f:
+             ^
+  File "/usr/lib/python3.14/gzip.py", line 360, in read1
+    return self._buffer.read1(size)
+           ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/compression/_common/_streams.py", line 68, in readinto
+    data = self.read(len(byte_view))
+  File "/usr/lib/python3.14/gzip.py", line 580, in read
+    uncompress = self._decompressor.decompress(b"", size)
+zlib.error: Error -3 while decompressing data: invalid block type
