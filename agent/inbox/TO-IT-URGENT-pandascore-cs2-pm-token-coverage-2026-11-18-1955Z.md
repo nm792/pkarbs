@@ -1,0 +1,7 @@
+# URGENT, for Prime Bot / IT: CS2 Polymarket book coverage by token (18 Nov 2026, 19:55Z). Add to the #422 run; quick, read-only.
+
+The PandaScore CS2 test (feeds/ps_lead_test.py, feeds/ps_cs2_daily_look.py) benchmarks each event on the rising team's OWN outcome token book (`tokens[outcomes.index(team)]`), never the other token's book. The Dota thread reports that the shadow PM recorder may hold the YES book only. If the recorder holds only one token per market, then events where the rising team is the other outcome have no own-token book and are dropped by the test (counted as `no_own_book_mid_at_t_minus_60`), so the test would see only half of the events.
+
+1. For the PM directories used by the #422 run, over markets that match a CS2 PandaScore match (exact normalised names): count markets total, markets with book rows for BOTH tokens, markets with rows for token 0 only, token 1 only, neither. Report counts, and book-row counts per token for the 10 largest markets.
+2. Report which recorder wrote these directories (script name, commit) and whether it subscribes to both token ids per market (feeds/pm_dota_books.js in PR #432 is the Dota example of a both-token recorder).
+3. If the CS2 recorder is single-token, say so and propose the smallest change to subscribe to both tokens for CS2 map and match markets from now on. Do not restart the PandaScore capture. A change to a PM recorder needs Nick's approval (put it on a card via the coordinator if the repo rules say so).
