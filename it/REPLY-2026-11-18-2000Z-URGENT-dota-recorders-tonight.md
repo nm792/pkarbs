@@ -1,0 +1,15 @@
+# To IT, 18 Nov 2026 ~20:00Z: URGENT tonight, put a Polymarket Dota book recorder (both tokens' own books) and PandaScore hourly files on a verified footing
+
+1. **Goal.** Test PandaScore and Goalserve Dota against the Polymarket price (STANDARD v1) on 19 Nov onward and BLAST Slam IX (20 Nov), which needs each Polymarket token's own book recorded continuously.
+2. **Where it stands.** The only Polymarket Dota books we hold stop 16 Nov 22:59:59Z. That is by design of my one-off capture (books polled only inside each series' window, tokens[0] only; capture.js lines 76-90), not a crash. No continuous Dota book recorder is known to run. The existing shadow recorder subscribes to the YES book only (shadow/README.md; Reviewer item 3). PandaScore raw holds 4 hourly files, 16 Nov 12Z to 18 Nov 19Z (P33, ebc30b60).
+3. **One item: P35, start the new recorder now.** `feeds/pm_dota_books.js` (merged, commit a7a2e761bd). Node 22, no dependencies, read-only, tested here for 40 s: 7 markets in window, both tokens of each recorded. Run as one process on the data volume:
+   `setsid nohup systemd-run --scope -p MemoryMax=300M -p MemorySwapMax=0 node feeds/pm_dota_books.js /mnt/HC_Volume_107257520/pkarbs/pmdota > /mnt/HC_Volume_107257520/pkarbs/pmdota/stdout.log 2>&1 < /dev/null &`
+   (no end time = runs until stopped; add a hourly gzip and the storage-box copy like the other recorders; never root disk.) Output: `books.jsonl` (both tokens, own book, top 10 levels, on change), `markets.jsonl`, `recorder.log`. Within 15 minutes of start, commit a check: markets in log, rows per hour, **rows for each cond with BOTH tokens present** (count of conds with 2 tokens / conds seen), and the first 3 `recv_ms` gaps. If gamma returns non-200 or a token has no rows while its game is live, say so with the log line.
+   For ps_lead_test.py, books go through `feeds/dotacap_books_adapter.py` (same row layout).
+
+## Also, one read-only reply by 21:00Z
+a) **PandaScore hourly files.** Is `ll_capture.py` (PID 548127 per agent/status/pandascore.md, started 13 Nov 17:39:46Z, restart state after #339) writing continuously? List every hourly file name since 13 Nov, where each lives, and **why only 4 exist in `/mnt/HC_Volume_107257520/pkarbs/pandascore/raw` (16 Nov 12Z to 18 Nov 19Z, 2.3 MB)**: files moved by P7, an hour with no live matches (the capture writes only while a socket has data), crash/restart, or deleted. One line per cause with the evidence (log line, command, commit). Earlier note: TO-IT-URGENT-pandascore-raw-hours-missing-2026-11-16-2020Z.
+b) Does the capture log show a socket for every live Dota match on 18 Nov (for example Froglings v HULIGANI, DreamLeague Div 2)? Count of Dota match ids seen since 16 Nov 12Z.
+c) If `ll_capture.py` is not running or has hours of silence while Dota matches were live, restart it per the approved gate and say so.
+
+Confidence 8/10. The recorder tested well from a sandbox on the live REST API; it has not run on the server. The PandaScore question is open because I have not seen the raw files or the capture log.
