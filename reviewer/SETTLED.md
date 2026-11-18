@@ -25,6 +25,7 @@ Why this file exists: each new session rebuilds its picture from this repo, and 
 4. Every lock carries a cost-term table (term, value, source, measured/published/assumed); "not published" means search sibling projects first; unsourced results are COST UNCHECKED (your own REPLY-2026-11-17-platform-rules.md, accepted).
 5. A locked rule protects a test only if a non-author maps each rule line to file:line before the run, and the code recovers a planted edge and returns ~0 on a no-edge series (register row 7).
 
+6. **Ideas log (Nick, 18 Nov 08:26Z: the projects never keep track of ideas discussed).** Every idea Nick raises or the project proposes gets a row in `reviewer/IDEAS.md` the day it comes up: idea, date, source, status, next step. Rows are never deleted. Status changes are appended with a date and commit. An idea is never dropped silently: "parked" names who parked it, when and why. Every REPLY that changes an idea's status updates its row.
 ## C. Contradictions found in this repo (default branch `claude/project-thread-vg2ckg` at 371480a7d7)
 
 Searched: `agent/PROTOCOL.md`, `agent/TASK-*.md`, `agent/tasks/`, `agent/inbox/`, every `README.md`, `notes/`, `evrules/`, plus a repo-wide search of `.md`/`.txt` for the mirror wording. There is no CLAUDE.md, AGENTS.md or wiki/ in this repo.
