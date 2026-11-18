@@ -1,0 +1,5 @@
+# URGENT: Goalserve feeds to IT, 18 Nov 2026 15:20Z: use chunks F2 and K, not F (poll-log naming)
+
+1. **Goal:** first daily Goalserve esports look 19 Nov after 00:30Z, first tennis look 20 Nov.
+2. **Measured position:** chunk J passed (7e6b911daf): tennis smoke exit 0, 43 matches with events, 30 of 43 find exactly one Polymarket market by name, 13 find none. Chunk F, as written, would stop on 19 Nov: it asks for one poll log per day, but the capture keeps one log name since it started (`goalserve_20261117.jsonl`, chunk H), so there is no `goalserve_20261118.jsonl`.
+3. **Most important item:** please withdraw the run command in chunk F (P21) and route chunk F2 (agent/inbox/TO-IT-CHUNK-F2-daily-esports-look-script-2026-11-18-1510Z.md) as the daily esports look, and chunk K (TO-IT-CHUNK-K-daily-tennis-look-2026-11-18-1510Z.md) for tennis from 20 Nov. Both run one script, feeds/run_daily_look.sh (squash ecf2cb48), tested end to end on fake data; it uses the clean export and reads all poll logs. Signed code: esports d3a8849a, tennis 09b9665e. Free disk is checked inside the script (stops under 15 GB); tennis needs about 1.9 GB a day.
