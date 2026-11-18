@@ -12,16 +12,17 @@ Rules (locked before any new data is read):
  V10 PRIMARY cells: cs2|Match Winner and dota2|Match Winner, each with its own alpha; all other cells are informational and cannot be called a pass. The real run omits --plant-c and --seed.
  V12 Only payloads from 2026-11-18T00:00Z (T_START) count. Look K = complete UTC days between T_START and the end of the last hour file (read from file names); K must be 1..20; never an option.
  V17 (Reviewer E1(b)/(c)) Statistic: per match, mean d over its usable events; the cell uses the FIRST N_MAX matches by first usable event time (cs2 100, dota2 50: projected from the v1 accrual of 25 and 12 matches in 4 days; later matches are reported, not used), so adding data never changes earlier matches.
-    t-statistic of the per-match means, n-1 degrees of freedom, converted to z_eq (same one-sided p). Information time t = n_eff / N_MAX. Boundary (Brownian scale, valid for ANY look schedule by the reflection principle, continuous monitoring): pass if z_eq * sqrt(t) >= C_BM = 2.50, i.e. z_eq >= 2.50 / sqrt(t); one-sided alpha 2(1 - Phi(2.50)) = 0.0124 per primary cell, <= 0.025 over the two.
+    t-statistic of the per-match means, n-1 degrees of freedom, converted to z_eq (same one-sided p). Information time t = n_eff / N_MAX. Boundary (Brownian scale, valid for ANY look schedule by the reflection principle, continuous monitoring): pass if z_eq * sqrt(t) >= C_BM = 2.60, i.e. z_eq >= 2.60 / sqrt(t); one-sided alpha 2(1 - Phi(2.60)) = 0.0093 per primary cell, <= 0.019 over the two (raised from 2.50 on 18 Nov: the checker's 18-scenario grid gave 1.20% worst at 2.50, too close to 1.25%).
     'meets bar' also needs the V6 conditions (>= 12 matches, >= 60 events, mean d >= 0.005, share of events with R_real > placebo mean >= 55%). 'PM moved first' needs z_eq <= -boundary. 'no lead detected' is decided ONLY when the cell is closed (n_eff reached N_MAX, or look 20) and the plants below were recovered; before that the verdict is 'no pass yet (not a no-lead)'.
  V18 (Reviewer E1(a)) End-to-end plants on each look's real data, through the same token lookup, mid and window code, per event and alone (so events do not contaminate each other's windows): (P+) +PLANT_C step at t+10 s on the rising token and -PLANT_C on the other token; (P-) the same step at t-10 s; (S) directions negated (the other token is read as 'rising'); (SP) S plus P+.
     Required: mean over matches of d(P+) - d(base) within 5% of +PLANT_C; d(P-) - d(base) within 5% of -PLANT_C; d(SP) - d(S) within 5% of -PLANT_C; and power: zb * SE < PLANT_C where SE = s / sqrt(n_eff) at this look. If any fails every verdict except 'unknown' is withheld: 'unknown (plant not recovered / underpowered)'.
+ V21 (checker, 18 Nov) Completeness: the run STOPS (no result) unless the poll log reaches at least 60 s past the end of day K, every hour file of days 1..K is present for every hour in which the poll log shows capture running (hours without any poll are capture outages, listed in audit.hour_files), and no hour file is truncated. The cap and the placebo draws of an event are seeded from the event itself, so earlier looks reproduce on later looks.
  V19 Output per look: look, n_eff per cell, t, boundary, z_eq, pre and post terms (real, placebo), matches_by_day and cumulative, excluded counts per cell, plain_summary, first20_events_biggest_cell (hand check by another thread), ties, outage counters.
  V8 seed 20261118 (--seed only for the self test). Every verdict is UNCHECKED until the rule-to-code table is signed by another thread and an independent audit is done. Bookmaker is not identified (bm empty; vendor docs say bet365): say so with every result. Say 'odds moved before the price within the 60 s window' or 'did not'; never 'lead of N seconds'.
 Usage: python3 -I feeds/goalserve_odds_vs_pm_v2.py --files '<glob of esports_*.jsonl.gz>' [--files ...] --pm DIR [--pm DIR] --poll-log '<glob of goalserve_*.jsonl>' [--poll-log ...] --clock-note 'text' --out result.json
 Self test: python3 -I feeds/test_goalserve_odds_vs_pm_v2.py   (includes the null simulation of the whole look schedule)
 """
-import argparse, bisect, calendar, collections, glob, json, math, os, random, re, sys, time
+import argparse, bisect, calendar, collections, glob, hashlib, json, math, os, random, re, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ps_lead_test import norm, find, load_pm, mk_index
 from goalserve_odds_vs_pm import counted_lines, market_kind, num, med, poll_gaps
@@ -33,9 +34,14 @@ OPEN = (0, "0", False, None)
 OUTAGE_S = 10.0
 T_START = 1794960000.0        # 2026-11-18T00:00:00Z: only data from here on is used (earlier data is already seen)
 LOOKS = 20
-C_BM = 2.50                   # boundary on the Brownian scale: pass if z_eq * sqrt(t) >= C_BM (2(1-Phi(2.5)) = 0.0124 one-sided per cell, any look schedule)
+C_BM = 2.60                   # boundary on the Brownian scale: pass if z_eq * sqrt(t) >= C_BM (2(1-Phi(2.6)) = 0.0093 one-sided per cell, any look schedule; margin over the 1.25% target)
 N_MAX = {"cs2|Match Winner": 100, "dota2|Match Winner": 50}
 PRIMARY = tuple(N_MAX)
+
+
+def seed_rng(*parts):
+    """deterministic per-event generator: the same event gets the same cap rank and placebo draws on every later look."""
+    return random.Random(int.from_bytes(hashlib.sha256("|".join(str(x) for x in parts).encode()).digest()[:8], "big"))
 
 
 def phi_sf(x):
@@ -227,16 +233,16 @@ def main():
     ap.add_argument("--seed", type=int, default=SEED)
     ap.add_argument("--plant-c", type=float, default=PLANT_C)
     a = ap.parse_args()
-    rnd = random.Random(a.seed)
     files = sorted({f for g in a.files for f in glob.glob(g)})
     if not files:
         raise SystemExit("no goalserve files matched")
-    hrs = []
+    hrs, hour_names = [], set()
     for f in files:
         m = re.search(r"esports_(\d{10})", os.path.basename(f))
         if not m:
             raise SystemExit("cannot read the hour from file name %s" % f)
         hrs.append(calendar.timegm(time.strptime(m.group(1), "%Y%m%d%H")) + 3600.0)
+        hour_names.add(hrs[-1] - 3600.0)
     K = int((max(hrs) - T_START) // 86400)
     if not 1 <= K <= LOOKS:
         raise SystemExit("look K=%d is outside 1..%d (no complete UTC day since 2026-11-18 or past the last look)" % (K, LOOKS))
@@ -245,7 +251,18 @@ def main():
     polls = load_polls(a.poll_log, drops)
     if not polls:
         raise SystemExit("no polls read from --poll-log")
+    if polls[-1] < t_hi + 60:
+        raise SystemExit("poll log ends %.0f s before the end of look day K=%d + 60 s: the last hour may be half written; run again later" % (t_hi + 60 - polls[-1], K))
+    expected_hours = [T_START + 3600.0 * h for h in range(24 * K)]
+    polled_hours = {T_START + 3600.0 * int((x - T_START) // 3600) for x in polls}
+    missing = [h for h in expected_hours if h not in hour_names]
+    missing_polled = [h for h in missing if h in polled_hours]
+    if missing_polled:
+        raise SystemExit("hour file(s) missing although the poll log shows capture running: %s (a lost or unshipped file would count as a quiet hour); fix the copy and run again" % ", ".join(time.strftime("%Y%m%d%H", time.gmtime(h)) for h in missing_polled))
     ev, audit = open_events(files, polls, T_START, t_hi)
+    if audit["counters"].get("goalserve_rows_truncated_files", 0) or audit["counters"].get("goalserve_rows_bad_lines", 0) > 50:
+        raise SystemExit("unreadable or truncated hour file(s): %s; re-copy and run again" % json.dumps(audit["counters"]))
+    audit["hour_files"] = dict(expected=len(expected_hours), present=len(expected_hours) - len(missing), missing_hours_utc=[time.strftime("%Y%m%d%H", time.gmtime(h)) for h in missing], missing_hours_without_polls_are_capture_outages=True)
     idx = mk_index(load_pm(a.pm))
     sel, ml = {}, {}
     for (eid, kind, t, rise, h, a_, game) in ev:
@@ -325,7 +342,7 @@ def main():
         if len(L) > CAP:
             drops["events_dropped_by_match_cap"] += len(L) - CAP
             cellx[cell]["events_dropped_by_match_cap"] += len(L) - CAP
-            L = sorted(rnd.sample(L, CAP))
+            L = sorted(sorted(L, key=lambda x_: hashlib.sha256(("%s|cap|%s|%r" % (a.seed, eid, x_[0])).encode()).hexdigest())[:CAP])
         outs = [norm(o) for o in m["outcomes"]]
         for (t, rise) in L:
             if rise not in outs:
@@ -343,9 +360,10 @@ def main():
                 drops["events_no_own_book_mid_at_t_minus_60"] += 1
                 cellx[cell]["no_own_book_mid_at_t_minus_60"] += 1
                 continue
+            prng = seed_rng(a.seed, "plc", eid, repr(t))
             pl, ppo, ppr = [], [], []
             for _ in range(NPLC):
-                ptk, sg = rnd.choice(m["tokens"]), rnd.choice((-1, 1))
+                ptk, sg = prng.choice(m["tokens"]), prng.choice((-1, 1))
                 x = R(ptk, t)
                 if x is not None:
                     pl.append(sg * x[0]); ppo.append(sg * x[1]); ppr.append(sg * x[2])

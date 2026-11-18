@@ -5,7 +5,7 @@ PM: the rising team's own token jumps +3c at t+SHIFT (mode 'mirror': the other t
 TRAP: after each true event the market is suspended 100 s later and reopens 110 s later at a different price; PM does not react. v1 counted that reopen jump as an event; v2 must not.
 Checks: event count exact (trap not counted), baseline-cleared counted; planted +15 s meets the bar and the plant is recovered; no-edge never meets the bar over 20 seeds; PM-first (-20 s) is 'PM moved first'; own-book-only still meets the bar, other-side-only does NOT (no inference from the other book);
 match cap 40 applied and counted; too few matches = unknown."""
-import os, sys, gzip, json, tempfile, subprocess, random, shutil
+import os, sys, gzip, json, tempfile, subprocess, random, shutil, calendar, time
 here = os.path.dirname(os.path.abspath(__file__))
 fails = []
 def check(n, c):
@@ -66,26 +66,47 @@ def build(shift, mode="mirror", react=True, seed=7, N=20, K=4, trap=True, outage
         te3 = sorted(x[0] for x in tl if x[1] == 3 and x[2] in ((1.6, 2.4), (2.4, 1.6)))[1]    # 2nd true odds event of match 3
         gap = (te3 - 60, te3 + 0.01)
     pl = os.path.join(tmp, "polls"); os.makedirs(pl)
+    hmark = fname[len("esports_"):len("esports_") + 10]
+    t_last_end = calendar.timegm(time.strptime(hmark, "%Y%m%d%H")) + 3600.0
+    t_data_end = max(tt for (tt, _, _, _) in tl)
     with open(os.path.join(pl, "goalserve_2026111800.jsonl"), "w") as f:
-        x = T0 - 100
-        while x < max(tt for (tt, _, _, _) in tl) + 5:
+        x = T0 + 0.5
+        while x < t_data_end + 5:
             if not (gap and gap[0] <= x <= gap[1]):
                 f.write(json.dumps({"esports": {"recv_ns": int(x * 1e9)}}) + "\n")
             x += 2.0
+        if t_last_end - 5 > t_data_end + 5:      # sparse polls out to the end of the target day (+60 s), only the last hour is polled
+            for x in (t_last_end - 30, t_last_end - 5, t_last_end + 60):
+                f.write(json.dumps({"esports": {"recv_ns": int(x * 1e9)}}) + "\n")
+    # one heartbeat payload per hour (unchanged odds), so no polled hour is without a file (real data has a file in almost every hour)
+    merged = [(tt, i_, st_, su_) for (tt, i_, st_, su_) in tl]
+    h0 = int((T0 - 1794960000.0) // 3600)
+    for h in range(h0, int((t_data_end - 1794960000.0) // 3600) + 1):
+        merged.append((1794960000.0 + 3600.0 * h + 10.0, None, None, None))
+    if t_last_end - 5 > t_data_end + 5:
+        merged.append((t_last_end - 5, None, None, None))
+    merged.sort(key=lambda r: r[0])
+    byhour = {}
+    for (t_, i_, st_, su_) in merged:
+        if i_ is not None:
+            cur[i_] = (st_, su_)
+        evs = {}
+        for j in range(N):
+            (o1, o2), s_ = cur[j]
+            mk = {"1": {"id": 1, "name": "Home/Away", "suspend": s_, "participants": {
+                    "11": {"id": 11, "name": "Home", "value_eu": o1, "suspend": 0},
+                    "12": {"id": 12, "name": "Away", "value_eu": o2, "suspend": 0}}},
+                  "4": {"id": 4, "name": "Odd/Even (1st map)", "suspend": 0, "participants": {
+                    "41": {"id": 41, "name": "Odd", "value_eu": 1.9, "suspend": 0}, "42": {"id": 42, "name": "Even", "value_eu": 1.9, "suspend": 0}}}}
+            evs["E%d" % j] = {"info": {"sport": "Esports", "league": "CS2 - Test League"}, "team_info": {"home": {"name": "Team A%d" % j}, "away": {"name": "Team B%d" % j}}, "odds": mk}
+        byhour.setdefault(time.strftime("%Y%m%d%H", time.gmtime(t_)), []).append(json.dumps({"recv_ns": int(t_ * 1e9), "body": json.dumps({"bm": "", "events": evs})}))
     gdir = os.path.join(tmp, "gs"); os.makedirs(gdir)
-    with gzip.open(os.path.join(gdir, fname), "wt") as g:
-        for (t, i, st, sus) in tl:
-            cur[i] = (st, sus)
-            evs = {}
-            for j in range(N):
-                (o1, o2), s = cur[j]
-                mk = {"1": {"id": 1, "name": "Home/Away", "suspend": s, "participants": {
-                        "11": {"id": 11, "name": "Home", "value_eu": o1, "suspend": 0},
-                        "12": {"id": 12, "name": "Away", "value_eu": o2, "suspend": 0}}},
-                      "4": {"id": 4, "name": "Odd/Even (1st map)", "suspend": 0, "participants": {
-                        "41": {"id": 41, "name": "Odd", "value_eu": 1.9, "suspend": 0}, "42": {"id": 42, "name": "Even", "value_eu": 1.9, "suspend": 0}}}}
-                evs["E%d" % j] = {"info": {"sport": "Esports", "league": "CS2 - Test League"}, "team_info": {"home": {"name": "Team A%d" % j}, "away": {"name": "Team B%d" % j}}, "odds": mk}
-            g.write(json.dumps({"recv_ns": int(t * 1e9), "body": json.dumps({"bm": "", "events": evs})}) + "\n")
+    for k_, rows_ in sorted(byhour.items()):
+        with gzip.open(os.path.join(gdir, "esports_%s.jsonl.gz" % k_), "wt") as g:
+            for r_ in rows_:
+                g.write(r_ + "\n")
+            if k_ == sorted(byhour)[0]:
+                g.write("{bad goalserve line\n")
     return tmp, gdir, pmd, pl
 
 CELL = "cs2|Match Winner"
@@ -132,7 +153,7 @@ check("cap: 50 events per match -> 40 kept, 200 dropped (20 matches x 10), count
 _, jt, ct = run(15.0, N=8)
 check("only 8 matches -> unknown (needs >= 12)", str(ct.get("verdict", "")).startswith("unknown"))
 _, jk1, ck1 = run(15.0, fname="esports_2026111823.jsonl.gz")
-check("look 1: boundary = 2.50/sqrt(20 matches/100) = 5.59 printed, look=1, plain_summary present, pre/post terms printed", jk1["look"] == 1 and abs(ck1["boundary_z"] - 5.5902) < 0.01 and len(jk1["plain_summary"]) >= 1 and ck1["post_real"] is not None and ck1["pre_placebo"] is not None)
+check("look 1: boundary = 2.60/sqrt(20 matches/100) = 5.81 printed, look=1, plain_summary present, pre/post terms printed", jk1["look"] == 1 and abs(ck1["boundary_z"] - 5.8138) < 0.01 and len(jk1["plain_summary"]) >= 1 and ck1["post_real"] is not None and ck1["pre_placebo"] is not None)
 _, jk1n, ck1n = run(0.0, react=False, fname="esports_2026111823.jsonl.gz")
 check("look 1 no-edge: never 'meets bar' (early look needs a huge effect)", not meets(ck1n))
 tmpb, gdb, pmb, plb = build(15.0, fname="esports_2026111800.jsonl.gz")
@@ -207,5 +228,57 @@ for dist in ("normal", "t3"):
 pw, first = simulate(500, "normal", 0.006, 13)
 print("  POWER (mean d 0.6 sd of a match's d, normal): pass probability by end of look 20 per cell", pw, "; first passing look histogram cs2", first["cs2|Match Winner"])
 check("power: a true edge of 0.6 sd per match is passed by look 20 in >= 70% of runs in the cs2 cell", pw["cs2|Match Winner"] >= 0.70)
+def arrivals(rng, rate, kind):
+    out = []
+    for day in range(20):
+        lam = rate if kind == "poisson" else rate * rng.gammavariate(1.0, 1.0) if kind == "overdisp" else rate * (0.4 if day < 10 else 1.6)
+        out.append(pois(rng, lam))
+    return out
+def sim_grid(runs, rate, kind, dist, cell, seed):
+    rng = random.Random(seed); hits = 0
+    for _ in range(runs):
+        arr = arrivals(rng, rate, kind); vals = []; hit = False
+        for day in range(20):
+            vals += [draw(rng, dist, 0.0) for _ in range(arr[day])]
+            used = vals[:g.N_MAX[cell]]
+            d = g.decide(used, 30 * len(used), 100.0, True, len(used) >= g.N_MAX[cell] or day == 19, cell)
+            if d["verdict"].startswith("meets bar"): hit = True; break
+        hits += hit
+    return hits / runs
+grid = {}
+for rate, cell in ((2, "dota2|Match Winner"), (3, "dota2|Match Winner"), (6, "cs2|Match Winner")):
+    for kind in ("poisson", "overdisp", "back"):
+        for dist in ("normal", "t3"):
+            grid[(rate, kind, dist)] = sim_grid(1500, rate, kind, dist, cell, 100 + rate * 7 + len(kind) + len(dist))
+worst = max(grid.values())
+print("  NULL GRID (checker's scenarios: 2, 3, 6 matches a day; Poisson, overdispersed, back-loaded; normal and t3; 1500 runs each): worst false-pass %.4f; all: %s" % (worst, {"%s/%s/%s" % k: round(v, 4) for k, v in grid.items()}))
+check("null grid: false-pass over 20 looks <= 1.25%% in every one of the 18 scenarios (worst %.4f)" % worst, worst <= 0.0125)
+
+def build_and_run(mutator, fname="esports_2026111823.jsonl.gz"):
+    tmp, gdir, pmd, pl = build(15.0, fname=fname)
+    mutator(tmp, gdir, pl)
+    out = os.path.join(tmp, "res.json")
+    r = subprocess.run([sys.executable, "-I", os.path.join(here, "goalserve_odds_vs_pm_v2.py"), "--files", os.path.join(gdir, "*.jsonl.gz"), "--pm", pmd, "--poll-log", os.path.join(pl, "*.jsonl"), "--clock-note", "t", "--out", out], capture_output=True, text=True)
+    ok = os.path.exists(out)
+    shutil.rmtree(tmp, ignore_errors=True)
+    return r, ok
+def drop_a_polled_hour(tmp, gdir, pl):
+    fs = sorted(os.listdir(gdir)); os.remove(os.path.join(gdir, fs[3]))
+r, ok = build_and_run(drop_a_polled_hour)
+check("completeness: an hour file missing while the poll log shows capture running -> the run refuses, no result", r.returncode != 0 and not ok and "missing although" in (r.stderr + r.stdout))
+def cut_polls(tmp, gdir, pl):
+    p_ = os.path.join(pl, "goalserve_2026111800.jsonl"); L = open(p_).read().splitlines()
+    open(p_, "w").write("\n".join(L[:-3]) + "\n")
+r, ok = build_and_run(cut_polls)
+check("completeness: poll log ends before the end of the day + 60 s -> refuses", r.returncode != 0 and not ok and "poll log ends" in (r.stderr + r.stdout))
+def truncate_file(tmp, gdir, pl):
+    f_ = os.path.join(gdir, sorted(os.listdir(gdir))[5]); b_ = open(f_, "rb").read(); open(f_, "wb").write(b_[:-30])
+r, ok = build_and_run(truncate_file)
+check("completeness: a truncated hour file -> refuses", r.returncode != 0 and not ok and "truncated" in (r.stderr + r.stdout))
+def drop_an_unpolled_hour(tmp, gdir, pl):
+    pass
+r, ok = build_and_run(drop_an_unpolled_hour)
+check("completeness: hours without polls (capture outage, 4 matches' quiet hours) are listed in audit.hour_files and do not stop a complete day", r.returncode == 0 and ok)
+
 print("ALL PASS" if not fails else "FAILED: " + "; ".join(fails))
 sys.exit(1 if fails else 0)
