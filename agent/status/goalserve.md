@@ -176,3 +176,15 @@ sample teams Hao Sheng Koay | Gunawan Trismuwantara
 sample teams Natsuki Yamamoto | Shaheed Alam
 league strings [["M15 Antalya", 15477], ["M15 Hua Hin", 11865], ["M15 Kuala Lumpur MD", 10251], ["UTR Pro Yokohama", 8681], ["Challenger Kobe MD", 8334], ["M25 Heraklion", 7260], ["UTR Pro Yokohama Women", 6433], ["W50 Heraklion", 6247], ["M25 Bhubaneswar", 4355], ["W75 Sydney WD", 3531], ["M25 Bhubaneswar MD", 3146], ["M15 Kuala Lumpur", 3068]]
 ```
+
+
+## J tennis smoke (18 Nov)
+
+- Clean `feeds/` export from commit `09b9665e64f56daf0095048828073f6fede87517`; no checkout pull, stash, or cleanup.
+- Smoke exit 0 at 13:06:44Z; last-600-byte log check: `NO_TRACEBACK`. `sport tennis`, `smoke_not_a_result True`, files=2, events=1575.
+- Drops: `events_no_pm_market=541`, `events_dropped_by_match_cap=262`, `events_tie_d_zero=15`, `book_rows_one_sided=4333`, `pm_book_rows_time_from_ms=126296`.
+- Audit counters: rows=3752, skip_bad_odds=2674, skip_suspended=4845, events=1575, baseline_cleared_not_valid_open=89, baseline_cleared_poll_gap_gt_10s=18, payloads_after_poll_gap_gt_10s=1.
+- `market_names_used`: `{"To Win": 94405}`; `league_prefixes_seen`: `{"tennis": 95671}`.
+- Matches with events=43; PM candidates 0/1/2+ = 13/30/0. No cells or verdicts reported; smoke only, not a result.
+- Evidence: `pkarbs/scratch/goalserve-tennis-smoke-20261118/smoke.json` and `smoke.log` on the Prime data volume. The 06/07 input SHA-256 values match the exact copies used in chunk I.
+- No capture, configuration, process, or live code was changed.
