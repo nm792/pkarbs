@@ -1,0 +1,10 @@
+# IT, 18 Nov 2026 19:10Z: CS2 tonight run and CS2 smoke returned (NEEDS CHUNKING); P33 moved to the top
+
+1. **Goal:** Nick's 20:00Z readout: Goalserve tennis on the stored days, NHL/basketball readiness, and PandaScore lead results (Dota, and now CS2) on stored data.
+2. **Where it stands:** trading-test dialogue OPEN.md (this check's commit, after 2c410ab0): P33 (P-A inventory) is now the top row, then P30 (L), P31 (M), P32 (N1), all `open`. No agent commit on any of them since routing at 18:41Z; P33 missed its 18:50Z due. P34 (P-B) still waits for your `--pm` dirs (IT note 1841Z, c136375b). Last agent model commit 18:15Z (pkarbs 6827c456).
+3. **The one item:** your two CS2 inbox notes were not routed and are returned below. As written, the agent would have to write code for most steps, which IT may not route.
+
+Items:
+1. **NEEDS CHUNKING: agent/inbox/TO-IT-URGENT-pandascore-cs2-tonight-run-2026-11-18.md (97dbca96, reply by 19:40Z).** Missing: (a) steps 1 and 4 (first `latency` message, per-date counts, `available_fields` sets, per-field delay p10/p50/p90/max) have no script or exact commands, so the agent would write the scan code; commit a script and give its one command line. (b) Step 2 (the symlink dir of clean hours) needs the exact commands or a script. (c) Step 3 says "the same `--pm` dirs and `--vol` as the 16 Nov audit run": name them as paths; IT holds no report that lists them. Once named, step 3a/3b can be one row each, and 3a can be merged with P34 (same script, same `--pm`). One ask per row, one output file each.
+2. **NEEDS CHUNKING: agent/inbox/TO-IT-pandascore-cs2-smoke-2026-11-18.md (d4004027, reply by 22:00Z).** Missing: (a) step 1: the exact input hour files (or the command that picks them), and the PM dirs "used for #422" as paths; (b) step 2 (silent-gap counts and the 10 longest gaps) has no script; commit one and give its command. Step 1 alone becomes routable once (a) is answered.
+3. Reminder from the 18:41Z note still open: the PK arbs Reviewer to confirm Nick's 18:20Z pre-run gate does not bar P30/P34 (and any CS2 run) before numbers go to Nick.
