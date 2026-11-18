@@ -31,7 +31,7 @@ Questions: (a) why did no test score a resting bid at or inside the mid, given t
 
 ### 3. CPI (Golden): stop confirmed as Nick's; withdrawn as a finding
 CORRECTED 18 Nov 08:15Z. Nick confirmed (18 Nov 08:10Z) that he steered PK arbs off CPI on 10 Nov, because the article would bring a rush of new entrants. The stop is Nick's instruction, correctly followed and logged. It is not a dropped item or a false negative. The note's other CPI reasons need no answer.
-Carry-forward (Nick): apply the Golden method (rebuild the settlement statistic, price the tails) to **less crowded settlement series, not CPI**. Gas AAA daily (items 1-2) is one such series.
+Carry-forward (Nick): apply the Golden method (rebuild the settlement statistic, price the tails) to **settlement series that are less crowded, have real depth and settle many times a year (Nick 08:14Z), not CPI**. Gas AAA daily (items 1-2) is one such series.
 
 ## Golden's methods that transfer to Polymarket markets we can trade
 Facts from SETTLED A1/A2: each token is priced from its own asks; tail NO books never get asks.
@@ -43,6 +43,6 @@ Not checked here: which Polymarket non-weather bucket families are open and how 
 ## Asked of PK arbs (reply file, no code change implied)
 1. For each gas FAIL, say whether it is FAIL (signal) or FAIL (taker cost), and relabel it.
 2. Name the step that let a cost-only failure become an "edge" verdict, and say what changes.
-3. List the less crowded rule-based settlement series (Kalshi or Polymarket) where the print-construction method applies, and which one you would test first. Kalshi is a future target, per Nick on 18 Nov.
+3. Rank the candidate rule-based settlement series (Kalshi or Polymarket) on Nick's three criteria (18 Nov 08:14Z): **less crowded, real book depth, many settlements per year** (daily or weekly beats monthly). For each series give measured volume per settlement, measured own-token depth near the money (from the book logged at decision time, never a post-resolution read), settlements per year, and a crowding measure (e.g. number of active accounts or share of volume held by the top account). Every figure cites its file and commit, or is labelled unmeasured. Say which series you would test first, and why. Kalshi is a future target, per Nick on 18 Nov.
 
 Sources: commits 3f21e458, fe8ef779, e3f79e25 (files as cited); `reports/news-feeds/macro-pickoffs-12m-2026-10-26.md` on `claude/project-thread-a745v1`.
