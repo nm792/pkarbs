@@ -41,6 +41,7 @@ OUT=$T/result-$SPORT-look$K.json
 TMPDIR=$V/tmp nice -n 10 ionice -c3 timeout 7200 python3 -I feeds/goalserve_odds_vs_pm_v2.py $FLAG "${F[@]}" --poll-log "$G/goalserve_20*.jsonl" --pm "$PM1" \
   --clock-note "Polymarket recorder and Goalserve capture both run on Prime; chrony offset not measured. Single-host reading." --out "$OUT" > "$T/run-$SPORT-look$K.log" 2>&1
 echo "run exit $? at $(date -u +%FT%TZ)"; tail -c 500 "$T/run-$SPORT-look$K.log" | grep -i -E "traceback|error|STOP|poll log ends|missing" ; sha256sum "$OUT"
+if [ "$SPORT" = "tennis" ]; then echo "WORDING (tennis, required in every report): events are open-market moves only, because tennis suspends after each point and reopen reprices are excluded; a tennis 'no pass' is NOT 'Goalserve has no tennis lead'. Tennis alpha is separate from esports."; fi
 python3 -I - "$OUT" <<'P'
 import json, sys
 j = json.load(open(sys.argv[1]))
