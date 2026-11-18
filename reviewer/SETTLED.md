@@ -59,3 +59,8 @@ Kalshi (A6) is used in `agent/tasks/TASK-mention-books-2026-11-10.md:1,14` and `
 - **A Polymarket bucket or outcome priced at 0.99 or above (or, from the other side, at 0.01 or below) is dead.** The market has already settled it in practice.
 - **A decision or look on a dead bucket is a late trigger.** It is never "no EV", never "nothing to buy", never "no edge", and never a finding. Count such decisions separately and leave them out of every refusal, EV or edge analysis. The question they raise is why the model triggered so late.
 - REPEAT logged against the Reviewer, who re-presented dead-bucket refusals as analysis on 18 Nov (trading-test REVIEW-2026-11-18-32-refusals-explain faf2c7af, refusals-vs-public-prints ce08b5ab).
+
+## Nick's fact: what a nowcast is (recorded 18 Nov 2026 18:30Z; Nick 17:54Z "it is a NOWCASTING MODEL", 17:55Z "i had exactly the same stupid conversation with temperature more than a week ago")
+- **A nowcast decides before confirmation, from the intraday trajectory.** It predicts the bucket that will be hit and persist, or will be displaced, while the market can still be wrong. It does not wait for the observation that settles the bucket.
+- **A decision at ≥ 0.99 (or ≤ 0.01) is a bug in the trigger,** not a refusal, not "no EV" and not a finding (see dead buckets above).
+- Earlier record of the same point: trading-test dialogue/temperature/CORRECTIONS.md item 20 (Nick 10 Nov: "buy NO on every running bucket about 60 min before METAR displaces it") and withdrawn claim (a) ("market usually already at NO > 0.97 when nowcast fires"). Note 425 (50696c1a, 12 Nov): resolved-bucket bug, exclude buckets already ≥ 0.99 at fire. REPEAT logged against Temperature and the Reviewer.
