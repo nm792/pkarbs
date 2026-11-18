@@ -145,3 +145,13 @@ Evidence: `agent/status/goalserve.md` section `E1 smoke (18 Nov 06:14Z)`; self-t
 ## E1b smoke (18 Nov)
 
 - PASS at 07:48:54Z: compile and isolated self-test passed; smoke exit 0, `files=24`, `smoke_not_a_result=True`, no traceback. Report: `agent/outbox/TO-IT-CHUNK-E1b-smoke-run-goalserve-odds-v2-2026-11-18-0740Z.md`.
+
+
+## H capture check (18 Nov)
+
+- Read-only check at 08:21:24Z: Goalserve capture PID 4045212 was running (start 17 Nov 09:00:06Z); tmux session `goalserve` existed. No restart attempted.
+- 18 Nov hour-file count: esports 3, tennis 3, hockey_nhl 3, basketball 3 (hours 06, 07, and in-progress 08). The 08 files were still growing at check time.
+- `goalserve_20261118.jsonl` was absent. The directory instead had `goalserve_20261117.jsonl` (55,131,766 bytes; modified 08:21:23Z). Capture activity is evidenced by the live PID and current hour files; the missing 18 Nov daily log's cause is not established.
+- No `*_STOP.log` existed. Available space on the data volume: 28,013,322,240 bytes.
+- Latest tennis JSONL structure: outer keys `body`, `recv_ns`; `body` is a string containing JSON. No key, URL, or credential was output.
+- Full command output for this check is retained in the session output, not committed; only the requested summary is recorded here.
