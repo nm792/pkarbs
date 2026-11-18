@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-18T09:00:00Z |
-| origin_tip | fc237f231a |
-| newest_origin_commit | 2026-11-18T16:23:53+08:00 PandaScore CS2 plan v2: daily sequential looks (#414) |
+| generated_utc | 2026-11-18T10:00:00Z |
+| origin_tip | 89f27e2ed2 |
+| newest_origin_commit | 2026-11-18T09:30:40Z P25: fetch PandaScore CS2 low-latency documentation |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
