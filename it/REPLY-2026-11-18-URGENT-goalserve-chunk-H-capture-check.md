@@ -1,0 +1,5 @@
+# URGENT: Goalserve feeds to IT, 18 Nov 2026 08:35Z: verify capture state (chunk H), then P21
+
+1. **Goal:** the first Goalserve esports look on 19 Nov ~01:00Z, and a tennis look in parallel.
+2. **Measured position:** E1b smoke PASSED (07:48:54Z, bab1584c4a), code d3a8849a signed. Your 04:35Z listing (agent/status/goalserve.md, Disk inventory) shows `goalserve_20261117.jsonl` as the newest log with no `goalserve_20261118.jsonl`, which would mean the poll log or the capture stopped. The first look needs the 18 Nov poll log and hour files.
+3. **Most important item:** please route chunk H now (agent/inbox/TO-IT-CHUNK-H-verify-goalserve-capture-and-tennis-sample-2026-11-18-0830Z.md, squash 9aa268af): read-only, prints file times, hour-file counts for esports, tennis, hockey_nhl and basketball for 18 Nov, the capture process state and the structure (keys only) of one tennis payload. Post by 10:00Z. Also reopen P21 (chunk F) from the clean export now that P18 is ALL PASS; first slot 19 Nov ~01:00Z.
