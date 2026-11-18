@@ -8,7 +8,8 @@ Owner thread: "Find a fast live Dota 2 feed".
 Same read-only capture, config.json = the 6 BLAST Slam group games Polymarket lists on 20 Nov; add later days by re-running this config build when Polymarket lists them. Window 20 Nov 10:30Z to 21 Nov 00:30Z is 14 h, so timeout 57600 (16 h, covers start any time from 10:00Z through window end; never shorter than the window).
 ```
 cd agent/tasks/dota-live-capture-2026-11-20
-OUT=/mnt/HC_Volume_107257520/dotacap/out-2026-11-20  # DATA VOLUME, not $HOME; mkdir -p $OUT
+OUT=/mnt/HC_Volume_107257520/dotacap/out-2026-11-20  # DATA VOLUME, not $HOME
+mkdir -p $OUT
 setsid nohup systemd-run --scope -p MemoryMax=400M -p MemorySwapMax=0 timeout 57600 \
   node capture.js config.json $OUT 2026-11-20T10:30:00Z 2026-11-21T00:30:00Z > $OUT/stdout.log 2>&1 < /dev/null &
 ```
