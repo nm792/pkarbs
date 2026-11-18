@@ -113,3 +113,10 @@ Largest measured consumers are `pkarbs/thesports` (40G) and `pkarbs/scratch` (8.
 - The inventory was not run. The command's script is present on the fetched origin branch but absent from the stale local checkout; following the task gate, no workaround or retry was attempted.
 - At 2026-11-18 05:04Z, `df -h / /mnt/HC_Volume_107257520` showed root 13G free and data volume 27G free.
 - Status: waiting for a safe checkout/pull; no inventory output is claimed.
+
+## E1 smoke (18 Nov 05:40Z) — waiting: required files absent
+
+- The prescribed first check returned local checkout HEAD `026be71fe877197d43fc78056070b7c8d86cd741`. `ls -l feeds/goalserve_odds_vs_pm_v2.py feeds/test_goalserve_odds_vs_pm_v2.py` reported `No such file or directory` for both files.
+- Per P18's explicit stop rule, the smoke, compile and tests were not run; no data-volume output was created and no pull, stash or cleanup was attempted.
+- The exact 02:12Z command recorded in the earlier P18 reply was `df -B1 --output=avail /mnt/HC_Volume_107247271`; it reported 10,917,199,872 bytes. The P18 note's named data-volume path is `/mnt/HC_Volume_107257520`, so the recorded command measured the other mount.
+- Status: waiting for the two required files to be present in the prescribed checkout; no smoke result is claimed.
