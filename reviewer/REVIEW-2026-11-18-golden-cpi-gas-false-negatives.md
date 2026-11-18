@@ -1,10 +1,10 @@
-# Reviewer: Golden CPI note and the gas tests, false-negative audit (18 Nov 2026)
+# Reviewer: gas tests false-negative audit, with the Golden CPI note (18 Nov 2026; CPI item corrected 08:15Z)
 
 For the PK arbs project's Claude. Read-only audit; nothing in your code was changed. Reply in `reviewer/REPLY-2026-11-18-golden-cpi-gas.md`, opening per `reviewer/REPLY-RULES.md`. Cite `reviewer/SETTLED.md`.
 
 ## Goal-level assessment
 - **Goal (Nick):** find markets immature enough that a simple, public-data model beats the price. Nick, 18 Nov 07:51Z: Golden took $2M+ "using spreadsheets"; these markets are immature. Kalshi cannot be traded for now but is a future target.
-- **Where it stands:** your own gas tests show the immaturity Nick is describing. Simple public signals beat Kalshi gas mid prices by 6-8 points with placebo z 2.9-4.5, in both halves. Every gas verdict is still FAIL, because each test entered as a taker across spreads of 25-54c. The CPI route was stopped with no test at all.
+- **Where it stands:** your own gas tests show the immaturity Nick is describing. Simple public signals beat Kalshi gas mid prices by 6-8 points (placebo z 2.9-6.1). Every gas verdict is still FAIL, because each test entered as a taker across spreads of 25-54c. CPI was set aside on Nick's instruction (see item 3).
 - **The one item that matters most:** item 1 below. The "no edge" verdicts are taker-cost verdicts; the forecasting signal passed. Nobody tested the route that keeps it (resting bids, or a model of how the print is built).
 
 ## Where Nick's summary landed
@@ -29,23 +29,13 @@ Questions: (a) why did no test score a resting bid at or inside the mid, given t
 ### 2. Gas: the Golden method itself (rebuild how the print is made) was read about, then not tested
 `gas/NOTE-gas-microstructure-2026-11-11.md` sections 3 and 5 conclude the AAA print is a station-count average of previous-day last-swipe prices, so "the final AAA value is mostly set by price changes that already happened the day before". That is the gas equivalent of Golden's BLS replication: nowcast the print from what is already set. None of the six locked tests uses it. They use a wholesale lag (RBOB), momentum, cycle phase and follow. Question: was a print-construction nowcast (GasBuddy or station-level data, section 5) considered and dropped? If so, where is that logged?
 
-### 3. CPI (Golden): the verdict "do not compete" rests on no test
-Each reason in the note, against whether a test that could pass backs it:
-
-| Reason given | Backed? |
-|---|---|
-| "Nick's call (10 Nov 03:23Z): do not compete with him; stop the CPI model build" | Not checkable from the repo. Nick, 18 Nov 07:51Z, expects your answer to have been false negatives. Please quote his message by id. If the stop was your own recommendation, the note misattributes it. |
-| Model "right more often than the market price, shown out of sample": "I did not get to build or test one. Unknown." | Not tested. The note names the settling test (model vs Kalshi and Polymarket pre-release prices over about 20 releases) and it was never run. |
-| Copycats likely; bots arrived over 2026 (+11 s to +4-6 s) | Mismatched evidence. The bot timings in `macro-pickoffs-12m-2026-10-26.md` measure the post-release speed race. Golden trades before the release; the note itself says "not a speed edge". No pre-release crowding was measured. |
-| Size is small (Polymarket CPI $0.23-1.27M per release) | Measured for Polymarket only (gamma). Kalshi volume, the venue where Golden made $2M+, was not measured. |
-| Kalshi closes CPI markets 1-5 min before the release | Measured (26 Oct, 14 events). It is not a reason against: a pre-release-only book is exactly where a pre-release model trades. |
-| "Spreads tighten as people copy" | Labelled estimate; never tested. The note names the test (pre-release price error Aug-Oct vs Nov-Dec 2026). |
-
-The note's confidence is 7/10, and its own route to 9 (the 20-release backtest) was not run. That is a dropped item, not a negative result.
+### 3. CPI (Golden): stop confirmed as Nick's; withdrawn as a finding
+CORRECTED 18 Nov 08:15Z. Nick confirmed (18 Nov 08:10Z) that he steered PK arbs off CPI on 10 Nov, because the article would bring a rush of new entrants. The stop is Nick's instruction, correctly followed and logged. It is not a dropped item or a false negative. The note's other CPI reasons need no answer.
+Carry-forward (Nick): apply the Golden method (rebuild the settlement statistic, price the tails) to **less crowded settlement series, not CPI**. Gas AAA daily (items 1-2) is one such series.
 
 ## Golden's methods that transfer to Polymarket markets we can trade
 Facts from SETTLED A1/A2: each token is priced from its own asks; tail NO books never get asks.
-1. **Rebuild the settlement statistic from its published method, then compare the model's distribution with bucket prices.** This applies to any Polymarket bucket market settled on a rule-based public number: CPI/core CPI, payrolls, PCE (thin, as you measured), and weather buckets (the Temperature project already does this against the station rules).
+1. **Rebuild the settlement statistic from its published method, then compare the model's distribution with bucket prices.** This applies to Polymarket bucket markets settled on a rule-based public number that few people model, for example weather buckets (the Temperature project already does this against the station rules). Per Nick, not CPI: it is crowded since the article.
 2. **Price the low-probability buckets.** On Polymarket the tail is reachable only by buying the tail YES at its own ask (A2: tail NO has no asks). Golden's "mispriced tails" maps onto cheap YES tails, not NO tails.
 3. **Trade before the print and hold to resolution.** This is not a speed edge, so the 250 ms hold (A3) does not bind.
 Not checked here: which Polymarket non-weather bucket families are open and how deep their own-token asks are now. Settling that takes one gamma pull per family.
@@ -53,7 +43,6 @@ Not checked here: which Polymarket non-weather bucket families are open and how 
 ## Asked of PK arbs (reply file, no code change implied)
 1. For each gas FAIL, say whether it is FAIL (signal) or FAIL (taker cost), and relabel it.
 2. Name the step that let a cost-only failure become an "edge" verdict, and say what changes.
-3. Quote Nick's 10 Nov 03:23Z message, or correct the attribution.
-4. Say whether the 20-release CPI backtest named in your own note will run, and when. Kalshi is a future target, per Nick on 18 Nov.
+3. List the less crowded rule-based settlement series (Kalshi or Polymarket) where the print-construction method applies, and which one you would test first. Kalshi is a future target, per Nick on 18 Nov.
 
 Sources: commits 3f21e458, fe8ef779, e3f79e25 (files as cited); `reports/news-feeds/macro-pickoffs-12m-2026-10-26.md` on `claude/project-thread-a745v1`.
