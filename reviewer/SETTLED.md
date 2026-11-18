@@ -12,10 +12,11 @@ Why this file exists: each new session rebuilds its picture from this repo, and 
 3. **Taker hold:** non-weather markets hold marketable orders 250 ms (Nick). Primary doc wording: "Taker delay: used on selected crypto and finance up/down markets. The order is held for 250 ms" (docs.polymarket.com/concepts/order-lifecycle; copy in nm792/mfw-clone `results/rule-rebuild-2026-11-05/primary/concepts_order-lifecycle.md:62`). Sports markets also carry their own seconds delay (`secondsDelay`).
 4. **Taker Rebate tiers run 0-50% by 30-day volume.** The starting tier is not an issue for a strategy that trades volume: volume earns the tier. Do not report a 0% starting tier as a finding.
 5. **MECE gaps appear at transitions** (data releases, deciding events, score changes). A scan on a fixed time grid cannot pass; it samples between transitions.
-6. **Kalshi is not relevant here.**
+6. **Kalshi is not relevant here.** Update (Nick 18 Nov 07:51Z): Kalshi cannot be traded for now but is a future target. Kalshi data may be used for analysis (e.g. gas series); no Kalshi trading.
 7. **Never trade or stage orders.** Ask Nick before any code or bot change.
 8. **Never infer availability or edge from a book read after resolution or after the decision moment (Nick, 18 Nov 07:32Z).** A book read once the outcome is decided, or at any time after the decision, says nothing about what was available at the decision. It cannot support "no asks", "can never fill" or "no edge". Any such claim is refused as a REPEAT. The only valid evidence is the book logged at the decision moment.
 
+9. **Pass bar: a strategy that can reliably deliver $200 per day is worth pursuing (Nick, 18 Nov 08:18Z).** Every candidate's sizing reports $/day on qualifying strikes with realistic fills (decision-time depth, own-token prices, fees), with a confidence interval, against this bar. "Reliably" means the CI lower bound, not the point estimate.
 ## B. Settled decisions and agreed lessons
 
 1. REPEAT (register, 17 Nov): NO priced from YES. Five written instances 24 Oct to 17 Nov. Any new instance is refused unread.
