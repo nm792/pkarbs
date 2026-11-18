@@ -254,7 +254,9 @@ def main():
     ap.add_argument("--poll-log", action="append", required=True, help="goalserve_<date>.jsonl poll logs (capture.py): used to detect capture outages (> 10 s between polls)")
     ap.add_argument("--seed", type=int, default=SEED)
     ap.add_argument("--plant-c", type=float, default=PLANT_C)
+    ap.add_argument("--smoke", action="store_true", help="crash test on old files only: counts the first UTC day of the files, skips look/completeness refusals, output is marked smoke_not_a_result; never used for a real look")
     a = ap.parse_args()
+    global T_START
     files = sorted({f for g in a.files for f in glob.glob(g)})
     if not files:
         raise SystemExit("no goalserve files matched")
@@ -265,21 +267,25 @@ def main():
             raise SystemExit("cannot read the hour from file name %s" % f)
         hrs.append(calendar.timegm(time.strptime(m.group(1), "%Y%m%d%H")) + 3600.0)
         hour_names.add(hrs[-1] - 3600.0)
-    K = int((max(hrs) - T_START) // 86400)
-    if not 1 <= K <= LOOKS:
+    if a.smoke:
+        T_START = 86400.0 * int((min(hrs) - 3600.0) // 86400)   # smoke only: first UTC day of the given files
+        K = 1
+    else:
+        K = int((max(hrs) - T_START) // 86400)
+    if not a.smoke and not 1 <= K <= LOOKS:
         raise SystemExit("look K=%d is outside 1..%d (no complete UTC day since 2026-11-18 or past the last look)" % (K, LOOKS))
     t_hi = T_START + K * 86400.0
     drops = collections.Counter()
     polls = load_polls(a.poll_log, drops)
     if not polls:
         raise SystemExit("no polls read from --poll-log")
-    if polls[-1] < t_hi + 60:
+    if not a.smoke and polls[-1] < t_hi + 60:
         raise SystemExit("poll log ends %.0f s before the end of look day K=%d + 60 s: the last hour may be half written; run again later" % (t_hi + 60 - polls[-1], K))
     expected_hours = [T_START + 3600.0 * h for h in range(24 * K)]
     polled_hours = {T_START + 3600.0 * int((x - T_START) // 3600) for x in polls}
     missing = [h for h in expected_hours if h not in hour_names]
     missing_polled = [h for h in missing if h in polled_hours]
-    if missing_polled:
+    if missing_polled and not a.smoke:
         raise SystemExit("hour file(s) missing although the poll log shows capture running: %s (a lost or unshipped file would count as a quiet hour); fix the copy and run again" % ", ".join(time.strftime("%Y%m%d%H", time.gmtime(h)) for h in missing_polled))
     ev, audit = open_events(files, polls, T_START, t_hi)
     if audit["counters"].get("goalserve_rows_truncated_files", 0) or audit["counters"].get("goalserve_rows_bad_lines", 0) > 50:
@@ -413,7 +419,7 @@ def main():
                 by[e["m"]].append(e)
         return by
 
-    res = dict(look=K, looks_total=LOOKS, c_bm=C_BM, n_max=N_MAX, data_from_utc=T_START, data_through_utc=t_hi, seed=a.seed, plant_c=a.plant_c, clock_note=a.clock_note, files=len(files),
+    res = dict(smoke_not_a_result=bool(a.smoke), look=K, looks_total=LOOKS, c_bm=C_BM, n_max=N_MAX, data_from_utc=T_START, data_through_utc=t_hi, seed=a.seed, plant_c=a.plant_c, clock_note=a.clock_note, files=len(files),
                goalserve_events_total=len(ev), drops=dict(drops), audit=audit, poll_interval_measured=poll_gaps(a.poll_log), primary_cells=list(PRIMARY), cells={},
                wording="Only primary cells can be called a pass. Say 'odds moved before the price within the 60 s window' or 'did not'; never 'lead of N seconds' (windows cannot resolve under about 5 s). Bookmaker not identified (bm empty; vendor docs say bet365). d is volatility-matched (sign-symmetric placebo), not momentum-matched.",
                match_list=sorted(ml.values(), key=lambda r: (str(r["eid"]), r["kind"])))
