@@ -1,29 +1,27 @@
 #!/usr/bin/env python3
-"""Goalserve esports in-play odds vs Polymarket price, locked rerun v2 (non-onset, time-aligned). Read-only. Pre-registration: feeds/PREREG-goalserve-odds-vs-pm-v2-2026-11-18.md.
-Why v2: the v1 run (agent/status/goalserve-odds-vs-pm-result-2026-11-17-shift*.json, audit reviews/AUDIT-goalserve-odds-vs-pm-result-2026-11-17.md) returned 'unknown' everywhere (30-match placebo gate unreachable, placebo not like-for-like, planted lead not recovered, 54% of rows suspended so reopen prices read as late events).
-Input A: hour files esports_<hour>.jsonl.gz of {"recv_ns","body"} (live/goalserve/capture.py). Input B: --pm DIR (repeatable) with markets.jsonl(.gz) and books.jsonl(.gz) of the PM recorder (live/thesports/capture.py; row time = `ms`, rows only on change).
+"""Goalserve esports in-play odds vs Polymarket price, locked rerun v2, SEQUENTIAL (daily looks), amended 18 Nov after the Reviewer's response
+(reviewer/REVIEW-RESPONSE-2026-11-18-goalserve-plan.md). Read-only. Pre-registration: feeds/PREREG-goalserve-odds-vs-pm-v2-2026-11-18.md (amendment V12-V20 is the authority).
+Input A: hour files esports_<hour>.jsonl.gz of {"recv_ns","body"} (live/goalserve/capture.py). Input B: --pm DIR (repeatable) with markets.jsonl(.gz) and books.jsonl(.gz) of the PM recorder (live/thesports/capture.py; row time = `ms`, rows only on change). Input C: --poll-log (required).
 Rules (locked before any new data is read):
  V1 event = a move of the vig-removed home probability >= 0.02 between TWO CONSECUTIVE stored payloads in which the market is valid and open in both (market and both participants not suspended, 2 participants, value_eu > 1). Any payload in which the (event, market) is
-    missing, suspended or invalid CLEARS the baseline, so a reopen price is never an event (v1 fault). Markets: exactly the v1 names ('Home/Away' = Match Winner, 'Home/Away (map N)' = Map N Winner); all others excluded and counted. Cells = league prefix (cs2, dota2, ...) x kind.
+    missing, suspended or invalid CLEARS the baseline, so a reopen price is never an event. Markets: exactly 'Home/Away' (Match Winner) and 'Home/Away (map N)' (Map N Winner); all others excluded and counted. Cells = league prefix (cs2, dota2, ...) x kind.
  V2 per (match, kind) at most CAP=40 events, kept by seeded random choice; the number dropped is reported.
- V3 PM side: rising team's outcome token, own book (never the other token). mid(x) = last book mid at or before x. For event time t: R = (mid(t+60) - mid(t)) - (mid(t-5) - mid(t-60)). Needs a mid at t-60, and at least one book row of either market token within +-300 s of t (recorder alive); else dropped and counted.
-    Positive R beyond placebo = PM moved after the odds did. A PM move before the odds (PM first) lowers R.
- V4 placebo = SAME event times, 10 draws per event, token random of the two, sign random (+-1), R computed the same way (direction shuffled, like cs2model/lead3.py). d = R_real - mean(R_placebo draws).
- V5 cell statistic = mean over matches of the per-match mean d (matches equal weight). CI = match-clustered bootstrap (2000, seed) 95%.
- V6 bar: >= 12 matches and >= 60 usable events in the cell; mean d >= 0.005 (0.5c) and CI lower bound > 0 and (share of events with R_real > mean placebo R) >= 55%. Else, with enough data, 'no lead detected'. If CI upper bound < 0: 'PM moved first (price ahead of the odds)'.
- V7 power check on the REAL series, same run (replaces v1's time-shift plant, which cannot move a fixed-window statistic): a planted edge of PLANT_C = 0.01 (1c, injected at t+10 s on the rising token, which adds exactly +0.01 to every R_real) is added on top of this cell's own noise,
-    d_plant = d - (cell mean d) + 0.01. The plant is DETECTED if the V6 bar is met on d_plant (CI lower > 0, mean >= 0.005, share >= 55%). If not detected the cell verdict is capped at 'unknown (underpowered: a 1c edge would not be detected)'. min_detectable_effect = cell mean d - CI lower bound is reported.
- V9 (checker signoff 17 Nov 23:00Z) capture outage: --poll-log is REQUIRED; a payload whose preceding poll is more than 10 s earlier (or has none) CLEARS all baselines (counted: baseline_cleared_poll_gap_gt_10s), so the first price after an outage is never an event.
- V10 PRIMARY cells: cs2|Match Winner and dota2|Match Winner (alpha not corrected, 2 cells). All other cells are informational, printed with the prefix '(informational)', and cannot be called a pass. The real run omits --plant-c and --seed (the audit checks plant_c 0.01 and seed 20261118 in the JSON). Hand check: first20_events_biggest_cell is printed.
- V12 (sequential, 18 Nov 01:40Z, Nick: check daily) Only payloads from 2026-11-18T00:00Z (T_START) count. Look number K = number of COMPLETE UTC days between T_START and the end of the last hour file given (read from the file names); data of an incomplete day is ignored. K is never a command-line option; K must be 1..20.
-    A look uses ALL complete days so far. Boundary z_K = C_OBF / sqrt(K/LOOKS) with C_OBF = 2.39 (simulated: P(any of 20 looks has Z >= C/sqrt(t)) = 0.0122 under the null, one-sided, per primary cell, so <= 0.025 over the 2 primary cells). Statistic z = cell mean d / SE, SE = standard deviation of the match-clustered bootstrap (5000 draws) of the cell mean.
-    'meets bar' needs z >= z_K plus the V6 conditions (12 matches, 60 events, mean d >= 0.005, share >= 55%); 'PM moved first' needs z <= -z_K; the V7 power check becomes z_K * SE < PLANT_C (a 1c edge would pass this look). Early looks therefore pass only on a very large effect. Looks 1..20 are on 19 Nov..8 Dec; no look after 20; a pass at any look is a pass, later looks never overturn it but the audit reads it.
-    Daily output for every cell: matches_by_day (matches with at least one usable event that day) and the cumulative count.
- V8 seed 20261118 (--seed only for the self test). Every verdict is UNCHECKED until the rule-to-code table is signed by another thread and an independent audit is done. Bookmaker is not identified (bm empty; vendor docs say bet365): say so with every result.
-Usage: python3 -I feeds/goalserve_odds_vs_pm_v2.py --files '<glob of esports_*.jsonl.gz>' --pm DIR [--pm DIR] --poll-log '<glob of goalserve_*.jsonl>' --clock-note 'text' --out result.json
-Self test: python3 -I feeds/test_goalserve_odds_vs_pm_v2.py
+ V3 R = (mid(t+60) - mid(t)) - (mid(t-5) - mid(t-60)) on the rising team's OWN token (never inferred from the other token; a row with no own-book mid is excluded and counted per cell). mid(x) = last book mid at or before x. Needs a mid at t-60 and a book row of either token within +-300 s of t; else dropped and counted.
+ V4 placebo = SAME event times, 10 draws per event, token random of the two, sign random; d = R_real - mean placebo R. The post term and the pre term are reported separately, real and placebo, per cell.
+ V9 capture outage: --poll-log required; a payload whose preceding poll is more than 10 s earlier clears all baselines (counted).
+ V10 PRIMARY cells: cs2|Match Winner and dota2|Match Winner, each with its own alpha; all other cells are informational and cannot be called a pass. The real run omits --plant-c and --seed.
+ V12 Only payloads from 2026-11-18T00:00Z (T_START) count. Look K = complete UTC days between T_START and the end of the last hour file (read from file names); K must be 1..20; never an option.
+ V17 (Reviewer E1(b)/(c)) Statistic: per match, mean d over its usable events; the cell uses the FIRST N_MAX matches by first usable event time (cs2 100, dota2 50: projected from the v1 accrual of 25 and 12 matches in 4 days; later matches are reported, not used), so adding data never changes earlier matches.
+    t-statistic of the per-match means, n-1 degrees of freedom, converted to z_eq (same one-sided p). Information time t = n_eff / N_MAX. Boundary (Brownian scale, valid for ANY look schedule by the reflection principle, continuous monitoring): pass if z_eq * sqrt(t) >= C_BM = 2.50, i.e. z_eq >= 2.50 / sqrt(t); one-sided alpha 2(1 - Phi(2.50)) = 0.0124 per primary cell, <= 0.025 over the two.
+    'meets bar' also needs the V6 conditions (>= 12 matches, >= 60 events, mean d >= 0.005, share of events with R_real > placebo mean >= 55%). 'PM moved first' needs z_eq <= -boundary. 'no lead detected' is decided ONLY when the cell is closed (n_eff reached N_MAX, or look 20) and the plants below were recovered; before that the verdict is 'no pass yet (not a no-lead)'.
+ V18 (Reviewer E1(a)) End-to-end plants on each look's real data, through the same token lookup, mid and window code, per event and alone (so events do not contaminate each other's windows): (P+) +PLANT_C step at t+10 s on the rising token and -PLANT_C on the other token; (P-) the same step at t-10 s; (S) directions negated (the other token is read as 'rising'); (SP) S plus P+.
+    Required: mean over matches of d(P+) - d(base) within 5% of +PLANT_C; d(P-) - d(base) within 5% of -PLANT_C; d(SP) - d(S) within 5% of -PLANT_C; and power: zb * SE < PLANT_C where SE = s / sqrt(n_eff) at this look. If any fails every verdict except 'unknown' is withheld: 'unknown (plant not recovered / underpowered)'.
+ V19 Output per look: look, n_eff per cell, t, boundary, z_eq, pre and post terms (real, placebo), matches_by_day and cumulative, excluded counts per cell, plain_summary, first20_events_biggest_cell (hand check by another thread), ties, outage counters.
+ V8 seed 20261118 (--seed only for the self test). Every verdict is UNCHECKED until the rule-to-code table is signed by another thread and an independent audit is done. Bookmaker is not identified (bm empty; vendor docs say bet365): say so with every result. Say 'odds moved before the price within the 60 s window' or 'did not'; never 'lead of N seconds'.
+Usage: python3 -I feeds/goalserve_odds_vs_pm_v2.py --files '<glob of esports_*.jsonl.gz>' [--files ...] --pm DIR [--pm DIR] --poll-log '<glob of goalserve_*.jsonl>' [--poll-log ...] --clock-note 'text' --out result.json
+Self test: python3 -I feeds/test_goalserve_odds_vs_pm_v2.py   (includes the null simulation of the whole look schedule)
 """
-import argparse, bisect, calendar, collections, glob, json, math, os, random, re, sys
+import argparse, bisect, calendar, collections, glob, json, math, os, random, re, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ps_lead_test import norm, find, load_pm, mk_index
 from goalserve_odds_vs_pm import counted_lines, market_kind, num, med, poll_gaps
@@ -34,8 +32,102 @@ MIN_MATCHES, MIN_EVENTS, MIN_EFFECT, MIN_SHARE = 12, 60, 0.005, 55.0
 OPEN = (0, "0", False, None)
 OUTAGE_S = 10.0
 T_START = 1794960000.0        # 2026-11-18T00:00:00Z: only data from here on is used (earlier data is already seen)
-LOOKS, C_OBF = 20, 2.39       # sequential rule V12: one look per complete UTC day, 20 looks; O'Brien-Fleming boundary z_k = C_OBF / sqrt(k/LOOKS)
-PRIMARY = ("cs2|Match Winner", "dota2|Match Winner")
+LOOKS = 20
+C_BM = 2.50                   # boundary on the Brownian scale: pass if z_eq * sqrt(t) >= C_BM (2(1-Phi(2.5)) = 0.0124 one-sided per cell, any look schedule)
+N_MAX = {"cs2|Match Winner": 100, "dota2|Match Winner": 50}
+PRIMARY = tuple(N_MAX)
+
+
+def phi_sf(x):
+    return 0.5 * math.erfc(x / math.sqrt(2.0))
+
+
+def z_from_p(p):
+    """upper-tail normal quantile by bisection (stdlib only); p in (0, 1)."""
+    lo, hi = -40.0, 40.0
+    for _ in range(200):
+        m = (lo + hi) / 2
+        if phi_sf(m) > p:
+            lo = m
+        else:
+            hi = m
+    return (lo + hi) / 2
+
+
+def _betacf(a, b, x):
+    qab, qap, qam = a + b, a + 1.0, a - 1.0
+    c, d = 1.0, 1.0 - qab * x / qap
+    d = 1.0 / (d if abs(d) > 1e-300 else 1e-300)
+    h = d
+    for m in range(1, 400):
+        m2 = 2 * m
+        aa = m * (b - m) * x / ((qam + m2) * (a + m2))
+        d = 1.0 + aa * d
+        d = 1.0 / (d if abs(d) > 1e-300 else 1e-300)
+        c = 1.0 + aa / c
+        c = c if abs(c) > 1e-300 else 1e-300
+        h *= d * c
+        aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2))
+        d = 1.0 + aa * d
+        d = 1.0 / (d if abs(d) > 1e-300 else 1e-300)
+        c = 1.0 + aa / c
+        c = c if abs(c) > 1e-300 else 1e-300
+        dl = d * c
+        h *= dl
+        if abs(dl - 1.0) < 3e-16:
+            break
+    return h
+
+
+def t_sf(t, df):
+    """P(T > t), Student t with df degrees of freedom (regularised incomplete beta; stdlib only)."""
+    if t == 0:
+        return 0.5
+    x = df / (df + t * t)
+    a, b = df / 2.0, 0.5
+    # I_x(a,b) with the standard prefactor
+    front = math.exp(math.lgamma(a + b) - math.lgamma(a) - math.lgamma(b) + a * math.log(x) + b * math.log1p(-x))
+    ib = front * _betacf(a, b, x) / a if x < (a + 1.0) / (a + b + 2.0) else 1.0 - front * _betacf(b, a, 1.0 - x) / b
+    return 0.5 * ib if t > 0 else 1.0 - 0.5 * ib
+
+
+def cell_t(means):
+    """per-match means -> (n, mean, se, t, z_eq): z_eq has the same one-sided p as the t statistic with n-1 df."""
+    n = len(means)
+    if n < 2:
+        return n, (means[0] if n else None), None, None, None
+    mu = sum(means) / n
+    se = (sum((x - mu) ** 2 for x in means) / (n - 1)) ** 0.5 / math.sqrt(n)
+    if se == 0:
+        return n, mu, 0.0, None, None
+    t = mu / se
+    p = min(max(t_sf(t, n - 1), 1e-300), 1 - 1e-16)
+    return n, mu, se, t, z_from_p(p)
+
+
+def boundary(n_eff, cell):
+    return float("inf") if n_eff < 1 else C_BM / math.sqrt(min(1.0, n_eff / N_MAX[cell]))
+
+
+def decide(means_by_match, n_events, share, plants_ok, closed, cell, md_ok=True):
+    """The whole per-cell decision from per-match means (used by main() and by the null simulation in the self test)."""
+    n, mu, se, t, z = cell_t(means_by_match)
+    if cell not in N_MAX:
+        return dict(n=n, mean=mu, se=se, t=t, z_eq=z, boundary_z=None, verdict="(informational) no boundary")
+    zb = boundary(n, cell)
+    if n < MIN_MATCHES or n_events < MIN_EVENTS or z is None:
+        v = "unknown (%d matches, %d events; needs >= %d and >= %d)" % (n, n_events, MIN_MATCHES, MIN_EVENTS)
+    elif not plants_ok:
+        v = "unknown (plant not recovered / underpowered at this look)"
+    elif z >= zb and mu >= MIN_EFFECT and share >= MIN_SHARE:
+        v = "meets bar (needs audit)"
+    elif z <= -zb:
+        v = "PM moved first (needs audit)"
+    elif closed:
+        v = "no lead detected (needs audit)"
+    else:
+        v = "no pass yet (not a no-lead)"
+    return dict(n=n, mean=mu, se=se, t=t, z_eq=z, boundary_z=zb, verdict=v)
 
 
 def load_polls(globs, cnt):
@@ -139,21 +231,20 @@ def main():
     files = sorted({f for g in a.files for f in glob.glob(g)})
     if not files:
         raise SystemExit("no goalserve files matched")
-    drops = collections.Counter()
-    polls = load_polls(a.poll_log, drops)
-    if not polls:
-        raise SystemExit("no polls read from --poll-log")
     hrs = []
     for f in files:
         m = re.search(r"esports_(\d{10})", os.path.basename(f))
         if not m:
             raise SystemExit("cannot read the hour from file name %s" % f)
-        hrs.append(calendar.timegm(__import__("time").strptime(m.group(1), "%Y%m%d%H")) + 3600.0)
+        hrs.append(calendar.timegm(time.strptime(m.group(1), "%Y%m%d%H")) + 3600.0)
     K = int((max(hrs) - T_START) // 86400)
     if not 1 <= K <= LOOKS:
         raise SystemExit("look K=%d is outside 1..%d (no complete UTC day since 2026-11-18 or past the last look)" % (K, LOOKS))
     t_hi = T_START + K * 86400.0
-    zb = C_OBF / math.sqrt(K / LOOKS)
+    drops = collections.Counter()
+    polls = load_polls(a.poll_log, drops)
+    if not polls:
+        raise SystemExit("no polls read from --poll-log")
     ev, audit = open_events(files, polls, T_START, t_hi)
     idx = mk_index(load_pm(a.pm))
     sel, ml = {}, {}
@@ -196,9 +287,11 @@ def main():
         series[tk].sort()
         ts[tk] = [x[0] for x in series[tk]]
 
-    def mid_at(tk, x):
+    def mid_at(tk, x, steps=()):
         i = bisect.bisect_right(ts.get(tk, []), x) - 1
-        return series[tk][i][1] if i >= 0 else None
+        if i < 0:
+            return None
+        return series[tk][i][1] + sum(c for (tt, c, tok) in steps if tok == tk and x >= tt)
 
     def alive(toks, t):
         for tk in toks:
@@ -208,108 +301,139 @@ def main():
                 return True
         return False
 
-    def R(tk, t):
-        m = [mid_at(tk, t + dt) for dt in (60, 0, -5, -60)]
-        return None if None in m else (m[0] - m[1]) - (m[2] - m[3])
+    def R(tk, t, steps=()):
+        m = [mid_at(tk, t + dt, steps) for dt in (60, 0, -5, -60)]
+        if None in m:
+            return None
+        return (m[0] - m[1]) - (m[2] - m[3]), m[0] - m[1], m[2] - m[3]
 
-    per = collections.defaultdict(list)   # (game, kind, match) -> list of events
+    def mean(x):
+        x = list(x)
+        return sum(x) / len(x) if x else None
+
+    per = collections.defaultdict(list)
     for (eid, kind, t, rise, h, a_, game) in ev:
         per[(game, kind, eid)].append((t, rise))
-    cells = collections.defaultdict(lambda: collections.defaultdict(list))   # cell -> match -> [(d, share_flag, plant_gain)]
+    recs = collections.defaultdict(list)
+    cellx = collections.defaultdict(collections.Counter)
+    c_ = a.plant_c
     for (game, kind, eid), L in sorted(per.items()):
         m = sel.get((eid, kind))
         if not m:
             continue
+        cell = "%s|%s" % (game, kind)
         if len(L) > CAP:
             drops["events_dropped_by_match_cap"] += len(L) - CAP
+            cellx[cell]["events_dropped_by_match_cap"] += len(L) - CAP
             L = sorted(rnd.sample(L, CAP))
         outs = [norm(o) for o in m["outcomes"]]
         for (t, rise) in L:
             if rise not in outs:
                 drops["events_rising_team_not_a_pm_outcome"] += 1
+                cellx[cell]["rising_team_not_a_pm_outcome"] += 1
                 continue
-            tk = m["tokens"][outs.index(rise)]
+            i = outs.index(rise)
+            tk, otk = m["tokens"][i], m["tokens"][1 - i]
             if not alive(m["tokens"], t):
                 drops["events_pm_recorder_silent_pm300s"] += 1
+                cellx[cell]["pm_recorder_silent_pm300s"] += 1
                 continue
             r0 = R(tk, t)
             if r0 is None:
-                drops["events_no_pm_baseline_at_t_minus_60"] += 1
+                drops["events_no_own_book_mid_at_t_minus_60"] += 1
+                cellx[cell]["no_own_book_mid_at_t_minus_60"] += 1
                 continue
-            pl = []
+            pl, ppo, ppr = [], [], []
             for _ in range(NPLC):
-                x = R(rnd.choice(m["tokens"]), t)
+                ptk, sg = rnd.choice(m["tokens"]), rnd.choice((-1, 1))
+                x = R(ptk, t)
                 if x is not None:
-                    pl.append(rnd.choice((-1, 1)) * x)
+                    pl.append(sg * x[0]); ppo.append(sg * x[1]); ppr.append(sg * x[2])
             if not pl:
                 drops["events_no_placebo"] += 1
+                cellx[cell]["no_placebo"] += 1
                 continue
-            mp = sum(pl) / len(pl)
-            if r0 == mp:
+            mp = mean(pl)
+            if r0[0] == mp:
                 drops["events_tie_d_zero"] += 1
-            cells["%s|%s" % (game, kind)][eid].append((r0 - mp, 1.0 if r0 > mp else 0.0, None, r0, mp, t, eid, rise, tk))
 
-    def mean(x):
-        return sum(x) / len(x) if x else None
+            tmap = dict(zip(outs, m["tokens"]))       # independent lookup path for the plant: the token that REALLY belongs to the rising team's name
+            ttk = tmap[rise]
+            ottk = [x for x in m["tokens"] if x != ttk][0]
 
-    def boot(by, pick, n=5000):
-        ms = sorted(by)
-        pm_ = {k: mean([pick(e) for e in by[k] if pick(e) is not None]) for k in ms}
-        ms = [k for k in ms if pm_[k] is not None]
-        if len(ms) < 2:
-            return None, None
-        out = sorted(mean([pm_[rnd.choice(ms)] for _ in ms]) for _ in range(n))
-        mu = sum(out) / n
-        return [out[int(.025 * n)], out[int(.975 * n)]], (sum((x - mu) ** 2 for x in out) / (n - 1)) ** 0.5
+            def stp(dt):
+                return ((t + dt, c_, ttk), (t + dt, -c_, ottk))
+            rP, rM = R(tk, t, stp(10)), R(tk, t, stp(-10))
+            rS, rSP = R(otk, t), R(otk, t, stp(10))
+            recs[cell].append(dict(m=eid, t=t, rise=rise, tok=tk, d=r0[0] - mp, share=1.0 if r0[0] > mp else 0.0, R=r0[0], mp=mp, post=r0[1], pre=r0[2], ppost=mean(ppo), ppre=mean(ppr),
+                                   dP=(rP[0] - mp) if rP else None, dM=(rM[0] - mp) if rM else None, dS=(rS[0] - mp) if rS else None, dSP=(rSP[0] - mp) if rS and rSP else None))
 
-    res = dict(look=K, looks_total=LOOKS, boundary_z=zb, c_obf=C_OBF, data_from_utc=T_START, data_through_utc=t_hi, seed=a.seed, plant_c=a.plant_c, clock_note=a.clock_note, files=len(files), goalserve_events_total=len(ev), drops=dict(drops), audit=audit, cells={},
-               poll_interval_measured=poll_gaps(a.poll_log), primary_cells=list(PRIMARY),
+    def per_match(evs, key, need=None):
+        by = collections.defaultdict(list)
+        for e in evs:
+            if e[key] is not None and (need is None or all(e[k] is not None for k in need)):
+                by[e["m"]].append(e)
+        return by
+
+    res = dict(look=K, looks_total=LOOKS, c_bm=C_BM, n_max=N_MAX, data_from_utc=T_START, data_through_utc=t_hi, seed=a.seed, plant_c=a.plant_c, clock_note=a.clock_note, files=len(files),
+               goalserve_events_total=len(ev), drops=dict(drops), audit=audit, poll_interval_measured=poll_gaps(a.poll_log), primary_cells=list(PRIMARY), cells={},
                wording="Only primary cells can be called a pass. Say 'odds moved before the price within the 60 s window' or 'did not'; never 'lead of N seconds' (windows cannot resolve under about 5 s). Bookmaker not identified (bm empty; vendor docs say bet365). d is volatility-matched (sign-symmetric placebo), not momentum-matched.",
                match_list=sorted(ml.values(), key=lambda r: (str(r["eid"]), r["kind"])))
     big = (0, None, [])
-    for cell, by in sorted(cells.items()):
-        evs = [e for k in by for e in by[k]]
-        n_m, n_e = len(by), len(evs)
-        md = mean([mean([e[0] for e in by[k]]) for k in by])
-        ci, se = boot(by, lambda e: e[0])
-        share = 100.0 * sum(e[1] for e in evs) / n_e
-        zstat = (md / se) if se else None
-        ex = [e[0] - md + a.plant_c for e in evs]
-        plant_ok = bool(se and zb * se < a.plant_c and a.plant_c >= MIN_EFFECT and 100.0 * sum(1 for x in ex if x > 0) / n_e >= MIN_SHARE)
+    for cell, evs in sorted(recs.items()):
+        first = {}
+        for e in evs:
+            first[e["m"]] = min(first.get(e["m"], e["t"]), e["t"])
+        order = sorted(first, key=first.get)
+        used = set(order[:N_MAX.get(cell, len(order))])
+        ue = [e for e in evs if e["m"] in used]
+        by = per_match(ue, "d")
+        means = [mean(e["d"] for e in L) for L in by.values()]
+        n_e = len(ue)
+        share = 100.0 * sum(e["share"] for e in ue) / n_e
+        md = mean(means)
+
+        def delta(k1, k2, sign_c):
+            """mean over matches of the paired difference (variant k1 minus k2) and the expected value sign_c * c."""
+            b = per_match(ue, k1, need=(k1, k2))
+            x = mean(mean(e[k1] - e[k2] for e in L) for L in b.values())
+            return x
+        dP, dM, dSw = delta("dP", "d", +1), delta("dM", "d", -1), delta("dSP", "dS", -1)
+        tol = 0.05 * c_
+        recovered = dict(plus_step=dP, minus_step=dM, label_swap_plus_step=dSw,
+                         plus_ok=dP is not None and abs(dP - c_) <= tol, minus_ok=dM is not None and abs(dM + c_) <= tol, swap_ok=dSw is not None and abs(dSw + c_) <= tol)
+        n_, mu_, se_, t_, z_ = cell_t(means)
+        zb = boundary(n_, cell) if cell in N_MAX else None
+        power_ok = bool(se_ and zb is not None and zb * se_ < c_)
+        plants_ok = recovered["plus_ok"] and recovered["minus_ok"] and recovered["swap_ok"] and power_ok
+        closed = cell in N_MAX and (n_ >= N_MAX[cell] or K == LOOKS)
+        dec = decide(means, n_e, share, plants_ok, closed, cell)
         days = collections.defaultdict(set)
-        for m_, L_ in by.items():
-            for e in L_:
-                days[int((e[5] - T_START) // 86400) + 1].add(m_)
+        for e in ue:
+            days[int((e["t"] - T_START) // 86400) + 1].add(e["m"])
         seen_m, cum = set(), {}
         for dd in sorted(days):
             seen_m |= days[dd]
-            cum[dd] = len(seen_m)
-        c = dict(role="primary" if cell in PRIMARY else "informational (cannot be called a pass)", n_matches=n_m, n_events=n_e, mean_d_per_match=md, se_match_boot=se, z=zstat, boundary_z=zb,
-                 ci95_match_boot_descriptive=ci, share_events_real_gt_placebo_pct=share,
-                 mean_R_real=mean([e[3] for e in evs]), mean_R_placebo=mean([e[4] for e in evs]),
-                 plant_c=a.plant_c, plant_detected=plant_ok, min_detectable_effect_at_this_look=(zb * se) if se else None,
-                 matches_by_day={str(k_): len(v_) for k_, v_ in sorted(days.items())}, matches_cumulative_by_day={str(k_): v_ for k_, v_ in cum.items()},
-                 events_per_match=sorted((len(v) for v in by.values()), reverse=True)[:10])
-        if n_m < MIN_MATCHES or n_e < MIN_EVENTS:
-            c["verdict"] = "unknown (%d matches, %d events; needs >= %d and >= %d)" % (n_m, n_e, MIN_MATCHES, MIN_EVENTS)
-        elif not plant_ok:
-            c["verdict"] = "unknown (underpowered at look %d: a %.0fc edge would not pass the boundary)" % (K, 100 * a.plant_c)
-        elif zstat is not None and zstat >= zb and md >= MIN_EFFECT and share >= MIN_SHARE:
-            c["verdict"] = "meets bar at look %d (needs audit)" % K
-        elif zstat is not None and zstat <= -zb:
-            c["verdict"] = "PM moved first at look %d (needs audit)" % K
-        else:
-            c["verdict"] = "no lead detected at look %d (needs audit)" % K
+            cum[str(dd)] = len(seen_m)
+        c = dict(role="primary" if cell in PRIMARY else "informational (cannot be called a pass)", n_matches_used=n_, n_matches_seen=len(order), n_matches_beyond_planned_max=len(order) - len(used), n_events=n_e,
+                 information_time=(min(1.0, n_ / N_MAX[cell]) if cell in N_MAX else None), mean_d_per_match=md, se=se_, t_stat=t_, z_eq=z_, boundary_z=zb,
+                 share_events_real_gt_placebo_pct=share, ties_d_zero=sum(1 for e in ue if e["d"] == 0),
+                 post_real=mean(mean(e["post"] for e in L) for L in by.values()), pre_real=mean(mean(e["pre"] for e in L) for L in by.values()),
+                 post_placebo=mean(mean(e["ppost"] for e in L) for L in by.values()), pre_placebo=mean(mean(e["ppre"] for e in L) for L in by.values()),
+                 plant_c=c_, plant_recovery=recovered, power_ok=power_ok, plants_ok=plants_ok, min_detectable_effect_at_this_look=(zb * se_) if (se_ and zb) else None, closed=closed,
+                 excluded_counts=dict(cellx.get(cell, {})), matches_by_day={str(k_): len(v_) for k_, v_ in sorted(days.items())}, matches_cumulative_by_day=cum,
+                 events_per_match=sorted((len(v) for v in by.values()), reverse=True)[:10], verdict=dec["verdict"])
         if cell not in PRIMARY:
             c["verdict"] = "(informational) " + c["verdict"]
-        c["ties_d_zero"] = sum(1 for e in evs if e[0] == 0)
         res["cells"][cell] = c
         if n_e > big[0]:
-            big = (n_e, cell, sorted(evs, key=lambda e: e[5])[:20])
-    res["plain_summary"] = ["%s [%s]: look %d of %d (data through %s UTC), %d matches, z %s vs boundary %.2f, a planted 1c edge %s at this look, verdict: %s" % (
-        k_, v_["role"].split(" ")[0], K, LOOKS, __import__("time").strftime("%Y-%m-%d", __import__("time").gmtime(t_hi - 1)), v_["n_matches"], "%.2f" % v_["z"] if v_["z"] is not None else "n/a", zb,
-        "WOULD pass (power ok)" if v_["plant_detected"] else "would NOT pass (underpowered)", v_["verdict"]) for k_, v_ in res["cells"].items()]
-    res["first20_events_biggest_cell"] = dict(cell=big[1], rows=[dict(t=e[5], match=e[6], rising_team=e[7], token=e[8], R_real=e[3], placebo_mean=e[4], d=e[0]) for e in big[2]])
+            big = (n_e, cell, sorted(ue, key=lambda e: e["t"])[:20])
+    res["plain_summary"] = ["%s [%s]: look %d of %d (data through %s UTC), %d matches used, info time %s, z_eq %s vs boundary %s, planted 1c edge: %s, verdict: %s" % (
+        k_, v_["role"].split(" ")[0], K, LOOKS, time.strftime("%Y-%m-%d", time.gmtime(t_hi - 1)), v_["n_matches_used"],
+        "%.2f" % v_["information_time"] if v_["information_time"] is not None else "n/a", "%.2f" % v_["z_eq"] if v_["z_eq"] is not None else "n/a",
+        "%.2f" % v_["boundary_z"] if v_["boundary_z"] is not None else "n/a", "RECOVERED and powered" if v_["plants_ok"] else "NOT recovered or underpowered (%s)" % json.dumps(v_["plant_recovery"]), v_["verdict"])
+        for k_, v_ in res["cells"].items()]
+    res["first20_events_biggest_cell"] = dict(cell=big[1], rows=[dict(t=e["t"], match=e["m"], rising_team=e["rise"], token=e["tok"], R_real=e["R"], placebo_mean=e["mp"], d=e["d"]) for e in big[2]])
     json.dump(res, open(a.out, "w"), indent=1)
     print(json.dumps({k: v for k, v in res.items() if k != "match_list"}, indent=1))
     print("match_list rows:", len(res["match_list"]))
