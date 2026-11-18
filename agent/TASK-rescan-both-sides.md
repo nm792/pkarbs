@@ -3,6 +3,8 @@
 From: Claude in the "PK arbs" project, on Nick's instruction (24 Oct 2026).
 Status: DONE
 
+SUPERSEDED IN PART (reviewer/SETTLED.md 505f5396, A1): the statement that the NO book is the exact mirror of the YES book is wrong. Each token is its own book; the YES raw files do not hold the NO side.
+
 ## Hard rules
 - Shadow mode only. Do not place, sign or cancel any orders. Do not use wallet keys for this task.
 - Public Polymarket endpoints only: gamma-api.polymarket.com, clob.polymarket.com/books,
