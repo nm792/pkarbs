@@ -254,6 +254,22 @@ worst = max(grid.values())
 print("  NULL GRID (checker's scenarios: 2, 3, 6 matches a day; Poisson, overdispersed, back-loaded; normal and t3; 1500 runs each): worst false-pass %.4f; all: %s" % (worst, {"%s/%s/%s" % k: round(v, 4) for k, v in grid.items()}))
 check("null grid: false-pass over 20 looks <= 1.25%% in every one of the 18 scenarios (worst %.4f)" % worst, worst <= 0.0125)
 
+# reproducibility across looks (checker): the same earlier matches give the same d at look 1 and look 2
+tmpr, gdr, pmr, plr = build(15.0, N=40, fname="esports_2026111923.jsonl.gz")
+def run_files(files_glob, tag):
+    out = os.path.join(tmpr, "res_%s.json" % tag)
+    subprocess.run([sys.executable, "-I", os.path.join(here, "goalserve_odds_vs_pm_v2.py")] + sum([["--files", f_] for f_ in files_glob], []) + ["--pm", pmr, "--poll-log", os.path.join(plr, "*.jsonl"), "--clock-note", "t", "--out", out], capture_output=True, text=True)
+    return json.load(open(out)) if os.path.exists(out) else None
+jr1 = run_files([os.path.join(gdr, "esports_20261118*.jsonl.gz")], "look1")
+jr2 = run_files([os.path.join(gdr, "*.jsonl.gz")], "look2")
+if jr1 and jr2:
+    m1 = jr1["cells"][CELL]["per_match_mean_d"]; m2 = jr2["cells"][CELL]["per_match_mean_d"]
+    early = [k_ for k_ in m1 if k_ in m2 and int(k_[1:]) < 20]
+    check("reproducible across looks: look 1 and look 2 give identical per-match mean d for the %d matches wholly inside day 1 (placebo and cap seeded per event)" % len(early), len(early) >= 15 and all(abs(m1[k_] - m2[k_]) < 1e-12 for k_ in early) and jr1["look"] == 1 and jr2["look"] == 2)
+else:
+    check("reproducible across looks: both runs produced a result", False)
+shutil.rmtree(tmpr, ignore_errors=True)
+
 def build_and_run(mutator, fname="esports_2026111823.jsonl.gz"):
     tmp, gdir, pmd, pl = build(15.0, fname=fname)
     mutator(tmp, gdir, pl)

@@ -14,7 +14,7 @@ Rules (locked before any new data is read):
  V17 (Reviewer E1(b)/(c)) Statistic: per match, mean d over its usable events; the cell uses the FIRST N_MAX matches by first usable event time (cs2 100, dota2 50: projected from the v1 accrual of 25 and 12 matches in 4 days; later matches are reported, not used), so adding data never changes earlier matches.
     t-statistic of the per-match means, n-1 degrees of freedom, converted to z_eq (same one-sided p). Information time t = n_eff / N_MAX. Boundary (Brownian scale, valid for ANY look schedule by the reflection principle, continuous monitoring): pass if z_eq * sqrt(t) >= C_BM = 2.60, i.e. z_eq >= 2.60 / sqrt(t); one-sided alpha 2(1 - Phi(2.60)) = 0.0093 per primary cell, <= 0.019 over the two (raised from 2.50 on 18 Nov: the checker's 18-scenario grid gave 1.20% worst at 2.50, too close to 1.25%).
     'meets bar' also needs the V6 conditions (>= 12 matches, >= 60 events, mean d >= 0.005, share of events with R_real > placebo mean >= 55%). 'PM moved first' needs z_eq <= -boundary. 'no lead detected' is decided ONLY when the cell is closed (n_eff reached N_MAX, or look 20) and the plants below were recovered; before that the verdict is 'no pass yet (not a no-lead)'.
- V18 (Reviewer E1(a)) End-to-end plants on each look's real data, through the same token lookup, mid and window code, per event and alone (so events do not contaminate each other's windows): (P+) +PLANT_C step at t+10 s on the rising token and -PLANT_C on the other token; (P-) the same step at t-10 s; (S) directions negated (the other token is read as 'rising'); (SP) S plus P+.
+ V18 (Reviewer E1(a)) End-to-end plants on each look's real data, per event and alone, as RAW BOOK ROWS (a row in the recorder's format with bid and ask shifted by +-PLANT_C from the last real row) parsed by the same parse_book_row and mid formula as every real row, then through the same token lookup and window code (so events do not contaminate each other's windows): (P+) +PLANT_C step at t+10 s on the rising token and -PLANT_C on the other token; (P-) the same step at t-10 s; (S) directions negated (the other token is read as 'rising'); (SP) S plus P+.
     Required: mean over matches of d(P+) - d(base) within 5% of +PLANT_C; d(P-) - d(base) within 5% of -PLANT_C; d(SP) - d(S) within 5% of -PLANT_C; and power: zb * SE < PLANT_C where SE = s / sqrt(n_eff) at this look. If any fails every verdict except 'unknown' is withheld: 'unknown (plant not recovered / underpowered)'.
  V21 (checker, 18 Nov) Completeness: the run STOPS (no result) unless the poll log reaches at least 60 s past the end of day K, every hour file of days 1..K is present for every hour in which the poll log shows capture running (hours without any poll are capture outages, listed in audit.hour_files), and no hour file is truncated. The cap and the placebo draws of an event are seeded from the event itself, so earlier looks reproduce on later looks.
  V19 Output per look: look, n_eff per cell, t, boundary, z_eq, pre and post terms (real, placebo), matches_by_day and cumulative, excluded counts per cell, plain_summary, first20_events_biggest_cell (hand check by another thread), ties, outage counters.
@@ -37,6 +37,28 @@ LOOKS = 20
 C_BM = 2.60                   # boundary on the Brownian scale: pass if z_eq * sqrt(t) >= C_BM (2(1-Phi(2.6)) = 0.0093 one-sided per cell, any look schedule; margin over the 1.25% target)
 N_MAX = {"cs2|Match Winner": 100, "dota2|Match Winner": 50}
 PRIMARY = tuple(N_MAX)
+
+
+def parse_book_row(r, drops=None):
+    """ONE parse path for every Polymarket book row, real or planted: -> (token, time_s, best_bid, best_ask) or None (counted)."""
+    tk, tms = r.get("tk") or r.get("asset"), r.get("recv_ms") if r.get("recv_ms") is not None else r.get("ms")
+    if tms is None:
+        if drops is not None:
+            drops["book_rows_no_time"] += 1
+        return None
+    b = [float(x["price"]) for x in r.get("bids") or []]
+    s = [float(x["price"]) for x in r.get("asks") or []]
+    if not b or not s:
+        if drops is not None:
+            drops["book_rows_one_sided"] += 1
+        return None
+    if drops is not None:
+        drops["pm_book_rows_time_from_recv_ms" if r.get("recv_ms") is not None else "pm_book_rows_time_from_ms"] += 1
+    return tk, tms / 1000.0, max(b), min(s)
+
+
+def mid_of(bb, ba):
+    return (bb + ba) / 2.0
 
 
 def seed_rng(*parts):
@@ -286,19 +308,11 @@ def main():
         if not p:
             continue
         for r in counted_lines(p, drops, "pm_books"):
-            tk, tms = r.get("tk") or r.get("asset"), r.get("recv_ms") if r.get("recv_ms") is not None else r.get("ms")
-            if tk not in need:
+            if (r.get("tk") or r.get("asset")) not in need:
                 continue
-            if tms is None:
-                drops["book_rows_no_time"] += 1
-                continue
-            drops["pm_book_rows_time_from_recv_ms" if r.get("recv_ms") is not None else "pm_book_rows_time_from_ms"] += 1
-            b = [float(x["price"]) for x in r.get("bids") or []]
-            s = [float(x["price"]) for x in r.get("asks") or []]
-            if not b or not s:
-                drops["book_rows_one_sided"] += 1
-                continue
-            series[tk].append((tms / 1000.0, (max(b) + min(s)) / 2.0))
+            pr = parse_book_row(r, drops)
+            if pr:
+                series[pr[0]].append((pr[1], pr[2], pr[3]))
     ts = {}
     for tk in series:
         series[tk].sort()
@@ -308,7 +322,13 @@ def main():
         i = bisect.bisect_right(ts.get(tk, []), x) - 1
         if i < 0:
             return None
-        return series[tk][i][1] + sum(c for (tt, c, tok) in steps if tok == tk and x >= tt)
+        tt0, bb, ba = series[tk][i]
+        delta = sum(c for (tt, c, tok) in steps if tok == tk and x >= tt)
+        if delta:
+            # plant: a raw book row (same format as the recorder's) with bid and ask shifted by delta, run through the SAME parse path and mid formula as every real row
+            pr = parse_book_row({"ms": tt0 * 1000.0, "tk": tk, "bids": [{"price": repr(bb + delta)}], "asks": [{"price": repr(ba + delta)}]})
+            return mid_of(pr[2], pr[3])
+        return mid_of(bb, ba)
 
     def alive(toks, t):
         for tk in toks:
@@ -375,7 +395,7 @@ def main():
             if r0[0] == mp:
                 drops["events_tie_d_zero"] += 1
 
-            tmap = dict(zip(outs, m["tokens"]))       # independent lookup path for the plant: the token that REALLY belongs to the rising team's name
+            tmap = dict(zip(outs, m["tokens"]))       # a SEPARATE CODE PATH (name-to-token dictionary) over the same markets file: catches code bugs, not a misordered outcomes/tokens pair in markets.jsonl (V22)
             ttk = tmap[rise]
             ottk = [x for x in m["tokens"] if x != ttk][0]
 
@@ -440,7 +460,7 @@ def main():
                  post_placebo=mean(mean(e["ppost"] for e in L) for L in by.values()), pre_placebo=mean(mean(e["ppre"] for e in L) for L in by.values()),
                  plant_c=c_, plant_recovery=recovered, power_ok=power_ok, plants_ok=plants_ok, min_detectable_effect_at_this_look=(zb * se_) if (se_ and zb) else None, closed=closed,
                  excluded_counts=dict(cellx.get(cell, {})), matches_by_day={str(k_): len(v_) for k_, v_ in sorted(days.items())}, matches_cumulative_by_day=cum,
-                 events_per_match=sorted((len(v) for v in by.values()), reverse=True)[:10], verdict=dec["verdict"])
+                 events_per_match=sorted((len(v) for v in by.values()), reverse=True)[:10], per_match_mean_d={str(k_): mean(e["d"] for e in L_) for k_, L_ in by.items()}, verdict=dec["verdict"])
         if cell not in PRIMARY:
             c["verdict"] = "(informational) " + c["verdict"]
         res["cells"][cell] = c
