@@ -18,7 +18,7 @@ D. Timestamp and message-lag check (added 16 Nov 02:50Z, before any audit run): 
    follows in the same game. It also reports the PM-side `ms - sent`. Field names are quoted in the output.
 Usage: ps_lead_audit.py --ps DIR --pm DIR [--pm DIR ...] [--recount p318-recount-2026-11-14.json] [--vol vol.json] --out out.json
 """
-import argparse, bisect, collections, datetime, glob, gzip, json, os, random, re
+import argparse, bisect, collections, datetime, glob, gzip, json, os, random, re, sys, zlib
 
 W, THR, SEED = 60.0, 0.02, 20261116
 
@@ -32,7 +32,9 @@ def lines(p):
                     yield json.loads(l)
                 except Exception:
                     pass
-    except (EOFError, OSError):
+    except (EOFError, OSError, zlib.error) as e:
+        # live-written or damaged gzip: keep the rows read so far, say so on stderr (never silent)
+        sys.stderr.write('PARTIAL FILE %s: %s: %s\n' % (p, type(e).__name__, e))
         return
 
 
