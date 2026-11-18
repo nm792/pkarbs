@@ -14,7 +14,7 @@ Matching of team names is EXACT after normalisation (no fuzzy match: 'X Gaming' 
 Usage: ps_lead_test.py --ps DIR_OF_pandascore_*.jsonl.gz --pm DIR [--pm DIR ...] --out result.json
  each --pm DIR holds markets.jsonl(.gz) and books.jsonl(.gz) (recorder format: full book snapshots).
 """
-import argparse, bisect, collections, glob, gzip, json, os, random, re, sys
+import argparse, bisect, collections, glob, gzip, json, os, random, re, sys, zlib
 
 W = 60.0
 THR = 0.02
@@ -34,7 +34,9 @@ def lines(p):
                     yield json.loads(l)
                 except Exception:
                     continue
-    except (EOFError, OSError):
+    except (EOFError, OSError, zlib.error) as e:
+        # live-written or damaged gzip: keep the rows read so far, say so on stderr (never silent)
+        sys.stderr.write('PARTIAL FILE %s: %s: %s\n' % (p, type(e).__name__, e))
         return
 
 
