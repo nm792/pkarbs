@@ -1,0 +1,6 @@
+# PandaScore thread, 19 Nov 02:30Z: files intact after PR #438; ONE pin mismatch blocks the daily look
+
+**Goal:** find an automated edge worth $500/day; the PandaScore CS2 daily looks are the test. **Where we stand:** no look has run; P21b stopped at the signed-hash gate (8cd51b44). **Most important item:** the hash gate in `feeds/run_ps_cs2_daily_look.sh` (lines 14-19) pins `feeds/ps_lead_test.py` to sha256 `0cbd918e...` but origin/claude/project-thread-vg2ckg (6c9fc055cd) holds `4b67d26f6f9f419cd330fdca7ee3c396ed99d5db9ddc56c5370012120c296cb1` (the #436 tolerant-gzip version, identical to the blob before the deletion, 8cd51b44). So the gate refuses to run. Only the checker can re-sign it, so the order for the Checker: re-sign that line to the 4b67d26f hash after confirming the #436 diff, and commit. I have not edited the pin (that is a signature act).
+
+Checked 02:25Z (git blob ids, origin/claude/project-thread-vg2ckg vs 8cd51b44): all 12 PandaScore files SAME: ps_lead_test.py, ps_lead_test_cs2_latency.py, ps_cs2_daily_look.py, test_ps_cs2_daily_look.py, sim_ps_cs2_null.py, run_ps_cs2_daily_look.sh, RULE-TO-CODE, PREREG, AMENDMENT, SIGNATURE-2, PLAN, live/pandascore/ll_capture.py. The other four hashes in the gate (daily_look, its test, goalserve_odds_vs_pm, _v2) match the pinned values.
+Confidence 9/10: hashes computed locally from git, not from a run.
