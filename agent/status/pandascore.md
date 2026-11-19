@@ -134,3 +134,10 @@ NO live CS2 match with a matching Polymarket market; nothing to measure (write t
 ```
 
 The probe loop is running, but three consecutive cycles found no live CS2 match with a matching Polymarket market, so there was nothing to measure. PandaScore raw capture reported no PID and 0 bytes of growth over 60 seconds; its newest file is the 22:00Z hour file. The PM book recorder remains active and grew 7,756,094 bytes over the sample. No process, file, or configuration was changed.
+
+
+## PandaScore CS2 daily look cron (19 Nov)
+
+- Wrapper test: `bash -n` passed; reviewer test ended `PASS (4 checks, each able to fail)`. Its deliberate missing-remote test printed `fatal: couldn't find remote ref nosuch` and the wrapper caught and logged the failure as expected.
+- Installed `/root/ship/ps_cs2_daily_look_cron.sh` and added `15 1 * * * ENVFILE=/root/ship/ship.env bash /root/ship/ps_cs2_daily_look_cron.sh`; crontab readback confirms the line. Existing cron lines were preserved.
+- Manual wrapper run at 23:09:44Z exited 0; its underlying look correctly refused to score an incomplete UTC day: `look_expected 0 days none` / `STOP: no complete day yet, or past look 12`. No look was run by hand.
