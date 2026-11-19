@@ -116,3 +116,21 @@ total 2888
 - P60a's recorded baseline was 2026-11-19 09:27:21Z: `books.jsonl` 136,292,591 bytes and VOL2 available 19,903,541,248 bytes. The requested +30-minute check was due 09:56:49Z but was not recorded then; this read is delayed and is not represented as an on-time interval measurement.
 - Read at 2026-11-19 20:16:31Z: `books.jsonl` 1,317,120,439 bytes; `markets.jsonl` 54,463 bytes; `recorder.log` 18,147 bytes; `pm_cs2_books.js` 7,341 bytes; `test_pm_cs2_books.js` 3,391 bytes. VOL2 available: 30,904,299,520 bytes.
 - No process, file, or configuration was changed. The requested 30-minute growth rate cannot be derived from these non-adjacent readings.
+
+
+## P80 CS2 live read 2 (19 Nov 23:08Z)
+
+Read-only run of the reviewer-provided live-read script, followed by the instructed probe-directory listing and recent-log grep.
+
+```text
+now 2026-11-19T23:08:30Z  free_GB 25
+capture: pid= newest=/mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026111922.jsonl.gz grew_60s=0 DOWN-or-quiet
+pmcs2:   pid=3179606 books_bytes=3343935153 grew_60s=7756094 OK
+probe:   pid=3273611 loop_pid=3273611 log=/mnt/HC_Volume_107257520/pkarbs/scratch/pandascore-cs2-probe/pandascore-cs2-probe-20261119T230417Z.log
+NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)
+20261119T225410Z exit 1 NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)
+20261119T225914Z exit 1 NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)
+20261119T230417Z exit 1 NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)
+```
+
+The probe loop is running, but three consecutive cycles found no live CS2 match with a matching Polymarket market, so there was nothing to measure. PandaScore raw capture reported no PID and 0 bytes of growth over 60 seconds; its newest file is the 22:00Z hour file. The PM book recorder remains active and grew 7,756,094 bytes over the sample. No process, file, or configuration was changed.
