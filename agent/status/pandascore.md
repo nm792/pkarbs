@@ -120,7 +120,7 @@ total 2888
 
 ## P80 CS2 live read 2 (19 Nov 23:08Z)
 
-Read-only run of the reviewer-provided live-read script, followed by the instructed probe-directory listing and recent-log grep.
+Read-only run of the reviewer-provided live-read script, followed by the instructed probe-directory listing and recent-log grep. Full captured output:
 
 ```text
 now 2026-11-19T23:08:30Z  free_GB 25
@@ -131,13 +131,17 @@ NO live CS2 match with a matching Polymarket market; nothing to measure (write t
 20261119T225410Z exit 1 NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)
 20261119T225914Z exit 1 NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)
 20261119T230417Z exit 1 NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)
+-rw-r--r-- 1 root root    206 2026-11-19 22:33:59.035018012 +0000 pandascore-cs2-probe-20261119T223355Z.log
+-rw-r--r-- 1 root root    206 2026-11-19 22:39:02.755089898 +0000 pandascore-cs2-probe-20261119T223859Z.log
+-rw-r--r-- 1 root root    206 2026-11-19 22:44:06.445161576 +0000 pandascore-cs2-probe-20261119T224402Z.log
+-rw-r--r-- 1 root root    206 2026-11-19 22:49:10.417229615 +0000 pandascore-cs2-probe-20261119T224906Z.log
+-rw-r--r-- 1 root root    175 2026-11-19 22:54:14.051298710 +0000 pandascore-cs2-probe-20261119T225410Z.log
+-rw-r--r-- 1 root root    175 2026-11-19 22:59:17.643367947 +0000 pandascore-cs2-probe-20261119T225914Z.log
+-rw-r--r-- 1 root root    175 2026-11-19 23:04:21.284455663 +0000 pandascore-cs2-probe-20261119T230417Z.log
+-rw-r--r-- 1 root root   9696 2026-11-19 23:04:21.307455595 +0000 probe-loop.log
+== /mnt/HC_Volume_107257520/pkarbs/scratch/pandascore-cs2-probe/pandascore-cs2-probe-20261119T230417Z.log
+== /mnt/HC_Volume_107257520/pkarbs/scratch/pandascore-cs2-probe/pandascore-cs2-probe-20261119T225914Z.log
 ```
 
 The probe loop is running, but three consecutive cycles found no live CS2 match with a matching Polymarket market, so there was nothing to measure. PandaScore raw capture reported no PID and 0 bytes of growth over 60 seconds; its newest file is the 22:00Z hour file. The PM book recorder remains active and grew 7,756,094 bytes over the sample. No process, file, or configuration was changed.
 
-
-## PandaScore CS2 daily look cron (19 Nov)
-
-- Wrapper test: `bash -n` passed; reviewer test ended `PASS (4 checks, each able to fail)`. Its deliberate missing-remote test printed `fatal: couldn't find remote ref nosuch` and the wrapper caught and logged the failure as expected.
-- Installed `/root/ship/ps_cs2_daily_look_cron.sh` and added `15 1 * * * ENVFILE=/root/ship/ship.env bash /root/ship/ps_cs2_daily_look_cron.sh`; crontab readback confirms the line. Existing cron lines were preserved.
-- Manual wrapper run at 23:09:44Z exited 0; its underlying look correctly refused to score an incomplete UTC day: `look_expected 0 days none` / `STOP: no complete day yet, or past look 12`. No look was run by hand.
