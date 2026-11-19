@@ -1,0 +1,8 @@
+# Dota 2 live capture — final report, 2026-11-17 20:45Z
+
+- Capture ended at 07:26:57Z when the configured 90,000-second timeout expired, rather than the requested 20:30Z. The timeout and Node PIDs 1700947/1700948 were absent at the 20:43Z check. The planned window therefore missed 13h03m05s; books had already stopped receiving rows at 22:59:59Z on 16 Nov.
+- Final local JSONL counts (malformed rows): books 107,624 (0); league_games 15,904 (0); opendota_live 2,723 (0); realtime 145,268 (0); rt_polls 325,064 (0); sportsws 7,158 (0). First/last receive times were books 16 Nov 08:45:00–22:59:59Z; all other streams began 16 Nov 08:30Z and ended 17 Nov 07:25:56–07:26:55Z.
+- The task's PASS bar is not met/proven: the capture ended 13 hours early, and the required per-series in-game-minute and 200-poll coverage calculation is absent. No claim of a passing capture is made.
+- The 20:35Z final publisher invocation failed on its first transfer (rsync exit 12; storage-box authentication denied). No final copy was verified. The last pushed manifest remains 75 chunks / 562,819 rows from commit `53daee4ac232962914b78668dd1d3f2aa8acddb5` at 02:42:56Z; later publisher attempts failed. Local output remains outside Git.
+- After the failed final attempt, both Dota publisher crontab lines were removed at 20:44Z to prevent repeated retries; the pre-change crontab backup is `/root/crontab.pre-dota-final-20261117T204421Z.txt`. No capture process was running or restarted.
+- Task code reference: `daf1447d6767634ae4b390d2a79047f6d0bc958b`. This report and `agent/status/dota-live-capture-2026-11-16.md` are the final project-channel record.
