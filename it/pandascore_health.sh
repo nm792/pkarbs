@@ -3,6 +3,7 @@
 V=${1:-/mnt/HC_Volume_107257520}; now=$(date -u +%s); echo "now $(date -u +%FT%TZ)"
 echo "== capture (ll_capture) =="; pgrep -af ll_capture.py | cut -c1-110 || echo "NOT RUNNING"
 f=$(ls -t $V/pkarbs/pandascore/raw/pandascore_*.jsonl.gz 2>/dev/null | head -1); [ -n "$f" ] && echo "newest raw file $(basename $f) size $(stat -c %s $f) mtime_age_s $(( now - $(stat -c %Y $f) ))" || echo "NO RAW FILES"
+echo "raw hour files since 17 Nov (name size):"; ls -l $V/pkarbs/pandascore/raw/pandascore_20261117* $V/pkarbs/pandascore/raw/pandascore_20261118* $V/pkarbs/pandascore/raw/pandascore_20261119* 2>/dev/null | awk '{print $9, $5}' | sed "s#.*/##"; ls -d /vol2/pandascore/raw 2>/dev/null && ls -l /vol2/pandascore/raw | tail -4 | awk '{print "vol2:", $9, $5}'
 echo "== CS2 book recorder pmcs2 =="; pgrep -af pm_cs2_books.js | cut -c1-110 || echo "NOT RUNNING"
 b=$V/pkarbs/pmcs2/books.jsonl; if [ -f "$b" ]; then
   echo "books.jsonl bytes $(stat -c %s $b) rows $(wc -l < $b) mtime_age_s $(( now - $(stat -c %Y $b) ))"
