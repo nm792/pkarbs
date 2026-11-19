@@ -248,3 +248,23 @@ NO NUMBER for hockey_nhl: failed checks ['goalserve_polling_ok', 'a_live_game_ma
 - Re-fetched `feeds/run_daily_look.sh` from `origin/claude/project-thread-vg2ckg`; signed self-test printed `ALL PASS`. Exact full run exit: 1 at 04:26:57Z.
 - It found zero local esports payload files for 2026-11-18; the named esports payload directory contained no matching files. The listing of matching files was empty. Other payload directories (basketball, esports, hockey_nhl, tennis) existed, timestamped around 04:00Z.
 - The script copied zero rows into the run input (`gs` remained 4.0K) and the analyzer exited 1; no result JSON/hash or verdict was produced. Its stdout then showed a `FileNotFoundError` while the wrapper tried to read the absent result JSON. The separate 03:34Z attempt had stopped at the signed-file gate; this 04:26Z run passed the signed checks, so the current blocker is missing esports capture files for the requested day.
+
+
+## P51 capture health and esports files (19 Nov)
+
+```text
+probe_stopped
+goalserve_20261117.jsonl ok 449078 err 6106
+2026-11-19T03:59:57Z 158277 esports_2026111903.jsonl.gz
+2026-11-19T04:59:58Z 100237 esports_2026111904.jsonl.gz
+2026-11-19T05:05:28Z 10563 esports_2026111905.jsonl.gz
+3
+<VOL2>/pkarbs/goalserve-audit-20261117/esports_2026111705.jsonl.gz
+Filesystem      Size  Used Avail Use% Mount
+VOL2             98G   78G   16G  84% <VOL2>
+REPO             49G   38G  9.3G  81% <REPO>
+```
+
+- Correction to the pasted command's glob: only `goalserve_20261117.jsonl` exists; no 18 or 19 files matched, so the requested last-two-log comparison was unavailable. The sole file had 449,078 ok and 6,106 err rows; recent err rows included HTTP 429 in minute buckets 04:56–05:05 UTC. This file is dated 17 Nov, so it cannot establish whether the probe increased errors during 19 Nov.
+- `esports_payloads` contained 3 files, all dated 19 Nov; the bounded volume search found only an audit file for 17 Nov and no 18 Nov payload. Capture PID 4045212 remained running (started 17 Nov 09:00:06Z).
+- Probe PID 2766271 was stopped as directed; no other process was stopped.
