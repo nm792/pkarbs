@@ -83,3 +83,13 @@ total 2888
 ```
 - Both named parent directories existed and had timestamp 2026-11-19 04:01:03.190624836 +0000.
 - `ps -o pid,lstart,etime,cmd -p 548127` returned only the header (exit 1): PID 548127 was absent at 04:09Z. The on-origin history says this PID had been replaced by PID 2235520 after the already-approved #339 restart on 16 Nov; the P37 PID check is therefore stale, not evidence of a current capture stop.
+
+## CS2 probe first read (19 Nov)
+
+2026-11-19 09:26:49Z (P62). `ps -p 2694972` returned no process row. The instructed probe log `/mnt/HC_Volume_107257520/pkarbs/probe/pandascore-cs2-live-probe-2026-11-19.log` did not exist (`head` reported “No such file or directory”); therefore probe output is unavailable, not a clean result.
+
+- `books.jsonl`: 213,200 lines; 136,185,464 bytes. `df -B1` available: 19,967,737,856 bytes.
+- PID 2690054 was absent. Its log ended `2026-11-19T05:21:16.622Z disk below 15 GB: stopping` then `05:21:17.368Z done`; no recorder process was present.
+- Installed the reviewer’s `origin/reviewer` `pm_cs2_books.js` and test into the existing pmcs2 directory. Test output: `PASS (9 checks, each able to fail)`. Verified the installed source's default floor is 10 GB.
+- Restarted at 2026-11-19 09:27Z with the note’s 10 GB floor and end time. New Node PID 3179608 was observed; recorder log showed fresh market rows timestamped 09:27:07Z. At 09:27:21Z the file was 136,292,591 bytes / 213,378 lines, and VOL2 had 19,903,541,248 bytes available.
+- OPEN / NOT VERIFIED: second `du -sb books.jsonl` reading 30 minutes after 09:26:49Z (due 09:56:49Z); probe log remains absent. No additional restart or kill performed.
