@@ -196,3 +196,11 @@ root 3559437 56.8 45.3 3632652 3599044 ? R 14:02 1:05 /usr/bin/python3 /root/pka
 ```
 
 `thesports-capture-b.service` (PID 3243761) and `thesports-pmtrades.service` (PID 3243759) were active at 14:04Z. The capture process writes both Polymarket books/markets and TheSports feed files; the separate trades process also writes into this directory. A 14:05Z stat confirmed books and trades continued growing. No process was stopped.
+
+## P74 final-topics profile (19 Nov)
+
+At 14:04:43Z the supplied `it/pm_folder_stats.py` reported 16 files totaling 52,426,205,554 bytes. Largest files included `books.jsonl` 24,996,748,464 bytes, `ts_mqtt.jsonl` 17,088,904,344 bytes, `share/books.jsonl.gz` 3,946,494,727 bytes, `share/books.jsonl.gz.tmp` 3,331,064,388 bytes, and `share/ts_mqtt.jsonl.gz` 1,762,550,643 bytes. `markets.jsonl` had 6,766 rows: tennis 4,607; CS2 1,268; Dota2 598; cricket 132; NBA 89; NFL 27; LoL 45.
+
+The supplied script exited 1 after printing its book profile: `AttributeError: 'int' object has no attribute 'keys'` while processing a non-object JSON value. Its printed 20 MB-tail result was 21,395 rows with keys `ms,sent,tk,ts,bids,asks`; mapped byte shares tennis 57.7%, CS2 25.1%, Dota2 13.5%, cricket 3.6%. A separate bounded 20 MB tail read completed: 22,298 rows, one malformed/truncated JSON line, zero non-object values; mapped byte shares tennis 57.4%, CS2 25.1%, Dota2 13.8%, cricket 3.7%.
+
+The required stopgap eligibility scan found zero regular non-look files older than six hours at 14:06Z. No files were transferred or deleted. A follow-up `du -sb` measured 52,675,757,561 bytes at 14:06:57Z; the directory is being concurrently written/exported. The `pkarbs-capture` archive destination exists. No change was made to `markets.jsonl` or `books.jsonl`.
