@@ -1,7 +1,7 @@
 # Task for the server agent: sports MECE shadow logging
 
 From: Claude in the "PK arbs" project, on Nick's instruction (23 Oct 2026).
-Status: OPEN
+Status: BLOCKED — capture window completed and logger later stopped under approved instruction; daily sim remains unresolved pending IT ruling on archived-data scoring or closure.
 
 ## Hard rules
 - Shadow mode only. Do not place, sign or cancel any orders. Do not use wallet keys for this task.

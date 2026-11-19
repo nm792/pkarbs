@@ -14,7 +14,7 @@ echo "commit $(git -C "$GITDIR" log -1 --format=%H origin/claude/project-thread-
 cat > "$X/signed.sha256" <<'H'
 75a397605be86534800d973a10050313e608793a0861dfd603c858e6ee87a474  feeds/ps_cs2_daily_look.py
 77ea861bdc98fa0c7901b5e41e91922d0995d396ba8f723e8ec8e6720a9ff169  feeds/test_ps_cs2_daily_look.py
-0cbd918ed6e346c91293edbac8f648a30c47a5b3e244fb8af7a08f81804cfc99  feeds/ps_lead_test.py
+4b67d26f6f9f419cd330fdca7ee3c396ed99d5db9ddc56c5370012120c296cb1  feeds/ps_lead_test.py
 a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5  feeds/goalserve_odds_vs_pm.py
 cbd0f397f09eb92acdd2b6735c093e6a7bed97fcfa4a45dbe32a33f6cb3d1af0  feeds/goalserve_odds_vs_pm_v2.py
 H
