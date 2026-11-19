@@ -20,20 +20,17 @@ should not be run; report back instead.
 6. **Label every number.** Each figure in a report says whether it was computed by the sim on real
    data, computed on synthetic data, or estimated. Estimates are never reported as measured.
 7. **Feed tests follow one standard.** Any feed trial or latency test cites feeds/STANDARD-feed-latency-test.md (v1) and does not restate it. The benchmark is always the Polymarket price, never another feed. Only Nick changes it.
-8. **Settled facts.** The facts below come from reviewer/SETTLED.md (branch `reviewer`, last changed at commit e2a25c41beffd3f4438590a691fc2ed07402838b). If this copy and that file differ, that file and Nick win. They are standing rules for every task.
+8. **Settled facts.** The facts and decisions in reviewer/SETTLED.md sections A and B (commit 505f539672cdcb39b640958e61c2f9e72c321fcc) are standing rules for every task, copied here verbatim:
 
 ## A. Fixed facts (Nick)
 
-1. **Pricing rule: each Polymarket token is priced only from its own published asks, read from that token's book at the decision moment.** Never derive one token's price from the other token's book, never call the YES and NO books mirrors or "1 - YES" (Nick, 17 Nov: separate books of real resting orders). Questions about platform mechanics are settled from Polymarket's CLOB documentation with links, in a REPLY; they never rewrite this rule.
+1. **Each Polymarket token is its own order book and is priced only from its own asks.** NO is never priced as 1 - YES bid/ask. Mirroring holds only for resolved books, never for open ones (Nick 17 Nov 09:23Z; he has corrected this at least a dozen times).
 2. **Tail NO books never get asks.** A leg that needs asks on tail NO books cannot fire by construction. This is known, not a finding.
 3. **Taker hold:** non-weather markets hold marketable orders 250 ms (Nick). Primary doc wording: "Taker delay: used on selected crypto and finance up/down markets. The order is held for 250 ms" (docs.polymarket.com/concepts/order-lifecycle; copy in nm792/mfw-clone `results/rule-rebuild-2026-11-05/primary/concepts_order-lifecycle.md:62`). Sports markets also carry their own seconds delay (`secondsDelay`).
 4. **Taker Rebate tiers run 0-50% by 30-day volume.** The starting tier is not an issue for a strategy that trades volume: volume earns the tier. Do not report a 0% starting tier as a finding.
 5. **MECE gaps appear at transitions** (data releases, deciding events, score changes). A scan on a fixed time grid cannot pass; it samples between transitions.
-6. **Kalshi cannot be traded for now but is a future target (Nick, 18 Nov 07:51Z).** Kalshi data may be used for analysis (for example gas series); no Kalshi trading.
+6. **Kalshi is not relevant here.**
 7. **Never trade or stage orders.** Ask Nick before any code or bot change.
-8. **Never infer availability or edge from a book read after resolution or after the decision moment (Nick, 18 Nov 07:32Z).** The only valid evidence is the book logged at the decision moment.
-9. **Pass bar: a strategy that can reliably deliver $200 per day is worth pursuing (Nick, 18 Nov 08:18Z).** "Reliably" means the CI lower bound, before rebates; rebates are reported separately.
-10. **Dead buckets (Nick, 18 Nov):** a bucket or outcome priced at 0.99 or above (or 0.01 or below) is dead. A decision on it is a late trigger, never "no EV" or a finding.
 
 ## B. Settled decisions and agreed lessons
 
@@ -42,4 +39,3 @@ should not be run; report back instead.
 3. Sports MECE recorder streamed YES tokens only (`shadow_logger.py:279-283`), so every past sports-MECE NO result is COULD NOT PASS until NO tokens are recorded (register, false-negative audit 17 Nov).
 4. Every lock carries a cost-term table (term, value, source, measured/published/assumed); "not published" means search sibling projects first; unsourced results are COST UNCHECKED (your own REPLY-2026-11-17-platform-rules.md, accepted).
 5. A locked rule protects a test only if a non-author maps each rule line to file:line before the run, and the code recovers a planted edge and returns ~0 on a no-edge series (register row 7).
-6. Every idea Nick raises or the project proposes gets a row in `reviewer/IDEAS.md` the day it comes up. Nothing is dropped silently.
