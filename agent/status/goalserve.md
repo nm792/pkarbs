@@ -258,4 +258,4 @@ basketball 2026111909 rows 1427 first 09:12:07 last 09:59:58
 - Manual run started at 21:24:07Z. Esports passed signed checks and the analysis started for 24 hour files; at 21:27Z its analyzer was still active (PID 4096160, 137 MB staged input). The wrapper had not finished esports, so tennis and the required `LATEST-esports.tail` are not yet verified. No process was stopped.
 
 
-- Status: partial — cron installed and esports manual test in progress; commit pending final run output.
+- Status: partial — cron installed; manual analysis has a live 7,200 s timeout and is still running. Tennis and completion tail are not verified; no process was stopped.
