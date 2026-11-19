@@ -1,0 +1,11 @@
+(17445, 173) 148 5839 6665
+grp
+GROUP:finance-daily-updown                       12986
+GROUP:tweet-counts                                2629
+series:gold-up-or-down-15m                         194
+series:elon-tweet-daily                            108
+series:box-office-openings                         105
+series:nvda-multi-strikes-weekly                    93
+tpl:brazil presidential election second round       87
+tpl:X # house election winner                       79
+dtype: int64

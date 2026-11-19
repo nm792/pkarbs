@@ -1,0 +1,764 @@
+{
+ "n_rows": 17445,
+ "n_markets": 6665,
+ "n_feats": 158,
+ "n_fams": 148,
+ "oos_rows": 13297,
+ "oos_days": 239,
+ "oos_start": "2026-03-25T14:00:00",
+ "qlib_all_rows": {
+  "n": 13171,
+  "days": 209,
+  "IC": -0.00848348007899439,
+  "ICIR": -0.0459778702510117,
+  "IC_t": -0.6646943594909943,
+  "rankIC": -0.04327090149898224,
+  "IC_p_t": 0.5069822556467274,
+  "long_short_edge": 0.0024556271358657216,
+  "long_edge": -0.0006631299792004607
+ },
+ "qlib_one_token": {
+  "n": 6526,
+  "days": 197,
+  "IC": -0.016141644955823955,
+  "ICIR": -0.07116371100494141,
+  "IC_t": -0.9988302816329606,
+  "rankIC": -0.05127826427029558,
+  "IC_p_t": 0.31910844079437506,
+  "long_short_edge": -0.005671049931871108,
+  "long_edge": -0.010152334706205933
+ },
+ "by_h": {
+  "10m": {
+   "n": 138,
+   "days": 10,
+   "IC": -0.07240184162806548,
+   "ICIR": -0.28669306252515353,
+   "IC_t": -0.9066030669485494,
+   "rankIC": 0.018447221561370318,
+   "IC_p_t": 0.3882448700140466,
+   "long_short_edge": -0.02135106842,
+   "long_edge": -0.0029930272685064624
+  },
+  "1h": {
+   "n": 342,
+   "days": 28,
+   "IC": 0.07522302891018841,
+   "ICIR": 0.16760712949007708,
+   "IC_t": 0.8868935651842882,
+   "rankIC": 0.0205154236116466,
+   "IC_p_t": 0.38296826832347886,
+   "long_short_edge": 0.08338348988675594,
+   "long_edge": -0.015565428544368043
+  },
+  "24h": {
+   "n": 1033,
+   "days": 72,
+   "IC": -0.0300525329241837,
+   "ICIR": -0.09363026430464784,
+   "IC_t": -0.7944791377692627,
+   "rankIC": -0.013847741758242644,
+   "IC_p_t": 0.4295641923065858,
+   "long_short_edge": 0.010729625652739196,
+   "long_edge": -0.0006410812867294521
+  },
+  "6h": {
+   "n": 3251,
+   "days": 158,
+   "IC": -0.008964715750548849,
+   "ICIR": -0.0337911480999939,
+   "IC_t": -0.4247481453834543,
+   "rankIC": -0.048612294532532685,
+   "IC_p_t": 0.6716018033630691,
+   "long_short_edge": 0.0031363848147135673,
+   "long_edge": -0.0021843367394838503
+  }
+ },
+ "by_grp": {
+  "GROUP:finance-daily-updown": {
+   "n": 4523,
+   "days": 177,
+   "IC": -0.005156644515001581,
+   "ICIR": -0.02090793524565588,
+   "IC_t": -0.27816198671613535,
+   "rankIC": -0.038256741767044244,
+   "IC_p_t": 0.7812145272391543,
+   "long_short_edge": -0.0015395261339901138,
+   "long_edge": -0.012232491008012554
+  },
+  "GROUP:tweet-counts": {
+   "n": 243,
+   "days": 21,
+   "IC": 0.013578691975058272,
+   "ICIR": 0.03519163254165495,
+   "IC_t": 0.16126831995120497,
+   "rankIC": -0.14019532538529167,
+   "IC_p_t": 0.8735000215446393,
+   "long_short_edge": 0.0189156549531746,
+   "long_edge": 0.028180775978243977
+  }
+ },
+ "baseline_last_price_IC": {
+  "n": 6526,
+  "days": 197,
+  "IC": 0.03061127860030434,
+  "ICIR": 0.13282257203721667,
+  "IC_t": 1.8642536366032862,
+  "rankIC": 0.12464967632652406,
+  "IC_p_t": 0.06378130864132206,
+  "long_short_edge": -0.0040220147830864125,
+  "long_edge": -0.010152334706205933
+ },
+ "quantiles_one_token": [
+  {
+   "q": 0,
+   "n": 1336.0,
+   "pred": -0.0858,
+   "fill": 0.5955,
+   "edge": 0.0063,
+   "roi": 0.0106
+  },
+  {
+   "q": 1,
+   "n": 1335.0,
+   "pred": -0.0318,
+   "fill": 0.5963,
+   "edge": -0.0188,
+   "roi": -0.0315
+  },
+  {
+   "q": 2,
+   "n": 1335.0,
+   "pred": -0.0065,
+   "fill": 0.5887,
+   "edge": -0.0201,
+   "roi": -0.0342
+  },
+  {
+   "q": 3,
+   "n": 1335.0,
+   "pred": 0.0199,
+   "fill": 0.5373,
+   "edge": -0.0175,
+   "roi": -0.0325
+  },
+  {
+   "q": 4,
+   "n": 1335.0,
+   "pred": 0.0766,
+   "fill": 0.4201,
+   "edge": -0.0021,
+   "roi": -0.005
+  }
+ ],
+ "quantiles_by_h": {
+  "10m": [
+   {
+    "q": 0,
+    "n": 97.0,
+    "pred": -0.0785,
+    "fill": 0.6383,
+    "edge": 0.0421,
+    "roi": 0.0659
+   },
+   {
+    "q": 1,
+    "n": 97.0,
+    "pred": -0.0225,
+    "fill": 0.6469,
+    "edge": -0.1005,
+    "roi": -0.1554
+   },
+   {
+    "q": 2,
+    "n": 96.0,
+    "pred": 0.0012,
+    "fill": 0.5595,
+    "edge": 0.003,
+    "roi": 0.0053
+   },
+   {
+    "q": 3,
+    "n": 97.0,
+    "pred": 0.031,
+    "fill": 0.5999,
+    "edge": -0.0019,
+    "roi": -0.0032
+   },
+   {
+    "q": 4,
+    "n": 97.0,
+    "pred": 0.0889,
+    "fill": 0.4317,
+    "edge": -0.0194,
+    "roi": -0.0448
+   }
+  ],
+  "1h": [
+   {
+    "q": 0,
+    "n": 224.0,
+    "pred": -0.086,
+    "fill": 0.6584,
+    "edge": 0.0023,
+    "roi": 0.0035
+   },
+   {
+    "q": 1,
+    "n": 224.0,
+    "pred": -0.0284,
+    "fill": 0.5844,
+    "edge": -0.0442,
+    "roi": -0.0756
+   },
+   {
+    "q": 2,
+    "n": 224.0,
+    "pred": -0.0021,
+    "fill": 0.6595,
+    "edge": -0.03,
+    "roi": -0.0455
+   },
+   {
+    "q": 3,
+    "n": 224.0,
+    "pred": 0.0235,
+    "fill": 0.6022,
+    "edge": -0.0085,
+    "roi": -0.0141
+   },
+   {
+    "q": 4,
+    "n": 224.0,
+    "pred": 0.0768,
+    "fill": 0.4519,
+    "edge": 0.0124,
+    "roi": 0.0275
+   }
+  ],
+  "24h": [
+   {
+    "q": 0,
+    "n": 336.0,
+    "pred": -0.0881,
+    "fill": 0.6009,
+    "edge": -0.0116,
+    "roi": -0.0193
+   },
+   {
+    "q": 1,
+    "n": 335.0,
+    "pred": -0.0386,
+    "fill": 0.5865,
+    "edge": -0.0253,
+    "roi": -0.0432
+   },
+   {
+    "q": 2,
+    "n": 336.0,
+    "pred": -0.014,
+    "fill": 0.5596,
+    "edge": -0.0239,
+    "roi": -0.0427
+   },
+   {
+    "q": 3,
+    "n": 335.0,
+    "pred": 0.0129,
+    "fill": 0.5055,
+    "edge": -0.007,
+    "roi": -0.0139
+   },
+   {
+    "q": 4,
+    "n": 336.0,
+    "pred": 0.0717,
+    "fill": 0.3574,
+    "edge": -0.0211,
+    "roi": -0.059
+   }
+  ],
+  "6h": [
+   {
+    "q": 0,
+    "n": 679.0,
+    "pred": -0.0852,
+    "fill": 0.5702,
+    "edge": 0.016,
+    "roi": 0.0281
+   },
+   {
+    "q": 1,
+    "n": 679.0,
+    "pred": -0.0304,
+    "fill": 0.6028,
+    "edge": -0.0034,
+    "roi": -0.0057
+   },
+   {
+    "q": 2,
+    "n": 679.0,
+    "pred": -0.0054,
+    "fill": 0.5803,
+    "edge": -0.0118,
+    "roi": -0.0204
+   },
+   {
+    "q": 3,
+    "n": 678.0,
+    "pred": 0.0204,
+    "fill": 0.5354,
+    "edge": -0.0266,
+    "roi": -0.0497
+   },
+   {
+    "q": 4,
+    "n": 679.0,
+    "pred": 0.0766,
+    "fill": 0.4207,
+    "edge": 0.0005,
+    "roi": 0.0012
+   }
+  ]
+ },
+ "importance_top15": {
+  "last": 120.2,
+  "other_last": 118.5,
+  "RSQR_24h": 106.7,
+  "other_ROC_1h": 93.8,
+  "AVGSZ_6h": 93.2,
+  "bounce": 93.1,
+  "BETA_24h": 78.6,
+  "AVGSZ_24h": 77.3,
+  "sum_last": 75.0,
+  "RSQR_6h": 73.9,
+  "ROC_1h": 68.2,
+  "CNTP_24h": 63.0,
+  "since_last": 60.6,
+  "age_h": 58.8,
+  "RESI_3h": 58.0
+ },
+ "sizing": [
+  {
+   "thr": 0.02,
+   "n": 2485,
+   "usd_deployed": 6939.736132159135,
+   "usd_per_day": 29.03655285422232,
+   "per_share": 0.015699792509915045,
+   "pnl_per_day": 1.2764868915373215,
+   "ci": [
+    -0.9934544368948873,
+    3.656573427743239
+   ],
+   "placebo_mean": 0.4910998822686997,
+   "placebo_p95": 3.9927674768942976,
+   "top5_day_share": 1.1734612395291177,
+   "n_days": 239,
+   "by_grp": {
+    "GROUP:finance-daily-updown": 0.36524203670940397,
+    "GROUP:tweet-counts": 0.6101752188339715,
+    "series:1-free-app": -0.0010460167364016737,
+    "series:1-us-netflix-show": -0.0012825578771327277,
+    "series:2-paid-app": 0.000161205020920502,
+    "series:2-us-spotify-song": 0.0008730126498623404,
+    "series:aapl-kpis": -0.0013528950130543933,
+    "series:aapl-multi-strikes-weekly": -0.017340033739111412,
+    "series:amazon-hit-price-weekly": 0.00012060251046025116,
+    "series:amzn-multi-strikes-weekly": -0.029575974909133693,
+    "series:amzn-neg-risk-weekly": -0.0404062259414226,
+    "series:box-office-openings": -0.015945381006701665,
+    "series:chatgpt-outage-by": 0.0015658853528581706,
+    "series:dancing-with-the-stars-weekly-elimination": 0.0062471974895397485,
+    "series:democratic-senate-odds": -0.00045403876083681996,
+    "series:dissent-at-fed-meeting": 0.015578398337147374,
+    "series:earnings-call-mentions": -0.010698170484264764,
+    "series:elon-tweet-daily": 0.003539670648857583,
+    "series:ewy-hit-price-weekly": 0.002667615062761507,
+    "series:fed-3-parlay": -0.004252116578831954,
+    "series:gold-hit-price-weekly": -0.01236643679354118,
+    "series:gold-up-or-down-15m": 0.007073663157246702,
+    "series:googl-multi-strikes-weekly": 0.00704089553030875,
+    "series:google-hit-price-weekly": 0.016016938575440592,
+    "series:imax-earnings": -0.004334728033472804,
+    "series:iran-target-a-arab-country-by": -0.0004313807536562927,
+    "series:mrbeast-views-day-1": -0.009860851616670769,
+    "series:msft-multi-strikes-weekly": 0.004653798273617682,
+    "series:netflix-hit-price-weekly": -0.002920301255230126,
+    "series:nvda-multi-strikes-weekly": 0.0025006108858783055,
+    "series:nvidia-hit-price-weekly": 0.004592656016066944,
+    "series:nya": 0.016074151264338633,
+    "series:opendoor-hit-price-weekly": 0.0008060251046025101,
+    "series:openrouter-total-tokens-weekly": -0.006303166443514645,
+    "series:rotten-tomatoes": -0.0016511201447560072,
+    "series:silver-hit-price-weekly": -0.0005142660845205061,
+    "series:silver-up-or-down-15m": 0.00414596422640373,
+    "series:silver-up-or-down-1h": -0.004635169003842897,
+    "series:spacex-hit-price-weekly": -0.0020948083720538774,
+    "series:spy-hit-price-weekly": -0.032508111341305296,
+    "series:starmer-pmqs": 0.004685086603386927,
+    "series:tesla-hit-price-weekly": -0.0017138075313807531,
+    "series:tesla-multi-strikes-weekly": -0.01190907183309578,
+    "series:top-netflix-show-week": -6.088769874476987e-05,
+    "series:trump-538-approval": -0.0002909308237656904,
+    "series:trump-538-approval-binary": -0.00043446366454710816,
+    "series:trump-weekly-mentions": -0.0008679917426989113,
+    "series:tsla-multi-strikes-weekly": -0.060793547023402936,
+    "series:weekly-total-bab-el-mandeb-strait": -0.003510391631799164,
+    "series:white-house-call-a-full-lid": 0.07981064666619586,
+    "series:wti-up-or-down-15m": -0.005351882848371518,
+    "tpl:X # house election margin": -0.003938466016944669,
+    "tpl:X # house election winner": -0.039804339716061066,
+    "tpl:X X house election winner": -0.0004956087029288703,
+    "tpl:brazil presidential election second round": 0.33297194162712795,
+    "tpl:bulgaria presidential election first round": -0.009714341919630975,
+    "tpl:how many house seats will": -0.00971788995715481,
+    "tpl:what will trump say during": 0.20040995412126678,
+    "tpl:which party will win the": -0.06094456066996151,
+    "tpl:which party will win white": -0.0009443504603979039
+   }
+  },
+  {
+   "thr": 0.04,
+   "n": 1670,
+   "usd_deployed": 4190.635266691885,
+   "usd_per_day": 17.534038772769392,
+   "per_share": 0.016441470616533373,
+   "pnl_per_day": 0.9262084147668335,
+   "ci": [
+    -1.0273988793126128,
+    2.936533782492298
+   ],
+   "placebo_mean": 0.08786466710646577,
+   "placebo_p95": 2.786200606936602,
+   "top5_day_share": 1.4619435569007748,
+   "n_days": 239,
+   "by_grp": {
+    "GROUP:finance-daily-updown": 0.16720747173740097,
+    "GROUP:tweet-counts": 0.5175363384148922,
+    "series:1-free-app": -0.0010460167364016737,
+    "series:2-paid-app": 0.000161205020920502,
+    "series:2-us-spotify-song": 0.0013061732188999974,
+    "series:aapl-multi-strikes-weekly": -0.00033278753138075333,
+    "series:amzn-multi-strikes-weekly": -0.02873948637356884,
+    "series:amzn-neg-risk-weekly": -0.0404062259414226,
+    "series:box-office-openings": 0.003066792059137635,
+    "series:dancing-with-the-stars-weekly-elimination": 0.0062471974895397485,
+    "series:democratic-senate-odds": -0.0002926457231799163,
+    "series:dissent-at-fed-meeting": -0.025463721745811622,
+    "series:elon-tweet-daily": 0.003237599309385783,
+    "series:ewy-hit-price-weekly": 0.002667615062761507,
+    "series:fed-3-parlay": -0.004252116578831954,
+    "series:gold-hit-price-weekly": -0.005359832636698349,
+    "series:gold-up-or-down-15m": 0.004429604655118861,
+    "series:googl-multi-strikes-weekly": -0.0006858347248168509,
+    "series:google-hit-price-weekly": 0.014781238493723847,
+    "series:mrbeast-views-day-1": -0.0023424244518828454,
+    "series:msft-multi-strikes-weekly": -0.00345384903771548,
+    "series:netflix-hit-price-weekly": -0.002920301255230126,
+    "series:nvda-multi-strikes-weekly": 0.0034852381581724915,
+    "series:nvidia-hit-price-weekly": 0.004427212534895396,
+    "series:nya": 0.01567371799237211,
+    "series:openrouter-total-tokens-weekly": -0.005638855230125524,
+    "series:rotten-tomatoes": -0.0013032875087727435,
+    "series:silver-hit-price-weekly": -0.0005142660845205061,
+    "series:silver-up-or-down-15m": 0.006694161715943479,
+    "series:silver-up-or-down-1h": -0.004635169003842897,
+    "series:spy-hit-price-weekly": -0.002284653790794979,
+    "series:tesla-hit-price-weekly": -0.0017138075313807531,
+    "series:tesla-multi-strikes-weekly": -0.01062249610041841,
+    "series:trump-538-approval-binary": -0.00043446366454710816,
+    "series:tsla-multi-strikes-weekly": -0.06095029529721413,
+    "series:white-house-call-a-full-lid": 0.00361283068596764,
+    "series:wti-up-or-down-15m": -0.002360753139039325,
+    "tpl:X # house election margin": 0.00580220920502092,
+    "tpl:X # house election winner": -0.010325134834923687,
+    "tpl:brazil presidential election second round": 0.3400305470702517,
+    "tpl:bulgaria presidential election first round": -0.005433584333224369,
+    "tpl:how many house seats will": -0.011171145187280334,
+    "tpl:what will trump say during": 0.12041332751581393,
+    "tpl:which party will win the": -0.06094456066996151,
+    "tpl:which party will win white": -0.0009443504603979039
+   }
+  },
+  {
+   "thr": 0.06,
+   "n": 1074,
+   "usd_deployed": 2693.158586071591,
+   "usd_per_day": 11.26844596682674,
+   "per_share": 0.03187020408254959,
+   "pnl_per_day": 1.2510291312679864,
+   "ci": [
+    -0.5437317925597758,
+    3.172202183504639
+   ],
+   "placebo_mean": 0.4062180817214616,
+   "placebo_p95": 2.9036289438405696,
+   "top5_day_share": 1.1124300751758378,
+   "n_days": 239,
+   "by_grp": {
+    "GROUP:finance-daily-updown": 0.3051360317988747,
+    "GROUP:tweet-counts": 0.566709284595893,
+    "series:2-us-spotify-song": 0.0013061732188999974,
+    "series:aapl-multi-strikes-weekly": 0.0016070543933054393,
+    "series:amzn-multi-strikes-weekly": -0.02852272609205021,
+    "series:amzn-neg-risk-weekly": -0.0404062259414226,
+    "series:box-office-openings": 0.003066792059137635,
+    "series:dancing-with-the-stars-weekly-elimination": 0.0062471974895397485,
+    "series:dissent-at-fed-meeting": -0.0016043682017658977,
+    "series:elon-tweet-daily": -0.0003512485355648536,
+    "series:ewy-hit-price-weekly": 0.002667615062761507,
+    "series:gold-up-or-down-15m": -0.010350479201486618,
+    "series:googl-multi-strikes-weekly": 0.005031587869325409,
+    "series:mrbeast-views-day-1": -0.0023424244518828454,
+    "series:msft-multi-strikes-weekly": -0.0010740164016736402,
+    "series:netflix-hit-price-weekly": -0.002920301255230126,
+    "series:nvda-multi-strikes-weekly": -0.00128315514726684,
+    "series:nvidia-hit-price-weekly": 0.004427212534895396,
+    "series:nya": 0.015552914645091773,
+    "series:silver-up-or-down-15m": -0.0003213945632762512,
+    "series:silver-up-or-down-1h": -0.0004959916317991632,
+    "series:spy-hit-price-weekly": -0.002284653790794979,
+    "series:trump-538-approval-binary": -0.00043446366454710816,
+    "series:tsla-multi-strikes-weekly": 0.0005614105530489794,
+    "series:white-house-call-a-full-lid": -0.00043263555251053955,
+    "series:wti-up-or-down-15m": -0.002360753139039325,
+    "tpl:X # house election margin": 0.000101255230125523,
+    "tpl:X # house election winner": -0.007083398694560671,
+    "tpl:brazil presidential election second round": 0.33281850204559926,
+    "tpl:bulgaria presidential election first round": -0.0013215012871992643,
+    "tpl:what will trump say during": 0.11119847230282597,
+    "tpl:which party will win the": -0.000868284518868619,
+    "tpl:which party will win white": -0.0009443504603979039
+   }
+  }
+ ],
+ "mining_n_cells": 627,
+ "mining_BH_discoveries": 24,
+ "mining_top": [
+  {
+   "feature": "ROC_15m",
+   "h": "10m",
+   "IC": -0.1514845338296658,
+   "t": -4.544751424527011,
+   "p": 0.0013963847643779297,
+   "days": 10,
+   "BH": true
+  },
+  {
+   "feature": "SUMP_6h",
+   "h": "1h",
+   "IC": 0.19878687066475434,
+   "t": 3.624609958828737,
+   "p": 0.0011839900122080735,
+   "days": 28,
+   "BH": true
+  },
+  {
+   "feature": "CNTP_6h",
+   "h": "1h",
+   "IC": 0.18946722055450707,
+   "t": 3.5250956400984172,
+   "p": 0.001531322372947766,
+   "days": 28,
+   "BH": true
+  },
+  {
+   "feature": "STD_24h",
+   "h": "1h",
+   "IC": -0.14731923531186536,
+   "t": -3.514324624387601,
+   "p": 0.0015743880411745986,
+   "days": 28,
+   "BH": true
+  },
+  {
+   "feature": "SUMP_24h",
+   "h": "1h",
+   "IC": 0.188531872718533,
+   "t": 3.3146654665867996,
+   "p": 0.0026215680802968034,
+   "days": 28,
+   "BH": true
+  },
+  {
+   "feature": "CNTP_24h",
+   "h": "1h",
+   "IC": 0.1832795852064763,
+   "t": 3.305423976583743,
+   "p": 0.0026836226241571744,
+   "days": 28,
+   "BH": true
+  },
+  {
+   "feature": "BETA_6h",
+   "h": "1h",
+   "IC": 0.19615918768118926,
+   "t": 3.0555214700138333,
+   "p": 0.005012335460233824,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "QTLU_24h",
+   "h": "1h",
+   "IC": -0.14313670188907027,
+   "t": -3.0373814323584862,
+   "p": 0.005241524679293169,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "sum_last",
+   "h": "1h",
+   "IC": 0.1692823817996601,
+   "t": 2.8628531979559275,
+   "p": 0.008019335661942276,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "RSQR_3h",
+   "h": "10m",
+   "IC": -0.23151535633381676,
+   "t": -2.8385639085477075,
+   "p": 0.019448682761865448,
+   "days": 10,
+   "BH": false
+  },
+  {
+   "feature": "MAX_24h",
+   "h": "1h",
+   "IC": -0.14456240786131236,
+   "t": -2.7899367068237306,
+   "p": 0.009551595461677524,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "last",
+   "h": "1h",
+   "IC": 0.17716552357776336,
+   "t": 2.7859342271232403,
+   "p": 0.009643222861814836,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "RSQR_1h",
+   "h": "1h",
+   "IC": -0.15839943855757843,
+   "t": -2.722646905350567,
+   "p": 0.011206483097631078,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "BETA_24h",
+   "h": "1h",
+   "IC": 0.16310388767908354,
+   "t": 2.71452068830798,
+   "p": 0.011423619335105707,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "STD_6h",
+   "h": "1h",
+   "IC": -0.1489453155209673,
+   "t": -2.7061457857282116,
+   "p": 0.011651521304188518,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "RSQR_24h",
+   "h": "10m",
+   "IC": -0.22878496949462673,
+   "t": -2.7003785421910105,
+   "p": 0.024378579034764127,
+   "days": 10,
+   "BH": false
+  },
+  {
+   "feature": "MIN_6h",
+   "h": "10m",
+   "IC": -0.14752586202608262,
+   "t": -2.67584465589502,
+   "p": 0.0253782543962591,
+   "days": 10,
+   "BH": false
+  },
+  {
+   "feature": "IMAX_6h",
+   "h": "1h",
+   "IC": 0.18099219508593306,
+   "t": 2.6720082169257973,
+   "p": 0.012625252017505766,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "KMID_24h",
+   "h": "1h",
+   "IC": 0.16162644963898015,
+   "t": 2.65325614271381,
+   "p": 0.013191987815803554,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "RSV_6h",
+   "h": "1h",
+   "IC": 0.1817513302111724,
+   "t": 2.6476352459403225,
+   "p": 0.013366437908194695,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "IMIN_24h",
+   "h": "1h",
+   "IC": -0.18852306794229026,
+   "t": -2.5685608206665766,
+   "p": 0.0160598032673245,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "RSV_24h",
+   "h": "1h",
+   "IC": 0.17131215261073413,
+   "t": 2.5641206650915254,
+   "p": 0.0162250668362344,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "ROC_6h",
+   "h": "1h",
+   "IC": -0.14078508962389819,
+   "t": -2.5437049341056817,
+   "p": 0.01700544225487088,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "IMIN_6h",
+   "h": "1h",
+   "IC": -0.18654288001273248,
+   "t": -2.526245619933686,
+   "p": 0.017700245422143764,
+   "days": 28,
+   "BH": false
+  },
+  {
+   "feature": "QTLU_6h",
+   "h": "1h",
+   "IC": -0.1306236483258031,
+   "t": -2.503425042664551,
+   "p": 0.018648017854303478,
+   "days": 28,
+   "BH": false
+  }
+ ]
+}

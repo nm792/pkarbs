@@ -27,7 +27,7 @@ def binary_resolved(m):
     except Exception:
         return None
     if len(out) != 2 or len(op) != 2 or len(toks) != 2 or sorted(op) != [0.0, 1.0]: return None
-    return dict(cond=m["conditionId"], tokens=toks, win=op.index(1.0), vol=float(m.get("volumeNum") or 0),
+    return dict(cond=m["conditionId"], labels=out, question=m.get("question"), tokens=toks, win=op.index(1.0), vol=float(m.get("volumeNum") or 0),
                 end=parse_ts(m.get("endDate")), closed=parse_ts(m.get("closedTime")))
 
 
