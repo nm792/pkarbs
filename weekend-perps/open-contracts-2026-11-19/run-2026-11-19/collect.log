@@ -1,0 +1,11 @@
+markets 154 missing 2
+perp points 231 of 231
+Traceback (most recent call last):
+  File "/tmp/claude-0/scratch/repo/weekend-perps/open-contracts-2026-11-19/collect.py", line 47, in <module>
+    res = r["chart"]["result"][0]; q = res["indicators"]["quote"][0]
+          ~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+markets 154
+perp points 231 of 231
+{'^GSPC': 99, 'SPY': 99} {'^GSPC': {}, 'SPY': {'2026-09-18': 1.889}}
+trades total 11956 markets with 0 trades 3
