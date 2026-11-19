@@ -49,3 +49,6 @@ Not done: the nowcast edge (SPY pre-market vs prior close) in the high-volume mo
 
 ### Timing split of the open-window profit (`open_seconds.py`, `out/listing1/open_seconds_month.csv`)
 Winner-token BUY prints below 0.95, size x (1 - price), mean $/day by seconds after 09:30:00 ET. Jan-Apr mean: 0-3 s $3, 3-10 s $140, 10-30 s $77, 30-60 s $63, 1-5 min $208 (total after 3 s about $487/day on 9 of 69 days). My earlier "median first print 3 s" was a 10-second bucket label, not 3 seconds; the 0-3 s bucket itself holds almost nothing. The $190-$400 figure therefore is mostly what remains after the first 3 s.
+
+### Perp pre-open signal (`open_perp.py`, `out/listing1/open_perp_*.csv`; reuses the perps thread's markets/trades/Yahoo files from `weekend-perps/open-contracts-2026-11-19/run-2026-11-19/`)
+Polymarket SP500-USD perp 1 s marks (api.perpetuals.polymarket.com), 77 dates 3 Aug-18 Nov (154 SPX+SPY open events). Signal at second s = sign of perp(s-1) / perp(prior 16:00 ET) - 1; own-token BUY prints on the picked token in [-300 s, +10 s] around 09:30:00 ET; P&L per share = win - price, no fees. The perp API returns nothing before mid-July and Yahoo/Hyperliquid are blocked from here, so Jan-Apr is NOT testable with futures or perps from this container.
