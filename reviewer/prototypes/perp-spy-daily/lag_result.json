@@ -1,0 +1,1603 @@
+{
+ "2026-11-13": {
+  "prints_with_perp": 387,
+  "moves": [
+   {
+    "t": 1794521760,
+    "move_bp": -10.0,
+    "dp": -0.049,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794558300,
+    "move_bp": -11.9,
+    "dp": -0.072,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794560580,
+    "utc": "13 09:03",
+    "move_bp": 10.4,
+    "dp": 0.062,
+    "pm_pre": 0.46,
+    "lag_s": 78
+   },
+   {
+    "t": 1794561420,
+    "utc": "13 09:17",
+    "move_bp": 10.5,
+    "dp": 0.064,
+    "pm_pre": 0.53,
+    "lag_s": 135
+   },
+   {
+    "t": 1794576660,
+    "utc": "13 13:31",
+    "move_bp": 11.4,
+    "dp": 0.058,
+    "pm_pre": 0.725,
+    "lag_s": 16
+   },
+   {
+    "t": 1794577740,
+    "utc": "13 13:49",
+    "move_bp": -14.7,
+    "dp": -0.065,
+    "pm_pre": 0.85,
+    "lag_s": 76
+   },
+   {
+    "t": 1794579780,
+    "utc": "13 14:23",
+    "move_bp": -10.5,
+    "dp": -0.049,
+    "pm_pre": 0.775,
+    "lag_s": 478
+   },
+   {
+    "t": 1794580380,
+    "utc": "13 14:33",
+    "move_bp": -12.2,
+    "dp": -0.066,
+    "pm_pre": 0.77,
+    "lag_s": 55
+   },
+   {
+    "t": 1794581100,
+    "utc": "13 14:45",
+    "move_bp": -12.0,
+    "dp": -0.085,
+    "pm_pre": 0.64,
+    "lag_s": 112
+   },
+   {
+    "t": 1794581820,
+    "utc": "13 14:57",
+    "move_bp": -19.0,
+    "dp": -0.123,
+    "pm_pre": 0.46,
+    "lag_s": 64
+   },
+   {
+    "t": 1794582660,
+    "utc": "13 15:11",
+    "move_bp": -33.0,
+    "dp": -0.111,
+    "pm_pre": 0.225,
+    "lag_s": 1066
+   },
+   {
+    "t": 1794583260,
+    "move_bp": -12.9,
+    "dp": -0.016,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794583860,
+    "move_bp": 16.2,
+    "dp": 0.016,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794585000,
+    "utc": "13 15:50",
+    "move_bp": 13.2,
+    "dp": 0.021,
+    "pm_pre": 0.095,
+    "lag_s": 88
+   },
+   {
+    "t": 1794585720,
+    "utc": "13 16:02",
+    "move_bp": -10.2,
+    "dp": -0.015,
+    "pm_pre": 0.09,
+    "lag_s": 463
+   },
+   {
+    "t": 1794586500,
+    "utc": "13 16:15",
+    "move_bp": -13.8,
+    "dp": -0.019,
+    "pm_pre": 0.075,
+    "lag_s": 15
+   },
+   {
+    "t": 1794587220,
+    "utc": "13 16:27",
+    "move_bp": 24.2,
+    "dp": 0.023,
+    "pm_pre": 0.04,
+    "lag_s": 517
+   },
+   {
+    "t": 1794587880,
+    "move_bp": -13.0,
+    "dp": -0.022,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794589020,
+    "utc": "13 16:57",
+    "move_bp": 16.1,
+    "dp": 0.016,
+    "pm_pre": 0.023,
+    "lag_s": 643
+   },
+   {
+    "t": 1794589620,
+    "utc": "13 17:07",
+    "move_bp": 21.7,
+    "dp": 0.037,
+    "pm_pre": 0.024,
+    "lag_s": 43
+   },
+   {
+    "t": 1794590220,
+    "utc": "13 17:17",
+    "move_bp": -11.6,
+    "dp": -0.025,
+    "pm_pre": 0.071,
+    "lag_s": 84
+   },
+   {
+    "t": 1794590820,
+    "utc": "13 17:27",
+    "move_bp": 14.9,
+    "dp": 0.031,
+    "pm_pre": 0.03,
+    "lag_s": 282
+   },
+   {
+    "t": 1794591900,
+    "utc": "13 17:45",
+    "move_bp": 10.3,
+    "dp": 0.028,
+    "pm_pre": 0.062,
+    "lag_s": null
+   },
+   {
+    "t": 1794594360,
+    "utc": "13 18:26",
+    "move_bp": 11.1,
+    "dp": 0.019,
+    "pm_pre": 0.022,
+    "lag_s": 1495
+   },
+   {
+    "t": 1794597300,
+    "utc": "13 19:15",
+    "move_bp": -11.5,
+    "dp": -0.038,
+    "pm_pre": 0.06,
+    "lag_s": 622
+   },
+   {
+    "t": 1794598440,
+    "utc": "13 19:34",
+    "move_bp": -13.1,
+    "dp": -0.035,
+    "pm_pre": 0.032,
+    "lag_s": 231
+   },
+   {
+    "t": 1794599940,
+    "move_bp": 15.0,
+    "dp": 0.037,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794603000,
+    "move_bp": 11.1,
+    "dp": 0.025,
+    "lag_s": null,
+    "why": "no PM prints before"
+   }
+  ],
+  "moves_measurable": 21,
+  "lags_s": [
+   15,
+   16,
+   43,
+   55,
+   64,
+   76,
+   78,
+   84,
+   88,
+   112,
+   135,
+   231,
+   282,
+   463,
+   478,
+   517,
+   622,
+   643,
+   1066,
+   1495
+  ],
+  "censored_30min": 1,
+  "taker_buy_usd_covered": 13696,
+  "stale_buy_usd": 2647.9,
+  "stale_n": 88,
+  "stale_pnl_usd": 2149.75,
+  "stale": [
+   {
+    "utc": "13 05:34:03",
+    "outcome": "Down",
+    "price": 0.45,
+    "fair": 0.472,
+    "usd": 9.0,
+    "pnl_share": 0.54
+   },
+   {
+    "utc": "13 08:24:34",
+    "outcome": "Down",
+    "price": 0.53,
+    "fair": 0.551,
+    "usd": 241.15,
+    "pnl_share": 0.46
+   },
+   {
+    "utc": "13 08:27:16",
+    "outcome": "Down",
+    "price": 0.52,
+    "fair": 0.569,
+    "usd": 260.0,
+    "pnl_share": 0.47
+   },
+   {
+    "utc": "13 08:31:31",
+    "outcome": "Down",
+    "price": 0.51,
+    "fair": 0.545,
+    "usd": 51.0,
+    "pnl_share": 0.48
+   },
+   {
+    "utc": "13 08:31:31",
+    "outcome": "Down",
+    "price": 0.51,
+    "fair": 0.545,
+    "usd": 51.0,
+    "pnl_share": 0.48
+   },
+   {
+    "utc": "13 08:32:04",
+    "outcome": "Down",
+    "price": 0.51,
+    "fair": 0.541,
+    "usd": 51.0,
+    "pnl_share": 0.48
+   },
+   {
+    "utc": "13 09:02:51",
+    "outcome": "Down",
+    "price": 0.47,
+    "fair": 0.554,
+    "usd": 47.0,
+    "pnl_share": 0.52
+   },
+   {
+    "utc": "13 09:02:54",
+    "outcome": "Down",
+    "price": 0.47,
+    "fair": 0.554,
+    "usd": 9.4,
+    "pnl_share": 0.52
+   },
+   {
+    "utc": "13 09:19:15",
+    "outcome": "Down",
+    "price": 0.43,
+    "fair": 0.452,
+    "usd": 43.0,
+    "pnl_share": 0.56
+   },
+   {
+    "utc": "13 09:19:18",
+    "outcome": "Down",
+    "price": 0.43,
+    "fair": 0.452,
+    "usd": 43.0,
+    "pnl_share": 0.56
+   },
+   {
+    "utc": "13 09:25:03",
+    "outcome": "Down",
+    "price": 0.4599999859,
+    "fair": 0.493,
+    "usd": 11.06,
+    "pnl_share": 0.53
+   },
+   {
+    "utc": "13 09:44:36",
+    "outcome": "Down",
+    "price": 0.4099998975,
+    "fair": 0.434,
+    "usd": 1.0,
+    "pnl_share": 0.58
+   },
+   {
+    "utc": "13 09:53:39",
+    "outcome": "Down",
+    "price": 0.4199998908,
+    "fair": 0.448,
+    "usd": 1.0,
+    "pnl_share": 0.57
+   },
+   {
+    "utc": "13 09:53:45",
+    "outcome": "Down",
+    "price": 0.4199998908,
+    "fair": 0.448,
+    "usd": 1.0,
+    "pnl_share": 0.57
+   },
+   {
+    "utc": "13 09:58:33",
+    "outcome": "Down",
+    "price": 0.4199998908,
+    "fair": 0.463,
+    "usd": 1.0,
+    "pnl_share": 0.57
+   },
+   {
+    "utc": "13 10:06:13",
+    "outcome": "Down",
+    "price": 0.37,
+    "fair": 0.391,
+    "usd": 37.0,
+    "pnl_share": 0.621
+   },
+   {
+    "utc": "13 10:06:13",
+    "outcome": "Down",
+    "price": 0.37,
+    "fair": 0.391,
+    "usd": 37.0,
+    "pnl_share": 0.621
+   },
+   {
+    "utc": "13 10:08:46",
+    "outcome": "Down",
+    "price": 0.3699999593,
+    "fair": 0.401,
+    "usd": 1.0,
+    "pnl_share": 0.621
+   },
+   {
+    "utc": "13 10:09:33",
+    "outcome": "Down",
+    "price": 0.37,
+    "fair": 0.397,
+    "usd": 37.0,
+    "pnl_share": 0.621
+   },
+   {
+    "utc": "13 10:11:51",
+    "outcome": "Down",
+    "price": 0.3699999593,
+    "fair": 0.395,
+    "usd": 1.0,
+    "pnl_share": 0.621
+   },
+   {
+    "utc": "13 10:16:37",
+    "outcome": "Down",
+    "price": 0.3699999593,
+    "fair": 0.391,
+    "usd": 1.0,
+    "pnl_share": 0.621
+   },
+   {
+    "utc": "13 10:19:39",
+    "outcome": "Down",
+    "price": 0.3599999712,
+    "fair": 0.385,
+    "usd": 1.0,
+    "pnl_share": 0.631
+   },
+   {
+    "utc": "13 10:19:39",
+    "outcome": "Down",
+    "price": 0.3599999712,
+    "fair": 0.385,
+    "usd": 1.0,
+    "pnl_share": 0.631
+   },
+   {
+    "utc": "13 10:20:13",
+    "outcome": "Down",
+    "price": 0.3599999712,
+    "fair": 0.38,
+    "usd": 1.0,
+    "pnl_share": 0.631
+   },
+   {
+    "utc": "13 10:20:13",
+    "outcome": "Down",
+    "price": 0.3599999712,
+    "fair": 0.38,
+    "usd": 1.0,
+    "pnl_share": 0.631
+   },
+   {
+    "utc": "13 10:20:34",
+    "outcome": "Down",
+    "price": 0.3599999712,
+    "fair": 0.38,
+    "usd": 1.0,
+    "pnl_share": 0.631
+   },
+   {
+    "utc": "13 10:20:34",
+    "outcome": "Down",
+    "price": 0.3599999712,
+    "fair": 0.38,
+    "usd": 1.0,
+    "pnl_share": 0.631
+   },
+   {
+    "utc": "13 10:20:34",
+    "outcome": "Down",
+    "price": 0.3599999712,
+    "fair": 0.38,
+    "usd": 1.0,
+    "pnl_share": 0.631
+   },
+   {
+    "utc": "13 11:03:00",
+    "outcome": "Down",
+    "price": 0.34,
+    "fair": 0.36,
+    "usd": 34.0,
+    "pnl_share": 0.651
+   },
+   {
+    "utc": "13 11:48:49",
+    "outcome": "Down",
+    "price": 0.31,
+    "fair": 0.351,
+    "usd": 1.55,
+    "pnl_share": 0.681
+   },
+   {
+    "utc": "13 11:48:51",
+    "outcome": "Down",
+    "price": 0.32,
+    "fair": 0.351,
+    "usd": 4.8,
+    "pnl_share": 0.671
+   },
+   {
+    "utc": "13 12:42:55",
+    "outcome": "Down",
+    "price": 0.3299998944,
+    "fair": 0.357,
+    "usd": 1.0,
+    "pnl_share": 0.661
+   },
+   {
+    "utc": "13 12:47:39",
+    "outcome": "Down",
+    "price": 0.34,
+    "fair": 0.365,
+    "usd": 34.0,
+    "pnl_share": 0.651
+   },
+   {
+    "utc": "13 12:54:07",
+    "outcome": "Down",
+    "price": 0.3499999527,
+    "fair": 0.374,
+    "usd": 1.85,
+    "pnl_share": 0.641
+   },
+   {
+    "utc": "13 12:54:12",
+    "outcome": "Down",
+    "price": 0.3499999825,
+    "fair": 0.374,
+    "usd": 1.0,
+    "pnl_share": 0.641
+   },
+   {
+    "utc": "13 12:54:55",
+    "outcome": "Down",
+    "price": 0.3499999825,
+    "fair": 0.374,
+    "usd": 1.0,
+    "pnl_share": 0.641
+   },
+   {
+    "utc": "13 12:55:00",
+    "outcome": "Down",
+    "price": 0.3399999388,
+    "fair": 0.365,
+    "usd": 1.0,
+    "pnl_share": 0.651
+   },
+   {
+    "utc": "13 12:55:00",
+    "outcome": "Down",
+    "price": 0.3399999388,
+    "fair": 0.365,
+    "usd": 1.0,
+    "pnl_share": 0.651
+   },
+   {
+    "utc": "13 12:55:12",
+    "outcome": "Down",
+    "price": 0.3399999388,
+    "fair": 0.365,
+    "usd": 1.0,
+    "pnl_share": 0.651
+   },
+   {
+    "utc": "13 12:57:34",
+    "outcome": "Down",
+    "price": 0.3399999388,
+    "fair": 0.36,
+    "usd": 1.0,
+    "pnl_share": 0.651
+   },
+   {
+    "utc": "13 12:57:37",
+    "outcome": "Down",
+    "price": 0.3399999773,
+    "fair": 0.36,
+    "usd": 1.8,
+    "pnl_share": 0.651
+   },
+   {
+    "utc": "13 12:57:51",
+    "outcome": "Down",
+    "price": 0.3399999388,
+    "fair": 0.36,
+    "usd": 1.0,
+    "pnl_share": 0.651
+   },
+   {
+    "utc": "13 12:58:45",
+    "outcome": "Down",
+    "price": 0.3299998944,
+    "fair": 0.353,
+    "usd": 1.0,
+    "pnl_share": 0.661
+   },
+   {
+    "utc": "13 12:58:46",
+    "outcome": "Down",
+    "price": 0.3299998944,
+    "fair": 0.353,
+    "usd": 1.0,
+    "pnl_share": 0.661
+   },
+   {
+    "utc": "13 13:04:40",
+    "outcome": "Down",
+    "price": 0.28,
+    "fair": 0.322,
+    "usd": 28.0,
+    "pnl_share": 0.712
+   },
+   {
+    "utc": "13 13:04:42",
+    "outcome": "Down",
+    "price": 0.2799999978,
+    "fair": 0.322,
+    "usd": 5.0,
+    "pnl_share": 0.712
+   },
+   {
+    "utc": "13 13:26:13",
+    "outcome": "Down",
+    "price": 0.24,
+    "fair": 0.275,
+    "usd": 2.4,
+    "pnl_share": 0.753
+   },
+   {
+    "utc": "13 13:26:13",
+    "outcome": "Down",
+    "price": 0.24,
+    "fair": 0.275,
+    "usd": 7.2,
+    "pnl_share": 0.753
+   },
+   {
+    "utc": "13 13:26:16",
+    "outcome": "Down",
+    "price": 0.25,
+    "fair": 0.275,
+    "usd": 5.0,
+    "pnl_share": 0.743
+   },
+   {
+    "utc": "13 13:26:16",
+    "outcome": "Down",
+    "price": 0.25,
+    "fair": 0.275,
+    "usd": 5.0,
+    "pnl_share": 0.743
+   },
+   {
+    "utc": "13 13:30:28",
+    "outcome": "Down",
+    "price": 0.18,
+    "fair": 0.247,
+    "usd": 8.1,
+    "pnl_share": 0.814
+   },
+   {
+    "utc": "13 13:30:30",
+    "outcome": "Down",
+    "price": 0.18,
+    "fair": 0.247,
+    "usd": 1.8,
+    "pnl_share": 0.814
+   },
+   {
+    "utc": "13 13:30:31",
+    "outcome": "Down",
+    "price": 0.18,
+    "fair": 0.247,
+    "usd": 4.67,
+    "pnl_share": 0.814
+   },
+   {
+    "utc": "13 13:30:33",
+    "outcome": "Down",
+    "price": 0.18,
+    "fair": 0.247,
+    "usd": 0.9,
+    "pnl_share": 0.814
+   },
+   {
+    "utc": "13 13:30:49",
+    "outcome": "Down",
+    "price": 0.17,
+    "fair": 0.247,
+    "usd": 1.7,
+    "pnl_share": 0.824
+   },
+   {
+    "utc": "13 13:30:54",
+    "outcome": "Down",
+    "price": 0.18,
+    "fair": 0.247,
+    "usd": 25.2,
+    "pnl_share": 0.814
+   },
+   {
+    "utc": "13 13:30:54",
+    "outcome": "Down",
+    "price": 0.18,
+    "fair": 0.247,
+    "usd": 72.0,
+    "pnl_share": 0.814
+   },
+   {
+    "utc": "13 13:30:57",
+    "outcome": "Down",
+    "price": 0.19,
+    "fair": 0.247,
+    "usd": 19.0,
+    "pnl_share": 0.804
+   },
+   {
+    "utc": "13 13:30:57",
+    "outcome": "Down",
+    "price": 0.19,
+    "fair": 0.247,
+    "usd": 19.0,
+    "pnl_share": 0.804
+   },
+   {
+    "utc": "13 13:31:16",
+    "outcome": "Down",
+    "price": 0.18,
+    "fair": 0.252,
+    "usd": 7.2,
+    "pnl_share": 0.814
+   },
+   {
+    "utc": "13 13:32:10",
+    "outcome": "Down",
+    "price": 0.1699999996,
+    "fair": 0.2,
+    "usd": 26.06,
+    "pnl_share": 0.824
+   },
+   {
+    "utc": "13 13:35:16",
+    "outcome": "Up",
+    "price": 0.8699999696,
+    "fair": 0.891,
+    "usd": 6.87,
+    "pnl_share": -0.875
+   },
+   {
+    "utc": "13 14:30:58",
+    "outcome": "Up",
+    "price": 0.6999999749,
+    "fair": 0.757,
+    "usd": 16.76,
+    "pnl_share": -0.708
+   },
+   {
+    "utc": "13 14:30:58",
+    "outcome": "Up",
+    "price": 0.7,
+    "fair": 0.757,
+    "usd": 18.16,
+    "pnl_share": -0.708
+   },
+   {
+    "utc": "13 14:31:00",
+    "outcome": "Up",
+    "price": 0.7,
+    "fair": 0.757,
+    "usd": 28.07,
+    "pnl_share": -0.708
+   },
+   {
+    "utc": "13 14:34:52",
+    "outcome": "Up",
+    "price": 0.64,
+    "fair": 0.718,
+    "usd": 32.0,
+    "pnl_share": -0.649
+   },
+   {
+    "utc": "13 14:34:57",
+    "outcome": "Up",
+    "price": 0.64,
+    "fair": 0.718,
+    "usd": 32.0,
+    "pnl_share": -0.649
+   },
+   {
+    "utc": "13 14:34:58",
+    "outcome": "Up",
+    "price": 0.64,
+    "fair": 0.718,
+    "usd": 10.05,
+    "pnl_share": -0.649
+   },
+   {
+    "utc": "13 14:51:54",
+    "outcome": "Down",
+    "price": 0.61,
+    "fair": 0.64,
+    "usd": 12.2,
+    "pnl_share": 0.38
+   },
+   {
+    "utc": "13 14:58:04",
+    "outcome": "Down",
+    "price": 0.69,
+    "fair": 0.749,
+    "usd": 34.5,
+    "pnl_share": 0.301
+   },
+   {
+    "utc": "13 15:04:31",
+    "outcome": "Down",
+    "price": 0.8,
+    "fair": 0.856,
+    "usd": 217.6,
+    "pnl_share": 0.194
+   },
+   {
+    "utc": "13 15:28:46",
+    "outcome": "Down",
+    "price": 0.9,
+    "fair": 0.984,
+    "usd": 90.67,
+    "pnl_share": 0.096
+   },
+   {
+    "utc": "13 15:37:39",
+    "outcome": "Down",
+    "price": 0.9099999305,
+    "fair": 0.968,
+    "usd": 9.3,
+    "pnl_share": 0.087
+   },
+   {
+    "utc": "13 15:51:28",
+    "outcome": "Down",
+    "price": 0.88,
+    "fair": 0.948,
+    "usd": 7.92,
+    "pnl_share": 0.116
+   },
+   {
+    "utc": "13 15:55:57",
+    "outcome": "Down",
+    "price": 0.9199999969,
+    "fair": 0.95,
+    "usd": 11.88,
+    "pnl_share": 0.077
+   },
+   {
+    "utc": "13 15:55:57",
+    "outcome": "Down",
+    "price": 0.92,
+    "fair": 0.95,
+    "usd": 137.89,
+    "pnl_share": 0.077
+   },
+   {
+    "utc": "13 16:00:09",
+    "outcome": "Down",
+    "price": 0.92,
+    "fair": 0.956,
+    "usd": 72.68,
+    "pnl_share": 0.077
+   },
+   {
+    "utc": "13 16:09:43",
+    "outcome": "Down",
+    "price": 0.93,
+    "fair": 0.966,
+    "usd": 103.46,
+    "pnl_share": 0.067
+   },
+   {
+    "utc": "13 16:11:31",
+    "outcome": "Down",
+    "price": 0.93,
+    "fair": 0.961,
+    "usd": 175.54,
+    "pnl_share": 0.067
+   },
+   {
+    "utc": "13 16:13:13",
+    "outcome": "Down",
+    "price": 0.94,
+    "fair": 0.961,
+    "usd": 97.84,
+    "pnl_share": 0.058
+   },
+   {
+    "utc": "13 16:35:37",
+    "outcome": "Down",
+    "price": 0.9330190826,
+    "fair": 0.951,
+    "usd": 18.75,
+    "pnl_share": 0.064
+   },
+   {
+    "utc": "13 16:35:57",
+    "outcome": "Down",
+    "price": 0.9315031982,
+    "fair": 0.951,
+    "usd": 18.75,
+    "pnl_share": 0.066
+   },
+   {
+    "utc": "13 16:36:21",
+    "outcome": "Down",
+    "price": 0.9349999959,
+    "fair": 0.959,
+    "usd": 10.35,
+    "pnl_share": 0.063
+   },
+   {
+    "utc": "13 16:36:21",
+    "outcome": "Down",
+    "price": 0.9303112341,
+    "fair": 0.959,
+    "usd": 93.65,
+    "pnl_share": 0.067
+   },
+   {
+    "utc": "13 16:36:21",
+    "outcome": "Down",
+    "price": 0.9315031982,
+    "fair": 0.959,
+    "usd": 18.75,
+    "pnl_share": 0.066
+   },
+   {
+    "utc": "13 17:07:43",
+    "outcome": "Down",
+    "price": 0.928999989,
+    "fair": 0.963,
+    "usd": 74.36,
+    "pnl_share": 0.068
+   },
+   {
+    "utc": "13 17:26:45",
+    "outcome": "Down",
+    "price": 0.9399999987,
+    "fair": 0.958,
+    "usd": 28.86,
+    "pnl_share": 0.058
+   },
+   {
+    "utc": "13 20:05:03",
+    "outcome": "Up",
+    "price": 0.006,
+    "fair": 0.042,
+    "usd": 1.2,
+    "pnl_share": -0.006
+   }
+  ]
+ },
+ "2026-11-16": {
+  "prints_with_perp": 69,
+  "moves": [
+   {
+    "t": 1794521760,
+    "move_bp": -10.0,
+    "dp": -0.023,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794558300,
+    "move_bp": -11.9,
+    "dp": -0.029,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794560580,
+    "move_bp": 10.4,
+    "dp": 0.026,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794561420,
+    "move_bp": 10.5,
+    "dp": 0.026,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794576660,
+    "move_bp": 11.4,
+    "dp": 0.025,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794577740,
+    "move_bp": -14.7,
+    "dp": -0.031,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794579780,
+    "move_bp": -10.5,
+    "dp": -0.023,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794580380,
+    "move_bp": -12.2,
+    "dp": -0.027,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794581100,
+    "move_bp": -12.0,
+    "dp": -0.031,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794581820,
+    "move_bp": -19.0,
+    "dp": -0.05,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794582660,
+    "move_bp": -33.0,
+    "dp": -0.086,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794583260,
+    "move_bp": -12.9,
+    "dp": -0.032,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794583860,
+    "move_bp": 16.2,
+    "dp": 0.04,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794585000,
+    "move_bp": 13.2,
+    "dp": 0.034,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794585720,
+    "move_bp": -10.2,
+    "dp": -0.026,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794586500,
+    "move_bp": -13.8,
+    "dp": -0.035,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794587220,
+    "move_bp": 24.2,
+    "dp": 0.061,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794587880,
+    "move_bp": -13.0,
+    "dp": -0.034,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794589020,
+    "move_bp": 16.1,
+    "dp": 0.041,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794589620,
+    "move_bp": 21.7,
+    "dp": 0.056,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794590220,
+    "move_bp": -11.6,
+    "dp": -0.03,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794590820,
+    "move_bp": 14.9,
+    "dp": 0.039,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794591900,
+    "move_bp": 10.3,
+    "dp": 0.028,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794594360,
+    "move_bp": 11.1,
+    "dp": 0.03,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794597300,
+    "move_bp": -11.5,
+    "dp": -0.031,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794598440,
+    "move_bp": -13.1,
+    "dp": -0.036,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794599940,
+    "move_bp": 15.0,
+    "dp": 0.041,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794603000,
+    "move_bp": 11.1,
+    "dp": 0.031,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794603660,
+    "move_bp": -12.3,
+    "dp": -0.034,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794604260,
+    "move_bp": 22.8,
+    "dp": 0.062,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794604860,
+    "move_bp": -14.9,
+    "dp": -0.04,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794605580,
+    "move_bp": -11.6,
+    "dp": -0.031,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794606360,
+    "utc": "13 21:46",
+    "move_bp": 15.4,
+    "dp": 0.041,
+    "pm_pre": 0.34,
+    "lag_s": null
+   },
+   {
+    "t": 1794607680,
+    "move_bp": 12.9,
+    "dp": 0.035,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794619200,
+    "move_bp": 11.5,
+    "dp": 0.032,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794644700,
+    "move_bp": 14.3,
+    "dp": 0.042,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794646620,
+    "move_bp": -13.1,
+    "dp": -0.039,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794648780,
+    "move_bp": 10.6,
+    "dp": 0.032,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794666420,
+    "move_bp": -10.8,
+    "dp": -0.033,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794672780,
+    "move_bp": -14.9,
+    "dp": -0.043,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794673440,
+    "utc": "14 16:24",
+    "move_bp": -13.3,
+    "dp": -0.037,
+    "pm_pre": 0.29,
+    "lag_s": null
+   },
+   {
+    "t": 1794674760,
+    "move_bp": -11.2,
+    "dp": -0.029,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794675960,
+    "move_bp": 11.7,
+    "dp": 0.032,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794678420,
+    "move_bp": -12.9,
+    "dp": -0.037,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794681120,
+    "move_bp": 10.1,
+    "dp": 0.028,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794689700,
+    "move_bp": -12.4,
+    "dp": -0.034,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794691260,
+    "move_bp": 14.0,
+    "dp": 0.037,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794692400,
+    "move_bp": 11.7,
+    "dp": 0.034,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794693840,
+    "move_bp": -10.8,
+    "dp": -0.031,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794694920,
+    "move_bp": 12.7,
+    "dp": 0.035,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794700020,
+    "move_bp": 13.9,
+    "dp": 0.04,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794702120,
+    "move_bp": -11.1,
+    "dp": -0.033,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794708480,
+    "move_bp": 24.6,
+    "dp": 0.065,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794723480,
+    "move_bp": 10.4,
+    "dp": 0.031,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794731040,
+    "move_bp": 10.1,
+    "dp": 0.031,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794733020,
+    "move_bp": 14.1,
+    "dp": 0.045,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794751560,
+    "move_bp": -12.1,
+    "dp": -0.045,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794756780,
+    "move_bp": 12.5,
+    "dp": 0.043,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794760080,
+    "move_bp": 12.2,
+    "dp": 0.044,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794760980,
+    "move_bp": 13.2,
+    "dp": 0.05,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794769500,
+    "move_bp": 14.5,
+    "dp": 0.055,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794770520,
+    "move_bp": 11.2,
+    "dp": 0.048,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794775860,
+    "move_bp": 10.2,
+    "dp": 0.047,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794783540,
+    "move_bp": 10.9,
+    "dp": 0.052,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794785940,
+    "move_bp": 12.5,
+    "dp": 0.058,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794790140,
+    "move_bp": 11.5,
+    "dp": 0.056,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794790980,
+    "move_bp": -17.6,
+    "dp": -0.089,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794791580,
+    "move_bp": -12.2,
+    "dp": -0.065,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794792300,
+    "move_bp": -12.0,
+    "dp": -0.065,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794794640,
+    "move_bp": 11.8,
+    "dp": 0.063,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794796200,
+    "move_bp": -11.0,
+    "dp": -0.06,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794797520,
+    "move_bp": -10.3,
+    "dp": -0.058,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794803220,
+    "move_bp": 11.9,
+    "dp": 0.065,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794806400,
+    "utc": "16 05:20",
+    "move_bp": 12.2,
+    "dp": 0.063,
+    "pm_pre": 0.34,
+    "lag_s": null
+   },
+   {
+    "t": 1794812640,
+    "move_bp": 10.2,
+    "dp": 0.053,
+    "lag_s": null,
+    "why": "no PM prints before"
+   },
+   {
+    "t": 1794818460,
+    "move_bp": 11.5,
+    "dp": 0.065,
+    "lag_s": null,
+    "why": "no PM prints before"
+   }
+  ],
+  "moves_measurable": 3,
+  "lags_s": [],
+  "censored_30min": 3,
+  "taker_buy_usd_covered": 870,
+  "stale_buy_usd": 106.72,
+  "stale_n": 12,
+  "stale_pnl_usd": -51.09,
+  "stale": [
+   {
+    "utc": "13 21:40:42",
+    "outcome": "Up",
+    "price": 0.34,
+    "fair": 0.374,
+    "usd": 17.0,
+    "pnl_share": -0.349
+   },
+   {
+    "utc": "13 23:46:09",
+    "outcome": "Up",
+    "price": 0.34,
+    "fair": 0.409,
+    "usd": 1.7,
+    "pnl_share": -0.349
+   },
+   {
+    "utc": "13 23:46:28",
+    "outcome": "Up",
+    "price": 0.34,
+    "fair": 0.409,
+    "usd": 1.7,
+    "pnl_share": -0.349
+   },
+   {
+    "utc": "13 23:46:40",
+    "outcome": "Up",
+    "price": 0.34,
+    "fair": 0.409,
+    "usd": 1.7,
+    "pnl_share": -0.349
+   },
+   {
+    "utc": "13 23:46:43",
+    "outcome": "Up",
+    "price": 0.34,
+    "fair": 0.409,
+    "usd": 1.7,
+    "pnl_share": -0.349
+   },
+   {
+    "utc": "16 00:04:08",
+    "outcome": "Up",
+    "price": 0.67,
+    "fair": 0.716,
+    "usd": 26.8,
+    "pnl_share": -0.679
+   },
+   {
+    "utc": "16 00:04:43",
+    "outcome": "Up",
+    "price": 0.67,
+    "fair": 0.716,
+    "usd": 13.4,
+    "pnl_share": -0.679
+   },
+   {
+    "utc": "16 00:06:50",
+    "outcome": "Up",
+    "price": 0.6799999921,
+    "fair": 0.728,
+    "usd": 3.45,
+    "pnl_share": -0.689
+   },
+   {
+    "utc": "16 05:42:38",
+    "outcome": "Down",
+    "price": 0.67,
+    "fair": 0.724,
+    "usd": 13.4,
+    "pnl_share": 0.321
+   },
+   {
+    "utc": "16 06:06:49",
+    "outcome": "Down",
+    "price": 0.68,
+    "fair": 0.721,
+    "usd": 13.6,
+    "pnl_share": 0.311
+   },
+   {
+    "utc": "16 06:31:49",
+    "outcome": "Down",
+    "price": 0.709999983,
+    "fair": 0.77,
+    "usd": 11.27,
+    "pnl_share": 0.282
+   },
+   {
+    "utc": "16 07:01:20",
+    "outcome": "Down",
+    "price": 0.6799998912,
+    "fair": 0.729,
+    "usd": 1.0,
+    "pnl_share": 0.311
+   }
+  ]
+ }
+}
