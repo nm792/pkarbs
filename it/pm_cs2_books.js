@@ -1,6 +1,7 @@
 // PM CS2 book recorder: BOTH tokens' OWN books (YES and NO are separate books) for every Counter-Strike moneyline market
 // (Map N Winner and match winner), TICK-LEVEL from Polymarket's market websocket, one local clock (Date.now() at receive).
 // No deps (Node 22 global WebSocket/fetch). Read-only. Usage: node pm_cs2_books.js <outDir> [endISO]
+// Usage: node pm_cs2_books.js <outDir> [endISO] [floorGB=10]  (stops itself only if free disk falls below floorGB; 0 disables the check)
 // Output (format read by feeds/ps_lead_test.py and feeds/ps_cs2_daily_look.py):
 //   markets.jsonl {cond,q,outcomes,tokens,smt,start}; books.jsonl {recv_ms,asset,outcome,q,cond,bid,ask,bids:[{price,size}],asks:[...],ts,ev}
 // A row is written on every book snapshot and every price_change that changes the local book (top 5 levels each side).
@@ -51,10 +52,11 @@ function pickMarkets(events) {
   }
   return res;
 }
-module.exports = { newState, applyMsg, pickMarkets };
+const floorBytes = (arg) => { const g = arg === undefined ? 10 : Number(arg); return (Number.isFinite(g) && g >= 0 ? g : 10) * 1e9; };
+module.exports = { newState, applyMsg, pickMarkets, floorBytes };
 
 if (require.main === module) {
-  const OUT = process.argv[2], END = process.argv[3] ? Date.parse(process.argv[3]) : Infinity;
+  const OUT = process.argv[2], END = process.argv[3] ? Date.parse(process.argv[3]) : Infinity, FLOOR = floorBytes(process.argv[4]);
   fs.mkdirSync(OUT, { recursive: true });
   const app = (n, o) => fs.appendFileSync(path.join(OUT, n), JSON.stringify(o) + '\n');
   const log = (m) => fs.appendFileSync(path.join(OUT, 'recorder.log'), new Date().toISOString() + ' ' + m + '\n');
@@ -79,7 +81,7 @@ if (require.main === module) {
           m.tokens.forEach((t, i) => { st.meta[t] = { outcome: m.outcomes[i], q: m.q, cond: m.cond }; newToks.push(t); });
         }
         subscribe(newToks);
-        try { if (fs.statfsSync(OUT).bavail * fs.statfsSync(OUT).bsize < 15e9) { log('disk below 15 GB: stopping'); stop = true; } } catch {}
+        try { const fr = fs.statfsSync(OUT).bavail * fs.statfsSync(OUT).bsize; if (fr < FLOOR) { log('disk below floor ' + (FLOOR / 1e9) + ' GB (free ' + (fr / 1e9).toFixed(1) + ' GB): stopping'); stop = true; } } catch {}
       } catch (e) { log('discover error ' + e.message); }
       for (let i = 0; i < 300 && live(); i++) await sleep(1000);
     }

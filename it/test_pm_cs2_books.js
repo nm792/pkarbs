@@ -1,5 +1,5 @@
 // Test for pm_cs2_books.js. Run: node test_pm_cs2_books.js  (prints PASS or FAIL: ..., exit code 1 on failure). Every check can fail.
-const { newState, applyMsg, pickMarkets } = require('./pm_cs2_books.js');
+const { newState, applyMsg, pickMarkets, floorBytes } = require('./pm_cs2_books.js');
 const bad = [], rows = [], out = (r) => rows.push(r);
 const st = newState(); st.meta.A = { outcome: 'Alpha', q: 'Counter-Strike: Alpha vs Beta - Map 1 Winner', cond: 'c1' }; st.meta.B = { outcome: 'Beta', q: 'q', cond: 'c1' };
 // price_change before any snapshot writes nothing
@@ -25,4 +25,5 @@ const ev = [{ title: 'Counter-Strike: A vs B (BO3)', startTime: '2026-11-19T09:0
   { sportsMarketType: 'totals', clobTokenIds: '["3","4"]', outcomes: '["Over","Under"]', question: 'O/U', conditionId: 'y' }] },
   { title: 'Dota 2: C vs D', markets: [{ sportsMarketType: 'moneyline', clobTokenIds: '["5","6"]', outcomes: '["C","D"]', conditionId: 'z' }] }];
 const pk = pickMarkets(ev); if (pk.length !== 1 || pk[0].cond !== 'x') bad.push('pickMarkets wrong ' + JSON.stringify(pk));
-console.log(bad.length ? 'FAIL: ' + bad.join('; ') : 'PASS (8 checks, each able to fail)'); process.exit(bad.length ? 1 : 0);
+if (floorBytes(undefined) !== 10e9 || floorBytes('7') !== 7e9 || floorBytes('0') !== 0 || floorBytes('x') !== 10e9) bad.push('floor parse');
+console.log(bad.length ? 'FAIL: ' + bad.join('; ') : 'PASS (9 checks, each able to fail)'); process.exit(bad.length ? 1 : 0);
