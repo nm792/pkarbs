@@ -169,3 +169,30 @@ Decision recorded per reviewer notes P72 and P72b. No files were shipped or dele
 - **Gas/listing-book recorders protected:** `/mnt/HC_Volume_107257520/gas_watch`, `/mnt/HC_Volume_107257520/gas_books_pmxt`, `/mnt/HC_Volume_107257520/pkarbs/ocbooks`, `/mnt/HC_Volume_107257520/pkarbs/netflix`, `/mnt/HC_Volume_107257520/pkarbs/mentions`, and `/mnt/HC_Volume_107257520/pkarbs/oddspapi`. The other top-level inventory is recorded in this P0 status section; any path not explicitly classified here stays protected.
 - **Capacity gate fails:** two `du -sb` reads of `final-topics-32295b` were 50,831,223,158 bytes at 11:57:12Z and 52,152,370,706 bytes at 12:09:09Z. Measured growth is about 6.59 GB/hour; 36 h projects to 237.36 GB. VOL2 free space was 21,110,800,384 bytes at 11:57:12Z, 19,737,276,416 bytes at 12:09:09Z, and 23,455,006,720 bytes at 12:11:11Z; the last read is 13.46 GB above the 10 GB floor. `du` totals are non-monotone as capture files roll over, but even the last headroom is far below measured 6.6–6.8 GB/hour growth for 36 hours. Therefore 36 h does not fit. Per P72, no shipping or deletion is authorized until PK arbs provides a filter.
 - Shipper cron: **not installed**; no shipment run.
+
+## P68 thesports folder (19 Nov)
+
+Read-only identification at 14:04Z. No files shipped/deleted and no process stopped.
+
+```text
+Largest entries under /mnt/HC_Volume_107257520/pkarbs/thesports (8 requested):
+49G /mnt/HC_Volume_107257520/pkarbs/thesports/final-topics-32295b
+Only one immediate entry was present.
+
+Last six lines of final-topics-32295b:
+-rw-r--r-- 1 root root 74267986 2026-11-19 14:04:28.109232146 +0000 pmws.jsonl
+drwxr-xr-x 2 root root 4096 2026-11-19 13:32:43.236690855 +0000 share
+-rw-r--r-- 1 root root 1022747801 2026-11-19 14:04:20.994215794 +0000 trades.jsonl
+-rw-r--r-- 1 root root 211024 2026-11-19 14:04:21.569217116 +0000 trades.watermark.json
+-rw-r--r-- 1 root root 17088904344 2026-11-19 10:11:12.992746190 +0000 ts_mqtt.jsonl
+-rw-r--r-- 1 root root 57645071 2026-11-19 10:11:14.239742426 +0000 ts_poll.jsonl
+
+Processes (command lines truncated to 160 chars):
+root 3243759 2.8 0.4 53016 38956 ? Ss 10:11 6:32 /usr/bin/python3 -I /root/pkarbs/live/thesports/pm_trades_capture.py /mnt/HC_Volume_107257520/pkarbs/thesports/final-topics-32295b --interval 30
+root 3243761 84.4 2.2 570484 179932 ? Ssl 10:11 196:59 /usr/bin/python3 -I /root/pkarbs/live/thesports/capture.py /mnt/HC_Volume_107257520/pkarbs/thesports/final-topics-32295b 160 --share /mnt/HC_Volume_107257520/pkarbs/thesports/final-topics-32295b/share
+root 3543459 0.0 0.0 2888 1816 ? Ss 14:00 0:00 /bin/sh -c bash /root/pkarbs/live/thesports/export_timer_2h.sh >> /var/log/thesports_export_timer.log 2>&1
+root 3543479 0.0 0.0 7668 2312 ? S 14:00 0:00 bash /root/pkarbs/live/thesports/export_timer_2h.sh
+root 3559437 56.8 45.3 3632652 3599044 ? R 14:02 1:05 /usr/bin/python3 /root/pkarbs/live/thesports/export_slim_32295_plumb.py /mnt/HC_Volume_107257
+```
+
+`thesports-capture-b.service` (PID 3243761) and `thesports-pmtrades.service` (PID 3243759) were active at 14:04Z. The capture process writes both Polymarket books/markets and TheSports feed files; the separate trades process also writes into this directory. A 14:05Z stat confirmed books and trades continued growing. No process was stopped.
