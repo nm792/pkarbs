@@ -1,0 +1,24 @@
+rows 154 dropped {} | Polymarket resolution vs Yahoo open>close agreement 0.9935
+disagreements: [('spy-opens-up-or-down-on-september-18-2026', False, True)]
+train dates 2026-08-03 .. 2026-09-24 n 76 | test dates 2026-09-25 .. 2026-11-18 n 78
+train residual sd s (k=30): {'SPX': 0.0015162402840261193, 'SPY': 0.0009377564417331615} | mean x vs y corr (train, k=30): 0.955 sign agreement x vs y: 0.882
+BOOK level: recorded own-token book files: 0 -> rows with a recorded book on history: 0; verdict at this level: unknown, N too small
+plausibility: events with 1 m perp bars 76 of 77 | median bars per event 370
+--- TEST (verdict): events 78, days 39, buy prints 1757 (USD 89,854), skipped no perp mark 0, STALE prints 391 (USD 7,749) [placebo flip: 631 prints]
+    mean pnl/share -0.0015 CI (-0.0998,+0.0949) hit 0.41 mean price 0.40 mean model edge +0.084 dates 35 | $/day at 10% +0.53 CI (-5.13,+5.77) | placebo mean pnl -0.0765
+    bucket T-6h..T-2h: prints 238 USD 3,400 mean pnl/share -0.0679 hit 0.29
+    bucket T-2h..T-30m: prints 103 USD 1,907 mean pnl/share +0.0650 hit 0.50
+    bucket T-30m..T: prints 50 USD 2,442 mean pnl/share +0.1776 hit 0.82
+--- train: events 76, days 38, buy prints 3623 (USD 179,144), skipped no perp mark 48, STALE prints 942 (USD 14,048) [placebo flip: 1055 prints]
+    mean pnl/share +0.0637 CI (-0.1050,+0.2438) hit 0.35 mean price 0.28 mean model edge +0.152 dates 36 | $/day at 10% +6.02 CI (-18.69,+38.25) | placebo mean pnl 0.0326
+    bucket T-6h..T-2h: prints 440 USD 7,936 mean pnl/share +0.0601 hit 0.35
+    bucket T-2h..T-30m: prints 398 USD 3,775 mean pnl/share +0.0632 hit 0.34
+    bucket T-30m..T: prints 104 USD 2,337 mean pnl/share +0.0805 hit 0.41
+--- all: events 154, days 77, buy prints 5380 (USD 268,999), skipped no perp mark 48, STALE prints 1333 (USD 21,797) [placebo flip: 1686 prints]
+    mean pnl/share +0.0446 CI (-0.0768,+0.1815) hit 0.37 mean price 0.32 mean model edge +0.132 dates 71 | $/day at 10% +3.24 CI (-9.30,+19.46) | placebo mean pnl -0.0083
+    bucket T-6h..T-2h: prints 678 USD 11,336 mean pnl/share +0.0152 hit 0.33
+    bucket T-2h..T-30m: prints 501 USD 5,682 mean pnl/share +0.0636 hit 0.37
+    bucket T-30m..T: prints 154 USD 4,778 mean pnl/share +0.1120 hit 0.55
+VERDICT (locked rule B): fails on edge
+LAG (descriptive): perp moves >=10 bp in 5 min with a model jump >= 2c: measurable 95, not measurable (no pre-level print or jump < 2c) 289; caught up within 30 min 66, censored 29
+    lag seconds: median 136, quartiles 38 / 458, share within 60 s 0.35 (of caught-up), share within 60 s of all measurable 0.24

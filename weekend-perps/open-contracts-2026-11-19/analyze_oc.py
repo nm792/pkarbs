@@ -16,7 +16,7 @@ for m in mk["markets"]:
     for k in KS:
         p = perp.get(f"{m['date']}|{k}")
         if p: x[k] = math.log(p["mark"] / cs)
-    rows.append(dict(date=m["date"], prod=m["prod"], slug=m["slug"], x=x, y=y, up=bool(m["up_price"] == 1.0), yahoo_up=bool(o > c), up_token=m["up_token"], dn_token=m["dn_token"], T=open_ts(m["date"]), x30=x.get(30)))
+    rows.append(dict(date=m["date"], prod=m["prod"], slug=m["slug"], x=x, y=y, up=bool(m["up_price"] == 1.0), yahoo_up=bool(o > c), up_token=m["up_token"], dn_token=m["dn_token"], T=open_ts(m["date"]), x30=x.get(30), cs=cs))
 agree = np.mean([r["up"] == r["yahoo_up"] for r in rows]); print("rows", len(rows), "dropped", dict(drop), "| Polymarket resolution vs Yahoo open>close agreement", round(float(agree), 4))
 bad = [(r["slug"], r["up"], r["yahoo_up"]) for r in rows if r["up"] != r["yahoo_up"]]; print("disagreements:", bad[:10])
 dates = sorted({r["date"] for r in rows}); cut = dates[len(dates) // 2]; train = [r for r in rows if r["date"] < cut]; test = [r for r in rows if r["date"] >= cut]

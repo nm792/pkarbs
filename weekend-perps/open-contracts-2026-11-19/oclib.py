@@ -52,3 +52,28 @@ def boot_perday(day_vals, ndays_total, nboot=10000, seed=1):
     v = np.zeros(ndays_total); v[:len(day_vals)] = list(day_vals.values())
     idx = np.random.default_rng(seed).integers(0, ndays_total, size=(nboot, ndays_total)); m = v[idx].mean(1)
     return float(v.mean()), float(np.percentile(m, 2.5)), float(np.percentile(m, 97.5))
+
+# ---- Amendment 2: stale-print test
+import bisect
+def perp_at(ts_list, marks, t_ms, lag_ms=60000, max_age_ms=300000):
+    """latest 1 m bar with ts <= t - 60 s (the minute is complete before t); None if older than 5 min or absent. ts_list sorted."""
+    i = bisect.bisect_right(ts_list, t_ms - lag_ms) - 1
+    if i < 0 or (t_ms - lag_ms) - ts_list[i] > max_age_ms: return None
+    return marks[i]
+def s_tau(s30, tau_min): return s30 * math.sqrt(max(tau_min, 10.0) / 30.0)
+def fair_token(mark, cs, s30, tau_min, is_up, flip=False):
+    x = math.log(mark / cs); x = -x if flip else x; pu = Phi(x / s_tau(s30, tau_min)); return pu if is_up else 1 - pu
+def stale_prints(r, trades, bars_ts, bars_mark, s30, thr=THR, flip=False, window_s=6 * 3600):
+    """own-token taker BUY prints of event r in [T-6h, T): returns (list of stale dicts, counters). price and fee per share; pnl at resolution"""
+    out = []; c = collections.Counter(); T = r["T"]
+    for t in trades:
+        if t["side"] != "BUY" or not (T - window_s <= t["timestamp"] < T): continue
+        if t["token_id"] not in (r["up_token"], r["dn_token"]): continue
+        c["buy_prints"] += 1; mk = perp_at(bars_ts, bars_mark, t["timestamp"] * 1000)
+        if mk is None: c["no_perp_mark"] += 1; continue
+        is_up = t["token_id"] == r["up_token"]; f = fair_token(mk, r["cs"], s30, (T - t["timestamp"]) / 60.0, is_up, flip)
+        edge = f - t["price"] - fee_per_share(t["price"])
+        if edge <= thr: continue
+        win = r["up"] if is_up else (not r["up"])
+        out.append(dict(date=r["date"], usd=t["price"] * t["size"], price=t["price"], size=t["size"], edge=edge, pnl=(1.0 if win else 0.0) - t["price"] - fee_per_share(t["price"]), tau=(T - t["timestamp"]) / 60.0, win=bool(win)))
+    c["stale"] = len(out); return out, c
