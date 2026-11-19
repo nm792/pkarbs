@@ -51,3 +51,10 @@
 - Restarted at 12:25:21Z under the already-approved 12:00Z fallback. Old PID 548127 exited; PID 2235520 is active in tmux session `pandascore`. Five tasks started and five sockets connected. The last observed 4004 for match 1789154 was 12:25:11Z before restart; none observed through 12:28:50Z.
 - The open-hour raw file grew from 66,974 to 75,320 bytes after restart. Row-level readback is not verified while the gzip stream remains open.
 - Report: `agent/outbox/TO-IT-URGENT-pandascore-4004-retry-loop-fix-2026-11-14.md`.
+
+
+## PK priority jobs 2-3 launched (19 Nov)
+
+- Job 2 CS2 book recorder: test printed `PASS (8 checks, each able to fail)`; launched 03:29:52Z, PID 2690054. At 03:34Z, `books.jsonl` had 3,608 rows and `markets.jsonl` 80 rows; the recorder process remained active. `tail -5 recorder.log` showed current Counter-Strike market entries.
+- Job 3 scheduled CS2 live probe: test printed `PASS (4 checks, each able to fail)`; launched 03:30:09Z, PID 2694972 with start time 08:50Z and 150-minute duration. It remains active, waiting for its scheduled start.
+- Evidence paths are on the data volume: `pkarbs/pmcs2/{recorder.log,books.jsonl,markets.jsonl}` and `pkarbs/probe/pandascore-cs2-live-probe-2026-11-19.log`.
