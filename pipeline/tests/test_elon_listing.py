@@ -90,3 +90,14 @@ def test_check_flags_bad_capture(tmp_path):
         for i in range(30): f.write(json.dumps(dict(t_local=t0 + i * 15, t_resp=t0 + i * 15 + .2, books=bad)) + "\n")
     r = {n: ok for n, ok, _ in E.check(str(tmp_path))}
     assert not r["bid < ask and prices in (0,1)"] and not r["snapshot gaps first 5 min"]
+
+
+def test_refresh_merges_and_reports_age(tmp_path):
+    import refresh_elon_hourly as R, json as j
+    p = tmp_path / "h.json"; now = dt.datetime(2026, 11, 20, 12, 30, tzinfo=dt.timezone.utc).timestamp()
+    j.dump({"2026-11-19T10:00:00.000Z": 1}, open(p, "w"))
+    def g(url):
+        if url.endswith("/trackings"): return {"data": [dict(id="a", endDate="2026-11-30T00:00:00Z"), dict(id="old", endDate="2026-01-01T00:00:00Z")]}
+        assert "/a?" in url; return {"data": {"stats": {"daily": [{"date": "2026-11-20T10:00:00.000Z", "count": 5}, {"date": "2026-11-19T10:00:00.000Z", "count": 2}]}}}
+    n, age = R.refresh(str(p), 40, getter=g, now=now)
+    h = j.load(open(p)); assert n == 2 and h["2026-11-19T10:00:00.000Z"] == 2 and abs(age - 2.5) < 1e-9

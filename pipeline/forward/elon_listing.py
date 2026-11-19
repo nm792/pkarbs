@@ -129,6 +129,12 @@ def record(out, hourly_path, max_hours, poll=None):
                 except Exception as ex:
                     print("snap error", ex, flush=True)
                 a["next"] = now + cadence_ok(a["meta"]["t0"], now, end)
+            if now - a["meta"]["t0"] <= 21600 and now >= a.get("next_tr", 0.0):
+                try:
+                    import elon_trades; elon_trades.poll(a["meta"], a.setdefault("tr_seen", set()), f"{a['dir']}/trades.jsonl")
+                except Exception as ex:
+                    print("trade tape error", ex, flush=True)
+                a["next_tr"] = now + 5.0
         time.sleep(0.2)
 
 

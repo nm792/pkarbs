@@ -1,0 +1,11 @@
+[Unit]
+Description=Elon 48h listing book recorder (read-only, never places orders)
+After=network-online.target
+[Service]
+Type=simple
+WorkingDirectory=/mnt/HC_Volume_107257520/pkarbs
+ExecStart=/usr/bin/python3 pipeline/forward/elon_listing.py record --out /mnt/HC_Volume_107257520/elon-listing --hourly /mnt/HC_Volume_107257520/elon-listing/hourly.json --max-hours 720
+Restart=always
+RestartSec=5
+[Install]
+WantedBy=multi-user.target
