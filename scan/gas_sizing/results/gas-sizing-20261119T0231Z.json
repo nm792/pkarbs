@@ -1,0 +1,1 @@
+{"run_id": "gas-sizing-20261119T0231Z", "stats": {"markets_listed": 40107, "events_listed": 2224, "events_no_prints": 110, "strikes_near_print": 25000, "entry_out_of_band": 46535, "entry_beyond_life": 9964, "strikes_no_candles": 1018, "entry_dead_excluded": 8882, "events_no_signal": 30, "api_calls": 1344, "api_429": 270, "api_fail": 0, "series_requested": 48}, "n_rows": 6565}

@@ -33,9 +33,24 @@ def fl(x, d=0.0):
 
 class Client:
     """Rate-limited Kalshi GET with 429 backoff."""
-    def __init__(self, rps=6.0):
+    def __init__(self, rps=6.0, cache_dir=None):
         self.min_gap = 1.0 / rps; self.lock = threading.Lock(); self.t = 0.0
         self.calls = 0; self.fail = 0; self.n429 = 0
+        self.cache_dir = cache_dir; self.cc = {}; self.cc_lock = threading.Lock()
+
+    def _candle_cache(self, series):
+        """Per-series append-only file of fetched candlesticks, so a killed run loses almost nothing."""
+        with self.cc_lock:
+            if series not in self.cc:
+                d = {}
+                if self.cache_dir:
+                    p = os.path.join(self.cache_dir, f"{series}.candles.jsonl")
+                    if os.path.exists(p):
+                        for ln in open(p):
+                            try: x = json.loads(ln); d[x["t"]] = x["c"]
+                            except Exception: pass
+                self.cc[series] = d
+            return self.cc[series]
 
     def get(self, path, params=None, tries=8):
         url = KAL + path + ("?" + urllib.parse.urlencode(params) if params else "")
@@ -57,6 +72,14 @@ class Client:
         return None
 
     def list_markets(self, series, since_ts):
+        lp = os.path.join(self.cache_dir, f"{series}.list.json") if self.cache_dir else None
+        if lp and os.path.exists(lp): return json.load(open(lp))
+        out = self._list_markets(series, since_ts)
+        if lp:
+            os.makedirs(self.cache_dir, exist_ok=True); json.dump(out, open(lp, "w"))
+        return out
+
+    def _list_markets(self, series, since_ts):
         out, seen = [], set()
         for base, p0 in (("/markets", {"status": "settled", "min_close_ts": since_ts}), ("/historical/markets", {})):
             cur = None
@@ -73,9 +96,17 @@ class Client:
         return out
 
     def candles(self, m, series):
+        cc = self._candle_cache(series)
+        if m["ticker"] in cc: return cc[m["ticker"]]
         d = self.get(f"/series/{series}/markets/{m['ticker']}/candlesticks",
                      {"start_ts": ts(m["open_time"]), "end_ts": ts(m["close_time"]), "period_interval": 60})
-        return (d or {}).get("candlesticks")
+        c = (d or {}).get("candlesticks")
+        if d is not None and self.cache_dir:          # cache only successful responses
+            with self.cc_lock:
+                cc[m["ticker"]] = c
+                os.makedirs(self.cache_dir, exist_ok=True)
+                with open(os.path.join(self.cache_dir, f"{series}.candles.jsonl"), "a") as f: f.write(json.dumps({"t": m["ticker"], "c": c}) + "\n")
+        return c
 
 
 def parse_candles(cs):
@@ -223,8 +254,19 @@ def run(client, series_list, now_ts, days, out_dir, workers=4):
     lock = threading.Lock(); done = [0]
     def work(s):
         st = defaultdict(int)
-        try: r, e, av, sv = process_series(client, s, since, st)
-        except Exception as ex: r, e, av, sv = [], [], 0.0, []; st["series_errors"] += 1; print("ERR", s, ex, flush=True)
+        cp = os.path.join(out_dir, "cache", f"{s}.json")     # resume after a restart: finished series are reloaded, not refetched
+        if os.path.exists(cp):
+            d = json.load(open(cp)); r, e, av, sv, st0 = d["rows"], d["events"], d["allvol"], d["svols"], d["stats"]
+            for k, v in st0.items(): st[k] += v
+            print(f"cache hit {s}", flush=True)
+        else:
+            try: r, e, av, sv = process_series(client, s, since, st)
+            except Exception as ex: r, e, av, sv = [], [], 0.0, []; st["series_errors"] += 1; print("ERR", s, ex, flush=True)
+            else:
+                try:
+                    os.makedirs(os.path.dirname(cp), exist_ok=True)
+                    json.dump({"rows": r, "events": e, "allvol": av, "svols": sv, "stats": dict(st), "since": since}, open(cp, "w"), default=float)
+                except Exception as ex: print("cache write failed", s, ex, flush=True)
         with lock:
             for k, v in st.items(): stats[k] += v
             for x in r: x["fam"] = fam_of(s)
@@ -277,11 +319,11 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True); ap.add_argument("--days", type=int, default=60)
     ap.add_argument("--series", default=""); ap.add_argument("--workers", type=int, default=4); ap.add_argument("--rps", type=float, default=6.0)
-    ap.add_argument("--sha", default="unknown")
+    ap.add_argument("--sha", default="unknown"); ap.add_argument("--now", type=int, default=0)
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
     sl = a.series.split(",") if a.series else ["KXAAAGASD"] + [f"KXAAAGASD{s}" for s in CACHED + FRESH]
-    now = int(time.time()); run_id = time.strftime("gas-sizing-%Y%m%dT%H%MZ", time.gmtime(now))
-    cl = Client(a.rps)
+    now = a.now or int(time.time()); run_id = time.strftime("gas-sizing-%Y%m%dT%H%MZ", time.gmtime(now))
+    cl = Client(a.rps, os.path.join(a.out, "cache"))
     rows, events, famvol, svols, stats = run(cl, sl, now, a.days, a.out, a.workers)
     stats.update({"api_calls": cl.calls, "api_429": cl.n429, "api_fail": cl.fail, "series_requested": len(sl)})
     L, res = report(rows, events, famvol, svols, stats, a.days, run_id, a.sha)
