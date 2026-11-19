@@ -1,209 +1,255 @@
-## P15d2 step 1/3 (2026-11-17 13:36–13:40Z)
+# status: Goalserve trial — capture RUNNING (Part A), 4 sports; 404 claims CORRECTED
 
-- Data-volume free bytes: 41,877,303,296 at 13:36Z; 40,790,061,056 after input copy; both above the 20 GB gate. Code commit: `1cb5c8474b1f64040ec0a8978d866f5b5bc43e2e`.
-- Source SHA-256: `feeds/goalserve_odds_vs_pm.py` `a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5`; `feeds/test_goalserve_odds_vs_pm.py` `b977ea1bea9edb4aa63b5444da87a1fda08b068e5ff3542f4370fd99cfc97e8e`; `feeds/ps_lead_test.py` `0cbd918ed6e346c91293edbac8f648a30c47a5b3e244fb8af7a08f81804cfc99`.
-- `py_compile`: COMPILE_OK. Isolated test: exit 0, `ALL PASS`. First test attempt exhausted `/tmp` (4,096 bytes free); unchanged retry with `TMPDIR` on the data volume passed.
-- Inputs collected by prescribed rsync plus `cp -n`: 95 files, first `esports_2026111315.jsonl.gz`, last `esports_2026111713.jsonl.gz`, `du -sh` 550M. `$T/gs` retained at `$T/gs`.
-- The four runs were not started; no result JSON/logs exist yet. No script, process or configuration changed. Step 1 complete; P15d3/P15d4 remain queued.
+Updated: 13 Nov 2026 13:25Z UTC (probe run 13:09-13:19Z; this file's earlier 404 lines
+are corrected in place — see "Corrections 13:25Z")
 
+- **Env file:** `/etc/pkarbs/goalserve.env` — mode 600, GOALSERVE_USER + GOALSERVE_KEY (never printed/committed).
+- **Egress-IP whitelist: yes** (prior check + IT).
+- **Auth:** user+key authenticated — `inplay-tennis.gz?user&key` HTTP 200 (~221 ms).
+- **GET TOKEN (`live.goalserve.com/api/v1/auth/gettoken`):** **WORKS — HTTP 200 with JSON
+  body `{"apiKey": KEY}`** (181 B, returns a token; `{"user","apiKey"}` also 200).
+  The earlier "400 in every field mapping" was the wrong field name: `{"key": KEY}` is the
+  only mapping tested that returns 400 ("API key is missing or malformed"). Full forms in
+  `agent/status/goalserve-probe.md`.
+- **Capture:** RUNNING, tmux `goalserve`, `live/goalserve/capture.py`, log
+  `/vol2/goalserve/goalserve_YYYYMMDD.jsonl` (recv_ns, sha1, change first-seen per poll).
+  Newest row 13:23:47Z, no errors, 22.1 MB today.
+  - Polling (verified OK): **tennis, soccer, baseball, hockey (NHL)**.
+- Started 02:38Z 13 Nov; ~1 poll/s, error-safe (429/404 logged and skipped).
 
-## P15d3 step 2/3 (2026-11-17)
+## Corrections 13:25Z (13 Nov, probe `goalserve-probe.md`)
 
-- The four runs were already complete by this check. `runs.log` records shift 0 exit 0 at 14:29:43Z, shift 5 exit 0 at 14:35:58Z, shift 15 exit 0 at 14:42:18Z, and shift 25 exit 0 at 14:48:47Z. The runner file was created 14:22:46Z and the shift-0 log began 14:23:18Z; the process PID and exact process start UTC were not retained, and no matching process remained at inspection. No PID is inferred.
-- Four valid result JSONs are present, each >1 KB and each with 214 `match_list` rows: shift0 113,234 bytes; shift5 112,693; shift15 112,698; shift25 112,804. Results remain UNCHECKED pending the independent audit. A scan found no IP-like values, hostnames, or credential-like fields.
-- Data volume free: 33,892,593,664 bytes at 15:03Z. The retained input set is 95 files, `esports_2026111315.jsonl.gz` through `esports_2026111713.jsonl.gz`, 550 MB; scratch directory 551 MB. Inputs and outputs remain in the Goalserve scratch directory on the data volume for the next step.
-- Code commit: `1cb5c8474b1f64040ec0a8978d866f5b5bc43e2e`. SHA-256 matches: `feeds/goalserve_odds_vs_pm.py` `a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5`; `feeds/test_goalserve_odds_vs_pm.py` `b977ea1bea9edb4aa63b5444da87a1fda08b068e5ff3542f4370fd99cfc97e8e`; `feeds/ps_lead_test.py` `0cbd918ed6e346c91293edbac8f648a30c47a5b3e244fb8af7a08f81804cfc99`. `py_compile` passed and the isolated test ended `ALL PASS` at 15:03Z.
-- At the time of the P15d3 report, no script, process, or configuration changed and the four JSONs had not yet been copied into `agent/status/`; the copy was completed in P15d4 below.
+- ~~basketball (404), esports Lol/CS2/Dota2 (404/empty) not available~~ — **WRONG.**
+  Measured 13:09-13:18Z: `inplay-basket.gz` 200 (133,718 B, 7 events),
+  `inplay-esports.gz` 200 (98,339 B, 4 live events incl. cs2/dota; also 200 without
+  creds), `inplay-volleyball.gz` 200 (115,908 B, 4 events). The earlier 404s were never
+  measured against these URLs — `capture.py` does not request them (its SPORTS dict has
+  only tennis/soccer/baseball/hockey).
+- `inplay-amfootball.gz` = 200 with an EMPTY `events:{}` (102 B) — empty-now, not 404.
+- `inplay-cricket.gz` = 404, expected per the note (no cricket inplay file; not a failure).
+- Cricket livescore path `cricket/livescore`: 400 (empty) on livescore.host for every
+  variant tried, 404 on inplay./live. hosts — blocked on the exact URL from the vendor
+  docs (asked in the inbox reply).
+- **Esports capture: STARTED 2026-11-13 14:04:31Z** (Nick "yes" 13:46Z, APPROVALS item 18;
+  correction 14:10Z — the "NOT started / class 4" line below this one is history). See
+  `agent/outbox/2026-11-13-goalserve-esports-capture-APPROVED.md` for the full report.
 
+Next: bind the PM/CLOB + TheSports recorders for the matching markets (Part A alignment);
+esports RUNNING since 14:04:31Z (APPROVALS item 18 applied; 1-hour MB/day due 15:04:31Z); cricket livescore still blocked on the docs URL.
 
-## P15d4 step 3/3 (2026-11-17 16:16Z)
+## Esports started — 13 Nov 14:10Z (APPROVALS item 18, Nick yes 13:46Z)
 
-- P15d4 outputs copied from the retained scratch run into `agent/status/`: shift0 113,234 bytes; shift5 112,693; shift15 112,698; shift25 112,804. Each contains 214 `match_list` rows and is greater than 1 KB. SHA-256: shift0 `05034c393a8278f4dff3f14d20015b2702f961ef0d113a41eea92bc87369a4bb`; shift5 `16b049f8212f605225d02f83d7043f21035f14cd58c12aa692fb7acf0eb3417c`; shift15 `a6cca6b2239927ede55f6e36157ef9bbff844ee00700ab65168a892a4a28e9f9`; shift25 `7ae134ee87ceec15103be7d5f53bb49c7b79fa039aaad658d02d34dd590da1d8`.
-- Run exits/times from the already-recorded P15d3 evidence: shift0 exit 0 at 14:29:43Z; shift5 exit 0 at 14:35:58Z; shift15 exit 0 at 14:42:18Z; shift25 exit 0 at 14:48:47Z. Results remain UNCHECKED pending the independent audit; no interpretation added.
-- Privacy scan of all four result files: clear. Scratch inputs and outputs remain on the data volume for the audit. No code, process, or configuration changed.
+- **Capture started: yes.** Start 2026-11-13 14:04:31Z; gap from kill to first new row
+  4.7 s (row `2026-11-13T14:04:35.188+00:00`).
+- Change: one line `"esports": "/inplay-esports.gz",` in `live/goalserve/capture.py`,
+  sha256 `52068242107afaf762a6f72a53d298eee1fd23bab925d6c8413f31f231d51204`;
+  revert copy `capture.py.pre-esports-20261113T140357Z` (sha `a9751804…`). `py_compile` OK.
+  Poll left at 1.0 s (approved single-line scope; 0.5 s is a separate edit).
+- writers.conf row: `goalserve|/vol2/goalserve|pkarbs/goalserve|-|y|hourly`
+  (backup `writers.conf.pre-goalserve-20261113T140908Z`). Box folder `pkarbs/goalserve`.
+- Free space at start: 17 GB available (55%) — above the 15 GB floor, not stopped.
+  The earlier "VOL2 ~94%" figure was stale; measured 14:09Z.
+- Rows: 32/32 new rows carry an esports payload, 0 errors. Stored cost measured over
+  14:05:32Z-14:06:32Z: +36,455 B / +32 rows -> 52.5 MB/day whole-file projection,
+  ~40 MB/day before the restart, so ~+12 MB/day from esports. Payload not stored
+  (recv_ns, sha1, bytes, changed, first_seen_ns only).
+- **1-hour MB/day trial figure due 15:04:31Z — not yet measured.**
+- Not in place, nothing invented: pause hook (no disk_gate/start_writer on disk for a
+  tmux capture) and trial end date (not named in the goalserve task files). Reviewer to
+  specify both.
 
+## 1-hour figure + payload store — 13 Nov 15:17Z (P5, APPROVALS 18 / inbox #300)
 
-## E1 smoke (18 Nov) — blocked at disk gate
+- **1-hour hash-capture figure (14:04:31Z-15:04:31Z, the window the note asks for):**
+  1,971 esports polls in the window (1,862 with `changed=true`), 2,236,840 B of log line
+  bytes for the whole file in that window -> **53.7 MB/day** projection for the hash/size
+  log (consistent with the earlier 52.5 MB/day one-minute figure).
+  Esports response bodies totalled **269.4 MB in the hour** (network only; NOT stored
+  before 15:09Z — the capture records recv_ns/sha1/bytes/changed only).
+- **Changed-payload store (Nick yes 14:43:42Z, inbox #300): APPLIED 15:08:45Z, live 15:09:35Z.**
+  Revert copy `live/goalserve/capture.py.pre-esports-payloads-20261113T150845Z`
+  (sha256 `52068242107afaf7…` = the pre-edit file), `py_compile` OK, diff = +30/-1 lines
+  (adds `store_payload()`, esports-only, gzip per UTC hour, 15 GB auto-stop).
+  Restart gap 15:09:28Z -> first new row 15:09:35Z (7 s); hash capture kept running.
+- **Measured over 7.6 min (15:09:35-15:17:08Z): 240 payload rows, 1,464,685 B gzipped ->
+  279 MB/day gzipped** (raw bodies 23.2 MB in the same span -> ~17:1 gzip).
+  Raw would be ~6.5 GB/day uncompressed; only the gzipped form is written.
+- **CRITICAL (measured, please rule): `/vol2` is NOT a mounted volume on this box.**
+  `findmnt -T /vol2` -> `/dev/sda1` mounted on `/` (root), `ls -ld /vol2` is a plain
+  directory; root free = 17,564,192,768 B (55%). The real 98 GB data disk is mounted at
+  `/mnt/HC_Volume_107257520` (69 GB free). So both this payload store and the pandascore
+  capture write to ROOT, against charter clause 2 ("PK arbs data never on root"). At
+  279 MB/day the payload store alone consumes the 2.56 GB between root free and the 15 GB
+  floor in ~9 days; root also carries every other writer. Nothing moved — path is exactly
+  what inbox #300 named. Options for IT: (a) point `PAYDIR` at the 98 GB disk and re-run,
+  (b) mount the 98 GB disk at `/vol2`, (c) accept root with the existing 15 GB auto-stop.
+  The store stops itself at the floor either way (`esports_payloads_STOP.log`).
+- Free space at every step above the floor; no stop line written.
 
-- At 2026-11-18 02:12Z, available bytes on the data volume: 10,917,199,872. The required gate is >20 GB free; it failed. No pull, scratch creation, compile, test, smoke run, or other data-volume job was started.
-- Result: NOT RUN. Reopen P18 only after the data-volume gate is met.
+## Dota 2 coverage 16:15Z (inbox #304; posted 16:10Z, within the 16:15Z deadline — counts are bounded to the windows named below)
 
+Method: read-only parse of the stored payloads `/vol2/goalserve/esports_payloads/esports_2026111315.jsonl.gz` +
+`esports_2026111316.jsonl.gz` and the hash/size log `/vol2/goalserve/goalserve_20261113.jsonl`; PM markets from the
+public gamma search API. Script `/root/_dota_counts.py`, raw output `/root/_dota_counts_out.json`.
 
-## Disk inventory (18 Nov)
+1. **Dota 2 matches in `inplay-esports.gz`: bodies exist only from 15:09:30Z (the payload store start), so the
+   match count below covers 15:09:30Z-16:08:06Z. For 14:04:31-15:09:35Z no bodies were stored (hash/size/changed
+   only) — that window cannot be counted by match; it holds 2,135 esports polls, 2,015 with `changed=true`
+   (14:04:31Z-16:05:33Z total: 3,957 polls / 3,757 changed; post-store 15:09:35Z+: 1,822 / 1,742).**
+   3 distinct Dota 2 matches in the stored bodies, all with a Polymarket Game-N-Winner market (matched by team names):
+   - `141165675` **PARIVISION vs Yellow Submarine** (DOTA2 - 1win Essence) 15:09:30Z-15:51:01Z, 1,299 stored
+     payloads — PM: "Game 1 Winner" (closed, 1/0), "Game 2 Winner" (active), plus the BO3 "Match Winner" market
+     on the 1win Essence / PGL Wallachia events.
+   - `141165637` **Froglings vs PuckChamp** (DOTA2 - DreamLeague Div 2) 15:09:30Z-16:08:06Z, 1,821 payloads —
+     PM: "Game 1 Winner" (0.9995) and "Game 2 Winner" (0.93) active.
+   - `141165682` **Team Liquid vs LGD Gaming** (DOTA2 - 1win Essence) 16:00:03Z-16:08:06Z, 237 payloads —
+     PM: "Game 1 Winner" (0.625), "Game 2 Winner" (0.605) and "Match Winner" active.
+2. **bet365 odds-move events (stored payloads only; an "odds move" = two consecutive stored payloads whose event
+   odds block differs, i.e. any participant `value_eu` or `suspend` change):** total 474 across the 3 matches —
+   **PARIVISION vs Yellow Submarine 221, Froglings vs PuckChamp 253, Team Liquid vs LGD Gaming 0** (joined 16:00:03Z,
+   odds block unchanged in its first 8 min, consistent with a pre-match/suspended line). No content before 15:09:35Z
+   exists, so odds moves for 14:04-15:09Z are not measurable and are not claimed.
+3. **ESTIMATE (not a projection fit): at the observed rate of 3 distinct in-play Dota matches in 59 min of body
+   coverage, and 2-3 priced PM markets per BO3 (Game 1/Game 2/Match Winner), ~10 distinct matches and ~30 priced
+   Dota events are reached in roughly 3-4 h of continued slate — i.e. on today's session if the current slate holds
+   (assumptions: the ~1/s poll keeps returning the same in-play-only feed, every in-play Dota match gets a PM
+   listing as all 3/3 did here, and evening leagues keep running). BLAST Slam from 17 Nov is the tier-1 slate that
+   should deliver 10 distinct PM-listed matches on its own; treat 13-15 Nov as the thin pre-tournament window.
+   Rate rests on 59 minutes of observation — thin.**
 
-Capture time: 2026-11-18 04:35Z. P18 measured the data-volume mount at 10,917,199,872 bytes free at 02:12Z; the same mount is `/mnt/HC_Volume_107257520` and now reports 28G free (above P18's 20 GB gate). This inventory does not authorize deletion or by itself reopen P18; no deletion list was produced.
+**Payload parse check (still owed):** a stored payload parses cleanly and shows team names — `info.name`
+("PARIVISION vs Yellow Submarine") and `team_info.home/away.name`; per-game stat snapshots are present under `stats`
+(`kills`, `towers`, `roshans`, `barracks`, `gold_def`, `res`). **Verdict wording: Goalserve has no Dota game events —
+no timestamped kills/towers event stream at all, only per-poll stat counters plus bet365 odds. Never an edge until
+it passes the locked test.** No round field exists in this feed. 145.1 MB of raw body across 1,745 stored payloads
+(15:09:30Z-16:05:34Z); hour-15 gz 8.8 MB, hour-16 1.06 MB at 16:04Z.
 
-`df -B1 -h / /mnt/HC_Volume_107247271 /mnt/HC_Volume_107257520`:
-```text
-Filesystem      Size  Used Avail Use% Mounted on
-/dev/sda1        38G   23G   13G  65% /
-/dev/sdb         49G   37G   11G  79% /mnt/HC_Volume_107247271
-/dev/sdc         98G   69G   28G  74% /mnt/HC_Volume_107257520
-```
+**Disk (P7): the store still writes to root** — `/vol2` is a plain directory on the root volume (260 MB used there
+at 16:2xZ), not a mount. The off-root move is filed as class 4 in `dialogue/APPROVALS.md` (open approval #20,
+(filed 16:10Z): repoint `PAYDIR` + `OUT` to `/mnt/HC_Volume_107257520/pkarbs/goalserve/` (70 GB free), move, restart,
+delete root copies only after row counts match. Root free 17.56 GB (above the 15 GB floor) and the store self-stops
+at the floor, so waiting for the daily approval loses nothing. Revert: restore the pre-edit capture copy and point
+the paths back.
 
-Data-volume depth-2 usage (`du -sh --max-depth=2` failed: `du: summarizing conflicts with --max-depth=2`; GNU du rejects `-s` with `--max-depth`. Equivalent `du -h --max-depth=2`, sorted descending, top 40):
-```text
-66G	/mnt/HC_Volume_107257520
-60G	/mnt/HC_Volume_107257520/pkarbs
-40G	/mnt/HC_Volume_107257520/pkarbs/thesports
-8.4G	/mnt/HC_Volume_107257520/pkarbs/scratch
-6.4G	/mnt/HC_Volume_107257520/pkarbs/from-vol
-3.2G	/mnt/HC_Volume_107257520/pkarbs-ps-step2
-2.8G	/mnt/HC_Volume_107257520/pkarbs-ps-step2/rn1
-1.9G	/mnt/HC_Volume_107257520/pkarbs/tennis
-1.5G	/mnt/HC_Volume_107257520/pkarbs/thesports-cricket
-650M	/mnt/HC_Volume_107257520/pkarbs/charts
-432M	/mnt/HC_Volume_107257520/pkarbs/dotacap
-327M	/mnt/HC_Volume_107257520/pkarbs/goalserve
-275M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/winmodels
-140M	/mnt/HC_Volume_107257520/pmhl5s
-115M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/live
-94M	/mnt/HC_Volume_107257520/weekend-perps
-88M	/mnt/HC_Volume_107257520/pkarbs/lol
-64M	/mnt/HC_Volume_107257520/.p4-20261116T2246Z
-46M	/mnt/HC_Volume_107257520/pkarbs/goalserve-audit-20261117
-18M	/mnt/HC_Volume_107257520/pkarbs/oddspapi
-17M	/mnt/HC_Volume_107257520/oddspapi
-16M	/mnt/HC_Volume_107257520/oddspapi/hist
-13M	/mnt/HC_Volume_107257520/nt_live_fire
-9.3M	/mnt/HC_Volume_107257520/nvda-huang
-9.2M	/mnt/HC_Volume_107257520/nvda-huang/raw
-8.8M	/mnt/HC_Volume_107257520/pkarbs/cricket
-7.0M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/rugby
-5.6M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/reports
-3.9M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/agent
-3.5M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/weekend-perps
-3.4M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/mentions
-2.9M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/chess
-1.7M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/forecast-edges
-1.3M	/mnt/HC_Volume_107257520/pkarbs-ps-step2/reviews
-688K	/mnt/HC_Volume_107257520/nt_live_fire/.t40a-stage-224410
-664K	/mnt/HC_Volume_107257520/nt_live_fire/live
-632K	/mnt/HC_Volume_107257520/pkarbs-ps-step2/shadow
-604K	/mnt/HC_Volume_107257520/pkarbs-ps-step2/agent
-456K	/mnt/HC_Volume_107257520/pkarbs/mentions
-```
+## P3 closed - WebSocket token verified end to end, 13 Nov 16:33Z (OPEN row P3)
 
-`ship_raw` check: no live `ship_raw.sh` process found (the first `pgrep -af` invocation also matched its own checker command; that self-match was excluded). Crontab has:
-```text
-50:*/30 * * * * SHIP_HOME=/root/ship /root/ship/ship_raw.sh >> /root/ship/ship.log 2>&1  # note 252
-```
+Measured this session on Prime; no code, config or unit was changed.
 
-`/root/ship/writers.conf` identifies the `goalserve` source folder as `/mnt/HC_Volume_107257520/pkarbs/goalserve`. Listing results:
-```text
-$ ls -1t <folder> | head -3
-goalserve_20261117.jsonl
-tennis_payloads
-hockey_nhl_payloads
-$ ls -1t <folder> | tail -3
-hockey_nhl_payloads
-esports_payloads
-basketball_payloads
-$ ls -1 <folder> | wc -l
-5
-```
+- **WS token: yes.** `POST .../api/v1/auth/gettoken` with `{"apiKey": KEY}` -> HTTP 200,
+  181 B, `token` field present (169 chars), re-run 16:21Z and 16:33Z. `{"key": KEY}` ->
+  400 `API key is missing or malformed.`
+- **Cause of the earlier 400, one line: the JSON field name** (`key` rejected,
+  `apiKey` accepted) - not the missing login.
+- **Socket proof:** `wss://live.goalserve.com/ws/tennis?tkn=<token>` -> 5 messages, all
+  `mt:"updt"`, in 0.6 s; `wss://live.goalserve.com/ws/esports?tkn=<token>` -> 5
+  `mt:"updt"` in 4.9 s, no auth error, no close code. (Vendor facts in the v2 task say
+  the WS has no esports channel; measured here it answers - recorded as measured.)
+- **Login:** `GOALSERVE_USER` was already in the Goalserve env file (mode 600, written
+  13 Nov 02:37Z; lengths only - user 12 chars, key 32 chars; value never printed, logged
+  or committed), so no env edit was needed and the "login in no session" branch of P3
+  does not apply.
+- Replies filed this push: `agent/outbox/TO-IT-goalserve-missing-login-2026-11-12.md`,
+  `agent/outbox/TO-IT-goalserve-key-pending-2026-11-12.md`.
+## P8 part 2 - gamma limit=50 APPLIED, PM market registration live again (13 Nov 17:06Z; OPEN row P8; IT reply eb3abacd ruled approval #21 Type A, clause 22A)
 
-Largest measured consumers are `pkarbs/thesports` (40G) and `pkarbs/scratch` (8.4G). No files or processes were changed and nothing was deleted. Reviewer deletion list is still required before P18 is reopened.
+- **Change** (`live/thesports/capture.py`, `discover_pm()` only, 3 lines): `limit=100 -> 50`, page stride `range(0,1000,100) -> range(0,1000,50)`, and the companion break threshold `len(r) < 100 -> len(r) < 50`. The threshold is the ONE line beyond the filed spec: with only the two spec lines a full 50-row page reads `< 100`, so pagination stops after page 1 and the stride change does nothing past offset 0. The reviewer can strike it if unwanted. `py_compile` OK.
+- **Backup / revert:** `live/thesports/capture.py.pre-limit50-20261113T170314Z`, sha256 `e277381c826c0ad43fe4a7bd1595a09f7615ab78990765d4130258c21f7b9c54` (byte-identical to the pre-edit blob). Revert = restore that copy, restart the unit.
+- **Restart:** old `timeout 552000 python3 ... capture.py` (pids 2818604/2818605, up since 8 Nov 00:42Z) stopped; `thesports-capture-b.service` started **17:06:03Z**, MainPID 465179, `is-active` = active. Restart gap about 70 s.
+- **200 discover line:** `log.jsonl` 17:06:10Z `{"what":"discover_pm","tokens":216,"new":216}` - success rows only (errors are separate `discover_pm_err` rows); the last `406 Not Acceptable` was 16:58:36Z.
+- **Registration counter:** `markets.jsonl` 2,847 -> **3,161 rows** (+314) by 17:06:10Z - registration is moving again.
+- **Other streams after the restart:** books newest 17:06:54Z, pmws 17:06:53Z, ts_mqtt 17:05:32Z - all live; no other stream was stale.
+- **Not changed:** no other line of the file. The relaunch keeps the original `timeout 552000`, which expires 14 Nov about 09:06Z with no restart guard anywhere on the box (no cron or unit references capture.py) - flagged as one TO-IT line, not touched here.
 
-## G inventory (18 Nov) — waiting
+## LoL final start — MEASURED 13 Nov 22:46Z (P9; inbox `2026-11-13-lol-final-start-time-and-recorder-timeout.md` item 1)
 
-- The prescribed `git pull -q` failed because the checkout has local changes in tracked files and untracked files that would be overwritten. Exact error: `error: Your local changes to the following files would be overwritten by merge:`; `error: The following untracked working tree files would be overwritten by checkout:`; `Aborting`. No stash or cleanup was performed.
-- The inventory was not run. The command's script is present on the fetched origin branch but absent from the stale local checkout; following the task gate, no workaround or retry was attempted.
-- At 2026-11-18 05:04Z, `df -h / /mnt/HC_Volume_107257520` showed root 13G free and data volume 27G free.
-- Status: waiting for a safe checkout/pull; no inventory output is claimed.
+- **Worlds 2026 final scheduled start: 2026-11-14 19:00:00Z** (Saturday 14 Nov, Barclays Center, New York).
+- Source: the official schedule call `esports-api.lolesports.com/persisted/gw/getSchedule`
+  (`hl=en-US`, `leagueId=98767975604431411` = Worlds, the id from this repo's own
+  `rn1/scores/lol/winmodel/list_games.py`), **HTTP 200, response fetched 2026-11-13T22:46:24Z**
+  (request and body both inside that second).
+- Event in the response: `blockName: "Finals"`, `state: "unstarted"`, match id `115660540726095133`,
+  **Gen.G Esports vs BILIBILI GAMING** — the only Worlds event with `startTime >= 2026-11-12`
+  among the 80 events read.
+- Corroboration: `getEventDetails` for the same match id returned HTTP 200 at 2026-11-13T22:46:55Z
+  with the same two teams; its event-level `startTime` is null, so the time above comes from
+  `getSchedule` only.
+- Label: **MEASURED** — read from the API response at the times above, not from memory or web search.
+  This is the start time to plan the 14 Nov capture window against (it lands after the old
+  09:06Z timeout, which is now gone — see below).
 
-## E1 smoke (18 Nov 05:40Z) — waiting: required files absent
+## P9 recorder confirmation — measured 13 Nov 22:48Z (inbox #311/#312 item 2; IT deadline 14 Nov 06:00Z)
 
-- The prescribed first check returned local checkout HEAD `026be71fe877197d43fc78056070b7c8d86cd741`. `ls -l feeds/goalserve_odds_vs_pm_v2.py feeds/test_goalserve_odds_vs_pm_v2.py` reported `No such file or directory` for both files.
-- Per P18's explicit stop rule, the smoke, compile and tests were not run; no data-volume output was created and no pull, stash or cleanup was attempted.
-- The exact 02:12Z command recorded in the earlier P18 reply was `df -B1 --output=avail /mnt/HC_Volume_107247271`; it reported 10,917,199,872 bytes. The P18 note's named data-volume path is `/mnt/HC_Volume_107257520`, so the recorded command measured the other mount.
-- Status: waiting for the two required files to be present in the prescribed checkout; no smoke result is claimed.
+Guard work was already pushed at `ae85a3d4c9` + `3fc673c556` (OPEN row P9 status); this is the
+confirmation the note asks for.
 
+- **No `timeout 552000` on the live path.** Unit text now (`thesports-capture-b.service`, transient
+  systemd-run): `ExecStart="/usr/bin/python3" "-I" ".../live/thesports/capture.py" "<data-vol>/final-topics-32295b" "160" "--share" "<data-vol>/final-topics-32295b/share"`,
+  `EnvironmentFile=/etc/pkarbs/thesports.env`, **no timeout line anywhere in the unit**; capture.py
+  bounds itself at 160 h. The guard's relaunch line carries no `timeout` either (`live/thesports/guard_capture_b.sh`).
+- **Restart guard:** `*/5 * * * * bash /root/pkarbs/live/thesports/guard_capture_b.sh >> /var/log/thesports_capture_guard.log`
+  (flock-guarded). Rule (v2, IT 18:10Z): process absent OR newest row older than 600 s across
+  books/pmws/ts_mqtt/log → TERM capture pids + relaunch with the env file (ts_poll excluded:
+  written only on body change); every restart logged. Guard ticks `rc=0` through **22:45:01Z**;
+  live process **pid 898340, started by the guard at 18:16:51Z** (4 h 31 m up at 22:48Z), relaunch
+  proven live 18:16:51Z with `creds:true` (`ae85a3d4c9`), STALE branch dry-run tested with
+  `GUARD_MAX_AGE=-1` (`3fc673c556`).
+- **Revert:** restore the pre-guard crontab backup `crontab.pre-p9-guard-20261113T1818Z.txt` and
+  `rm /root/pkarbs/live/thesports/guard_capture_b.sh`.
+- **Newest row UTC per stream** (data volume, measured 22:48:04Z):
 
-## E1 smoke (18 Nov 06:14Z)
+| stream | file | newest row UTC | age at 22:48:04Z |
+|---|---|---|---|
+| PM market registration | `markets.jsonl` | 2026-11-13 22:44:09.169Z | 4 min (live again since the P8 `limit=50` fix) |
+| CLOB books (1 s) | `books.jsonl` | 2026-11-13 22:48:04.276Z | 0 s |
+| PM sports WS rows | `pmws.jsonl` | 2026-11-13 22:47:59.897Z | 4 s |
+| TheSports MQTT | `ts_mqtt.jsonl` | 2026-11-13 22:48:04.642Z | 0 s |
+| PM trades | (none) | not recorded by this capture | `capture.py` has no trade reader — outbox reply 16:29Z §3 |
 
-Status: **run attempted; required smoke pass condition not met.**
+- All four recorded streams are inside the 10-minute rule (max age 4 min).
+- **Goalserve esports + PandaScore still flowing:** goalserve hash log row
+  `2026-11-13T22:51:36.313Z` and payload row `recv_ns 1794610296946369046` (22:51:36.9Z);
+  pandascore newest complete row 2026-11-13 22:44:35.580Z (append-streamed gzip, read tolerantly);
+  both processes running at 22:51Z (`live/goalserve/capture.py` pid 547524, `live/pandascore/ll_capture.py` pid 548127).
+- Benchmark context cited, not restated: `feeds/STANDARD-feed-latency-test.md`.
 
-- Data-volume gate passed at 06:14Z: 26,427,822,080 bytes available (>20 GB).
-- Exported `feeds/` from the fetched project branch tip `7ca1509d736a2349c3097c0b58b8da1b3fcfcfeb` into a fresh scratch directory; the checkout was not modified. Source SHA-256: `goalserve_odds_vs_pm_v2.py` `8885752f54c3dc0c13cc0b60270fa76698b2fc1aca1746b8e1f8f95357f5fd4c`; test `04f46d566359930851db9a8cfb77dd2453b4c90b4c346bc85aa3053275d3f6b1`.
-- `py_compile` passed and the self-test printed `ALL PASS`.
-- Smoke command exited 1 at 06:18Z. Exact output: `look K=-1 is outside 1..20 (no complete UTC day since 2026-11-18 or past the last look)`. No `smoke.json` was produced; therefore `files > 0` and `NO_TRACEBACK` pass criteria were not established. The final 600 bytes had no traceback/error text, but this does not change the failed run.
-- No cells or verdicts were read or reported. No other data-volume job was started by this run.
+## P7 — both writers moved off root to the data disk: DONE, recorded 14 Nov 03:15Z (OPEN row P7; IT ruling `IT-REPLY-captures-disk-2026-11-13.md` option (a), clause 22A Type A)
 
-Evidence: `agent/status/goalserve.md` section `E1 smoke (18 Nov 06:14Z)`; self-test and smoke logs in the P18 scratch output directory on the data volume.
+- **Code:** `live/goalserve/capture.py` `OUT`, `PAYDIR` and the 15 GB floor guard now read `/mnt/HC_Volume_107257520/pkarbs/goalserve/`; edit 13 Nov 17:37:34Z, `py_compile` OK, sha256 `279da8f1bea2ad17…`. Revert copy `live/goalserve/capture.py.pre-p7-20261113T173734Z` (paths back to `/vol2/...`).
+- **Restart:** tmux session `goalserve` recreated 17:39:07Z (pid 547524, cwd the repo); first hash-log row after the edit `2026-11-13T17:39:07.739+00:00` → ≤94 s from edit to first row. The old process's stop time was not recorded by the session that made the edit.
+- **First file on the real VOL2 mount:** `/mnt/HC_Volume_107257520/pkarbs/goalserve/goalserve_20261113.jsonl`, moved intact — 51,232 rows, first row `2026-11-13T02:38:08.116+00:00` (capture start), last `2026-11-14T03:11:15.190+00:00`, still appending. Path proof: `/proc/547524/fd/3` points at that file.
+- **`/vol2` can no longer resolve to root:** since 13 Nov 17:44Z `/vol2` is a symlink to the data-disk mount (`ls -ld /vol2` shows `-> /mnt/HC_Volume_107257520`); `findmnt -T /vol2` returns the data disk, not `/`.
+- **df /:** before — 17,564,192,768 B free, recorded 13 Nov 15:17Z (pre-move, both status files); after — 17,209,139,200 B free at 14 Nov 03:11Z. Root did not gain the moved bytes because other root writers kept writing across the 11 h between the two readings; the material fact is that neither capture opens a root fd any more, and the data disk holds 72,141,205,504 B free (28% used).
+- **Clause-2 route verified live:** writers.conf row `goalserve|/mnt/HC_Volume_107257520/pkarbs/goalserve|pkarbs/goalserve|-|y|hourly`; shipper `ship_raw.sh` every 30 min; ship.log `goalserve shipped=1 deleted=1 kept=0 freed=325186` at 02:30:45Z; `<box>` `pkarbs/goalserve/esports_payloads/` holds the closed hour files `esports_2026111317` … `esports_2026111400` (325 KB – 14.0 MB each), so payload bytes left the disk only after landing on the box.
+- **Open, not fixed (a code change, so gated):** the day's hash log is still local-only (the day file stays open until 15 Nov 00:00Z, so the shipper reports `nothing eligible`), and `pandascore BADGZ raw/pandascore_2026111322.jsonl.gz` on every ship run since 01:00Z — that append-streamed gzip has no end marker, the shipper refuses it, so hour 22 neither ships nor deletes (88,771 B local). Fix = a tolerant reader in `ship_raw.sh`.
 
+## #318 recount — Goalserve odds changes (14 Nov 11:16Z; PARTIAL)
 
-## G inventory (18 Nov) — completed
+Read-only existing script `/vol2/pkarbs/scratch/p318-recount/recount.py`, exit 0. It included 19 hourly files through 09:00Z, explicitly excluding the completed 10:00–11:00Z file; one malformed row skipped. Accordingly the result is partial for the requested interval. Full per-match JSON: `agent/status/p318-recount-2026-11-14.json`; run log: `/vol2/pkarbs/scratch/p318-recount/run-20261114-1114.log`.
 
-- Ran the G2 read-only inventory script from the fetched origin branch copy, without pulling, stashing, cleaning, or changing the pkarbs checkout.
-- `df -B1 --output=avail` on the data volume: 29,353,795,584 bytes available.
-- Script exit=0; stdout 732 bytes; stderr empty. It found recorder directories: cricket (22 events, books 2026-11-05 15:10–17:46Z), scratch/reexport_full (cricket 35, cs2 110, dota2 67, lol 4, nba 27, nfl 14, tennis 1545; no books file), tennis (133 events, books 2026-11-05 15:10–21:10Z), and final-topics-32295b (cricket 101, cs2 397, dota2 168, lol 7, nba 73, nfl 27, tennis 3839; books 2026-11-08 00:11Z–2026-11-18 06:27Z).
-- Evidence: `/mnt/HC_Volume_107257520/pkarbs/scratch/P18-20261118/inventory.out`; script copied from `feeds/pm_recorder_inventory.py` at fetched origin tip.
+Changed participant payloads (consecutive `value_eu`/`suspend` comparison): 78,112 total; CS2 62,908, Dota 2 12,009, other esports 3,195.
 
-## E1b smoke (18 Nov)
+| ID | Match | payloads | changed payloads |
+|---|---|---:|---:|
+| 140832465 | KUUSAMO vs MayBe | 6063 | 7076 |
+| 141116256 | Alliance vs Four Magic | 3362 | 4352 |
+| 141163317 | Apogee vs Leo Team | 3295 | 3504 |
+| 141164392 | MayBe vs mixLVLT | 2519 | 3386 |
+| 141164409 | Saint Sinners vs Balkan Outlaws | 297 | 306 |
+| 141164753 | ex-RUSTEC vs Nexus | 3244 | 4322 |
+| 141164775 | Omega vs Inner Circle Academy | 5100 | 6129 |
+| 141165637 | Froglings vs PuckChamp | 1898 | 774 |
+| 141165643 | CyberHero vs Xipto | 4045 | 3470 |
+| 141165675 | PARIVISION vs Yellow Submarine | 1299 | 640 |
+| 141165682 | Team Liquid vs LGD Gaming | 6742 | 2577 |
+| 141165693 | Team Spirit vs Froglings | 4348 | 2806 |
+| 141192093 | STATE vs EYEBALLERS | 1922 | 2149 |
+| 141199605 | Noir Verse vs 6yuBoJlbl | 3102 | 3654 |
+| 141199608 | Lavked vs Alliance | 2999 | 3968 |
+| 141199612 | ex-INOX vs Saint Sinners | 2612 | 3195 |
+| 141202857 | GenOne vs Balkan Outlaws | 2339 | 2998 |
+| 141216876 | LGD Gaming vs Legion | 2339 | 1658 |
+| 141216926 | Team Spirit vs MOUZ | 1882 | 18022 |
+| 141216927 | Inner Circle vs Nemiga | 449 | 84 |
+| 141216970 | FURIA vs Falcons | 417 | 3042 |
 
-- PASS at 07:48:54Z: compile and isolated self-test passed; smoke exit 0, `files=24`, `smoke_not_a_result=True`, no traceback. Report: `agent/outbox/TO-IT-CHUNK-E1b-smoke-run-goalserve-odds-v2-2026-11-18-0740Z.md`.
-
-
-## H capture check (18 Nov)
-
-- Read-only check at 08:21:24Z: Goalserve capture PID 4045212 was running (start 17 Nov 09:00:06Z); tmux session `goalserve` existed. No restart attempted.
-- 18 Nov hour-file count: esports 3, tennis 3, hockey_nhl 3, basketball 3 (hours 06, 07, and in-progress 08). The 08 files were still growing at check time.
-- `goalserve_20261118.jsonl` was absent. The directory instead had `goalserve_20261117.jsonl` (55,131,766 bytes; modified 08:21:23Z). Capture activity is evidenced by the live PID and current hour files; the missing 18 Nov daily log's cause is not established.
-- No `*_STOP.log` existed. Available space on the data volume: 28,013,322,240 bytes.
-- Latest tennis JSONL structure: outer keys `body`, `recv_ns`; `body` is a string containing JSON. No key, URL, or credential was output.
-- Full command output for this check is retained in the session output, not committed; only the requested summary is recorded here.
-
-
-## I tennis probe (18 Nov)
-
-- Export commit: `322d8129253ea9b12d9f8b53e7126f3ae3d0ca07`; `feeds/gs_sport_probe.py` present, SHA-256 `5bc8d9dc2665254af0d0de19eff638c7efd34714446b8f78b9fca2947ac81304`.
-- Local 06/07 hour files were absent; retrieved the exact two files from the existing `<box>` copy. No capture or configuration was changed.
-- Probe exit 0; files=2, polls=44709, events=0, counters rows=3752, `market_names_used {}`, `league_prefixes_seen {"unparsed": 95671}`. No events matched the parser; no tennis verdict or market match is claimed. The probe itself truncates `market_names_excluded` to 1,500 characters.
-- Full stdout follows verbatim. Raw output: `/mnt/<data-volume>/pkarbs/scratch/P26-20261118/probe.out`.
-
-```text
-files 2 polls 44709 events 0
-counters {"rows": 3752}
-bm_values {"''": 3752}
-market_names_used {}
-market_names_excluded {"To Win": 94405, "Odd/Even": 90712, "Next Break Serve": 61650, "Go The Distance?": 50510, "Set 1 Winner": 49665, "Set 2 Winner": 47609, "Game Winner (1st Set)": 44883, "Game to Deuce (1st Set)": 44869, "Game Score (1st Set)": 44869, "Game Winner (2nd Set)": 39266, "Set 2 Score": 39260, "Game to Deuce (2nd Set)": 39260, "Total Sets": 34627, "Correct Score (1st Set)": 29433, "Set 1 Correct Score Group": 29240, "Set 1 Race to": 26999, "Set 1 to Break Serve": 25300, "Set 2 to Break Serve": 24569, "Set 1 Correct Score Any Player": 24122, "Set 1 Score after 6 Games": 21472, "Set 2 Race to": 21296, "Set 1 Lead after": 20458, "Set 2 Correct Score Any Player": 20347, "Correct Score Group (2nd Set)": 19762, "Correct Score Any Player (2nd Set)": 17818, "Set 1 Score after 4 Games": 16070, "Score after 6 Games (2nd Set)": 15882, "Lead after (2nd Set)": 14621, "Set Betting": 13311, "Score after 4 Games (2nd Set)": 11520, "Player 1 To Win in Straight Sets": 8583, "Setcast": 8583, "Double Result": 8583, "Player 2 To Win in Straight Sets": 8563, "Total Games in Set 1": 8161, "Set 1 Handicap": 7921, "Total Games in Set 2": 4728, "Set 2 Handicap": 4728, "Game Score (3rd Set)": 4291, "Game to Deuce (3rd Set)": 4291, "Game Winner (3rd Set)": 4291, "Total Tie Breaks In Match": 3838, "Tie Break Handicap": 3838, "Tie Break Score": 3838, "Correct Score Group (3rd Set)": 3684, "Correct Score (3rd Set)": 3684, "Tie Break - Total Points (1st Set)": 3366, "Tie Break Score (1st Set)": 3366, "Tie Break Sc
-league_prefixes_seen {"unparsed": 95671}
-sample teams Alberto Odiseo Alvarado Berrospi | Alan Fernando Rubio Fierros
-sample teams Hao Sheng Koay | Gunawan Trismuwantara
-sample teams Natsuki Yamamoto | Shaheed Alam
-league strings [["M15 Antalya", 15477], ["M15 Hua Hin", 11865], ["M15 Kuala Lumpur MD", 10251], ["UTR Pro Yokohama", 8681], ["Challenger Kobe MD", 8334], ["M25 Heraklion", 7260], ["UTR Pro Yokohama Women", 6433], ["W50 Heraklion", 6247], ["M25 Bhubaneswar", 4355], ["W75 Sydney WD", 3531], ["M25 Bhubaneswar MD", 3146], ["M15 Kuala Lumpur", 3068]]
-```
-
-
-## J tennis smoke (18 Nov)
-
-- Clean `feeds/` export from commit `09b9665e64f56daf0095048828073f6fede87517`; no checkout pull, stash, or cleanup.
-- Smoke exit 0 at 13:06:44Z; last-600-byte log check: `NO_TRACEBACK`. `sport tennis`, `smoke_not_a_result True`, files=2, events=1575.
-- Drops: `events_no_pm_market=541`, `events_dropped_by_match_cap=262`, `events_tie_d_zero=15`, `book_rows_one_sided=4333`, `pm_book_rows_time_from_ms=126296`.
-- Audit counters: rows=3752, skip_bad_odds=2674, skip_suspended=4845, events=1575, baseline_cleared_not_valid_open=89, baseline_cleared_poll_gap_gt_10s=18, payloads_after_poll_gap_gt_10s=1.
-- `market_names_used`: `{"To Win": 94405}`; `league_prefixes_seen`: `{"tennis": 95671}`.
-- Matches with events=43; PM candidates 0/1/2+ = 13/30/0. No cells or verdicts reported; smoke only, not a result.
-- Evidence: `pkarbs/scratch/goalserve-tennis-smoke-20261118/smoke.json` and `smoke.log` on the Prime data volume. The 06/07 input SHA-256 values match the exact copies used in chunk I.
-- No capture, configuration, process, or live code was changed.
-
-## L tennis exploratory (18 Nov)
-
-- Fetched project branch tip: `45b89dd0f108bef86d62029b4945a601a9e259d4`. Clean export contained `feeds/goalserve_odds_vs_pm_v2.py` (SHA-256 `cbd0f397f09eb92acdd2b6735c093e6a7bed97fcfa4a45dbe32a33f6cb3d1af0`); ran the signed script unchanged in `--smoke` mode. Inputs copied from `<box>` plus existing Prime files; no capture, configuration, live code, or process was changed.
-- Day 17: exit 0; 15 hourly files, UTC coverage begins 09:00Z; `smoke_not_a_result=True`; 17,987 events; 100 primary matches / 3,115 events; `CELL tennis|Match Winner`: z_eq 8.2810, mean_d_per_match 0.01187, `plants_ok=True`, verdict `meets bar (needs audit)`. Counters: rows 25,395, baseline-cleared poll-gap >10s 170, post-gap payloads 5, suspended 50,745, bad odds 34,491, invalid-open clears 1,392. Drops: no PM market 6,069; ambiguous rematch 93; PM book timestamps from ms 1,042,355; one-sided books 29,089; match cap 5,833; tie d=0 129; PM recorder silent >300s 15.
-- Day 18: exit 0; 24 hourly files; data through 2026-11-19 00:00Z (day 18 is partial); `smoke_not_a_result=True`; 25,463 events; 100 primary matches / 3,203 events; `CELL tennis|Match Winner`: z_eq 11.3841, mean_d_per_match 0.01738, `plants_ok=True`, verdict `meets bar (needs audit)`. Counters: rows 39,794, baseline-cleared poll-gap >10s 278, post-gap payloads 7, suspended 58,699, bad odds 39,432, invalid-open clears 1,659, malformed JSON 1. Drops: no PM market 6,040; ambiguous rematch 555; PM book timestamps from ms 1,402,836; one-sided books 41,489; match cap 10,149; tie d=0 168.
-- Logs ended with `match_list rows: 308` (day 17) and `match_list rows: 403` (day 18); neither contains a traceback. JSON and logs scanned for IP-like dotted quads: zero. Files retained at `/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-explore-tennis/explore-20261117.{json,log}` and `explore-20261118.{json,log}`; inputs retained under `gs/`. These are exploratory smoke outputs, not a pre-registered look or a pass.
-
-## F look 1 (2026-11-19)
-
-- Command: signed `feeds/run_daily_look.sh esports`; invoked after 00:30Z as required. Script exit 1.
-- It stopped at its signed-file gate before running the self-test or producing a result. Observed hashes: `feeds/goalserve_odds_vs_pm_v2.py` `cbd0f397f09eb92acdd2b6735c093e6a7bed97fcfa4a45dbe32a33f6cb3d1af0`; `feeds/test_goalserve_odds_vs_pm_v2.py` `9d4bdad46183f44d160b1e14bc6cae9bffbbac1aa3bc43625d20087d9fcdc6d8`; `feeds/ps_lead_test.py` `4b67d26f6f9f419cd330fdca7ee3c396ed99d5db9ddc56c5370012120c296cb1`; `feeds/goalserve_odds_vs_pm.py` `a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5`.
-- Exact stop: `STOP: code differs from the signed hashes; ask the Goalserve thread for the new SIGNED commit`. Expected results (`look=1`, `plant_c=0.01`, result SHA) were not produced. No code or capture changed.
-- Full command stdout:
-  - `date 2026-11-19T01:45:57Z avail_bytes 18584768512`
-  - `commit d9f9f905c9eca26eaf0e432fb13f24e9fbc94658`
-  - `cbd0f397f09eb92acdd2b6735c093e6a7bed97fcfa4a45dbe32a33f6cb3d1af0  feeds/goalserve_odds_vs_pm_v2.py`
-  - `9d4bdad46183f44d160b1e14bc6cae9bffbbac1aa3bc43625d20087d9fcdc6d8  feeds/test_goalserve_odds_vs_pm_v2.py`
-  - `4b67d26f6f9f419cd330fdca7ee3c396ed99d5db9ddc56c5370012120c296cb1  feeds/ps_lead_test.py`
-  - `a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5  feeds/goalserve_odds_vs_pm.py`
-  - `STOP: code differs from the signed hashes; ask the Goalserve thread for the new SIGNED commit`
+Polymarket books since 13 Nov 17:06Z: 345 registered matches / 1,858 tokens; 1,022,334 book rows; 90 covered matches; 0 malformed book rows. Captured volume strata: 338 matches <$25k, 7 >=$25k. Book rows by sport/stratum: CS2 <$25k 586,041 (220 covered), CS2 >=$25k 126,691 (5), Dota <$25k 245,567 (118), Dota >=$25k 64,035 (2). PandaScore joined 18 matches; 3 had no registered PM market.

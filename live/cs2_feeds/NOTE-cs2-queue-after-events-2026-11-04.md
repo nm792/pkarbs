@@ -15,7 +15,7 @@ Thread "Check if CS2 queue clears after events". Answer: **no**. Confidence 7/10
 
 ## Two prices we could bid at (both maker, mid x 0.975, i.e. 2.5% RELATIVE, floored to the 1c tick)
 Tm = start of the largest 3 s rise in the token's mid in [WS update - 75 s, WS update + 5 s]. Mid = (best bid + best
-ask)/2 of that token's own book in one 1 s snapshot (each token is its own book; the earlier statement that YES and NO books mirror exactly is superseded by reviewer/SETTLED.md 505f5396, A1).
+ask)/2 of that token's own book in one 1 s snapshot (YES and NO books mirror exactly: NO bid = 1 - YES ask).
 
 **Fix 12:45Z (PR #84):** the old price was computed from the median mid 45-90 s before the WS update (inherited from
 `analyze.py`), not the live mid. In some rows that put it at the ask or far under the market. Now it is the mid 2 s

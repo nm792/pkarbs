@@ -143,9 +143,9 @@ def same_book(data, runs_path, max_usd=500.0):
     q = []
     for i, r in enumerate(runs):
         for k, lg in enumerate(r["legs"]):
-            q.append((r["t0"] + ONE_WAY, (i, "m", k), [lg[r["side"]]]))
+            q.append((r["t0"] + ONE_WAY, (i, "m", k), [lg["yes"]]))
             if "seq0" not in r:  # older runs: fall back to time (can catch later records in the same ms)
-                q.append((r["t0"] + 1e-6, (i, "t0", k), [lg[r["side"]]]))
+                q.append((r["t0"] + 1e-6, (i, "t0", k), [lg["yes"]]))
     snaps, seeded = shadow_sim.replay(data, q, 5.0)
     # t0 book = state right after the record that opened the run, via the same shared replay
     topm = {}  # run -> legs whose top at t0 differs from the exchange's last reported best bid/ask
@@ -165,10 +165,10 @@ def same_book(data, runs_path, max_usd=500.0):
                 rp.feed(rec["r"], rec["m"])
                 for i in by_seq.get(seq, []):
                     for k, lg in enumerate(runs[i]["legs"]):
-                        b = rp.books.get(lg[runs[i]["side"]])
-                        snaps[(i, "t0", k)] = {lg[runs[i]["side"]]: (dict(b.bids) if b else {}, dict(b.asks) if b else {})}
-                        seeded[(i, "t0", k)] = {lg[runs[i]["side"]]: rp.is_seeded(lg[runs[i]["side"]])}
-                        xb, xa = rp.top_ex.get(lg[runs[i]["side"]], (0.0, 0.0))
+                        b = rp.books.get(lg["yes"])
+                        snaps[(i, "t0", k)] = {lg["yes"]: (dict(b.bids) if b else {}, dict(b.asks) if b else {})}
+                        seeded[(i, "t0", k)] = {lg["yes"]: rp.is_seeded(lg["yes"])}
+                        xb, xa = rp.top_ex.get(lg["yes"], (0.0, 0.0))
                         ob = b.best_bid() if b else None
                         oa = b.best_ask() if b else None
                         bad = ((xb > 0 and (ob is None or abs(ob - xb) > 1e-9))
@@ -185,18 +185,18 @@ def same_book(data, runs_path, max_usd=500.0):
         mismatch = crossed = unseeded = 0
         fills = []
         for k, (lg, (p0, s0)) in enumerate(zip(r["legs"], r["quotes0"])):
-            bids, asks = snaps[(i, "t0", k)][lg[r["side"]]]
-            best = min(asks) if asks else None
-            size = asks.get(best) if best is not None else None
+            bids, asks = snaps[(i, "t0", k)][lg["yes"]]
+            best = (min(asks) if asks else None) if side == "yes" else (max(bids) if bids else None)
+            size = (asks if side == "yes" else bids).get(best) if best is not None else None
             if best is None or abs(best - p0) > 1e-9 or size is None or abs(size - s0) > 1e-6:
                 mismatch += 1
             if bids and asks and max(bids) >= min(asks):
                 crossed += 1
-            if not seeded[(i, "t0", k)][lg[r["side"]]]:
+            if not seeded[(i, "t0", k)][lg["yes"]]:
                 unseeded += 1
-            mb, ma = snaps[(i, "m", k)][lg[r["side"]]]
-            lim = shadow_sim.on_tick(p0, lg.get("tick"))
-            f, _, _ = shadow_sim.walk(ma, lim, qty, True)
+            mb, ma = snaps[(i, "m", k)][lg["yes"]]
+            lim = shadow_sim.on_tick(p0 if side == "yes" else 1 - p0, lg.get("tick"))
+            f, _, _ = shadow_sim.walk(ma if side == "yes" else shadow_sim.mirror(mb), lim, qty, True)
             fills.append(f / qty if qty else 0.0)
         rows.append({"event": r["event"], "title": r["title"], "side": side, "t0": r["t0"], "dur": r.get("dur", 0),
                      "mismatch": mismatch, "crossed": crossed, "unseeded": unseeded, "min_fill": min(fills), "top_mismatch": topm.get(i, 0),

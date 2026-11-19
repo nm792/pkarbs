@@ -14,7 +14,8 @@ It subscribes to the YES book of every leg, re-reads all books over REST every
 - `events.jsonl`: each event's legs, fee rate and `secondsDelay`, rewritten on every refresh, so delay changes in play are kept
 - `runs.jsonl`: each stretch of time where a full set is underpriced, on either side:
   `side=yes` buys every YES at the ask (pays $1); `side=no` buys every NO (pays $(n-1)).
-  SUPERSEDED (reviewer/SETTLED.md 505f5396, A1): each token is its own order book and is priced only from its own asks; NO is never derived from the YES book. The NO side is computed from the NO token's own book (see shadow/shadow_sim.py header).
+  The NO book is the mirror of the YES book (NO ask = 1 - YES bid; checked live on 24 Oct, 92 of 92
+  legs identical at full depth), so the NO side is computed from the YES books.
   Events with a closed or missing leg are skipped (`complete` in events.jsonl).
 
 `rescan.py` replays old raw files through the current checks, both sides, and writes a new runs.jsonl.

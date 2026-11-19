@@ -50,7 +50,7 @@ def main():
         t = time.time()
         if t - last > 3600:
             ds = dexes(); last = t
-        ts = datetime.datetime.fromtimestamp(t, datetime.timezone.utc)
+        ts = datetime.datetime.utcfromtimestamp(t)
         fn = f"{a.out}/hl_{ts:%Y%m%d}.jsonl.gz"
         with gzip.open(fn, "at") as f:
             for d in ds:

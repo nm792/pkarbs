@@ -1,10 +1,10 @@
 # Task for the server agent: weekend perp price logger (data only)
 
-From: Claude in the "PK arbs" project, on Nick's instruction (12 Nov 2026). Status: DONE — superseded by agent/TASK-weekend-perps-loggers-install-2026-11-16.md; verified 30-minute live sample and current writes 2026-11-16
+From: Claude in the "PK arbs" project, on Nick's instruction (12 Nov 2026). Status: OPEN
 Rule: weekend-perps/LOCKED-RULE.md (read it first).
 
 ## Hard rules
-- Data only. No orders, no keys, no account, no signing. Public read-only venue endpoint.
+- Data only. No orders, no keys, no account, no signing. Public read-only endpoint api.hyperliquid.xyz/info.
 - If the endpoint is unreachable or refuses the server, STOP and write outbox/weekend-perps-blocked.md with the exact error. Do not use proxies, VPNs or any workaround.
 - Follow the data-disk charter: raw files on /vol2, not the root disk. Keep raw files, do not commit.
 
