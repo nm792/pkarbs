@@ -5,7 +5,7 @@ never printed). One command:
   python3 -I it/REPLY-2026-11-19-live_probe_cs2.py --minutes 60 --out agent/status/pandascore-live-probe-2026-11-19.json
 Prints a summary every 5 min and at the end; writes the full event table to --out. Needs `websockets` (already installed).
 """
-import os, sys, re, json, time, asyncio, argparse, statistics, urllib.request, datetime, random, subprocess, collections
+import gzip, os, sys, re, json, time, asyncio, argparse, statistics, urllib.request, datetime, random, subprocess, collections
 import websockets
 TOKEN = ""
 for p in ("/etc/pkarbs/pandascore.env", "/root/API_KEYS/pandascore/.env"):
@@ -20,9 +20,12 @@ for p in ("/etc/pkarbs/pandascore.env", "/root/API_KEYS/pandascore/.env"):
 if not TOKEN: sys.exit("FATAL no PandaScore token file readable")
 def norm(s): return re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).strip()
 def get(url, bearer=False):
-    h = {"Accept": "application/json", "User-Agent": "probe"}
+    h = {"Accept": "application/json", "User-Agent": "probe", "Accept-Encoding": "gzip"}
     if bearer: h["Authorization"] = "Bearer " + TOKEN
-    with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=25) as r: return json.load(r)
+    with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=40) as r:
+        b = r.read()
+        if b[:2] == b"\x1f\x8b": b = gzip.decompress(b)
+        return json.loads(b)
 def jl(x):
     return json.loads(x) if isinstance(x, str) else (x or [])
 T0 = time.time()
@@ -92,7 +95,7 @@ async def ps_ws(mid, url):
         except Exception as ex:
             print("ps ws error", mid, repr(ex)[:100], flush=True); await asyncio.sleep(3)
 def onset(tok, t0, sign):
-    base = None
+    base = None; best = None
     for (t, m) in mids.get(tok, []):
         if t < t0 - 60: base = m; continue
         if t > t0 + 60: break
@@ -108,6 +111,7 @@ def summarize():
             if kind is None: continue
             for tok, name in zip(mk["tokens"], mk["outcomes"]):
                 own_up = norm(name) == norm(e["team"]) or norm(name) in norm(e["team"]) or norm(e["team"]) in norm(name)
+                if kind == "match" and not own_up: pass
                 s = 1 if own_up else -1
                 rows.append(dict(e, series=kind, token=tok[:10], outcome=name, direction=s, lead=onset(tok, e["t"], s), q=mk["q"][:60]))
     # placebo (STANDARD v1): 10 random event-free times per match, same onset rule, both signs
@@ -161,7 +165,10 @@ def preflight(toks, live):
                 ps_updated_at_lag_s_p10_p50_p90=[q(ps_lag, .1), q(ps_lag, .5), q(ps_lag, .9)], n_pm_msgs=sum(pm_n.values()),
                 tokens_without_book=[t[:10] for t in toks if pm_n[t] == 0], matches_without_ps_msgs=[live[m]["label"] for m in live if ps_n[m] == 0])
 async def main():
-    a = argparse.ArgumentParser(); a.add_argument("--minutes", type=float, default=60); a.add_argument("--out", required=True); a = a.parse_args()
+    a = argparse.ArgumentParser(); a.add_argument("--minutes", type=float, default=60); a.add_argument("--out", required=True); a.add_argument("--start-at", default=""); a = a.parse_args()
+    if a.start_at:
+        w = datetime.datetime.fromisoformat(a.start_at.replace("Z", "+00:00")).timestamp() - time.time()
+        print("waiting %.0f s until %s" % (max(w, 0), a.start_at), flush=True); await asyncio.sleep(max(w, 0))
     feeds = get("https://api.pandascore.co/low_latency_feeds", True)
     feeds = feeds if isinstance(feeds, list) else feeds.get("data", [])
     now = time.time(); live = {}
@@ -175,22 +182,28 @@ async def main():
         live[str(m["id"])] = dict(url=ep["url"], label=" vs ".join(n for n in names if n), names=[n for n in names if n])
     matches.update(live); print("CS2 feeds open now:", {k: v["label"] for k, v in live.items()}, flush=True)
     toks = []; scanned = 0
-    for off in range(0, 5000, 500):
-        try: ms = get("https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=500&offset=%d" % off)
+    lo = datetime.datetime.fromtimestamp(now - 18 * 3600, datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    hi = datetime.datetime.fromtimestamp(now + 12 * 3600, datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    for off in range(0, 2000, 100):   # gamma caps limit at 100 and requires gzip on /events
+        try: evs = get("https://gamma-api.polymarket.com/events?closed=false&active=true&limit=100&offset=%d&start_date_min=%s&start_date_max=%s" % (off, lo, hi))
         except Exception as ex: print("gamma error", repr(ex)[:100]); break
-        scanned += len(ms)
-        for mk in ms:
-            qn = norm(mk.get("question"))
-            for mid, meta in live.items():
-                if len(meta["names"]) == 2 and all(norm(n) in qn for n in meta["names"]):
-                    tk, oc = jl(mk.get("clobTokenIds")), jl(mk.get("outcomes"))
-                    if len(tk) != 2 or len(oc) != 2: continue
-                    hit = [any(norm(n) in norm(o) or norm(o) in norm(n) for o in oc) for n in meta["names"]]
-                    if not all(hit): print("MAPPING SKIP (outcomes do not name both teams):", mk.get("question", "")[:70], oc, flush=True); continue
-                    mm = re.search(r"(?:map|game)\s*(\d+)", qn)
-                    pm_by_match.setdefault(mid, []).append(dict(q=mk.get("question", ""), map_no=int(mm.group(1)) if mm else None, tokens=tk, outcomes=oc))
-                    toks += tk
-        if len(ms) < 500: break
+        if not isinstance(evs, list): print("gamma non-list", str(evs)[:100]); break
+        scanned += len(evs)
+        for ev in evs:
+            if "counter-strike" not in (ev.get("title") or "").lower(): continue
+            for mk in ev.get("markets", []):
+                if mk.get("sportsMarketType") not in ("moneyline", "child_moneyline"): continue
+                qn = norm(mk.get("question"))
+                for mid, meta in live.items():
+                    if len(meta["names"]) == 2 and all(norm(n) in qn for n in meta["names"]):
+                        tk, oc = jl(mk.get("clobTokenIds")), jl(mk.get("outcomes"))
+                        if len(tk) != 2 or len(oc) != 2: continue
+                        hit = [any(norm(n) in norm(o) or norm(o) in norm(n) for o in oc) for n in meta["names"]]
+                        if not all(hit): print("MAPPING SKIP (outcomes do not name both teams):", mk.get("question", "")[:70], oc, flush=True); continue
+                        mm = re.search(r"(?:map|game)\s*(\d+)", qn)
+                        pm_by_match.setdefault(mid, []).append(dict(q=mk.get("question", ""), map_no=int(mm.group(1)) if mm else None, tokens=tk, outcomes=oc))
+                        toks += tk
+        if len(evs) < 100: break
     print("gamma markets scanned:", scanned, "| matched PM markets:", {live[k]["label"]: [(x["q"][:50], x["map_no"]) for x in v] for k, v in pm_by_match.items()}, flush=True)
     if not toks: sys.exit("NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)")
     tasks = [asyncio.create_task(pm_ws(toks))] + [asyncio.create_task(ps_ws(mid, v["url"])) for mid, v in live.items()]
@@ -204,7 +217,7 @@ async def main():
         if time.time() > nxt:
             nxt += 300; _, s = summarize(); print(time.strftime("%H:%M:%SZ", time.gmtime()), "events:", len(events), json.dumps(s), flush=True)
     await asyncio.sleep(65); rows, s = summarize()
-    json.dump(dict(status="EXPLORATORY LIVE PROBE, UNCHECKED, placebo per STANDARD v1 (no bootstrap CI), onset=first mid move >=2c within +-60s", preflight=pre, summary=s, n_events=len(events), rows=rows,
+    json.dump(dict(status="EXPLORATORY LIVE PROBE, UNCHECKED, placebo per STANDARD v1 (no bootstrap CI), onset=first mid move >=2c within +-60s", summary=s, n_events=len(events), rows=rows,
                    pm_markets=pm_by_match, events=events), open(a.out, "w"), indent=1, default=str)
     print("FINAL", json.dumps(s), flush=True)
 asyncio.run(main())
