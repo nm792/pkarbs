@@ -230,3 +230,23 @@ P76 read-only check at 16:41Z: recorder PID 2701410 was running (`python3 book_r
 ## P77r box snapshot check (19 Nov)
 
 The required read-only command `rsync --list-only "${BOX}.zfs/snapshot/"` failed with exit 23: the requested snapshot directory was unavailable (`No such file or directory`, rsync sender error 2). Per the instruction, stopped here; did not list a dated snapshot or access, copy, restore, write, or delete anything under the snapshot paths.
+
+
+## P67 store gap (19 Nov)
+
+Command from reviewer note it/REPLY-2026-11-19-0935Z-P67-store-gap-check-and-daily-look-row.md; run at 2026-11-19 18:58Z UTC. All 12 required sport-hour rows returned exit 0. Output:
+
+```text
+esports 2026111907 rows 1011 first 07:17:29 last 07:52:33
+esports 2026111908 rows 616 first 08:15:01 last 08:42:39
+esports 2026111909 rows 1400 first 09:12:07 last 09:59:58
+tennis 2026111907 rows 1030 first 07:17:30 last 07:52:35
+tennis 2026111908 rows 620 first 08:15:03 last 08:42:43
+tennis 2026111909 rows 1414 first 09:12:06 last 09:59:59
+hockey_nhl 2026111907 rows 1017 first 07:17:29 last 07:52:31
+hockey_nhl 2026111908 rows 614 first 08:15:01 last 08:42:39
+hockey_nhl 2026111909 rows 1392 first 09:12:07 last 09:59:58
+basketball 2026111907 rows 1048 first 07:17:29 last 07:52:33
+basketball 2026111908 rows 621 first 08:15:03 last 08:42:45
+basketball 2026111909 rows 1427 first 09:12:07 last 09:59:58
+```
