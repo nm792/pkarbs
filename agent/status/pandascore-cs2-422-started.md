@@ -5,4 +5,4 @@
 - Runner: reviewer-signed `run_cs2_422.sh`, running from the clean export under the data volume; process 2471704, plain scorer process 2473255 observed alive at 00:28:16Z.
 - `agent/status/pandascore-cs2-422-pmdirs.log` records the discovered PM directories and start time.
 - Plain scorer is still running; no result JSON yet. Its log currently reports unreadable partial gzip inputs: `pandascore_2026111612.jsonl.gz` (invalid block type) and the still-open `pandascore_2026111823.jsonl.gz` (EOF before end marker). These are logged by the scorer; no source data was modified.
-- Remaining: wait for plain scorer to exit, commit its JSON/log as they appear, then run the latency scorer and commit its outputs. No CS2 result is claimed at this checkpoint.
+- At 00:31:09Z the plain scorer was still running (12m25s elapsed, RSS 64,536 KiB); no JSON output had appeared. The runner remains live. No result is claimed. The step exceeded the suggested ~15-minute-bound schedule only slightly; it is still the same authorized one-shot and will be allowed to finish.
