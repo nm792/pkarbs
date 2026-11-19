@@ -259,3 +259,9 @@ basketball 2026111909 rows 1427 first 09:12:07 last 09:59:58
 
 
 - Status: partial — cron installed; manual analysis has a live 7,200 s timeout and is still running. Tennis and completion tail are not verified; no process was stopped.
+
+## P79 copy-back 19 Nov (19 Nov)
+
+Step 0 local listing at 23:46Z: esports has 2026111906-23; tennis has 2026111906-23; hockey_nhl has 2026111906-23; basketball has 2026111906-23. Hours 00-05 were missing in all four folders. VOL2 before copy: 25 GB free.
+
+Copied only the 24 missing hour files (00-05 for esports, tennis, hockey_nhl and basketball) from the existing box archive with rsync --ignore-existing; no local file was overwritten and hours 06+ were untouched. Verified all 24 local files exist and are nonempty; per-file rsync --checksum dry-run returned no differences. VOL2 after copy: 24 GB free. Hour 06 was already present in each folder, so it was not copied.
