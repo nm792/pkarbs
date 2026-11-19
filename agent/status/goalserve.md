@@ -205,14 +205,3 @@ The supplied script exited 1 after printing its book profile: `AttributeError: '
 
 The required stopgap eligibility scan found zero regular non-look files older than six hours at 14:06Z. No files were transferred or deleted. A follow-up `du -sb` measured 52,675,757,561 bytes at 14:06:57Z; the directory is being concurrently written/exported. The `pkarbs-capture` archive destination exists. No change was made to `markets.jsonl` or `books.jsonl`.
 P74 stopgap current state (14:16Z): no eligible non-look files older than 6 h; none shipped/deleted. Both writer units remain active; VOL2 free 21,005,606,912 B. The folder is actively written and the profile script had one malformed/non-object JSON handling failure; P74 partial report is in agent/outbox/P74-final-topics.md.
-
-
-## P75 free ts_mqtt (19 Nov)
-
-Correction (19 Nov 16:45Z): P77 did NOT free local space. At 16:38:31Z and 16:39:31Z both local feed files were already 0 bytes (mtime 14:59:45Z); PID 3243761 held `ts_poll.jsonl` open at fd 7, position 57,645,071. Before my copy, the storage-box destination held the expected nonempty copies: MQTT 17,088,904,344 bytes and poll 57,645,071 bytes. The 16:39:36Z rsync copied the already-empty local files over those nonempty remote files. A subsequent remote listing and checksum run confirmed both remote files are now 0 bytes. This was a destructive overwrite and lost the only verified archive copy found in the checked locations. The exact prior payloads are not available in the local files, the searched project-volume paths, or the checked storage-box capture tree; recovery is unverified. No local truncation ran. Do not repeat the copy or write to these paths pending IT/reviewer direction. PID 3243761 remains running; books continue growing.
-
-P77b started read-only at 16:41:43Z as background session PID 3763087, output `/mnt/HC_Volume_107257520/pkarbs/p77b-growth.txt`; first reading: books 25,838,865,518 B, trades 1,041,318,278 B, pmws 75,013,176 B; VOL2 free 32,830,865,408 B. The 60-minute series is in progress; later samples are not yet measured.
-
-## Perp open-contract recorder (19 Nov)
-
-P76 read-only check at 16:41Z: recorder PID 2701410 was running (`python3 book_recorder.py --out /mnt/HC_Volume_107257520/pkarbs/ocbooks --interval 10`). `ocbooks_20261119.jsonl.gz` was 3,062,666 bytes and contained 18,578 rows; zero rows contained `"err"`; the first record timestamp converts to 2026-11-19 03:30:28Z and the last to 2026-11-19 16:41:59Z. The command `grep -c '"t": 17'` returned 18,578 because the epoch values begin with 17; it does not establish that the 14:30Z open was captured. The checked first-to-last timestamps span 03:30:28Z–16:41:59Z. No restart or file edit.
