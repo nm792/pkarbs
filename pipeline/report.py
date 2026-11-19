@@ -10,20 +10,25 @@ def rank(vals, rev=True):
 
 def main(outdir, meta):
     fam = json.load(open(f"{outdir}/families.json")); cells = json.load(open(f"{outdir}/cells.json"))
-    scr = fam["all_screen"]; fs = [f for f in fam["families"] if f.get("n_late", 0) >= 15 and f["mean_gap_10m"] is not None]
-    r1, r2, r3 = rank([f["events_per_day"] for f in fs]), rank([f["median_vol"] for f in fs]), rank([f["mean_gap_10m"] for f in fs])
+    scr = fam["all_screen"]
+    fs = [f for f in fam["families"] if f.get("n_tstar_15", 0) >= 15]
+    for f in fs: f["late"] = 1.0 - f["mean_winner_px_tstar_15"]
+    r1, r2, r3 = rank([f["events_per_day"] for f in fs]), rank([f["median_vol"] for f in fs]), rank([f["late"] for f in fs])
     for f, a, b, c in zip(fs, r1, r2, r3): f["r_freq"], f["r_vol"], f["r_late"], f["rank_sum"] = a, b, c, a + b + c
     fs.sort(key=lambda f: f["rank_sum"])
+    g = lambda v: "n/a" if v is None else f"{v:.2f}"
     L = [f"# Stage-1 screen: {meta['run']}", "", f"Run `{meta['run']}`, commit `{meta['commit']}`, events file `{meta['events']}` "
          f"({len(scr)} families with >=5 closed events, window {meta['window']} days), out `{outdir}`.", "",
-         f"Passed freq (>=1/day, active >=50% of days) and vol (median >= $20k): {sum(1 for f in scr if f['pass_freq'] and f['pass_vol'])} families; "
-         f"top {len(fam['families'])} by events/day x median volume were sampled.", "",
-         "## Families ranked on all three criteria (rank sum, lower is better; late-move = mean of 0.95 minus winner's own-token price 10 min before T*)", "",
-         "| family | ev/day | median vol $ | late gap | winner<0.5 at 1h | rank f/v/l | sampled mkts | late n |", "|---|---|---|---|---|---|---|---|"]
+         f"Passed freq (gamma series recurrence = daily or faster, i.e. polymarket.com/new?_r=daily) and vol (median >= min): {sum(1 for f in scr if f['pass_freq'] and f['pass_vol'])} families; "
+         f"top {len(fam['families'])} by total volume were sampled (<= {meta.get('n_events','?')} events each, top 2 markets per event).", "",
+         "## Three-criteria ranking (rank sum f+v+l, lower is better)", "",
+         "Late move = 1 - mean price of the eventual winner's own token 15 min before T*, where T* = last winner print below 0.95 (hindsight anchor: when the market finished moving). "
+         "The clock columns anchor on the market endDate instead (known ex ante; for sports it is near the scheduled start, so those are pre-game prices).", "",
+         "| family | ev/day | median vol $ | winner px endDate-60 / -15 / -5 | share winner<0.5 at endDate-15 | winner px T*-60 / -15 / -5 | ranks f/v/l | mkts | n |", "|---|---|---|---|---|---|---|---|---|"]
     for f in fs:
-        L.append(f"| {f['family']} | {f['events_per_day']:.1f} | {f['median_vol']:,.0f} | {f['mean_gap_10m']:.2f} | "
-                 f"{(f['share_winner_below_50_at_1h'] if f['share_winner_below_50_at_1h'] is not None else float('nan')):.2f} | "
-                 f"{f['r_freq']}/{f['r_vol']}/{f['r_late']} | {f['n_markets_sampled']} | {f['n_late']} |")
+        L.append(f"| {f['family']} | {f['events_per_day']:.1f} | {f['median_vol']:,.0f} | {g(f['mean_winner_px_clock_60'])} / {g(f['mean_winner_px_clock_15'])} / {g(f['mean_winner_px_clock_5'])} | "
+                 f"{g(f['share_winner_lt50_clock_15'])} | {g(f['mean_winner_px_tstar_60'])} / {g(f['mean_winner_px_tstar_15'])} / {g(f['mean_winner_px_tstar_5'])} | "
+                 f"{f['r_freq']}/{f['r_vol']}/{f['r_late']} | {f['n_markets_sampled']} | {f['n_tstar_15']} |")
     L += ["", "Caution: T* uses hindsight, and a live market that resolves in play is expected to be uncertain until late. "
           "A large late gap alone is not evidence of mispricing; the ex-ante IC table below is the test.", ""]
     n = len(cells); disc = [c for c in cells if c["bh_discovery_q10"]]

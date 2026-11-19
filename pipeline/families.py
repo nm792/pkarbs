@@ -9,7 +9,29 @@ def template_key(title):
     t = re.sub(r"[0-9][0-9,.:%$]*", "#", (title or "").lower())
     t = re.sub(r"\b(" + "|".join(_MONTHS) + r")\b", "M", t)
     t = re.sub(r"[^a-z# ]", " ", t)
-    return "tpl:" + " ".join(t.split()[:5])
+    toks = ["X" if len(w) <= 2 and w != "#" else w for w in t.split()]  # state codes etc. collapse to X
+    return "tpl:" + " ".join(toks[:5])
+
+
+# Standing exclusions (Nick 19 Nov 03:48Z and project memory): sports and esports (faster-feed trials cover them),
+# crypto (another project, Nick 19 Nov 03:48Z), weather markets, PM 5-minute up/down (MFW's). Crypto mirror-pair is a strategy, not a series filter.
+EXCLUDE_TAGS = {t.lower() for t in (
+    "Sports", "Games", "Esports", "Soccer", "Tennis", "Table Tennis", "Basketball", "Hockey", "Cricket", "Baseball",
+    "Football", "NFL", "NBA", "NHL", "MLB", "MLS", "NCAA", "CFB (All)", "UFC", "MMA", "Boxing", "Golf", "Darts",
+    "Rugby", "AFL", "F1", "Formula 1", "Chess", "counter strike 2", "Dota 2", "League of Legends", "Valorant",
+    "Crypto", "Crypto Prices", "Bitcoin", "Ethereum", "Solana", "XRP", "Ripple", "BNB", "Dogecoin", "Zcash", "hype", "Weather", "Daily Temperature", "Highest temperature", "Lowest temperature", "Temperature", "Setka", "WTT")}
+EXCLUDE_SLUG_SUFFIX = ("-up-or-down-5m",)
+import re as _re
+CRYPTO_SLUG = _re.compile(r"(^|[-_])(btc|bitcoin|eth|ethereum|sol|solana|xrp|bnb|doge|dogecoin|hype|zec|crypto|ada|avax|link|ltc|sui|pepe|megaeth)([-_]|$)")
+
+
+def excluded_reason(ev):
+    for t in ev.get("tags") or []:
+        if (t or "").lower() in EXCLUDE_TAGS: return "tag:" + t
+    slug = ((ev.get("series") or [{}])[0].get("slug") or ev.get("seriesSlug") or "")
+    if slug.endswith(EXCLUDE_SLUG_SUFFIX): return "5m:" + slug
+    if CRYPTO_SLUG.search(slug): return "crypto:" + slug
+    return None
 
 
 def family_key(ev):

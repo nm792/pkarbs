@@ -48,7 +48,7 @@ def run(planted):
 
     class A: pass
     a = A(); a.events = ev_path; a.window_days = 40; a.out = os.path.join(d, "out"); a.max_families = 5
-    a.n_events = 150; a.min_median_vol = 1000; a.seed = 1
+    a.n_events = 150; a.min_median_vol = 1000; a.min_ev_per_day = 0.5; a.seed = 1
     scr, fam, cells = screen.run(a)
     return cells
 

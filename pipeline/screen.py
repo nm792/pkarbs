@@ -9,6 +9,7 @@ import evalx, families as F, pit_store as P, signals as S
 
 HORIZONS = {"2m": 120, "10m": 600, "1h": 3600, "6h": 21600, "24h": 86400}
 CACHE = "/home/user/pk_cache/trades"
+DAILY_OR_FASTER = {"daily", "hourly", "4h", "1h", "30m", "15m", "5m"}
 
 
 def parse_ts(x):
@@ -47,18 +48,21 @@ def tapes(mk, rows):
     return [S.TokenTape(by[t]) for t in mk["tokens"]]
 
 
-def late_move(mk, tp):
-    """Descriptive (uses hindsight): T* = last print of the WINNING token below 0.95 (own prints only).
-    gap(k) = winner's last own-token price before T*-k. Larger gap = winner still far from 1 shortly before the move."""
+def late_move(mk, tp, end=None):
+    """Winner's own-token last price before T-60/15/5 min. Two anchors:
+    - clock: T = market endDate (known ex ante);
+    - tstar (hindsight): T* = last print of the winning token below 0.95.
+    Own prints only; None when the winner had not traded yet."""
     w = tp[mk["win"]]
     if not w.ts: return None
+    out = {}
+    anchors = {}
+    if end: anchors["clock"] = end
     low = [t for t, p in zip(w.ts, w.px) if p < 0.95]
-    if not low: return dict(tstar=None)
-    tstar = low[-1]
-    out = dict(tstar=tstar)
-    for k, sec in (("10m", 600), ("1h", 3600)):
-        p = w.price_before(tstar - sec)
-        out["p_" + k] = p
+    if low: anchors["tstar"] = low[-1]
+    for an, T in anchors.items():
+        for k, sec in (("60", 3600), ("15", 900), ("5", 300)):
+            out[f"p_{an}_{k}"] = w.price_before(T - sec)
     return out
 
 
@@ -82,9 +86,9 @@ def build_family(fam, evs, n_events, seed, workers=8):
     for (e, m), d in zip(jobs, data):
         if d["trunc"]: ntrunc += 1
         tp = tapes(m, d["rows"])
-        r = late_move(m, tp)
-        if r and r.get("tstar") is not None: lm.append(r)
         end = m["end"] or parse_ts(e["endDate"])
+        r = late_move(m, tp, end)
+        if r: lm.append(r)
         for hn, H in HORIZONS.items():
             t = end - H
             if m["closed"] and m["closed"] < t: continue
@@ -103,26 +107,31 @@ def build_family(fam, evs, n_events, seed, workers=8):
 
 def run(args):
     events = P.load_events(args.events)
+    n_all = len(events)
+    events = [e for e in events if not F.excluded_reason(e)]
+    print(f"excluded {n_all - len(events)} of {n_all} events (sports/esports/weather/5m)", flush=True)
     ev_by = {}
     for e in events: ev_by.setdefault(F.family_key(e), []).append(e)
     scr = F.screen(events, args.window_days)
     for r in scr:
-        r["pass_freq"] = r["events_per_day"] >= 1.0 and r["active_day_share"] >= 0.5
+        r["pass_freq"] = r["recurrence"] in DAILY_OR_FASTER  # Polymarket's own recurrence field (polymarket.com/new?_r=daily)
         r["pass_vol"] = r["median_vol"] >= args.min_median_vol
     cand = [r for r in scr if r["pass_freq"] and r["pass_vol"]]
-    cand.sort(key=lambda r: -(r["events_per_day"] * r["median_vol"]))
+    cand.sort(key=lambda r: -r["total_vol"])
     cand = cand[: args.max_families]
     os.makedirs(args.out, exist_ok=True)
     fam_out, cells = [], []
     for r in cand:
         fam = r["family"]; t0 = time.time()
         rows, lm, ntrunc, nm = build_family(fam, ev_by[fam], args.n_events, args.seed)
-        p10 = [x["p_10m"] for x in lm if x.get("p_10m") is not None]; p1h = [x["p_1h"] for x in lm if x.get("p_1h") is not None]
-        r.update(n_markets_sampled=nm, n_trunc=ntrunc, n_late=len(lm), n_rows=len(rows),
-                 mean_gap_10m=(sum(0.95 - p for p in p10) / len(p10)) if p10 else None,
-                 share_winner_below_50_at_10m=(sum(p < 0.5 for p in p10) / len(p10)) if p10 else None,
-                 share_winner_below_50_at_1h=(sum(p < 0.5 for p in p1h) / len(p1h)) if p1h else None,
-                 seconds=round(time.time() - t0))
+        agg = {}
+        for an in ("clock", "tstar"):
+            for k in ("60", "15", "5"):
+                v = [x[f"p_{an}_{k}"] for x in lm if x.get(f"p_{an}_{k}") is not None]
+                agg[f"n_{an}_{k}"] = len(v)
+                agg[f"mean_winner_px_{an}_{k}"] = (sum(v) / len(v)) if v else None
+                agg[f"share_winner_lt50_{an}_{k}"] = (sum(p < 0.5 for p in v) / len(v)) if v else None
+        r.update(n_markets_sampled=nm, n_trunc=ntrunc, n_late=len(lm), n_rows=len(rows), seconds=round(time.time() - t0), **agg)
         fam_out.append(r); print(fam, r["n_rows"], r["seconds"], flush=True)
         for hn in HORIZONS:
             hr = [x for x in rows if x["h"] == hn]
@@ -149,5 +158,5 @@ if __name__ == "__main__":
     ap.add_argument("--events", required=True); ap.add_argument("--window-days", type=int, default=30)
     ap.add_argument("--out", required=True); ap.add_argument("--max-families", type=int, default=25)
     ap.add_argument("--n-events", type=int, default=100); ap.add_argument("--min-median-vol", type=float, default=20000)
-    ap.add_argument("--seed", type=int, default=2026)
+    ap.add_argument("--min-ev-per-day", type=float, default=0.5); ap.add_argument("--seed", type=int, default=2026)
     run(ap.parse_args())

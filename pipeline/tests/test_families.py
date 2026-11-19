@@ -21,3 +21,20 @@ def test_frequency_and_volume():
     assert "series:rare" not in rows  # below min_events
     r = rows["series:daily-s"]
     assert r["events_per_day"] == 2.0 and r["active_day_share"] == 1.0 and r["median_vol"] == 1050
+
+
+def test_exclusions():
+    assert F.excluded_reason(dict(tags=["Crypto", "Sports"]))
+    assert F.excluded_reason(dict(tags=["Esports"]))
+    assert F.excluded_reason(dict(tags=["Daily Temperature"]))
+    assert F.excluded_reason(dict(tags=["Crypto"], series=[{"slug": "btc-up-or-down-5m"}]))
+    assert F.excluded_reason(dict(tags=["Finance", "Stocks"], series=[{"slug": "spx-up-or-down-daily"}])) is None
+    assert F.excluded_reason(dict(tags=["Crypto"], series=[{"slug": "btc-up-or-down-15m"}]))  # crypto now excluded
+
+
+def test_crypto_excluded_but_finance_kept():
+    assert F.excluded_reason(dict(tags=["Crypto Prices"]))
+    assert F.excluded_reason(dict(tags=[], series=[{"slug": "bitcoin-hit-price-daily"}]))
+    assert F.excluded_reason(dict(tags=[], series=[{"slug": "eth-up-or-down-hourly"}]))
+    assert F.excluded_reason(dict(tags=["Finance"], series=[{"slug": "spx-daily-up-or-down"}])) is None
+    assert F.excluded_reason(dict(tags=["Finance"], series=[{"slug": "gold-up-or-down-15m"}])) is None
