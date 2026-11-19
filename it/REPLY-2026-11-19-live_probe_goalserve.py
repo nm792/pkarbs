@@ -8,7 +8,7 @@ Event: vig-removed home probability moves >= 2c between consecutive polls (marke
 Rising team's own token only (never 1 - other token). Placebo: 10 random event-free times per game, both signs. Bookmaker is not identified (bm empty; vendor docs say bet365).
 Wording: 'odds moved before the price within the 60 s window' or 'did not'; never 'lead of N seconds'. Tennis: open-market moves only (tennis suspends after each point, reopen reprices excluded).
 """
-import os, sys, re, json, time, gzip, asyncio, argparse, statistics, urllib.request, urllib.parse, shutil, random, bisect, subprocess, collections, hashlib
+import os, sys, re, json, time, gzip, zlib, asyncio, argparse, statistics, urllib.request, urllib.parse, shutil, random, bisect, subprocess, collections, hashlib
 import websockets
 
 CRED = {}
@@ -52,7 +52,7 @@ def get(url):
         if b[:2] == b"\x1f\x8b": b = gzip.decompress(b)
         return json.loads(b)
 
-T0 = time.time(); SPORTS_RUN = []
+T0 = time.time(); SPORTS_RUN = []; SOURCE = {"mode": "capture", "root": "/mnt/HC_Volume_107257520/pkarbs/goalserve"}
 mt = {}; mv = {}; last = {}          # token -> times list, mids list, last mid
 games = {}                           # (sport, eid) -> dict(label, home, away, hk, ak)
 pm_mk = {}                           # (sport, eid) -> list of dict(q, tokens, outcomes, tok_home, tok_away)
@@ -105,6 +105,42 @@ def fetch(sport):
     except Exception: pass
     return rt, body
 
+def process_body(sport, rt, body, base):
+    """One stored/polled Goalserve payload -> games, market names, 2c vig-removed events (market open+valid in both payloads)."""
+    try: d = json.loads(body)
+    except Exception: gs_err[sport] += 1; gs_err_kinds[sport]["bad json"] += 1; return
+    valid = set()
+    for eid, e in (d.get("events") or {}).items():
+        if not isinstance(e, dict): continue
+        ti = e.get("team_info") or {}
+        h, a = (ti.get("home") or {}).get("name"), (ti.get("away") or {}).get("name")
+        if not h or not a: continue
+        g = (sport, eid)
+        if g not in games:
+            games[g] = dict(label="%s vs %s" % (h, a), home=h, away=a, hk=key_of(h), ak=key_of(a), league=str((e.get("info") or {}).get("league") or ""))
+        gs_seen_now[sport][eid] = rt
+        for mid, m in (e.get("odds") or {}).items():
+            if not isinstance(m, dict): continue
+            nm = m.get("name") or "?"; mkt_names[sport][nm] += 1
+            if not kind_ok(nm): continue
+            mkt_ok[sport][nm] += 1
+            parts = [x for x in (m.get("participants") or {}).values() if isinstance(x, dict)]
+            if len(parts) != 2: continue
+            if m.get("suspend") not in (0, "0", False, None) or any(x.get("suspend") not in (0, "0", False, None) for x in parts): continue
+            o = [num(x.get("value_eu")) for x in parts]
+            if None in o: continue
+            side = []
+            for x in parts:
+                n = norm(x.get("name"))
+                side.append("h" if n == norm(h) else "a" if n == norm(a) else "h" if n in ("1", "home") else "a" if n in ("2", "away") else None)
+            if sorted(side, key=str) != ["a", "h"]: continue
+            ph = (1 / o[side.index("h")]) / (1 / o[0] + 1 / o[1])
+            k = (eid, str(mid)); valid.add(k)
+            if k in base and abs(ph - base[k]) >= THR:
+                events.append(dict(sport=sport, eid=eid, label=games[g]["label"], t=rt, rising="home" if ph > base[k] else "away", ph_before=round(base[k], 4), ph_after=round(ph, 4)))
+            base[k] = ph
+    for k in [k for k in base if k not in valid]: del base[k]
+
 async def gs_poll(sport):
     base = {}; prev_t = None; prev_sha = None
     while True:
@@ -120,40 +156,49 @@ async def gs_poll(sport):
             await asyncio.sleep(max(0.0, 1.0 - (time.time() - t_start))); prev_t = rt; continue
         if prev_t is not None and rt - prev_t > OUTAGE_S: base.clear()
         prev_t = rt
-        try: d = json.loads(body)
-        except Exception: gs_err[sport] += 1; gs_err_kinds[sport]["bad json"] += 1; continue
-        valid = set()
-        for eid, e in (d.get("events") or {}).items():
-            if not isinstance(e, dict): continue
-            ti = e.get("team_info") or {}
-            h, a = (ti.get("home") or {}).get("name"), (ti.get("away") or {}).get("name")
-            if not h or not a: continue
-            g = (sport, eid)
-            if g not in games:
-                games[g] = dict(label="%s vs %s" % (h, a), home=h, away=a, hk=key_of(h), ak=key_of(a), league=str((e.get("info") or {}).get("league") or ""))
-            gs_seen_now[sport][eid] = rt
-            for mid, m in (e.get("odds") or {}).items():
-                if not isinstance(m, dict): continue
-                nm = m.get("name") or "?"; mkt_names[sport][nm] += 1
-                if not kind_ok(nm): continue
-                mkt_ok[sport][nm] += 1
-                parts = [x for x in (m.get("participants") or {}).values() if isinstance(x, dict)]
-                if len(parts) != 2: continue
-                if m.get("suspend") not in (0, "0", False, None) or any(x.get("suspend") not in (0, "0", False, None) for x in parts): continue
-                o = [num(x.get("value_eu")) for x in parts]
-                if None in o: continue
-                side = []
-                for x in parts:
-                    n = norm(x.get("name"))
-                    side.append("h" if n == norm(h) else "a" if n == norm(a) else "h" if n in ("1", "home") else "a" if n in ("2", "away") else None)
-                if sorted(side, key=str) != ["a", "h"]: continue
-                ph = (1 / o[side.index("h")]) / (1 / o[0] + 1 / o[1])
-                k = (eid, str(mid)); valid.add(k)
-                if k in base and abs(ph - base[k]) >= THR:
-                    events.append(dict(sport=sport, eid=eid, label=games[g]["label"], t=rt, rising="home" if ph > base[k] else "away", ph_before=round(base[k], 4), ph_after=round(ph, 4)))
-                base[k] = ph
-        for k in [k for k in base if k not in valid]: del base[k]
+        process_body(sport, rt, body, base)
         await asyncio.sleep(max(0.0, 1.0 - (time.time() - t_start)))
+
+def hour_file(root, sport, t):
+    d = os.path.join(root, "esports_payloads" if sport == "esports" else sport + "_payloads")
+    return os.path.join(d, "%s_%s.jsonl.gz" % (sport, time.strftime("%Y%m%d%H", time.gmtime(t))))
+
+def read_new(path, off):
+    """Rows appended to a capture hour file since compressed-byte offset `off`: the capture appends one complete gzip member per row, so decode whole members only and
+    leave a partly written trailing member for the next call. -> (rows, new offset)."""
+    try:
+        with open(path, "rb") as f: f.seek(off); data = f.read()
+    except FileNotFoundError: return [], off
+    rows = []; pos = 0
+    while pos < len(data):
+        d = zlib.decompressobj(31)
+        try: out = d.decompress(data[pos:])
+        except zlib.error: break
+        if not d.eof: break
+        pos += len(data) - pos - len(d.unused_data)
+        for l in out.decode("utf-8", "replace").splitlines():
+            if l.strip():
+                try: rows.append(json.loads(l))
+                except Exception: gs_err["capture_bad_row"] += 1
+    return rows, off + pos
+
+async def gs_tail(sport):
+    """Reads the capture's own stored payloads (same host and clock; recv_ns is the capture's receive time): no extra Goalserve requests, so no 429 for the key the capture uses."""
+    base = {}; cur = None; off = 0
+    while True:
+        now = time.time(); path = hour_file(SOURCE["root"], sport, now)
+        if cur is None:
+            cur = path; off = os.path.getsize(path) if os.path.exists(path) else 0      # start at the end: only rows from now on
+        rows = []
+        if path != cur:                                                        # hour rollover: drain the old file, then start the new one at 0
+            rows, off = await asyncio.to_thread(read_new, cur, off); cur, off = path, 0
+        r2, off = await asyncio.to_thread(read_new, cur, off); rows += r2
+        for r in rows:
+            try: rt = int(r["recv_ns"]) / 1e9; body = r["body"]
+            except Exception: gs_err["capture_bad_row"] += 1; continue
+            gs_poll_t[sport].append(rt); gs_change_t[sport].append(rt)
+            process_body(sport, rt, body, base)
+        await asyncio.sleep(0.5)
 
 def tok_match(meta, outcomes):
     """The two outcomes are exactly the two teams, each outcome matching one team only: -> (idx of home outcome, idx of away outcome) or None."""
@@ -284,7 +329,7 @@ def preflight(sports):
         toks = [t for g in matched for mk in pm_mk[g] for t in mk["tokens"]]
         ts = gs_poll_t[sp]; gaps = [b - a for a, b in zip(ts, ts[1:])]
         c = dict(clock_synchronised_under_50ms=ck["ok"],
-                 goalserve_polling_ok=len(ts) >= 30 and bool(gaps) and statistics.median(gaps) < 2.0 and q(gaps, .9) < 6.0 and gs_err[sp] <= 0.5 * (len(ts) + gs_err[sp]),
+                 goalserve_polling_ok=(len(ts) >= 5 and bool(gaps) and now - ts[-1] < 120 and q(gaps, .9) < 30) if SOURCE["mode"] == "capture" else (len(ts) >= 30 and bool(gaps) and statistics.median(gaps) < 2.0 and q(gaps, .9) < 6.0 and gs_err[sp] <= 0.5 * (len(ts) + gs_err[sp])),
                  goalserve_has_live_games_now=bool(live),
                  goalserve_has_an_accepted_winner_market=bool(mkt_ok[sp]),
                  a_live_game_matched_to_a_polymarket_market_naming_both_teams=bool(matched),
@@ -299,12 +344,13 @@ def preflight(sports):
     return dict(clock=ck, pm_lag_s_p10_p50_p90=[q(pm_lag, .1), q(pm_lag, .5), q(pm_lag, .9)], n_pm_msgs=sum(pm_n.values()), per_sport=res)
 
 async def main():
-    a = argparse.ArgumentParser(); a.add_argument("--sports", default="esports,tennis,hockey_nhl"); a.add_argument("--minutes", type=float, default=90); a.add_argument("--out", required=True); a = a.parse_args()
-    if not (CRED.get("GOALSERVE_USER") and CRED.get("GOALSERVE_KEY")): sys.exit("FATAL no Goalserve credentials readable in /etc/pkarbs/goalserve.env")
+    a = argparse.ArgumentParser(); a.add_argument("--sports", default="esports,tennis,hockey_nhl"); a.add_argument("--minutes", type=float, default=90); a.add_argument("--out", required=True); a.add_argument("--source", choices=["capture", "poll"], default="capture"); a.add_argument("--gs-root", default=SOURCE["root"]); a = a.parse_args()
+    SOURCE["mode"] = a.source; SOURCE["root"] = a.gs_root
+    if SOURCE["mode"] == "poll" and not (CRED.get("GOALSERVE_USER") and CRED.get("GOALSERVE_KEY")): sys.exit("FATAL no Goalserve credentials readable in /etc/pkarbs/goalserve.env")
     sports = [s for s in a.sports.split(",") if s in ENDPOINT]; SPORTS_RUN[:] = sports
     od = os.path.dirname(os.path.abspath(a.out)) or "."
     if shutil.disk_usage(od).free < 15e9: sys.exit("DISK GATE: under 15 GB free on the output volume; nothing started")
-    tasks = [asyncio.create_task(gs_poll(s)) for s in sports]
+    tasks = [asyncio.create_task((gs_tail if SOURCE["mode"] == "capture" else gs_poll)(s)) for s in sports]
     await asyncio.sleep(20)                     # let live games appear before the first discovery
     tasks += [asyncio.create_task(discover_loop()), asyncio.create_task(pm_ws())]
     await asyncio.sleep(70)

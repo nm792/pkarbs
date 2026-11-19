@@ -71,6 +71,39 @@ ev = [e for e in P.events if e["sport"] == "esports"]
 check("exactly one event (planted 2.00/2.00 -> 1.70/2.30; suspended step and the step after it excluded; Total Maps ignored)", len(ev) == 1)
 check("event rising team is home", bool(ev) and ev[0]["rising"] == "home" and ev[0]["ph_after"] - ev[0]["ph_before"] > 0.02)
 
+
+# 2b capture-tail source: reads rows appended to the capture's hour file (one gzip member per row), starts at the END, tolerates a half-written member
+import gzip, tempfile, zlib
+tmp = tempfile.mkdtemp(); sport = "tennis"
+while time.gmtime().tm_min == 59 and time.gmtime().tm_sec > 55: time.sleep(1)
+hf = P.hour_file(tmp, sport, time.time()); os.makedirs(os.path.dirname(hf))
+def member(recv_ns, b): return gzip.compress((json.dumps({"recv_ns": recv_ns, "body": b.decode()}) + "\n").encode())
+tb = lambda ho, ao, tag="": body(ho, ao).replace(b"CS2 - X", b"ITF" + tag.encode())
+with open(hf, "ab") as f: f.write(member(1, body("1.20", "5.00")))                 # pre-start row: ph 0.81 would make the next row an event if it were read
+rows, off = P.read_new(hf, 0); check("read_new decodes a whole member", len(rows) == 1 and off == os.path.getsize(hf))
+m2 = member(2, body("2.00", "2.00")); half = len(m2) // 2
+with open(hf, "ab") as f: f.write(m2[:half])
+rows2, off2 = P.read_new(hf, off); check("half-written trailing member is not decoded and the offset does not move", rows2 == [] and off2 == off)
+with open(hf, "ab") as f: f.write(m2[half:])
+rows3, off3 = P.read_new(hf, off); check("completed member is decoded", len(rows3) == 1 and off3 == os.path.getsize(hf))
+tmp2 = tempfile.mkdtemp(); hf2 = P.hour_file(tmp2, sport, time.time()); os.makedirs(os.path.dirname(hf2))
+with open(hf2, "ab") as f: f.write(member(1, body("1.20", "5.00")))
+P.events.clear(); P.games.clear(); P.gs_poll_t.clear(); P.gs_change_t.clear(); P.SOURCE.update(mode="capture", root=tmp2)
+T_REC = int((time.time() + 5) * 1e9)
+async def run_tail():
+    P.asyncio = asyncio
+    t = asyncio.ensure_future(P.gs_tail(sport)); await asyncio.sleep(0.8)          # tail has started at the end of the file
+    for k, (ho, ao) in enumerate([("2.00", "2.00"), ("2.00", "2.00 "), ("1.70", "2.30")]):
+        with open(hf2, "ab") as f: f.write(member(T_REC + k * 10**9, body(ho, ao.strip()) + b" " * k))
+        await asyncio.sleep(0.8)
+    t.cancel()
+asyncio.run(run_tail())
+ev2 = [e for e in P.events if e["sport"] == sport]
+check("tail: pre-start row skipped (one event only: 2.00/2.00 -> 1.70/2.30)", len(ev2) == 1 and ev2[0]["rising"] == "home")
+check("tail: event time is the capture's recv_ns, not the read time", len(ev2) == 1 and abs(ev2[0]["t"] - (T_REC + 2 * 10**9) / 1e9) < 1e-3)
+check("tail: games learned from the stored payloads", ("tennis", "E1") in P.games)
+P.SOURCE.update(mode="poll")
+
 # 3 summarize on planted PM books
 P.events.clear(); P.mt.clear(); P.mv.clear(); P.pm_mk.clear(); P.games.clear()
 now = time.time(); t = now - 200
