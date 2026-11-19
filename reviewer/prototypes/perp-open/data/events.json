@@ -1,0 +1,3971 @@
+[
+{
+"date": "2026-04-20",
+"slug": "spx-opens-up-or-down-on-april-20-2026",
+"cond": "0x1aa9591ff47690135262d768105d48c905a338da4e2cff6c9785ee2d63811045",
+"tokens": [
+"96288860965873570520345144743959411451971545254750723059698940847543625314724",
+"1564340004266145150625087489128023950174841131666277225639783272915761789674"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "118429.78723899987",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 738
+},
+{
+"date": "2026-04-21",
+"slug": "spx-opens-up-or-down-on-april-21-2026",
+"cond": "0x104199fcc3ebaddaa3c961ab77289c04f1975cdb07631153fb71e22f3d75d63c",
+"tokens": [
+"91763261019717064159106910895728181364352264073859254565313297064100693777954",
+"22089489103614350997986027413625056397078637860925995589063418614755198482460"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "199850.48906999995",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 688
+},
+{
+"date": "2026-04-22",
+"slug": "spx-opens-up-or-down-on-april-22-2026",
+"cond": "0xa9dcacdca7f69264ac38316e89fcfa7e653ae327f8505884c985cdb484982684",
+"tokens": [
+"5835646350184996559233026366182572869808400743471776664220930574920000546026",
+"37429202764772027528545977345843451149940676865218123778288404027245482807841"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "214651.88309500003",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 544
+},
+{
+"date": "2026-04-23",
+"slug": "spx-opens-up-or-down-on-april-23-2026",
+"cond": "0x85c763fa76d947123159b6dbe2313efec287cad8b869ed3e96375d9f32c5920b",
+"tokens": [
+"74462035286504164580778803262301564939505579393718746747306209766261103489571",
+"24403473431483345721427863767375493601016819022803916045142365729569324018818"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "184544.66420499998",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 694
+},
+{
+"date": "2026-04-24",
+"slug": "spx-opens-up-or-down-on-april-24-2026",
+"cond": "0x738a9e205154de52e3be8748233634b97f70025344d516169c881bf8a2069ba3",
+"tokens": [
+"43097039545473211468837343398344032947954565530129186206594839334433761454052",
+"79523605078252422333517601061994308081203000720595317958462624023174789154932"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "215582.36673999994",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 566
+},
+{
+"date": "2026-04-27",
+"slug": "spx-opens-up-or-down-on-april-27-2026",
+"cond": "0xe6c2ee5e4dc16869f5bee7ef7273d3b6e1053646e431b6754acbbe8576bf922e",
+"tokens": [
+"59582896410422021376122334053414131210295056875735224854516622304286369314421",
+"44707718044697667946991316420313363388151518852926935159115143776053844648351"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "136487.69559900003",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 698
+},
+{
+"date": "2026-04-28",
+"slug": "spx-opens-up-or-down-on-april-28-2026",
+"cond": "0x0f3cfcfb8ac76c13b75330956efc55f02f3afe29d138e445c8a7d0759933e243",
+"tokens": [
+"74850641429662916674808477652321068719905569785271963558566305879668356579232",
+"101015380854956404433229371952630611089286323959102761270343518185802610651529"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "70326.03816799996",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 344
+},
+{
+"date": "2026-04-29",
+"slug": "spx-opens-up-or-down-on-april-29-2026",
+"cond": "0x7ac547a244f3bf4766d99213f71a3aef629b3c54ed22b4fa34e53309e6a007c5",
+"tokens": [
+"35946122762474330205794450851322355067632142170509404878452029791868051159888",
+"88327879217900876392152817657928482301836516485136250728014278295909482939728"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "184470.38664600026",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 578
+},
+{
+"date": "2026-04-30",
+"slug": "spx-opens-up-or-down-on-april-30-2026",
+"cond": "0xbfd5f3f0f494b089f68f38cf66fdf73d5095c4cc3418c19c6c554a93a5190204",
+"tokens": [
+"61715517422745406227125960349153988332237453682085504633782118685484045177787",
+"41610290173365162707132026674668440412280111931263762280180835520579623502127"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "258349.25925299997",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 473
+},
+{
+"date": "2026-05-01",
+"slug": "spx-opens-up-or-down-on-may-1-2026",
+"cond": "0x5ebc6ff00e7b1756280666985abe17e3b74c1f26c66b7b38839f9db07fb438fa",
+"tokens": [
+"62641172897980775224187905970428260069051980029874599224793706877593785945524",
+"98043727826079279549370607656591376680589860229184481244701274252211992676165"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "92914.25618999999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 360
+},
+{
+"date": "2026-05-04",
+"slug": "spx-opens-up-or-down-on-may-4-2026",
+"cond": "0xe49cacde377cdb36272aef9fcc6352c69d0047c407e1dbc345539f972668afa6",
+"tokens": [
+"26933332481886167814257706955502449360977623999215559239990289387075703778194",
+"4459692338947360836389105449717633624500302533026712001604298691676491485036"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "79385.61277",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 660
+},
+{
+"date": "2026-05-06",
+"slug": "spx-opens-up-or-down-on-may-6-2026",
+"cond": "0x238d373e805e37f4d633cef98637f00b1b2a0c596836f368c1f28ce7c2633359",
+"tokens": [
+"62816514709455210332902012104526567202779461226736576259485730517992543709811",
+"70411323889323372672698269001261158268044754082166755858271503080913033033213"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "253885.28191800008",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 311
+},
+{
+"date": "2026-05-07",
+"slug": "spx-opens-up-or-down-on-may-7-2026",
+"cond": "0x5c2a6e83c6138258d955a0ceb4797416bd19ae03b6d357fa2aaada5bf9d6fa11",
+"tokens": [
+"2001982820526536109469269065938937528691005089475665216883266501470415374418",
+"50671995066105080036793656848532037537483107557216980441170801782070746026340"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "209829.12627200002",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 579
+},
+{
+"date": "2026-05-08",
+"slug": "spx-opens-up-or-down-on-may-8-2026",
+"cond": "0x3e3ddd33634ee9fd605cf30c845d3b21b18a712c38ea0704a4023c1b79b1fa2b",
+"tokens": [
+"33616469231341966109644249656106064378223574523246499916175241641453226933746",
+"70574778772993119366702291259169151803909344034425964063624435589780166678829"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "177708.992429",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 623
+},
+{
+"date": "2026-05-11",
+"slug": "spx-opens-up-or-down-on-may-11-2026",
+"cond": "0x54fdcafdce54671b6198e4a74477f31ec604246a2f28dfbf808dcb7f816e1ba0",
+"tokens": [
+"104579490061322293649943598519843819628885499844234178827312740324442331935219",
+"107360646786935580696916751363461185894847626884633819196513006249006338812547"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "133282.68327100002",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 739
+},
+{
+"date": "2026-05-12",
+"slug": "spx-opens-up-or-down-on-may-12-2026",
+"cond": "0xffd15b957678ab0bc72ad7920be40ca1e1fbbfc8fd774b91ccbd254643072764",
+"tokens": [
+"56837685593571102473360864392083804930142310245310356054801004039350543706536",
+"2564755611996136857702312284019751762119146565100925972227004159775573546447"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "136916.948478",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 414
+},
+{
+"date": "2026-05-13",
+"slug": "spx-opens-up-or-down-on-may-13-2026",
+"cond": "0xe31ad689c8b911cac503005417af9b139a0b6551562c60d907e08c45a225e206",
+"tokens": [
+"64626330278860164992667077915222066674816379544819421093323678939630714625470",
+"28828799570120841714348247573162299707561002722032457405916369041278399524075"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "122497.85509400003",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 610
+},
+{
+"date": "2026-05-14",
+"slug": "spx-opens-up-or-down-on-may-14-2026",
+"cond": "0xbc1e63883d67b81c69ab30187feb3120fbe5d142264cdbb02aa0b3a6359a265e",
+"tokens": [
+"33600125673251650336992455978334009019181313853114791680683425311290166871189",
+"70160990757012956531753222914075979796394748606511377071315207141749360748426"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "146283.68402400002",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 369
+},
+{
+"date": "2026-05-15",
+"slug": "spx-opens-up-or-down-on-may-15-2026",
+"cond": "0xb0297850ffdb034336095785738214ecaa9b896fd841c76683a02df7a7047957",
+"tokens": [
+"29995588221973529921717358100862612128630799849471033853951639371207948709905",
+"60422128160194214338063564301365344820276862942619685630036983290429061778965"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "75320.762902",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 247
+},
+{
+"date": "2026-05-18",
+"slug": "spx-opens-up-or-down-on-may-18-2026",
+"cond": "0xf5db82307fce0aee1285f4859c6d7774cbf9a07ae3b059175a00abf1561a3d23",
+"tokens": [
+"51183426071110606134281210373073849831774746663565094492242833216700640999097",
+"35336527282986350540462729138761421197535195627153687251077239125074776303729"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "130904.48472299999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 496
+},
+{
+"date": "2026-05-19",
+"slug": "spx-opens-up-or-down-on-may-19-2026",
+"cond": "0x1254e470bd6de3de213a4b3da6e23a7021a022fc03e2c0108bc667715c08ae7f",
+"tokens": [
+"36868476419079333267948236810716076655226359154795260445218150852655018698741",
+"56221634717254009025153097428621772669676233104733996430083743489882689312271"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "93867.982657",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 374
+},
+{
+"date": "2026-05-20",
+"slug": "spx-opens-up-or-down-on-may-20-2026",
+"cond": "0xb14f525dda356157b34c16f7083c83579ceafc85af7c7eb90631ef2b9ffd8632",
+"tokens": [
+"39951214392749472464328943936928322045567603277421737270465830419381276967814",
+"68936990288686859604690979522730958272926810742627866563360632482342714868968"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "63586.50413700002",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 327
+},
+{
+"date": "2026-05-21",
+"slug": "spx-opens-up-or-down-on-may-21-2026",
+"cond": "0x7cbf72bc0b2f012a4487688194bab4927072bcc9e1080aee8808aa738c015c99",
+"tokens": [
+"3282421042937028223711460093589547623242596600847366689663673619835501319239",
+"15206660025019302180874957768891829261692720808539052605185631483580671224173"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "240908.385947",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 554
+},
+{
+"date": "2026-05-22",
+"slug": "spx-opens-up-or-down-on-may-22-2026",
+"cond": "0x48c78f4fed9d1608f91986eb5d549f6556056e0a5bee25c4df68e45b8b9a801c",
+"tokens": [
+"32533994566828242660378488783884151821890711904178123162827501706549230283931",
+"18200195496985974051402287876625637685651600442482624421858564841639705847294"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "35113.847944999994",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 258
+},
+{
+"date": "2026-05-26",
+"slug": "spx-opens-up-or-down-on-may-26-2026",
+"cond": "0xf3b2b3b29609322d7807d18000feaaa1f50e77e9146d3256b0781bbb20c0a4aa",
+"tokens": [
+"48879410223068155693391103437161956551785064642708059490682890931971854403379",
+"17279625343920953430100766817782584633867303173965136254509961184504468893885"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "93756.41941499997",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 342
+},
+{
+"date": "2026-05-27",
+"slug": "spx-opens-up-or-down-on-may-27-2026",
+"cond": "0x1262148cd1c5c55f8c9e47b545e19ce5b1fc87ebed0b1190840dfddc3df85fde",
+"tokens": [
+"7008632724224089350192911832166470681859256663942465240673138315197663686644",
+"30504277256152945660966380904312936098351524969164003939988534875256958758646"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "114724.34948099998",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 329
+},
+{
+"date": "2026-05-28",
+"slug": "spx-opens-up-or-down-on-may-28-2026",
+"cond": "0x3b01fe3e261fa43a9295bd7cc206beb80ae13a8d3e4d53103e8f515c306156c7",
+"tokens": [
+"12056218496737611625041763286987538798836424581973003722122038884290732047657",
+"90619375923540398421830975587766824134370641883825577406632498704183329601708"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "59068.973665999976",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 457
+},
+{
+"date": "2026-05-29",
+"slug": "spx-opens-up-or-down-on-may-29-2026",
+"cond": "0x58b3a244ff75dad96365dda4e4afe01f790d351d0bd5f1e78caf9810cdbfc892",
+"tokens": [
+"28840931921946368826403106192865739660572995961136411925513962079638105626229",
+"73558370878526039700569194166836165424547228696632542980550337398991062830801"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "53075.481040000006",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 238
+},
+{
+"date": "2026-06-01",
+"slug": "spx-opens-up-or-down-on-june-1-2026",
+"cond": "0x576bf1866bce43583c3e8f349f5fe4028da6291afe58eac964147d87c5c72846",
+"tokens": [
+"113172829854496916971376768919429579207881826258691693665893847781753016243078",
+"78739749153965815003992566256717403847663623235795206100194619925935302960641"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "200839.73729799993",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 485
+},
+{
+"date": "2026-06-02",
+"slug": "spx-opens-up-or-down-on-june-2-2026",
+"cond": "0x2fecde09cad6e0d40f45663234bae21f7a3d36fe57b33bb4f92d0875dbf5bb36",
+"tokens": [
+"29380161366891839143921589188731109625350935342748020630702296459745623659679",
+"48423720408035920395503632894914439447549879569359888996903768358029332424045"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "78474.14059600004",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 394
+},
+{
+"date": "2026-06-03",
+"slug": "spx-opens-up-or-down-on-june-3-2026",
+"cond": "0xf3f31a69801c96480ef9f945187c118d5916ed3b508b2498ef6a25ad5abd5014",
+"tokens": [
+"85031277790405679630206723603318215664841837442264134452249841304342388442625",
+"106767296551014914603871255413899874633897226943282806760424949532565580752138"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "66215.314683",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 450
+},
+{
+"date": "2026-06-04",
+"slug": "spx-opens-up-or-down-on-june-4-2026",
+"cond": "0xe17fcb81ffec7523e35400832f9409ca3d2cac6843b51140e9dc4e6983a88b0e",
+"tokens": [
+"24592429712230782042166398472619918195518546232924540216210497526803791281594",
+"70255727047148360557639794096938241750947288336147663248658229326376668020189"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "76680.823727",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 299
+},
+{
+"date": "2026-06-05",
+"slug": "spx-opens-up-or-down-on-june-5-2026",
+"cond": "0x3155877f2fd06f6cd93879ed7aac10f5fe10a18efc06c20d7d7fd5f7b21e5245",
+"tokens": [
+"106171326110871808860396641244502673752441941035630555052285405011028419913852",
+"11011173122009935376325100362592448392193768492682147236154153932286691198777"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "64338.039803999985",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 204
+},
+{
+"date": "2026-06-08",
+"slug": "spx-opens-up-or-down-on-june-8-2026",
+"cond": "0x9a7af038786376559245eabed432bc3a2822ef4cefa290e58a26ebc728b8753c",
+"tokens": [
+"61298184714162746123344486502714729595108236418037126233858045639813476811475",
+"107060883773020797202895840087438008738185070735937680423216323883497014036970"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "96992.16939399994",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 813
+},
+{
+"date": "2026-06-09",
+"slug": "spx-opens-up-or-down-on-june-9-2026",
+"cond": "0x92b4c61823d69f4c8f51af1ea09486118f4ab1c30a5c77d654561be1619cdfd8",
+"tokens": [
+"37517053242389162184502773672659664033794371998385701428066374228647566774340",
+"9929407236652152336669777819300005380190419430771020390522661902328502377987"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "87404.92823799998",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 456
+},
+{
+"date": "2026-06-10",
+"slug": "spx-opens-up-or-down-on-june-10-2026",
+"cond": "0x9392823483d940d0afc4ccc6c6d76e78b8f3bcb014f616dba5ea0c4aaf734973",
+"tokens": [
+"84248680185590048422823349896417626259457961062174696610916283438613736190857",
+"53489049927145662974584803465265259634997642541012167518325040663949249280348"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "144813.40253599998",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 493
+},
+{
+"date": "2026-06-11",
+"slug": "spx-opens-up-or-down-on-june-11-2026",
+"cond": "0x7b6bcc473c5a056b397887407d75123c0b2687d2a3339cada7331249eeb59d6a",
+"tokens": [
+"77869027936626441349225298845658934533766310195650120295316419612460353482640",
+"94814740930258385447633701284557480042318086808448494979643768321840726186711"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "90003.79328600001",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 457
+},
+{
+"date": "2026-06-12",
+"slug": "spx-opens-up-or-down-on-june-12-2026",
+"cond": "0x40fbcf9f6994b4a5cca3190b8fb9c21ad7aa2c62a7ad36cda1772b202f4977d1",
+"tokens": [
+"40027305826683190068554609265559065134452638628889427743712719119373740811230",
+"18477807537414332951028750139486017081384940830202550359481642977827372533214"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "119950.67733300003",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 540
+},
+{
+"date": "2026-06-15",
+"slug": "spx-opens-up-or-down-on-june-15-2026",
+"cond": "0x140ab69c5396e48cff5c07b53d4af87854ac65e749550f60394849246b6ba8f1",
+"tokens": [
+"86721322540722960003869172117823644909961902287861716679562600492955718951179",
+"40383841972424355794572469542576227443243214352156413702522829301102345573569"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "22933.404447",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 151
+},
+{
+"date": "2026-06-16",
+"slug": "spx-opens-up-or-down-on-june-16-2026",
+"cond": "0xdc0b37e66621fadd9d534ad8311bfbca394230f2e89db3a2f4b7b5d8a37ae961",
+"tokens": [
+"102777877514742534713111991615728210940727402428251958514315513899777981483251",
+"6069278840466952441415201183201478700036950323979880151963007399963187419726"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "133752.321782",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 648
+},
+{
+"date": "2026-06-17",
+"slug": "spx-opens-up-or-down-on-june-17-2026",
+"cond": "0x68312c9e39ef043c6e49487bc1ab59b922a9c37fc9b385bedd5185a0fb461630",
+"tokens": [
+"66199382229157025946946216766515080174765036447119329154450361212088281079699",
+"90452216827740608927874499749380253827316428094339216937533395601524154065627"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "54193.92863500001",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 576
+},
+{
+"date": "2026-06-18",
+"slug": "spx-opens-up-or-down-on-june-18-2026",
+"cond": "0xa91baf2e06ce4970eb74c5c0db2c55bece41a518f46f9babf1b4f5d6a1598ee9",
+"tokens": [
+"99618974255850075946837582149214575883473754742862714060211220214960543020515",
+"81265395868958990825178681732334294455290835465967565956612619058252282176812"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "102035.38491100002",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 211
+},
+{
+"date": "2026-06-22",
+"slug": "spx-opens-up-or-down-on-june-22-2026",
+"cond": "0x7f0cf2a5ba615791bafef6bc0ef217fd2b0a24ec639a2ddfaa6133f8d57a8e5d",
+"tokens": [
+"60240341011531233466139702851011860744041480619575915485442838298406872559648",
+"64696618793736202237578290168364617360473880946167888980471921908345156231168"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "68663.98727699996",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 567
+},
+{
+"date": "2026-06-23",
+"slug": "spx-opens-up-or-down-on-june-23-2026",
+"cond": "0xe0c8c3435ebc1cbe57a544201715f4468a349013a835813686b3056fad3cb337",
+"tokens": [
+"112836699420174982983438184582066568557390498656708612231548000652313523439507",
+"98042215403537989411844764694926782327529470625109731266456577051366106668285"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "27791.062888000004",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 199
+},
+{
+"date": "2026-06-24",
+"slug": "spx-opens-up-or-down-on-june-24-2026",
+"cond": "0x84e74aecd4ba1d2e2ccdf522155671eb56e8a0c24b1e04ba8796a8d2c2d6a7dc",
+"tokens": [
+"74715493595004929079925566595375160208130913633187142308362482445905223100148",
+"98584007659259846511779752569740892635224694994569328947363080894051485190075"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "33656.039479999985",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 383
+},
+{
+"date": "2026-06-25",
+"slug": "spx-opens-up-or-down-on-june-25-2026",
+"cond": "0xb5413d12ca1036da20dd2246da9c2a7f05aa90af4d1561296517c076d98d44e9",
+"tokens": [
+"43915462634245447385495696145673531243035304890719914632063240744130825855633",
+"103203717970332710761694621852230033687633959048819135863676513650633443205838"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "23588.214375999996",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 149
+},
+{
+"date": "2026-06-26",
+"slug": "spx-opens-up-or-down-on-june-26-2026",
+"cond": "0xd6aa9b95a06e7c13d8dc474e71a011224329f689e3c6f46c822f1399988c0aa8",
+"tokens": [
+"76890845723881607783253998843101718932673610100986610579604003706731085763952",
+"72393597679694871522807293495124281667469291693702009422374978653817660642151"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "19842.442193000006",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 235
+},
+{
+"date": "2026-06-29",
+"slug": "spx-opens-up-or-down-on-june-29-2026",
+"cond": "0xb7429a1681d3ba0bbe10682773d6c09b5a6ee5f57d7a5103a3677f8fe1350bbb",
+"tokens": [
+"13853554469795801088054659529538247751856260115893999568117930717569462660368",
+"63417376555811695676685231312879795688730862393714449617085603705742864321573"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "49766.88653",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 241
+},
+{
+"date": "2026-06-30",
+"slug": "spx-opens-up-or-down-on-june-30-2026",
+"cond": "0x04707ca730ed56e6751fb86bfff0df557cf8b0b8915864817e31c22701010904",
+"tokens": [
+"35256074297689817993059595710291504345078511088747170365465359670007558365677",
+"42991293776450219231204759800222633278224588607022763646272548425862641997657"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "45162.765625",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 362
+},
+{
+"date": "2026-07-01",
+"slug": "spx-opens-up-or-down-on-july-1-2026",
+"cond": "0xb15e09b46e248689fca06d4a7a47d2b19d5449113d7667f880b607c8a57bda1f",
+"tokens": [
+"11375573887271484012119027610249134569419733610540952448531398211049042392747",
+"46813028275899656836285439030523764127270169626484014265439528568064318968426"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "36939.84421800001",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 176
+},
+{
+"date": "2026-07-02",
+"slug": "spx-opens-up-or-down-on-july-2-2026",
+"cond": "0x07c0607e81c1bb882d05b8bdae6d902b02eedafe945d35c2319be7e6f569be48",
+"tokens": [
+"111640355281245343558240617279805970696003841732776361553374507554563399989318",
+"82845904352379726561901156352732970983705119996595314672448940157979872250595"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "29212.770369000005",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 357
+},
+{
+"date": "2026-07-06",
+"slug": "spx-opens-up-or-down-on-july-6-2026",
+"cond": "0x84db635ccba7c420ef6768ed45c517b885c5241165f9a807ccf4a9e0bbbc05ce",
+"tokens": [
+"60077234867770766720073185372697827906537509243052234235630046206689958884588",
+"47250994350996775231185815903432762567675091552766711819428784422676399794986"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "42701.044527",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 320
+},
+{
+"date": "2026-07-07",
+"slug": "spx-opens-up-or-down-on-july-7-2026",
+"cond": "0xe9ebe8fdddd620b55fb217fe77fca2bc91576bf7d704a9fde01482c93fb6f112",
+"tokens": [
+"100408034298028834441124172407776958175521108419769814045421793321084974087210",
+"26211509443192184783187524046811939644562824670776875875880278107569638567920"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "33276.531897999994",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 334
+},
+{
+"date": "2026-07-08",
+"slug": "spx-opens-up-or-down-on-july-8-2026",
+"cond": "0xbf0968fa10ade2afe65587e9f4e8977e65f2e8aab88a655c18c7059883858236",
+"tokens": [
+"23674782678922788440567008783759931928537645677172255013888587981479559427610",
+"98831221208881001720974999179300866309214442259528653645420137875907107489208"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "63884.75441900001",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 286
+},
+{
+"date": "2026-07-09",
+"slug": "spx-opens-up-or-down-on-july-9-2026",
+"cond": "0xd27b560289910e95e6d7ccee957363e952d04ea933f15ecb0584e7a9499b387b",
+"tokens": [
+"115149749057298410141362985177192413993229375593591652359096300771158328362382",
+"78189471967563860107500202952843569642870381386343168113341432853305024487034"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "25831.94430499999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 267
+},
+{
+"date": "2026-07-10",
+"slug": "spx-opens-up-or-down-on-july-10-2026",
+"cond": "0xf530f7cb84a1c96b28c4a63696bdede10ca8488de48aaca9303bf36ae549249a",
+"tokens": [
+"93516903532416754849453898029293564205648829833293674256941513550004847596015",
+"106844451415627542434409953095440665816283800345609726349979729505614886013587"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "30432.158432",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 328
+},
+{
+"date": "2026-07-13",
+"slug": "spx-opens-up-or-down-on-july-13-2026",
+"cond": "0x54583c8e49b562469a7ce482a79b65c4b8190b27aede2e18ce8d15dcec2bf1af",
+"tokens": [
+"35438004169112434284193445859751746088900936496882299259668149624407800438904",
+"21872884844201025216378891417657365447147675190286144116202496127020465457197"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "39202.30717500002",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 258
+},
+{
+"date": "2026-07-14",
+"slug": "spx-opens-up-or-down-on-july-14-2026",
+"cond": "0x7686be5c9aa284399a2affe8cc161de963e312b18f4931e44268a62133dc1b63",
+"tokens": [
+"48491473779050547420422261260776295417519242807808174000574453703952122527498",
+"8707760734904604781013235839931609703588230486191517896548977982282283251251"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "133817.67599500006",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 344
+},
+{
+"date": "2026-07-15",
+"slug": "spx-opens-up-or-down-on-july-15-2026",
+"cond": "0xc96b5f2e48d60d56be785b6ca2d218555efe1ad504cbfac61c2ec5633ede8395",
+"tokens": [
+"32206358200477912217552621000578407956337384961108691122645942491833477042357",
+"88265628386137274472554583092795449590181642449555918671045392685151209975869"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "71001.66879700002",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 253
+},
+{
+"date": "2026-07-16",
+"slug": "spx-opens-up-or-down-on-july-16-2026",
+"cond": "0x7351b11e2d8c4942f6b5dc3ad697a8d25da217b44e5c9a2e552e4572217735ea",
+"tokens": [
+"94323623271507040799753495755163875836849662678333638267904837040382900208161",
+"12311311755774123919641850611009655497905008607326156080854422844553291148782"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "33479.68197000001",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 249
+},
+{
+"date": "2026-07-20",
+"slug": "spx-opens-up-or-down-on-july-20-2026",
+"cond": "0x1e919de3d9c8a00a5ab1bb21247e8eae28b336c57b6adb4a3a5b26ec810cd695",
+"tokens": [
+"87681866507912380197058926240127335965129863607003328800459922313049194471263",
+"35291230813579975951242042022382123576866285143737507870698229351382209580966"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "53621.500099000004",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 260
+},
+{
+"date": "2026-07-21",
+"slug": "spx-opens-up-or-down-on-july-21-2026",
+"cond": "0x3ca599e11990bc53f3a5c6edb3aa1fc04896f0d42345f7b6de240356130d0765",
+"tokens": [
+"91988315010901297651963792275219924663957721015159248499675147859313235436098",
+"67551419387382987373505866409462495349272715295197278030743573233978569336848"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "20156.441235000002",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 122
+},
+{
+"date": "2026-07-22",
+"slug": "spx-opens-up-or-down-on-july-22-2026",
+"cond": "0x1032485e6c756aa1fb1a8f35cb6ed128d38c3c334d286e3fbde4c341c938afbc",
+"tokens": [
+"62331159410299264638863831972277278700680031485318896784464713822866235734257",
+"29270793524174932326286496176533666139369276162759655785064448503463826154927"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "116812.563959",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 327
+},
+{
+"date": "2026-07-23",
+"slug": "spx-opens-up-or-down-on-july-23-2026",
+"cond": "0xbe2c60a99089216ffda155dd5b42bd6e3e801a695c2b99bd52006a88bf79238f",
+"tokens": [
+"114029784276979852003309498586160520580796080426074740052563025042304727271245",
+"29576347078747828886546233880243184399480511475154264122916114302472956919799"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "10559.04375",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 6
+},
+{
+"date": "2026-07-24",
+"slug": "spx-opens-up-or-down-on-july-24-2026",
+"cond": "0x5aa28203f04ed69af407eab47a8eac696a86bf440cfefc80c0f77bbb636f2647",
+"tokens": [
+"3814112235962534515748971625689238514490612881162999183051187489714497737353",
+"65748644522089378975167376895991436460876336687007217779877458033605881136906"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "61926.814109999985",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 305
+},
+{
+"date": "2026-07-27",
+"slug": "spx-opens-up-or-down-on-july-27-2026",
+"cond": "0x5dd47b44ba1c44a53ec5b4f8c7426c330097fd0faaf3f0044de87570a507e928",
+"tokens": [
+"27128872640273033476981416771367559127656484122932436607096064849974909879515",
+"106306754304224323570774380186261952600453882856443860196961013605031696424426"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "19744.795421999996",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 140
+},
+{
+"date": "2026-07-28",
+"slug": "spx-opens-up-or-down-on-july-28-2026",
+"cond": "0x6ccb58b0f46edac212121bbf721310be8b48766005626ea999fb030bc504e18b",
+"tokens": [
+"29915342052391363623075701184334841691490095121451242239539894603829275270188",
+"28608086137552641767872457157470063885952997524646548962039305635660871805675"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "33089.17216499999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 363
+},
+{
+"date": "2026-07-29",
+"slug": "spx-opens-up-or-down-on-july-29-2026",
+"cond": "0xb6bcfb1776def688adace06b49edf0c69827a9db70a5c4da918f97c32daf69e7",
+"tokens": [
+"17437140106781767733106112711336582297149671953571520503416738480482682914338",
+"30890802905959602360217813367218937291150376707563374261385500302319237511484"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "26134.203586",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 273
+},
+{
+"date": "2026-07-30",
+"slug": "spx-opens-up-or-down-on-july-30-2026",
+"cond": "0xc364fe798debd22fb730aab51761ad55c27568af20a6d2d5605a94e363d8cbe6",
+"tokens": [
+"82072369134356637803689562430611879786361065237214660256216914360866594572849",
+"77466377921814886115951763661145342202583652527750283997412686525724076306563"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "9179.999586",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 156
+},
+{
+"date": "2026-07-31",
+"slug": "spx-opens-up-or-down-on-july-31-2026",
+"cond": "0x949ad40d3a038d4321510561406c0c610cd09690cfe7421af4974f6c06fa7bba",
+"tokens": [
+"44274439330487340501366696245703909093987566538770497226163187546964832694624",
+"101415969565276337340766759384702054415122556006150790395535217882358177421150"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "27575.495614",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 198
+},
+{
+"date": "2026-08-03",
+"slug": "spx-opens-up-or-down-on-august-3-2026",
+"cond": "0x249f621a32cbc7496d70f14853823e1c08c53caf6b703cf8a4715c5819181208",
+"tokens": [
+"35426737207210647355249973865470334149852209427546877149396356864279004786476",
+"8447435581209218322482489545049013715480577594123792110975592541804624259067"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "594636.453401",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 714
+},
+{
+"date": "2026-08-04",
+"slug": "spx-opens-up-or-down-on-august-4-2026",
+"cond": "0xf901d454887e02e84f279bb3c2681d0069d20937af399caf911324cfc7a5508c",
+"tokens": [
+"44875749619913662163905452203251143521152118007120342361630684743375863587822",
+"46710663611935854981438118961460976945414859596950536071853734983514819821924"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "13449.247523",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 194
+},
+{
+"date": "2026-08-05",
+"slug": "spx-opens-up-or-down-on-august-5-2026",
+"cond": "0xa5434e4c1c802b2d5165acaa68ffc2c11c9b8643545be31de00af144e222f0f2",
+"tokens": [
+"90710724130484219904337617315564857383545351674672742340949014939700720078525",
+"88057357243006506766216557621527749607834492005159910695789653026064923696094"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "50514.019692",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 193
+},
+{
+"date": "2026-08-06",
+"slug": "spx-opens-up-or-down-on-august-6-2026",
+"cond": "0xa567663e5aec821ed0f85a1bd8cd0d6d07925b1aa5c582cb01f3c3def8e04725",
+"tokens": [
+"14131033894487534647221385663405546877727077170844653754311092470913263385962",
+"14768370699076561515497763764405188406691752336357142529578481823113728247575"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "72747.23734699999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 345
+},
+{
+"date": "2026-08-07",
+"slug": "spx-opens-up-or-down-on-august-7-2026",
+"cond": "0x26a46285ae860186e592bbe4a74b8f08d9fd7270c0c223ebe7eef4c18368d975",
+"tokens": [
+"93961201478030669854371506240593926096885022203851760444384355430945517963308",
+"65126481409505885205240511473738509478609125282044419949030002247885818507815"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "18562.936463000005",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 194
+},
+{
+"date": "2026-08-10",
+"slug": "spx-opens-up-or-down-on-august-10-2026",
+"cond": "0xa90310abea863cb98d7ee830ae5e2a3c3a21a0496ad148b4fc402c1d57e73219",
+"tokens": [
+"8666058360142632945538411913740560099047201836874656180105520675781589905396",
+"39546470121150185401925175879965578219537750935403749884036848375729570883777"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "14363.986433999999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 167
+},
+{
+"date": "2026-08-11",
+"slug": "spx-opens-up-or-down-on-august-11-2026",
+"cond": "0xd8f920c35cb453f46dca0fc3d340cbe4ef36fc69f81ab34c0d095f335ebdb38b",
+"tokens": [
+"26981788150608559579179442928958281719378768121226662179761526718483748082787",
+"86769175353175997419176423202258173341809176303069979426641959955928492818158"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "22644.896009000004",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 226
+},
+{
+"date": "2026-08-12",
+"slug": "spx-opens-up-or-down-on-august-12-2026",
+"cond": "0xeffaf6370baacaa62c8cfb30a3c6a56357aa15809c47e0c456fa796d4254c77f",
+"tokens": [
+"41093807346555192931958471874777136165018207672287534622278313137736807169303",
+"81541239773445432790121807564082726349353532111273807302592354568675126174543"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "32194.242559999995",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 272
+},
+{
+"date": "2026-08-13",
+"slug": "spx-opens-up-or-down-on-august-13-2026",
+"cond": "0xcea30684d354992b5c644920355c35c3e89c2948afcc48fa94fdd6684f050004",
+"tokens": [
+"113223053698020429835666421967133406835855093697419602928926263035942941416821",
+"77660694990088981867065731433781243359009707584742879220252299666401260508066"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "38344.819896",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 244
+},
+{
+"date": "2026-08-14",
+"slug": "spx-opens-up-or-down-on-august-14-2026",
+"cond": "0xd2206570fb4afd91f2e8fc158117813ac56cfd3a384c1ff0bd50901a224d5a7b",
+"tokens": [
+"52465080302732488787505678663467029237451202860008278238883017207739475739560",
+"89294321783304038990510967486525861351655667435070582411838945021054340542126"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "19060.442275",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 326
+},
+{
+"date": "2026-08-17",
+"slug": "spx-opens-up-or-down-on-august-17-2026",
+"cond": "0x1afcb2d4c09b1063edb31b1deadcabd81c634ecdec3e6e829697b33bf6abaebc",
+"tokens": [
+"114030861255928501705696789598820683586513228934129241150491982732482747058487",
+"78388828960183352402224032012210316881254913377868107952507536599554433158555"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "90908.82928300001",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 306
+},
+{
+"date": "2026-08-18",
+"slug": "spx-opens-up-or-down-on-august-18-2026",
+"cond": "0x08cb0a2cc03819118feb53f9e283997e48e0548f080c6bbed02a31541fdb9c77",
+"tokens": [
+"63479357922128868294739621799300006970924813222042178661352894237372413243950",
+"87050858539725479483481283199987741261998450539620069884802775750405596874148"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "20535.341765",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 128
+},
+{
+"date": "2026-08-19",
+"slug": "spx-opens-up-or-down-on-august-19-2026",
+"cond": "0x1f35fc253e7404f0396bc402dc326b85f3ca20d60400990f0c48cc9dffa486b7",
+"tokens": [
+"46581927569907865242514075290775742805203136227376021961045807393143328237798",
+"59512517891718119314684906105876801307819185289802097451996257642695879679553"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "14249.554529",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 227
+},
+{
+"date": "2026-08-20",
+"slug": "spx-opens-up-or-down-on-august-20-2026",
+"cond": "0x9d968689d14ed6e80e40bd637a82c546bf128362829e047ab6e63ae8ef8de1e7",
+"tokens": [
+"47187400038910365662355278054911044108488387164964995503272900593486470091647",
+"36560044334708183624231584211188823793877222712715768633233046708800085812308"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "30761.742972000004",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 222
+},
+{
+"date": "2026-08-21",
+"slug": "spx-opens-up-or-down-on-august-21-2026",
+"cond": "0x2ebe6e6ef4ad013393a050ba83beb48df70f4ff4063970abfa113dd2cfdc8de0",
+"tokens": [
+"8144119573893158385743136243389247016921029419921209500234130653719588704422",
+"45028109383580194278469641799265118315048065728044495241329964245053078479995"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "24498.807443",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 182
+},
+{
+"date": "2026-08-24",
+"slug": "spx-opens-up-or-down-on-august-24-2026",
+"cond": "0x5f1672316de2416dea7f2718e850a75551b44ff544168a7d7d7043da6d5bf161",
+"tokens": [
+"68279337447045720567166563038320874671248435720036851466038393255574939947298",
+"32092844668394715080227976846732738994061055958756417128250046431791288680309"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "30415.888693",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 251
+},
+{
+"date": "2026-08-25",
+"slug": "spx-opens-up-or-down-on-august-25-2026",
+"cond": "0x3a6f6fb5949e59dd045f216a7ad8e5e8a31e2dd4ac594763c022fb887e308cf3",
+"tokens": [
+"69173403434949441624895757780743460547747076015476663859386977151369813562572",
+"5975326274888158052482974655899022530965798783964610222304368169235954488076"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "19079.505627",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 140
+},
+{
+"date": "2026-08-26",
+"slug": "spx-opens-up-or-down-on-august-26-2026",
+"cond": "0x0738331b9d320369ecea35187eac1a27ba9af33355d07578f81531334de1d2d2",
+"tokens": [
+"80557046025210976059124923750875892195692552310437217885849119208194337901637",
+"12010420820711781914473687106585039152716703922562622239245973361973239385379"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "10101.605577999999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 224
+},
+{
+"date": "2026-08-27",
+"slug": "spx-opens-up-or-down-on-august-27-2026",
+"cond": "0x4decc4f3a5e5dc45566dfa55bdf66aab6d86bb70261ffcc961b2274f86e5c60d",
+"tokens": [
+"89574744073031767715150240737558075831230318680150384728726881208920707368942",
+"111149010429153113672195493160853756435122517725864997495485853145404354313598"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "8219.704862",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 112
+},
+{
+"date": "2026-08-28",
+"slug": "spx-opens-up-or-down-on-august-28-2026",
+"cond": "0x6d0bb0f7b8643c184170e523479720136f83ea69145fd356b664c72ee9549dcf",
+"tokens": [
+"74917566777900649086651347780807946563455110296908097017067662275811869352625",
+"104629599253206444354554067797871337807255118285356485709461115217078671673662"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "10335.059067000002",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 200
+},
+{
+"date": "2026-08-31",
+"slug": "spx-opens-up-or-down-on-august-31-2026",
+"cond": "0x830139d0669ee9c3915857a534ce55142747f1a35e926aa13b4db3adb5fee709",
+"tokens": [
+"86581717447594623640046243011328064364743917929488997431998239195157291943402",
+"100923333208786325829238562736547607974059426773646497735828747552907114954211"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "9015.497535999999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 148
+},
+{
+"date": "2026-09-01",
+"slug": "spx-opens-up-or-down-on-september-1-2026",
+"cond": "0xbc1ca34ccbb85cafed949a193efa2267cfd337918b839fc2b390245e94bd40cb",
+"tokens": [
+"69946385136363825281452363704910962609037217378362755147316633917871347490675",
+"63241233436275294713697879029976517419621935928602471268709980868697182303178"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "4354.451426",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 87
+},
+{
+"date": "2026-09-02",
+"slug": "spx-opens-up-or-down-on-september-2-2026",
+"cond": "0x7a04f5380a19b4841154e16a1c7c1cb96585cd88dde32dc2e085f4dfaa02cc9d",
+"tokens": [
+"24854572810503908962512743189345148360771445421379307094085548868350778361114",
+"88293443364523358128532221452585287726580121113441038515885642430563217018310"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "9281.866502000003",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 219
+},
+{
+"date": "2026-09-03",
+"slug": "spx-opens-up-or-down-on-september-3-2026",
+"cond": "0xbc53d866aa09672bed957a36e98ddd2136e3e0b5d1959623465f770cbceb327f",
+"tokens": [
+"26288798618784444368271249140350641799558490420290235445071256131804499200159",
+"20636924232093678648785134351027555753369862406614148058767889169667139859371"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "9091.688741",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 186
+},
+{
+"date": "2026-09-04",
+"slug": "spx-opens-up-or-down-on-september-4-2026",
+"cond": "0x1d58448e82be19576119706d7a504bc8d75feda1658f4260ed079fb680e99394",
+"tokens": [
+"18451210625240208121751679006486613047599172503454391689370132856196708913430",
+"5904309236928441216360387407712710666419282870486736609958306034613216653194"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "40969.214907",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 289
+},
+{
+"date": "2026-09-08",
+"slug": "spx-opens-up-or-down-on-september-8-2026",
+"cond": "0xcbdf8ed75f54fd43300f9f9a4b4935dbb901f0709ab412a0cbb1dd399a54d49d",
+"tokens": [
+"50988358891669079766218680263301280244800156471043989950501511514167369619333",
+"76491348141553405574083346353603387939155115789469016618014767843714288339372"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "5868.460981",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 128
+},
+{
+"date": "2026-09-09",
+"slug": "spx-opens-up-or-down-on-september-9-2026",
+"cond": "0xfb465c2c9fd40bce0ce0646be4a58aa86ef7015ce36ff9e3aed6a3327b4c1c4f",
+"tokens": [
+"35602769318555792376789193859083329784107482721382729777677180424172990224075",
+"72207815425116517178263057062936979488936128817952046702756793261833999644555"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "8895.968444000002",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 135
+},
+{
+"date": "2026-09-10",
+"slug": "spx-opens-up-or-down-on-september-10-2026",
+"cond": "0x1fce42ea74f8e1e5b24c685bb10b1f76fb998678795ecca61488d455592e4b1b",
+"tokens": [
+"58292646360685742672001849017596153039219153854051443913580926090579656285365",
+"76812231495738353201494154377390295728582541928786788376494582048519312315273"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "10499.117913000002",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 203
+},
+{
+"date": "2026-09-11",
+"slug": "spx-opens-up-or-down-on-september-11-2026",
+"cond": "0x260107c37cd7f41136608dd9b2a00aeee6f34d8d023b43c532ad5b472f52b947",
+"tokens": [
+"64020800267607093848031508154323433097640865786581082112114641988540238068228",
+"12575801185136583823877523385956555279070449242945575815686474817827800574686"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "14700.181890999998",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 187
+},
+{
+"date": "2026-09-14",
+"slug": "spx-opens-up-or-down-on-september-14-2026",
+"cond": "0x4e455e34deae20b3b1713e7e8d36a906c572b4de48d098b2415878ba17e0c594",
+"tokens": [
+"5262170562704797333229232988752401528756168645533109249433002523802224775255",
+"63877479858999985639503258644828551362267412991980159662378608839507426843984"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "12331.531173",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 71
+},
+{
+"date": "2026-09-15",
+"slug": "spx-opens-up-or-down-on-september-15-2026",
+"cond": "0xf884199cc39ebe16c89be39d2bc6676b7c47d340eccc34c82ab66c66394c3333",
+"tokens": [
+"47211161414726890439940880532662183858696310311556953513973546817467187758922",
+"8276378969463222655263171237127394272024034447040443216916014553040131711009"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "76973.31502500002",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 163
+},
+{
+"date": "2026-09-16",
+"slug": "spx-opens-up-or-down-on-september-16-2026",
+"cond": "0x4778c3c56eb2a7292c69aaeebedddffbe147f1936b92db9e00e54e4e88225c91",
+"tokens": [
+"7876207868282317610165998819437194381343124008855403979160018731271388057425",
+"21905365336266115042594979183031940411806144637996886816081432727832035876475"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "13836.294125999999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 97
+},
+{
+"date": "2026-09-17",
+"slug": "spx-opens-up-or-down-on-september-17-2026",
+"cond": "0xc6e58833996ce8d2430d24fc7f0fd9c95aeee045916d8a31d8c2f01773999fed",
+"tokens": [
+"54191504582315041720485822065452962198490293095351258054650848945097284552331",
+"18158131164543750188647618731286910545455598731490846601548757325355412306799"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "1883.6230959999998",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 45
+},
+{
+"date": "2026-09-18",
+"slug": "spx-opens-up-or-down-on-september-18-2026",
+"cond": "0xdf9657fcf742fe64000d5070647ca20a99ffc96c97c2bd95ff10b2a344983fd6",
+"tokens": [
+"98086899738588220243828542830870448751155848696175877490637516153422067635007",
+"93660242585235639483671019566022742421476387545590731291891193653389746682661"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "10881.641603",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 122
+},
+{
+"date": "2026-09-21",
+"slug": "spx-opens-up-or-down-on-september-21-2026",
+"cond": "0xe84827a94c7695ab0b82eccc0018bd0dd8119fb9c8bd14e986bbfade1d67c805",
+"tokens": [
+"92525122224574095483476239284915212958067517592233146984311501141806337272434",
+"84827631493310379105367795353528875066708261282141005565672244633596441931542"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "12084.517784",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 101
+},
+{
+"date": "2026-09-22",
+"slug": "spx-opens-up-or-down-on-september-22-2026",
+"cond": "0xb5705bc33288741ec9d4ba29910fcf927206e755cf67f856ed17b3bf5da578cf",
+"tokens": [
+"106642270228688674712791602141995272514277979111854568023774960922301848247831",
+"3637763839901059516866286239916630433561512535754964459226788885017867398593"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "6604.912933999999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 130
+},
+{
+"date": "2026-09-23",
+"slug": "spx-opens-up-or-down-on-september-23-2026",
+"cond": "0x6908e814d8addb1f7f937a5152001920b7cf05d4fd2b227ab11d8431d9e4e3f4",
+"tokens": [
+"70471474476044163653512771807603436514876493312965843955004841719343929762248",
+"76758816245829430117956746820650397692787506463836347810297672679658396790279"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "5834.638554999999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 121
+},
+{
+"date": "2026-09-24",
+"slug": "spx-opens-up-or-down-on-september-24-2026",
+"cond": "0xddbf2e7c2b06e31d91ccdfc95e4622ff3c50b23c7bdf18e8ce0b38ed326e07c4",
+"tokens": [
+"67524523667299649301658608737746835922760040358713698869330267816343393982983",
+"86221898163044258990882255018423657908613588221924941395506834118630445279243"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "6938.428524",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 69
+},
+{
+"date": "2026-09-25",
+"slug": "spx-opens-up-or-down-on-september-25-2026",
+"cond": "0xc7d2a2110549e89b5189d7d6aeb91cace0652bcbd71e9d7a17e74eb15c8407d8",
+"tokens": [
+"78612111470694165380373609477440158279768387980649992582680246007370444823562",
+"71025576850479143554922842503750206082771088190716452310986837447142694468270"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "5703.950811",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 67
+},
+{
+"date": "2026-09-28",
+"slug": "spx-opens-up-or-down-on-september-28-2026",
+"cond": "0xbe55393b79c2ab01175eb473aaf9e732ba6863601b40f2df284243e68e6c500c",
+"tokens": [
+"5293808269376057728709527226629082646093148997272456288799259892418680109673",
+"55336767100874322631131107373854168980925916380042249591543089963493718610708"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "5919.683973",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 66
+},
+{
+"date": "2026-09-29",
+"slug": "spx-opens-up-or-down-on-september-29-2026",
+"cond": "0x7ee7961afb89ba6a832ea3f368c468c59cfcf26300ca2ff31de8bd0933a1d1f2",
+"tokens": [
+"63013960868982100896047845520418441304786065411146432192559073245342127635255",
+"29986743700403528063695632379623011031456488796281648408999849527017518875157"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "9724.888841999998",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 141
+},
+{
+"date": "2026-09-30",
+"slug": "spx-opens-up-or-down-on-september-30-2026",
+"cond": "0x55e05943c7de79c87f8731b68113d1cfea3e6da757b6367da26670ffc9eb3dc9",
+"tokens": [
+"20239037685703123660655006588848326041856303714900611597414870380027686672739",
+"79926048020360643199056965955227969928186071147955105505915336273723561814225"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "11844.023912",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 78
+},
+{
+"date": "2026-10-01",
+"slug": "spx-opens-up-or-down-on-october-1-2026",
+"cond": "0xfbca80b14104dc52bc1485a61841f41ca1450afd4cc709984a56b9756c84d2f7",
+"tokens": [
+"11841327366358543855039404255021255865740252515518885943840064629663639352564",
+"65509094726371450403664631115531377942134114032922058656608604962972762574059"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "296338.7288660003",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 349
+},
+{
+"date": "2026-10-02",
+"slug": "spx-opens-up-or-down-on-october-2-2026",
+"cond": "0x51d382284c97e5a93def6454d8e06d2d6078f30d7c6753ba5f65140217976e7c",
+"tokens": [
+"31248693527926117708547542517997620301156514110424007370937312117399775541889",
+"47558559438539105416867251147036885665217593297208710779209184479088540690700"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "22266.274154999996",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 99
+},
+{
+"date": "2026-10-05",
+"slug": "spx-opens-up-or-down-on-october-5-2026",
+"cond": "0xf01d29bbc867825fec99fd51b71922a2206cae633bca5517019645d08e2aca3f",
+"tokens": [
+"97239940649774510830066524762070700409513937675373580833005532288169428757298",
+"38071187916172708435599167542820357518267160353002345546880212836282730901144"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "9676.888459999996",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 113
+},
+{
+"date": "2026-10-06",
+"slug": "spx-opens-up-or-down-on-october-6-2026",
+"cond": "0xdfde5572ad685efd85571a54d9c91eab532d4cb95dfa6bbe52130a4373389d35",
+"tokens": [
+"9261714395558347338607506515582412969642545877252086828355665027405841038945",
+"85271129344097090447026813087358371307474901085336581995705602988896263985157"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "5891.203956",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 77
+},
+{
+"date": "2026-10-07",
+"slug": "spx-opens-up-or-down-on-october-7-2026",
+"cond": "0x1db6ebf83b0c12c02743662f71c5afbbd89db0cec9dc2fc116f5236bcf345baf",
+"tokens": [
+"72231001709399425398644321186162176912046139024866395255526774623740240630724",
+"32294585449178760945894829032367504169050151019200477611164199201619054872078"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "11900.820047000001",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 115
+},
+{
+"date": "2026-10-08",
+"slug": "spx-opens-up-or-down-on-october-8-2026",
+"cond": "0xbfd90dbf9aa9a58b4d779e90bebf34f1b547ba98693ff6f2d72a624a6055aff6",
+"tokens": [
+"41003979449621051630475018400129246249410633421834829790405803304451757042646",
+"39929665109410306454419715912684112608430901820873108996648789006479830919566"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "17476.147786",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 75
+},
+{
+"date": "2026-10-09",
+"slug": "spx-opens-up-or-down-on-october-9-2026",
+"cond": "0xd1e87a3e6c6161ff967d9de47bb784781ebe08925332d11e74ca01e39dd12f51",
+"tokens": [
+"27973990810689082890945063231617551399822864491990786696791667818204132978415",
+"17010065976967026529418513352195964601194637013752174511912325689532645938307"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "6872.570367",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 60
+},
+{
+"date": "2026-10-12",
+"slug": "spx-opens-up-or-down-on-october-12-2026",
+"cond": "0xd079d3673f84d28143cc07ab310089c875e1d890e986153b144d43eec5ea21c6",
+"tokens": [
+"14870335804276250160202511150688497565331759607101102628358441964801324674512",
+"12470224764794835800003324309286366208270116727807952166603490740347490037314"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "6425.389034000001",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 94
+},
+{
+"date": "2026-10-13",
+"slug": "spx-opens-up-or-down-on-october-13-2026",
+"cond": "0x2e30f4b3ec625ec9165e38ce610c60f832810a609019ff3a5528d2809e3e5534",
+"tokens": [
+"32589402577808136612131302020299942027951725328124503163866013128320245058744",
+"89936834254895913955880497611631319280449904976442408560625258092936808099260"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "9033.348824",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 123
+},
+{
+"date": "2026-10-14",
+"slug": "spx-opens-up-or-down-on-october-14-2026",
+"cond": "0x59925f42bde43c74b77263b2c92e87862858d33f1440f7c6a6ee35974387702a",
+"tokens": [
+"98346302443584559925860654637914232533932488990211745600797005540009457433821",
+"93018991307865035587486347682485796519885595296969790895383057747253547349539"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "17450.539871",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 105
+},
+{
+"date": "2026-10-15",
+"slug": "spx-opens-up-or-down-on-october-15-2026",
+"cond": "0x63d7e83f85cac5870d86ed82f3b70b6a347986dfbe26d3a36cc558734f163862",
+"tokens": [
+"48534489084454846853692828071256883091136564220461951902632500135581828267069",
+"13250085318615600192424774408857001019674892856236667021213835943927458737518"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "3863.604776",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 68
+},
+{
+"date": "2026-10-16",
+"slug": "spx-opens-up-or-down-on-october-16-2026",
+"cond": "0x204fa8ae5be84be88aa01e93b01cfc9f6c1fa82a67ba0e48442513920d76c6ff",
+"tokens": [
+"35289426847295609997800991904629351118700681986741617086441188398945358322593",
+"77781162784262975992866145112105162457934767313064349553744920131923797844688"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "10114.026996999995",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 109
+},
+{
+"date": "2026-10-19",
+"slug": "spx-opens-up-or-down-on-october-19-2026",
+"cond": "0x384b7fb490672a0d01ff3676de88287ffc98498556e31e8aa0a1c52685276b50",
+"tokens": [
+"340722681842400239659914538048019936610564352942507308654779735462601846733",
+"100651844611391271729247201993929718351524853928698294264124988582406372437749"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "7652.908746",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 72
+},
+{
+"date": "2026-10-20",
+"slug": "spx-opens-up-or-down-on-october-20-2026",
+"cond": "0x46e3d8a742c764e7efcedc6b0e252e592dce933812b0f9456cbd510ff845d679",
+"tokens": [
+"36955943784642997371569933954623281908372121561797140503097533857289338689409",
+"55230086287421541008653620729324120609234265963788329900929033175630462094160"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "10531.177681",
+"fee": {
+"exponent": 1,
+"rate": 0,
+"takerOnly": true,
+"rebateRate": 0
+},
+"feesEnabled": true,
+"n_trades": 148
+},
+{
+"date": "2026-10-21",
+"slug": "spx-opens-up-or-down-on-october-21-2026",
+"cond": "0x76ed72fbfd60399a553957915da6bebf0514c78515bc7b37baffe5dac9efa2a6",
+"tokens": [
+"55943575930446881254264105794134018151453149955682701629731890728298893159860",
+"30886177367036626458933059475577433859995046233423541175257861035848048069724"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "8511.654066000001",
+"fee": {
+"exponent": 1,
+"rate": 0,
+"takerOnly": true,
+"rebateRate": 0
+},
+"feesEnabled": true,
+"n_trades": 93
+},
+{
+"date": "2026-10-22",
+"slug": "spx-opens-up-or-down-on-october-22-2026",
+"cond": "0xb1e430738b8c6345740610f953381f4f5d8c1e2fb03ac26657f9227689d6d0f1",
+"tokens": [
+"77651080163490355463263548573531310518884030221405383743561406073501235700488",
+"65854112134377915792241460034593560198351063145562213039926774524127413272450"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "2071.604936",
+"fee": {
+"exponent": 1,
+"rate": 0,
+"takerOnly": true,
+"rebateRate": 0
+},
+"feesEnabled": true,
+"n_trades": 27
+},
+{
+"date": "2026-10-23",
+"slug": "spx-opens-up-or-down-on-october-23-2026",
+"cond": "0x27b987f8b147b36dc884cb8b9b9a569aa3679b6ef92ee48fa13d2c916bf08e4d",
+"tokens": [
+"57893367194090197469473987493288524610039205160556298302802686331332801915540",
+"76771373611244546166516441687086296732976238893453286593979516868253683262629"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "7862.098375999999",
+"fee": {
+"exponent": 1,
+"rate": 0,
+"takerOnly": true,
+"rebateRate": 0
+},
+"feesEnabled": true,
+"n_trades": 88
+},
+{
+"date": "2026-10-26",
+"slug": "spx-opens-up-or-down-on-october-26-2026",
+"cond": "0x39974593d05dadee812388d7285acb33095d159bdcd88b79cb620a03a0d308da",
+"tokens": [
+"91784533110149125837178481266364941917227709510541767855532450049063808079954",
+"114962291393848165346328202794013477163573390574222527283990208234274233223099"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "14840.894329",
+"fee": {
+"exponent": 1,
+"rate": 0,
+"takerOnly": true,
+"rebateRate": 0
+},
+"feesEnabled": true,
+"n_trades": 98
+},
+{
+"date": "2026-10-27",
+"slug": "spx-opens-up-or-down-on-october-27-2026",
+"cond": "0xb130d59d04790d134cfb6d0a95e0c6cd23062f2b40ef930e2cd0db61e86be8aa",
+"tokens": [
+"42900747173284917790087448702311913555153021913960287816051110426734528543470",
+"43778661428989657941094959616504770596168416534072939300282635348010860786553"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "5412.037611999998",
+"fee": {
+"exponent": 1,
+"rate": 0,
+"takerOnly": true,
+"rebateRate": 0
+},
+"feesEnabled": true,
+"n_trades": 62
+},
+{
+"date": "2026-10-28",
+"slug": "spx-opens-up-or-down-on-october-28-2026",
+"cond": "0x2ea1e0808c3c26d4d5779794be45ea8cf0a5d71254829e1c748086dab98c181c",
+"tokens": [
+"38833221786620896269074562481631998855961015085606193423845051051830589368046",
+"33722660031346752498745396099383095839467457416830900657182154587592513602233"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "5771.144985999999",
+"fee": {
+"exponent": 1,
+"rate": 0,
+"takerOnly": true,
+"rebateRate": 0
+},
+"feesEnabled": true,
+"n_trades": 85
+},
+{
+"date": "2026-10-29",
+"slug": "spx-opens-up-or-down-on-october-29-2026",
+"cond": "0x6a71b6ff5d94fefcca0578be763be7041fc0e514bf3d91d8e541508258dee617",
+"tokens": [
+"43283417449483626941288144566298291224823600111386612152347487884419896297202",
+"33818923184739716862961419659300529658983284997373184390402019027415693630576"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "4233.329286000001",
+"fee": {
+"exponent": 1,
+"rate": 0,
+"takerOnly": true,
+"rebateRate": 0
+},
+"feesEnabled": true,
+"n_trades": 49
+},
+{
+"date": "2026-10-30",
+"slug": "spx-opens-up-or-down-on-october-30-2026",
+"cond": "0xca1d5a77181ea910a64c4b7817bcbce2561396dc6e15b4691b5f951483e9779d",
+"tokens": [
+"25815068799654398489369929735418473511934632687382874438930431859928551378951",
+"72021356528461518922117544260389862623030322142279064229347398251576526148772"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "2178.347765",
+"fee": {
+"exponent": 1,
+"rate": 0,
+"takerOnly": true,
+"rebateRate": 0
+},
+"feesEnabled": true,
+"n_trades": 22
+},
+{
+"date": "2026-11-02",
+"slug": "spx-opens-up-or-down-on-november-2-2026",
+"cond": "0x431c5f832c05206461acffee74d9566c2ba8aea5c58b890236c65a0c90a30a6a",
+"tokens": [
+"61985910337987556320431769329632234483389248600196035391291608365700843926315",
+"66801898174444302358416785910962860514646790429346686296769887023775522041802"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "4785.292694000001",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 73
+},
+{
+"date": "2026-11-03",
+"slug": "spx-opens-up-or-down-on-november-3-2026",
+"cond": "0xb79885b1e7bb683a49326e1385d99ced9b5cbec5d7735d665f953104a6a1e63d",
+"tokens": [
+"4594174849132637849835426659608103629922266606765660915972909874885933023077",
+"99037717753686457900586802383486213775529224012123455392208110522098939121017"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "4165.140987",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 77
+},
+{
+"date": "2026-11-04",
+"slug": "spx-opens-up-or-down-on-november-4-2026",
+"cond": "0xee683902e28095d919f117571be60b69a29c88702843ca43ec760efddbd504c9",
+"tokens": [
+"37339607725053168158965594949886129689080949173343684093546238030204587971606",
+"49578295248692582555776778347079732524352809632227866347881785030206244587928"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "9562.143551",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 68
+},
+{
+"date": "2026-11-05",
+"slug": "spx-opens-up-or-down-on-november-5-2026",
+"cond": "0x838fba18fc364644c16211e88c254483518ea3dc5f4c1c26a01e89a30200c514",
+"tokens": [
+"23335320312263951550347470457439289729353423627291321796824320574303557725745",
+"64549225262756316317999089987385495950667300383027862702352864966330111127847"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "9778.565590999999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 122
+},
+{
+"date": "2026-11-06",
+"slug": "spx-opens-up-or-down-on-november-6-2026",
+"cond": "0xd1b1b39148a58a3b9f5aa887c607091c6f7044518b33732753566fe2db2c6dd7",
+"tokens": [
+"97632265742227468014007179735040525443618129278873222009883564815798914527183",
+"20110836892738046940856067957777054801924725403342495366350804145626511650433"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "7853.855666999998",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 110
+},
+{
+"date": "2026-11-09",
+"slug": "spx-opens-up-or-down-on-november-9-2026",
+"cond": "0x6a00e96b2199254c1e2c808faf4e6a1d453a5d6e417ac96c7218fb9ee3c3618c",
+"tokens": [
+"19225353112746450104577968092008453016381670550460927156797969099894367395693",
+"16025505270436600236676697212511913788164993370175725622647602766294462561956"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "7509.881444999999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 121
+},
+{
+"date": "2026-11-10",
+"slug": "spx-opens-up-or-down-on-november-10-2026",
+"cond": "0x6d0fd9e6205314cc93f6a542c5ceefa305f2e941860bfa6679dcf8618803677a",
+"tokens": [
+"73780399816137579713688769417048081895991834847969558702623814694906046561348",
+"45229067471664910095953113348701855988204512975094403418178452162999714174342"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "22512.515761",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 122
+},
+{
+"date": "2026-11-11",
+"slug": "spx-opens-up-or-down-on-november-11-2026",
+"cond": "0x249273d173f16dff04207459f47a3827d2acb019042fb0f108406a64d246b781",
+"tokens": [
+"106387535269266110583905724391402377185886576297490589148770557804956472683760",
+"47704280340050994678234159696262115013970548202152220935856344709099167372145"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "6268.967073",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 72
+},
+{
+"date": "2026-11-12",
+"slug": "spx-opens-up-or-down-on-november-12-2026",
+"cond": "0x51a1e6a0b156774e3ec36d4ae17280d2e52a396b12d21d145bd95f7845d276a1",
+"tokens": [
+"114047046783652634461574037959264884120067254803554882182928177733026901161130",
+"57333238948038015261657937708303023399651613388709254912919717631435328204678"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "8403.705087",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 81
+},
+{
+"date": "2026-11-13",
+"slug": "spx-opens-up-or-down-on-november-13-2026",
+"cond": "0x14b5cd0fc6df751e64e1d2dc9c616159ec29a1786193e420535992a1d9c5c69a",
+"tokens": [
+"38953506141490226877028729266873023801510956379560601734786661296798686377697",
+"15557841729045344653763555307380990791111617826736302317150579808622015183807"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "8754.839195",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 128
+},
+{
+"date": "2026-11-16",
+"slug": "spx-opens-up-or-down-on-november-16-2026",
+"cond": "0xfcdcb9df0a294ff023ae7abc645564ff5c3191e6af61ce10cdd4f726b535a428",
+"tokens": [
+"16355575989329837708362356387422202095929672679286627320815327201578840206843",
+"50091112248194012622614459972321830395764446818922451216946155442784865386214"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "8294.558616999999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 128
+},
+{
+"date": "2026-11-17",
+"slug": "spx-opens-up-or-down-on-november-17-2026",
+"cond": "0x8fb8aae449c81ad5141d285a9715f0fbab04d024cc71749df3e2624bdc583791",
+"tokens": [
+"55922816660306966981417306655120358472198883186455624661711395625282884796005",
+"109573864272882637546870799811896214595271735719361551502872552302814045924018"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"0",
+"1"
+],
+"closed": true,
+"volume": "12299.803013",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 154
+},
+{
+"date": "2026-11-18",
+"slug": "spx-opens-up-or-down-on-november-18-2026",
+"cond": "0xcaa228bb8b2f7bdddbd384942bbc36b52d4eda511c62367bf5ab75c646c01693",
+"tokens": [
+"19017566117781202582918886161670250517156834495195509663547658608407450765260",
+"54340796635638824662937221148030192280599118327557611708809715178657043554551"
+],
+"outcomes": [
+"Up",
+"Down"
+],
+"final": [
+"1",
+"0"
+],
+"closed": true,
+"volume": "8181.585292999999",
+"fee": {
+"exponent": 1,
+"rate": 0.04,
+"takerOnly": true,
+"rebateRate": 0.25
+},
+"feesEnabled": true,
+"n_trades": 133
+}
+]
