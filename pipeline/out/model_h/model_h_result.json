@@ -1,0 +1,612 @@
+{
+ "6h_lgbm": {
+  "rows": 6836,
+  "qlib": {
+   "n": 3252,
+   "days": 158,
+   "IC": 0.020126229057789716,
+   "ICIR": 0.06887944768059918,
+   "IC_t": 0.8658012320503681,
+   "rankIC": 0.00829915080927236,
+   "IC_p_t": 0.3879202930743757,
+   "long_short_edge": 0.014150666645766969,
+   "long_edge": -0.001964610433794604
+  },
+  "quantiles": [
+   {
+    "q": 0,
+    "n": 679.0,
+    "pred": -0.0693,
+    "fill": 0.5175,
+    "edge": 0.0023,
+    "roi": 0.0045
+   },
+   {
+    "q": 1,
+    "n": 679.0,
+    "pred": -0.0244,
+    "fill": 0.5386,
+    "edge": -0.0129,
+    "roi": -0.0239
+   },
+   {
+    "q": 2,
+    "n": 679.0,
+    "pred": -0.0027,
+    "fill": 0.5957,
+    "edge": -0.0021,
+    "roi": -0.0036
+   },
+   {
+    "q": 3,
+    "n": 679.0,
+    "pred": 0.0165,
+    "fill": 0.5683,
+    "edge": -0.0116,
+    "roi": -0.0204
+   },
+   {
+    "q": 4,
+    "n": 679.0,
+    "pred": 0.0559,
+    "fill": 0.4894,
+    "edge": -0.0005,
+    "roi": -0.001
+   }
+  ],
+  "sizing": [
+   {
+    "thr": 0.02,
+    "n": 1266,
+    "usd_deployed": 5638.617587439485,
+    "usd_per_day": 26.850559940188024,
+    "per_share": 0.0003391509040239159,
+    "pnl_per_day": 0.018390427413622422,
+    "ci": [
+     -2.354620398227901,
+     2.9141558324453043
+    ],
+    "placebo_mean": 0.03446380074087992,
+    "placebo_p95": 2.5004784254418086,
+    "top5_day_share": 98.1266978980896,
+    "n_days": 210,
+    "by_grp": {
+     "GROUP:finance-daily-updown": 0.06954758721227179,
+     "GROUP:tweet-counts": -0.0379604937411244,
+     "series:aapl-multi-strikes-weekly": 0.008669331925487486,
+     "series:amazon-hit-price-weekly": -0.0008054390414411841,
+     "series:amzn-multi-strikes-weekly": -0.035606047653728344,
+     "series:box-office-openings": -0.03392048068423233,
+     "series:dissent-at-fed-meeting": -0.0018259238105811882,
+     "series:elon-tweet-daily": -0.0009401706074341772,
+     "series:ewy-hit-price-weekly": 0.0030360000000000005,
+     "series:fed-3-parlay": -0.0005717820000000001,
+     "series:googl-multi-strikes-weekly": -0.01540831107238095,
+     "series:mrbeast-views-day-1": 0.0019769459687220313,
+     "series:msft-multi-strikes-weekly": -0.0006676787497142858,
+     "series:netflix-hit-price-weekly": -0.0008332090342857144,
+     "series:nvda-multi-strikes-weekly": 0.008141073255863954,
+     "series:nvidia-hit-price-weekly": 0.011026285714285714,
+     "series:nvidia-multi-strikes-weekly": 0.00013748571428571441,
+     "series:opendoor-hit-price-weekly": 0.0009173333333333328,
+     "series:spy-hit-price-weekly": 0.0017600430793333329,
+     "series:tesla-hit-price-weekly": -0.0019504761904761906,
+     "series:tesla-multi-strikes-weekly": -0.013347172229094723,
+     "series:tsla-multi-strikes-weekly": 0.001262811075694357,
+     "series:white-house-call-a-full-lid": 0.0006277613432189764,
+     "series:wti-crude-oil-hit-price-weekly": 0.005335956,
+     "tpl:X # house election winner": -0.0009420800000000001,
+     "tpl:brazil presidential election second round": 0.03803597425514155,
+     "tpl:bulgaria presidential election first round": -0.004557882838011484,
+     "tpl:what will trump say during": 0.022193938571107536,
+     "tpl:which party will win the": -0.004940952382618413
+    }
+   },
+   {
+    "thr": 0.04,
+    "n": 627,
+    "usd_deployed": 2147.3528119404577,
+    "usd_per_day": 10.225489580668846,
+    "per_share": 0.018363813875470866,
+    "pnl_per_day": 0.4626422353631241,
+    "ci": [
+     -1.6267335656468611,
+     3.229431695857955
+    ],
+    "placebo_mean": -0.11164388377637949,
+    "placebo_p95": 1.6618883374224593,
+    "top5_day_share": 3.7200080757222067,
+    "n_days": 210,
+    "by_grp": {
+     "GROUP:finance-daily-updown": 0.48541882708181777,
+     "GROUP:tweet-counts": 0.011282099956414814,
+     "series:aapl-multi-strikes-weekly": -0.002674762952380953,
+     "series:amzn-multi-strikes-weekly": -0.035899258225156924,
+     "series:box-office-openings": -0.0012974555428571428,
+     "series:elon-tweet-daily": -0.0004947804588627488,
+     "series:ewy-hit-price-weekly": 0.0030360000000000005,
+     "series:googl-multi-strikes-weekly": -0.009058877120000001,
+     "series:mrbeast-views-day-1": -0.0005588757714285714,
+     "series:msft-multi-strikes-weekly": -0.0006721819047619048,
+     "series:nvda-multi-strikes-weekly": -0.0007200662864684544,
+     "series:opendoor-hit-price-weekly": 0.0009173333333333328,
+     "series:spy-hit-price-weekly": 0.0016257130666666659,
+     "series:tesla-hit-price-weekly": -0.0019504761904761906,
+     "series:tsla-multi-strikes-weekly": 0.000576483438946219,
+     "tpl:brazil presidential election second round": 0.01670951006206383,
+     "tpl:bulgaria presidential election first round": -0.0035969971237257694
+    }
+   }
+  ]
+ },
+ "6h_ridge_discovered_features": {
+  "rows": 6836,
+  "qlib": {
+   "n": 3252,
+   "days": 158,
+   "IC": 0.01741685031656478,
+   "ICIR": 0.07088766453412938,
+   "IC_t": 0.8910441264776486,
+   "rankIC": 0.003954781317585185,
+   "IC_p_t": 0.3742689809910684,
+   "long_short_edge": 0.007353498731869063,
+   "long_edge": -0.001964610433794604
+  },
+  "quantiles": [
+   {
+    "q": 0,
+    "n": 679.0,
+    "pred": -0.028,
+    "fill": 0.6264,
+    "edge": -0.0123,
+    "roi": -0.0196
+   },
+   {
+    "q": 1,
+    "n": 679.0,
+    "pred": -0.0096,
+    "fill": 0.5857,
+    "edge": -0.0113,
+    "roi": -0.0193
+   },
+   {
+    "q": 2,
+    "n": 679.0,
+    "pred": -0.0018,
+    "fill": 0.5491,
+    "edge": -0.0116,
+    "roi": -0.0211
+   },
+   {
+    "q": 3,
+    "n": 679.0,
+    "pred": 0.0061,
+    "fill": 0.4703,
+    "edge": 0.0068,
+    "roi": 0.0145
+   },
+   {
+    "q": 4,
+    "n": 679.0,
+    "pred": 0.0237,
+    "fill": 0.478,
+    "edge": 0.0036,
+    "roi": 0.0075
+   }
+  ],
+  "sizing": [
+   {
+    "thr": 0.02,
+    "n": 398,
+    "usd_deployed": 914.2430724351696,
+    "usd_per_day": 4.353538440167474,
+    "per_share": -0.012204680052612974,
+    "pnl_per_day": -0.15351577940442607,
+    "ci": [
+     -1.0425862364769047,
+     0.7593395328991309
+    ],
+    "placebo_mean": -0.10311683799252759,
+    "placebo_p95": 1.2441526731186843,
+    "top5_day_share": -3.725707629168616,
+    "n_days": 210,
+    "by_grp": {
+     "GROUP:finance-daily-updown": -0.1842951902676565,
+     "GROUP:tweet-counts": 0.018366434020668915,
+     "series:aapl-multi-strikes-weekly": -0.002731007575551083,
+     "series:amzn-multi-strikes-weekly": 0.0005293132034145109,
+     "series:dancing-with-the-stars-weekly-elimination": 0.007109905714285714,
+     "series:elon-tweet-daily": -0.00032361414857142855,
+     "series:googl-multi-strikes-weekly": -0.008682103786666659,
+     "series:meta-multi-strikes-weekly": -0.0014011142857142857,
+     "series:mrbeast-views-day-1": -0.00023212964742857147,
+     "series:msft-multi-strikes-weekly": 0.022387695788528908,
+     "series:nvda-multi-strikes-weekly": 0.00018546049069506615,
+     "series:nvidia-hit-price-weekly": 0.011026285714285714,
+     "series:ships-transit-the-strait-of-hormuz": -0.0004914285714285715,
+     "series:spy-hit-price-weekly": -0.0048580964571428575,
+     "series:tsla-multi-strikes-weekly": 0.002033190476190476,
+     "series:us-gas-price-daily": 0.001377612833837071,
+     "series:white-house-call-a-full-lid": -0.0001698398157600305,
+     "tpl:X # house election margin": -0.0032053561910743897,
+     "tpl:X # house election winner": -6.386438096157682e-05,
+     "tpl:brazil presidential election second round": -0.005518830749921943,
+     "tpl:bulgaria presidential election first round": -0.006375904146627634,
+     "tpl:how many house seats will": 0.0018168023781730668
+    }
+   },
+   {
+    "thr": 0.04,
+    "n": 73,
+    "usd_deployed": 146.5582340660954,
+    "usd_per_day": 0.6978963526956924,
+    "per_share": 0.01863749001580866,
+    "pnl_per_day": 0.05224836228355579,
+    "ci": [
+     -0.3831789167170803,
+     0.5319371587537607
+    ],
+    "placebo_mean": 0.053110153140495026,
+    "placebo_p95": 1.0958715931497316,
+    "top5_day_share": 5.822367602550069,
+    "n_days": 210,
+    "by_grp": {
+     "GROUP:finance-daily-updown": 0.12424513391392837,
+     "GROUP:tweet-counts": -0.05934114251378398,
+     "series:aapl-multi-strikes-weekly": -0.000155622,
+     "series:amzn-multi-strikes-weekly": -0.0007221880952380952,
+     "series:meta-multi-strikes-weekly": -0.0014011142857142857,
+     "series:spy-hit-price-weekly": -0.0048580964571428575,
+     "tpl:brazil presidential election second round": -0.005518608278493371
+    }
+   }
+  ]
+ },
+ "24h_lgbm": {
+  "rows": 3305,
+  "qlib": {
+   "n": 1033,
+   "days": 72,
+   "IC": -0.019137048761118842,
+   "ICIR": -0.060679331017416745,
+   "IC_t": -0.514881197283343,
+   "rankIC": 0.0006277905010813631,
+   "IC_p_t": 0.6082352937026385,
+   "long_short_edge": 0.011592449590972227,
+   "long_edge": -0.0006410812867294489
+  },
+  "quantiles": [
+   {
+    "q": 0,
+    "n": 336.0,
+    "pred": -0.125,
+    "fill": 0.6565,
+    "edge": -0.0493,
+    "roi": -0.0752
+   },
+   {
+    "q": 1,
+    "n": 335.0,
+    "pred": -0.0475,
+    "fill": 0.5837,
+    "edge": -0.0225,
+    "roi": -0.0386
+   },
+   {
+    "q": 2,
+    "n": 336.0,
+    "pred": -0.014,
+    "fill": 0.5565,
+    "edge": -0.0208,
+    "roi": -0.0373
+   },
+   {
+    "q": 3,
+    "n": 335.0,
+    "pred": 0.0216,
+    "fill": 0.4685,
+    "edge": -0.0327,
+    "roi": -0.0697
+   },
+   {
+    "q": 4,
+    "n": 336.0,
+    "pred": 0.0928,
+    "fill": 0.3446,
+    "edge": 0.0363,
+    "roi": 0.1054
+   }
+  ],
+  "sizing": [
+   {
+    "thr": 0.02,
+    "n": 846,
+    "usd_deployed": 1705.4708864825811,
+    "usd_per_day": 8.31937017796381,
+    "per_share": 0.03890020549839568,
+    "pnl_per_day": 1.0776961829782636,
+    "ci": [
+     -0.7725138236435796,
+     3.096475919156952
+    ],
+    "placebo_mean": -1.0901975195369504,
+    "placebo_p95": 1.6768562388691066,
+    "top5_day_share": 1.2737881159740303,
+    "n_days": 205,
+    "by_grp": {
+     "GROUP:finance-daily-updown": 0.3285466551490836,
+     "GROUP:tweet-counts": 0.2058099354894399,
+     "series:1-free-app": -0.0012195024390243903,
+     "series:1-paid-app": -0.0004027317073170732,
+     "series:1-us-netflix-show": -0.001495274793340107,
+     "series:2-netflix-show": -0.0005069112195044026,
+     "series:2-paid-app": 0.00018794146341463404,
+     "series:2-us-spotify-song": 0.00152280682593707,
+     "series:amazon-hit-price-weekly": 0.0001406048780487806,
+     "series:amzn-multi-strikes-weekly": 0.003547251042950421,
+     "series:apple-hit-price-weekly": 0.002919022829268293,
+     "series:box-office-openings": 0.11738129159822408,
+     "series:codex-weekly-reset-negrisk": -0.0001770829268292683,
+     "series:democratic-senate-odds": -0.00034118208702439023,
+     "series:dissent-at-fed-meeting": 0.01771957659902572,
+     "series:earnings-call-mentions": -0.03310367523795933,
+     "series:elon-tweet-daily": -0.001726248180031133,
+     "series:ewy-hit-price-weekly": 0.002769233795121951,
+     "series:fed-3-parlay": 0.00023512195121951212,
+     "series:gold-hit-price-weekly": -0.011514862198136846,
+     "series:imax-earnings": 4.9277563979982035e-05,
+     "series:iran-target-a-arab-country-by": -0.0005054537593087235,
+     "series:micron-hit-price-weekly": -0.0025096829268292688,
+     "series:mrbeast-views-day-1": 0.028953796310778084,
+     "series:msft-multi-strikes-weekly": -0.0021420000000000002,
+     "series:netflix-hit-price-weekly": -0.0034046439024390243,
+     "series:nvda-multi-strikes-weekly": 0.0018485717073170732,
+     "series:nvidia-hit-price-weekly": 0.010008302043623296,
+     "series:nvidia-multi-strikes-weekly": -0.0009118016241951221,
+     "series:openrouter-total-tokens-weekly": -0.006574080000000001,
+     "series:rotten-tomatoes": -0.0036830556957675514,
+     "series:ships-transit-the-strait-of-hormuz": -0.0021104,
+     "series:spacex-hit-price-weekly": -0.0024422400044920812,
+     "series:spy-hit-price-weekly": 0.22532470653535716,
+     "series:starmer-pmqs": 0.005462125357119393,
+     "series:tesla-hit-price-weekly": 0.007577668292682933,
+     "series:top-netflix-show-week": -7.098614634146342e-05,
+     "series:trump-538-approval": -0.0003391827652682927,
+     "series:trump-538-approval-binary": -0.00048411422178517205,
+     "series:ukmto-notices-weekly": 0.0013078522731707317,
+     "series:weekly-total-bab-el-mandeb-strait": -0.0040926029268292695,
+     "series:white-house-call-a-full-lid": 0.10029735068831692,
+     "series:wti-crude-oil-hit-price-weekly": 0.0005656112187180548,
+     "tpl:X # house election margin": -0.008531992815142669,
+     "tpl:X # house election winner": 0.00859005597651648,
+     "tpl:X X house election winner": -5.069268292682927e-05,
+     "tpl:brazil presidential election second round": 0.37528982134652855,
+     "tpl:bulgaria presidential election first round": 0.0004202149853658526,
+     "tpl:how many house seats will": 0.004521900487804877,
+     "tpl:what will trump say during": -0.02891607531638075,
+     "tpl:which party will win the": -0.254943063414681,
+     "tpl:which party will win white": -0.001100974439195605
+    }
+   },
+   {
+    "thr": 0.04,
+    "n": 617,
+    "usd_deployed": 1169.7787678600666,
+    "usd_per_day": 5.706237892000325,
+    "per_share": 0.04981256162650168,
+    "pnl_per_day": 1.041906623187411,
+    "ci": [
+     -0.5716773308019699,
+     2.679860415111643
+    ],
+    "placebo_mean": -0.9123678024618982,
+    "placebo_p95": 1.4844571168770482,
+    "top5_day_share": 1.1965393826339543,
+    "n_days": 205,
+    "by_grp": {
+     "GROUP:finance-daily-updown": 0.6222077821528919,
+     "GROUP:tweet-counts": -0.08316051824421171,
+     "series:2-paid-app": 0.00018794146341463404,
+     "series:2-us-spotify-song": 0.00152280682593707,
+     "series:amazon-hit-price-weekly": 0.0001406048780487806,
+     "series:amzn-multi-strikes-weekly": 0.0040637486048780485,
+     "series:apple-hit-price-weekly": 0.002919022829268293,
+     "series:box-office-openings": 0.012430815614503593,
+     "series:democratic-senate-odds": -0.00034118208702439023,
+     "series:dissent-at-fed-meeting": 0.02003259123317206,
+     "series:earnings-call-mentions": -0.012472501198728187,
+     "series:elon-tweet-daily": -0.001726248180031133,
+     "series:ewy-hit-price-weekly": 0.002769233795121951,
+     "series:fed-3-parlay": 0.00023512195121951212,
+     "series:gold-hit-price-weekly": -0.0021135207342439025,
+     "series:mrbeast-views-day-1": 0.028953796310778084,
+     "series:msft-multi-strikes-weekly": -0.0021420000000000002,
+     "series:netflix-hit-price-weekly": -0.0034046439024390243,
+     "series:nvda-multi-strikes-weekly": 0.0018485717073170732,
+     "series:nvidia-hit-price-weekly": 0.005161481930926828,
+     "series:openrouter-total-tokens-weekly": -0.006574080000000001,
+     "series:rotten-tomatoes": -0.0002534146341463415,
+     "series:spy-hit-price-weekly": 0.22512127970720286,
+     "series:starmer-pmqs": 0.003576427796143782,
+     "series:tesla-hit-price-weekly": 0.001981594146341464,
+     "series:trump-538-approval": -0.0003391827652682927,
+     "series:trump-538-approval-binary": -0.0005065210528134578,
+     "series:weekly-total-bab-el-mandeb-strait": -0.0040926029268292695,
+     "series:white-house-call-a-full-lid": 0.0886713925962172,
+     "tpl:X # house election margin": 0.012891761951219513,
+     "tpl:X # house election winner": 0.011169598229773002,
+     "tpl:brazil presidential election second round": 0.3753037904758944,
+     "tpl:bulgaria presidential election first round": 0.0004202149853658526,
+     "tpl:how many house seats will": -0.005559570731707318,
+     "tpl:what will trump say during": -0.0009729316869054255,
+     "tpl:which party will win the": -0.254943063414681,
+     "tpl:which party will win white": -0.001100974439195605
+    }
+   }
+  ]
+ },
+ "24h_ridge_discovered_features": {
+  "rows": 3305,
+  "qlib": {
+   "n": 1033,
+   "days": 72,
+   "IC": 0.028066564949858867,
+   "ICIR": 0.08840300457560946,
+   "IC_t": 0.750124368152146,
+   "rankIC": 0.0012811619719645426,
+   "IC_p_t": 0.45565842029399173,
+   "long_short_edge": 0.03692979514009645,
+   "long_edge": -0.0006410812867294489
+  },
+  "quantiles": [
+   {
+    "q": 0,
+    "n": 337.0,
+    "pred": -0.0808,
+    "fill": 0.8328,
+    "edge": -0.0643,
+    "roi": -0.0772
+   },
+   {
+    "q": 1,
+    "n": 334.0,
+    "pred": -0.0347,
+    "fill": 0.6227,
+    "edge": -0.0389,
+    "roi": -0.0625
+   },
+   {
+    "q": 2,
+    "n": 336.0,
+    "pred": -0.0165,
+    "fill": 0.5412,
+    "edge": -0.0025,
+    "roi": -0.0045
+   },
+   {
+    "q": 3,
+    "n": 335.0,
+    "pred": 0.0054,
+    "fill": 0.4312,
+    "edge": -0.0192,
+    "roi": -0.0446
+   },
+   {
+    "q": 4,
+    "n": 336.0,
+    "pred": 0.0518,
+    "fill": 0.1813,
+    "edge": 0.036,
+    "roi": 0.1985
+   }
+  ],
+  "sizing": [
+   {
+    "thr": 0.02,
+    "n": 593,
+    "usd_deployed": 652.8010655116244,
+    "usd_per_day": 3.184395441520119,
+    "per_share": 0.0596713047761703,
+    "pnl_per_day": 1.3163224143500156,
+    "ci": [
+     -0.23315531727826297,
+     3.1596732114251487
+    ],
+    "placebo_mean": -0.2470882086263903,
+    "placebo_p95": 1.6613883881542744,
+    "top5_day_share": 1.0140813434784477,
+    "n_days": 205,
+    "by_grp": {
+     "GROUP:finance-daily-updown": 0.2716635368300545,
+     "GROUP:tweet-counts": 1.165841448278698,
+     "series:1-us-netflix-show": -0.0017234357689498631,
+     "series:2-netflix-show": -0.0008132626013580611,
+     "series:2-us-netflix-movie": -0.00023080597931707315,
+     "series:2-us-netflix-show": -6.520830263414634e-05,
+     "series:2-us-spotify-song": -2.0619377560975614e-05,
+     "series:box-office-openings": 0.10602452940484565,
+     "series:democratic-senate-odds": -0.00034118208702439023,
+     "series:dissent-at-fed-meeting": 0.014861477907185712,
+     "series:earnings-call-mentions": -0.004549645549695624,
+     "series:elon-tweet-daily": 0.11917132398671458,
+     "series:ewy-hit-price-weekly": 0.0025468898341463415,
+     "series:gold-hit-price-weekly": -0.016530976313055327,
+     "series:googl-multi-strikes-weekly": -0.003780610517041674,
+     "series:google-hit-price-weekly": -0.0024957073199352907,
+     "series:imax-earnings": -0.005053658536585366,
+     "series:iran-target-a-arab-country-by": -0.0005054537593087235,
+     "series:micron-hit-price-weekly": -0.0025096829268292688,
+     "series:msft-multi-strikes-weekly": -0.002647951219580487,
+     "series:msft-neg-risk-weekly": -0.036952167804878054,
+     "series:natural-gas-hit-price-weekly": -0.0034046341463414634,
+     "series:nvidia-hit-price-weekly": -0.0006562146341463415,
+     "series:nvidia-multi-strikes-weekly": -0.0009118016241951221,
+     "series:openrouter-total-tokens-weekly": 0.026979175693392112,
+     "series:rotten-tomatoes": -0.0017695121951219514,
+     "series:ships-transit-the-strait-of-hormuz": -0.0011113756097560976,
+     "series:silver-hit-price-weekly": -0.0005995589960995169,
+     "series:spy-hit-price-weekly": -0.009992231414634147,
+     "series:top-netflix-show-week": -7.098614634146342e-05,
+     "series:trump-538-approval-binary": -0.0009525511952524823,
+     "series:trump-weekly-mentions": -0.0010119513488050721,
+     "series:weekly-total-bab-el-mandeb-strait": -0.0040926029268292695,
+     "series:white-house-call-a-full-lid": -0.00642878614170741,
+     "series:wti-crude-oil-hit-price-weekly": -0.0006852423650731709,
+     "tpl:X # house election margin": 0.002941562731702711,
+     "tpl:X # house election winner": -0.0140177481068854,
+     "tpl:X X house election winner": -5.069268292682927e-05,
+     "tpl:brazil presidential election second round": -0.011836541991348261,
+     "tpl:bulgaria presidential election first round": -0.007734276672695137,
+     "tpl:first round outright winner X": -0.0005569876292682927,
+     "tpl:how many house seats will": -0.0013787866536585367,
+     "tpl:what will trump say during": 0.01457476100882251,
+     "tpl:which party will win the": -0.2616984663415102,
+     "tpl:which party will win white": -0.001100974439195605
+    }
+   },
+   {
+    "thr": 0.04,
+    "n": 332,
+    "usd_deployed": 313.79633144456284,
+    "usd_per_day": 1.5307138119246968,
+    "per_share": 0.05358919339785539,
+    "pnl_per_day": 0.6774580672952453,
+    "ci": [
+     -0.1564203139896343,
+     1.6084196450917874
+    ],
+    "placebo_mean": 0.024200943795478727,
+    "placebo_p95": 1.0497172135826853,
+    "top5_day_share": 1.1694569974147488,
+    "n_days": 205,
+    "by_grp": {
+     "GROUP:finance-daily-updown": -0.02985076194891924,
+     "GROUP:tweet-counts": 0.6940819678835846,
+     "series:1-us-netflix-show": -0.001495274793340107,
+     "series:2-netflix-show": -0.0005069112195044026,
+     "series:2-us-netflix-movie": -0.00023080597931707315,
+     "series:box-office-openings": -0.001971487669197614,
+     "series:democratic-senate-odds": -0.00034118208702439023,
+     "series:dissent-at-fed-meeting": 0.04267799252682926,
+     "series:earnings-call-mentions": -0.0010135281214813893,
+     "series:elon-tweet-daily": -0.0027207278965532774,
+     "series:ewy-hit-price-weekly": 0.0025468898341463415,
+     "series:googl-multi-strikes-weekly": -0.0025171958828953326,
+     "series:msft-multi-strikes-weekly": -0.0005059512195804865,
+     "series:natural-gas-hit-price-weekly": -0.0034046341463414634,
+     "series:ships-transit-the-strait-of-hormuz": -0.0011113756097560976,
+     "series:silver-hit-price-weekly": -0.0005995589960995169,
+     "series:spy-hit-price-weekly": -0.0036568655609756097,
+     "series:top-netflix-show-week": -7.098614634146342e-05,
+     "series:white-house-call-a-full-lid": -0.0010202609612196046,
+     "tpl:X # house election winner": -0.002014843716671156,
+     "tpl:X X house election winner": -5.069268292682927e-05,
+     "tpl:brazil presidential election second round": -0.007137407178146342,
+     "tpl:bulgaria presidential election first round": -0.0001094540487804878,
+     "tpl:what will trump say during": -0.0005065844012693736,
+     "tpl:which party will win the": -0.0010122926829736582
+    }
+   }
+  ]
+ }
+}

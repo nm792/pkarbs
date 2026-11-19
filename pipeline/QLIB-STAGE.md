@@ -21,14 +21,23 @@ Expanding window, 5 test folds over the last 50% of time (from 25 Mar 2026), tra
 ## 2. Alphalens (`out/model1/alphalens.json`)
 `alphalens.utils.get_clean_factor` + `performance`: OOS score vs edge. Mean edge by score quintile: Q1 +0.002, Q2 +0.005, Q3 +0.013, Q4 -0.004, Q5 -0.014 (standard errors about 0.011). IC (Spearman, as Alphalens computes it) -0.051 over 197 days. No usable signal. Note: Spearman IC against a binary-payoff edge is biased (a calibrated market gives non-zero Spearman); we use qlib's Pearson IC as primary.
 
-## 3. Factor mining (Alpha158-style grid) with multiple-testing control
-627 feature x horizon cells, OOS one-token IC per day, BH q = 0.10: **24 discoveries**, all at the 1 h horizon (about 20) and 10 m (about 4), on only 28 and 10 days with >= 10 rows. Strongest: 1 h: SUMP_6h IC +0.199 (t 3.6), CNTP_6h +0.189, STD_24h -0.147, SUMP_24h +0.189 (up-tick share over 6 h and 24 h predicts the winner 1 h before close); 10 m: ROC_15m -0.151 (10 days). These are highly correlated features, so 24 is not 24 independent findings, and 28 days is thin: **promising, unconfirmed**. The model in section 1 mixes horizons and did not use them to advantage; a 1 h-specific model has about 340 OOS rows, too few to train.
+## 3. Factor mining (Alpha158-style grid) with multiple-testing control (`out/model1/mining_all.json`)
+627 feature x horizon cells, OOS one-token Pearson IC per day (qlib `calc_ic`), BH q = 0.10: **23 discoveries** (rerun of the first pass, which listed 24: the merge and median-fill differ slightly). By horizon: **6 h: 16 discoveries on 158 days (3,545 rows)**, 1 h: 5 (32 days, 433 rows), 10 m: 1 (11 days), 24 h: 1 (75 days).
+- 6 h (strongest evidence, IC 0.05 to 0.075): up-tick share and drift positive (CNTP_24h +0.069 t 3.9; CNTP_6h +0.063; SUMP_24h +0.059; KMID_24h +0.066), short-term range and bounce negative (STD_5m -0.065, KLEN_5m -0.063, KLOW_5m -0.072, MAX_5m -0.061, IMIN_24h -0.075, MA_24h -0.050). Coherent story: tokens drifting up on many small up-ticks and not currently jumpy keep winning more than their price implies. Features are strongly correlated, so 16 is not 16 independent findings.
+- 1 h (IC 0.18 to 0.22, t 3.3 to 3.95 on 32 days): CNTP_6h, CNTP_24h, BETA_6h, SUMP_6h, sum of the two own last prices. Thin sample. 10 m: ROC_15m -0.144 (11 days).
+- **Promising, unconfirmed.** Selection and evaluation use the same OOS data, so these IC values are optimistic.
+
+## 3b. Horizon-specific models (`out/model_h/model_h_result.json`)
+6 h rows only (6,836; 3,252 OOS one-token rows, 158 days): LightGBM IC +0.020 (t 0.87); ridge on 11 of the mined 6 h features (chosen from the table above, so in-sample for selection) IC +0.017 (t 0.89). Sizing thr 0.04: P&L +$0.46/day (CI -$1.6 to +$3.2) vs placebo p95 $1.7. 24 h (3,305 rows, 72 days): LightGBM IC -0.019, top score quintile mean edge +0.036 (ROI +10.5%) vs -0.02 to -0.05 for the other quintiles; sizing +$1.08/day (CI -$0.77 to +$3.10), placebo mean -$1.09, p95 $1.68. So the single-feature IC at 6 h (about 0.07) does not become a combined-model IC of the same size on this sample; the top quintile at 24 h is the only monotone-looking result and rests on about 200 rows.
 
 ## 4. External drivers: Yahoo 5 m underlying (`out/model_ext/model_ext_result.json`)
 32 finance Up/Down series, 2,548 rows, 1,047 markets, 62 days (Yahoo 5 m reaches back 60 days). Features: underlying return since the prior close (signed to the token's direction), z-score by the series' own daily vol, 1 h and 5 m underlying returns. Walk-forward 4 folds from 50% of the 62 days, 599 OOS rows, 29 days with >= 6 rows.
 - PM-only features: IC -0.113 (p 0.045, i.e. over-fit); PM + underlying: IC -0.107 (p 0.039); underlying only: IC +0.001. Raw (no model) OOS IC of underlying return since close: +0.083 (t 1.85, p 0.075); z-score +0.036; 1 h return +0.057.
 - Underlying signed move vs outcome correlation is 0.42 at 6 h, 0.31 at 1 h, 0.26 at 10 m: the underlying predicts the winner, but the price already reflects most of it (correlation with edge about 0.03). Sizing: negative or zero everywhere; placebo p95 about $5/day.
 - Limits: 29 OOS days; far too few to detect an IC of 0.05.
+
+## Size (what these numbers can and cannot say)
+The panel samples up to 220 events per series and the top 2 markets per event, so printed flow and therefore dollar P&L here are lower bounds for the series, not totals. Even so, 10% of the printed shares in the model's qualifying fill windows is $4 to $29/day deployed. Whether an edge of the size seen (IC 0.02 to 0.07) can scale to $500/day depends on full-population flow, which was not measured.
 
 ## Limits (all of the above)
 - Data: 6,665 markets; the multi-series universe is dominated by finance daily; non-daily families have <= 40 events. Per-day cross-sections are 10-30 rows, so IC t-stats rest on 28-197 days.
