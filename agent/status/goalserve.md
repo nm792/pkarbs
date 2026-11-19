@@ -288,3 +288,50 @@ REPO             49G   38G  9.3G  81% <REPO>
 - Tests: `3 of 3 tests pass`.
 - Scheduled watcher process launched at 05:45Z, PID 2879168; start is delayed until 07:28Z and ends at 09:00Z (max 5400 seconds; 5-second interval). It writes under `/mnt/HC_Volume_107257520/gas_watch`, not root.
 - At 05:45Z the delayed process was alive; output files do not yet exist because the watcher has not started. HTTP status codes and the first three JSONL lines are therefore not yet available.
+
+## P53 errors by hour and esports files (19 Nov)
+
+Read-only checks at 06:16–06:21Z; no Goalserve request, move, or deletion was run.
+
+```text
+2026-11-17T09 rows 11412 {('tennis', "<HTTPError 429: 'Too Many Requ"): 1, ('soccer', "<HTTPError 429: 'Too Many Requ"): 1}
+2026-11-17T14 rows 10506 {('soccer', "URLError(gaierror(-3, 'Tempora"): 1}
+2026-11-19T03 rows 10716 {('tennis', "<HTTPError 429: 'Too Many Requ"): 677, ('hockey_nhl', "<HTTPError 429: 'Too Many Requ"): 672, ('esports', "<HTTPError 429: 'Too Many Requ"): 690}
+2026-11-19T04 rows 11202 {('tennis', "<HTTPError 429: 'Too Many Requ"): 1248, ('hockey_nhl', "<HTTPError 429: 'Too Many Requ"): 1245, ('esports', "<HTTPError 429: 'Too Many Requ"): 1215}
+2026-11-19T05 rows 11730 {('tennis', "<HTTPError 429: 'Too Many Requ"): 126, ('hockey_nhl', "<HTTPError 429: 'Too Many Requ"): 116, ('esports', "<HTTPError 429: 'Too Many Requ"): 114}
+== esports_payloads: 3 files; first esports_2026111904.jsonl.gz; last esports_2026111906.jsonl.gz; size 488K
+== tennis_payloads: 3 files; first tennis_2026111904.jsonl.gz; last tennis_2026111906.jsonl.gz; size 86M
+== hockey_nhl_payloads: 3 files; first hockey_nhl_2026111904.jsonl.gz; last hockey_nhl_2026111906.jsonl.gz; size 21M
+== basketball_payloads: 3 files; first basketball_2026111904.jsonl.gz; last basketball_2026111906.jsonl.gz; size 163M
+esports_payloads birth=2026-11-13 17:38:56Z mtime=2026-11-19 06:20:56Z ctime=2026-11-19 06:20:56Z
+tennis_payloads birth=2026-11-17 09:00:08Z mtime=2026-11-19 06:00:01Z ctime=2026-11-19 06:00:01Z
+```
+
+Bounded file search output sample (paths redacted):
+```text
+<VOL2>/pkarbs-ps-step2/agent/outbox/2026-11-13-goalserve-esports-store-payloads-APPROVED.md
+<VOL2>/pkarbs-ps-step2/agent/inbox/2026-11-13-goalserve-esports-store-payloads-APPROVED.md
+<VOL2>/pkarbs/goalserve-audit-20261117/esports_2026111412.jsonl.gz
+<VOL2>/pkarbs/goalserve-audit-20261117/esports_2026111612.jsonl.gz
+<VOL2>/pkarbs/goalserve-audit-20261117/esports_2026111705.jsonl.gz
+<VOL2>/pkarbs/goalserve-audit-20261117/esports_2026111512.jsonl.gz
+<VOL2>/pkarbs/goalserve-audit-20261117/esports_2026111315.jsonl.gz
+<VOL2>/pkarbs/goalserve/esports_payloads
+<VOL2>/pkarbs/scratch/goalserve-odds-vs-pm-20261117/gs/esports_2026111315.jsonl.gz
+<VOL2>/pkarbs/scratch/p14-recount/goalserve/esports_payloads/esports_2026111315.jsonl.gz
+<VOL2>/pkarbs/scratch/p318/goalserve/esports_2026111315.jsonl.gz
+<VOL2>/pkarbs/scratch/p318-recount/goalserve/esports_2026111315.jsonl.gz
+<VOL2>/pkarbs/scratch/t321/gs/esports_2026111315.jsonl.gz
+<VOL2>/pkarbs/scratch/goalserve-odds-vs-pm-20261117/gs/esports_2026111316.jsonl.gz
+<VOL2>/pkarbs/scratch/p14-recount/goalserve/esports_payloads/esports_2026111316.jsonl.gz
+<VOL2>/pkarbs/scratch/p318/goalserve/esports_2026111316.jsonl.gz
+<VOL2>/pkarbs/scratch/p318-recount/goalserve/esports_2026111316.jsonl.gz
+<VOL2>/pkarbs/scratch/t321/gs/esports_2026111316.jsonl.gz
+<VOL2>/pkarbs/scratch/goalserve-odds-vs-pm-20261117/gs/esports_2026111317.jsonl.gz
+```
+
+- The requested exact-date search returned no `esports_20261118*.jsonl.gz` under either `/mnt/HC_Volume_107257520/pkarbs` or `/mnt/HC_Volume_107247271/pkarbs-recount-input`; the wider bounded search likewise found no Nov 18 file. The audit store has five old hourly files (13–17 Nov); scratch copies include 13–17 Nov. No source file for 18 Nov was found.
+- The current canonical esports directory has only hours 04, 05, and 06 on 19 Nov. This differs from P51's 05:05Z listing, which included hour 03. Therefore the previously listed hour-03 file is now also absent; its destination/cause is not established. Directory birth time is 13 Nov 17:38:56Z.
+- Live process check: PID 4045212 remains `python3 live/goalserve/capture.py`, started 17 Nov 09:00:06Z. The checked capture implementation appends changed bodies to one UTC-hour gzip and contains no retention/unlink/move operation.
+- For 02:00–03:30Z, the fetched project-branch history contains no commit changing the Goalserve data directory; the searched shell/log files contain zero `esports_payloads` matches. No IT/agent move, archive, or deletion action was found in those records. This cannot rule out an unlogged manual filesystem action; the actor/cause is unverified.
+- The prior P51 429 error window is confirmed and now quantified: 03Z had 677/672/690 errors for tennis/hockey/esports; 04Z 1248/1245/1215; 05Z 126/116/114. These are error counts from the single poll log, not proven causal attribution to the probe.
