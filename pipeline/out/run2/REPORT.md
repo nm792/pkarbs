@@ -1,6 +1,6 @@
 # Stage-1 screen: run2
 
-Run `run2`, commit `af9d5e6b1c`, events file `events.jsonl (161,153 closed events, endDate 20 Oct-19 Nov 2026)` (104 families with >=5 closed events, window 30 days), out `/home/user/pk_cache/run2`.
+Run `run2`, code commit `4187bcd4fc` (run made from that working tree), events file `events.jsonl (161,153 closed events, endDate 20 Oct-19 Nov 2026)` (104 families with >=5 closed events, window 30 days), out `/home/user/pk_cache/run2`.
 
 Passed freq (gamma series recurrence = daily or faster, i.e. polymarket.com/new?_r=daily) and vol (median >= min): 66 families; top 50 by total volume were sampled (<= 60 events each, top 2 markets per event).
 
