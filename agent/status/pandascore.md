@@ -103,3 +103,9 @@ total 2888
 
 - Read-only reviewer preflight at 10:45:43Z: PASS disk (22,243,737,600 bytes free), Goalserve PID 4045212, all four sports current-hour files (ages 0–1 s), TheSports newest file, pmcs2 books age 0 s and PID 3179606.
 - FAIL: Dota newest output age 274,629 s; daily-look cron not installed. Verdict: 2 FAIL; these components remain UNVERIFIED. No fixes or restarts in this row.
+## P71 PandaScore capture restart (19 Nov)
+
+- Preflight found no PandaScore unit, cron entry, tmux session, or `ll_capture.py` process. The newest raw file was `pandascore_2026111612.jsonl.gz`, last modified 16 Nov 13:00 UTC; no prior recorder log was available, so the stop cause is unconfirmed.
+- Reviewer-approved source SHA-256 matched prefix `be437551ef87`; the floor wrapper passed `PASS (4 checks, each able to fail)`. Started it with `PS_FLOOR_GB=10` in tmux session `pscap2` at approximately 11:20 UTC.
+- Live proof: PID 3323067 ran; `/tmp/pscap2.log` showed connected PandaScore feeds. New file `pandascore_2026111911.jsonl.gz` appeared at 11:22 UTC and grew from 13,249 to 18,130 bytes over 60 seconds.
+- Original source was not edited. The active wrapper and 10 GB floor are reviewer-provided; no later floor/config change was made.
