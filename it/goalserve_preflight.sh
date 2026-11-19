@@ -20,6 +20,6 @@ PMF=$(newest "$V/pkarbs/thesports/final-topics-32295b"); a=$(age_of "${PMF:-/non
 a=$(age_of "$V/pkarbs/pmcs2/books.jsonl"); [ "$a" -le "$MAXAGE" ] && say PASS "pmcs2 books.jsonl age ${a}s" || say FAIL "pmcs2 books.jsonl age ${a}s (CS2 book recorder not writing)"
 if [ -n "${PIDS_FN:-}" ]; then P=$($PIDS_FN pmcs2); else P=$(pgrep -f 'pm_cs2_books.js' | head -1); fi
 [ -n "$P" ] && say PASS "pmcs2 recorder pid $P alive" || say FAIL "pmcs2 recorder (pm_cs2_books.js) not running"
-DF=$(newest "$V/pkarbs/dotacap"); a=$(age_of "${DF:-/nonexistent}"); [ "$a" -le "$MAXAGE" ] && say PASS "dota recorder newest file $(basename "${DF:-none}") age ${a}s" || say FAIL "dota recorder newest file age ${a}s"
+DF=$(find "$V/pkarbs/pmdota" -type f -printf '%T@ %p\n' 2>/dev/null | sort -n | tail -1 | cut -d' ' -f2-); a=$(age_of "${DF:-/nonexistent}"); [ "$a" -le "$MAXAGE" ] && say PASS "dota PM recorder (pkarbs/pmdota) newest file $(basename "${DF:-none}") age ${a}s" || say FAIL "dota PM recorder (pkarbs/pmdota) newest file age ${a}s (only a FAIL while a Dota game is in window; the full check is feeds/check_pmdota.sh)"
 ${CRON_FN:-crontab -l} 2>/dev/null | grep -q daily_look_cron && say PASS "daily look cron installed" || say FAIL "daily look cron NOT installed"
 [ "$FAILS" -eq 0 ] && echo "VERDICT ALL PASS (live read at $(date -u -d @$NOW +%H:%MZ))" || echo "VERDICT $FAILS FAIL: everything not PASS is UNVERIFIED"
