@@ -35,3 +35,7 @@ Nick: "stop putting complex coding requirements onto the agent / the agent is ru
 - The box agent runs a weaker model. **Projects write, test and commit all non-trivial code themselves** (strategies, scorers, feeds, models, fixes), with the can-fail tests.
 - The agent only deploys committed code by SHA, runs stated commands, restarts processes, and returns logs and data. A to_agent note asking it to write or design logic is a REPEAT.
 - The Reviewer checks every to_agent note it reads against this rule.
+
+## STANDING RULE: check the reviewer branch every 15 minutes (Nick, 19 Nov 2026 02:00Z)
+- While active, every project pulls its reviewer branch **at least every 15 minutes** and reads `reviewer/OPEN-ORDERS.md` first.
+- Act on each open order within 15 minutes, or name the blocker in a REPLY within 15 minutes. Silence past 60 minutes is a REPEAT.
