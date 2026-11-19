@@ -1,5 +1,3 @@
-
-
 ## P15d2 step 1/3 (2026-11-17 13:36–13:40Z)
 
 - Data-volume free bytes: 41,877,303,296 at 13:36Z; 40,790,061,056 after input copy; both above the 20 GB gate. Code commit: `1cb5c8474b1f64040ec0a8978d866f5b5bc43e2e`.
@@ -188,3 +186,105 @@ league strings [["M15 Antalya", 15477], ["M15 Hua Hin", 11865], ["M15 Kuala Lump
 - Matches with events=43; PM candidates 0/1/2+ = 13/30/0. No cells or verdicts reported; smoke only, not a result.
 - Evidence: `pkarbs/scratch/goalserve-tennis-smoke-20261118/smoke.json` and `smoke.log` on the Prime data volume. The 06/07 input SHA-256 values match the exact copies used in chunk I.
 - No capture, configuration, process, or live code was changed.
+
+## L tennis exploratory (18 Nov)
+
+- Fetched project branch tip: `45b89dd0f108bef86d62029b4945a601a9e259d4`. Clean export contained `feeds/goalserve_odds_vs_pm_v2.py` (SHA-256 `cbd0f397f09eb92acdd2b6735c093e6a7bed97fcfa4a45dbe32a33f6cb3d1af0`); ran the signed script unchanged in `--smoke` mode. Inputs copied from `<box>` plus existing Prime files; no capture, configuration, live code, or process was changed.
+- Day 17: exit 0; 15 hourly files, UTC coverage begins 09:00Z; `smoke_not_a_result=True`; 17,987 events; 100 primary matches / 3,115 events; `CELL tennis|Match Winner`: z_eq 8.2810, mean_d_per_match 0.01187, `plants_ok=True`, verdict `meets bar (needs audit)`. Counters: rows 25,395, baseline-cleared poll-gap >10s 170, post-gap payloads 5, suspended 50,745, bad odds 34,491, invalid-open clears 1,392. Drops: no PM market 6,069; ambiguous rematch 93; PM book timestamps from ms 1,042,355; one-sided books 29,089; match cap 5,833; tie d=0 129; PM recorder silent >300s 15.
+- Day 18: exit 0; 24 hourly files; data through 2026-11-19 00:00Z (day 18 is partial); `smoke_not_a_result=True`; 25,463 events; 100 primary matches / 3,203 events; `CELL tennis|Match Winner`: z_eq 11.3841, mean_d_per_match 0.01738, `plants_ok=True`, verdict `meets bar (needs audit)`. Counters: rows 39,794, baseline-cleared poll-gap >10s 278, post-gap payloads 7, suspended 58,699, bad odds 39,432, invalid-open clears 1,659, malformed JSON 1. Drops: no PM market 6,040; ambiguous rematch 555; PM book timestamps from ms 1,402,836; one-sided books 41,489; match cap 10,149; tie d=0 168.
+- Logs ended with `match_list rows: 308` (day 17) and `match_list rows: 403` (day 18); neither contains a traceback. JSON and logs scanned for IP-like dotted quads: zero. Files retained at `/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-explore-tennis/explore-20261117.{json,log}` and `explore-20261118.{json,log}`; inputs retained under `gs/`. These are exploratory smoke outputs, not a pre-registered look or a pass.
+
+## F look 1 (2026-11-19)
+
+- Command: signed `feeds/run_daily_look.sh esports`; invoked after 00:30Z as required. Script exit 1.
+- It stopped at its signed-file gate before running the self-test or producing a result. Observed hashes: `feeds/goalserve_odds_vs_pm_v2.py` `cbd0f397f09eb92acdd2b6735c093e6a7bed97fcfa4a45dbe32a33f6cb3d1af0`; `feeds/test_goalserve_odds_vs_pm_v2.py` `9d4bdad46183f44d160b1e14bc6cae9bffbbac1aa3bc43625d20087d9fcdc6d8`; `feeds/ps_lead_test.py` `4b67d26f6f9f419cd330fdca7ee3c396ed99d5db9ddc56c5370012120c296cb1`; `feeds/goalserve_odds_vs_pm.py` `a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5`.
+- Exact stop: `STOP: code differs from the signed hashes; ask the Goalserve thread for the new SIGNED commit`. Expected results (`look=1`, `plant_c=0.01`, result SHA) were not produced. No code or capture changed.
+- Full command stdout:
+  - `date 2026-11-19T01:45:57Z avail_bytes 18584768512`
+  - `commit d9f9f905c9eca26eaf0e432fb13f24e9fbc94658`
+  - `cbd0f397f09eb92acdd2b6735c093e6a7bed97fcfa4a45dbe32a33f6cb3d1af0  feeds/goalserve_odds_vs_pm_v2.py`
+  - `9d4bdad46183f44d160b1e14bc6cae9bffbbac1aa3bc43625d20087d9fcdc6d8  feeds/test_goalserve_odds_vs_pm_v2.py`
+  - `4b67d26f6f9f419cd330fdca7ee3c396ed99d5db9ddc56c5370012120c296cb1  feeds/ps_lead_test.py`
+  - `a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5  feeds/goalserve_odds_vs_pm.py`
+  - `STOP: code differs from the signed hashes; ask the Goalserve thread for the new SIGNED commit`
+
+
+## PK priority jobs 1 and 4-5 launched (19 Nov)
+
+- Job 1 Goalserve live probe: offline test printed `ALL PASS`; launched at 03:29:12Z, PID 2689593, 90-minute run. The first observed preflight has not passed for any sport; the probe remains running and will re-check at its end.
+- Exact first PREFLIGHT and NO NUMBER output follows (captured from the process log):
+
+```text
+PREFLIGHT {"clock": {"tool": "chronyc", "offset_s": 2.3022e-05, "ok": true}, "pm_lag_s_p10_p50_p90": [null, null, null], "n_pm_msgs": 0, "per_sport": {"esports": {"report": false, "checks": {"clock_synchronised_under_50ms": true, "goalserve_polling_ok": false, "goalserve_has_live_games_now": false, "a_live_game_matched_to_a_polymarket_market_naming_both_teams": false, "every_matched_token_has_a_book_message": false, "pm_server_timestamp_lag_plausible": false}, "goalserve_poll_gap_s_p10_p50_p90": [1.001, 1.009, 3.224], "goalserve_payload_change_gap_s_p50": 1.014, "n_live_games": 0, "n_matched_games": 0, "matched": [], "unmatched_live": [], "market_names_seen": {}}, "tennis": {"report": false, "checks": {"clock_synchronised_under_50ms": true, "goalserve_polling_ok": false, "goalserve_has_live_games_now": true, "a_live_game_matched_to_a_polymarket_market_naming_both_teams": false, "every_matched_token_has_a_book_message": false, "pm_server_timestamp_lag_plausible": false}, "goalserve_poll_gap_s_p10_p50_p90": [1.0, 1.01, 3.229], "goalserve_payload_change_gap_s_p50": 1.035, "n_live_games": 25, "n_matched_games": 0, "matched": [], "unmatched_live": ["Bella Lewis vs Zoe Olmos", "Tristan Schoolkate vs Alafia Ayeni", "Olivia Gadecki vs Hayu Kinoshita", "Yuto Oki vs Tomohiro Masabayashi", "Lucca Liu vs Alberto Odiseo Alvarado Berrospi", "Azuma Visaya vs Darrshan Suresh", "David Eichenseher vs Gunawan Trismuwantara", "Mattias Southcombe vs Max K Fardanesh", "Kenzhibayeva/Yoruk vs Boehner/Sevcikova", "Luis Carlos Alvarez Valdes vs Elijah Strode", "Matthew Segura vs Freddy Murray", "Geun Jun Kim vs Shaheed Alam", "Valentina Ivanov vs Emerson Jones", "Zaharije-Zak Talic vs Calvin Mueller", "Veronika Miroshnichenko vs Patrycja Niewiadomska"], "market_names_seen": {"To Win": 1155, "Odd/Even": 1059, "Next Break Serve": 960, "Go The Distance?": 743, "Set 2 Winner": 675, "Set Betting": 624, "Player 1 Over/Under by Games": 579, "Match Handicap": 579, "Player 2 Over/Under by Games": 579, "Total Games in Match": 579, "Match Result and Total Games": 575, "Game to Deuce (1st Set)": 528}}, "hockey_nhl": {"report": false, "checks": {"clock_synchronised_under_50ms": true, "goalserve_polling_ok": false, "goalserve_has_live_games_now": true, "a_live_game_matched_to_a_polymarket_market_naming_both_teams": false, "every_matched_token_has_a_book_message": false, "pm_server_timestamp_lag_plausible": false}, "goalserve_poll_gap_s_p10_p50_p90": [1.001, 1.011, 3.223], "goalserve_payload_change_gap_s_p50": 2.002, "n_live_games": 4, "n_matched_games": 0, "matched": [], "unmatched_live": ["HND Silver Knights vs SJ Barracuda", "UTA Mammoth vs COL Avalanche", "ONT Reign vs ABB Canucks", "SD Gulls vs BAK Condors"], "market_names_seen": {"Both teams to score at least 2 goal": 360, "Over/Under (Including OT)": 180, "1x2 (1st Period)": 180, "Asian Handicap": 180, "Race to": 180, "Home Team Total Goals": 180, "Away Winning Margin (14-Way)": 180, "Home Winning Margin (14-Way)": 180, "Odd/Even (Including OT)": 180, "Draw No Bet": 180, "Highest Scoring Period": 180, "Team To Win The Most Periods": 180}}}}
+NO NUMBER for esports: failed checks ['goalserve_polling_ok', 'goalserve_has_live_games_now', 'a_live_game_matched_to_a_polymarket_market_naming_both_teams', 'every_matched_token_has_a_book_message', 'pm_server_timestamp_lag_plausible']
+NO NUMBER for tennis: failed checks ['goalserve_polling_ok', 'a_live_game_matched_to_a_polymarket_market_naming_both_teams', 'every_matched_token_has_a_book_message', 'pm_server_timestamp_lag_plausible']
+NO NUMBER for hockey_nhl: failed checks ['goalserve_polling_ok', 'a_live_game_matched_to_a_polymarket_market_naming_both_teams', 'every_matched_token_has_a_book_message', 'pm_server_timestamp_lag_plausible']
+```
+- Job 4 daily esports look 1 rerun: script self-test printed `ALL PASS`, but run exited 1 at 03:34:05Z. It found zero Goalserve hour files for 18 Nov, then failed because `result-esports-look1.json` was not produced; no result/verdict is claimed.
+- Job 5 open-contract recorder: test printed `RECORDER TESTS PASS`; launched 03:30:27Z, PID 2701410. At 03:34Z the gzip contained 104 rows covering SPX and SPY, each Up and Down; latest two output rows were SPY Up/Down. Recorder remains running.
+- Evidence paths are on the data volume: `pkarbs/probe/goalserve-live-probe-2026-11-19.log`, `pkarbs/scratch/goalserve-daily-esports/`, and `pkarbs/ocbooks/ocbooks_20261119.jsonl.gz`.
+
+
+## PK priority jobs 1 and 4-5 follow-up (19 Nov, 03:37Z)
+
+- Goalserve probe remains active (PID 2689593; launched 03:29:12Z). At the latest captured check, no sport passed preflight; the exact lines follow.
+
+```text
+PREFLIGHT {"clock": {"tool": "chronyc", "offset_s": 2.3022e-05, "ok": true}, "pm_lag_s_p10_p50_p90": [null, null, null], "n_pm_msgs": 0, "per_sport": {"esports": {"report": false, "checks": {"clock_synchronised_under_50ms": true, "goalserve_polling_ok": false, "goalserve_has_live_games_now": false, "a_live_game_matched_to_a_polymarket_market_naming_both_teams": false, "every_matched_token_has_a_book_message": false, "pm_server_timestamp_lag_plausible": false}, "goalserve_poll_gap_s_p10_p50_p90": [1.001, 1.009, 3.224], "goalserve_payload_change_gap_s_p50": 1.014, "n_live_games": 0, "n_matched_games": 0, "matched": [], "unmatched_live": [], "market_names_seen": {}}, "tennis": {"report": false, "checks": {"clock_synchronised_under_50ms": true, "goalserve_polling_ok": false, "goalserve_has_live_games_now": true, "a_live_game_matched_to_a_polymarket_market_naming_both_teams": false, "every_matched_token_has_a_book_message": false, "pm_server_timestamp_lag_plausible": false}, "goalserve_poll_gap_s_p10_p50_p90": [1.0, 1.01, 3.229], "goalserve_payload_change_gap_s_p50": 1.035, "n_live_games": 25, "n_matched_games": 0, "matched": [], "unmatched_live": ["Bella Lewis vs Zoe Olmos", "Tristan Schoolkate vs Alafia Ayeni", "Olivia Gadecki vs Hayu Kinoshita", "Yuto Oki vs Tomohiro Masabayashi", "Lucca Liu vs Alberto Odiseo Alvarado Berrospi", "Azuma Visaya vs Darrshan Suresh", "David Eichenseher vs Gunawan Trismuwantara", "Mattias Southcombe vs Max K Fardanesh", "Kenzhibayeva/Yoruk vs Boehner/Sevcikova", "Luis Carlos Alvarez Valdes vs Elijah Strode", "Matthew Segura vs Freddy Murray", "Geun Jun Kim vs Shaheed Alam", "Valentina Ivanov vs Emerson Jones", "Zaharije-Zak Talic vs Calvin Mueller", "Veronika Miroshnichenko vs Patrycja Niewiadomska"], "market_names_seen": {"To Win": 1155, "Odd/Even": 1059, "Next Break Serve": 960, "Go The Distance?": 743, "Set 2 Winner": 675, "Set Betting": 624, "Player 1 Over/Under by Games": 579, "Match Handicap": 579, "Player 2 Over/Under by Games": 579, "Total Games in Match": 579, "Match Result and Total Games": 575, "Game to Deuce (1st Set)": 528}}, "hockey_nhl": {"report": false, "checks": {"clock_synchronised_under_50ms": true, "goalserve_polling_ok": false, "goalserve_has_live_games_now": true, "a_live_game_matched_to_a_polymarket_market_naming_both_teams": false, "every_matched_token_has_a_book_message": false, "pm_server_timestamp_lag_plausible": false}, "goalserve_poll_gap_s_p10_p50_p90": [1.001, 1.011, 3.223], "goalserve_payload_change_gap_s_p50": 2.002, "n_live_games": 4, "n_matched_games": 0, "matched": [], "unmatched_live": ["HND Silver Knights vs SJ Barracuda", "UTA Mammoth vs COL Avalanche", "ONT Reign vs ABB Canucks", "SD Gulls vs BAK Condors"], "market_names_seen": {"Both teams to score at least 2 goal": 360, "Over/Under (Including OT)": 180, "1x2 (1st Period)": 180, "Asian Handicap": 180, "Race to": 180, "Home Team Total Goals": 180, "Away Winning Margin (14-Way)": 180, "Home Winning Margin (14-Way)": 180, "Odd/Even (Including OT)": 180, "Draw No Bet": 180, "Highest Scoring Period": 180, "Team To Win The Most Periods": 180}}}}
+NO NUMBER for esports: failed checks ['goalserve_polling_ok', 'goalserve_has_live_games_now', 'a_live_game_matched_to_a_polymarket_market_naming_both_teams', 'every_matched_token_has_a_book_message', 'pm_server_timestamp_lag_plausible']
+NO NUMBER for tennis: failed checks ['goalserve_polling_ok', 'a_live_game_matched_to_a_polymarket_market_naming_both_teams', 'every_matched_token_has_a_book_message', 'pm_server_timestamp_lag_plausible']
+NO NUMBER for hockey_nhl: failed checks ['goalserve_polling_ok', 'a_live_game_matched_to_a_polymarket_market_naming_both_teams', 'every_matched_token_has_a_book_message', 'pm_server_timestamp_lag_plausible']
+```
+
+
+## P49 Goalserve live probe v2 relaunch (19 Nov)
+
+- Stopped the prior 90-minute probe PID 2689593 (cmdline matched the exact probe and output path named by the reviewer).
+- Refetched reviewer branch; offline test printed `ALL PASS` (22 checks). Relaunched v2 at 04:15:59Z, PID 2766271, duration 120 minutes, output `/mnt/HC_Volume_107257520/pkarbs/probe/goalserve-live-probe-v2-2026-11-19.json`; live log `/mnt/HC_Volume_107257520/pkarbs/probe/goalserve-live-probe-v2-2026-11-19.log`.
+- First observed preflight (04:18Z): hockey_nhl passed all checks, 4/4 games matched and books present; accepted market `Home/Away`. Tennis had 15/20 matches but failed polling health: 35 HTTP 429 errors across 51 polls. Esports had no live games or accepted markets at that instant and 38 HTTP 429 errors across 48 polls. `NO NUMBER` was emitted for esports and tennis. Probe remained alive at 04:30Z; 120-minute run not complete.
+
+## P50 esports look 1 diagnostic rerun (19 Nov)
+
+- Re-fetched `feeds/run_daily_look.sh` from `origin/claude/project-thread-vg2ckg`; signed self-test printed `ALL PASS`. Exact full run exit: 1 at 04:26:57Z.
+- It found zero local esports payload files for 2026-11-18; the named esports payload directory contained no matching files. The listing of matching files was empty. Other payload directories (basketball, esports, hockey_nhl, tennis) existed, timestamped around 04:00Z.
+- The script copied zero rows into the run input (`gs` remained 4.0K) and the analyzer exited 1; no result JSON/hash or verdict was produced. Its stdout then showed a `FileNotFoundError` while the wrapper tried to read the absent result JSON. The separate 03:34Z attempt had stopped at the signed-file gate; this 04:26Z run passed the signed checks, so the current blocker is missing esports capture files for the requested day.
+
+
+## P51 capture health and esports files (19 Nov)
+
+```text
+probe_stopped
+goalserve_20261117.jsonl ok 449078 err 6106
+2026-11-19T03:59:57Z 158277 esports_2026111903.jsonl.gz
+2026-11-19T04:59:58Z 100237 esports_2026111904.jsonl.gz
+2026-11-19T05:05:28Z 10563 esports_2026111905.jsonl.gz
+3
+<VOL2>/pkarbs/goalserve-audit-20261117/esports_2026111705.jsonl.gz
+Filesystem      Size  Used Avail Use% Mount
+VOL2             98G   78G   16G  84% <VOL2>
+REPO             49G   38G  9.3G  81% <REPO>
+```
+
+- Correction to the pasted command's glob: only `goalserve_20261117.jsonl` exists; no 18 or 19 files matched, so the requested last-two-log comparison was unavailable. The sole file had 449,078 ok and 6,106 err rows; recent err rows included HTTP 429 in minute buckets 04:56–05:05 UTC. This file is dated 17 Nov, so it cannot establish whether the probe increased errors during 19 Nov.
+- `esports_payloads` contained 3 files, all dated 19 Nov; the bounded volume search found only an audit file for 17 Nov and no 18 Nov payload. Capture PID 4045212 remained running (started 17 Nov 09:00:06Z).
+- Probe PID 2766271 was stopped as directed; no other process was stopped.
+## Goalserve live probe v3 (19 Nov)
+
+- Offline test: `ALL PASS` (28 checks).
+- Started: 2026-11-19 05:39:25Z; PID 2867115; mode `--source capture`; duration 180 minutes. The probe reads stored payloads and makes no Goalserve requests.
+- First preflight observed at 05:39:48Z. Clock offset: 0.000200 s; Polymarket message lag p10/p50/p90: 0.018/0.018/0.023 s; messages: 27198.
+- esports: report=false; poll gap p10/p50/p90=1.783/1.799/1.821 s; payload-change p50=1.799 s; polls=35, poll errors=0; live games=0, matched=0; accepted markets={}; matched tokens have books=false.
+  - Failed checks: goalserve_has_live_games_now, goalserve_has_an_accepted_winner_market, a_live_game_matched_to_a_polymarket_market_naming_both_teams, every_matched_token_has_a_book_message.
+- tennis: report=true; poll gap p10/p50/p90=1.778/1.799/1.82 s; payload-change p50=1.799 s; polls=49, poll errors=0; live games=14, matched=9; accepted markets={"To Win": 686}; matched tokens have books=true.
+- hockey_nhl: report=true; poll gap p10/p50/p90=1.78/1.797/1.816 s; payload-change p50=1.797 s; polls=49, poll errors=0; live games=2, matched=2; accepted markets={"Home/Away": 85}; matched tokens have books=true.
+- basketball: report=false; poll gap p10/p50/p90=1.781/1.796/1.814 s; payload-change p50=1.796 s; polls=49, poll errors=0; live games=8, matched=1; accepted markets={}; matched tokens have books=true.
+  - Failed checks: goalserve_has_an_accepted_winner_market.
+
+- First preflight result: tennis and hockey_nhl passed all checks; esports had no live games and failed its market/match/book gates; basketball had no accepted winner market. Probe remains running; final output is not yet available.
+## AAA watch (19 Nov)
+
+- Source commit: `71bd42c3`.
+- SHA-1: `aaa_watch.py` `94cab973c2055a7b3a03422f1c79613313b517d1`; `test_aaa_watch.py` `585ed9b380962e88acbefcf61a556b9e7189c6a0`.
+- Tests: `3 of 3 tests pass`.
+- Scheduled watcher process launched at 05:45Z, PID 2879168; start is delayed until 07:28Z and ends at 09:00Z (max 5400 seconds; 5-second interval). It writes under `/mnt/HC_Volume_107257520/gas_watch`, not root.
+- At 05:45Z the delayed process was alive; output files do not yet exist because the watcher has not started. HTTP status codes and the first three JSONL lines are therefore not yet available.

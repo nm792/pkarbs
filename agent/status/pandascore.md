@@ -51,3 +51,35 @@
 - Restarted at 12:25:21Z under the already-approved 12:00Z fallback. Old PID 548127 exited; PID 2235520 is active in tmux session `pandascore`. Five tasks started and five sockets connected. The last observed 4004 for match 1789154 was 12:25:11Z before restart; none observed through 12:28:50Z.
 - The open-hour raw file grew from 66,974 to 75,320 bytes after restart. Row-level readback is not verified while the gzip stream remains open.
 - Report: `agent/outbox/TO-IT-URGENT-pandascore-4004-retry-loop-fix-2026-11-14.md`.
+
+
+## PK priority jobs 2-3 launched (19 Nov)
+
+- Job 2 CS2 book recorder: test printed `PASS (8 checks, each able to fail)`; launched 03:29:52Z, PID 2690054. At 03:34Z, `books.jsonl` had 3,608 rows and `markets.jsonl` 80 rows; the recorder process remained active. `tail -5 recorder.log` showed current Counter-Strike market entries.
+- Job 3 scheduled CS2 live probe: test printed `PASS (4 checks, each able to fail)`; launched 03:30:09Z, PID 2694972 with start time 08:50Z and 150-minute duration. It remains active, waiting for its scheduled start.
+- Evidence paths are on the data volume: `pkarbs/pmcs2/{recorder.log,books.jsonl,markets.jsonl}` and `pkarbs/probe/pandascore-cs2-live-probe-2026-11-19.log`.
+
+
+## P37 PandaScore paths and PID (19 Nov 04:09Z)
+
+- `/mnt/HC_Volume_107257520/pkarbs/pandascore/raw/`: one file, `pandascore_2026111612.jsonl.gz`, 216,915 bytes (timestamp 2026-11-16 13:00:00.178699305 +0000); directory total 216,915 bytes.
+- `/vol2/pkarbs/scratch/p318-recount/pandascore/`: 14 files spanning `pandascore_2026111315.jsonl.gz` through `pandascore_2026111412.jsonl.gz`; directory total 2,925,497 bytes. Individual sizes and timestamps are preserved here:
+```text
+total 2888
+-rw-r--r-- 1 690464 690464 330887 2026-11-13 16:00:05.310734482 +0000 pandascore_2026111315.jsonl.gz
+-rw-r--r-- 1 690464 690464 341531 2026-11-13 17:00:01.910687920 +0000 pandascore_2026111316.jsonl.gz
+-rw-r--r-- 1 690464 690464 129068 2026-11-13 23:43:09.189665699 +0000 pandascore_2026111317.jsonl.gz
+-rw-r--r-- 1 690464 690464 263784 2026-11-13 19:00:04.114594383 +0000 pandascore_2026111318.jsonl.gz
+-rw-r--r-- 1 690464 690464 371760 2026-11-13 20:00:01.113558712 +0000 pandascore_2026111319.jsonl.gz
+-rw-r--r-- 1 690464 690464 254000 2026-11-13 21:00:06.021531570 +0000 pandascore_2026111320.jsonl.gz
+-rw-r--r-- 1 690464 690464 234003 2026-11-13 22:00:00.906551206 +0000 pandascore_2026111321.jsonl.gz
+-rw-r--r-- 1 690464 690464 88781 2026-11-14 07:45:25.113510069 +0000 pandascore_2026111322.jsonl.gz
+-rw-r--r-- 1 690464 690464 289 2026-11-14 08:00:12.139820661 +0000 pandascore_2026111407.jsonl.gz
+-rw-r--r-- 1 690464 690464 33216 2026-11-14 09:00:03.164791054 +0000 pandascore_2026111408.jsonl.gz
+-rw-r--r-- 1 690464 690464 229029 2026-11-14 10:00:01.726791054 +0000 pandascore_2026111409.jsonl.gz
+-rw-r--r-- 1 690464 690464 214436 2026-11-14 11:00:06.709836021 +0000 pandascore_2026111410.jsonl.gz
+-rw-r--r-- 1 root root 224599 2026-11-14 12:00:02.663895510 +0000 pandascore_2026111411.jsonl.gz
+-rw-r--r-- 1 root root 210114 2026-11-14 12:35:25.262140701 +0000 pandascore_2026111412.jsonl.gz
+```
+- Both named parent directories existed and had timestamp 2026-11-19 04:01:03.190624836 +0000.
+- `ps -o pid,lstart,etime,cmd -p 548127` returned only the header (exit 1): PID 548127 was absent at 04:09Z. The on-origin history says this PID had been replaced by PID 2235520 after the already-approved #339 restart on 16 Nov; the P37 PID check is therefore stale, not evidence of a current capture stop.

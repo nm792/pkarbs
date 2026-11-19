@@ -1,18 +1,284 @@
-Traceback (most recent call last):
-  File "/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-run-tree/feeds/ps_lead_audit.py", line 355, in <module>
-    main()
-    ~~~~^^
-  File "/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-run-tree/feeds/ps_lead_audit.py", line 86, in main
-    for r in lines(p):
-             ~~~~~^^^
-  File "/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-run-tree/feeds/ps_lead_audit.py", line 30, in lines
-    for l in f:
-             ^
-  File "/usr/lib/python3.14/gzip.py", line 360, in read1
-    return self._buffer.read1(size)
-           ~~~~~~~~~~~~~~~~~~^^^^^^
-  File "/usr/lib/python3.14/compression/_common/_streams.py", line 68, in readinto
-    data = self.read(len(byte_view))
-  File "/usr/lib/python3.14/gzip.py", line 580, in read
-    uncompress = self._decompressor.decompress(b"", size)
-zlib.error: Error -3 while decompressing data: invalid block type
+PARTIAL FILE pandascore/raw/pandascore_2026111612.jsonl.gz: error: Error -3 while decompressing data: invalid block type
+PARTIAL FILE pandascore/raw/pandascore_2026111821.jsonl.gz: EOFError: Compressed file ended before the end-of-stream marker was reached
+{
+ "seed": 20261116,
+ "A_isolated": {
+  "cs2|map|all_events": {
+   "n_events": 0,
+   "n_matches": 0,
+   "pct_real_with_onset": null,
+   "pct_placebo_with_onset": null,
+   "median_real_lead_s": null,
+   "median_placebo_lead_s": null,
+   "diff_s": null,
+   "pct_price_after_feed": null,
+   "ci95": null,
+   "audit_word": "unknown (n<30)"
+  },
+  "cs2|map|isolated_gap>=60s": {
+   "n_events": 0,
+   "n_matches": 0,
+   "pct_real_with_onset": null,
+   "pct_placebo_with_onset": null,
+   "median_real_lead_s": null,
+   "median_placebo_lead_s": null,
+   "diff_s": null,
+   "pct_price_after_feed": null,
+   "ci95": null,
+   "audit_word": "unknown (n<30)"
+  },
+  "cs2|match|all_events": {
+   "n_events": 0,
+   "n_matches": 0,
+   "pct_real_with_onset": null,
+   "pct_placebo_with_onset": null,
+   "median_real_lead_s": null,
+   "median_placebo_lead_s": null,
+   "diff_s": null,
+   "pct_price_after_feed": null,
+   "ci95": null,
+   "audit_word": "unknown (n<30)"
+  },
+  "cs2|match|isolated_gap>=60s": {
+   "n_events": 0,
+   "n_matches": 0,
+   "pct_real_with_onset": null,
+   "pct_placebo_with_onset": null,
+   "median_real_lead_s": null,
+   "median_placebo_lead_s": null,
+   "diff_s": null,
+   "pct_price_after_feed": null,
+   "ci95": null,
+   "audit_word": "unknown (n<30)"
+  },
+  "dota2|map|all_events": {
+   "n_events": 74,
+   "n_matches": 2,
+   "pct_real_with_onset": 0.0,
+   "pct_placebo_with_onset": 0.0,
+   "median_real_lead_s": null,
+   "median_placebo_lead_s": null,
+   "diff_s": null,
+   "pct_price_after_feed": null,
+   "ci95": null,
+   "audit_word": "no lead reproduced"
+  },
+  "dota2|map|isolated_gap>=60s": {
+   "n_events": 4,
+   "n_matches": 2,
+   "pct_real_with_onset": 0.0,
+   "pct_placebo_with_onset": 0.0,
+   "median_real_lead_s": null,
+   "median_placebo_lead_s": null,
+   "diff_s": null,
+   "pct_price_after_feed": null,
+   "ci95": null,
+   "audit_word": "unknown (n<30)"
+  },
+  "dota2|match|all_events": {
+   "n_events": 74,
+   "n_matches": 2,
+   "pct_real_with_onset": 0.0,
+   "pct_placebo_with_onset": 0.0,
+   "median_real_lead_s": null,
+   "median_placebo_lead_s": null,
+   "diff_s": null,
+   "pct_price_after_feed": null,
+   "ci95": null,
+   "audit_word": "no lead reproduced"
+  },
+  "dota2|match|isolated_gap>=60s": {
+   "n_events": 4,
+   "n_matches": 2,
+   "pct_real_with_onset": 0.0,
+   "pct_placebo_with_onset": 0.0,
+   "median_real_lead_s": null,
+   "median_placebo_lead_s": null,
+   "diff_s": null,
+   "pct_price_after_feed": null,
+   "ci95": null,
+   "audit_word": "unknown (n<30)"
+  }
+ },
+ "A_gap_buckets": {
+  "cs2|map|gap 0-10s": {
+   "n_events": 0,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "cs2|map|gap 10-30s": {
+   "n_events": 0,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "cs2|map|gap 30-60s": {
+   "n_events": 0,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "cs2|map|gap 60-infs": {
+   "n_events": 0,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "cs2|match|gap 0-10s": {
+   "n_events": 0,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "cs2|match|gap 10-30s": {
+   "n_events": 0,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "cs2|match|gap 30-60s": {
+   "n_events": 0,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "cs2|match|gap 60-infs": {
+   "n_events": 0,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "dota2|map|gap 0-10s": {
+   "n_events": 51,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "dota2|map|gap 10-30s": {
+   "n_events": 16,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "dota2|map|gap 30-60s": {
+   "n_events": 3,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "dota2|map|gap 60-infs": {
+   "n_events": 4,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "dota2|match|gap 0-10s": {
+   "n_events": 51,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "dota2|match|gap 10-30s": {
+   "n_events": 16,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "dota2|match|gap 30-60s": {
+   "n_events": 3,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  },
+  "dota2|match|gap 60-infs": {
+   "n_events": 4,
+   "n_with_onset": 0,
+   "pct_price_after_feed": null,
+   "median_real_lead_s": null
+  }
+ },
+ "B_reconciliation": {
+  "per_match": {
+   "1793342": {
+    "increases": {
+     "kills": 13,
+     "towers": 4,
+     "roshans": 1,
+     "barracks": 2
+    },
+    "any_change": {
+     "kills": 13,
+     "towers": 4,
+     "roshans": 1,
+     "barracks": 2
+    }
+   },
+   "1791304": {
+    "increases": {
+     "round": 19
+    },
+    "any_change": {
+     "round": 19
+    }
+   },
+   "1791803": {
+    "increases": {
+     "kills": 43,
+     "towers": 11,
+     "roshans": 1,
+     "barracks": 4
+    },
+    "any_change": {
+     "kills": 43,
+     "towers": 11,
+     "roshans": 2,
+     "barracks": 4
+    }
+   },
+   "1793347": {
+    "increases": {
+     "kills": 40,
+     "towers": 9,
+     "roshans": 1,
+     "barracks": 4
+    },
+    "any_change": {
+     "kills": 40,
+     "towers": 9,
+     "roshans": 1,
+     "barracks": 4
+    }
+   },
+   "1803639": {
+    "increases": {
+     "round": 12
+    },
+    "any_change": {
+     "round": 12
+    }
+   },
+   "1815864": {
+    "increases": {
+     "kills": 54,
+     "towers": 13,
+     "roshans": 3,
+     "barracks": 6
+    },
+    "any_change": {
+     "kills": 54,
+     "towers": 13,
+     "roshans": 3,
+     "barracks": 6
+    }
+   },
+   "1789175": {
+    "increases": {
+     "round": 15
+    },
+    "any_change": {
+     "round": 15
+    }
+   },
+   "1805734": {
+    "increases
