@@ -4,7 +4,7 @@
 # Overrides for tests only: V, GITDIR, NOW_UTC_DATE, MIN_FREE, SKIP_SELFTEST.  Needs RSYNC_RSH and BOX_ROOT for the box copy (never printed).
 set -u
 V=${V:-/mnt/HC_Volume_107257520}; GITDIR=${GITDIR:-/root/pkarbs}; START=20261119
-P=$V/pkarbs/pandascore; PM1=$V/pkarbs/thesports/final-topics-32295b
+P=$V/pkarbs/pandascore; PM1=${PM1:-$V/pkarbs/pmcs2}   # CS2 Polymarket book recorder (both tokens, tick-level; from 19 Nov 03:30Z). Was the TheSports dir, which holds no CS2 books for the new data.
 X=$V/pkarbs/scratch/pandascore-run-tree; T=$V/pkarbs/scratch/pandascore-daily-cs2; mkdir -p "$T/ps" "$V/tmp"
 AV=$(df -B1 --output=avail "$V" | tail -1); echo "date $(date -u +%FT%TZ) avail_bytes $AV"
 [ "$AV" -gt "${MIN_FREE:-15000000000}" ] || { echo "STOP: data disk free below 15 GB"; exit 1; }
