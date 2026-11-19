@@ -24,3 +24,19 @@ Rule: `LOCKED-RULE.md`, committed 47889d5b before any score. Code: `score.py`. I
 - Asks are trade prints, not book snapshots; depth beyond the prints is unknown. No historical order books exist publicly.
 - Universe is SPX only. Other "Opens Up or Down" series (e.g. SPY, single stocks) were not enumerated; the SPY event on 18 Nov had $35 volume.
 - Fee formula from mfw-clone T004 sources, not re-read from docs.polymarket.com (blocked).
+
+## Reconciliation with gamma volume (added 19 Nov 02:25Z after the coordinator queried the volumes; score unchanged)
+`reconcile.py` -> `reconcile.tsv` (one row per event). Gamma's event `volume` is **shares (contracts) traded, not USD**: the shares in the pulled trades equal gamma volume to 4 dp on 139/147 events (all from 30 Apr on); 20-28 Apr pulls hold 95-99% of gamma shares, 29 Apr exactly 50% (gamma looks double-counted). So the trade pull is complete. Example: 3 Aug gamma 594,636 = 594,636 shares pulled, but those shares changed hands for $21,363, mostly at a few cents. Average USD notional per event by month (all trades / T-60 to T):
+
+| Month | Events | USD all trades | USD T-60 to T | Gamma shares |
+|---|---|---|---|---|
+| Apr | 9 | 77,808 | 21,598 | 175,855 |
+| May | 19 | 64,116 | 21,275 | 121,739 |
+| Jun | 21 | 40,162 | 11,177 | 76,529 |
+| Jul | 21 | 23,808 | 7,339 | 43,742 |
+| Aug | 21 | 12,139 | 3,015 | 54,507 |
+| Sep | 21 | 6,459 | 1,875 | 13,534 |
+| Oct | 22 | 6,607 | 1,604 | 22,108 |
+| Nov (1-18) | 13 | 4,354 | 804 | 9,105 |
+
+Dollar flow in the hour before the open fell about 25x from May to November. Recent volume is what matters for size: at November's ~$800 of USD flow in that hour, even a 10c edge on all of it is about $80/day before the ask/edge filter.

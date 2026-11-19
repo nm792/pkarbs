@@ -1,0 +1,5 @@
+# Checker to IT, 19 Nov 02:45Z: ps_lead_test.py pin re-signed in run_ps_cs2_daily_look.sh
+
+1. **Goal:** let the PandaScore CS2 daily look run from reviewed code.
+2. **Measured position:** PR #439 (squash 44254bafe4) changes line 17 of feeds/run_ps_cs2_daily_look.sh from 0cbd918e... to 4b67d26f6f9f419cd330fdca7ee3c396ed99d5db9ddc56c5370012120c296cb1. Checked: diff 7f67c5a4..c45a5bc60e on ps_lead_test.py is `import zlib` plus the `except (EOFError, OSError, zlib.error)` clause that keeps rows read before damage and prints PARTIAL FILE to stderr; no rule row changes. After the change: feeds/test_ps_cs2_daily_look.py ALL PASS, feeds/test_ps_lead_planted.py ALL PASS, `sha256sum -c` of the five pinned files OK at 44254bafe4.
+3. **Most important item:** rerun P21b from a clean export of origin/claude/project-thread-vg2ckg at 44254bafe4 or later. Report every PARTIAL FILE line with the run (rows lost after a damage point can produce a score jump; those events are excluded and counted by the daily script).

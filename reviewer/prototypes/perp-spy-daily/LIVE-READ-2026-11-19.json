@@ -1,0 +1,101 @@
+{
+ "read_utc": "2026-11-19T02:22:41.972931+00:00",
+ "event": "spy-up-or-down-on-november-19-2026",
+ "perp": "NOT READ: api.hyperliquid.xyz blocked from this container",
+ "Up": {
+  "book_ts": "1795054961332",
+  "asks": [
+   {
+    "price": "0.72",
+    "size": "500"
+   },
+   {
+    "price": "0.73",
+    "size": "855"
+   },
+   {
+    "price": "0.74",
+    "size": "500"
+   },
+   {
+    "price": "0.76",
+    "size": "200"
+   },
+   {
+    "price": "0.8",
+    "size": "100"
+   }
+  ],
+  "bids": [
+   {
+    "price": "0.69",
+    "size": "106"
+   },
+   {
+    "price": "0.68",
+    "size": "910"
+   },
+   {
+    "price": "0.67",
+    "size": "500"
+   },
+   {
+    "price": "0.66",
+    "size": "500"
+   },
+   {
+    "price": "0.65",
+    "size": "726"
+   }
+  ],
+  "ask_usd_top5": 1586.15
+ },
+ "Down": {
+  "book_ts": "1795054961332",
+  "asks": [
+   {
+    "price": "0.31",
+    "size": "106"
+   },
+   {
+    "price": "0.32",
+    "size": "910"
+   },
+   {
+    "price": "0.33",
+    "size": "500"
+   },
+   {
+    "price": "0.34",
+    "size": "500"
+   },
+   {
+    "price": "0.35",
+    "size": "726"
+   }
+  ],
+  "bids": [
+   {
+    "price": "0.28",
+    "size": "500"
+   },
+   {
+    "price": "0.27",
+    "size": "855"
+   },
+   {
+    "price": "0.26",
+    "size": "500"
+   },
+   {
+    "price": "0.24",
+    "size": "200"
+   },
+   {
+    "price": "0.2",
+    "size": "100"
+   }
+  ],
+  "ask_usd_top5": 913.16
+ }
+}
