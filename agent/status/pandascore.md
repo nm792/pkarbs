@@ -109,3 +109,10 @@ total 2888
 - Reviewer-approved source SHA-256 matched prefix `be437551ef87`; the floor wrapper passed `PASS (4 checks, each able to fail)`. Started it with `PS_FLOOR_GB=10` in tmux session `pscap2` at approximately 11:20 UTC.
 - Live proof: PID 3323067 ran; `/tmp/pscap2.log` showed connected PandaScore feeds. New file `pandascore_2026111911.jsonl.gz` appeared at 11:22 UTC and grew from 13,249 to 18,130 bytes over 60 seconds.
 - Original source was not edited. The active wrapper and 10 GB floor are reviewer-provided; no later floor/config change was made.
+
+
+## P60c pmcs2 second disk read (19 Nov, delayed)
+
+- P60a's recorded baseline was 2026-11-19 09:27:21Z: `books.jsonl` 136,292,591 bytes and VOL2 available 19,903,541,248 bytes. The requested +30-minute check was due 09:56:49Z but was not recorded then; this read is delayed and is not represented as an on-time interval measurement.
+- Read at 2026-11-19 20:16:31Z: `books.jsonl` 1,317,120,439 bytes; `markets.jsonl` 54,463 bytes; `recorder.log` 18,147 bytes; `pm_cs2_books.js` 7,341 bytes; `test_pm_cs2_books.js` 3,391 bytes. VOL2 available: 30,904,299,520 bytes.
+- No process, file, or configuration was changed. The requested 30-minute growth rate cannot be derived from these non-adjacent readings.
