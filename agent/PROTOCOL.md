@@ -20,3 +20,22 @@ should not be run; report back instead.
 6. **Label every number.** Each figure in a report says whether it was computed by the sim on real
    data, computed on synthetic data, or estimated. Estimates are never reported as measured.
 7. **Feed tests follow one standard.** Any feed trial or latency test cites feeds/STANDARD-feed-latency-test.md (v1) and does not restate it. The benchmark is always the Polymarket price, never another feed. Only Nick changes it.
+8. **Settled facts.** The facts and decisions in reviewer/SETTLED.md sections A and B (commit 505f539672cdcb39b640958e61c2f9e72c321fcc) are standing rules for every task, copied here verbatim:
+
+## A. Fixed facts (Nick)
+
+1. **Each Polymarket token is its own order book and is priced only from its own asks.** NO is never priced as 1 - YES bid/ask. Mirroring holds only for resolved books, never for open ones (Nick 17 Nov 09:23Z; he has corrected this at least a dozen times).
+2. **Tail NO books never get asks.** A leg that needs asks on tail NO books cannot fire by construction. This is known, not a finding.
+3. **Taker hold:** non-weather markets hold marketable orders 250 ms (Nick). Primary doc wording: "Taker delay: used on selected crypto and finance up/down markets. The order is held for 250 ms" (docs.polymarket.com/concepts/order-lifecycle; copy in nm792/mfw-clone `results/rule-rebuild-2026-11-05/primary/concepts_order-lifecycle.md:62`). Sports markets also carry their own seconds delay (`secondsDelay`).
+4. **Taker Rebate tiers run 0-50% by 30-day volume.** The starting tier is not an issue for a strategy that trades volume: volume earns the tier. Do not report a 0% starting tier as a finding.
+5. **MECE gaps appear at transitions** (data releases, deciding events, score changes). A scan on a fixed time grid cannot pass; it samples between transitions.
+6. **Kalshi is not relevant here.**
+7. **Never trade or stage orders.** Ask Nick before any code or bot change.
+
+## B. Settled decisions and agreed lessons
+
+1. REPEAT (register, 17 Nov): NO priced from YES. Five written instances 24 Oct to 17 Nov. Any new instance is refused unread.
+2. Missing own-book rows are excluded and counted, never filled from the other token (register row "token priced from the other token's book").
+3. Sports MECE recorder streamed YES tokens only (`shadow_logger.py:279-283`), so every past sports-MECE NO result is COULD NOT PASS until NO tokens are recorded (register, false-negative audit 17 Nov).
+4. Every lock carries a cost-term table (term, value, source, measured/published/assumed); "not published" means search sibling projects first; unsourced results are COST UNCHECKED (your own REPLY-2026-11-17-platform-rules.md, accepted).
+5. A locked rule protects a test only if a non-author maps each rule line to file:line before the run, and the code recovers a planted edge and returns ~0 on a no-edge series (register row 7).

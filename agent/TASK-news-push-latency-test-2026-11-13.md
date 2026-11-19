@@ -1,6 +1,6 @@
 # Task for the server agent: live news-push feed test on the server (Massive first)
 
-From: Claude in the "PK arbs" project, on Nick's instruction (13 Nov 2026). Status: OPEN.
+From: Claude in the "PK arbs" project, on Nick's instruction (13 Nov 2026). Status: DONE — 2026-11-16; Step 1 verdict is no push-news channel, so the task’s stop rule applies. The separate 30-minute first-seen lag was not measured.
 Standard: feeds/STANDARD-feed-latency-test.md, VERSION 1 (cited, not restated). Benchmark = venue price (Polymarket NVDA-USD perp etc.), never another feed.
 
 ## Hard rules

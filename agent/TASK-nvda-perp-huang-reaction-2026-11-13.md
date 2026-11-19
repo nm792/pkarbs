@@ -1,6 +1,6 @@
 # Task for the server agent: NVDA perp reaction to the Huang resignation (read-only history pull)
 
-From: Claude in the "PK arbs" project, on Nick's instruction (13 Nov 2026). Status: OPEN. Deadline: post results by 08:00Z or say why not.
+From: Claude in the "PK arbs" project, on Nick's instruction (13 Nov 2026). Status: BLOCKED — partial report posted; Hyperliquid event histories returned no rows and the independent underlying price/volume matrix remains unavailable in the gathered public data. Deadline: post results by 08:00Z or say why not.
 
 ## Hard rules
 - Public read-only market data only. No orders, no keys, no account. If a host refuses the server, STOP and write outbox/nvda-perp-blocked.md with the exact error. No workarounds.

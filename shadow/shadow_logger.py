@@ -7,8 +7,10 @@ book from the public market WebSocket, and writes:
   OUT/events.jsonl             leg lists, fee rates and secondsDelay snapshots
   OUT/runs.jsonl               each period where a full set is underpriced on either side:
                                yes: buy every YES at the ask, pays 1; edge = 1 - sum(ask + fee)
-                               no:  buy every NO, pays n - 1; the NO book mirrors the YES book
-                                    (NO ask = 1 - YES bid), so edge = sum(YES bid - fee) - 1
+                               no:  buy every NO at the NO token's own asks, pays n - 1;
+                                    edge = (n - 1) - sum(NO ask + fee). Both tokens are subscribed and
+                                    stored as separate books; nothing is derived from the other side.
+                                    nocompare.jsonl logs YES vs NO top of book per leg each resync.
                                Only events whose leg list is complete (no closed or missing leg).
 
 Usage: python3 shadow_logger.py --out data/ [--tags sports] [--minutes 0]
@@ -29,9 +31,13 @@ def now():
 
 
 def get_json(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "shadow-logger"})
+    # gamma serves /events and /events/keyset pages with limit > 50 compressed only (HTTP 406 gzip_required otherwise)
+    req = urllib.request.Request(url, headers={"User-Agent": "shadow-logger", "Accept-Encoding": "gzip"})
     with urllib.request.urlopen(req, timeout=20) as r:
-        return json.load(r)
+        body = r.read()
+        if r.headers.get("Content-Encoding") == "gzip":
+            body = gzip.decompress(body)
+        return json.loads(body)
 
 
 def parse_ts(s):
@@ -190,19 +196,20 @@ class Logger:
             return
         n = len(ev["legs"])
         for side in ("yes", "no"):
+            # Each side buys at its own token's own asks: the YES set from the YES books, the NO set
+            # from the NO books. A NO price is never derived from the YES book.
             cost, px, fee_sum, size, quotes = 0.0, 0.0, 0.0, float("inf"), []
             for leg in ev["legs"]:
-                b = self.books.get(leg["yes"])
-                p = (b.best_ask() if side == "yes" else b.best_bid()) if b else None
+                b = self.books.get(leg[side])
+                p = b.best_ask() if b else None
                 if p is None:
                     break
                 fee = leg["fee_rate"] * (p * (1 - p)) ** leg.get("fee_exp", 1)
-                px += (p if side == "yes" else 1 - p)
+                px += p
                 fee_sum += fee
-                cost += (p if side == "yes" else 1 - p) + fee
-                lvl = b.asks if side == "yes" else b.bids
-                size = min(size, lvl[p])
-                quotes.append([p, lvl[p]])
+                cost += p + fee
+                size = min(size, b.asks[p])
+                quotes.append([p, b.asks[p]])
             else:
                 payout = 1 if side == "yes" else n - 1
                 edge = payout - cost
@@ -215,7 +222,8 @@ class Logger:
                             "event": eid, "side": side, "title": ev["title"], "t0": recv, "cost0": cost,
                             "px0": px, "fee0": fee_sum, "edge_full_fee": 1 if edge_full > 0 else 0,
                             "payout": payout, "size0": size, "quotes0": quotes,
-                            "assets": [leg["yes"] for leg in ev["legs"]], "n_markets": ev.get("n_markets"),
+                            "assets": [leg[side] for leg in ev["legs"]], "own_book": True,
+                            "n_markets": ev.get("n_markets"),
                             "min_cost": cost, "max_edge_usd": edge * size, "updates": 1}
                     else:
                         run["updates"] += 1
@@ -276,7 +284,9 @@ class Logger:
         for eid in set(self.events) - set(found):
             self.close_run(t, eid)
         self.events = found
-        self.asset_event = {leg["yes"]: eid for eid, ev in found.items() for leg in ev["legs"]}
+        # both tokens of every leg are subscribed and stored as their own books; an update to either
+        # re-checks the event. A NO price is never derived from the YES book.
+        self.asset_event = {leg[k]: eid for eid, ev in found.items() for leg in ev["legs"] for k in ("yes", "no")}
         self.books = {a: self.books.get(a) or Book() for a in self.asset_event}
         for task in self.ws_tasks:
             task.cancel()
@@ -284,7 +294,7 @@ class Logger:
         chunks = []  # keep each event's legs on one connection
         cur = []
         for ev in found.values():
-            ids = [leg["yes"] for leg in ev["legs"]]
+            ids = [leg[k] for leg in ev["legs"] for k in ("yes", "no")]
             if cur and len(cur) + len(ids) > MAX_ASSETS_PER_WS:
                 chunks.append(cur)
                 cur = []
@@ -313,6 +323,24 @@ class Logger:
                 touched.update(self.apply(recv, m) or [])
             for eid in {self.asset_event.get(a) for a in touched}:
                 self.check(recv, eid)
+            self.log_no_compare(recv)
+
+    def log_no_compare(self, recv):
+        """One row per leg: the YES token's own top of book next to the NO token's own top of book,
+        each from its own stored orders. 'mirror' only reports whether NO ask == 1 - YES bid and
+        NO bid == 1 - YES ask at those prices; it is never used for pricing."""
+        for ev in self.events.values():
+            for leg in ev["legs"]:
+                y, n = self.books.get(leg["yes"]), self.books.get(leg["no"])
+                if y is None or n is None or not (y.ts and n.ts):
+                    continue
+                row = {"t": round(recv, 3), "event": ev["id"], "yes": leg["yes"], "no": leg["no"],
+                       "y_bid": y.best_bid(), "y_ask": y.best_ask(), "n_bid": n.best_bid(), "n_ask": n.best_ask(),
+                       "y_ts": y.ts, "n_ts": n.ts}
+                if None not in (row["y_bid"], row["y_ask"], row["n_bid"], row["n_ask"]):
+                    row["mirror"] = (abs(1 - row["y_bid"] - row["n_ask"]) < 1e-9
+                                     and abs(1 - row["y_ask"] - row["n_bid"]) < 1e-9)
+                self.append("nocompare.jsonl", row)
 
     async def run(self, minutes, refresh_s, resync_s):
         rs = asyncio.create_task(self.resync(resync_s))
