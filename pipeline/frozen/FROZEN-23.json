@@ -1,0 +1,12 @@
+{
+ "cutoff_ts": 1795059901.0,
+ "n_cells": 624,
+ "n_selected": 0,
+ "selected": [],
+ "params": {},
+ "frozen_at_utc": "2026-11-19T04:29:16.402297+00:00",
+ "selection_window": [
+  1774396800.0,
+  1795059300.0
+ ]
+}
