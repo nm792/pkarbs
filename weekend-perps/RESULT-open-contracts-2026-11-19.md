@@ -1,0 +1,27 @@
+# RESULT: perp-implied probability vs the price of the Polymarket "Opens Up or Down" contracts (19 Nov 2026 ~03:00Z)
+
+Rule: LOCKED-RULE-open-contracts-2026-11-19.md (locked 5efcc5eb before any model number; Amendment 1 locked before the amendment numbers). Code: weekend-perps/open-contracts-2026-11-19/ (oclib.py, test_oclib.py all pass: planted edge, zero edge, sign flip, exclusion, daylight saving, fee table), collect.py, analyze_oc.py, analyze_oc2.py. Run inputs and outputs: open-contracts-2026-11-19/run-2026-11-19/ (markets, perp marks, Yahoo bars, own-token trades, analyze_oc.out, analyze_oc2.out, result.json). Collected 19 Nov 02:18-02:35Z. Analysis only, no orders.
+
+## Verdict
+**FAILS ON SIZE, EDGE UNKNOWN (N too small).** The perp predicts the open very well, but the contract price already holds almost the same information, and the whole market is too small to reach $200/day. Forward own-token books are the only way to settle the edge question; the recorder is committed and an IT deploy task is filed.
+
+## Evidence
+- **Universe:** 154 resolved events (77 trading days, 3 Aug to 18 Nov 2026, SPX and SPY), none dropped. Polymarket resolution vs Yahoo open-vs-close agrees on 153 of 154. The one miss is SPY 18 Sep (ex-dividend 1.889): Polymarket resolves on the RAW SPY prices, the locked rule added the dividend back; kept as locked, flagged (1 row).
+- **The perp is a good predictor:** train half correlation of perp return at T-30 with the realised open return 0.955, sign agreement 88%; residual sd 15.2 bp (SPX), 9.4 bp (SPY) from the training half (3 Aug to 24 Sep, 76 events); test half 25 Sep to 18 Nov (78 events).
+- **Locked test, FILL-PROXY level (a taker-buy fill in the same token within 120 s of the checkpoint), test half, edge threshold 3 cents:** n = 2 trades (k=30), 2 (k=60), 1 (k=10). Needs 30 trades over 20 dates. Verdict at this level: unknown, N too small. Only 29-35 of 154 events have any own-token BUY fill in a 120 s window, which is itself the finding: these contracts are barely traded at the checkpoints.
+- **BOOK level (own-token ask from a recorded book):** 0 of 154 rows. Polymarket keeps no historical books and this project had none recorded for these markets. Unknown, N too small. One live snapshot only (19 Nov, ~02:19Z, SPX Up token, before the open): best bid 0.79, best ask 0.85, six cents wide (best price is the LAST level in each list: bids ascend, asks descend).
+- **Sensitivity (Amendment 1), fill window 600 s, test half:** n = 7 (k=60), 2 (k=30), 5 (k=10); mean P&L per share -0.007, -0.109, +0.051, all CIs include 0 except the n=2 row; $/day at a 10% slice between -$0.08 and -$0.01. All 154 events pooled: n = 22, 12, 15; P&L per share +0.012, +0.037, +0.100, every CI includes 0 ($/day at 10%: +$0.18, +$1.85 CI -0.24 to +5.62, +$0.07). Sign-flip placebos lose or are near zero.
+- **Does the contract price already know what the perp knows?** Brier score of model P(Up) vs the last Up-token trade within 60 minutes before the checkpoint: test half k=60 0.0506 vs 0.0581 (42 rows), k=30 0.0351 vs 0.0380 (45), k=10 0.0135 vs 0.0129 (48); all rows k=30 0.0661 vs 0.0634 (97). Mean absolute gap between model and market 4 to 8 cents, about the size of the half-spread seen in the one book (3 cents) plus the 4% fee at mid (1 cent). The model is slightly better than the contract only early (k=60) and level by k=10: little left to take after spread and fee.
+- **Size, model-free:** USD traded in the 60 minutes before the open (all sides, both tokens, SPX plus SPY) per trading day: mean $1,394 (test half, 39 days), $2,010 (all 77 days); median $1,076 test. $200 a day is 14% of all that volume at a 100% return per dollar. At a 10% slice of volume and a generous 10 cents of net edge per dollar staked the result is about $14 a day; the measured ceiling using the model's own edge on the fills seen is $1.53 per test day (100% of the chosen side's buy volume x model edge). Whole-market lifetime volume (gamma) median $1,978 per event.
+- **Not computable here:** correlation with other candidates (no common daily series exists in the repo); capital: at most $0.3 to $1.7 a day at a 10% slice in the runs above.
+
+## Caveats
+- Fill-proxy prices are what takers paid, not the quote at the checkpoint, and they cover only rows where someone traded. Fills cluster at tail prices (asks of 2 to 11 cents), where small stakes and large percentage edges are meaningless for $200/day.
+- Yahoo daily open is taken as the official open; the 153 of 154 agreement supports it.
+- Taker rebates are not counted (they would add at most a fraction of the 1 cent fee).
+- Perp marks come from the Polymarket SP500-USD 1 s mark history, all 231 checkpoints present.
+
+## What settles the edge question
+Forward own-token books from the recorder: weekend-perps/open-contracts-2026-11-19/book_recorder.py (tests pass), IT task agent/TASK-oc-book-recorder-2026-11-19.md, first full capture the 19 Nov open at 14:30Z. 30 book-priced trades need roughly 15 to 30 trading days given that 3-cent edges appear on about one event in five. Interim read-out of the recorder on 20 Nov and weekly after.
+
+Confidence: 8/10 that the verdict (fails on size, edge unknown) is right. Not 9: the edge estimate rests on fill-proxy prices, not books, and one live book snapshot. To reach 9: the recorder's books for 15 trading days, plus a check that Yahoo's ^GSPC open equals the official open on a sample of days.
