@@ -268,3 +268,16 @@ REPO             49G   38G  9.3G  81% <REPO>
 - Correction to the pasted command's glob: only `goalserve_20261117.jsonl` exists; no 18 or 19 files matched, so the requested last-two-log comparison was unavailable. The sole file had 449,078 ok and 6,106 err rows; recent err rows included HTTP 429 in minute buckets 04:56–05:05 UTC. This file is dated 17 Nov, so it cannot establish whether the probe increased errors during 19 Nov.
 - `esports_payloads` contained 3 files, all dated 19 Nov; the bounded volume search found only an audit file for 17 Nov and no 18 Nov payload. Capture PID 4045212 remained running (started 17 Nov 09:00:06Z).
 - Probe PID 2766271 was stopped as directed; no other process was stopped.
+## Goalserve live probe v3 (19 Nov)
+
+- Offline test: `ALL PASS` (28 checks).
+- Started: 2026-11-19 05:39:25Z; PID 2867115; mode `--source capture`; duration 180 minutes. The probe reads stored payloads and makes no Goalserve requests.
+- First preflight observed at 05:39:48Z. Clock offset: 0.000200 s; Polymarket message lag p10/p50/p90: 0.018/0.018/0.023 s; messages: 27198.
+- esports: report=false; poll gap p10/p50/p90=1.783/1.799/1.821 s; payload-change p50=1.799 s; polls=35, poll errors=0; live games=0, matched=0; accepted markets={}; matched tokens have books=false.
+  - Failed checks: goalserve_has_live_games_now, goalserve_has_an_accepted_winner_market, a_live_game_matched_to_a_polymarket_market_naming_both_teams, every_matched_token_has_a_book_message.
+- tennis: report=true; poll gap p10/p50/p90=1.778/1.799/1.82 s; payload-change p50=1.799 s; polls=49, poll errors=0; live games=14, matched=9; accepted markets={"To Win": 686}; matched tokens have books=true.
+- hockey_nhl: report=true; poll gap p10/p50/p90=1.78/1.797/1.816 s; payload-change p50=1.797 s; polls=49, poll errors=0; live games=2, matched=2; accepted markets={"Home/Away": 85}; matched tokens have books=true.
+- basketball: report=false; poll gap p10/p50/p90=1.781/1.796/1.814 s; payload-change p50=1.796 s; polls=49, poll errors=0; live games=8, matched=1; accepted markets={}; matched tokens have books=true.
+  - Failed checks: goalserve_has_an_accepted_winner_market.
+
+- First preflight result: tennis and hockey_nhl passed all checks; esports had no live games and failed its market/match/book gates; basketball had no accepted winner market. Probe remains running; final output is not yet available.
