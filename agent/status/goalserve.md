@@ -205,3 +205,7 @@ The supplied script exited 1 after printing its book profile: `AttributeError: '
 
 The required stopgap eligibility scan found zero regular non-look files older than six hours at 14:06Z. No files were transferred or deleted. A follow-up `du -sb` measured 52,675,757,561 bytes at 14:06:57Z; the directory is being concurrently written/exported. The `pkarbs-capture` archive destination exists. No change was made to `markets.jsonl` or `books.jsonl`.
 P74 stopgap current state (14:16Z): no eligible non-look files older than 6 h; none shipped/deleted. Both writer units remain active; VOL2 free 21,005,606,912 B. The folder is actively written and the profile script had one malformed/non-object JSON handling failure; P74 partial report is in agent/outbox/P74-final-topics.md.
+
+## P77r box snapshot check (19 Nov)
+
+The required read-only command `rsync --list-only "${BOX}.zfs/snapshot/"` failed with exit 23: the requested snapshot directory was unavailable (`No such file or directory`, rsync sender error 2). Per the instruction, stopped here; did not list a dated snapshot or access, copy, restore, write, or delete anything under the snapshot paths.
