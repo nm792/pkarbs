@@ -29,3 +29,9 @@ Nick: "I told you no more tests that cannot be of any use". Cause: MFW S1-S5 mak
 - The project commits this gate output beside the spec. The **Reviewer desk-checks spec and code against it before clearance**: can every rule post and fill on a real book, and can the test fail?
 - **No gate, no run.** A run without a committed, Reviewer-checked gate is INVALID and its numbers are never reported.
 - Then the 15-minute plausibility check applies once the run starts.
+
+## STANDING RULE: projects write all complex code themselves (Nick, 19 Nov 2026 01:58Z)
+Nick: "stop putting complex coding requirements onto the agent / the agent is running gpt-6 luna while you idiots are supposedly on Opus 5.5"
+- The box agent runs a weaker model. **Projects write, test and commit all non-trivial code themselves** (strategies, scorers, feeds, models, fixes), with the can-fail tests.
+- The agent only deploys committed code by SHA, runs stated commands, restarts processes, and returns logs and data. A to_agent note asking it to write or design logic is a REPEAT.
+- The Reviewer checks every to_agent note it reads against this rule.
