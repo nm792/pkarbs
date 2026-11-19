@@ -3,6 +3,14 @@ state: running (capture-b active; 2h slim timer armed 2026-11-08; approved timer
 last export (UTC): 18:55:05Z build (60e644526584), landed 21:45:47Z as b0358c9113
 push_rc: 1 (non-fast-forward race on the direct push; additive landing on tip succeeded)
 
+## A50 volume growth investigation (19 Nov 2026)
+
+- Read-only du pass 1 at 04:09:35Z: VOL2 used 83,373,522,944 B, free 16,330,252,288 B. Largest paths: `pkarbs` 71,869,805,056 B; `pkarbs-ps-step2` 2,278,913,232 B; `swapfile2` 2,147,483,648 B; `nt_live_fire` 1,180,860,097 B.
+- Read-only du pass 2 at 04:16:47Z: VOL2 used 84,164,714,496 B, free 15,539,060,736 B. Largest paths: `pkarbs` 72,622,761,864 B (+752,956,808 B); `pkarbs-ps-step2` 2,278,913,232 B (0 B); `swapfile2` 2,147,483,648 B (0 B); `nt_live_fire` 1,181,061,232 B (+201,135 B). The dominant directory delta is `pkarbs`.
+- `find -mmin -30` and process snapshot at 04:16:47Z showed active data under `pkarbs/thesports/final-topics-32295b`: `books.jsonl` 23,292,975,394 B, `ts_mqtt.jsonl` 16,970,673,134 B, `trades.jsonl` 995,037,907 B; `share/books.jsonl.gz.tmp` 2,926,964,670 B. `fuser` identified PID 2489797 (`capture.py`, started 14 Nov 03:30:03Z) holding `books.jsonl`, `ts_mqtt.jsonl`, and the tmp gzip. PID 2271688 (`pm_trades_capture.py`) also runs against this store.
+- Attribution: the TheSports capture/export path is the clear active writer in the largest growing directory; PID 2489797 is directly writing books and MQTT and its concurrent share gzip. These readings establish the dominant growth location, but do not apportion the full 7m12s increase among individual streams.
+- No gzip, move, trim, or delete was performed. At the second sample free space was 15,539,060,736 B, about 0.54 GB above the stated 15 GB recorder guard. The observed 0.79 GB increase over 7m12s suggests the guard could be reached within minutes if the same rate continues; exact crossing time is uncertain because the sample overlaps active writes. No trim was authorized by this read-only task.
+
 ## 306 status, due 17:00Z — posted 16:14Z (diagnosis measured; no change applied)
 
 - **Market registration: stopped by the gamma API page cap, not by the box.** Last good `discover_pm`
