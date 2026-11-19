@@ -12,3 +12,9 @@
 - Checked at 06:54Z per P55a.
 - `curl -sS -m 60` timed out before receiving a response: HTTP 000, 0 bytes; curl error 28, connection timed out after 60001 ms.
 - No listing body was received; the requested first 4000 bytes are unavailable. No archive listing file was created.
+
+## AAA watcher first-line check (19 Nov 08:06Z; P54b)
+
+- `aaa_watch.jsonl`: 0 bytes, 0 lines; no first three JSONL rows were available.
+- `stdout.log`: absent; the requested last three lines were unavailable.
+- Watcher PID 2879173 was alive at the check, running `python3 aaa_watch.py --out /mnt/HC_Volume_107257520/gas_watch --until 2026-11-19T09:00:00Z --interval 5 --max-seconds 5400`.
