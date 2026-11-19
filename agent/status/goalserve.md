@@ -250,3 +250,9 @@ basketball 2026111907 rows 1048 first 07:17:29 last 07:52:33
 basketball 2026111908 rows 621 first 08:15:03 last 08:42:45
 basketball 2026111909 rows 1427 first 09:12:07 last 09:59:58
 ```
+
+## P68 daily look cron (19 Nov)
+
+- Installed the reviewer wrapper at `/root/ship/daily_look_cron.sh` from `origin/reviewer:it/daily_look_cron.sh`; `bash -n` printed `ok`.
+- Preserved the existing Prime crontab and added `30 7 * * * ENVFILE=/root/ship/ship.env bash /root/ship/daily_look_cron.sh`; readback matches exactly. `ship.env` is the env file used by `ship_raw.sh`; only variable names were checked, and no values were printed.
+- Manual run started at 21:24:07Z. Esports signed checks passed and the signed test process was still running at 21:27Z; the wrapper had not yet produced `LATEST-esports.tail`, so run completion and the required tail are not verified.
