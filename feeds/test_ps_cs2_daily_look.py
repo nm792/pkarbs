@@ -259,6 +259,24 @@ def main():
         finally:
             os.remove(mp)
 
+        # 9b. recorder layouts: Dota-style rows ({recv_ms, token, ...}) are read and counted; an unreadable layout refuses instead of silently dropping every event
+        tk_dir = os.path.join(tmp, "tokenlayout")
+        build(tk_dir, lead=8.0)
+        rows = [json.loads(x) for x in open(os.path.join(tk_dir, "pm", "books.jsonl"))]
+        with open(os.path.join(tk_dir, "pm", "books.jsonl"), "w") as f:
+            for x in rows:
+                y = {"recv_ms": x["ms"], "token": x["tk"], "bids": x["bids"], "asks": x["asks"]}
+                f.write(json.dumps(y) + "\n")
+        rt = run(tk_dir)
+        ok(rt["drops"].get("pm_book_rows_token_key_layout", 0) > 1000 and prim(rt)["z_eq"] == prim(r)["z_eq"], "token-key (pm_dota_books.js) layout gives the same z_eq as the tk layout and the rows are counted (%s)" % rt["drops"].get("pm_book_rows_token_key_layout"))
+        bad_dir = os.path.join(tmp, "badlayout")
+        build(bad_dir, lead=8.0)
+        with open(os.path.join(bad_dir, "pm", "books.jsonl"), "w") as f:
+            f.write(json.dumps({"x": 1, "y": [1, 2]}) + "\n")
+        p = run(bad_dir, expect_fail=True)
+        ok(p.returncode != 0 and "no usable Polymarket book row" in (p.stderr + p.stdout), "a books file with an unknown layout refuses (no silent zero-row look)")
+        ok(r["pm_tokens_needed"] > 0 and r["pm_tokens_with_rows"] == r["pm_tokens_needed"], "coverage reported: %d of %d needed tokens have rows" % (r["pm_tokens_with_rows"], r["pm_tokens_needed"]))
+
         # 10. null behaviour: shuffled-sign fixtures never pass (40 independent seeds, no-lead fixture with random PM reaction -30..+30 s symmetric)
         passes = 0
         for sd in range(12):
