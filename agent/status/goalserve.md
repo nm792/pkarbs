@@ -235,3 +235,16 @@ NO NUMBER for esports: failed checks ['goalserve_polling_ok', 'goalserve_has_liv
 NO NUMBER for tennis: failed checks ['goalserve_polling_ok', 'a_live_game_matched_to_a_polymarket_market_naming_both_teams', 'every_matched_token_has_a_book_message', 'pm_server_timestamp_lag_plausible']
 NO NUMBER for hockey_nhl: failed checks ['goalserve_polling_ok', 'a_live_game_matched_to_a_polymarket_market_naming_both_teams', 'every_matched_token_has_a_book_message', 'pm_server_timestamp_lag_plausible']
 ```
+
+
+## P49 Goalserve live probe v2 relaunch (19 Nov)
+
+- Stopped the prior 90-minute probe PID 2689593 (cmdline matched the exact probe and output path named by the reviewer).
+- Refetched reviewer branch; offline test printed `ALL PASS` (22 checks). Relaunched v2 at 04:15:59Z, PID 2766271, duration 120 minutes, output `/mnt/HC_Volume_107257520/pkarbs/probe/goalserve-live-probe-v2-2026-11-19.json`; live log `/mnt/HC_Volume_107257520/pkarbs/probe/goalserve-live-probe-v2-2026-11-19.log`.
+- First observed preflight (04:18Z): hockey_nhl passed all checks, 4/4 games matched and books present; accepted market `Home/Away`. Tennis had 15/20 matches but failed polling health: 35 HTTP 429 errors across 51 polls. Esports had no live games or accepted markets at that instant and 38 HTTP 429 errors across 48 polls. `NO NUMBER` was emitted for esports and tennis. Probe remained alive at 04:30Z; 120-minute run not complete.
+
+## P50 esports look 1 diagnostic rerun (19 Nov)
+
+- Re-fetched `feeds/run_daily_look.sh` from `origin/claude/project-thread-vg2ckg`; signed self-test printed `ALL PASS`. Exact full run exit: 1 at 04:26:57Z.
+- It found zero local esports payload files for 2026-11-18; the named esports payload directory contained no matching files. The listing of matching files was empty. Other payload directories (basketball, esports, hockey_nhl, tennis) existed, timestamped around 04:00Z.
+- The script copied zero rows into the run input (`gs` remained 4.0K) and the analyzer exited 1; no result JSON/hash or verdict was produced. Its stdout then showed a `FileNotFoundError` while the wrapper tried to read the absent result JSON. The separate 03:34Z attempt had stopped at the signed-file gate; this 04:26Z run passed the signed checks, so the current blocker is missing esports capture files for the requested day.
