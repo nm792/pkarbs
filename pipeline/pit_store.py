@@ -78,3 +78,25 @@ def pull_trades(condition_id, max_pages=40):
     else:
         return out, True  # truncated
     return out, False
+
+
+def pull_series(slug, out_path, page=100, max_pages=200):
+    """All closed events of one gamma series (series_slug filter), full history. Resumable, de-duplicated."""
+    seen = set()
+    if os.path.exists(out_path):
+        for l in open(out_path):
+            try: seen.add(json.loads(l)["id"])
+            except Exception: pass
+    cur, n_new = None, 0
+    with open(out_path, "a") as f:
+        for _ in range(max_pages):
+            u = f"{GAMMA}/events/keyset?closed=true&limit={page}&series_slug={slug}"
+            if cur: u += f"&after_cursor={cur}"
+            d = http_json(u)
+            for e in d.get("events", []):
+                if e["id"] in seen: continue
+                seen.add(e["id"]); e = slim_event(e); e["_fetched_at"] = int(time.time())
+                f.write(json.dumps(e) + "\n"); n_new += 1
+            cur = d.get("next_cursor")
+            if not cur or not d.get("events"): break
+    return n_new

@@ -11,8 +11,8 @@ def rank(vals, rev=True):
 def main(outdir, meta):
     fam = json.load(open(f"{outdir}/families.json")); cells = json.load(open(f"{outdir}/cells.json"))
     scr = fam["all_screen"]
-    fs = [f for f in fam["families"] if f.get("n_tstar_15", 0) >= 15]
-    for f in fs: f["late"] = 1.0 - f["mean_winner_px_tstar_15"]
+    fs = [f for f in fam["families"] if f.get("n_clock_15", 0) >= 15]
+    for f in fs: f["late"] = 1.0 - f["mean_winner_px_clock_15"]
     r1, r2, r3 = rank([f["events_per_day"] for f in fs]), rank([f["median_vol"] for f in fs]), rank([f["late"] for f in fs])
     for f, a, b, c in zip(fs, r1, r2, r3): f["r_freq"], f["r_vol"], f["r_late"], f["rank_sum"] = a, b, c, a + b + c
     fs.sort(key=lambda f: f["rank_sum"])
@@ -22,15 +22,13 @@ def main(outdir, meta):
          f"Passed freq (gamma series recurrence = daily or faster, i.e. polymarket.com/new?_r=daily) and vol (median >= min): {sum(1 for f in scr if f['pass_freq'] and f['pass_vol'])} families; "
          f"top {len(fam['families'])} by total volume were sampled (<= {meta.get('n_events','?')} events each, top 2 markets per event).", "",
          "## Three-criteria ranking (rank sum f+v+l, lower is better)", "",
-         "Late move = 1 - mean price of the eventual winner's own token 15 min before T*, where T* = last winner print below 0.95 (hindsight anchor: when the market finished moving). "
-         "The clock columns anchor on the market endDate instead (known ex ante; for sports it is near the scheduled start, so those are pre-game prices).", "",
-         "| family | ev/day | median vol $ | winner px endDate-60 / -15 / -5 | share winner<0.5 at endDate-15 | winner px T*-60 / -15 / -5 | ranks f/v/l | mkts | n |", "|---|---|---|---|---|---|---|---|---|"]
+         "Late move = 1 - mean price of the eventual winner's own token 15 minutes before the scheduled end time (gamma endDate), "
+         "also shown at 60 and 5 minutes. Own-token last print only, never 1 minus the other side. A winner still far from 1 shortly before the scheduled close means the market was pricing the result inefficiently or late.", "",
+         "| family | ev/day | median vol $ | winner px T-60 / T-15 / T-5 | share winner<0.5 at T-15 | ranks f/v/l | mkts | n |", "|---|---|---|---|---|---|---|---|"]
     for f in fs:
-        L.append(f"| {f['family']} | {f['events_per_day']:.1f} | {f['median_vol']:,.0f} | {g(f['mean_winner_px_clock_60'])} / {g(f['mean_winner_px_clock_15'])} / {g(f['mean_winner_px_clock_5'])} | "
-                 f"{g(f['share_winner_lt50_clock_15'])} | {g(f['mean_winner_px_tstar_60'])} / {g(f['mean_winner_px_tstar_15'])} / {g(f['mean_winner_px_tstar_5'])} | "
-                 f"{f['r_freq']}/{f['r_vol']}/{f['r_late']} | {f['n_markets_sampled']} | {f['n_tstar_15']} |")
-    L += ["", "Caution: T* uses hindsight, and a live market that resolves in play is expected to be uncertain until late. "
-          "A large late gap alone is not evidence of mispricing; the ex-ante IC table below is the test.", ""]
+        L.append(f"| {f['family']} | {f['events_per_day']:.2f} | {f['median_vol']:,.0f} | {g(f['mean_winner_px_clock_60'])} / {g(f['mean_winner_px_clock_15'])} / {g(f['mean_winner_px_clock_5'])} | "
+                 f"{g(f['share_winner_lt50_clock_15'])} | {f['r_freq']}/{f['r_vol']}/{f['r_late']} | {f['n_markets_sampled']} | {f['n_clock_15']} |")
+    L += [""]
     n = len(cells); disc = [c for c in cells if c["bh_discovery_q10"]]
     L += [f"## Signal IC (ex-ante, decision = end time minus H, fill = first BUY print after)", "",
           f"Cells tried: {n}. Benjamini-Hochberg q=0.10 discoveries on out-of-sample p: {len(disc)}.", "",

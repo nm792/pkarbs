@@ -1,0 +1,224 @@
+{
+ "TEST-real": {
+  "label": "TEST real",
+  "n": 2680,
+  "usd": 80996,
+  "mean_q": 0.572,
+  "exante": 0.1159,
+  "real_per_share": -0.0319,
+  "real_ci": [
+   -0.1388,
+   0.0839
+  ],
+  "per_day_10pct": -15.07,
+  "per_day_ci": [
+   -75.57,
+   36.45
+  ],
+  "flow_usd_per_day": 270.0,
+  "days_with_trades": 30,
+  "top5_share_of_pnl": -1.67
+ },
+ "TEST-placebo": {
+  "label": "TEST placebo",
+  "n": 3469,
+  "usd": 47949,
+  "mean_q": 0.218,
+  "exante": 0.5722,
+  "real_per_share": 0.0208,
+  "real_ci": [
+   -0.1,
+   0.1759
+  ],
+  "per_day_10pct": 15.28,
+  "per_day_ci": [
+   -72.31,
+   134.08
+  ],
+  "flow_usd_per_day": 159.8,
+  "days_with_trades": 30,
+  "top5_share_of_pnl": 5.12
+ },
+ "TEST-plant": {
+  "label": "TEST plant",
+  "n": 7507,
+  "usd": 222800,
+  "mean_q": 0.541,
+  "exante": 0.0439,
+  "real_per_share": 0.0508,
+  "real_ci": [
+   0.0085,
+   0.1006
+  ],
+  "per_day_10pct": 65.14,
+  "per_day_ci": [
+   11.04,
+   127.62
+  ],
+  "flow_usd_per_day": 742.7,
+  "days_with_trades": 30,
+  "top5_share_of_pnl": 0.9
+ },
+ "TEST-null": {
+  "label": "TEST null",
+  "n": 0
+ },
+ "TEST-real-tau<=3h": {
+  "label": "TEST real tau<=3h",
+  "n": 420,
+  "usd": 14479,
+  "mean_q": 0.412,
+  "exante": 0.1007,
+  "real_per_share": -0.1899,
+  "real_ci": [
+   -0.3945,
+   0.0116
+  ],
+  "per_day_10pct": -22.22,
+  "per_day_ci": [
+   -58.43,
+   0.83
+  ],
+  "flow_usd_per_day": 48.3,
+  "days_with_trades": 13,
+  "top5_share_of_pnl": -0.14
+ },
+ "TEST-real-tau>3h": {
+  "label": "TEST real tau>3h",
+  "n": 2260,
+  "usd": 66517,
+  "mean_q": 0.625,
+  "exante": 0.1209,
+  "real_per_share": 0.0202,
+  "real_ci": [
+   -0.0976,
+   0.1252
+  ],
+  "per_day_10pct": 7.15,
+  "per_day_ci": [
+   -34.19,
+   46.28
+  ],
+  "flow_usd_per_day": 221.7,
+  "days_with_trades": 30,
+  "top5_share_of_pnl": 3.54
+ },
+ "TRAIN-real": {
+  "label": "TRAIN real",
+  "n": 5122,
+  "usd": 92987,
+  "mean_q": 0.485,
+  "exante": 0.1007,
+  "real_per_share": 0.1511,
+  "real_ci": [
+   -0.0264,
+   0.3228
+  ],
+  "per_day_10pct": 99.98,
+  "per_day_ci": [
+   -15.64,
+   249.97
+  ],
+  "flow_usd_per_day": 320.6,
+  "days_with_trades": 29,
+  "top5_share_of_pnl": 1.16
+ },
+ "TRAIN-placebo": {
+  "label": "TRAIN placebo",
+  "n": 6838,
+  "usd": 81195,
+  "mean_q": 0.216,
+  "exante": 0.5524,
+  "real_per_share": 0.0109,
+  "real_ci": [
+   -0.1096,
+   0.1544
+  ],
+  "per_day_10pct": 14.18,
+  "per_day_ci": [
+   -140.35,
+   202.96
+  ],
+  "flow_usd_per_day": 280.0,
+  "days_with_trades": 29,
+  "top5_share_of_pnl": 8.88
+ },
+ "TRAIN-plant": {
+  "label": "TRAIN plant",
+  "n": 16437,
+  "usd": 353390,
+  "mean_q": 0.532,
+  "exante": 0.0431,
+  "real_per_share": 0.0878,
+  "real_ci": [
+   0.0479,
+   0.1261
+  ],
+  "per_day_10pct": 184.55,
+  "per_day_ci": [
+   97.56,
+   278.14
+  ],
+  "flow_usd_per_day": 1218.6,
+  "days_with_trades": 29,
+  "top5_share_of_pnl": 0.56
+ },
+ "TRAIN-null": {
+  "label": "TRAIN null",
+  "n": 0
+ },
+ "TRAIN-real-tau<=3h": {
+  "label": "TRAIN real tau<=3h",
+  "n": 1052,
+  "usd": 22151,
+  "mean_q": 0.426,
+  "exante": 0.101,
+  "real_per_share": 0.307,
+  "real_ci": [
+   -0.0129,
+   0.5895
+  ],
+  "per_day_10pct": 55.05,
+  "per_day_ci": [
+   -1.52,
+   159.78
+  ],
+  "flow_usd_per_day": 76.4,
+  "days_with_trades": 15,
+  "top5_share_of_pnl": 1.03
+ },
+ "TRAIN-real-tau>3h": {
+  "label": "TRAIN real tau>3h",
+  "n": 4070,
+  "usd": 70836,
+  "mean_q": 0.506,
+  "exante": 0.1006,
+  "real_per_share": 0.0932,
+  "real_ci": [
+   -0.056,
+   0.2342
+  ],
+  "per_day_10pct": 44.93,
+  "per_day_ci": [
+   -26.62,
+   119.35
+  ],
+  "flow_usd_per_day": 244.3,
+  "days_with_trades": 29,
+  "top5_share_of_pnl": 1.37
+ },
+ "meta": {
+  "events_used": 59,
+  "test_days": 30,
+  "sigma_bp": {
+   "0.5": 12,
+   "1": 29,
+   "2": 30,
+   "3": 16,
+   "6": 28,
+   "12": 40,
+   "24": 60,
+   "48": 48
+  }
+ }
+}

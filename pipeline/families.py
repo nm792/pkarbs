@@ -47,7 +47,7 @@ def _ts(s):
     except Exception: return None
 
 
-def screen(events, window_days, min_events=5):
+def screen(events, window_days, min_events=5, per_family_span=False):
     """Per family: events/day, active-day share, median and total volume, recurrence label."""
     fam = defaultdict(list)
     for e in events:
@@ -58,11 +58,12 @@ def screen(events, window_days, min_events=5):
     for k, v in fam.items():
         if len(v) < min_events: continue
         days = {dt.datetime.fromtimestamp(x[0], dt.timezone.utc).date() for x in v}
+        span = max(1, (max(x[0] for x in v) - min(x[0] for x in v)) / 86400 + 1) if per_family_span else window_days
         vols = [x[1] for x in v]
         rec = ""
         s = v[0][2].get("series") or []
         if s: rec = s[0].get("recurrence", "")
-        rows.append(dict(family=k, n_events=len(v), events_per_day=len(v) / window_days,
-                         active_day_share=len(days) / window_days, median_vol=statistics.median(vols),
+        rows.append(dict(family=k, n_events=len(v), events_per_day=len(v) / span,
+                         active_day_share=len(days) / span, median_vol=statistics.median(vols),
                          total_vol=sum(vols), recurrence=rec))
     return rows

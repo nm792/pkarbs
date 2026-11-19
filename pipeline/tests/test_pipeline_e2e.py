@@ -5,11 +5,11 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 import screen
 
 
-def make(planted, seed, n=150):
+def make(planted, seed, n=500):
     rnd = random.Random(seed); evs, trades = [], {}
     H = 3600
     for i in range(n):
-        end = 1_760_000_000 + i * 20000 + rnd.randint(0, 5000)
+        end = 1_760_000_000 + i * 5000 + rnd.randint(0, 5000)
         q = rnd.uniform(0.25, 0.75); win = 1 if rnd.random() < q else 0
         cond = f"c{seed}_{i}"; toks = [f"t{seed}_{i}_0", f"t{seed}_{i}_1"]
         rows = []
@@ -47,8 +47,8 @@ def run(planted):
     screen.get_trades = lambda cond: {"rows": trades[cond], "trunc": False}
 
     class A: pass
-    a = A(); a.events = ev_path; a.window_days = 40; a.out = os.path.join(d, "out"); a.max_families = 5
-    a.n_events = 150; a.min_median_vol = 1000; a.min_ev_per_day = 0.5; a.seed = 1
+    a = A(); a.events = ev_path; a.window_days = 30; a.out = os.path.join(d, "out"); a.max_families = 5
+    a.n_events = 500; a.min_median_vol = 1000; a.min_ev_per_day = 0.5; a.per_family_span = False; a.workers = 4; a.seed = 1
     scr, fam, cells = screen.run(a)
     return cells
 

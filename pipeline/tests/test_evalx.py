@@ -47,3 +47,9 @@ def test_cluster_t_smaller_than_naive_when_clustered():
     rows = [dict(event=f"e{i//10}", ret=(1.0 if i // 10 % 2 else -1.0) + 0.1 * (i % 3)) for i in range(200)]
     m, t, n = evalx.cluster_mean(rows)
     assert n == 20
+
+
+def test_t_pvalue_small_df():
+    assert abs(evalx.t_sf2(2.5706, 5) - 0.05) < 0.002
+    assert abs(evalx.t_sf2(2.0, 1000) - evalx.norm_sf2(2.0)) < 0.002
+    assert evalx.t_sf2(6.8, 5) > evalx.norm_sf2(6.8)  # normal would overstate significance

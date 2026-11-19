@@ -3,7 +3,7 @@ then run signal IC / walk-forward / BH on the families that pass 1 and 2.
 
 Usage: python3 screen.py --events EVENTS.jsonl --window-days 30 --out OUTDIR [--max-families N --n-events N]
 """
-import argparse, concurrent.futures as cf, datetime as dt, gzip, hashlib, json, os, random, statistics, subprocess, sys, time
+import re, argparse, concurrent.futures as cf, datetime as dt, gzip, hashlib, json, os, random, statistics, subprocess, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import evalx, families as F, pit_store as P, signals as S
 
@@ -100,9 +100,20 @@ def build_family(fam, evs, n_events, seed, workers=8):
                 px, fts = f
                 if px <= 0.01 or px >= 0.99: continue
                 ret = (1.0 if idx == m["win"] else 0.0) / px - 1.0
-                rows.append(dict(h=hn, event=e["id"], ts=t, day=int(t // 86400), week=int(t // (7 * 86400)),
+                rows.append(dict(h=hn, cond=m["cond"], event=e["id"], ts=t, day=int(t // 86400), week=int(t // (7 * 86400)),
                                  token=idx, fill=px, ret=ret, edge=(1.0 if idx == m["win"] else 0.0) - px, **s))
     return rows, lm, ntrunc, len(jobs)
+
+
+FIN = re.compile(r"(daily-up-or-down|daily-up-down|daily-close-uo|multi-strikes-daily|up-or-down-daily|open-daily-up)")
+TW = re.compile(r"(tweets|truth-social)")
+
+
+def group_of(fam):
+    """Pool thin same-structure families so a cross-section per day exists (tested as a group, counted as one cell set)."""
+    if FIN.search(fam): return "GROUP:finance-daily-updown"
+    if TW.search(fam): return "GROUP:tweet-counts"
+    return fam
 
 
 def run(args):
@@ -112,7 +123,7 @@ def run(args):
     print(f"excluded {n_all - len(events)} of {n_all} events (sports/esports/weather/5m)", flush=True)
     ev_by = {}
     for e in events: ev_by.setdefault(F.family_key(e), []).append(e)
-    scr = F.screen(events, args.window_days)
+    scr = F.screen(events, args.window_days, per_family_span=args.per_family_span)
     for r in scr:
         r["pass_freq"] = r["recurrence"] in DAILY_OR_FASTER  # Polymarket's own recurrence field (polymarket.com/new?_r=daily)
         r["pass_vol"] = r["median_vol"] >= args.min_median_vol
@@ -120,10 +131,11 @@ def run(args):
     cand.sort(key=lambda r: -r["total_vol"])
     cand = cand[: args.max_families]
     os.makedirs(args.out, exist_ok=True)
-    fam_out, cells = [], []
+    fam_out, cells, fam_rows = [], [], {}
     for r in cand:
         fam = r["family"]; t0 = time.time()
-        rows, lm, ntrunc, nm = build_family(fam, ev_by[fam], args.n_events, args.seed)
+        rows, lm, ntrunc, nm = build_family(fam, ev_by[fam], args.n_events, args.seed, args.workers)
+        fam_rows[fam] = rows
         agg = {}
         for an in ("clock", "tstar"):
             for k in ("60", "15", "5"):
@@ -133,17 +145,19 @@ def run(args):
                 agg[f"share_winner_lt50_{an}_{k}"] = (sum(p < 0.5 for p in v) / len(v)) if v else None
         r.update(n_markets_sampled=nm, n_trunc=ntrunc, n_late=len(lm), n_rows=len(rows), seconds=round(time.time() - t0), **agg)
         fam_out.append(r); print(fam, r["n_rows"], r["seconds"], flush=True)
+    groups = {}
+    for fam, rows in fam_rows.items(): groups.setdefault(group_of(fam), []).extend(rows)
+    for gname, rows in groups.items():
         for hn in HORIZONS:
-            hr = [x for x in rows if x["h"] == hn]
+            hr = [x for x in rows if x["h"] == hn and x["token"] == int(hashlib.md5(x["cond"].encode()).hexdigest(), 16) % 2]  # ONE token per market: the two tokens mirror each other and would double count
             if len({x["event"] for x in hr}) < 20: continue
             bucket = "day" if len(hr) / max(1, len({x["day"] for x in hr})) >= 8 else "week"
-            for x in hr: x["_b"] = x[bucket]
             m_ret, t_ret, n_ev = evalx.cluster_mean(hr, key="edge")
             for sn in S.SIGNAL_NAMES:
-                for x in hr: x["sig"] = x[sn]
-                rr = [dict(x, day=x["_b"]) for x in hr]
+                rr = [dict(x, day=x[bucket], sig=x[sn]) for x in hr]
                 ev = evalx.evaluate(rr, ret="edge")
-                cells.append(dict(family=fam, h=hn, signal=sn, bucket=bucket, n_events=n_ev, mean_edge=m_ret, edge_t=t_ret, roi=sum(x['ret'] * 0 for x in hr) + (sum(x['edge'] for x in hr) / sum(x['fill'] for x in hr)), **ev))
+                cells.append(dict(family=gname, h=hn, signal=sn, bucket=bucket, n_events=n_ev, mean_edge=m_ret, edge_t=t_ret,
+                                  roi=sum(x["edge"] for x in hr) / sum(x["fill"] for x in hr), **ev))
     # multiple-testing penalty over ALL cells tried
     pv = [c["p_test"] for c in cells]
     keep = evalx.bh_fdr(pv, 0.1)
@@ -158,5 +172,5 @@ if __name__ == "__main__":
     ap.add_argument("--events", required=True); ap.add_argument("--window-days", type=int, default=30)
     ap.add_argument("--out", required=True); ap.add_argument("--max-families", type=int, default=25)
     ap.add_argument("--n-events", type=int, default=100); ap.add_argument("--min-median-vol", type=float, default=20000)
-    ap.add_argument("--min-ev-per-day", type=float, default=0.5); ap.add_argument("--seed", type=int, default=2026)
+    ap.add_argument("--min-ev-per-day", type=float, default=0.5); ap.add_argument("--per-family-span", action="store_true"); ap.add_argument("--workers", type=int, default=8); ap.add_argument("--seed", type=int, default=2026)
     run(ap.parse_args())

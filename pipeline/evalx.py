@@ -3,7 +3,7 @@ import math
 from collections import defaultdict
 
 
-MIN_TEST_BUCKETS = 6  # fewer OOS buckets than this = 'insufficient', p set to 1
+MIN_TEST_BUCKETS = 8  # fewer OOS buckets than this = 'insufficient', p set to 1
 
 
 def _rank(v):
@@ -26,7 +26,48 @@ def spearman(x, y):
     return sxy / math.sqrt(sxx * syy) if sxx > 0 and syy > 0 else float("nan")
 
 
-def norm_sf2(z):  # two-sided normal p
+def _betacf(a, b, x):
+    qab, qap, qam = a + b, a + 1, a - 1
+    c, d = 1.0, 1 - qab * x / qap
+    d = 1 / (d if abs(d) > 1e-300 else 1e-300); h = d
+    for m in range(1, 300):
+        m2 = 2 * m
+        aa = m * (b - m) * x / ((qam + m2) * (a + m2))
+        d = 1 + aa * d; d = 1 / (d if abs(d) > 1e-300 else 1e-300)
+        c = 1 + aa / c; c = c if abs(c) > 1e-300 else 1e-300
+        h *= d * c
+        aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2))
+        d = 1 + aa * d; d = 1 / (d if abs(d) > 1e-300 else 1e-300)
+        c = 1 + aa / c; c = c if abs(c) > 1e-300 else 1e-300
+        de = d * c; h *= de
+        if abs(de - 1) < 1e-12: break
+    return h
+
+
+def _betai(a, b, x):
+    if x <= 0: return 0.0
+    if x >= 1: return 1.0
+    bt = math.exp(math.lgamma(a + b) - math.lgamma(a) - math.lgamma(b) + a * math.log(x) + b * math.log(1 - x))
+    if x < (a + 1) / (a + b + 2): return bt * _betacf(a, b, x) / a
+    return 1 - bt * _betacf(b, a, 1 - x) / b
+
+
+def t_sf2(t, df):
+    """Two-sided Student-t p-value (df = n-1 buckets). Small samples must not use the normal."""
+    if df < 1: return 1.0
+    return _betai(df / 2.0, 0.5, df / (df + t * t))
+
+
+def pearson(x, y):
+    n = len(x)
+    if n < 3: return float("nan")
+    mx, my = sum(x) / n, sum(y) / n
+    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y))
+    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)
+    return sxy / math.sqrt(sxx * syy) if sxx > 0 and syy > 0 else float("nan")
+
+
+def norm_sf2(z):  # kept for tests; evaluation uses t_sf2
     return math.erfc(abs(z) / math.sqrt(2))
 
 
@@ -38,6 +79,11 @@ def mean_t(vals):
     return m, (m / (s / math.sqrt(n)) if s > 0 else float("nan")), n
 
 
+# Pearson, not Spearman, on edge = win - price. Binary payoffs are two-point and skewed; under perfect calibration
+# Spearman(price, edge) is non-zero (a null market showed 14/16 false discoveries), Pearson is exactly zero.
+IC_FN = pearson
+
+
 def ic_series(rows, sig="sig", ret="ret", by="day", min_n=6):
     """Cross-sectional rank IC per `by` bucket (e.g. day). Returns {bucket: ic}."""
     g = defaultdict(list)
@@ -45,7 +91,7 @@ def ic_series(rows, sig="sig", ret="ret", by="day", min_n=6):
     out = {}
     for k, rs in g.items():
         if len(rs) >= min_n:
-            out[k] = spearman([r[sig] for r in rs], [r[ret] for r in rs])
+            out[k] = IC_FN([r[sig] for r in rs], [r[ret] for r in rs])
     return out
 
 
@@ -86,5 +132,5 @@ def evaluate(rows, sig="sig", ret="ret"):
     sign = 1 if m_tr == m_tr and m_tr >= 0 else -1
     m_all, t_all, n_all = mean_t(list(ic_series(rows, sig, ret).values()))
     return dict(ic_all=m_all, t_all=t_all, n_days=n_all, ic_train=m_tr, ic_test=m_te * sign, t_test=t_te * sign,
-                n_test_days=n_te, sign=sign, p_all=norm_sf2(t_all) if t_all == t_all else 1.0,
-                p_test=norm_sf2(t_te) if (t_te == t_te and n_te >= MIN_TEST_BUCKETS) else 1.0, n_rows=len(rows))
+                n_test_days=n_te, sign=sign, p_all=t_sf2(t_all, n_all - 1) if t_all == t_all else 1.0,
+                p_test=t_sf2(t_te, n_te - 1) if (t_te == t_te and n_te >= MIN_TEST_BUCKETS) else 1.0, n_rows=len(rows))
