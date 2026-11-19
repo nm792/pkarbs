@@ -4,7 +4,7 @@
 D="${1:-/mnt/HC_Volume_107257520/pkarbs/pmdota}"; cd "$D" || { echo "FAIL no dir $D"; exit 1; }
 NOW=$(date -u +%s)
 echo "now $(date -u +%FT%TZ)"
-PID=$(pgrep -f "pm_dota_books.js $D" | head -1)
+PID=$(ps -eo pid=,comm=,args= | awk -v d="$D" '$2=="node" && index($0,"pm_dota_books.js") {print $1; exit}')  # comm must be node: never matches the invoking shell
 [ -n "$PID" ] && echo "PASS process pid $PID started $(ps -o lstart= -p $PID)" || echo "FAIL recorder process not running"
 echo "files:"; ls -l --time-style=full-iso books*.jsonl* markets.jsonl recorder.log 2>/dev/null | tail -12
 ROWS=$( ( for f in books.*.jsonl.gz; do [ -f "$f" ] && zcat "$f" 2>/dev/null; done; cat books.jsonl 2>/dev/null ) | wc -l)
