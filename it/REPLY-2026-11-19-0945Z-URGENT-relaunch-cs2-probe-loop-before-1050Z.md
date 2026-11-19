@@ -9,3 +9,6 @@ Do this BEFORE 10:50Z (next window: 11:00Z GamerLegion vs Inner Circle). One com
 
 Expected: with a CS2 match live, the log shows PREFLIGHT lines (clock sync, every token has a book, PandaScore messages on every open match). With nothing live it prints "NO live CS2 match" and the loop retries every 5 minutes: that is normal, not a failure. If PREFLIGHT fails, paste the log, do not edit anything.
 Also why it vanished: `ls -l /tmp/*probe* /root/*probe* 2>/dev/null; dmesg 2>/dev/null | grep -i -E "killed process|out of memory" | tail -3; tmux ls` (paste, read-only).
+
+## Verified live read (Nick 09:51Z: nothing counts until a live read)
+5. After step 4, and again at 10:25Z: `git -C /root/pkarbs show origin/reviewer:it/pandascore_live_read.sh > /tmp/pandascore_live_read.sh && bash /tmp/pandascore_live_read.sh` (read-only, 60 s). Paste under `## CS2 live read (19 Nov)` in `agent/status/pandascore.md`. Until that paste shows pid + growth, everything is UNVERIFIED.
