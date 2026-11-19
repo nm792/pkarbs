@@ -1,0 +1,242 @@
+{
+ "seed": 20261115,
+ "ps_messages": 22884,
+ "ps_events_total": 1911,
+ "ps_matches_seen": 23,
+ "ps_matches_unmatched_to_pm": 5,
+ "strata_computed": true,
+ "events_without_market": {
+  "('cs2', 'Map 1 Winner')": 50,
+  "('cs2', 'Match Winner')": 70,
+  "('dota2', 'Map 1 Winner')": 150,
+  "('dota2', 'Match Winner')": 199,
+  "('cs2', 'Map 2 Winner')": 20,
+  "('cs2', 'Map 3 Winner')": 104,
+  "('dota2', 'Map 3 Winner')": 145,
+  "('dota2', 'Map 2 Winner')": 39
+ },
+ "cells": {
+  "cs2|map|all": {
+   "n_events": 424,
+   "n_matches": 10,
+   "n_with_onset": 300,
+   "n_placebo": 100,
+   "n_placebo_with_onset": 15,
+   "pct_real_with_onset": 70.75471698113208,
+   "pct_placebo_with_onset": 15.0,
+   "median_real_lead_s": -30.6205176115036,
+   "median_placebo_lead_s": -3.1772572994232178,
+   "diff_s": -27.443260312080383,
+   "pct_price_after_feed": 11.666666666666666,
+   "pct_placebo_after": 40.0,
+   "ci95_match_boot": [
+    -50.324174880981445,
+    -5.403196096420288
+   ],
+   "verdict": "no lead (needs audit)"
+  },
+  "cs2|map|<25k": {
+   "n_events": 84,
+   "n_matches": 4,
+   "n_with_onset": 75,
+   "n_placebo": 20,
+   "n_placebo_with_onset": 9,
+   "pct_real_with_onset": 89.28571428571429,
+   "pct_placebo_with_onset": 45.0,
+   "median_real_lead_s": -22.236103296279907,
+   "median_placebo_lead_s": -1.514472246170044,
+   "diff_s": -20.721631050109863,
+   "pct_price_after_feed": 20.0,
+   "pct_placebo_after": 44.44444444444444,
+   "ci95_match_boot": [
+    -41.50913906097412,
+    4.573654651641846
+   ],
+   "verdict": "no lead (needs audit)"
+  },
+  "cs2|map|>=25k": {
+   "n_events": 109,
+   "n_matches": 3,
+   "n_with_onset": 103,
+   "n_placebo": 30,
+   "n_placebo_with_onset": 2,
+   "pct_real_with_onset": 94.4954128440367,
+   "pct_placebo_with_onset": 6.666666666666667,
+   "median_real_lead_s": -33.48461580276489,
+   "median_placebo_lead_s": -26.8118177652359,
+   "diff_s": -6.672798037528992,
+   "pct_price_after_feed": 2.912621359223301,
+   "pct_placebo_after": 0.0,
+   "ci95_match_boot": [
+    -11.813663482666016,
+    -3.7058165073394775
+   ],
+   "verdict": "no lead (needs audit)"
+  },
+  "cs2|match|all": {
+   "n_events": 528,
+   "n_matches": 10,
+   "n_with_onset": 328,
+   "n_placebo": 100,
+   "n_placebo_with_onset": 15,
+   "pct_real_with_onset": 62.121212121212125,
+   "pct_placebo_with_onset": 15.0,
+   "median_real_lead_s": -29.01902401447296,
+   "median_placebo_lead_s": 23.9990336894989,
+   "diff_s": -53.01805770397186,
+   "pct_price_after_feed": 12.5,
+   "pct_placebo_after": 73.33333333333333,
+   "ci95_match_boot": [
+    -79.946613073349,
+    -19.900728940963745
+   ],
+   "verdict": "no lead (needs audit)"
+  },
+  "cs2|match|<25k": {
+   "n_events": 116,
+   "n_matches": 2,
+   "n_with_onset": 77,
+   "n_placebo": 20,
+   "n_placebo_with_onset": 1,
+   "pct_real_with_onset": 66.37931034482759,
+   "pct_placebo_with_onset": 5.0,
+   "median_real_lead_s": -21.586050987243652,
+   "median_placebo_lead_s": 55.55347204208374,
+   "diff_s": -77.13952302932739,
+   "pct_price_after_feed": 11.688311688311689,
+   "pct_placebo_after": 100.0,
+   "ci95_match_boot": [
+    -85.02728915214539,
+    -77.13952302932739
+   ],
+   "verdict": "no lead (needs audit)"
+  },
+  "cs2|match|>=25k": {
+   "n_events": 95,
+   "n_matches": 3,
+   "n_with_onset": 75,
+   "n_placebo": 30,
+   "n_placebo_with_onset": 7,
+   "pct_real_with_onset": 78.94736842105263,
+   "pct_placebo_with_onset": 23.333333333333332,
+   "median_real_lead_s": -25.518333673477173,
+   "median_placebo_lead_s": 33.048927783966064,
+   "diff_s": -58.56726145744324,
+   "pct_price_after_feed": 16.0,
+   "pct_placebo_after": 100.0,
+   "ci95_match_boot": [
+    -80.20069539546967,
+    -45.602694153785706
+   ],
+   "verdict": "no lead (needs audit)"
+  },
+  "dota2|map|all": {
+   "n_events": 979,
+   "n_matches": 8,
+   "n_with_onset": 472,
+   "n_placebo": 72,
+   "n_placebo_with_onset": 6,
+   "pct_real_with_onset": 48.212461695607765,
+   "pct_placebo_with_onset": 8.333333333333334,
+   "median_real_lead_s": -22.692448496818542,
+   "median_placebo_lead_s": 23.743085384368896,
+   "diff_s": -46.43553388118744,
+   "pct_price_after_feed": 24.152542372881356,
+   "pct_placebo_after": 50.0,
+   "ci95_match_boot": [
+    -84.60533142089844,
+    -17.734548687934875
+   ],
+   "verdict": "no lead (needs audit)"
+  },
+  "dota2|map|<25k": {
+   "n_events": 174,
+   "n_matches": 2,
+   "n_with_onset": 67,
+   "n_placebo": 12,
+   "n_placebo_with_onset": 2,
+   "pct_real_with_onset": 38.50574712643678,
+   "pct_placebo_with_onset": 16.666666666666668,
+   "median_real_lead_s": 2.793856382369995,
+   "median_placebo_lead_s": 55.20613515377045,
+   "diff_s": -52.41227877140045,
+   "pct_price_after_feed": 53.73134328358209,
+   "pct_placebo_after": 100.0,
+   "ci95_match_boot": [
+    -68.23496842384338,
+    -43.820688366889954
+   ],
+   "verdict": "no lead (needs audit)"
+  },
+  "dota2|map|>=25k": {
+   "n_events": 0,
+   "n_matches": 0,
+   "n_with_onset": 0,
+   "n_placebo": 0,
+   "n_placebo_with_onset": 0,
+   "pct_real_with_onset": null,
+   "pct_placebo_with_onset": null,
+   "median_real_lead_s": null,
+   "median_placebo_lead_s": null,
+   "diff_s": null,
+   "pct_price_after_feed": null,
+   "pct_placebo_after": null,
+   "ci95_match_boot": null,
+   "verdict": "unknown (n=0 < 30), preliminary"
+  },
+  "dota2|match|all": {
+   "n_events": 1114,
+   "n_matches": 8,
+   "n_with_onset": 471,
+   "n_placebo": 70,
+   "n_placebo_with_onset": 5,
+   "pct_real_with_onset": 42.28007181328546,
+   "pct_placebo_with_onset": 7.142857142857143,
+   "median_real_lead_s": -14.14254641532898,
+   "median_placebo_lead_s": -28.303961992263794,
+   "diff_s": 14.161415576934814,
+   "pct_price_after_feed": 30.78556263269639,
+   "pct_placebo_after": 40.0,
+   "ci95_match_boot": [
+    -66.53016138076782,
+    38.44443225860596
+   ],
+   "verdict": "no lead (needs audit)"
+  },
+  "dota2|match|<25k": {
+   "n_events": 174,
+   "n_matches": 2,
+   "n_with_onset": 36,
+   "n_placebo": 10,
+   "n_placebo_with_onset": 1,
+   "pct_real_with_onset": 20.689655172413794,
+   "pct_placebo_with_onset": 10.0,
+   "median_real_lead_s": -7.047153353691101,
+   "median_placebo_lead_s": 50.052210092544556,
+   "diff_s": -57.09936344623566,
+   "pct_price_after_feed": 38.888888888888886,
+   "pct_placebo_after": 100.0,
+   "ci95_match_boot": [
+    -60.087013840675354,
+    -57.09936344623566
+   ],
+   "verdict": "no lead (needs audit)"
+  },
+  "dota2|match|>=25k": {
+   "n_events": 0,
+   "n_matches": 0,
+   "n_with_onset": 0,
+   "n_placebo": 0,
+   "n_placebo_with_onset": 0,
+   "pct_real_with_onset": null,
+   "pct_placebo_with_onset": null,
+   "median_real_lead_s": null,
+   "median_placebo_lead_s": null,
+   "diff_s": null,
+   "pct_price_after_feed": null,
+   "pct_placebo_after": null,
+   "ci95_match_boot": null,
+   "verdict": "unknown (n=0 < 30), preliminary"
+  }
+ }
+}

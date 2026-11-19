@@ -1,0 +1,8 @@
+# TASK (URGENT): make the 5 s divergence logger survive a reboot (your 17 Nov report says the unit is transient)
+
+Deadline: **today 17 Nov 2026 08:00Z**. Your report (agent/outbox/TASK-pm-hl-5s-logger-2026-11-17.md) shows a `systemd-run` transient unit, which is gone after a reboot. Nick's rule: this logger is a permanent service.
+1. Install `agent/units/pm-hl-5s-logger.service` as `/etc/systemd/system/pm-hl-5s-logger.service` (replace `REPO_PATH` with the checkout path on the server), then `systemctl daemon-reload && systemctl enable --now pm-hl-5s-logger.service`. Stop the transient unit first so only one copy runs, and keep appending to the same day's file (do not delete anything).
+2. Prove persistence: `systemctl is-enabled pm-hl-5s-logger.service` prints `enabled`, `systemctl cat` shows the file under /etc/systemd/system, and after 5 minutes the polls per minute are still about 12 with no gap in timestamps larger than 30 s.
+3. Do the same for the two weekend loggers from agent/TASK-weekend-perps-loggers-install-2026-11-16.md if they are also transient (hl_weekend_logger.py, pm_weekend_logger.py): enabled units, not `systemd-run`.
+4. Run the Test 1 evaluation on the server data once: `cd weekend-perps/followups-2026-11-17 && python3 eval1.py /mnt/HC_Volume_107257520/pmhl5s` (the corrected script, merged in the PR that follows this task) and paste its output in the outbox note. It reads only the logger files and the public Polymarket funding endpoint.
+5. Post the note in agent/outbox with the three `is-enabled` outputs, first/last timestamps and the eval output. If a reboot is not safe to test, say so; do not test it without Nick's go-ahead.

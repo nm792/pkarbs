@@ -1,0 +1,22 @@
+# LOCKED RULE (Amendment): cost table with a source for every term, and rerun of the 17 Nov follow-up tests (17 Nov 2026, written before any rerun number was computed)
+
+Why: project rule from the coordinator (17 Nov 05:16Z): no locked rule is accepted without a cost table that sources every fee, spread and funding term; a result costed with an unsourced term is reported as COST UNCHECKED. Replaces the 9 bp-per-side figure in LOCKED-RULE-funding-window-divergence-2026-11-17.md and LOCKED-RULE-divergence-followups-2026-11-17.md. Nothing else in those rules changes (decision thresholds, events, windows, bootstrap size and seed all stay). The code was also corrected to match the rules line by line (see followups-2026-11-17/RULE-TO-CODE-TABLE.md once signed by a checker other than the author). All earlier 17 Nov results of these tests are UNCHECKED and are superseded by the rerun.
+
+| Term | Value used | Source | Status |
+|---|---|---|---|
+| Polymarket perp taker fee (equity/index, $0 30-day volume) | 4 bp per side | `GET https://api.perpetuals.polymarket.com/v1/info/fees` read 17 Nov: equity perpetual taker_fee_rate 0.0004 (tiers fall to 0.0002 at $1bn 30-day volume) | SOURCED |
+| Hyperliquid base perp taker fee | 4.5 bp | `POST https://api.hyperliquid.xyz/info {"type":"userFees"}` read 17 Nov: userCrossRate 0.00045 | SOURCED |
+| HIP-3 builder dex multiplier | x2 (builder dex taker = 9 bp before growth mode) | trade.xyz / Hyperliquid docs not reachable from this container (hosts blocked); the factor is consistent with the Webb measurement below | UNVERIFIED FROM DOCS |
+| growthMode discount | x0.1 when `growthMode` is "enabled" | per-asset flag in `POST /info {"type":"meta","dex":...}` read 17 Nov (xyz 132 of 145 assets enabled, flx 12 of 16, km 20 of 23; saved in growth.json). The 90% size comes from the Webb record below | UNVERIFIED FROM DOCS |
+| **Hyperliquid xyz, growth-mode asset taker fee** | **0.9 bp per side** | 4.5 x 2 x 0.1; matches Webb `research/perps/perps-paper.md:58` (effective taker 0.9 bp, from the 24 Oct HL snapshot and public fills) as quoted by the project reviewer (the Webb repo is outside this project's GitHub scope; not read directly) | SOURCED (sibling project, second-hand) |
+| xyz asset without growth mode (13 assets, e.g. GOLD) | 9 bp | 4.5 x 2, no discount; not measured on fills | COST UNCHECKED |
+| flx and km assets (any) | 0.9 bp if growthMode enabled, else 9 bp | the deployers may set their own fee scale; not measured on fills | COST UNCHECKED |
+| Spread | live l2Book half-spread at fetch time x 3, floor 1 bp | measured from `l2Book` (Hyperliquid) the day of the run; the multiplier 3 is a stress ASSUMPTION written in the rules, not a published figure | measured, multiplier is an assumption; symbols with no book are EXCLUDED and counted, never defaulted |
+| Test 1 spread | none assumed: VWAP of $1,000 through the real recorded book | logger output | measured |
+| Hyperliquid funding | record by record from `fundingHistory` (premium and fundingRate, hourly); positive rate = longs pay shorts | `POST /info {"type":"fundingHistory"}` | SOURCED (sign convention is the venue's standard; not verified for flx) |
+| Polymarket funding (Test 1) | rate per hourly settlement from `GET /v1/info/funding?instrument_id=N`, positive = longs pay; applied when a top-of-hour boundary lies between the entry and exit fills | Polymarket API | SOURCED (sign convention assumed standard, not stated by the API) |
+| Round trip | 2 x (fee + max(3 x half-spread, 1 bp)) for Hyperliquid; 2 x 4 bp + real book for Polymarket | as above | |
+
+Reporting rule: every result cell prints how many of its trades used a COST UNCHECKED fee; a cell with any such trade is labelled COST UNCHECKED, and the sourced-only subset (growth-mode xyz) is the one that can carry a verdict. Funding sign for the fading side: fading a positive premium means short, and shorts receive a positive rate.
+
+Rerun scope (all from followups-2026-11-17/, run only after a checker other than the author has signed the rule-to-code table and the planted-edge check passes): funding-window metrics 1-4 (analyze.py), metric 5 (sample_an.py on the 17 Nov 01:02-01:32Z sample), Tests 2 and 3 (follow23.py), Test 1 (eval1.py on the server logger files). History is refetched at run time (candles now carry open and close; this moves the data window by a few hours versus the first run).
