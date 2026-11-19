@@ -37,6 +37,15 @@ LOOKS = 20
 C_BM = 2.60                   # boundary on the Brownian scale: pass if z_eq * sqrt(t) >= C_BM (2(1-Phi(2.6)) = 0.0093 one-sided per cell, any look schedule; margin over the 1.25% target)
 N_MAX = {"cs2|Match Winner": 100, "dota2|Match Winner": 50}
 PRIMARY = tuple(N_MAX)
+SPORT = "esports"                # "tennis" only with --sport tennis (V24): own start day, own primary cell, 'To Win' market name
+T_START_TENNIS = 1795046400.0    # 2026-11-19T00:00:00Z
+N_MAX_TENNIS = {"tennis|Match Winner": 100}
+
+
+def kind_of(name):
+    if SPORT == "tennis":
+        return "Match Winner" if norm(name) == "to win" else None
+    return market_kind(name)
 
 
 def parse_book_row(r, drops=None):
@@ -163,7 +172,7 @@ def load_polls(globs, cnt):
     for g in globs:
         for p in sorted(glob.glob(g)):
             for r in counted_lines(p, cnt, "poll_log"):
-                e = r.get("esports") or {}
+                e = r.get(SPORT) or {}
                 if e.get("recv_ns") and "err" not in e:
                     ts.append(e["recv_ns"] / 1e9)
     return sorted(ts)
@@ -200,7 +209,7 @@ def open_events(files, polls, t_lo, t_hi):
                 if not isinstance(e, dict):
                     continue
                 lg = str((e.get("info") or {}).get("league") or "")
-                game = norm(lg.split(" - ", 1)[0]) if " - " in lg else "unparsed"
+                game = "tennis" if SPORT == "tennis" else (norm(lg.split(" - ", 1)[0]) if " - " in lg else "unparsed")
                 prefixes[game] += 1
                 ti = e.get("team_info") or {}
                 h, a = norm((ti.get("home") or {}).get("name")), norm((ti.get("away") or {}).get("name"))
@@ -209,7 +218,7 @@ def open_events(files, polls, t_lo, t_hi):
                         continue
                     name = m.get("name") or "?"
                     seen[name] += 1
-                    kind = market_kind(name)
+                    kind = kind_of(name)
                     if not kind:
                         excl[name] += 1
                         continue
@@ -254,15 +263,19 @@ def main():
     ap.add_argument("--poll-log", action="append", required=True, help="goalserve_<date>.jsonl poll logs (capture.py): used to detect capture outages (> 10 s between polls)")
     ap.add_argument("--seed", type=int, default=SEED)
     ap.add_argument("--plant-c", type=float, default=PLANT_C)
+    ap.add_argument("--sport", choices=("esports", "tennis"), default="esports", help="tennis (V24): separate pre-registered test of the tennis in-play odds, data from 2026-11-19T00:00Z")
     ap.add_argument("--smoke", action="store_true", help="crash test on old files only: counts the first UTC day of the files, skips look/completeness refusals, output is marked smoke_not_a_result; never used for a real look")
     a = ap.parse_args()
-    global T_START
+    global T_START, N_MAX, PRIMARY, SPORT
+    if a.sport == "tennis":
+        SPORT, T_START, N_MAX = "tennis", T_START_TENNIS, dict(N_MAX_TENNIS)
+        PRIMARY = tuple(N_MAX)
     files = sorted({f for g in a.files for f in glob.glob(g)})
     if not files:
         raise SystemExit("no goalserve files matched")
     hrs, hour_names = [], set()
     for f in files:
-        m = re.search(r"esports_(\d{10})", os.path.basename(f))
+        m = re.search(r"(?:esports|tennis)_(\d{10})", os.path.basename(f))
         if not m:
             raise SystemExit("cannot read the hour from file name %s" % f)
         hrs.append(calendar.timegm(time.strptime(m.group(1), "%Y%m%d%H")) + 3600.0)
@@ -419,7 +432,7 @@ def main():
                 by[e["m"]].append(e)
         return by
 
-    res = dict(smoke_not_a_result=bool(a.smoke), look=K, looks_total=LOOKS, c_bm=C_BM, n_max=N_MAX, data_from_utc=T_START, data_through_utc=t_hi, seed=a.seed, plant_c=a.plant_c, clock_note=a.clock_note, files=len(files),
+    res = dict(sport=a.sport, smoke_not_a_result=bool(a.smoke), look=K, looks_total=LOOKS, c_bm=C_BM, n_max=N_MAX, data_from_utc=T_START, data_through_utc=t_hi, seed=a.seed, plant_c=a.plant_c, clock_note=a.clock_note, files=len(files),
                goalserve_events_total=len(ev), drops=dict(drops), audit=audit, poll_interval_measured=poll_gaps(a.poll_log), primary_cells=list(PRIMARY), cells={},
                wording="Only primary cells can be called a pass. Say 'odds moved before the price within the 60 s window' or 'did not'; never 'lead of N seconds' (windows cannot resolve under about 5 s). Bookmaker not identified (bm empty; vendor docs say bet365). d is volatility-matched (sign-symmetric placebo), not momentum-matched.",
                match_list=sorted(ml.values(), key=lambda r: (str(r["eid"]), r["kind"])))

@@ -1,5 +1,3 @@
-
-
 ## P15d2 step 1/3 (2026-11-17 13:36–13:40Z)
 
 - Data-volume free bytes: 41,877,303,296 at 13:36Z; 40,790,061,056 after input copy; both above the 20 GB gate. Code commit: `1cb5c8474b1f64040ec0a8978d866f5b5bc43e2e`.
@@ -141,3 +139,71 @@ Evidence: `agent/status/goalserve.md` section `E1 smoke (18 Nov 06:14Z)`; self-t
 - `df -B1 --output=avail` on the data volume: 29,353,795,584 bytes available.
 - Script exit=0; stdout 732 bytes; stderr empty. It found recorder directories: cricket (22 events, books 2026-11-05 15:10–17:46Z), scratch/reexport_full (cricket 35, cs2 110, dota2 67, lol 4, nba 27, nfl 14, tennis 1545; no books file), tennis (133 events, books 2026-11-05 15:10–21:10Z), and final-topics-32295b (cricket 101, cs2 397, dota2 168, lol 7, nba 73, nfl 27, tennis 3839; books 2026-11-08 00:11Z–2026-11-18 06:27Z).
 - Evidence: `/mnt/HC_Volume_107257520/pkarbs/scratch/P18-20261118/inventory.out`; script copied from `feeds/pm_recorder_inventory.py` at fetched origin tip.
+
+## E1b smoke (18 Nov)
+
+- PASS at 07:48:54Z: compile and isolated self-test passed; smoke exit 0, `files=24`, `smoke_not_a_result=True`, no traceback. Report: `agent/outbox/TO-IT-CHUNK-E1b-smoke-run-goalserve-odds-v2-2026-11-18-0740Z.md`.
+
+
+## H capture check (18 Nov)
+
+- Read-only check at 08:21:24Z: Goalserve capture PID 4045212 was running (start 17 Nov 09:00:06Z); tmux session `goalserve` existed. No restart attempted.
+- 18 Nov hour-file count: esports 3, tennis 3, hockey_nhl 3, basketball 3 (hours 06, 07, and in-progress 08). The 08 files were still growing at check time.
+- `goalserve_20261118.jsonl` was absent. The directory instead had `goalserve_20261117.jsonl` (55,131,766 bytes; modified 08:21:23Z). Capture activity is evidenced by the live PID and current hour files; the missing 18 Nov daily log's cause is not established.
+- No `*_STOP.log` existed. Available space on the data volume: 28,013,322,240 bytes.
+- Latest tennis JSONL structure: outer keys `body`, `recv_ns`; `body` is a string containing JSON. No key, URL, or credential was output.
+- Full command output for this check is retained in the session output, not committed; only the requested summary is recorded here.
+
+
+## I tennis probe (18 Nov)
+
+- Export commit: `322d8129253ea9b12d9f8b53e7126f3ae3d0ca07`; `feeds/gs_sport_probe.py` present, SHA-256 `5bc8d9dc2665254af0d0de19eff638c7efd34714446b8f78b9fca2947ac81304`.
+- Local 06/07 hour files were absent; retrieved the exact two files from the existing `<box>` copy. No capture or configuration was changed.
+- Probe exit 0; files=2, polls=44709, events=0, counters rows=3752, `market_names_used {}`, `league_prefixes_seen {"unparsed": 95671}`. No events matched the parser; no tennis verdict or market match is claimed. The probe itself truncates `market_names_excluded` to 1,500 characters.
+- Full stdout follows verbatim. Raw output: `/mnt/<data-volume>/pkarbs/scratch/P26-20261118/probe.out`.
+
+```text
+files 2 polls 44709 events 0
+counters {"rows": 3752}
+bm_values {"''": 3752}
+market_names_used {}
+market_names_excluded {"To Win": 94405, "Odd/Even": 90712, "Next Break Serve": 61650, "Go The Distance?": 50510, "Set 1 Winner": 49665, "Set 2 Winner": 47609, "Game Winner (1st Set)": 44883, "Game to Deuce (1st Set)": 44869, "Game Score (1st Set)": 44869, "Game Winner (2nd Set)": 39266, "Set 2 Score": 39260, "Game to Deuce (2nd Set)": 39260, "Total Sets": 34627, "Correct Score (1st Set)": 29433, "Set 1 Correct Score Group": 29240, "Set 1 Race to": 26999, "Set 1 to Break Serve": 25300, "Set 2 to Break Serve": 24569, "Set 1 Correct Score Any Player": 24122, "Set 1 Score after 6 Games": 21472, "Set 2 Race to": 21296, "Set 1 Lead after": 20458, "Set 2 Correct Score Any Player": 20347, "Correct Score Group (2nd Set)": 19762, "Correct Score Any Player (2nd Set)": 17818, "Set 1 Score after 4 Games": 16070, "Score after 6 Games (2nd Set)": 15882, "Lead after (2nd Set)": 14621, "Set Betting": 13311, "Score after 4 Games (2nd Set)": 11520, "Player 1 To Win in Straight Sets": 8583, "Setcast": 8583, "Double Result": 8583, "Player 2 To Win in Straight Sets": 8563, "Total Games in Set 1": 8161, "Set 1 Handicap": 7921, "Total Games in Set 2": 4728, "Set 2 Handicap": 4728, "Game Score (3rd Set)": 4291, "Game to Deuce (3rd Set)": 4291, "Game Winner (3rd Set)": 4291, "Total Tie Breaks In Match": 3838, "Tie Break Handicap": 3838, "Tie Break Score": 3838, "Correct Score Group (3rd Set)": 3684, "Correct Score (3rd Set)": 3684, "Tie Break - Total Points (1st Set)": 3366, "Tie Break Score (1st Set)": 3366, "Tie Break Sc
+league_prefixes_seen {"unparsed": 95671}
+sample teams Alberto Odiseo Alvarado Berrospi | Alan Fernando Rubio Fierros
+sample teams Hao Sheng Koay | Gunawan Trismuwantara
+sample teams Natsuki Yamamoto | Shaheed Alam
+league strings [["M15 Antalya", 15477], ["M15 Hua Hin", 11865], ["M15 Kuala Lumpur MD", 10251], ["UTR Pro Yokohama", 8681], ["Challenger Kobe MD", 8334], ["M25 Heraklion", 7260], ["UTR Pro Yokohama Women", 6433], ["W50 Heraklion", 6247], ["M25 Bhubaneswar", 4355], ["W75 Sydney WD", 3531], ["M25 Bhubaneswar MD", 3146], ["M15 Kuala Lumpur", 3068]]
+```
+
+
+## J tennis smoke (18 Nov)
+
+- Clean `feeds/` export from commit `09b9665e64f56daf0095048828073f6fede87517`; no checkout pull, stash, or cleanup.
+- Smoke exit 0 at 13:06:44Z; last-600-byte log check: `NO_TRACEBACK`. `sport tennis`, `smoke_not_a_result True`, files=2, events=1575.
+- Drops: `events_no_pm_market=541`, `events_dropped_by_match_cap=262`, `events_tie_d_zero=15`, `book_rows_one_sided=4333`, `pm_book_rows_time_from_ms=126296`.
+- Audit counters: rows=3752, skip_bad_odds=2674, skip_suspended=4845, events=1575, baseline_cleared_not_valid_open=89, baseline_cleared_poll_gap_gt_10s=18, payloads_after_poll_gap_gt_10s=1.
+- `market_names_used`: `{"To Win": 94405}`; `league_prefixes_seen`: `{"tennis": 95671}`.
+- Matches with events=43; PM candidates 0/1/2+ = 13/30/0. No cells or verdicts reported; smoke only, not a result.
+- Evidence: `pkarbs/scratch/goalserve-tennis-smoke-20261118/smoke.json` and `smoke.log` on the Prime data volume. The 06/07 input SHA-256 values match the exact copies used in chunk I.
+- No capture, configuration, process, or live code was changed.
+
+## L tennis exploratory (18 Nov)
+
+- Fetched project branch tip: `45b89dd0f108bef86d62029b4945a601a9e259d4`. Clean export contained `feeds/goalserve_odds_vs_pm_v2.py` (SHA-256 `cbd0f397f09eb92acdd2b6735c093e6a7bed97fcfa4a45dbe32a33f6cb3d1af0`); ran the signed script unchanged in `--smoke` mode. Inputs copied from `<box>` plus existing Prime files; no capture, configuration, live code, or process was changed.
+- Day 17: exit 0; 15 hourly files, UTC coverage begins 09:00Z; `smoke_not_a_result=True`; 17,987 events; 100 primary matches / 3,115 events; `CELL tennis|Match Winner`: z_eq 8.2810, mean_d_per_match 0.01187, `plants_ok=True`, verdict `meets bar (needs audit)`. Counters: rows 25,395, baseline-cleared poll-gap >10s 170, post-gap payloads 5, suspended 50,745, bad odds 34,491, invalid-open clears 1,392. Drops: no PM market 6,069; ambiguous rematch 93; PM book timestamps from ms 1,042,355; one-sided books 29,089; match cap 5,833; tie d=0 129; PM recorder silent >300s 15.
+- Day 18: exit 0; 24 hourly files; data through 2026-11-19 00:00Z (day 18 is partial); `smoke_not_a_result=True`; 25,463 events; 100 primary matches / 3,203 events; `CELL tennis|Match Winner`: z_eq 11.3841, mean_d_per_match 0.01738, `plants_ok=True`, verdict `meets bar (needs audit)`. Counters: rows 39,794, baseline-cleared poll-gap >10s 278, post-gap payloads 7, suspended 58,699, bad odds 39,432, invalid-open clears 1,659, malformed JSON 1. Drops: no PM market 6,040; ambiguous rematch 555; PM book timestamps from ms 1,402,836; one-sided books 41,489; match cap 10,149; tie d=0 168.
+- Logs ended with `match_list rows: 308` (day 17) and `match_list rows: 403` (day 18); neither contains a traceback. JSON and logs scanned for IP-like dotted quads: zero. Files retained at `/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-explore-tennis/explore-20261117.{json,log}` and `explore-20261118.{json,log}`; inputs retained under `gs/`. These are exploratory smoke outputs, not a pre-registered look or a pass.
+
+## F look 1 (2026-11-19)
+
+- Command: signed `feeds/run_daily_look.sh esports`; invoked after 00:30Z as required. Script exit 1.
+- It stopped at its signed-file gate before running the self-test or producing a result. Observed hashes: `feeds/goalserve_odds_vs_pm_v2.py` `cbd0f397f09eb92acdd2b6735c093e6a7bed97fcfa4a45dbe32a33f6cb3d1af0`; `feeds/test_goalserve_odds_vs_pm_v2.py` `9d4bdad46183f44d160b1e14bc6cae9bffbbac1aa3bc43625d20087d9fcdc6d8`; `feeds/ps_lead_test.py` `4b67d26f6f9f419cd330fdca7ee3c396ed99d5db9ddc56c5370012120c296cb1`; `feeds/goalserve_odds_vs_pm.py` `a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5`.
+- Exact stop: `STOP: code differs from the signed hashes; ask the Goalserve thread for the new SIGNED commit`. Expected results (`look=1`, `plant_c=0.01`, result SHA) were not produced. No code or capture changed.
+- Full command stdout:
+  - `date 2026-11-19T01:45:57Z avail_bytes 18584768512`
+  - `commit d9f9f905c9eca26eaf0e432fb13f24e9fbc94658`
+  - `cbd0f397f09eb92acdd2b6735c093e6a7bed97fcfa4a45dbe32a33f6cb3d1af0  feeds/goalserve_odds_vs_pm_v2.py`
+  - `9d4bdad46183f44d160b1e14bc6cae9bffbbac1aa3bc43625d20087d9fcdc6d8  feeds/test_goalserve_odds_vs_pm_v2.py`
+  - `4b67d26f6f9f419cd330fdca7ee3c396ed99d5db9ddc56c5370012120c296cb1  feeds/ps_lead_test.py`
+  - `a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5  feeds/goalserve_odds_vs_pm.py`
+  - `STOP: code differs from the signed hashes; ask the Goalserve thread for the new SIGNED commit`

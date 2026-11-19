@@ -1,0 +1,10 @@
+P42 live CS2 probe — 2026-11-19
+Reviewer tip: 62e91665f5f309cdabe3427339180a8a44743433
+Probe script SHA-256: bb053edae64fe3985af28d96e64b2d366a405960afa5b51320acfa4f1603e5fb
+Actual run start UTC: 2026-11-19T01:45:40Z
+Process PID: 2578461
+Result: process exited early; no live CS2 feed was open, so no matching Polymarket market or measurement existed. The requested 15-minute check was not applicable after early exit. No JSON output was produced. No script changes made.
+Log tail (complete run output):
+CS2 feeds open now: {}
+gamma markets scanned: 100 | matched PM markets: {}
+NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)

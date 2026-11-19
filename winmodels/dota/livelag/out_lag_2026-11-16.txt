@@ -1,7 +1,8 @@
-COMMAND_EXIT=1
-Traceback (most recent call last):
-  File "winmodels/dota/livelag/lag.py", line 19, in <module>
-    cfg = json.load(open(CFG))
-FileNotFoundError: [Errno 2] No such file or directory: '../../../agent/tasks/dota-live-capture-2026-11-16/config.json'
-
-The requested local input directory $HOME/dotacap/out-2026-11-16 is also absent on Prime, so no lag analysis or JSON result was produced. The task config exists on origin but is absent from the dirty working tree; no checkout or restore was performed.
+Dota lag analysis — 2026-11-16 capture
+Input: /vol2/pkarbs/dotacap/run-2026-11-16/out (real capture); code: winmodels/dota/livelag/lag.py; capture-specific market config extracted from origin/claude/project-thread-vg2ckg:agent/tasks/dota-live-capture-2026-11-16/config.json.
+Run: 2026-11-18T14:51:16Z to 14:51:35Z; systemd-run scope, MemoryMax=2000M, MemorySwapMax=0, timeout=1800; exit 0; peak RSS 1,642,312 KiB.
+Parsed output: 19 Valve match records; 11 price-paired; 102 event records; 13 game-end records.
+Pooled event-lag: n=38, median=295.25 s, p10/p90=[3.4, 397.3] s, range=[-16.6, 475.3] s; mean cross-correlation peak L=-285 s.
+Delay tags were computed for 239 match IDs; the paired series span observed median tags 795.5–895.0 s. This is observed game-clock versus realtime-feed difference, not a <60 s spectator-delay pass.
+Attempt 1 with 1500 MiB cap was OOM-killed at 1,572,864,000 bytes (exit 143); rerun at 2000 MiB completed. No process remains.
+The run used the capture-specific 14-series config (42 markets), not the older 11-series config, and all six capture files were parsed without invalid JSON lines.
