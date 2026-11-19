@@ -343,3 +343,9 @@ Bounded file search output sample (paths redacted):
 - A dry run for the Goalserve writer exited 0 and reported `goalserve nothing eligible`; it listed zero payload paths. This confirms the four payload directories are excluded. No files were deleted.
 - Box path: `<box>:pkarbs/goalserve/`. Box inventory totals for the copy-back window: esports 129 files / 806,729,570 bytes; tennis 39 / 3,273,505,743 bytes; hockey_nhl 39 / 1,514,435,504 bytes; basketball 39 / 3,702,715,735 bytes. Available space before copy: 16,070,557,696 bytes. The 15 GB free-space gate therefore allowed only the specified esports 18 Nov subset.
 - Copied esports 18 Nov only, 24 files / 143,272,111 bytes, with `rsync --ignore-existing`; first/last listings confirmed hours 00–23. After copy, 15,557,345,280 bytes remained free. Tennis, hockey_nhl and basketball were not copied because the 15 GB floor would be breached; their sizes are listed above.
+
+
+## Probe v3 timed read and 07:30Z check (19 Nov; P55/P52b)
+
+- At 08:06Z, the specified `.log` path did not exist. The live PID 2867115 was still running with `--out /mnt/HC_Volume_107257520/pkarbs/probe/goalserve-live-probe-v3-2026-11-19.json`; its stdout/stderr are directed to `/tmp/hermes_bg_proc_c57eb8334d03.log`. The requested log filter and final-20-lines fallback therefore had no target; no substitute was treated as the requested log.
+- The requested 07:30Z `^[0-9:]+Z events` check against the same absent `.log` path returned no lines (file-not-found).
