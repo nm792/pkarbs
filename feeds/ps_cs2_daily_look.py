@@ -200,11 +200,16 @@ def main():
         if not p:
             continue
         for r in counted_lines(p, drops, "pm_books"):
+            if "token" in r and not (r.get("tk") or r.get("asset")):      # layout of feeds/pm_dota_books.js ({recv_ms, token, bids, asks, ...}): same row, token key renamed, counted
+                r = dict(r, tk=r["token"])
+                drops["pm_book_rows_token_key_layout"] += 1
             if (r.get("tk") or r.get("asset")) not in need:
                 continue
             pr = parse_book_row(r, drops)
             if pr and T_START - 400 <= pr[1] < t_hi + 400:
                 book[pr[0]].append((pr[1], pr[2], pr[3]))
+    if need and not book and not a.smoke:
+        raise SystemExit("no usable Polymarket book row for any of the %d needed tokens (wrong --pm dir, unknown row layout, or recorder not running): drops %s" % (len(need), json.dumps(dict(drops))))
     for tk in book:
         book[tk].sort()
     bts = {tk: [x[0] for x in v] for tk, v in book.items()}
@@ -374,7 +379,7 @@ def main():
                 c["verdict"] = "(informational) no boundary"
             cells[cell] = c
     res = dict(smoke_not_a_result=bool(a.smoke), look=K, looks_total=LOOKS, c_bm=C_BM, n_max=N_MAX, primary=PRIMARY, data_from_utc=T_START, data_through_utc=t_hi, seed=a.seed, plant_c=PLANT_C, plant_dt_s=PLANT_DT,
-               clock_note=a.clock_note, hour_files_read=len(hours), cs2_events=len(ev), drops=dict(drops), counters=dict(cnt), match_exclusions=dict(excl), capture_silent_matches=sorted(silent)[:20], capture_starts_in_window=capture_starts,
+               clock_note=a.clock_note, hour_files_read=len(hours), cs2_events=len(ev), pm_tokens_needed=len(need), pm_tokens_with_rows=len(book), drops=dict(drops), counters=dict(cnt), match_exclusions=dict(excl), capture_silent_matches=sorted(silent)[:20], capture_starts_in_window=capture_starts,
                plant=dict(events_checked=plant_n, violations=dict(plant_viol)), placebo_draws=dict(plc_n), event_exclusions={k: dict(v) for k, v in cellx.items()}, cells=cells,
                wording="Only cs2|map|lat0 can be called a pass. Lead = price onset minus our receive time, positive = feed first; pairs of windows cannot resolve under ~5 s. Round-score latency is relative to the fastest data point in the message, not to the real world. Single-host clock.",
                first20_events_primary=[dict(t=r["t"], match=r["m"], team=r["team"], token=r["tok"], lead=r["lead"], series=r["ser"], market=r["kind"]) for r in (big or [])])
