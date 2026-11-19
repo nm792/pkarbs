@@ -211,7 +211,17 @@ P74 stopgap current state (14:16Z): no eligible non-look files older than 6 h; n
 
 Correction (19 Nov 16:45Z): P77 did NOT free local space. At 16:38:31Z and 16:39:31Z both local feed files were already 0 bytes (mtime 14:59:45Z); PID 3243761 held `ts_poll.jsonl` open at fd 7, position 57,645,071. Before my copy, the storage-box destination held the expected nonempty copies: MQTT 17,088,904,344 bytes and poll 57,645,071 bytes. The 16:39:36Z rsync copied the already-empty local files over those nonempty remote files. A subsequent remote listing and checksum run confirmed both remote files are now 0 bytes. This was a destructive overwrite and lost the only verified archive copy found in the checked locations. The exact prior payloads are not available in the local files, the searched project-volume paths, or the checked storage-box capture tree; recovery is unverified. No local truncation ran. Do not repeat the copy or write to these paths pending IT/reviewer direction. PID 3243761 remains running; books continue growing.
 
-P77b started read-only at 16:41:43Z as background session PID 3763087, output `/mnt/HC_Volume_107257520/pkarbs/p77b-growth.txt`; first reading: books 25,838,865,518 B, trades 1,041,318,278 B, pmws 75,013,176 B; VOL2 free 32,830,865,408 B. The 60-minute series is in progress; later samples are not yet measured.
+## P75 book growth (19 Nov)
+
+P77b completed its 60-minute read-only sample (16:41:43Z–17:41:43Z; output `/mnt/HC_Volume_107257520/pkarbs/p77b-growth.txt`). Readings, in bytes:
+
+| UTC | books.jsonl | trades.jsonl | pmws.jsonl | VOL2 free |
+|---|---:|---:|---:|---:|
+| 16:41:43Z | 25,838,865,518 | 1,041,318,278 | 75,013,176 | 32,830,865,408 |
+| 17:11:43Z | 25,987,108,705 | 1,044,819,232 | 75,182,614 | 34,538,663,936 |
+| 17:41:43Z | 26,130,581,965 | 1,048,216,328 | 75,340,190 | 35,370,549,248 |
+
+60-minute deltas: books +291,716,447 B; trades +6,898,050 B; pmws +327,014 B; VOL2 free +2,539,683,840 B. The source output ended with `done`. Read-only; no files or processes changed by this measurement.
 
 ## Perp open-contract recorder (19 Nov)
 
