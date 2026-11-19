@@ -413,3 +413,7 @@ Read-only snapshot, 2026-11-19 09:23:35Z; no deletion or restart performed.
 
 
 P60d execution (2026-11-19 10:04:21Z): the only targeted rebuildable directory, `scratch/goalserve-daily-esports/gs`, contained 24 files / 143,272,111 bytes. Its newest file mtime was 08:43:55Z; no target file had changed within 6 hours. Removed only files and directories under that `gs` path; `result-esports-look1.json` and sibling logs were preserved. Post-check: no `goalserve-daily-*/gs` directory remains. VOL2 available after removal: 17,388,515,328 bytes at 10:04:21Z. This is below the 25 GB free goal stated in OPEN; no other directory was removed.
+## Preflight 10:45Z (19 Nov)
+
+- Read-only reviewer preflight at 10:45:43Z: PASS disk (22,243,737,600 bytes free), Goalserve PID 4045212, all four sports current-hour files (ages 0–1 s), TheSports newest file, pmcs2 books age 0 s and PID 3179606.
+- FAIL: Dota newest output age 274,629 s; daily-look cron not installed. Verdict: 2 FAIL; these components remain UNVERIFIED. No fixes or restarts in this row.

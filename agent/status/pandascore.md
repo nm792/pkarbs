@@ -93,3 +93,13 @@ total 2888
 - Installed the reviewer’s `origin/reviewer` `pm_cs2_books.js` and test into the existing pmcs2 directory. Test output: `PASS (9 checks, each able to fail)`. Verified the installed source's default floor is 10 GB.
 - Restarted at 2026-11-19 09:27Z with the note’s 10 GB floor and end time. New Node PID 3179608 was observed; recorder log showed fresh market rows timestamped 09:27:07Z. At 09:27:21Z the file was 136,292,591 bytes / 213,378 lines, and VOL2 had 19,903,541,248 bytes available.
 - OPEN / NOT VERIFIED: second `du -sb books.jsonl` reading 30 minutes after 09:26:49Z (due 09:56:49Z); probe log remains absent. No additional restart or kill performed.
+## CS2 probe relaunch (19 Nov)
+
+- Fetched the reviewer scripts to `/tmp`; isolated `--help` printed usage. Launched the prescribed tmux loop at 10:39:41Z (PID 3273611, Python PID 3273620) on the data volume, with the specified 2026-12-02 00:00Z end time.
+- Timestamped run log `pandascore-cs2-probe-20261119T103941Z.log` showed two open feeds and `PREFLIGHT all_ok=true`; all five checks passed. The note's `probe-loop.log` path was not created by this script version.
+- Live reads at 10:42Z and 10:44Z found the loop PID alive. `pmcs2/books.jsonl` grew 191,203 and 383,594 bytes over the consecutive 60-second samples. PandaScore raw capture had no PID and its newest file did not grow on either read, so capture health remains unverified.
+- At 10:45Z, the probe process was alive and its log contained 3 events. The bounded OOM log query showed prior OOM kills, but none identified former PID 2694972. The `/tmp/*probe*` and `/root/*probe*` listing did not establish a matching prior output; cause of its exit is undetermined. Nothing was killed, no code edited and no data deleted.
+## Preflight 10:45Z (19 Nov)
+
+- Read-only reviewer preflight at 10:45:43Z: PASS disk (22,243,737,600 bytes free), Goalserve PID 4045212, all four sports current-hour files (ages 0–1 s), TheSports newest file, pmcs2 books age 0 s and PID 3179606.
+- FAIL: Dota newest output age 274,629 s; daily-look cron not installed. Verdict: 2 FAIL; these components remain UNVERIFIED. No fixes or restarts in this row.
