@@ -193,3 +193,17 @@ league strings [["M15 Antalya", 15477], ["M15 Hua Hin", 11865], ["M15 Kuala Lump
 - Day 17: exit 0; 15 hourly files, UTC coverage begins 09:00Z; `smoke_not_a_result=True`; 17,987 events; 100 primary matches / 3,115 events; `CELL tennis|Match Winner`: z_eq 8.2810, mean_d_per_match 0.01187, `plants_ok=True`, verdict `meets bar (needs audit)`. Counters: rows 25,395, baseline-cleared poll-gap >10s 170, post-gap payloads 5, suspended 50,745, bad odds 34,491, invalid-open clears 1,392. Drops: no PM market 6,069; ambiguous rematch 93; PM book timestamps from ms 1,042,355; one-sided books 29,089; match cap 5,833; tie d=0 129; PM recorder silent >300s 15.
 - Day 18: exit 0; 24 hourly files; data through 2026-11-19 00:00Z (day 18 is partial); `smoke_not_a_result=True`; 25,463 events; 100 primary matches / 3,203 events; `CELL tennis|Match Winner`: z_eq 11.3841, mean_d_per_match 0.01738, `plants_ok=True`, verdict `meets bar (needs audit)`. Counters: rows 39,794, baseline-cleared poll-gap >10s 278, post-gap payloads 7, suspended 58,699, bad odds 39,432, invalid-open clears 1,659, malformed JSON 1. Drops: no PM market 6,040; ambiguous rematch 555; PM book timestamps from ms 1,402,836; one-sided books 41,489; match cap 10,149; tie d=0 168.
 - Logs ended with `match_list rows: 308` (day 17) and `match_list rows: 403` (day 18); neither contains a traceback. JSON and logs scanned for IP-like dotted quads: zero. Files retained at `/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-explore-tennis/explore-20261117.{json,log}` and `explore-20261118.{json,log}`; inputs retained under `gs/`. These are exploratory smoke outputs, not a pre-registered look or a pass.
+
+## F look 1 (2026-11-19)
+
+- Command: signed `feeds/run_daily_look.sh esports`; invoked after 00:30Z as required. Script exit 1.
+- It stopped at its signed-file gate before running the self-test or producing a result. Observed hashes: `feeds/goalserve_odds_vs_pm_v2.py` `cbd0f397f09eb92acdd2b6735c093e6a7bed97fcfa4a45dbe32a33f6cb3d1af0`; `feeds/test_goalserve_odds_vs_pm_v2.py` `9d4bdad46183f44d160b1e14bc6cae9bffbbac1aa3bc43625d20087d9fcdc6d8`; `feeds/ps_lead_test.py` `4b67d26f6f9f419cd330fdca7ee3c396ed99d5db9ddc56c5370012120c296cb1`; `feeds/goalserve_odds_vs_pm.py` `a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5`.
+- Exact stop: `STOP: code differs from the signed hashes; ask the Goalserve thread for the new SIGNED commit`. Expected results (`look=1`, `plant_c=0.01`, result SHA) were not produced. No code or capture changed.
+- Full command stdout:
+  - `date 2026-11-19T01:45:57Z avail_bytes 18584768512`
+  - `commit d9f9f905c9eca26eaf0e432fb13f24e9fbc94658`
+  - `cbd0f397f09eb92acdd2b6735c093e6a7bed97fcfa4a45dbe32a33f6cb3d1af0  feeds/goalserve_odds_vs_pm_v2.py`
+  - `9d4bdad46183f44d160b1e14bc6cae9bffbbac1aa3bc43625d20087d9fcdc6d8  feeds/test_goalserve_odds_vs_pm_v2.py`
+  - `4b67d26f6f9f419cd330fdca7ee3c396ed99d5db9ddc56c5370012120c296cb1  feeds/ps_lead_test.py`
+  - `a556636fbd0e57a2fa622c9c9eda20a564baab1acf01cffd1e3a9b955c1300c5  feeds/goalserve_odds_vs_pm.py`
+  - `STOP: code differs from the signed hashes; ask the Goalserve thread for the new SIGNED commit`
