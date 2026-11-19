@@ -2,7 +2,8 @@
 
 Rule `LOCKED-RULE.md` committed 803825d7 before scoring. Code `score.py`; inputs `data/` (Polymarket gamma + data-api v2 trades pulled 19 Nov 02:23-02:36Z by `fetch_pm.py`; Hyperliquid xyz:SP500 1 h candles and ^GSPC Yahoo daily bars from pkarbs main d9f9f905 `weekend-perps/backfill-2026-11-16/data/`). Outputs `result.json`, `trades_test.json`, `reconcile.tsv`. Rerun: `python3 -I score.py`.
 
-## Verdict (locked): FAIL
+## Verdict (locked): FAIL for the hourly rule; INCONCLUSIVE on lag
+The locked rule trades at hour boundaries. It cannot see Polymarket lagging the perp by seconds to minutes (SETTLED B1), so it neither supports nor rules out a lag edge. Lag check: `LAG-RESULT.md`.
 TEST, 1 Aug - 13 Nov (74 days, 1,702 hourly checkpoints, 148 trades on 59 days):
 - Realised per share +0.025 (CI -0.063 to +0.125, clustered by day). Hit 34% at mean ask 0.31; ex-ante edge 0.076.
 - **$68/day (CI -$9 to +$190)** at 10% of the taker flow. Tradeable notional at that 10%: **$55/day**. Rebates $0.34/day.
