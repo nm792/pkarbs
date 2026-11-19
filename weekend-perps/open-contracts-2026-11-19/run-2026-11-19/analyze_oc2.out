@@ -1,0 +1,23 @@
+rows 154 dropped {} | Polymarket resolution vs Yahoo open>close agreement 0.9935
+disagreements: [('spy-opens-up-or-down-on-september-18-2026', False, True)]
+train dates 2026-08-03 .. 2026-09-24 n 76 | test dates 2026-09-25 .. 2026-11-18 n 78
+train residual sd s (k=30): {'SPX': 0.0015162402840261193, 'SPY': 0.0009377564417331615} | mean x vs y corr (train, k=30): 0.955 sign agreement x vs y: 0.882
+BOOK level: recorded own-token book files: 0 -> rows with a recorded book on history: 0; verdict at this level: unknown, N too small
+=== 1. SENSITIVITY: fill window 600 s, thr 0.03 (not a verdict)
+TEST  k=60 n=7 dates=7 hit=0.43 ask=0.43 edge=+0.255 pnl/sh=-0.007 CI=(-0.044,+0.034) $/day@10% -0.08 CI(-0.21,+0.01) flip n=17 pnl=0.0083843472678269 excl={'no_edge_over_threshold': 25, 'no_own_token_ask': 46}
+TEST  k=30 n=2 dates=2 hit=0.00 ask=0.11 edge=+0.084 pnl/sh=-0.109 CI=(-0.165,-0.052) $/day@10% -0.01 CI(-0.03,+0.00) flip n=16 pnl=-0.06791287755865374 excl={'no_edge_over_threshold': 23, 'no_own_token_ask': 53}
+TEST  k=10 n=5 dates=5 hit=0.20 ask=0.14 edge=+0.137 pnl/sh=+0.051 CI=(-0.118,+0.329) $/day@10% -0.08 CI(-0.27,+0.06) flip n=17 pnl=-0.011771744817199805 excl={'no_edge_over_threshold': 52, 'no_own_token_ask': 21}
+all   k=60 n=22 dates=21 hit=0.41 ask=0.39 edge=+0.204 pnl/sh=+0.012 CI=(-0.109,+0.157) $/day@10% +0.18 CI(-1.39,+2.06) flip n=36 pnl=-0.007010432076163081 excl={'no_edge_over_threshold': 48, 'no_own_token_ask': 84}
+all   k=30 n=12 dates=12 hit=0.17 ask=0.13 edge=+0.170 pnl/sh=+0.037 CI=(-0.167,+0.271) $/day@10% +1.85 CI(-0.24,+5.62) flip n=32 pnl=0.01524911458140538 excl={'no_edge_over_threshold': 53, 'no_own_token_ask': 89}
+all   k=10 n=15 dates=15 hit=0.27 ask=0.16 edge=+0.201 pnl/sh=+0.100 CI=(-0.066,+0.294) $/day@10% +0.07 CI(-0.20,+0.39) flip n=33 pnl=0.032428003189685105 excl={'no_edge_over_threshold': 100, 'no_own_token_ask': 39}
+=== 2. DESCRIPTIVE: model vs last Up-token trade (<= T-k, within 60 min before)
+TEST  k=60 rows=42 Brier model=0.0506 market(last Up trade)=0.0581 naive50=0.2500 mean(model-market)=+0.044 mean|model-market|=0.077
+TEST  k=30 rows=45 Brier model=0.0351 market(last Up trade)=0.0380 naive50=0.2500 mean(model-market)=-0.009 mean|model-market|=0.043
+TEST  k=10 rows=48 Brier model=0.0135 market(last Up trade)=0.0129 naive50=0.2500 mean(model-market)=+0.004 mean|model-market|=0.043
+all   k=60 rows=93 Brier model=0.0627 market(last Up trade)=0.0763 naive50=0.2500 mean(model-market)=+0.008 mean|model-market|=0.092
+all   k=30 rows=97 Brier model=0.0661 market(last Up trade)=0.0634 naive50=0.2500 mean(model-market)=-0.035 mean|model-market|=0.070
+all   k=10 rows=104 Brier model=0.0472 market(last Up trade)=0.0447 naive50=0.2500 mean(model-market)=-0.025 mean|model-market|=0.076
+=== 3. MODEL-FREE SIZE: USD traded (all sides, both tokens, both products) in the 60 min before T, per trading day
+TEST  days=39 mean $1393.5 median $1075.5 max $5340 share of days > $200: 0.85
+all   days=77 mean $2009.9 median $1476.4 max $12611 share of days > $200: 0.90
+=== 4. ex-dividend rows (Yahoo vs Polymarket disagreement): [('spy-opens-up-or-down-on-september-18-2026', False, True)]

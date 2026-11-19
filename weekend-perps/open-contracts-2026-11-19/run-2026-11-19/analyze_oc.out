@@ -1,0 +1,25 @@
+rows 154 dropped {} | Polymarket resolution vs Yahoo open>close agreement 0.9935
+disagreements: [('spy-opens-up-or-down-on-september-18-2026', False, True)]
+train dates 2026-08-03 .. 2026-09-24 n 76 | test dates 2026-09-25 .. 2026-11-18 n 78
+train residual sd s (k=30): {'SPX': 0.0015162402840261193, 'SPY': 0.0009377564417331615} | mean x vs y corr (train, k=30): 0.955 sign agreement x vs y: 0.882
+BOOK level: recorded own-token book files: 1 -> rows with a recorded book on history: 0; verdict at this level: unknown, N too small
+TEST (verdict)|k=60|thr=0.03       n=   2 dates=  2 hit=1.00 ask=0.89 edge=+0.049 pnl/sh=+0.101 CI=(+0.058,+0.145) depth 58sh $51 | $/day@10% +0.04 CI(+0.00,+0.11) cap/day $0.3 | flip pnl -0.008 (n 3) | excl {'no_own_token_ask': 64, 'no_edge_over_threshold': 12}
+TEST (verdict)|k=60|thr=0.01       n=   6 dates=  5 hit=1.00 ask=0.95 edge=+0.028 pnl/sh=+0.047 CI=(+0.019,+0.095) depth 73sh $66 | $/day@10% +0.05 CI(+0.01,+0.13) cap/day $1.0 | flip pnl -0.008 (n 3) | excl {'no_own_token_ask': 64, 'no_edge_over_threshold': 8}
+TEST (verdict)|k=60|thr=0.05       n=   1 dates=  1 hit=1.00 ask=0.94 edge=+0.056 pnl/sh=+0.058 CI=(+0.058,+0.058) depth 25sh $24 | $/day@10% +0.00 CI(+0.00,+0.01) cap/day $0.1 | flip pnl -0.008 (n 3) | excl {'no_own_token_ask': 64, 'no_edge_over_threshold': 13}
+TEST (verdict)|k=30|thr=0.03       n=   2 dates=  2 hit=0.00 ask=0.11 edge=+0.084 pnl/sh=-0.109 CI=(-0.165,-0.052) depth 30sh $2 | $/day@10% -0.01 CI(-0.03,+0.00) cap/day $0.0 | flip pnl -0.063 (n 5) | excl {'no_edge_over_threshold': 7, 'no_own_token_ask': 69}
+TEST (verdict)|k=30|thr=0.01       n=   4 dates=  4 hit=0.50 ask=0.54 edge=+0.049 pnl/sh=-0.042 CI=(-0.119,+0.024) depth 38sh $14 | $/day@10% +0.01 CI(-0.02,+0.04) cap/day $0.8 | flip pnl -0.063 (n 5) | excl {'no_edge_over_threshold': 5, 'no_own_token_ask': 69}
+TEST (verdict)|k=30|thr=0.05       n=   2 dates=  2 hit=0.00 ask=0.11 edge=+0.084 pnl/sh=-0.109 CI=(-0.165,-0.052) depth 30sh $2 | $/day@10% -0.01 CI(-0.03,+0.00) cap/day $0.0 | flip pnl -0.063 (n 5) | excl {'no_edge_over_threshold': 7, 'no_own_token_ask': 69}
+TEST (verdict)|k=10|thr=0.03       n=   1 dates=  1 hit=0.00 ask=0.02 edge=+0.147 pnl/sh=-0.019 CI=(-0.019,-0.019) depth 80sh $2 | $/day@10% -0.00 CI(-0.01,+0.00) cap/day $0.0 | flip pnl -0.03 (n 3) | excl {'no_edge_over_threshold': 13, 'no_own_token_ask': 64}
+TEST (verdict)|k=10|thr=0.01       n=   2 dates=  2 hit=0.00 ask=0.04 edge=+0.087 pnl/sh=-0.038 CI=(-0.056,-0.019) depth 59sh $2 | $/day@10% -0.01 CI(-0.02,+0.00) cap/day $0.0 | flip pnl -0.03 (n 3) | excl {'no_edge_over_threshold': 12, 'no_own_token_ask': 64}
+TEST (verdict)|k=10|thr=0.05       n=   1 dates=  1 hit=0.00 ask=0.02 edge=+0.147 pnl/sh=-0.019 CI=(-0.019,-0.019) depth 80sh $2 | $/day@10% -0.00 CI(-0.01,+0.00) cap/day $0.0 | flip pnl -0.03 (n 3) | excl {'no_edge_over_threshold': 13, 'no_own_token_ask': 64}
+train|k=60|thr=0.03                n=   8 dates=  8 hit=0.38 ask=0.43 edge=+0.141 pnl/sh=-0.065 CI=(-0.319,+0.219) depth 129sh $39 | $/day@10% -0.18 CI(-0.92,+0.57) cap/day $1.7 | flip pnl -0.024 (n 8) | excl {'no_own_token_ask': 55, 'no_edge_over_threshold': 13}
+train|k=30|thr=0.03                n=   6 dates=  6 hit=0.33 ask=0.13 edge=+0.219 pnl/sh=+0.194 CI=(-0.076,+0.501) depth 54sh $6 | $/day@10% +0.20 CI(-0.12,+0.64) cap/day $0.2 | flip pnl 0.19 (n 9) | excl {'no_own_token_ask': 56, 'no_edge_over_threshold': 14}
+train|k=10|thr=0.03                n=   2 dates=  2 hit=0.00 ask=0.04 edge=+0.332 pnl/sh=-0.045 CI=(-0.052,-0.038) depth 20sh $1 | $/day@10% -0.00 CI(-0.01,+0.00) cap/day $0.0 | flip pnl -0.058 (n 4) | excl {'no_edge_over_threshold': 18, 'no_own_token_ask': 56}
+all|k=60|thr=0.03                  n=  10 dates= 10 hit=0.50 ask=0.53 edge=+0.123 pnl/sh=-0.032 CI=(-0.242,+0.191) depth 107sh $39 | $/day@10% -0.07 CI(-0.44,+0.29) cap/day $1.0 | flip pnl -0.019 (n 11) | excl {'no_own_token_ask': 119, 'no_edge_over_threshold': 25}
+all|k=30|thr=0.03                  n=   8 dates=  8 hit=0.25 ask=0.13 edge=+0.185 pnl/sh=+0.119 CI=(-0.092,+0.376) depth 50sh $3 | $/day@10% +0.09 CI(-0.07,+0.31) cap/day $0.1 | flip pnl 0.1 (n 14) | excl {'no_own_token_ask': 125, 'no_edge_over_threshold': 21}
+all|k=10|thr=0.03                  n=   3 dates=  3 hit=0.00 ask=0.04 edge=+0.271 pnl/sh=-0.037 CI=(-0.052,-0.019) depth 35sh $1 | $/day@10% -0.00 CI(-0.01,+0.00) cap/day $0.0 | flip pnl -0.046 (n 7) | excl {'no_edge_over_threshold': 31, 'no_own_token_ask': 120}
+plausibility k=60: rows with perp point 154/154, rows with an own-token BUY fill in the 120 s window (either side) 35/154
+plausibility k=30: rows with perp point 154/154, rows with an own-token BUY fill in the 120 s window (either side) 29/154
+plausibility k=10: rows with perp point 154/154, rows with an own-token BUY fill in the 120 s window (either side) 34/154
+USD traded (all sides, own tokens, last 60 min before the open) per event: median 144.4 mean 1005.0 total events 154 | whole-life market volume (gamma) median 1978.0
+CEILING (test, k=30, thr 0.03): 100% of the chosen side's BUY volume in the last 60 min x model edge per share = 1.53 USD per test day ( 39 days)
