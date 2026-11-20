@@ -26,4 +26,9 @@ const ev = [{ title: 'Counter-Strike: A vs B (BO3)', startTime: '2026-11-19T09:0
   { title: 'Dota 2: C vs D', markets: [{ sportsMarketType: 'moneyline', clobTokenIds: '["5","6"]', outcomes: '["C","D"]', conditionId: 'z' }] }];
 const pk = pickMarkets(ev); if (pk.length !== 1 || pk[0].cond !== 'x') bad.push('pickMarkets wrong ' + JSON.stringify(pk));
 if (floorBytes(undefined) !== 10e9 || floorBytes('7') !== 7e9 || floorBytes('0') !== 0 || floorBytes('x') !== 10e9) bad.push('floor parse');
-console.log(bad.length ? 'FAIL: ' + bad.join('; ') : 'PASS (9 checks, each able to fail)'); process.exit(bad.length ? 1 : 0);
+// FIX 20 Nov: selection by game start, not creation: a market whose match starts in 20 h is kept, one 3 days away or 10 h ago is dropped; no opts keeps the old behaviour
+const nowT = 1_800_000_000_000, mk = (id, off) => ({ title: 'Counter-Strike: A vs B', markets: [{ sportsMarketType: 'moneyline', clobTokenIds: '["1","2"]', outcomes: '["A","B"]', conditionId: id, question: 'q', gameStartTime: new Date(nowT + off).toISOString() }] });
+const pw = pickMarkets([mk('soon', 20 * 3600e3), mk('far', 72 * 3600e3), mk('old', -10 * 3600e3)], { now: nowT, loMs: -8 * 3600e3, hiMs: 36 * 3600e3 }).map((x) => x.cond).join(',');
+if (pw !== 'soon') bad.push('game-start window wrong: ' + pw);
+if (pickMarkets([mk('far', 72 * 3600e3)]).length !== 1) bad.push('no-opts must keep every market');
+console.log(bad.length ? 'FAIL: ' + bad.join('; ') : 'PASS (11 checks, each able to fail)'); process.exit(bad.length ? 1 : 0);

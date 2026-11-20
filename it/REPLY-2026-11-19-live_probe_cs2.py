@@ -18,6 +18,26 @@ for p in ("/etc/pkarbs/pandascore.env", "/root/API_KEYS/pandascore/.env"):
         pass
     if TOKEN: break
 if not TOKEN: sys.exit("FATAL no PandaScore token file readable")
+def gamma_cs2_events(getf, now):
+    """All active Counter-Strike events. FIX 20 Nov: gamma's start_date_min/max filters by event CREATION date, and CS2 events are created a median 17.1 h
+    (p90 72 h) before the match, so a creation window of -18h..+12h missed most matches (measured: 375 active CS2 events via tag_slug=counter-strike-2, 96% created >8 h ago).
+    Page the tag (limit 100, no date filter) and add the old creation window as a second source; dedupe by event id."""
+    seen, out = set(), []
+    lo = datetime.datetime.fromtimestamp(now - 18 * 3600, datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    hi = datetime.datetime.fromtimestamp(now + 12 * 3600, datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    for base in ("https://gamma-api.polymarket.com/events?closed=false&active=true&limit=100&tag_slug=counter-strike-2&offset=%d",
+                 "https://gamma-api.polymarket.com/events?closed=false&active=true&limit=100&start_date_min=" + lo + "&start_date_max=" + hi + "&offset=%d"):
+        for off in range(0, 2000, 100):
+            try: evs = getf(base % off)
+            except Exception as ex: print("gamma error", repr(ex)[:100]); break
+            if not isinstance(evs, list): print("gamma non-list", str(evs)[:100]); break
+            for e in evs:
+                k = e.get("id") or e.get("slug") or e.get("title")
+                if k in seen: continue
+                seen.add(k); out.append(e)
+            if len(evs) < 100: break
+    return out
+
 def norm(s): return re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).strip()
 def get(url, bearer=False):
     h = {"Accept": "application/json", "User-Agent": "probe", "Accept-Encoding": "gzip"}
@@ -181,15 +201,10 @@ async def main():
         names = [((o or {}).get("opponent") or {}).get("name") for o in (m.get("opponents") or [])]
         live[str(m["id"])] = dict(url=ep["url"], label=" vs ".join(n for n in names if n), names=[n for n in names if n])
     matches.update(live); print("CS2 feeds open now:", {k: v["label"] for k, v in live.items()}, flush=True)
-    toks = []; scanned = 0
-    lo = datetime.datetime.fromtimestamp(now - 18 * 3600, datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    hi = datetime.datetime.fromtimestamp(now + 12 * 3600, datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    for off in range(0, 2000, 100):   # gamma caps limit at 100 and requires gzip on /events
-        try: evs = get("https://gamma-api.polymarket.com/events?closed=false&active=true&limit=100&offset=%d&start_date_min=%s&start_date_max=%s" % (off, lo, hi))
-        except Exception as ex: print("gamma error", repr(ex)[:100]); break
-        if not isinstance(evs, list): print("gamma non-list", str(evs)[:100]); break
-        scanned += len(evs)
-        for ev in evs:
+    toks = []
+    evs_all = gamma_cs2_events(get, now); scanned = len(evs_all)
+    for ev in evs_all:
+        if True:
             if "counter-strike" not in (ev.get("title") or "").lower(): continue
             for mk in ev.get("markets", []):
                 if mk.get("sportsMarketType") not in ("moneyline", "child_moneyline"): continue
@@ -203,7 +218,6 @@ async def main():
                         mm = re.search(r"(?:map|game)\s*(\d+)", qn)
                         pm_by_match.setdefault(mid, []).append(dict(q=mk.get("question", ""), map_no=int(mm.group(1)) if mm else None, tokens=tk, outcomes=oc))
                         toks += tk
-        if len(evs) < 100: break
     print("gamma markets scanned:", scanned, "| matched PM markets:", {live[k]["label"]: [(x["q"][:50], x["map_no"]) for x in v] for k, v in pm_by_match.items()}, flush=True)
     if not toks: sys.exit("NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)")
     tasks = [asyncio.create_task(pm_ws(toks))] + [asyncio.create_task(ps_ws(mid, v["url"])) for mid, v in live.items()]

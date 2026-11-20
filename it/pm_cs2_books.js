@@ -38,7 +38,8 @@ function applyMsg(st, e, recv, out) {
   return st.rows - before;
 }
 // Choose the Counter-Strike moneyline markets (Map N Winner, match winner) with exactly two tokens and two outcomes.
-function pickMarkets(events) {
+// opts {now, loMs, hiMs}: keep only markets whose game start is within [now+loMs, now+hiMs] (FIX 20 Nov: gamma date filters use event CREATION date; CS2 events are created a median 17 h before the match, so selection must be by game start).
+function pickMarkets(events, opts) {
   const res = [];
   for (const e of events) {
     if (!/counter-strike/i.test(e.title || '')) continue;
@@ -47,6 +48,7 @@ function pickMarkets(events) {
       let toks, oc; try { toks = JSON.parse(m.clobTokenIds); oc = JSON.parse(m.outcomes); } catch { continue; }
       if (!toks || toks.length !== 2 || !oc || oc.length !== 2) continue;
       const start = Date.parse(m.gameStartTime || e.startTime || '') || null;
+      if (opts && start !== null && (start < opts.now + opts.loMs || start > opts.now + opts.hiMs)) continue;
       res.push({ cond: m.conditionId, q: m.question, outcomes: oc, tokens: toks, smt: m.sportsMarketType, start: start && new Date(start).toISOString() });
     }
   }
@@ -70,10 +72,14 @@ if (require.main === module) {
       try {
         const lo = new Date(Date.now() - 8 * 3600e3).toISOString(), hi = new Date(Date.now() + 36 * 3600e3).toISOString();
         const fresh = [];
-        for (let off = 0; off < 2000; off += 100) {
-          const r = await fetch(`https://gamma-api.polymarket.com/events?closed=false&active=true&limit=100&offset=${off}&start_date_min=${lo}&start_date_max=${hi}`, { headers: UA });
-          if (r.status !== 200) { log('gamma status ' + r.status); break; }
-          const evs = await r.json(); fresh.push(...pickMarkets(evs)); if (evs.length < 100) break;
+        const win = { now: Date.now(), loMs: -8 * 3600e3, hiMs: 36 * 3600e3 };
+        for (const base of [`https://gamma-api.polymarket.com/events?closed=false&active=true&limit=100&tag_slug=counter-strike-2`,
+                            `https://gamma-api.polymarket.com/events?closed=false&active=true&limit=100&start_date_min=${lo}&start_date_max=${hi}`]) {
+          for (let off = 0; off < 2000; off += 100) {
+            const r = await fetch(`${base}&offset=${off}`, { headers: UA });
+            if (r.status !== 200) { log('gamma status ' + r.status); break; }
+            const evs = await r.json(); fresh.push(...pickMarkets(evs, win)); if (evs.length < 100) break;
+          }
         }
         const newToks = [];
         for (const m of fresh) {
