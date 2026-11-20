@@ -1,5 +1,6 @@
 // Test for pm_cs2_books.js. Run: node test_pm_cs2_books.js  (prints PASS or FAIL: ..., exit code 1 on failure). Every check can fail.
-const { newState, applyMsg, pickMarkets, floorBytes } = require('./pm_cs2_books.js');
+const { newState, applyMsg, pickMarkets, floorBytes, hourStr, compactOldHours } = require('./pm_cs2_books.js');
+const fs = require('fs'), os = require('os'), path = require('path'), zlib = require('zlib');
 const bad = [], rows = [], out = (r) => rows.push(r);
 const st = newState(); st.meta.A = { outcome: 'Alpha', q: 'Counter-Strike: Alpha vs Beta - Map 1 Winner', cond: 'c1' }; st.meta.B = { outcome: 'Beta', q: 'q', cond: 'c1' };
 // price_change before any snapshot writes nothing
@@ -31,4 +32,24 @@ const nowT = 1_800_000_000_000, mk = (id, off) => ({ title: 'Counter-Strike: A v
 const pw = pickMarkets([mk('soon', 20 * 3600e3), mk('far', 72 * 3600e3), mk('old', -10 * 3600e3)], { now: nowT, loMs: -8 * 3600e3, hiMs: 36 * 3600e3 }).map((x) => x.cond).join(',');
 if (pw !== 'soon') bad.push('game-start window wrong: ' + pw);
 if (pickMarkets([mk('far', 72 * 3600e3)]).length !== 1) bad.push('no-opts must keep every market');
-console.log(bad.length ? 'FAIL: ' + bad.join('; ') : 'PASS (11 checks, each able to fail)'); process.exit(bad.length ? 1 : 0);
+
+// SLIM 20 Nov: (a) a change only at level 2 within 10 s of the last row is NOT written; (b) after 10 s it is; (c) a best-price change is always written;
+// (d) levels beyond 3 never stored and a change only beyond level 3 is not written; (e) rows carry no q; (f) closed hours are gzipped and removed, current hour untouched.
+{
+  const s2 = newState(), r2 = [], o2 = (r) => r2.push(r); s2.meta.T = { outcome: 'T', q: 'long question text', cond: 'c' };
+  applyMsg(s2, { event_type: 'book', asset_id: 'T', timestamp: '1', bids: [{ price: '0.50', size: '10' }, { price: '0.49', size: '5' }, { price: '0.48', size: '5' }, { price: '0.47', size: '5' }], asks: [{ price: '0.52', size: '8' }] }, 1000, o2);
+  if (r2.length !== 1 || r2[0].bids.length !== 3 || 'q' in r2[0]) bad.push('slim row shape ' + JSON.stringify(r2[0]));
+  applyMsg(s2, { event_type: 'price_change', timestamp: '2', price_changes: [{ asset_id: 'T', side: 'BUY', price: '0.49', size: '9' }] }, 3000, o2);
+  if (r2.length !== 1) bad.push('level-2 change inside 10 s was written');
+  applyMsg(s2, { event_type: 'price_change', timestamp: '3', price_changes: [{ asset_id: 'T', side: 'BUY', price: '0.49', size: '11' }] }, 12000, o2);
+  if (r2.length !== 2) bad.push('level-2 change after 10 s not written');
+  applyMsg(s2, { event_type: 'price_change', timestamp: '4', price_changes: [{ asset_id: 'T', side: 'BUY', price: '0.46', size: '9' }] }, 13000, o2);
+  if (r2.length !== 2) bad.push('change beyond level 3 was written');
+  applyMsg(s2, { event_type: 'price_change', timestamp: '5', price_changes: [{ asset_id: 'T', side: 'SELL', price: '0.51', size: '3' }] }, 13500, o2);
+  if (r2.length !== 3 || r2[2].ask !== 0.51) bad.push('best-price change not written immediately');
+  const d = fs.mkdtempSync(path.join(os.tmpdir(), 'pmb-')), t0 = Date.parse('2026-11-20T05:30:00Z');
+  fs.writeFileSync(path.join(d, 'books-' + hourStr(t0 - 3600e3) + '.jsonl'), '{"a":1}\n{"a":2}\n'); fs.writeFileSync(path.join(d, 'books-' + hourStr(t0) + '.jsonl'), '{"a":3}\n');
+  const n = compactOldHours(d, t0), fl = fs.readdirSync(d).sort();
+  if (n !== 1 || fl.join() !== 'books-2026112004.jsonl.gz,books-2026112005.jsonl' || zlib.gunzipSync(fs.readFileSync(path.join(d, fl[0]))).toString() !== '{"a":1}\n{"a":2}\n') bad.push('hourly gzip wrong ' + fl.join());
+}
+console.log(bad.length ? 'FAIL: ' + bad.join('; ') : 'PASS (17 checks, each able to fail)'); process.exit(bad.length ? 1 : 0);

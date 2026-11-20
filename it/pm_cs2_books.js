@@ -8,12 +8,17 @@
 const fs = require('fs'), path = require('path');
 const UA = { 'User-Agent': 'pkarbs-cs2-recorder', 'Accept-Encoding': 'gzip' };
 
-function newState() { return { books: {}, meta: {}, rows: 0, msgs: 0, silentTokens: new Set() }; }
-const lv = (m, desc) => [...m.entries()].map(([p, s]) => [+p, s]).filter((x) => x[1] > 0).sort((a, b) => desc ? b[0] - a[0] : a[0] - b[0]).slice(0, 5).map(([price, size]) => ({ price, size }));
-function emit(st, tok, recv, ts, ev, out) {
+function newState() { return { books: {}, meta: {}, last: {}, rows: 0, msgs: 0, silentTokens: new Set() }; }
+const lv = (m, desc, n) => [...m.entries()].map(([p, s]) => [+p, s]).filter((x) => x[1] > 0).sort((a, b) => desc ? b[0] - a[0] : a[0] - b[0]).slice(0, n || 3).map(([price, size]) => ({ price, size }));
+const DEEP_MS = 10000;   // SLIM 20 Nov: a change that only moves levels 2-3 is written at most once per 10 s per token; best bid/ask price or size changes are always written; levels beyond 3 are not stored
+function emit(st, tok, recv, ts, ev, out, force) {
   const b = st.books[tok], m = st.meta[tok]; if (!b || !m) return;
   const bids = lv(b.bids, true), asks = lv(b.asks, false);
-  out({ recv_ms: recv, asset: tok, outcome: m.outcome, q: m.q, cond: m.cond, bid: bids[0] ? bids[0].price : null, ask: asks[0] ? asks[0].price : null, bids, asks, ts, ev });
+  const sig = JSON.stringify([bids[0], asks[0]]), deep = JSON.stringify([bids, asks]), last = st.last[tok];
+  if (!force && last && deep === last.deep) return;
+  if (!force && last && sig === last.sig && recv - last.t < DEEP_MS) return;
+  st.last[tok] = { sig, deep, t: recv };
+  out({ recv_ms: recv, asset: tok, outcome: m.outcome, cond: m.cond, bid: bids[0] ? bids[0].price : null, ask: asks[0] ? asks[0].price : null, bids, asks, ts, ev });
   st.rows++;
 }
 // msg: one decoded Polymarket event object; out(row) writes a row. Returns number of rows written.
@@ -24,7 +29,7 @@ function applyMsg(st, e, recv, out) {
     const b = { bids: new Map(), asks: new Map() };
     for (const x of e.bids || []) b.bids.set(String(+x.price), +x.size);
     for (const x of e.asks || []) b.asks.set(String(+x.price), +x.size);
-    st.books[e.asset_id] = b; emit(st, e.asset_id, recv, ts, 'book', out);
+    st.books[e.asset_id] = b; emit(st, e.asset_id, recv, ts, 'book', out, true);
   } else if (e.event_type === 'price_change') {
     const touched = new Set();
     for (const c of e.price_changes || []) {
@@ -54,13 +59,25 @@ function pickMarkets(events, opts) {
   }
   return res;
 }
+// SLIM 20 Nov: one plain file per UTC hour (books-YYYYMMDDHH.jsonl) while it is being written; closed hours are gzipped and the plain file removed.
+const hourStr = (ms) => new Date(ms).toISOString().slice(0, 13).replace(/[-T:]/g, '');
+function compactOldHours(dir, nowMs) {
+  const zlib = require('zlib'), cur = hourStr(nowMs); let n = 0;
+  for (const f of fs.readdirSync(dir)) {
+    const m = /^books-(\d{10})\.jsonl$/.exec(f); if (!m || m[1] >= cur) continue;
+    const src = path.join(dir, f), dst = src + '.gz';
+    try { fs.writeFileSync(dst + '.tmp', zlib.gzipSync(fs.readFileSync(src))); fs.renameSync(dst + '.tmp', dst); fs.unlinkSync(src); n++; } catch {}
+  }
+  return n;
+}
 const floorBytes = (arg) => { const g = arg === undefined ? 10 : Number(arg); return (Number.isFinite(g) && g >= 0 ? g : 10) * 1e9; };
-module.exports = { newState, applyMsg, pickMarkets, floorBytes };
+module.exports = { newState, applyMsg, pickMarkets, floorBytes, hourStr, compactOldHours };
 
 if (require.main === module) {
   const OUT = process.argv[2], END = process.argv[3] ? Date.parse(process.argv[3]) : Infinity, FLOOR = floorBytes(process.argv[4]);
   fs.mkdirSync(OUT, { recursive: true });
   const app = (n, o) => fs.appendFileSync(path.join(OUT, n), JSON.stringify(o) + '\n');
+  const appBook = (o) => fs.appendFileSync(path.join(OUT, 'books-' + hourStr(o.recv_ms) + '.jsonl'), JSON.stringify(o) + '\n');
   const log = (m) => fs.appendFileSync(path.join(OUT, 'recorder.log'), new Date().toISOString() + ' ' + m + '\n');
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   let stop = false; process.on('SIGTERM', () => { stop = true; });
@@ -72,7 +89,7 @@ if (require.main === module) {
       try {
         const lo = new Date(Date.now() - 8 * 3600e3).toISOString(), hi = new Date(Date.now() + 36 * 3600e3).toISOString();
         const fresh = [];
-        const win = { now: Date.now(), loMs: -8 * 3600e3, hiMs: 36 * 3600e3 };
+        const win = { now: Date.now(), loMs: -4 * 3600e3, hiMs: 30 * 60e3 };   // SLIM 20 Nov: only live matches and matches starting within 30 min
         for (const base of [`https://gamma-api.polymarket.com/events?closed=false&active=true&limit=100&tag_slug=counter-strike-2`,
                             `https://gamma-api.polymarket.com/events?closed=false&active=true&limit=100&start_date_min=${lo}&start_date_max=${hi}`]) {
           for (let off = 0; off < 2000; off += 100) {
@@ -81,7 +98,10 @@ if (require.main === module) {
             const evs = await r.json(); fresh.push(...pickMarkets(evs, win)); if (evs.length < 100) break;
           }
         }
-        const newToks = [];
+        const newToks = [], freshSet = new Set(fresh.map((m) => m.cond)), gone = [];
+        for (const c of [...known]) if (!freshSet.has(c)) { known.delete(c); for (const t of Object.keys(st.meta)) if (st.meta[t].cond === c) { gone.push(t); delete st.meta[t]; delete st.books[t]; delete st.last[t]; } }
+        if (open && gone.length) ws.send(JSON.stringify({ assets_ids: gone, operation: 'unsubscribe' }));
+        compactOldHours(OUT, Date.now());
         for (const m of fresh) {
           if (known.has(m.cond)) continue; known.add(m.cond); app('markets.jsonl', m); log('market ' + m.q);
           m.tokens.forEach((t, i) => { st.meta[t] = { outcome: m.outcomes[i], q: m.q, cond: m.cond }; newToks.push(t); });
@@ -101,7 +121,7 @@ if (require.main === module) {
         ws.onopen = () => { open = true; backoff = 2000; log('ws open, tokens ' + toks.length); ws.send(JSON.stringify({ assets_ids: toks, type: 'market' })); hb = setInterval(() => { try { ws.send('PING'); } catch {} }, 10000); };
         ws.onmessage = (ev) => {
           const recv = Date.now(); let d; try { d = JSON.parse(ev.data); } catch { return; }
-          for (const e of Array.isArray(d) ? d : [d]) applyMsg(st, e, recv, (row) => app('books.jsonl', row));
+          for (const e of Array.isArray(d) ? d : [d]) applyMsg(st, e, recv, appBook);
         };
         ws.onclose = done; ws.onerror = (e) => { log('ws error ' + (e.message || '')); done(); };
         chk = setInterval(() => { if (!live()) done(); }, 1000);

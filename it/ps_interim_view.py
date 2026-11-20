@@ -9,13 +9,19 @@ books, files = sys.argv[1], sys.argv[2:]
 rows, summ = [], {}
 for f in files:
     j = json.load(open(f)); summ[f] = j.get("summary"); rows += [dict(r, _file=f) for r in j.get("rows", [])]
+def book_lines(path):
+    """path may be a single file or a glob such as 'pmcs2/books*.jsonl*' (hourly books-YYYYMMDDHH.jsonl and .jsonl.gz from the slim recorder, read in name order)."""
+    import glob, gzip
+    for f in sorted(glob.glob(path)) or [path]:
+        with (gzip.open(f, "rt", errors="replace") if f.endswith(".gz") else open(f, errors="replace")) as h:
+            yield from h
 def depth_index(path, wanted):
     """wanted: {tok10: [t_seconds...]} -> {(tok10, t): (best_ask_size, top3_size)} from the last snapshot with recv_ms <= t (within 120 s)."""
     ts = sorted({t for v in wanted.values() for t in v}); out = {}
     if not ts: return out
     lo, hi = (ts[0] - 120) * 1000, (ts[-1] + 1) * 1000; last = {}; pat = re.compile(r'"recv_ms":\s*(\d+)'); apat = re.compile(r'"(?:asset|tk)":\s*"(\d{1,10})')
     ev = {k: sorted(v) for k, v in wanted.items()}
-    for line in open(path, errors="replace"):
+    for line in book_lines(path):
         m = pat.search(line)
         if not m: continue
         r = int(m.group(1))
