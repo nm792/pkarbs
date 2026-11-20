@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Can-fail test for wait_listing.main: it must keep polling through errors and empty lists, detect the listing, and write the detect file. Network is replaced."""
+"""Can-fail test for wait_listing.main: it must keep polling through errors and empty lists, detect the listing, write the detect file, and start the trades poller. Network is replaced."""
 import os, sys, json, tempfile
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import wait_listing as w, pm_gas_books as b
@@ -12,10 +12,11 @@ def t1_survives_errors_then_detects():
         return [("t", "x|Yes")]
     b.event_tokens = fake_tokens
     b._get = lambda u, data=None: [{"markets": [{"createdAt": "2026-11-19T15:00:11Z", "startDate": "2026-11-19T15:00:26Z"}]}]
-    import subprocess; subprocess.call = lambda cmd: 0
+    import subprocess; subprocess.call = lambda cmd: 0; launched = []; subprocess.Popen = lambda cmd: launched.append(cmd)
     d = tempfile.mkdtemp()
     rc = w.main(["--slug", "s", "--out", d, "--wait-until", "2099-01-01T00:00:00Z"], sleep=lambda s: None)
     assert rc == 0 and calls["n"] == 3, (rc, calls)
+    assert len(launched) == 1 and "pm_gas_trades.py" in launched[0][1]      # trades poller must be started with the books
     j = json.load(open(os.path.join(d, "s.listing.json"))); assert j["polls"] == 3 and j["created"] == ["2026-11-19T15:00:11Z"]
 def t2_gives_up_after_deadline():
     b.event_tokens = lambda s: (_ for _ in ()).throw(IndexError())
