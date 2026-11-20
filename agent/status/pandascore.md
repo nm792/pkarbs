@@ -202,3 +202,10 @@ NO live CS2 match with a matching Polymarket market; nothing to measure (write t
 - Archived the old `books.jsonl` to the storage box as `pkarbs-capture/pmcs2/books-pre-slim-20261120.jsonl`. Local size was 5,520,807,026 bytes; `rsync --checksum --dry-run` reported zero differences and the remote listing showed the same size. Only then was the local old file removed.
 - VOL2 available space increased from 10,957,164,544 bytes before the removal to 16,426,491,904 bytes after. The replacement recorder is running and writing to the hourly file.
 - OPEN / NOT VERIFIED: 10-minute and 30-minute rate checks; the first real-match load test. No rate is inferred from the early sample.
+
+
+## PSr2 follow-up (20 Nov 2026)
+
+- Step 2 (05:43Z): `/root/ship/ship_raw.sh` uses `/root/ship/writers.conf`; the PandaScore writer is `pandascore|/mnt/HC_Volume_107257520/pkarbs/pandascore|pkarbs/pandascore|-|y|hourly`. Read-only storage-box listing of `pkarbs/pandascore/raw/` (last 30 entries) ends at `pandascore_2026111922.jsonl.gz`, 133,429 bytes, timestamp 2026-11-20 03:10:14Z. The local raw directory has only corrupt `pandascore_2026111612.jsonl.gz` (216,915 bytes); no local hourly files to ship. Box entries include 19 Nov 11Z–21Z files, so shipped coverage is present through 21Z, with 22Z last; no 23Z onward file is listed.
+- Step 6: copied the reviewer `origin/reviewer` probe to the active loop input `/tmp/REPLY-2026-11-19-live_probe_cs2.py`; SHA-256 `1d5f389d51b769595333d258fa14b2bf40438660bd9d429137ced51c4ec7bf72`, matching the reviewer source. The loop PID 3273611 remained alive after the copy. No PM recorder files or process were touched.
+- The loop log continued to report no live CS2 match with a matching Polymarket market at 05:44Z; probe measurement awaits a matching live market.
