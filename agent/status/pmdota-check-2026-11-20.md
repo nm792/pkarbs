@@ -28,3 +28,10 @@ Two directory snapshots 60 seconds apart: `books.jsonl` grew from 7,705 bytes at
 ## P96 live read (20 Nov 15:15Z)
 
 The project checker was extracted from the fetched project tip to VOL2 scratch and passed `bash -n`. Result: PASS process PID 2539785; 217,155 total book rows; newest row age 1 second; 13 conditions with both tokens; recorder log reported 0 gamma status lines, 0 book errors and 0 discover errors. `markets.jsonl` contained 16 BLAST matches. The two requested team-name patterns had 0 matches in current `books.jsonl`. Current book file was 1,965,518 bytes at 15:16:05Z. No restart or data change.
+
+
+## P96 live read (20 Nov 17:42Z)
+
+Read-only check using `feeds/check_pmdota.sh` from fetched project tip `8378b14cb0fe4579ee53c2d8159e8dacc33b31a9` (checker syntax passed with `bash -n`; executed from VOL2 scratch because the stale checkout did not contain that path). No restart or data change.
+
+Output: PASS recorder PID 2539785, started Thu Nov 19 01:13:04 2026; 260,536 total book rows across hourly gzip files and current file; newest row age 0 seconds; 12 conditions, all 12 with both tokens; 0 gamma status lines, 0 book errors, 0 discover errors. The latest four market lines were timestamped 16:54:22Z. The requested `grep -c BLAST` count was 20; the requested team-name pattern count was 0 in current `books.jsonl` (grep exit 1 means no matches). VOL2 had 10.70 GB available during the check. No restart performed.
