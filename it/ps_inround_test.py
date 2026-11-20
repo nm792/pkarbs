@@ -29,7 +29,7 @@ def team_events(msgs):
     for e in out:
         if e[0] - last.get(e[1], -1e9) >= H: ded.append(e); last[e[1]] = e[0]
     return ded
-def main(sd, nperm=5000):
+def main(sd, nperm=5000, plant=0.0):
     rows = {"K": [], "T": []}; per = []
     for f in sorted(glob.glob(os.path.join(sd, "ps_sample_*.jsonl.gz"))):
         msgs = [json.loads(l) for l in gzip.open(f, "rt")]
@@ -49,6 +49,16 @@ def main(sd, nperm=5000):
             tr = [x for x in C.trades(cid) if t0 - 60 <= x["timestamp"] <= t1 + 60 and x.get("outcome_index") == 0]
             if len(tr) < 30: continue
             tr.sort(key=lambda x: x["timestamp"]); ts = [x["timestamp"] for x in tr]; pr = [x["price"] for x in tr]
+            if plant:  # PLANTED CHECK: inject a synthetic move of `plant` in the event direction 5 s after each event, undone at +H+1 s
+                p_ = lambda t: pr[bisect.bisect_right(ts, t) - 1] if bisect.bisect_right(ts, t) else None
+                add = []
+                for t, k, fav, mp in ev:
+                    if mapno is not None and mp != mapno: continue
+                    b0 = p_(t)
+                    if b0 is None: continue
+                    s_ = 1 if fav == tm0 else -1
+                    add += [(t + 5, min(.99, max(.01, b0 + s_ * plant))), (t + H + 1, b0)]
+                z = sorted(list(zip(ts, pr)) + add, key=lambda x: x[0]); ts = [a for a, _ in z]; pr = [b for _, b in z]
             px = lambda t: pr[bisect.bisect_right(ts, t) - 1] if bisect.bisect_right(ts, t) else None
             for t, k, fav, mp in ev:
                 if mapno is not None and mp != mapno: continue
@@ -71,4 +81,4 @@ def main(sd, nperm=5000):
         for r in R: bym.setdefault(r[0], []).append(r[4])
         print(f"{name}: n={len(R)} mean signed move after (lead) {obs*100:+.2f}c sign-permutation p={p:.4f} | before (anticipation) {pobs*100:+.2f}c p={pp:.4f} | per-match mean after (c): " + ", ".join(f"{os.path.basename(m)[10:17]}:{st.mean(v)*100:+.2f}(n={len(v)})" for m, v in bym.items()))
     print("markets used:", per)
-if __name__ == "__main__": main(sys.argv[1])
+if __name__ == "__main__": main(sys.argv[1], plant=float(sys.argv[2]) if len(sys.argv) > 2 else 0.0)

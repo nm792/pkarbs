@@ -30,3 +30,6 @@ Costs: no P&L claimed here. A PASS only licenses the next step: both-token book 
 
 ## Code
 it/ps_inround_test.py (this spec), it/ps_chart_samples.py (eyeball), it/ps_export_samples.py (export). Independent audit required before any PASS is relayed (Reviewer rule); planted-lead check to be run by injecting a synthetic +3c move after kills into a copy of the price series and confirming LEAD detects it.
+
+## Planted-lead check (coded 20 Nov ~04:45Z)
+`python3 -I it/ps_inround_test.py SAMPLEDIR 0.03` injects a synthetic +3c move in the event direction 5 s after every kept event (undone at +16 s) and reruns the same pipeline. On the 3-match sample: kill LEAD rose from +1.52c (p=0.075) to +3.17c (p=0.0002), round end from +1.33c to +2.68c. So the test DETECTS a planted lead and the sign is right, but it recovers only about 55% of the planted size for kills (+1.65c of +3c): overlapping events and the undo trades blunt it. Read any real LEAD as a floor, not the size. A real run must show the same planted check on the full sample before a verdict.
