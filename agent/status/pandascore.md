@@ -252,3 +252,9 @@ Index (match_id, label, messages, inround_messages, bytes):
  {"match_id":"1789179","label":"33 vs ex-RUSTEC","messages":127,"inround_messages":124,"bytes":14557}
 ]
 ```
+
+
+## PS live match read (20 Nov 2026, run 10:43–10:45Z)
+
+- **FAIL per the reviewer gate.** The exact live-match command showed four `connected` lines, all timestamped 08:45:49Z; none was a CS2 match with a 20 Nov 09:xx label. The newest raw file was `pandascore_2026112010.jsonl.gz` (171,538 bytes at 10:43:27Z), not the required 09Z file; it grew 5,037 bytes over 60 seconds. Capture PID 625842 was present. The note's PASS condition was not met; no restart or retry was made.
+- The corrected `pandascore_live_read.sh` ran once at 10:44–10:45Z: capture raw file grew 4,347 bytes; pmcs2 `books-2026112010.jsonl` grew 1,551,746 bytes. Probe preflight reported `all_ok: true`; the displayed probe-loop tail also contained older failed preflights. No process, source, or configuration was changed.
