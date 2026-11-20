@@ -258,3 +258,10 @@ Index (match_id, label, messages, inround_messages, bytes):
 
 - **FAIL per the reviewer gate.** The exact live-match command showed four `connected` lines, all timestamped 08:45:49Z; none was a CS2 match with a 20 Nov 09:xx label. The newest raw file was `pandascore_2026112010.jsonl.gz` (171,538 bytes at 10:43:27Z), not the required 09Z file; it grew 5,037 bytes over 60 seconds. Capture PID 625842 was present. The note's PASS condition was not met; no restart or retry was made.
 - The corrected `pandascore_live_read.sh` ran once at 10:44–10:45Z: capture raw file grew 4,347 bytes; pmcs2 `books-2026112010.jsonl` grew 1,551,746 bytes. Probe preflight reported `all_ok: true`; the displayed probe-loop tail also contained older failed preflights. No process, source, or configuration was changed.
+
+
+## P95 local PandaScore export — blocked by VOL2 floor (20 Nov 2026, 14:41Z)
+
+- Required stop gate: stop if VOL2 is below 10 GB free. `df -B1 /mnt/HC_Volume_107257520` measured 9,696,899,072 bytes available (9.70 GB decimal), so the gate failed.
+- Stopped before listing or reading local raw files, creating exports, or copying samples. No process or data changed.
+- No index or sample files were produced. P95 remains blocked until VOL2 is at least 10 GB free.
