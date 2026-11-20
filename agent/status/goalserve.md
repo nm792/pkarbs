@@ -319,12 +319,12 @@ The same scorer failed on pmdota with `KeyError: 'asset'` at `pair_score.py:24`;
 
 ## P87 coverage matrix (20 Nov)
 
-Read-only coverage scan completed with the reviewer runner from `origin/reviewer` (note/code context `708a410`). The supplied self-test ended `ALL PASS` (4 checks). The scan read 11 recent Goalserve hour files per sport; the runner samples every 20th row, so match counts are lower bounds.
+Read-only run used the reviewer runner from the reviewer branch (note/code context `708a410`). The supplied self-test ended `ALL PASS` (4 checks). The scan read 10 recent Goalserve hour files per sport and sampled every 20th row; counts are lower bounds.
 
 | Feed | Goalserve matches | Final-folder unique PM market | Of those tokens with book rows | PMCS2 unique market | PMCS2 book rows | PmDota unique market |
 |---|---:|---:|---:|---:|---:|---:|
-| Esports | 5 | 3 (60.0%) | 6/6 | 2 (40.0%) | no books file | 0 |
-| Tennis | 177 | 81 (45.76%) | 138/162 | 0 | no books file | 0 |
+| Esports | 4 | 3 (75.0%) | 6/6 | 2 (50.0%) | no books file | 0 |
+| Tennis | 164 | 70 (42.68%) | 128/140 | 0 | no books file | 0 |
 | Hockey NHL | 44 | 0 (0%) | 0 | 0 | no books file | 0 |
 
-Evidence: `/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-desc/coverage.json`; SHA256 `73f75486b0546e61b9543e52e999b44dfa6d911a5762361ce49cb447f24565bf`. The scan output contains three sports only; basketball was excluded as required. P87b restart was not part of this row.
+Evidence: `<VOL2>/pkarbs/scratch/goalserve-desc/coverage.json`; SHA256 `c69926e805941b1f9dae3e9845c7c0ecd4f8d5c193ae737ae0c500bef68dbb98`. The scan covered esports, tennis, and hockey NHL only; basketball was excluded as required. P87b restart was not part of this read-only row.
