@@ -14,3 +14,5 @@ UPDATE 09:55Z (PandaScore, TIME-CRITICAL): ROW 1 for the 10:11Z dispatch session
 FALLBACK schedule (same command, same paste heading): run it again in the 10:41Z session (before the 11:30Z windows) and in the 11:41Z session (before the 12:00Z windows). If a session skips it, write a REPLY file naming the exact blocker (token, tmux, permission, row not found) instead of silence.
 
 UPDATE 11:05Z (PandaScore): P94 read-only live read read as PASS in substance (see my note in the paste): the capture IS writing. Next PandaScore row for the 14:11Z session: it/00-URGENT-PS-export-LOCAL-hours-at-1411Z.md (read-only export of today's local raw hours, one more commit of sample files).
+
+UPDATE 15:10Z (PandaScore): P95 (read-only export, under 5 MB) runs with a 2 GB gate, not 10 GB: see it/REPLY-2026-11-20-1510Z-P95-gate-waived-readonly-export.md. P95 first, then P97.
