@@ -1,0 +1,32 @@
+===== fee 9.0 bp per side
+disc1 metals pooled                n= 35 wk=23 gross=   42.8 net=   16.9 med_net=   13.4 CI=(np.float64(-9.8), np.float64(45.7)) wk_right=78% max_wk_share=0.56
+  disc1 SILVER                     n= 12 wk=12 gross=   30.1 net=   10.1 med_net=    2.0 CI=(np.float64(-40.4), np.float64(61.5)) wk_right=58% max_wk_share=1.43
+  disc1 COPPER                     n= 13 wk=13 gross=   50.2 net=   22.4 med_net=   25.9 CI=(np.float64(-1.0), np.float64(44.9)) wk_right=92% max_wk_share=0.4
+  disc1 PLATINUM                   n= 10 wk=10 gross=   48.4 net=   18.0 med_net=   10.5 CI=(np.float64(-23.4), np.float64(61.2)) wk_right=90% max_wk_share=0.86
+disc1 BRENT                        n= 22 wk=22 gross=    7.1 net=  -12.9 med_net=  -23.9 CI=(np.float64(-49.5), np.float64(23.2)) wk_right=50% max_wk_share=None
+coarse metals pooled               n= 36 wk=20 gross=   76.1 net=   50.5 med_net=   49.9 CI=(np.float64(25.9), np.float64(75.9)) wk_right=85% max_wk_share=0.23
+  coarse SILVER                    n= 13 wk=13 gross=   72.0 net=   52.0 med_net=   48.8 CI=(np.float64(7.6), np.float64(94.8)) wk_right=85% max_wk_share=0.3
+  coarse COPPER                    n= 15 wk=15 gross=   77.1 net=   49.3 med_net=   51.1 CI=(np.float64(20.5), np.float64(79.4)) wk_right=93% max_wk_share=0.28
+  coarse PLATINUM                  n=  8 wk= 8 gross=   80.8 net=   50.4 med_net=   47.3 CI=(np.float64(9.6), np.float64(94.1)) wk_right=88% max_wk_share=0.36
+coarse BRENT                       n= 24 wk=24 gross=  -17.1 net=  -37.1 med_net=  -37.3 CI=(np.float64(-87.3), np.float64(12.0)) wk_right=42% max_wk_share=None
+held metals pooled                 n= 25 wk=14 gross=   27.3 net=    2.4 med_net=  -43.6 CI=(np.float64(-83.6), np.float64(103.6)) wk_right=43% max_wk_share=16.36
+  held SILVER                      n= 11 wk=11 gross=  -25.4 net=  -45.4 med_net= -152.6 CI=(np.float64(-159.3), np.float64(120.1)) wk_right=27% max_wk_share=None
+  held COPPER                      n=  9 wk= 9 gross=   98.8 net=   71.0 med_net=   35.3 CI=(np.float64(-8.4), np.float64(166.9)) wk_right=78% max_wk_share=0.49
+  held PLATINUM                    n=  5 wk= 5 gross=   14.7 net=  -15.7 med_net=  -86.0 CI=(np.float64(-134.9), np.float64(141.8)) wk_right=40% max_wk_share=None
+held BRENT                         n=  7 wk= 7 gross=   45.7 net=   25.7 med_net=  -11.7 CI=(np.float64(-268.8), np.float64(397.2)) wk_right=57% max_wk_share=5.76
+===== fee 4.5 bp per side
+disc1 metals pooled                n= 35 wk=23 gross=   42.8 net=   25.9 med_net=   22.4 CI=(np.float64(-0.2), np.float64(54.3)) wk_right=78% max_wk_share=0.38
+  disc1 SILVER                     n= 12 wk=12 gross=   30.1 net=   19.1 med_net=   11.0 CI=(np.float64(-31.5), np.float64(70.0)) wk_right=58% max_wk_share=0.79
+  disc1 COPPER                     n= 13 wk=13 gross=   50.2 net=   31.4 med_net=   34.9 CI=(np.float64(8.1), np.float64(53.9)) wk_right=92% max_wk_share=0.31
+  disc1 PLATINUM                   n= 10 wk=10 gross=   48.4 net=   27.0 med_net=   19.5 CI=(np.float64(-15.1), np.float64(71.7)) wk_right=90% max_wk_share=0.61
+disc1 BRENT                        n= 22 wk=22 gross=    7.1 net=   -3.9 med_net=  -14.9 CI=(np.float64(-39.5), np.float64(32.3)) wk_right=50% max_wk_share=None
+coarse metals pooled               n= 36 wk=20 gross=   76.1 net=   59.5 med_net=   58.9 CI=(np.float64(34.9), np.float64(85.9)) wk_right=85% max_wk_share=0.21
+  coarse SILVER                    n= 13 wk=13 gross=   72.0 net=   61.0 med_net=   57.8 CI=(np.float64(17.0), np.float64(103.8)) wk_right=85% max_wk_share=0.27
+  coarse COPPER                    n= 15 wk=15 gross=   77.1 net=   58.3 med_net=   60.1 CI=(np.float64(29.6), np.float64(88.4)) wk_right=93% max_wk_share=0.24
+  coarse PLATINUM                  n=  8 wk= 8 gross=   80.8 net=   59.4 med_net=   56.3 CI=(np.float64(16.8), np.float64(101.4)) wk_right=88% max_wk_share=0.32
+coarse BRENT                       n= 24 wk=24 gross=  -17.1 net=  -28.1 med_net=  -28.3 CI=(np.float64(-77.9), np.float64(21.0)) wk_right=42% max_wk_share=None
+held metals pooled                 n= 25 wk=14 gross=   27.3 net=   11.4 med_net=  -34.6 CI=(np.float64(-73.6), np.float64(113.3)) wk_right=43% max_wk_share=3.58
+  held SILVER                      n= 11 wk=11 gross=  -25.4 net=  -36.4 med_net= -143.6 CI=(np.float64(-148.6), np.float64(133.0)) wk_right=27% max_wk_share=None
+  held COPPER                      n=  9 wk= 9 gross=   98.8 net=   80.0 med_net=   44.3 CI=(np.float64(0.1), np.float64(172.5)) wk_right=78% max_wk_share=0.45
+  held PLATINUM                    n=  5 wk= 5 gross=   14.7 net=   -6.7 med_net=  -77.0 CI=(np.float64(-125.9), np.float64(150.8)) wk_right=40% max_wk_share=None
+held BRENT                         n=  7 wk= 7 gross=   45.7 net=   34.7 med_net=   -2.7 CI=(np.float64(-258.4), np.float64(404.9)) wk_right=57% max_wk_share=4.3

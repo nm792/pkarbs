@@ -1,0 +1,6 @@
+book capacity (5 bp impact)        disc1 total $ 168.41/day  SILVER:150.29 COPPER:  3.97 PLATINUM:  2.93 BRENTOIL: 11.22
+book capacity (5 bp impact)        held  total $ -15.39/day  SILVER:-166.86 COPPER:  8.97 PLATINUM:  0.04 BRENTOIL:142.46
+$20k per trade (flat)              disc1 total $  10.57/day  SILVER:  3.01 COPPER:  3.97 PLATINUM:  2.93 BRENTOIL:  0.66
+$20k per trade (flat)              held  total $  14.05/day  SILVER: -3.34 COPPER:  8.97 PLATINUM:  0.04 BRENTOIL:  8.38
+$100k per trade, capped at book    disc1 total $  25.23/day  SILVER: 15.03 COPPER:  3.97 PLATINUM:  2.93 BRENTOIL:  3.30
+$100k per trade, capped at book    held  total $  34.23/day  SILVER:-16.69 COPPER:  8.97 PLATINUM:  0.04 BRENTOIL: 41.90
