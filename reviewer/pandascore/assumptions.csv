@@ -1,0 +1,21 @@
+input,value,status,source,used_by,blocks_what
+polymarket_secondsDelay_cs2_dota,1 s,MEASURED,gamma secondsDelay + clob-markets sd 20 Nov 00:5xZ,tradeability only,nothing in timing test
+polymarket_tick_size,0.01 (Map1 0.001),MEASURED,gamma orderPriceMinTickSize,onset threshold sanity,nothing
+polymarket_min_order_size,5 shares,MEASURED,gamma orderMinSize,sizing,nothing
+taker_fee_sports,0.05*p*(1-p) per share,DOCUMENTED,docs.polymarket.com/trading/fees.md and gamma feeSchedule,edge net of fees,P&L claims
+maker_fee_and_rebate,0 fee 15% rebate,DOCUMENTED,docs.polymarket.com/trading/fees.md,maker sims,maker P&L claims
+resolution_source_cs2,hltv.org with 2 h fallback,DOCUMENTED,live market rules,match vs map mapping,nothing
+resolution_source_dota,dotabuff.com,DOCUMENTED,live market rules,mapping,nothing
+host_clock_offset,0.000161 s,MEASURED,probe preflight 10:39Z commit e91594ee8f,all lead numbers,nothing (re-measured every cycle)
+pandascore_latency_vs_venue,not published,ASSUMED,none (docs publish no number),n/a,must be measured by the lead test itself
+pandascore_latency_field_semantics,relative to fastest field in message,ASSUMED,docs example only,field choice lat0,primary series choice lat0 stays pre-registered
+pandascore_to_host_network_latency,unmeasured,ASSUMED,none,lead is receive-to-receive,executable-lead claims
+polymarket_to_host_network_latency,unmeasured,ASSUMED,none,lead is receive-to-receive,executable-lead claims
+polymarket_ws_timestamp_clock,server side,ASSUMED,docs say unix ms only,not used (recv time used),nothing
+order_send_rtt_host_to_clob,unmeasured,ASSUMED,none (no order ever sent),tradeability,any trading rule
+matching_priority_rule,price-time,ASSUMED,not stated in docs read,maker sims,any maker result
+delayed_taker_placement_vs_book,unknown,ASSUMED,docs say matched or placed on book after delay,taker sims,any taker fill model
+onset_threshold,2c in event direction,ASSUMED,PREREG convention (not a venue fact),onset definition,fixed in PREREG; changing it is a new test
+onset_window,+-60 s around receive,ASSUMED,PREREG convention,onset definition,fixed in PREREG
+placebo_design,10 random event-free times per match both signs,ASSUMED,PREREG design,real-minus-placebo,fixed in PREREG
+pass_bar_median_lead,>=+2.0 s,ASSUMED,STANDARD-feed-latency-test v1,verdict,does NOT imply tradeable (needs send RTT + 1 s delay)
