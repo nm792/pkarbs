@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-20T21:00:21Z |
-| origin_tip | 8f615bad50 |
-| newest_origin_commit | 2026-11-20T20:41:25Z P84b2: correct Goalserve scan report |
+| generated_utc | 2026-11-20T22:00:22Z |
+| origin_tip | e0bee225dd |
+| newest_origin_commit | 2026-11-20T21:42:49Z P97b: record verified pmcs2 ship |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
