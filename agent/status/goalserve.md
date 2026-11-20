@@ -316,3 +316,15 @@ Read-only; no process or file was changed.
 Reviewer scorer `pair_score.py` passed `py_compile`. On pmcs2: delay 0, 53 markets, 1,201,634 observations, minimum askA+askB 0.93, 22 detections, 18 runs, net $46.67, 2,278.5 shares. At 1,000 ms delay: 53 markets, 1,203,044 observations, 22 detections, 18 runs, net $0, 0 shares. Immediate-detection top rows included SEGA.dll vs ABT Esports and ex-INOX Division vs WBT. These are scorer outputs, not independently audited trades.
 
 The same scorer failed on pmdota with `KeyError: 'asset'` at `pair_score.py:24`; the available Dota rows do not match its expected schema. No workaround or data edit was made.
+
+## P87 coverage matrix (20 Nov)
+
+Read-only coverage scan completed with the reviewer runner from `origin/reviewer` (note/code context `708a410`). The supplied self-test ended `ALL PASS` (4 checks). The scan read 11 recent Goalserve hour files per sport; the runner samples every 20th row, so match counts are lower bounds.
+
+| Feed | Goalserve matches | Final-folder unique PM market | Of those tokens with book rows | PMCS2 unique market | PMCS2 book rows | PmDota unique market |
+|---|---:|---:|---:|---:|---:|---:|
+| Esports | 5 | 3 (60.0%) | 6/6 | 2 (40.0%) | no books file | 0 |
+| Tennis | 177 | 81 (45.76%) | 138/162 | 0 | no books file | 0 |
+| Hockey NHL | 44 | 0 (0%) | 0 | 0 | no books file | 0 |
+
+Evidence: `/mnt/HC_Volume_107257520/pkarbs/scratch/goalserve-desc/coverage.json`; SHA256 `73f75486b0546e61b9543e52e999b44dfa6d911a5762361ce49cb447f24565bf`. The scan output contains three sports only; basketball was excluded as required. P87b restart was not part of this row.
