@@ -1,15 +1,24 @@
-import gzip,json,sys,bisect,collections
+import gzip,json,sys,bisect,collections,glob,os,io
 FEE=0.05
 def fee(p): return FEE*p*(1-p)
+def lines(d):
+    """books.jsonl.gz (old layout) or books-*.jsonl[.gz] hourly files (slim layout, pmcs2/pmdota/pm_mece_books); multi-member gzip ok."""
+    for f in sorted(glob.glob(d+"/books*.jsonl*")):
+        if f.endswith(".tmp"): continue
+        try:
+            h=gzip.open(f,"rt") if f.endswith(".gz") else open(f)
+            for l in h: yield l
+        except EOFError: pass
 def load(d):
     mk={}
-    for l in gzip.open(d+"/markets.jsonl.gz","rt"):
+    mf=d+"/markets.jsonl.gz" if os.path.exists(d+"/markets.jsonl.gz") else d+"/markets.jsonl"
+    for l in (gzip.open(mf,"rt") if mf.endswith(".gz") else open(mf)):
         try:r=json.loads(l)
         except:continue
         if len(r.get("tokens",[]))==2: mk[r["cond"]]=r
     tok2m={t:(c,i) for c,m in mk.items() for i,t in enumerate(m["tokens"])}
     ser=collections.defaultdict(lambda:[[],[]])  # cond -> per token list of (ms, asks, bids)
-    for l in gzip.open(d+"/books.jsonl.gz","rt"):
+    for l in lines(d):
         try:r=json.loads(l)
         except:continue
         if r["asset"] not in tok2m: continue
@@ -47,7 +56,7 @@ def walk_sell(bA,bB):  # mint $1 set, sell both at bids
         if bB[iB][1]<=1e-9: iB+=1
     return sh,prof
 def run(d,delay):
-    mk,ser=load(d); out=[]; nm=0; nobs=0; mins=[]
+    _c.clear(); mk,ser=load(d); out=[]; nm=0; nobs=0; mins=[]
     for c,(A,B) in ser.items():
         if not A or not B: continue
         nm+=1
@@ -68,7 +77,7 @@ def run(d,delay):
                 if not det: continue
                 if delay>0 and (not da or not db): continue
                 f=walk_buy(da[1],db[1]) if side=="buy" else walk_sell(da[2],db[2])
-                out.append((c,mk[c]["title"],side,t,f[0],f[1]))
+                out.append((c,(mk[c].get("title") or mk[c].get("q") or c),side,t,f[0],f[1]))
     return nm,nobs,out,mins
 if __name__=="__main__":
     for d in sys.argv[1:]:

@@ -28,3 +28,8 @@ Sell-both side also 0 detections in every row. Stand-alone $/day: $0 measured. S
 3. To settle: record both tokens of every leg of 3-way soccer (home/draw/away) and other neg-risk sports events, a few weeks including in-play, then score "buy every NO" and "buy every YES" on own asks with the 1 s delay and neg-risk conversion cost. Needs a recorder change (IT/Prime Bot deploys, thread writes code) and disk: soccer is more books than NHL.
 
 Confidence 6/10 that the zero is correct for these data; 3/10 that it says anything about 3-leg sets. To reach 9: score the 19-20 Nov pmcs2/pmdota output (IT to run `pair_score.py <dir>` on the storage box) and decide whether to add a 3-leg soccer both-token recorder.
+
+## Update 07:05Z: P90 filed (reviewer commit 46693ab43f)
+- `it/00-URGENT-P90-mece-NO-side-score-and-3way-recorder.md`: P90a = IT runs `pair_score.py` on the 19-20 Nov pmcs2/pmdota folders; P90b = slim both-token recorder for 3-way football (`pm_mece_books.js`) plus daily scorer `mece_score.py` (cron 00:35Z) with planted-edge test.
+- Disk estimate: smoke 148 s, 462 tokens, 1,758 rows, 112 KB gz (about 2-4 MB/h pre-game); in-play worst case 0.3 GB/day; self-stops under 10 GB free or 3 GB folder.
+- First scored number (smoke, pre-game, 77 three-way sets, 7,032 observations, 20 Nov 06:56-06:58Z, 150 s): 0 runs in all four variants at delay 0 and 1 s. Lowest buy-all-NO cost 0.9945 of payoff (fees 0.03 wipe it), highest sell-all-YES proceeds 1.011 (fees 0.03). Too short to mean anything beyond "the scorer runs".
