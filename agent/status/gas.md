@@ -5,3 +5,13 @@
 - VOL2 free space at install check: 11,302,965,248 bytes (above the 10 GB floor). Output directory `/mnt/HC_Volume_107257520/gas` exists.
 - Installed Prime crontab entry: `50 14 20 11 * cd /mnt/HC_Volume_107257520/pkarbs/deploy/gas-0e113601 && python3 scan/gas_window/wait_listing.py --slug us-gas-price-on-november-21-2026 --out /mnt/HC_Volume_107257520/gas --wait-until 2026-11-20T16:30:00Z --record-seconds 5400 > /mnt/HC_Volume_107257520/gas/wait-20261121.log 2>&1`.
 - The one-shot is scheduled for 14:50Z today. The waiter has not run yet; PID, listing detection and output growth are not yet verified.
+
+## Gas waiter run (20 Nov)
+
+Read-only proof at 2026-11-20 16:42:13Z and 16:43:14Z (60 seconds apart):
+
+- `pgrep -af wait_listing`: no matching process output at either reading.
+- First `ls -l`: `us-gas-price-on-november-21-2026.books.jsonl` was 27,109,015 bytes, mtime Nov 20 16:29; `us-gas-price-on-november-21-2026.trades.jsonl` was 19,815 bytes, mtime Nov 20 16:15.
+- Second `ls -l`: both files had the same sizes and mtimes; neither grew during the interval.
+- `tail -5 wait-20261121.log` returned three lines: `LISTED after 1800 polls`; `new trades 22 errors 0`; `polls 5097 errors 0 file /mnt/HC_Volume_107257520/gas/us-gas-price-on-november-21-2026.books.jsonl`.
+- Both output files and the log were present; no missing-file condition.
