@@ -1,0 +1,6 @@
+[
+ {"name": "core-pce-oct", "R": "2026-11-25T13:30:00Z", "events": ["1278384", "1278380"], "note": "Polymarket endDate 13:30Z; BEA 8:30 ET"},
+ {"name": "jobs-nov", "R": "2026-12-04T13:30:00Z", "events": ["1357781", "1357780"], "note": "Polymarket endDate 13:30Z"},
+ {"name": "fomc-dec", "R": "2026-12-09T19:00:00Z", "events": ["770450"], "note": "Fed meeting 8-9 Dec, statement 2 pm ET; verify R against federalreserve.gov calendar before arming"},
+ {"name": "cpi-nov", "R": "2026-12-10T13:30:00Z", "events": ["1376034", "1375477", "1366219", "1366218"], "note": "Polymarket endDate 13:30Z"}
+]

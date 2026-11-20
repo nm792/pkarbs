@@ -1,0 +1,17 @@
+window 2025-10-20 .. 2026-11-13 span 390 days; first release day 2025-10-24
+CORE families (CPI/jobs/FOMC/PPI)  days 38 gross $ 85881 net@5% $ 82450 net@1% $ 85195 | /cal-day net5 $211.4 net1 $218.4 | ex-top-day(2026-07-29 FOMC $33866) net5 $128.3 /day net1 $132.4 /day
++PCE                               days 42 gross $ 88085 net@5% $ 84600 net@1% $ 87388 | /cal-day net5 $216.9 net1 $224.1 | ex-top-day(2026-07-29 FOMC $33866) net5 $133.8 /day net1 $138.0 /day
+May-Nov 2026 only (bot era)        days 23 gross $ 68134 net@5% $ 65460 net@1% $ 67599 | /cal-day net5 $332.3 net1 $343.1 | ex-top-day(2026-07-29 FOMC $33866) net5 $167.8 /day net1 $172.7 /day
+May-Nov excl. 29 Jul FOMC          days 22 gross $ 34268 net@5% $ 33049 net@1% $ 34024 | /cal-day net5 $167.8 net1 $172.7 | ex-top-day(2026-10-14 CPI $8856) net5 $123.9 /day net1 $128.0 /day
+new since 26 Oct scan (days after 15 Oct): [('2026-10-28', 'FOMC', 1404), ('2026-11-06', 'JOBS', 240), ('2026-11-10', 'CPI', 1441), ('2026-11-13', 'PPI', 584)] sum 3669
+May-Nov all gross by block-second bucket {'<=4': 2369, '<=6': 35910, '<=10': 15717, '<=20': 12598, '<=30': 1540} total 68134 | reachable if first fill lands >4s: 65766 >6s: 29855 >10s: 14138
+May-Nov ex 29Jul gross by block-second bucket {'<=4': 2256, '<=6': 8581, '<=10': 15171, '<=20': 7143, '<=30': 1117} total 34268 | reachable if first fill lands >4s: 32012 >6s: 23431 >10s: 8260
+bootstrap 45 release-days/yr, all core days, share 10% net30: 5/50/95 pct $/day = 13.5 / 25.2 / 44.4
+bootstrap 45 release-days/yr, all core days, share 10% net30f1: 5/50/95 pct $/day = 14.2 / 25.9 / 44.8
+bootstrap 45 release-days/yr, all core days, share 20% net30: 5/50/95 pct $/day = 27.5 / 51.5 / 88.9
+bootstrap 45 release-days/yr, all core days, share 20% net30f1: 5/50/95 pct $/day = 28.3 / 52.3 / 91.6
+bootstrap 45 release-days/yr, all core days, share 30% net30: 5/50/95 pct $/day = 41.1 / 76.2 / 133.1
+bootstrap 45 release-days/yr, all core days, share 30% net30f1: 5/50/95 pct $/day = 41.8 / 78.6 / 135.4
+bootstrap bot-era days only (n=23), share 10% net30f1: 17.4 / 34.8 / 60.1
+bootstrap bot-era days only (n=23), share 20% net30f1: 35.2 / 69.6 / 116.4
+bootstrap bot-era days only (n=23), share 30% net30f1: 52.5 / 104.1 / 173.8

@@ -1,0 +1,165 @@
+event-level
+2025-10-24 12:30Z CPI      september-inflation-monthly                      n60=  24 pre=  2 cov=1 res=5/5 unres30=0 first=29.0 notl30=     69 e10=     0 e30=     1 e300=  238 net30=     1 pre=   0 topcl=1.00 ok
+2025-10-24 12:30Z CPI      september-inflation-annual                       n60=  12 pre=  6 cov=1 res=5/5 unres30=0 first=29.0 notl30=  13727 e10=     0 e30=   138 e300=  404 net30=   131 pre=  33 topcl=1.00 ok
+2025-10-29 18:00Z FOMC     fed-decision-in-october                          n60= 151 pre=499 cov=1 res=4/4 unres30=0 first=1.0 notl30= 574970 e10=    88 e30=   707 e300=  762 net30=   755 pre=2481 topcl=0.47 ok
+2025-11-07 12:30Z UNEMP    september-unemployment-rate                      n60=   0 pre=  0 cov=1 res=6/6 unres30=0 first=None notl30=      0 e10=     0 e30=     0 e300=    0 net30=     0 pre=   0 topcl=0.00 ok
+2025-11-07 12:30Z PAYROLLS how-many-jobs-added-in-september-522             n60=   0 pre=  0 cov=1 res=7/7 unres30=0 first=None notl30=      0 e10=     0 e30=     0 e300=    0 net30=     0 pre=   0 topcl=0.00 ok
+2025-11-21 12:30Z CPI      october-inflation-annual                         n60=   0 pre=  5 cov=1 res=5/5 unres30=0 first=None notl30=      0 e10=     0 e30=     0 e300=    0 net30=     0 pre=   2 topcl=0.00 ok
+2025-11-21 12:30Z CPI      october-inflation-monthly                        n60=   0 pre=  0 cov=1 res=5/5 unres30=0 first=None notl30=      0 e10=     0 e30=     0 e300=    0 net30=     0 pre=   0 topcl=0.00 ok
+2025-12-10 19:00Z FOMC     fed-decision-in-december                         n60= 115 pre=845 cov=1 res=4/4 unres30=0 first=0.0 notl30= 796486 e10=  1528 e30=   774 e300=   45 net30=  2188 pre=4283 topcl=0.18 ok
+2025-12-16 13:30Z PAYROLLS how-many-jobs-added-in-november-693              n60=  14 pre=  0 cov=1 res=7/7 unres30=0 first=17.0 notl30=   3010 e10=     0 e30=   173 e300=  234 net30=   165 pre=   0 topcl=0.51 ok
+2025-12-16 13:30Z UNEMP    november-unemployment-rate-765                   n60=  47 pre= 60 cov=1 res=6/6 unres30=0 first=13.0 notl30=  15506 e10=     0 e30=  2463 e300=   18 net30=  2366 pre= 775 topcl=0.44 ok
+2025-12-17 12:30Z CPI      november-inflation-eu-monthly                    n60=   0 pre=  0 cov=1 res=5/5 unres30=0 first=None notl30=      0 e10=     0 e30=     0 e300=    0 net30=     0 pre=   0 topcl=0.00 ok
+2025-12-18 13:30Z CPI      november-inflation-annual                        n60=  63 pre= 34 cov=1 res=5/5 unres30=0 first=12.0 notl30=   6324 e10=     0 e30=  1661 e300=  279 net30=  1603 pre= 277 topcl=0.79 ok
+2025-12-18 13:30Z CPI      november-inflation-monthly                       n60=   1 pre= 13 cov=1 res=5/5 unres30=0 first=None notl30=      0 e10=     0 e30=     0 e300= 1274 net30=     0 pre=   6 topcl=0.00 ok
+2026-01-09 13:30Z UNEMP    december-unemployment-rate-938                   n60=  23 pre=  2 cov=1 res=6/6 unres30=0 first=22.0 notl30=   1150 e10=     0 e30=    79 e300=  206 net30=    76 pre=   0 topcl=0.50 ok
+2026-01-09 13:30Z PAYROLLS how-many-jobs-added-in-december-853              n60=  16 pre=  5 cov=1 res=7/7 unres30=0 first=30.0 notl30=     16 e10=     0 e30=     2 e300= 2134 net30=     2 pre=   7 topcl=1.00 ok
+2026-01-13 13:30Z CPI      december-inflation-us-annual                     n60=  20 pre=  2 cov=1 res=5/5 unres30=0 first=19.0 notl30=   3058 e10=     0 e30=    87 e300=  163 net30=    82 pre=   0 topcl=0.98 ok
+2026-01-13 13:30Z CPI      december-inflation-us-monthly                    n60=  49 pre= 25 cov=1 res=5/5 unres30=0 first=13.0 notl30=  11347 e10=     0 e30=  2503 e300= 1645 net30=  2404 pre=  63 topcl=0.87 ok
+2026-01-19 13:30Z UNEMP    sept-nov-unemployment-rate-uk                    n60=   1 pre=  4 cov=1 res=6/6 unres30=0 first=12.0 notl30=     75 e10=     0 e30=    13 e300=   70 net30=    13 pre=  48 topcl=1.00 ok
+2026-01-28 19:00Z FOMC     fed-decision-in-january                          n60=  51 pre=229 cov=1 res=4/4 unres30=0 first=4.0 notl30= 977309 e10=   586 e30=   395 e300=    0 net30=   932 pre= 952 topcl=0.99 ok
+2026-02-11 13:30Z UNEMP    january-unemployment-rate-333                    n60=  40 pre=  2 cov=1 res=6/6 unres30=0 first=15.0 notl30=   1936 e10=     0 e30=   120 e300=   74 net30=   115 pre=   2 topcl=0.48 ok
+2026-02-11 13:30Z PAYROLLS how-many-jobs-added-in-january-321               n60=  75 pre=  9 cov=1 res=7/7 unres30=0 first=21.0 notl30=   8150 e10=     0 e30=  1357 e300=   60 net30=  1313 pre=  17 topcl=0.48 ok
+2026-02-13 13:30Z CPI      january-inflation-us-annual                      n60=  13 pre=  1 cov=1 res=5/5 unres30=0 first=17.0 notl30=   4553 e10=     0 e30=    20 e300=    3 net30=    19 pre=   0 topcl=0.75 ok
+2026-02-13 13:30Z CPI      january-inflation-us-annual-lower-brackets-817   n60=  55 pre= 12 cov=1 res=7/7 unres30=0 first=11.0 notl30=  10084 e10=     0 e30=   211 e300=   47 net30=   201 pre=  10 topcl=0.49 ok
+2026-02-16 12:30Z UNEMP    oct-dec-unemployment-rate-uk                     n60=   0 pre=  0 cov=1 res=6/6 unres30=0 first=None notl30=      0 e10=     0 e30=     0 e300=    1 net30=     0 pre=   0 topcl=0.00 ok
+2026-03-06 13:30Z PAYROLLS how-many-jobs-added-in-february-246              n60=  55 pre=  6 cov=1 res=8/8 unres30=0 first=11.0 notl30=   6588 e10=     0 e30=   299 e300=  139 net30=   286 pre=  25 topcl=0.36 ok
+2026-03-18 12:30Z UNEMP    nov-jan-unemployment-rate-uk                     n60=   0 pre=  0 cov=1 res=6/6 unres30=0 first=None notl30=      0 e10=     0 e30=     0 e300=    0 net30=     0 pre=   0 topcl=0.00 ok
+2026-03-18 18:00Z FOMC     fed-decision-in-march-885                        n60=  66 pre=202 cov=1 res=4/4 unres30=0 first=3.0 notl30= 636125 e10=   200 e30=   504 e300= 2063 net30=   669 pre= 422 topcl=0.90 ok
+2026-04-03 12:30Z UNEMP    march-unemployment-rate-561                      n60=  71 pre=  6 cov=1 res=9/9 unres30=0 first=9.0 notl30=  23932 e10=   118 e30=  2184 e300=  139 net30=  2206 pre=   5 topcl=0.57 ok
+2026-04-10 12:30Z CPI      march-inflation-us-annual                        n60=   1 pre=  1 cov=1 res=9/9 unres30=0 first=21.0 notl30=     23 e10=     0 e30=     0 e300=   68 net30=     0 pre=   0 topcl=1.00 ok
+2026-04-10 12:30Z CPI      march-inflation-us-annual-higher-brackets        n60=  94 pre= 31 cov=1 res=9/9 unres30=0 first=7.0 notl30=  14574 e10=     0 e30=   886 e300=   33 net30=   845 pre= 507 topcl=0.93 ok
+2026-04-10 12:30Z CPI      march-inflation-us-monthly                       n60=  71 pre=  2 cov=1 res=6/6 unres30=0 first=9.0 notl30=   6121 e10=     0 e30=   137 e300=   49 net30=   130 pre=   0 topcl=0.89 ok
+2026-04-29 18:00Z FOMC     fed-decision-in-april                            n60=  51 pre= 61 cov=1 res=4/4 unres30=0 first=0.0 notl30= 218490 e10=   297 e30=   230 e300=  344 net30=   500 pre=  18 topcl=0.83 ok
+2026-05-08 12:30Z UNEMP    april-unemployment-rate-372                      n60=  66 pre=  8 cov=1 res=9/9 unres30=0 first=6.0 notl30=   3388 e10=   440 e30=     0 e300=    3 net30=   425 pre=  20 topcl=0.70 ok
+2026-05-08 12:30Z PAYROLLS how-many-jobs-added-in-april-296                 n60=  32 pre=  6 cov=1 res=8/8 unres30=0 first=6.0 notl30=   2465 e10=   144 e30=     7 e300=    0 net30=   145 pre=   0 topcl=0.51 ok
+2026-05-08 19:00Z FOMC     fed-decision-in-september-568                    n60=   5 pre=  5 cov=1 res=5/5 unres30=0 first=6.0 notl30=     15 e10=     1 e30=     0 e300=    0 net30=     1 pre=   8 topcl=0.61 ok
+2026-05-12 12:30Z CPI      april-inflation-us-annual                        n60=  29 pre= 10 cov=1 res=11/11 unres30=0 first=6.0 notl30=   2354 e10=   277 e30=     1 e300=    9 net30=   267 pre= 174 topcl=0.46 ok
+2026-05-12 12:30Z CPI      april-inflation-us-monthly                       n60=  68 pre=  6 cov=1 res=9/9 unres30=0 first=6.0 notl30=  17421 e10=   347 e30=    16 e300=    2 net30=   348 pre= 113 topcl=0.43 ok
+2026-06-05 12:30Z UNEMP    may-unemployment-rate-168                        n60=   0 pre=  0 cov=1 res=9/9 unres30=0 first=None notl30=      0 e10=     0 e30=     0 e300=    0 net30=     0 pre=   0 topcl=0.00 ok
+2026-06-05 12:30Z PAYROLLS how-many-jobs-added-in-may-945                   n60=   0 pre=  0 cov=1 res=6/6 unres30=0 first=None notl30=      0 e10=     0 e30=     0 e300=    0 net30=     0 pre=   0 topcl=0.00 ok
+2026-06-10 12:30Z CPI      may-inflation-us-monthly                         n60=  50 pre=  6 cov=1 res=9/9 unres30=0 first=9.0 notl30=   5410 e10=     9 e30=   323 e300=    6 net30=   318 pre=   1 topcl=0.59 ok
+2026-06-10 12:30Z CPI      may-inflation-us-annual                          n60=  55 pre= 23 cov=1 res=12/12 unres30=0 first=10.0 notl30=   4294 e10=    62 e30=   620 e300=   13 net30=   656 pre=  49 topcl=0.51 ok
+2026-06-10 12:30Z CORE_CPI core-cpi-yoy-may-2026                            n60=  37 pre=  1 cov=1 res=10/10 unres30=0 first=10.0 notl30=    907 e10=    10 e30=    90 e300=    0 net30=    97 pre=   0 topcl=0.44 ok
+2026-06-10 12:30Z CORE_CPI core-cpi-ex-food-and-energy-mom-may              n60=  49 pre=  3 cov=1 res=10/10 unres30=0 first=12.0 notl30=   1235 e10=     0 e30=   342 e300=    1 net30=   329 pre=   0 topcl=0.46 ok
+2026-06-11 12:30Z PPI      producer-price-index-ppi-yoy-may-2026            n60=  27 pre= 14 cov=1 res=7/7 unres30=0 first=6.0 notl30=   5750 e10=    79 e30=     0 e300=    6 net30=    76 pre=  23 topcl=0.71 ok
+2026-06-17 18:00Z FOMC     fed-decision-in-june-825                         n60= 107 pre= 97 cov=1 res=5/5 unres30=0 first=4.0 notl30= 508003 e10=    91 e30=  1480 e300=  639 net30=  1493 pre=4585 topcl=0.95 ok
+2026-07-02 12:30Z UNEMP    june-unemployment-rate-734                       n60=  23 pre=  1 cov=1 res=9/9 unres30=0 first=7.0 notl30=  15074 e10=   802 e30=     0 e300=   13 net30=   771 pre=   1 topcl=0.44 ok
+2026-07-02 12:30Z PAYROLLS how-many-jobs-added-in-june-20260605153057140    n60=  21 pre=  3 cov=1 res=6/6 unres30=0 first=4.0 notl30=   6697 e10=   309 e30=    48 e300=    0 net30=   343 pre=   2 topcl=0.53 ok
+2026-07-14 12:30Z CPI      june-inflation-us-annual-20260610151727862       n60= 146 pre= 29 cov=1 res=12/12 unres30=0 first=5.0 notl30=  27541 e10=  3342 e30=    58 e300=   17 net30=  3288 pre=  95 topcl=0.72 ok
+2026-07-14 12:30Z CPI      june-inflation-us-monthly-20260610151033433      n60=   8 pre=  0 cov=1 res=9/9 unres30=0 first=7.0 notl30=    426 e10=     0 e30=     0 e300=    0 net30=     1 pre=   0 topcl=0.31 ok
+2026-07-14 12:30Z CORE_CPI core-cpi-yoy-june-2026-20260610150514590         n60=  45 pre= 23 cov=1 res=10/10 unres30=0 first=5.0 notl30=  16108 e10=  1363 e30=    34 e300=    1 net30=  1369 pre=  85 topcl=0.36 ok
+2026-07-15 12:30Z PPI      ppi-yoy-june-2026-20260702034336684              n60=  27 pre= 10 cov=1 res=10/10 unres30=0 first=5.0 notl30=   2156 e10=   116 e30=     0 e300=    1 net30=   113 pre=  15 topcl=0.48 ok
+2026-07-29 18:00Z FOMC     fed-decision-in-july-181                         n60= 358 pre=755 cov=1 res=5/5 unres30=0 first=2.0 notl30= 660224 e10= 27988 e30=  5878 e300=  716 net30= 32410 pre=34068 topcl=0.51 ok
+2026-07-30 12:30Z PCE      core-pce-yoy-june-2026-20260702040039732         n60=  10 pre=  0 cov=1 res=7/7 unres30=0 first=11.0 notl30=    844 e10=     0 e30=     1 e300=    1 net30=     1 pre=   0 topcl=0.52 ok
+2026-07-30 12:30Z PCE      core-pce-mom-june-2026-20260702035317774         n60=  18 pre=  0 cov=1 res=7/7 unres30=0 first=8.0 notl30=   1072 e10=    67 e30=     0 e300=    0 net30=    65 pre=   0 topcl=0.57 ok
+2026-08-07 12:30Z UNEMP    july-unemployment-rate-20260702221240753         n60=  42 pre=  6 cov=1 res=9/9 unres30=0 first=6.0 notl30=   3870 e10=   242 e30=     0 e300=    0 net30=   233 pre= 193 topcl=0.40 ok
+2026-08-07 12:30Z PAYROLLS how-many-jobs-added-in-july-20260702221813246    n60=  23 pre= 15 cov=1 res=6/6 unres30=0 first=6.0 notl30=   2691 e10=   582 e30=     0 e300=    0 net30=   561 pre=  12 topcl=0.58 ok
+2026-08-12 12:30Z CORE_CPI core-cpi-mom-july-2026-20260705181328287         n60=  67 pre= 21 cov=1 res=7/7 unres30=0 first=6.0 notl30=   5801 e10=   606 e30=     0 e300=    2 net30=   582 pre=  50 topcl=0.61 ok
+2026-08-12 12:30Z CPI      july-inflation-us-annual-20260714150613267       n60=  53 pre= 10 cov=1 res=12/12 unres30=0 first=6.0 notl30=   6433 e10=  1018 e30=    14 e300=    1 net30=   997 pre=  14 topcl=0.40 ok
+2026-08-12 12:30Z CPI      july-inflation-us-monthly-20260714151042665      n60=  72 pre=  1 cov=1 res=9/9 unres30=0 first=6.0 notl30=   1679 e10=   108 e30=     1 e300=    0 net30=   104 pre=   2 topcl=0.36 ok
+2026-08-12 12:30Z CORE_CPI core-cpi-yoy-july-2026-20260714151811920         n60= 817 pre= 14 cov=1 res=10/10 unres30=0 first=6.0 notl30=  14827 e10=   436 e30=    10 e300=    0 net30=   429 pre=  53 topcl=0.62 ok
+2026-08-13 12:30Z PPI      ppi-yoy-july-2026-20260715201412025              n60=   9 pre=  1 cov=1 res=10/10 unres30=0 first=6.0 notl30=   1150 e10=     6 e30=     0 e300=    0 net30=     6 pre=   0 topcl=0.50 ok
+2026-08-26 12:30Z PCE      core-pce-yoy-july-2026-20260731151537            n60=  15 pre=  2 cov=1 res=7/7 unres30=0 first=16.0 notl30=    885 e10=     0 e30=    71 e300=    1 net30=    68 pre=   0 topcl=0.52 ok
+2026-08-26 12:30Z PCE      core-pce-mom-july-2026-20260731151537            n60=   9 pre=  4 cov=1 res=7/7 unres30=0 first=10.0 notl30=    267 e10=     0 e30=     9 e300=    0 net30=     9 pre=   0 topcl=0.86 ok
+2026-09-04 12:30Z UNEMP    august-unemployment-rate-1786116586124           n60=  18 pre= 17 cov=1 res=9/9 unres30=0 first=16.0 notl30=    914 e10=     0 e30=    60 e300=    1 net30=    58 pre=  10 topcl=0.63 ok
+2026-09-04 12:30Z PAYROLLS how-many-jobs-added-in-august-1786116586124      n60=  75 pre= 21 cov=1 res=6/6 unres30=0 first=7.0 notl30=   4148 e10=    89 e30=   278 e300=    0 net30=   353 pre=  55 topcl=0.48 ok
+2026-09-10 12:30Z PPI      ppi-yoy-august-2026                              n60=  20 pre=  5 cov=1 res=10/10 unres30=0 first=6.0 notl30=   6104 e10=    39 e30=     0 e300=    0 net30=    37 pre=   3 topcl=0.49 ok
+2026-09-11 12:30Z CPI      august-inflation-us-monthly-1786474662954        n60=   9 pre=  9 cov=1 res=9/9 unres30=0 first=6.0 notl30=   1266 e10=    82 e30=     0 e300=    0 net30=    79 pre=  31 topcl=0.72 ok
+2026-09-11 12:30Z CPI      august-inflation-us-annual-1786474662954         n60= 105 pre=147 cov=1 res=12/12 unres30=0 first=6.0 notl30=  20988 e10=   301 e30=   317 e300=    0 net30=   591 pre=1003 topcl=0.24 ok
+2026-09-11 12:30Z CORE_CPI core-cpi-mom-august-2026-1786474662954           n60=  47 pre=  3 cov=1 res=7/7 unres30=0 first=4.0 notl30=   2840 e10=   261 e30=     1 e300=    0 net30=   255 pre=   6 topcl=0.32 ok
+2026-09-11 12:30Z CORE_CPI core-cpi-yoy-august-2026-1786474662954           n60=  20 pre= 20 cov=1 res=10/10 unres30=0 first=4.0 notl30=   2819 e10=   122 e30=     0 e300=    0 net30=   117 pre=   4 topcl=0.36 ok
+2026-09-16 18:00Z FOMC     fed-decision-in-september-762                    n60= 126 pre=396 cov=1 res=5/5 unres30=0 first=0.0 notl30= 161179 e10=  5713 e30=   229 e300=  101 net30=  5662 pre=26741 topcl=0.38 ok
+2026-09-30 12:30Z PCE      core-pce-mom-august-2026-20260826182127          n60=  24 pre= 10 cov=1 res=7/7 unres30=0 first=9.0 notl30=   2318 e10=  1632 e30=    25 e300=    0 net30=  1619 pre=  14 topcl=0.35 ok
+2026-09-30 12:30Z PCE      core-pce-yoy-august-2026-20260826182127          n60=  16 pre=  1 cov=1 res=7/7 unres30=0 first=9.0 notl30=   8252 e10=   202 e30=    24 e300=    0 net30=   223 pre=   2 topcl=0.88 ok
+2026-10-02 12:30Z UNEMP    september-unemployment-rate-2026                 n60=   8 pre=  1 cov=1 res=9/9 unres30=0 first=8.0 notl30=    945 e10=     0 e30=   110 e300=    0 net30=   105 pre=   0 topcl=0.58 ok
+2026-10-02 12:30Z PAYROLLS how-many-jobs-added-in-september-2026            n60=  26 pre= 47 cov=1 res=7/7 unres30=0 first=6.0 notl30=   2053 e10=    57 e30=   375 e300=    0 net30=   417 pre= 195 topcl=0.64 ok
+2026-10-14 12:30Z CPI      september-inflation-us-annual                    n60=  67 pre= 11 cov=1 res=12/12 unres30=0 first=6.0 notl30=  14735 e10=   220 e30=   430 e300=    0 net30=   625 pre=  19 topcl=0.53 ok
+2026-10-14 12:30Z CPI      september-inflation-us-monthly                   n60=  24 pre=  7 cov=1 res=9/9 unres30=0 first=8.0 notl30=   5455 e10=   230 e30=   106 e300=    0 net30=   322 pre=   3 topcl=0.39 ok
+2026-10-14 12:30Z CORE_CPI core-cpi-mom-september-2026                      n60=  31 pre= 15 cov=1 res=7/7 unres30=0 first=8.0 notl30=  13234 e10=  4716 e30=  2142 e300=    0 net30=  6725 pre= 155 topcl=0.49 ok
+2026-10-14 12:30Z CORE_CPI core-cpi-yoy-september-2026                      n60=  70 pre=  6 cov=1 res=10/10 unres30=0 first=6.0 notl30=   3982 e10=   416 e30=   596 e300=   14 net30=   976 pre=  17 topcl=0.50 ok
+2026-10-15 12:30Z PPI      ppi-yoy-september-2026                           n60=  21 pre=  2 cov=1 res=10/10 unres30=0 first=10.0 notl30=   3872 e10=     0 e30=   268 e300=    0 net30=   258 pre=   0 topcl=0.76 ok
+2026-10-28 18:00Z FOMC     fed-decision-in-october-20260617190323537        n60= 121 pre=837 cov=1 res=5/5 unres30=0 first=1.720107078552246 notl30= 507461 e10=  1145 e30=   259 e300=    0 net30=  1335 pre=10401 topcl=0.36 ok
+2026-10-29 12:30Z PCE      core-pce-mom-september-2026                      n60=  31 pre= 15 cov=1 res=7/7 unres30=0 first=8.0 notl30=   2701 e10=   118 e30=     1 e300=    0 net30=   114 pre=  51 topcl=0.52 ok
+2026-10-29 12:30Z PCE      core-pce-yoy-september-2026                      n60=  28 pre=  0 cov=1 res=7/7 unres30=0 first=8.0 notl30=   1213 e10=    54 e30=     0 e300=    0 net30=    52 pre=   0 topcl=0.57 ok
+2026-11-06 13:30Z UNEMP    october-unemployment-rate-2026                   n60=  15 pre= 23 cov=1 res=9/9 unres30=0 first=5.901685953140259 notl30=   1394 e10=   114 e30=     7 e300=    0 net30=   117 pre=  64 topcl=0.47 ok
+2026-11-06 13:30Z PAYROLLS how-many-jobs-added-in-october-2026              n60=  25 pre=  8 cov=1 res=7/7 unres30=0 first=3.87786602973938 notl30=   1395 e10=   117 e30=     1 e300=    0 net30=   115 pre=  36 topcl=0.65 ok
+2026-11-10 12:30Z CPI      october-inflation-us-annual-INFERRED             n60=   0 pre= 10 cov=1 res=10/12 unres30=0 first=None notl30=      0 e10=     0 e30=     0 e300=    0 net30=     0 pre=   0 topcl=0.00 ok
+2026-11-10 12:30Z CORE_CPI core-cpi-yoy-october-2026-INFERRED               n60=   0 pre=  0 cov=1 res=8/10 unres30=0 first=None notl30=      0 e10=     0 e30=     0 e300=    0 net30=     0 pre=   0 topcl=0.00 ok
+2026-11-10 13:30Z CPI      october-inflation-us-monthly                     n60=  27 pre=  2 cov=1 res=9/9 unres30=0 first=3.988023042678833 notl30=   7332 e10=   179 e30=    32 e300=    0 net30=   202 pre=   0 topcl=0.47 ok
+2026-11-10 13:30Z CORE_CPI core-cpi-mom-october-2026                        n60=  21 pre= 48 cov=1 res=7/7 unres30=0 first=3.0274789333343506 notl30=  13438 e10=  1230 e30=     0 e300=    0 net30=  1188 pre= 255 topcl=0.42 ok
+2026-11-13 13:30Z PPI      ppi-yoy-october-2026                             n60=  55 pre=  0 cov=1 res=10/10 unres30=0 first=5.271414041519165 notl30=   4897 e10=   584 e30=     0 e300=    0 net30=   562 pre=   0 topcl=0.79 ok
+
+release-day level (pool = positive taker edge 0-30 s)
+2025-10-24 CPI   n_ev=2 notl30=  13796 pool10=     0 pool30=   138 net30=   132 e31_300=  641 top1w=0.99 top3w=1.00 nwal=  2 topcluster=0.99 
+2025-10-29 FOMC  n_ev=1 notl30= 574970 pool10=    88 pool30=   707 net30=   755 e31_300=  762 top1w=0.30 top3w=0.60 nwal= 29 topcluster=0.47 
+2025-12-10 FOMC  n_ev=1 notl30= 796486 pool10=  1528 pool30=   774 net30=  2188 e31_300=   45 top1w=0.18 top3w=0.41 nwal= 34 topcluster=0.18 
+2025-12-16 JOBS  n_ev=2 notl30=  18515 pool10=     0 pool30=  2636 net30=  2531 e31_300=  252 top1w=0.64 top3w=0.89 nwal=  9 topcluster=0.41 
+2025-12-17 CPI   n_ev=1 notl30=      0 pool10=     0 pool30=     0 net30=     0 e31_300=    0 top1w=0.00 top3w=0.00 nwal=  0 topcluster=0.00 FLAG november-inflation-eu-mon
+2025-12-18 CPI   n_ev=2 notl30=   6324 pool10=     0 pool30=  1661 net30=  1603 e31_300= 1553 top1w=0.86 top3w=1.00 nwal=  5 topcluster=0.79 FLAG november-inflation-monthl
+2026-01-09 JOBS  n_ev=2 notl30=   1166 pool10=     0 pool30=    81 net30=    78 e31_300= 2340 top1w=0.51 top3w=1.00 nwal=  2 topcluster=0.49 
+2026-01-13 CPI   n_ev=2 notl30=  14405 pool10=     0 pool30=  2590 net30=  2486 e31_300= 1808 top1w=0.84 top3w=0.99 nwal=  8 topcluster=0.84 
+2026-01-19 JOBS  n_ev=1 notl30=     75 pool10=     0 pool30=    13 net30=    13 e31_300=   70 top1w=1.00 top3w=1.00 nwal=  1 topcluster=1.00 FLAG sept-nov-unemployment-rat
+2026-01-28 FOMC  n_ev=1 notl30= 977309 pool10=   586 pool30=   395 net30=   932 e31_300=    0 top1w=0.51 top3w=0.84 nwal= 17 topcluster=0.99 
+2026-02-11 JOBS  n_ev=2 notl30=  10086 pool10=     0 pool30=  1476 net30=  1428 e31_300=  135 top1w=0.53 top3w=0.95 nwal= 11 topcluster=0.44 
+2026-02-13 CPI   n_ev=2 notl30=  14637 pool10=     0 pool30=   231 net30=   220 e31_300=   50 top1w=0.79 top3w=0.95 nwal= 11 topcluster=0.45 
+2026-02-16 JOBS  n_ev=1 notl30=      0 pool10=     0 pool30=     0 net30=     0 e31_300=    1 top1w=0.00 top3w=0.00 nwal=  0 topcluster=0.00 FLAG oct-dec-unemployment-rate
+2026-03-06 JOBS  n_ev=1 notl30=   6588 pool10=     0 pool30=   299 net30=   286 e31_300=  139 top1w=0.54 top3w=0.83 nwal= 13 topcluster=0.36 
+2026-03-18 JOBS  n_ev=1 notl30=      0 pool10=     0 pool30=     0 net30=     0 e31_300=    0 top1w=0.00 top3w=0.00 nwal=  0 topcluster=0.00 FLAG nov-jan-unemployment-rate
+2026-03-18 FOMC  n_ev=1 notl30= 636125 pool10=   200 pool30=   504 net30=   669 e31_300= 2063 top1w=0.62 top3w=0.95 nwal= 21 topcluster=0.90 
+2026-04-03 JOBS  n_ev=1 notl30=  23932 pool10=   118 pool30=  2184 net30=  2206 e31_300=  139 top1w=0.57 top3w=0.84 nwal= 10 topcluster=0.57 
+2026-04-10 CPI   n_ev=3 notl30=  20718 pool10=     0 pool30=  1023 net30=   975 e31_300=  150 top1w=0.85 top3w=0.99 nwal= 14 topcluster=0.80 FLAG march-inflation-us-annual
+2026-04-29 FOMC  n_ev=1 notl30= 218490 pool10=   297 pool30=   230 net30=   500 e31_300=  344 top1w=0.30 top3w=0.67 nwal= 11 topcluster=0.83 
+2026-05-08 JOBS  n_ev=2 notl30=   5854 pool10=   584 pool30=     8 net30=   570 e31_300=    4 top1w=0.82 top3w=0.91 nwal= 31 topcluster=0.52 
+2026-05-08 FOMC  n_ev=1 notl30=     15 pool10=     1 pool30=     0 net30=     1 e31_300=    0 top1w=1.00 top3w=1.00 nwal=  1 topcluster=0.61 
+2026-05-12 CPI   n_ev=2 notl30=  19775 pool10=   623 pool30=    18 net30=   615 e31_300=   11 top1w=0.86 top3w=0.92 nwal= 28 topcluster=0.25 
+2026-06-10 CPI   n_ev=4 notl30=  11846 pool10=    82 pool30=  1375 net30=  1401 e31_300=   20 top1w=0.24 top3w=0.58 nwal= 34 topcluster=0.24 
+2026-06-11 PPI   n_ev=1 notl30=   5750 pool10=    79 pool30=     0 net30=    76 e31_300=    6 top1w=0.86 top3w=0.97 nwal=  9 topcluster=0.71 
+2026-06-17 FOMC  n_ev=1 notl30= 508003 pool10=    91 pool30=  1480 net30=  1493 e31_300=  639 top1w=0.49 top3w=0.88 nwal= 17 topcluster=0.95 
+2026-07-02 JOBS  n_ev=2 notl30=  21771 pool10=  1111 pool30=    48 net30=  1114 e31_300=   13 top1w=0.45 top3w=0.85 nwal= 12 topcluster=0.31 
+2026-07-14 CPI   n_ev=3 notl30=  44074 pool10=  4706 pool30=    93 net30=  4657 e31_300=   18 top1w=0.54 top3w=0.76 nwal= 38 topcluster=0.51 
+2026-07-15 PPI   n_ev=1 notl30=   2156 pool10=   116 pool30=     0 net30=   113 e31_300=    1 top1w=0.48 top3w=0.94 nwal= 13 topcluster=0.48 
+2026-07-29 FOMC  n_ev=1 notl30= 660224 pool10= 27988 pool30=  5878 net30= 32410 e31_300=  716 top1w=0.25 top3w=0.54 nwal= 97 topcluster=0.51 
+2026-07-30 PCE   n_ev=2 notl30=   1916 pool10=    67 pool30=     1 net30=    66 e31_300=    1 top1w=0.57 top3w=0.99 nwal= 10 topcluster=0.57 
+2026-08-07 JOBS  n_ev=2 notl30=   6561 pool10=   824 pool30=     0 net30=   794 e31_300=    0 top1w=0.60 top3w=0.78 nwal= 19 topcluster=0.41 
+2026-08-12 CPI   n_ev=4 notl30=  28740 pool10=  2168 pool30=    25 net30=  2112 e31_300=    3 top1w=0.30 top3w=0.58 nwal=822 topcluster=0.19 
+2026-08-13 PPI   n_ev=1 notl30=   1150 pool10=     6 pool30=     0 net30=     6 e31_300=    0 top1w=0.50 top3w=0.98 nwal=  4 topcluster=0.50 
+2026-08-26 PCE   n_ev=2 notl30=   1152 pool10=     0 pool30=    80 net30=    77 e31_300=    1 top1w=0.56 top3w=0.99 nwal= 12 topcluster=0.46 
+2026-09-04 JOBS  n_ev=2 notl30=   5062 pool10=    89 pool30=   339 net30=   410 e31_300=    1 top1w=0.46 top3w=0.76 nwal= 42 topcluster=0.41 
+2026-09-10 PPI   n_ev=1 notl30=   6104 pool10=    39 pool30=     0 net30=    37 e31_300=    0 top1w=0.49 top3w=1.00 nwal=  3 topcluster=0.49 
+2026-09-11 CPI   n_ev=4 notl30=  27914 pool10=   768 pool30=   318 net30=  1042 e31_300=    0 top1w=0.23 top3w=0.42 nwal= 48 topcluster=0.14 
+2026-09-16 FOMC  n_ev=1 notl30= 161179 pool10=  5713 pool30=   229 net30=  5662 e31_300=  101 top1w=0.55 top3w=0.81 nwal= 31 topcluster=0.38 
+2026-09-30 PCE   n_ev=2 notl30=  10570 pool10=  1834 pool30=    49 net30=  1841 e31_300=    0 top1w=0.49 top3w=0.99 nwal=  9 topcluster=0.31 
+2026-10-02 JOBS  n_ev=2 notl30=   2998 pool10=    57 pool30=   485 net30=   522 e31_300=    0 top1w=0.64 top3w=0.96 nwal= 10 topcluster=0.51 
+2026-10-14 CPI   n_ev=4 notl30=  37407 pool10=  5582 pool30=  3274 net30=  8649 e31_300=   14 top1w=0.40 top3w=0.65 nwal= 61 topcluster=0.38 
+2026-10-15 PPI   n_ev=1 notl30=   3872 pool10=     0 pool30=   268 net30=   258 e31_300=    0 top1w=0.76 top3w=0.89 nwal= 14 topcluster=0.76 
+2026-10-28 FOMC  n_ev=1 notl30= 507461 pool10=  1145 pool30=   259 net30=  1335 e31_300=    0 top1w=0.36 top3w=0.67 nwal= 45 topcluster=0.36 
+2026-10-29 PCE   n_ev=2 notl30=   3914 pool10=   172 pool30=     1 net30=   166 e31_300=    0 top1w=0.54 top3w=0.98 nwal= 12 topcluster=0.36 
+2026-11-06 JOBS  n_ev=2 notl30=   2789 pool10=   232 pool30=     8 net30=   232 e31_300=    0 top1w=0.34 top3w=0.82 nwal= 18 topcluster=0.32 
+2026-11-10 CPI   n_ev=4 notl30=  20770 pool10=  1409 pool30=    32 net30=  1390 e31_300=    0 top1w=0.81 top3w=0.94 nwal= 18 topcluster=0.36 FLAG october-inflation-us-annu,core-cpi-yoy-october-2026
+2026-11-13 PPI   n_ev=1 notl30=   4897 pool10=   584 pool30=     0 net30=   562 e31_300=    0 top1w=0.79 top3w=0.97 nwal= 27 topcluster=0.79 
+
+release days 47 total pool 0-30s 88100 net 84613 median 641 mean 1874 max 33866
+CPI 13 sum 26116 median 1441 max 8856
+JOBS 14 sum 10592 median 485 max 2636
+FOMC 10 sum 48093 median 1193 max 33866
+PPI 6 sum 1093 median 98 max 584
+PCE 4 sum 2205 median 127 max 1883
+pool by block-time second after release (all days): <=4s $2632 (3%), <=6s $36671 (42%), <=10s $19585 (22%), <=20s $21834 (25%), <=30s $7378 (8%)
+first positive-edge print, s after R: [0.0, 0.0, 0.0, 1.0, 1.720107078552246, 2.0, 3.0, 3.0274789333343506, 3.87786602973938, 4.0, 4.0, 4.0, 4.0, 5.0, 5.0, 5.271414041519165, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 7.0, 7.0, 8.0, 8.0, 9.0, 9.0, 9.0, 10.0, 10.0, 11.0, 11.0, 12.0, 12.0, 13.0, 13.0, 15.0, 22.0, 29.0]
+
+top wallets over the year (pool $ in 0-30 s, days with >= $50):
+  0x2f633efb $12703 (14%) on 15 days
+  0x97276d1b $12167 (14%) on 5 days
+  0x6c8d84a4 $6404 (7%) on 1 days
+  0x8cb3ed8b $4625 (5%) on 12 days
+  0xe176897c $3667 (4%) on 2 days
+  0x67babdb5 $3627 (4%) on 2 days
+  0xb64fe08c $3335 (4%) on 1 days
+  0x0594680e $3218 (4%) on 12 days
+days where the year-top-3 wallets took the most: 11
+Oct25-Apr26 days 19 pool $17760 median day $705 share <=6s 6%, 7-10s 10%, 11-30s 84% first prints [0.0, 0.0, 1.0, 3.0, 4.0, 7.0, 9.0, 11.0, 11.0, 12.0, 12.0, 13.0, 13.0, 15.0, 22.0, 29.0]
+May26-Oct26 days 28 pool $70340 median day $616 share <=6s 54%, 7-10s 25%, 11-30s 20% first prints [0.0, 1.720107078552246, 2.0, 3.0274789333343506, 3.87786602973938, 4.0, 4.0, 4.0, 5.0, 5.0, 5.271414041519165, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 7.0, 8.0, 8.0, 9.0, 9.0, 10.0, 10.0]
+lumpy days (>= 3x median $641): 9 $65485 [('2025-12-10', 'FOMC', 2301), ('2025-12-16', 'JOBS', 2636), ('2026-01-13', 'CPI', 2590), ('2026-04-03', 'JOBS', 2302), ('2026-07-14', 'CPI', 4799), ('2026-07-29', 'FOMC', 33866), ('2026-08-12', 'CPI', 2193), ('2026-09-16', 'FOMC', 5942), ('2026-10-14', 'CPI', 8856)]
+one resting level > 50% of day pool: 19 of 47 days
+top1 share 38% top3 55% top5 64%
