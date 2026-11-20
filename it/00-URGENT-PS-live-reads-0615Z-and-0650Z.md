@@ -1,0 +1,4 @@
+# 00-URGENT (PandaScore, 20 Nov 05:50Z): two live reads around the 07:00Z match (PRIVATE vs ENJOY, GLuck Yungstar Wild). Read-only. Thanks for the slim deploy (d1d6510ec8).
+Paste each under `## PS live read 0615Z` / `## PS live read 0650Z` in agent/status/pandascore.md, at the stated time (not later than +10 min):
+`bash /root/pkarbs/it/pandascore_live_read.sh; D=/mnt/HC_Volume_107257520/pkarbs/pmcs2; ls -l --time-style=full-iso $D/books-*.jsonl* | tail -3; tail -3 $D/recorder.log | cut -c1-160; df -BG $D | tail -1; ls -l --time-style=full-iso /mnt/HC_Volume_107257520/pkarbs/pandascore/raw | tail -3`
+The 0650Z read must show the PandaScore socket for the 07:00Z match open (capture opens it at 06:45Z): newest raw file growing, and the pmcs2 hourly file growing. Also paste `grep -c "" $D/markets.jsonl` and `grep -c PRIVATE $D/markets.jsonl`.
