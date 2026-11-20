@@ -150,3 +150,27 @@ The probe loop is running, but three consecutive cycles found no live CS2 match 
 ## P88x PandaScore samples (20 Nov 2026)
 
 Read-only run using the reviewer script `it/ps_export_samples.py` from origin/reviewer. It skipped the older `pandascore_2026111612.jsonl.gz` because gzip decompression returned `invalid block type`; the valid `pandascore_2026111922.jsonl.gz` yielded three matches. Index: match 1791311 (GamerLegion vs BIG), 882 messages / 866 in-round / 103,303 bytes; 1803639 (Apogee Esports vs maybe), 183 / 181 / 12,207 bytes; 1796498 (Brute vs Nice Try), 158 / 155 / 10,746 bytes. Exported files and index: `scratch/ps_samples/`. No source, process or configuration changed.
+
+## P88y PandaScore export-all read (20 Nov 2026)
+
+- Ran reviewer `it/ps_export_samples.py` in isolated mode on the live raw directory only. It skipped `pandascore_2026111612.jsonl.gz` with `Error -3 while decompressing data: invalid block type`. The readable `pandascore_2026111922.jsonl.gz` produced 3 matches: 1791311 (GamerLegion vs BIG), 882 messages / 866 in-round / 103,303 compressed bytes; 1803639 (Apogee Esports vs maybe), 183 / 181 / 12,207 bytes; 1796498 (Brute vs Nice Try), 158 / 155 / 10,746 bytes. The generated index and decompressed sample rows were byte-equivalent to the three files and index already on `origin/reviewer`; no duplicate sample files were added.
+- Requested-hour coverage in the live raw directory: `pandascore_2026111922.jsonl.gz` was present; 16 of the 17 hours 2026-11-19 11:00Z through 2026-11-20 03:00Z were absent. The older 2026-11-16 12:00Z file was also present but corrupt as noted above. No storage-box data was fetched.
+- `ls -l --time-style=full-iso` of the live raw directory (last 30 lines; 2 files total):
+```text
+total 352
+-rw-r--r-- 1 root root 216915 2026-11-16 13:00:00.178699305 +0000 pandascore_2026111612.jsonl.gz
+-rw-r--r-- 1 root root 133429 2026-11-20 03:10:14.940693993 +0000 pandascore_2026111922.jsonl.gz
+```
+- `it/pandascore_live_read.sh` output:
+```text
+now 2026-11-20T04:14:02Z  free_GB 12
+capture: pid= tmux=cs2probe: 1 windows (created Thu Nov 19 10:39:41 2026);goalserve: 1 windows (created Tue Nov 17 09:00:06 2026);mfw-box-live-binance: 1 windows (created Fri Nov 20 02:25:33 2026);mfw-box-live-recorder: 1 windows (created Fri Nov 20 02:25:33 2026);pkarbs: 1 windows (created Sun Oct 25 02:51:40 2026); newest=/mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026111922.jsonl.gz grew_60s=0 DOWN-or-quiet
+pmcs2:   pid= books_bytes=5128016735 grew_60s=0 DOWN
+probe:   pid=3273611 loop_pid=3273611 log=/mnt/HC_Volume_107257520/pkarbs/scratch/pandascore-cs2-probe/pandascore-cs2-probe-20261120T041309Z.log
+NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)
+20261120T040302Z exit 1 NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)
+20261120T040806Z exit 1 NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)
+20261120T041309Z exit 1 NO live CS2 match with a matching Polymarket market; nothing to measure (write this as the reason)
+```
+- No processes, configuration, source files or raw data were changed. Generated export files remained in `/tmp` and were not committed.
+
