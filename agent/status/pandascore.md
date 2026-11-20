@@ -58,3 +58,16 @@
 - Job 2 CS2 book recorder: test printed `PASS (8 checks, each able to fail)`; launched 03:29:52Z, PID 2690054. At 03:34Z, `books.jsonl` had 3,608 rows and `markets.jsonl` 80 rows; the recorder process remained active. `tail -5 recorder.log` showed current Counter-Strike market entries.
 - Job 3 scheduled CS2 live probe: test printed `PASS (4 checks, each able to fail)`; launched 03:30:09Z, PID 2694972 with start time 08:50Z and 150-minute duration. It remains active, waiting for its scheduled start.
 - Evidence paths are on the data volume: `pkarbs/pmcs2/{recorder.log,books.jsonl,markets.jsonl}` and `pkarbs/probe/pandascore-cs2-live-probe-2026-11-19.log`.
+
+
+## PS interim view (20 Nov)
+
+- Step 1: reviewer script and test ran; `PASS (4 checks, each able to fail)`.
+- Step 2: 3 probe JSON files found: `pandascore-cs2-probe-20261119T103941Z.json` (33,085 bytes), `...142655Z.json` (87,302 bytes), and `...162903Z.json` (82,650 bytes).
+- Step 3: read-only scan completed against the 4,787,028,846-byte `pmcs2/books.jsonl`; output: `matches=3 series_rows=424 onsets=143 median_lead_s=-28.21 share_PS_led=0.15`. Exploratory/interim/unchecked; all three map series had no book rows, so ask-depth values are unavailable.
+- Step 4: no matching `PREFLIGHT all`, `events:` or `FINAL` lines were found in the specified probe `.log` files. The raw directory listing showed `pandascore_2026111612.jsonl.gz` (216,915 bytes) and `pandascore_2026111922.jsonl.gz` (133,419 bytes).
+
+## PS look 1 (20 Nov)
+
+- `LATEST-cs2.tail` at 01:15Z: `PASS 12 no-lead fixtures (14 matches each): 0 passes`, `ALL PASS`, then `cp: cannot stat .../pandascore/events.jsonl.gz: No such file or directory`, `STOP: no capture event log`, `exit 1 at 2026-11-20T01:15:10Z`.
+- `pandascore-daily-cs2/` contained `ps/` and `selftest.log` (2,655 bytes); no daily CS2 output directory was listed.
