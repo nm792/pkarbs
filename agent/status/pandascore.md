@@ -188,7 +188,17 @@ NO live CS2 match with a matching Polymarket market; nothing to measure (write t
 
 - Step 1 (04:41Z): PandaScore capture log `/tmp/pscap2.log` did not exist before restart. PM recorder log ended at 03:14:21Z with `disk below floor 10 GB (free 9.3 GB): stopping`; the raw capture's cause is not established. `dmesg` showed OOM kills at 00:19Z, 02:10Z and 02:19Z, without evidence tying them to this capture. VOL2 free at preflight: 11,747,700,736 bytes.
 - Step 3: fetched the reviewer-provided files from `origin/reviewer`; live-probe test `PASS (6 checks, each able to fail)` and PM recorder test `PASS (11 checks, each able to fail)`.
-- Step 4: copied the tested PM recorder to the live directory (SHA-256 `6643c28fbc31e2d2dd8594c4d480745faa9a9669dc0b2d4f5218e20e5ebfaaae`, equal at source and destination) and started it with the specified 10 GB floor/end time. Node PID 437635 was live. `books.jsonl` grew from 5,182,446,232 to 5,201,215,296 bytes over a 60-second read (18,769,064 bytes); a later read showed 5,208,265,986 bytes.
+- Step 4: copied the tested PM recorder to the live directory (SHA-256 `6643c28fbc31e2d2dd8594c4d480745faa9a9669dc0b2d4f5218e20e5ebfaaae`, equal at source and destination) and started it with the specified 10 GB floor/end time. Node PID 437635 was live at 04:47Z; the old recorder later reached the 10 GB floor at 05:13Z and stopped. It was replaced by the slim recorder below. `books.jsonl` grew from 5,182,446,232 to 5,201,215,296 bytes over a 60-second read (18,769,064 bytes); a later read showed 5,208,265,986 bytes.
 - Step 5: started `ll_capture_floor_env.py` in tmux `pscap2` with `PS_FLOOR_GB=10`; PID 438323 was live and its start log confirmed the token file was found (value not read or recorded).
 - Step 7 read at 04:46:20–04:47:20Z: both processes remained live; PM books grew 18,769,064 bytes. The newest PandaScore raw file remained `pandascore_2026111922.jsonl.gz`, 133,429 bytes, with 0-byte growth; no new hourly raw file appeared. Thus the capture restart is running but its required data-growth check has NOT passed. No restart/kill retry was made.
 - OPEN / NOT VERIFIED: PandaScore raw capture output growth and cause of its silent startup. The PM recorder is running and writing.
+
+
+## PS slim pmcs2 (20 Nov 2026)
+
+- Reviewer source was fetched from `origin/reviewer`; `node test_pm_cs2_books.js` returned `PASS (17 checks, each able to fail)`. Deployed source SHA-256 is `8cccab59fbbf96159d03f539776cc87dc2dcfae627afc773055b7c0d761813c3`, matching the reviewer file. Byte-identical backup: `pm_cs2_books.js.bak-20261120`.
+- Replaced the old recorder and confirmed its process stopped. New recorder PID 477279 started at 05:17:45Z with the specified end time and 10 GB floor; it remained live at 05:21Z. `recorder.log` showed current Counter-Strike markets.
+- New hourly output `pkarbs/pmcs2/books-2026112005.jsonl` grew from 17,877 bytes at 05:15:28Z to 33,010 bytes at 05:20:45Z. This is an early sample, not a sustained hourly-rate estimate; the <0.2 GB/h target is not yet established.
+- Archived the old `books.jsonl` to the storage box as `pkarbs-capture/pmcs2/books-pre-slim-20261120.jsonl`. Local size was 5,520,807,026 bytes; `rsync --checksum --dry-run` reported zero differences and the remote listing showed the same size. Only then was the local old file removed.
+- VOL2 available space increased from 10,957,164,544 bytes before the removal to 16,426,491,904 bytes after. The replacement recorder is running and writing to the hourly file.
+- OPEN / NOT VERIFIED: 10-minute and 30-minute rate checks; the first real-match load test. No rate is inferred from the early sample.
