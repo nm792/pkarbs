@@ -290,3 +290,14 @@ Status: P84a complete. P84b scan outputs remain outstanding, not part of this P8
 ## P88x Goalserve match samples (20 Nov 2026)
 
 Reviewer exporter tests: ALL PASS. Exported winner-market-only change samples from available raw hours: tennis 25 input files, 3 matches; CS2 48 files, 3 matches; Dota 2 48 files, 3 matches; hockey 24 files, 3 matches. Indices and compressed samples are under `it/samples-2026-11-20/` on origin/reviewer. Output total: 1,010,840 bytes. All 12 serialized files passed an IP-like dotted-quad scan (0 findings). VOL2 free after generation: 12,291,629,056 bytes. The first Dota invocation hit the 600-second command timeout while continuing in the background; verified the exporter process exited and its output/index completed before proceeding.
+
+## Perps loggers persistence (20 Nov)
+
+Read-only checks at 2026-11-20 07:13Z (UTC):
+
+1. `pm-hl-5s-logger`: active; enabled state `transient`; PID 3618574 running `pm_hl_5s_logger.py` with 5-second interval. The transient unit is not enabled across reboot. Latest listing included `pmhl5s_20261120.jsonl.gz` (42,254,850 bytes at 07:13Z).
+2. `pmhl5s_20261120.jsonl.gz`: 4,040 rows; final row timestamp 1795158786.7130497 (07:13Z).
+3. Hyperliquid weekend-perps logger: PID 2907769 running `hl_weekend_logger.py` with 60-second interval; `hl_20261120.jsonl.gz` was 7,189,057 bytes at 07:13Z.
+4. Open-contract book recorder: PID 2701410 running `book_recorder.py` with 10-second interval; `ocbooks_20261120.jsonl.gz` was 1,504,155 bytes and contained 10,400 rows. One row contains an error: temporary DNS resolution failure.
+
+Read-only; no process or file was changed.
