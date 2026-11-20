@@ -309,3 +309,10 @@ Read-only; no process or file was changed.
 - Despite that initial count, book data was received: `books.jsonl.gz` passed `gzip -t`, had 110 rows at 14:16Z, and grew from 5,454 bytes at 14:15:26Z to 9,301 bytes at 14:16:26Z. No repeating `ws error` was observed. `markets.jsonl` has 12 entries.
 - Protection check: `pkarbs/pmsport` is not a `writers.conf` source; `ship_raw.sh` processes only configured source directories, so this folder is not eligible for shipping or deletion. The project status protection list now includes it. No shipper or live data was changed.
 - The scheduled 21 Nov 17:30Z pre-window read is not yet due.
+
+
+## P90a pair_score (20 Nov 15:16Z)
+
+Reviewer scorer `pair_score.py` passed `py_compile`. On pmcs2: delay 0, 53 markets, 1,201,634 observations, minimum askA+askB 0.93, 22 detections, 18 runs, net $46.67, 2,278.5 shares. At 1,000 ms delay: 53 markets, 1,203,044 observations, 22 detections, 18 runs, net $0, 0 shares. Immediate-detection top rows included SEGA.dll vs ABT Esports and ex-INOX Division vs WBT. These are scorer outputs, not independently audited trades.
+
+The same scorer failed on pmdota with `KeyError: 'asset'` at `pair_score.py:24`; the available Dota rows do not match its expected schema. No workaround or data edit was made.

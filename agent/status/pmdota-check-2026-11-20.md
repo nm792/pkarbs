@@ -23,3 +23,8 @@ avail GB 13.86
 Two directory snapshots 60 seconds apart: `books.jsonl` grew from 7,705 bytes at 09:41:58Z to 11,016 bytes at 09:43:40Z. The other listed files did not change. No configured BLAST 11:00Z game was in its scheduled window at either snapshot. The current book file was nevertheless being written; this check does not establish that those rows belong to the BLAST markets.
 
 `df -h /mnt/HC_Volume_107257520`: 98G total, 80G used, 13G available, 87% used. No restart performed.
+
+
+## P96 live read (20 Nov 15:15Z)
+
+The project checker was extracted from the fetched project tip to VOL2 scratch and passed `bash -n`. Result: PASS process PID 2539785; 217,155 total book rows; newest row age 1 second; 13 conditions with both tokens; recorder log reported 0 gamma status lines, 0 book errors and 0 discover errors. `markets.jsonl` contained 16 BLAST matches. The two requested team-name patterns had 0 matches in current `books.jsonl`. Current book file was 1,965,518 bytes at 15:16:05Z. No restart or data change.
