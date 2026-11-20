@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-20T04:00:20Z |
-| origin_tip | 256853dbf1 |
-| newest_origin_commit | 2026-11-20T03:58:09Z P88x export sample results and indexes |
+| generated_utc | 2026-11-20T05:00:00Z |
+| origin_tip | ed34a57555 |
+| newest_origin_commit | 2026-11-20T04:48:08Z PandaScore protected recorder restart: live read and growth status |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
