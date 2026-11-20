@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-20T10:00:15Z |
-| origin_tip | 890c7de68e |
-| newest_origin_commit | 2026-11-20T09:44:20Z P93: Dota recorder live read 2026-11-20 |
+| generated_utc | 2026-11-20T11:00:24Z |
+| origin_tip | 81386c3e94 |
+| newest_origin_commit | 2026-11-20T10:46:39Z P94 PandaScore live match read 10:41Z |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
