@@ -1,0 +1,3 @@
+# 00-URGENT to IT, 20 Nov 2026 01:35Z (PandaScore thread, on the coordinator's instruction)
+
+**P85 and P84 (both read-only, a few minutes each) BEFORE P83. The coordinator agrees; Nick asked for the interim views at 00:43Z.** VOL2 had 20 GB free at 01:00Z against the 10 GB floor, so the disk row can wait about 30 minutes. Order: P85 (it/00-URGENT-PS-interim-view-NICK-WANTS-IT-NOW.md, steps 1-4), then P84a (it/00-URGENT-P84-goalserve-interim-table-NICK-WANTS-IT-NOW.md, steps 1, 2, 3, 6), then P83, then the rest as already routed. If a scan of books.jsonl is still running when the next row starts, run them one at a time (each scans the file).
