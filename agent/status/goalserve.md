@@ -328,3 +328,55 @@ Read-only run used the reviewer runner from the reviewer branch (note/code conte
 | Hockey NHL | 44 | 0 (0%) | 0 | 0 | no books file | 0 |
 
 Evidence: `<VOL2>/pkarbs/scratch/goalserve-desc/coverage.json`; SHA256 `c69926e805941b1f9dae3e9845c7c0ecd4f8d5c193ae737ae0c500bef68dbb98`. The scan covered esports, tennis, and hockey NHL only; basketball was excluded as required. P87b restart was not part of this read-only row.
+
+
+## P84b (20 Nov)
+
+Read-only descriptive scans completed sequentially from the reviewer script. No code, recorder, service, or source data was changed. The reviewer replaced the earlier 17 GB gate for this bounded scan with a 10 GB VOL2 stop floor.
+
+No-scan disk readings 60 seconds apart:
+```
+Filesystem        1B-blocks        Used   Available Use% Mounted on
+/dev/sdc       105089261568 88947171328 10756603904  90% <VOL2>
+/dev/sdc       105089261568 88958603264 10745171968  90% <VOL2>
+```
+
+Esports scan exited 0. JSON SHA256: `6fc2aa6a76fe0fc59033c371d0724c279f37a2219e76eaef5c2b17802efa0d60`.
+Tennis scan exited 0. JSON SHA256: `4e7e0cfc53024da4ac5fcf022d685d7338b549b982d278f00a230ce8c1970b3d`.
+
+The required `tail -14` output for each log follows. These are exploratory/interim descriptive results, not the signed v2 test, a verdict, or a pass.
+
+### desc-esports.log
+- EXPLORATORY/INTERIM descriptive table; NOT the signed v2 test, no verdict, no pass; UNCHECKED until an independent checker signs
+- sport \"esports\"
+- files 48
+- goalserve_events_total 5590
+- match_markets_seen 69
+- unmatched_markets 35
+- ambiguous_markets 6
+- drops {"pm_book_rows_time_from_ms": 266440, "book_rows_one_sided": 16176, "events_no_pm_market_or_ambiguous": 3134}
+- CELL cs2|Map 1 Winner {"goalserve_events_total": 1396, "events_usable": 619, "matches_usable": 11, "mean_pm_before_c": 2.054, "mean_pm_after_c": 0.593, "mean_net_c": -1.462, "mean_net_per_match_c": -1.639, "placebo_mean_net_c": -0.023, "share_net_gt_placebo_pct": 42.003, "median_best_ask": 0.55, "median_ask_shares_at_best": 75.4, "median_ask_shares_within_2c": 685.16, "median_ask_usd_within_2c": 344.938, "share_events_ask_shares_within_2c_ge_100_pct": 90.145}
+- CELL cs2|Map 2 Winner {"goalserve_events_total": 1270, "events_usable": 652, "matches_usable": 11, "mean_pm_before_c": 2.342, "mean_pm_after_c": 1.411, "mean_net_c": -0.931, "mean_net_per_match_c": -1.319, "placebo_mean_net_c": -0.059, "share_net_gt_placebo_pct": 44.632, "median_best_ask": 0.54, "median_ask_shares_at_best": 65.9, "median_ask_shares_within_2c": 562.09, "median_ask_usd_within_2c": 302.806, "share_events_ask_shares_within_2c_ge_100_pct": 92.331}
+- CELL cs2|Match Winner {"goalserve_events_total": 2449, "events_usable": 1047, "matches_usable": 11, "mean_pm_before_c": 1.5, "mean_pm_after_c": 0.717, "mean_net_c": -0.784, "mean_net_per_match_c": -0.824, "placebo_mean_net_c": 0.091, "share_net_gt_placebo_pct": 42.311, "median_best_ask": 0.52, "median_ask_shares_at_best": 137.46, "median_ask_shares_within_2c": 1218.78, "median_ask_usd_within_2c": 598.249, "share_events_ask_shares_within_2c_ge_100_pct": 96.466}
+- CELL unparsed|Map 1 Winner {"goalserve_events_total": 71, "events_usable": 36, "matches_usable": 1, "mean_pm_before_c": 2.004, "mean_pm_after_c": 0.926, "mean_net_c": -1.078, "mean_net_per_match_c": -1.078, "placebo_mean_net_c": 0.007, "share_net_gt_placebo_pct": 44.444, "median_best_ask": 0.545, "median_ask_shares_at_best": 35.0, "median_ask_shares_within_2c": 724.32, "median_ask_usd_within_2c": 310.339, "share_events_ask_shares_within_2c_ge_100_pct": 100.0}
+- CELL unparsed|Map 2 Winner {"goalserve_events_total": 85, "events_usable": 75, "matches_usable": 1, "mean_pm_before_c": 2.233, "mean_pm_after_c": 0.147, "mean_net_c": -2.087, "mean_net_per_match_c": -2.087, "placebo_mean_net_c": -0.229, "share_net_gt_placebo_pct": 41.333, "median_best_ask": 0.51, "median_ask_shares_at_best": 59.0, "median_ask_shares_within_2c": 968.0, "median_ask_usd_within_2c": 408.598, "share_events_ask_shares_within_2c_ge_100_pct": 94.667}
+- CELL unparsed|Map 3 Winner {"goalserve_events_total": 13, "events_usable": 13, "matches_usable": 1, "mean_pm_before_c": 1.923, "mean_pm_after_c": 0.615, "mean_net_c": -1.308, "mean_net_per_match_c": -1.308, "placebo_mean_net_c": -1.131, "share_net_gt_placebo_pct": 46.154, "median_best_ask": 0.59, "median_ask_shares_at_best": 438.94, "median_ask_shares_within_2c": 3405.58, "median_ask_usd_within_2c": 2592.722, "share_events_ask_shares_within_2c_ge_100_pct": 100.0}
+- CELL unparsed|Map 4 Winner {"goalserve_events_total": 6, "events_usable": 6, "matches_usable": 1, "mean_pm_before_c": 0.167, "mean_pm_after_c": 1.658, "mean_net_c": 1.492, "mean_net_per_match_c": 1.492, "placebo_mean_net_c": -0.382, "share_net_gt_placebo_pct": 66.667, "median_best_ask": 0.675, "median_ask_shares_at_best": 1461.255, "median_ask_shares_within_2c": 26347.405, "median_ask_usd_within_2c": 15712.346, "share_events_ask_shares_within_2c_ge_100_pct": 100.0}
+- CELL unparsed|Match Winner {"goalserve_events_total": 102, "events_usable": 79, "matches_usable": 1, "mean_pm_before_c": 1.418, "mean_pm_after_c": 0.709, "mean_net_c": -0.709, "mean_net_per_match_c": -0.709, "placebo_mean_net_c": -0.165, "share_net_gt_placebo_pct": 46.835, "median_best_ask": 0.48, "median_ask_shares_at_best": 198.0, "median_ask_shares_within_2c": 1149.88, "median_ask_usd_within_2c": 532.985, "share_events_ask_shares_within_2c_ge_100_pct": 97.468}
+- CELL dota2|Map 1 Winner {"goalserve_events_total": 84, "events_usable": 0, "matches_usable": 0}
+- CELL dota2|Match Winner {"goalserve_events_total": 103, "events_usable": 0, "matches_usable": 0}
+- CELL dota2|Map 2 Winner {"goalserve_events_total": 82, "events_usable": 0, "matches_usable": 0}
+
+### desc-tennis.log
+- EXPLORATORY/INTERIM descriptive table; NOT the signed v2 test, no verdict, no pass; UNCHECKED until an independent checker signs
+- sport "tennis"
+- files 24
+- goalserve_events_total 19792
+- match_markets_seen 340
+- unmatched_markets 124
+- ambiguous_markets 6
+- drops {"pm_book_rows_time_from_ms": 2002360, "book_rows_one_sided": 49233, "events_no_pm_market_or_ambiguous": 6504, "events_pm_recorder_silent_pm300s": 590}
+- CELL tennis|Match Winner {"goalserve_events_total": 19792, "events_usable": 12698, "matches_usable": 204, "mean_pm_before_c": 3.039, "mean_pm_after_c": 0.863, "mean_net_c": -2.176, "mean_net_per_match_c": -1.7, "placebo_mean_net_c": 0.022, "share_net_gt_placebo_pct": 35.88, "median_best_ask": 0.56, "median_ask_shares_at_best": 224.995, "median_ask_shares_within_2c": 2319.0, "median_ask_usd_within_2c": 1155.815, "share_events_ask_shares_within_2c_ge_100_pct": 91.062}
+- WORDING: open-market moves only; a tennis 'no pass' is NOT 'Goalserve has no tennis lead'
+
+VOL2 free after the scans measured 9,994,346,496 bytes at 20:39:24Z, below the 10 GB floor. The scans had exited; no process was stopped. This is below the stop floor, not a claim that the scans caused the total concurrent disk use.
