@@ -230,3 +230,25 @@ NO live CS2 match with a matching Polymarket market; nothing to measure (write t
 - PandaScore capture PID 625842 was present in `pscap2`, but the only local raw file remained the 16 Nov file and grew 0 bytes over 60 seconds. `/root/pscap2.log` had the 07:45:34Z start line and no later socket/open or data line. Capture output remains unverified; process presence is not a pass.
 - The live probe reported no matching live CS2/Polymarket market, so no probe measurement was available. No process, source, crontab, or configuration changed during this check.
 - P91 restart action is complete. PandaScore socket and raw output are still not verified; this report does not claim both feeds are healthy.
+
+
+## P88z PS box export (20 Nov 2026, 08:41Z)
+
+- Read-only box source: `pkarbs/pandascore/raw/`; copied 12 matching gzip files (`pandascore_2026111911`–`1922`) into VOL2 scratch. No 20 Nov hour file was present.
+- Export script from `origin/reviewer:it/ps_export_samples.py`, SHA-256 `f3c22508a348a86e44b034930a37a54acf68f5a9d5a3ee3a4de74f7d08d8c743`; ran `python3 -I .../ps_export_samples.py .../psraw .../psexp 999`. 9 matches seen; 8 samples exported (the ninth, match 1791311, was already present and not overwritten).
+- `ps_sample_index_box.json` and 7 new samples were committed to reviewer branch in commit `eebb9223a6123b17f959ea3d987f3b288f47f350`; verified on `origin/reviewer`. Existing 1791311 sample was retained; its 882-line prior sample differs from the new 3,214-line export and was not replaced, per add-only instruction.
+- No corrupt files in the copied 12-file set. Expanded output sample data had zero IPv4-like strings. Temporary input/export directories were removed after completion.
+
+Index (match_id, label, messages, inround_messages, bytes):
+```json
+[
+ {"match_id":"1791310","label":"BIG vs NIP","messages":3706,"inround_messages":3487,"bytes":447478},
+ {"match_id":"1791309","label":"GamerLegion vs Inner Circle Esports","messages":3435,"inround_messages":3250,"bytes":417804},
+ {"match_id":"1791311","label":"GamerLegion vs BIG","messages":3214,"inround_messages":3136,"bytes":364449},
+ {"match_id":"1791306","label":"Sangal vs Luminosity","messages":2186,"inround_messages":2018,"bytes":250393},
+ {"match_id":"1789181","label":"ex-INOX Division vs FORZE Reload","messages":1554,"inround_messages":1518,"bytes":160490},
+ {"match_id":"1803646","label":"WBT vs MOUZ NXT","messages":1347,"inround_messages":1325,"bytes":143392},
+ {"match_id":"1789182","label":"aimclub vs Nexus","messages":1028,"inround_messages":1018,"bytes":105061},
+ {"match_id":"1789179","label":"33 vs ex-RUSTEC","messages":127,"inround_messages":124,"bytes":14557}
+]
+```
