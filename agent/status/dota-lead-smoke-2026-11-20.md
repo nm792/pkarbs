@@ -724,3 +724,69 @@ PARTIAL FILE /mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_202611202
 - The runner reported partial/corrupt gzip input for the 2026-11-16 PandaScore file and an incomplete gzip stream for the actively written 2026-11-20 22:00 file; no input was modified.
 - Audit reconciliation counted 38 kill, 15 tower, 3 Roshan, and 8 barracks increases across the matched feed records. Dota lead verdict remains unknown (n<30).
 - No non-zero process exit. The task asks to record these findings, not to repair inputs or judge the feed.
+
+
+## Rerun at 2026-11-20 22:12Z
+
+Read-only rerun from the committed feed scripts against the live inputs; exit code 0. No source edit, restart, or input modification. Output files are in `/mnt/HC_Volume_107257520/scratch/dota-lead-2026-11-20/`.
+
+### summary.txt
+```text
+ps_messages 4162 events 164 matches_seen 9 unmatched_to_pm 9
+dota2|map|all n_events 0 n_with_onset 0 n_matches 0 onset% None median_real None median_placebo None diff None ci None after% None verdict UNKNOWN (n_matches<12 or n_with_onset<30)
+dota2|match|all n_events 0 n_with_onset 0 n_matches 0 onset% None median_real None median_placebo None diff None ci None after% None verdict UNKNOWN (n_matches<12 or n_with_onset<30)
+```
+
+### audit.json
+- Dota A isolated and all gap-bucket cells: 0 events, 0 matches; verdict `unknown (n<30)`.
+- B reconciliation: 38 kill, 15 tower, 3 Roshan, 8 barracks, and 100 round increases.
+- C unmatched: 9 PandaScore matches; all 9 unmatched to Polymarket.
+- `strata_computed` remains false in `result.json`; lead is not evaluable.
+
+### run.log tail (last 40 lines)
+```text
+== planted tests
+PASS cs2 (a) PM +10 s after the feed: n 640, median real lead 9.94 s, verdict meets bar (needs audit)
+PASS cs2 (b) PM 10 s BEFORE the feed: median real lead -10.04 s, verdict no lead (needs audit)
+PASS cs2 (c) PM never reacts to events (only background noise): events 640, with onset 235, verdict no lead (needs audit)
+PASS dota2 (a) PM +10 s after the feed: n 640, median real lead 9.94 s, verdict meets bar (needs audit)
+PASS dota2 (b) PM 10 s BEFORE the feed: median real lead -10.04 s, verdict no lead (needs audit)
+PASS dota2 (c) PM never reacts to events (only background noise): events 640, with onset 235, verdict no lead (needs audit)
+ALL PASS
+PARTIAL FILE /tmp/tmpepzc27tp/x.jsonl.gz: error: Error -3 while decompressing data: invalid distance too far back
+PARTIAL FILE /tmp/tmpepzc27tp/x.jsonl.gz: error: Error -3 while decompressing data: invalid distance too far back
+PARTIAL FILE /tmp/tmpepzc27tp/x.jsonl.gz: error: Error -3 while decompressing data: invalid distance too far back
+ALL PASS (rows kept before damage: 754 )
+ALL PASS
+ALL PASS multi/gz {'files': 3, 'rows_in': 246, 'rows_out': 233, 'dropped': 13, 'partial_files': 1}
+== adapter
+{"files": 49, "rows_in": 303640, "rows_out": 290643, "dropped": 12997, "partial_files": 0}
+== inputs
+total 900
+-rw-r--r-- 1 root root 216915 2026-11-16 13:00:00.178699305 +0000 pandascore_2026111612.jsonl.gz
+-rw-r--r-- 1 root root 509576 2026-11-20 21:09:19.519751657 +0000 pandascore_2026112020.jsonl.gz
+-rw-r--r-- 1 root root 135718 2026-11-20 22:00:07.507745786 +0000 pandascore_2026112021.jsonl.gz
+-rw-r--r-- 1 root root 33007 2026-11-20 22:11:49.322696275 +0000 pandascore_2026112022.jsonl.gz
+== lead test
+PARTIAL FILE /mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026111612.jsonl.gz: error: Error -3 while decompressing data: invalid block type
+PARTIAL FILE /mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026112022.jsonl.gz: EOFError: Compressed file ended before the end-of-stream marker was reached
+PARTIAL FILE /mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026111612.jsonl.gz: error: Error -3 while decompressing data: invalid block type
+PARTIAL FILE /mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026112022.jsonl.gz: EOFError: Compressed file ended before the end-of-stream marker was reached
+== audit
+PARTIAL FILE /mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026111612.jsonl.gz: error: Error -3 while decompressing data: invalid block type
+```
+
+### PARTIAL FILE lines (run.log)
+```text
+PARTIAL FILE /tmp/tmpepzc27tp/x.jsonl.gz: error: Error -3 while decompressing data: invalid distance too far back
+PARTIAL FILE /tmp/tmpepzc27tp/x.jsonl.gz: error: Error -3 while decompressing data: invalid distance too far back
+PARTIAL FILE /tmp/tmpepzc27tp/x.jsonl.gz: error: Error -3 while decompressing data: invalid distance too far back
+PARTIAL FILE /mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026111612.jsonl.gz: error: Error -3 while decompressing data: invalid block type
+PARTIAL FILE /mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026112022.jsonl.gz: EOFError: Compressed file ended before the end-of-stream marker was reached
+PARTIAL FILE /mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026111612.jsonl.gz: error: Error -3 while decompressing data: invalid block type
+PARTIAL FILE /mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026112022.jsonl.gz: EOFError: Compressed file ended before the end-of-stream marker was reached
+PARTIAL FILE /mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026111612.jsonl.gz: error: Error -3 while decompressing data: invalid block type
+PARTIAL FILE /mnt/HC_Volume_107257520/pkarbs/pandascore/raw/pandascore_2026112022.jsonl.gz: EOFError: Compressed file ended before the end-of-stream marker was reached
+```
+
+The 2026-11-16 input is corrupt (`invalid block type`); the 22:00 input was still an incomplete gzip stream during this read. The runner made no input changes. Export cleanup was blocked by the cron destructive-command gate, so the read-only source export remains under VOL2 `/tmp` for manual cleanup.
