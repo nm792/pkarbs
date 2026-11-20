@@ -279,3 +279,18 @@ Index (match_id, label, messages, inround_messages, bytes):
  {"match_id":"1796498","label":"Brute vs Nice Try","messages":158,"inround_messages":155,"bytes":10746}
 ]
 ```
+
+## PSa read-only fields check (20 Nov 2026, 19:42–19:44Z)
+
+Step 1 (`pandascore_live_read.sh`, full measured values):
+- `now 2026-11-20T19:43:56Z`; VOL2 free 11 GB.
+- Capture: PID 625841; tmux sessions `cs2probe`, `goalserve`, `mfw-box-live-binance`, `mfw-box-live-recorder`, `pkarbs`, `pscap2`; newest hour `2026112019`, grew 6,154 bytes/60s: OK.
+- pmcs2: PID 625719; current-hour books file `books-2026112019.jsonl`, 191,363,231 bytes, grew 3,246,177 bytes/60s: OK.
+- Probe: PID/loop PID 3273611; latest log `pandascore-cs2-probe-20261120T193914Z.log`. Latest preflight: `all_ok=false`; clock synchronized, PandaScore messages on every open match, and both timestamp-lag checks true; `every_pm_token_has_a_book_message=false`, with 4 token IDs missing. Latest loop entries at 19:27:25Z, 19:33:15Z, and 19:39:14Z each exited 1 for that same failed preflight.
+
+Step 2 (newest three files, streamed read-only):
+- `2026112019`: actively growing gzip; read stopped with `EOFError: Compressed file ended before the end-of-stream marker was reached`; no partial counts claimed.
+- `2026112018`: 3,643 messages. `available_fields` counts: barracks 1277; game_timer 1280; kills 1280; net_worth 1269; player_alive 3604; player_hero_id 1269; player_name 3503; player_net_worth 1269; roshans 1273; towers 1278; bomb 2221; current_money_balance 1904; map_id 2336; player_armor 1904; player_current_money_balance 1904; player_deaths 2333; player_health 1904; player_kills 2333; player_weapons 1904; round_score 2338; round_timer 2336; rounds_summary 2241; side 2338; loadout_value 354; player_loadout_value 354; buy_phase_main_weapon_value 169. Payload top-level keys and counts: match_id 3640; game_id 3640; updated_at 3640; game_timer 1280; game_status 3640; match_status 3640; available_fields 3618; radiant 1280; dire 1280; paused 1280; current_round 2338; latency 2338; away_team 2338; home_team 2338; map_id 2338; previous_rounds 2338; type 3; payload 3. `current_round` payload checks: bomb.status 613; timer 2261; player alive 2234; side 2338.
+- `2026111612`: corrupt gzip; read failed `zlib.error: Error -3 while decompressing data: invalid block type`; no counts claimed.
+
+No files/processes/configuration changed; this completes PSa steps 1–2 only. PSb steps 3–4 were not run.
