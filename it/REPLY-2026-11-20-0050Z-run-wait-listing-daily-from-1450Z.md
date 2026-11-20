@@ -1,17 +1,19 @@
-# IT ask: run the gas listing waiter on the server, daily from 14:50Z (first run 20 Nov, for the 21 Nov event)
+# IT ask (UPDATED 20 Nov 01:00Z): run the gas listing waiter on the server, daily from 14:50Z (first run 20 Nov, for the 21 Nov event)
 
-Goal: find and build un-publicised edges, target $500/day. The gas boundary rule needs the real order book in the first minutes after each next-day gas event lists (about 15:00Z), and my sandbox restarts, so the recorder must run on the server. Settled rules: SETTLED.md commit e2a25c41beffd3f4438590a691fc2ed07402838b.
+Goal: find and build un-publicised edges, target $500/day. Tonight's capture must show who sells the favourite at 0.70-0.85 about 7 minutes after listing (seen on 19 and 20 Nov). Settled rules: SETTLED.md commit e2a25c41beffd3f4438590a691fc2ed07402838b.
 
-Measured position: only one event (20 Nov) has a book capture from listing; first book 15:01:02Z, 804 snapshots to 15:14:25Z, then my sandbox recorder stopped (cause UNVERIFIED, likely a sandbox restart). Artifact: scan/gas_window/fixtures/gas20_books_two_snapshots.json at commit ff59768e08c6e61fa8a8f6b7e9c297e84f90aede.
+Measured position: only the 20 Nov event has a book capture from listing (15:01:02Z to 15:14:25Z, then my sandbox recorder stopped, cause UNVERIFIED). Artifact: /mnt/project-files/gas/20nov-listing-to-plus60-fav-bucket.md.
 
-The one thing that matters: please start `scan/gas_window/wait_listing.py` by 14:50Z on 20 Nov, not later.
+The one thing that matters: start `scan/gas_window/wait_listing.py` by 14:50Z on 20 Nov, not later.
 
-Steps (deploy committed code by SHA ff59768e08c6e61fa8a8f6b7e9c297e84f90aede on branch claude/project-thread-vg2ckg, never edit it on the server):
-1. Run `python3 scan/gas_window/test_wait_listing.py` and `python3 scan/gas_window/test_gate_boundary.py`. Expect "2 of 2" and "5 of 5". Paste both outputs.
-2. Run `python3 scan/gas_window/wait_listing.py` from 14:50Z with output on /mnt/HC_Volume_107257520 (10 GB free-space floor). It polls Gamma every 0.5 s through errors, writes `<slug>.listing.json` with the detect time, then starts pm_gas_books.py at 1 s.
-3. At 14:55Z paste the pid, and at 15:15Z paste the file size twice, 60 s apart (growth). Say UNVERIFIED if either is missing.
-4. Repeat daily; the AAA watcher (P54b/P54c) stays separate.
+DEPLOY BY SHA 0e113601dc1bad5a763b318044c9066002ce5ae6 (branch claude/project-thread-lfb1pf; it is NOT merged to the default branch yet because of a squash-merge conflict, so fetch this exact commit, do not use the default branch). This SHA adds pm_gas_trades.py, and wait_listing.py now starts it together with the books recorder.
 
-No orders are sent (A7). Captured books are data only.
+Steps:
+1. Run `python3 scan/gas_window/test_wait_listing.py`, `test_pm_gas_trades.py` and `test_gate_boundary.py`. Expect "2 of 2", "2 of 2", "5 of 5". Paste the outputs.
+2. Run `python3 scan/gas_window/wait_listing.py --slug us-gas-price-on-november-21-2026 --out /mnt/HC_Volume_107257520/gas --wait-until 2026-11-20T16:30:00Z --record-seconds 5400` from 14:50Z (10 GB free-space floor). It polls Gamma every 0.5 s, writes the detect time, then records at 1 s: all 12 books (6 buckets, YES and NO) in `<slug>.books.jsonl` and every trade of all six markets with wallet and tx hash in `<slug>.trades.jsonl`.
+3. At 14:55Z paste the pid. At 15:15Z paste both file sizes twice, 60 s apart (growth). Say UNVERIFIED if any is missing.
+4. Repeat daily. The AAA watcher (P54b/P54c) stays separate.
 
-Confidence 8/10: the waiter's tests pass locally (2 of 2), but it has not yet run on the server; step 3 is the proof.
+No orders are sent (A7).
+
+Confidence 8/10: the tests pass locally; step 3 is the proof it runs on the server.
