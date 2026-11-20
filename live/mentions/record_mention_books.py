@@ -36,9 +36,10 @@ def pm_targets(now):
             st=m.get('startDate') or e.get('startDate') or ''
             age=young(st,now)
             if age is None or not m.get('acceptingOrders'):continue
-            try:tok=json.loads(m['clobTokenIds'])[0]
+            try:toks=json.loads(m['clobTokenIds'])
             except Exception:continue
-            out.append(dict(venue='polymarket',event=e['slug'],market=m['conditionId'],word=m.get('groupItemTitle'),open_time=st,age_s=int(age),url=f'https://clob.polymarket.com/book?token_id={tok}'))
+            for i,tok in enumerate(toks[:2]):  # BOTH tokens: YES and NO are separate books (20 Nov: NO bets must be priced from the NO book)
+                out.append(dict(venue='polymarket',event=e['slug'],market=m['conditionId'],word=m.get('groupItemTitle'),open_time=st,age_s=int(age),token_index=i,url=f'https://clob.polymarket.com/book?token_id={tok}'))
     return out
 def main(outdir):
     os.makedirs(outdir,exist_ok=True);now=time.time()
@@ -48,7 +49,7 @@ def main(outdir):
         for t in T:
             b=get(t['url'])
             if b is None:continue
-            f.write(json.dumps(dict(t=int(time.time()),venue=t['venue'],event=t['event'],market=t['market'],word=t['word'],open_time=t['open_time'],age_s=t['age_s'],book=b))+'\n');n+=1
+            f.write(json.dumps(dict(t=int(time.time()),venue=t['venue'],event=t['event'],market=t['market'],token_index=t.get('token_index'),word=t['word'],open_time=t['open_time'],age_s=t['age_s'],book=b))+'\n');n+=1
             time.sleep(0.15)
     print(json.dumps({'ev':'done','targets':len(T),'books':n,'file':fn}))
 if __name__=='__main__':main(sys.argv[1] if len(sys.argv)>1 else 'out')
