@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-20T15:00:25Z |
-| origin_tip | fd84e72cbe |
-| newest_origin_commit | 2026-11-20T14:44:13Z Record P95 local export disk-gate result |
+| generated_utc | 2026-11-20T16:00:24Z |
+| origin_tip | f454912f06 |
+| newest_origin_commit | 2026-11-20T15:44:52Z P95: record local PandaScore export results |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
