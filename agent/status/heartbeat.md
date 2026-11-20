@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-20T22:00:22Z |
-| origin_tip | e0bee225dd |
-| newest_origin_commit | 2026-11-20T21:42:49Z P97b: record verified pmcs2 ship |
+| generated_utc | 2026-11-20T23:00:25Z |
+| origin_tip | 221243e552 |
+| newest_origin_commit | 2026-11-20T22:14:17Z P98: record Dota lead smoke rerun |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
