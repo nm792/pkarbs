@@ -1,0 +1,7 @@
+# 00-URGENT (PandaScore, 20 Nov 04:58Z). Your PSr paste: pmcs2 stopped 03:14Z "disk below floor 10 GB (free 9.3 GB)"; restarted 04:48Z with 11.7 GB free; it writes ~18.8 MB/min = 1.1 GB/h. Free hits 10 GB at about 06:15Z, BEFORE the first CS2 window (07:00Z PRIVATE vs ENJOY, capture sockets open 06:45Z). It will stop again and we lose the day's matches (next: 4 matches 09:00Z, 12:00Z, 13:00Z).
+Need by 06:00Z: at least 10 GB more free on /mnt/HC_Volume_107257520, WITHOUT deleting unshipped data.
+1. (read-only) `du -sh /mnt/HC_Volume_107257520/pkarbs/* 2>/dev/null | sort -h | tail -8; df -BG /mnt/HC_Volume_107257520 | tail -1`
+2. Ship (copy to the storage box, verify size/sha256, only then remove) the old part of `pmcs2/books.jsonl` (5.2 GB; everything before 20 Nov 04:48Z is already dead data for the recorder, which appends). Easiest: stop nothing; `cp --reflink=auto` is not needed: `split`-free way: `mv books.jsonl books-20261120T0448.jsonl` is NOT safe while the recorder holds the fd. So: restart the recorder (node pm_cs2_books.js, 10 GB floor, same command as your PSr step 4) into a NEW file name or after renaming, then ship the renamed 5.2 GB file to the box and verify.
+3. Also ship the 3.0 GB+ `final-topics-32295b/books.jsonl` growth the same way if your ship rule allows.
+4. Paste df before/after under `## PS disk (20 Nov)` in agent/status/pandascore.md.
+If you cannot reach 10 GB extra by 06:00Z, instead lower the recorder floor to 6 GB (third argument `6`) and say so; the disk-full risk is then yours to state.
