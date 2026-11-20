@@ -166,7 +166,7 @@ Decision recorded per reviewer notes P72 and P72b. No files were shipped or dele
 
 - **36 h hold, then eligible to ship only after checksum verification:** `/mnt/HC_Volume_107257520/pkarbs/goalserve/esports_payloads`, `tennis_payloads`, `hockey_nhl_payloads`, `basketball_payloads`; and `/mnt/HC_Volume_107257520/pkarbs/thesports/final-topics-32295b/markets.jsonl` and `books.jsonl` only. These are retained for the daily look's previous-full-day inputs.
 - **Protected, not included in any ship rule:** `/mnt/HC_Volume_107257520/pkarbs/pmdota` (Dota capture), `pmcs2` (CS2 books), `probe` and `pandascore/raw` (PandaScore probe/capture), `scratch/goalserve-daily-logs` (not present in this inventory), and every `result-*.json` (none found in the listed active capture directories).
-- **Gas/listing-book recorders protected:** `/mnt/HC_Volume_107257520/gas_watch`, `/mnt/HC_Volume_107257520/gas_books_pmxt`, `/mnt/HC_Volume_107257520/pkarbs/ocbooks`, `/mnt/HC_Volume_107257520/pkarbs/netflix`, `/mnt/HC_Volume_107257520/pkarbs/mentions`, and `/mnt/HC_Volume_107257520/pkarbs/oddspapi`. The other top-level inventory is recorded in this P0 status section; any path not explicitly classified here stays protected.
+- **Gas/listing-book recorders protected:** `/mnt/HC_Volume_107257520/gas_watch`, `/mnt/HC_Volume_107257520/gas_books_pmxt`, `/mnt/HC_Volume_107257520/pkarbs/ocbooks`, `/mnt/HC_Volume_107257520/pkarbs/netflix`, `/mnt/HC_Volume_107257520/pkarbs/mentions`, and `/mnt/HC_Volume_107257520/pkarbs/oddspapi`, and `/mnt/HC_Volume_107257520/pkarbs/pmsport` (P86 NHL recorder). The other top-level inventory is recorded in this P0 status section; any path not explicitly classified here stays protected.
 - **Capacity gate fails:** two `du -sb` reads of `final-topics-32295b` were 50,831,223,158 bytes at 11:57:12Z and 52,152,370,706 bytes at 12:09:09Z. Measured growth is about 6.59 GB/hour; 36 h projects to 237.36 GB. VOL2 free space was 21,110,800,384 bytes at 11:57:12Z, 19,737,276,416 bytes at 12:09:09Z, and 23,455,006,720 bytes at 12:11:11Z; the last read is 13.46 GB above the 10 GB floor. `du` totals are non-monotone as capture files roll over, but even the last headroom is far below measured 6.6–6.8 GB/hour growth for 36 hours. Therefore 36 h does not fit. Per P72, no shipping or deletion is authorized until PK arbs provides a filter.
 - Shipper cron: **not installed**; no shipment run.
 
@@ -301,3 +301,11 @@ Read-only checks at 2026-11-20 07:13Z (UTC):
 4. Open-contract book recorder: PID 2701410 running `book_recorder.py` with 10-second interval; `ocbooks_20261120.jsonl.gz` was 1,504,155 bytes and contained 10,400 rows. One row contains an error: temporary DNS resolution failure.
 
 Read-only; no process or file was changed.
+
+## P86 NHL recorder (20 Nov)
+
+- Reviewer tests: `node test_pm_sport_books.js` passed all 7 checks on Node 22.23.1.
+- Started the NHL-only recorder at 14:13:56Z; process PID 1081549 ran from `pkarbs/pmsport`. The WebSocket opened. Its initial log says `tokens 0`; the subsequent market discovery found 12 NHL markets and dynamically subscribed to their tokens. This differs from the note's initial-open `tokens > 0` wording, so that exact log criterion was not met.
+- Despite that initial count, book data was received: `books.jsonl.gz` passed `gzip -t`, had 110 rows at 14:16Z, and grew from 5,454 bytes at 14:15:26Z to 9,301 bytes at 14:16:26Z. No repeating `ws error` was observed. `markets.jsonl` has 12 entries.
+- Protection check: `pkarbs/pmsport` is not a `writers.conf` source; `ship_raw.sh` processes only configured source directories, so this folder is not eligible for shipping or deletion. The project status protection list now includes it. No shipper or live data was changed.
+- The scheduled 21 Nov 17:30Z pre-window read is not yet due.
