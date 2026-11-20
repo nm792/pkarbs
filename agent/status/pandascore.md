@@ -154,6 +154,14 @@ Read-only run using the reviewer script `it/ps_export_samples.py` from origin/re
 ## P88y PandaScore export-all read (20 Nov 2026)
 
 - Ran reviewer `it/ps_export_samples.py` in isolated mode on the live raw directory only. It skipped `pandascore_2026111612.jsonl.gz` with `Error -3 while decompressing data: invalid block type`. The readable `pandascore_2026111922.jsonl.gz` produced 3 matches: 1791311 (GamerLegion vs BIG), 882 messages / 866 in-round / 103,303 compressed bytes; 1803639 (Apogee Esports vs maybe), 183 / 181 / 12,207 bytes; 1796498 (Brute vs Nice Try), 158 / 155 / 10,746 bytes. The generated index and decompressed sample rows were byte-equivalent to the three files and index already on `origin/reviewer`; no duplicate sample files were added.
+- Export index:
+```json
+[
+ {"match_id": "1791311", "label": "GamerLegion vs BIG", "messages": 882, "inround_messages": 866, "bytes": 103303},
+ {"match_id": "1803639", "label": "Apogee Esports vs maybe", "messages": 183, "inround_messages": 181, "bytes": 12207},
+ {"match_id": "1796498", "label": "Brute vs Nice Try", "messages": 158, "inround_messages": 155, "bytes": 10746}
+]
+```
 - Requested-hour coverage in the live raw directory: `pandascore_2026111922.jsonl.gz` was present; 16 of the 17 hours 2026-11-19 11:00Z through 2026-11-20 03:00Z were absent. The older 2026-11-16 12:00Z file was also present but corrupt as noted above. No storage-box data was fetched.
 - `ls -l --time-style=full-iso` of the live raw directory (last 30 lines; 2 files total):
 ```text
