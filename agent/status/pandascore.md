@@ -213,3 +213,11 @@ NO live CS2 match with a matching Polymarket market; nothing to measure (write t
 - PM CS2 recorder had no PID. `books-2026112006.jsonl` remained 316,786 bytes (0-byte growth); recorder stopped at 06:48:42Z with `disk below floor 10 GB (free 8.1 GB)`, then `done`. VOL2 showed 7 GB available.
 - `markets.jsonl`: 335 lines, 6 containing `PRIVATE`. Probe PID 3273611 remained present; newest probe reported no live CS2 match with a matching Polymarket market.
 - No process, source, or configuration changed.
+
+## P91 CS2 protected recorders restarted (20 Nov 2026)
+
+- Preflight at 07:45Z: VOL2 had 9,950,720,000 bytes available, above the row's 4 GB stop gate. The 06:48Z pmcs2 log confirmed the prior stop at its 10 GB floor. No pmcs2 or PandaScore capture process was running.
+- Restarted pmcs2 at 07:45:27Z with the row's 3 GB floor and 2 Dec end time. Unit `pkarbs-pmcs2-p91` was active (PID 625719); recorder log showed WebSocket open and three current-market lines. At 07:48Z the current-hour books file had grown 306,988 bytes over 60 seconds.
+- Restarted the PandaScore capture in tmux `pscap2` at 07:45:34Z with `PS_FLOOR_GB=3`; PID 625842 remained present at the 07:48Z read and its startup log confirmed the credential source was found. Capture output is NOT verified: the log has no socket-open line and the raw directory still contains only the 16 Nov file (0-byte growth). No further retry or polling was made.
+- The corrected live-read ran at 07:47:41Z: pmcs2 OK; PandaScore capture DOWN-or-quiet; the probe found no live CS2 match with a matching Polymarket market. VOL2 available at the end of the read was 9,906,761,728 bytes.
+- OPEN / NOT VERIFIED: PandaScore socket connection and raw-file growth. Both protected recorders were restarted; the capture's required data check did not pass in this read.
