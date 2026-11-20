@@ -348,7 +348,7 @@ The required `tail -14` output for each log follows. These are exploratory/inter
 
 ### desc-esports.log
 - EXPLORATORY/INTERIM descriptive table; NOT the signed v2 test, no verdict, no pass; UNCHECKED until an independent checker signs
-- sport \"esports\"
+- sport "esports"
 - files 48
 - goalserve_events_total 5590
 - match_markets_seen 69
