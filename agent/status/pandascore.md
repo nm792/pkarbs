@@ -199,3 +199,17 @@ NO live CS2 match with a matching Polymarket market; nothing to measure (write t
 - Step 2 (05:43Z): `/root/ship/ship_raw.sh` uses `/root/ship/writers.conf`; the PandaScore writer is `pandascore|/mnt/HC_Volume_107257520/pkarbs/pandascore|pkarbs/pandascore|-|y|hourly`. Read-only storage-box listing of `pkarbs/pandascore/raw/` (last 30 entries) ends at `pandascore_2026111922.jsonl.gz`, 133,429 bytes, timestamp 2026-11-20 03:10:14Z. The local raw directory has only corrupt `pandascore_2026111612.jsonl.gz` (216,915 bytes); no local hourly files to ship. Box entries include 19 Nov 11Z–21Z files, so shipped coverage is present through 21Z, with 22Z last; no 23Z onward file is listed.
 - Step 6: copied the reviewer `origin/reviewer` probe to the active loop input `/tmp/REPLY-2026-11-19-live_probe_cs2.py`; SHA-256 `1d5f389d51b769595333d258fa14b2bf40438660bd9d429137ced51c4ec7bf72`, matching the reviewer source. The loop PID 3273611 remained alive after the copy. No PM recorder files or process were touched.
 - The loop log continued to report no live CS2 match with a matching Polymarket market at 05:44Z; probe measurement awaits a matching live market.
+
+
+## PS live read 0615Z (run 20 Nov 2026, 06:42–06:44Z; delayed)
+
+- Reviewer script ran 06:42:53–06:43:53Z, delayed from the 06:15Z slot. PandaScore capture PID 438316, but newest local raw file `pandascore_2026111612.jsonl.gz` grew 0 bytes in 60 seconds; raw directory contained only that 216,915-byte file (16 Nov 13:00Z).
+- PM CS2 books PID 477278; `books-2026112006.jsonl` grew 2,704 bytes in 60 seconds to 167,085 bytes. Recorder log showed 762 rows, 12,271 messages, 9 markets. Probe PID 3273611 reported no live CS2 match with a matching Polymarket market.
+- No process, source, or configuration changed.
+
+## PS live read 0650Z (run 20 Nov 2026, 06:51–06:53Z; delayed)
+
+- Reviewer script ran 06:51:01–06:52:01Z, delayed from the 06:50Z slot; the 07:00Z pass condition was not met. PandaScore capture had no PID; newest local raw file remained the same 216,915-byte 16 Nov file, with 0-byte growth.
+- PM CS2 recorder had no PID. `books-2026112006.jsonl` remained 316,786 bytes (0-byte growth); recorder stopped at 06:48:42Z with `disk below floor 10 GB (free 8.1 GB)`, then `done`. VOL2 showed 7 GB available.
+- `markets.jsonl`: 335 lines, 6 containing `PRIVATE`. Probe PID 3273611 remained present; newest probe reported no live CS2 match with a matching Polymarket market.
+- No process, source, or configuration changed.
