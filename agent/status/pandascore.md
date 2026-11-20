@@ -221,3 +221,12 @@ NO live CS2 match with a matching Polymarket market; nothing to measure (write t
 - Restarted the PandaScore capture in tmux `pscap2` at 07:45:34Z with `PS_FLOOR_GB=3`; PID 625842 remained present at the 07:48Z read and its startup log confirmed the credential source was found. Capture output is NOT verified: the log has no socket-open line and the raw directory still contains only the 16 Nov file (0-byte growth). No further retry or polling was made.
 - The corrected live-read ran at 07:47:41Z: pmcs2 OK; PandaScore capture DOWN-or-quiet; the probe found no live CS2 match with a matching Polymarket market. VOL2 available at the end of the read was 9,906,761,728 bytes.
 - OPEN / NOT VERIFIED: PandaScore socket connection and raw-file growth. Both protected recorders were restarted; the capture's required data check did not pass in this read.
+
+
+## P91 verification (20 Nov 2026, 08:14–08:15Z)
+
+- Ran the row's `it/pandascore_live_read.sh` once. VOL2 had 9,651,752,960 bytes available at 08:14Z (above the row's 4 GB stop gate; no process was restarted or stopped).
+- PM CS2 recorder PID 625719 was present; `books-2026112008.jsonl` grew 348,874 bytes over 60 seconds. `recorder.log` had a fresh 08:05:27Z alive line.
+- PandaScore capture PID 625842 was present in `pscap2`, but the only local raw file remained the 16 Nov file and grew 0 bytes over 60 seconds. `/root/pscap2.log` had the 07:45:34Z start line and no later socket/open or data line. Capture output remains unverified; process presence is not a pass.
+- The live probe reported no matching live CS2/Polymarket market, so no probe measurement was available. No process, source, crontab, or configuration changed during this check.
+- P91 restart action is complete. PandaScore socket and raw output are still not verified; this report does not claim both feeds are healthy.
