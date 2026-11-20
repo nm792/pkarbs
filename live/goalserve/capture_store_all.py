@@ -26,13 +26,12 @@ SPORTS = {
     "hockey_nhl": "/inplay-hockey.gz",
     "esports":   "/inplay-esports.gz",
     # esports added 13 Nov 14:0xZ under APPROVALS item 18 (Nick yes 13:46Z); poll stays 1.0 s.
-    "basketball": "/inplay-basket.gz",
-    # basketball added 17 Nov under Nick yes 06:24:54Z (store full odds bodies for tennis, hockey and
-    # basketball). inplay-volleyball.gz is still OUT of scope; inplay-cricket.gz is 404 (no such feed).
+    # basketball (inplay-basket.gz) added 17 Nov, REMOVED 20 Nov: Polymarket basketball is NBA only and NBA is dropped (Nick), so no book to compare and disk saved.
+    # inplay-volleyball.gz is still OUT of scope; inplay-cricket.gz is 404 (no such feed).
 }
 # sports whose changed bodies are stored (gzip, one file per UTC hour). esports keeps its original
 # directory and file name; the others write <sport>_payloads/<sport>_<UTC hour>.jsonl.gz beside it.
-STORE_SPORTS = ("esports", "tennis", "hockey_nhl", "basketball")
+STORE_SPORTS = ("esports", "tennis", "hockey_nhl")
 PAYDIR = "/mnt/HC_Volume_107257520/pkarbs/goalserve/esports_payloads"   # Nick yes 14:43:42Z 13 Nov (inbox #300)
 _payload_stopped = {}   # sport -> True once its store has stopped (log written once)
 

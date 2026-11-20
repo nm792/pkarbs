@@ -22,9 +22,9 @@ def check(name, cond):
     if not cond:
         fails.append(name)
 
-check("SPORTS has basketball -> /inplay-basket.gz", mod.SPORTS.get("basketball") == "/inplay-basket.gz")
+check("SPORTS has NO basketball (dropped 20 Nov, NBA out)", "basketball" not in mod.SPORTS)
 check("SPORTS has no volleyball (still out of scope)", "volleyball" not in mod.SPORTS)
-check("STORE_SPORTS exact", tuple(mod.STORE_SPORTS) == ("esports", "tennis", "hockey_nhl", "basketball"))
+check("STORE_SPORTS exact", tuple(mod.STORE_SPORTS) == ("esports", "tennis", "hockey_nhl"))
 check("every stored sport is polled", all(s in mod.SPORTS for s in mod.STORE_SPORTS))
 check("soccer and baseball are NOT stored", "soccer" not in mod.STORE_SPORTS and "baseball" not in mod.STORE_SPORTS)
 
@@ -59,14 +59,15 @@ try:
     before = len([l for l in gzip.open(p, "rt")])
     mod.store_payload("tennis", 3000, b"{}")
     mod.store_payload("tennis", 3001, b"{}")
-    mod.store_payload("basketball", 3002, b"{}")
+    mod.store_payload("hockey_nhl", 3002, b"{}")
 finally:
     shutil.disk_usage = real_du
 check("floor: no new tennis row", len([l for l in gzip.open(p, "rt")]) == before)
 tl = os.path.join(mod.OUT, "tennis_payloads_STOP.log")
 check("floor: tennis STOP log written once", os.path.exists(tl) and len(open(tl).read().splitlines()) == 1)
-check("floor: basketball has its own STOP log", os.path.exists(os.path.join(mod.OUT, "basketball_payloads_STOP.log")))
-check("floor: hockey_nhl unaffected until it is called", not os.path.exists(os.path.join(mod.OUT, "hockey_nhl_payloads_STOP.log")))
+check("floor: hockey_nhl has its own STOP log", os.path.exists(os.path.join(mod.OUT, "hockey_nhl_payloads_STOP.log")))
+check("floor: esports unaffected until it is called", not os.path.exists(os.path.join(mod.OUT, "esports_payloads_STOP.log")))
+check("basketball store is a no-op (not in STORE_SPORTS)", not os.path.exists(os.path.join(mod.OUT, "basketball_payloads_STOP.log")))
 
 shutil.rmtree(tmp)
 print("ALL PASS" if not fails else "FAILED: " + "; ".join(fails))
