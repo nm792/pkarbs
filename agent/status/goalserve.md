@@ -285,3 +285,8 @@ P84a scope completed: steps 1, 2, 3 and 6. Status commit: 7b80fa22298f89b0247854
 - Scope deviation: I mistakenly launched the separate P84b esports/tennis scans. They had not completed when VOL2 fell from 17,654,091,776 bytes free at 02:43Z to 14,852,890,624 bytes at 02:47Z. Both were stopped at 02:48Z; no new result was produced and no files were deleted. Existing scan JSON files predate these attempted runs. The 17 GB gate now fails; no further scan was run.
 
 Status: P84a complete. P84b scan outputs remain outstanding, not part of this P84a row.
+
+
+## P88x Goalserve match samples (20 Nov 2026)
+
+Reviewer exporter tests: ALL PASS. Exported winner-market-only change samples from available raw hours: tennis 25 input files, 3 matches; CS2 48 files, 3 matches; Dota 2 48 files, 3 matches; hockey 24 files, 3 matches. Indices and compressed samples are under `it/samples-2026-11-20/` on origin/reviewer. Output total: 1,010,840 bytes. All 12 serialized files passed an IP-like dotted-quad scan (0 findings). VOL2 free after generation: 12,291,629,056 bytes. The first Dota invocation hit the 600-second command timeout while continuing in the background; verified the exporter process exited and its output/index completed before proceeding.

@@ -145,3 +145,8 @@ NO live CS2 match with a matching Polymarket market; nothing to measure (write t
 
 The probe loop is running, but three consecutive cycles found no live CS2 match with a matching Polymarket market, so there was nothing to measure. PandaScore raw capture reported no PID and 0 bytes of growth over 60 seconds; its newest file is the 22:00Z hour file. The PM book recorder remains active and grew 7,756,094 bytes over the sample. No process, file, or configuration was changed.
 
+
+
+## P88x PandaScore samples (20 Nov 2026)
+
+Read-only run using the reviewer script `it/ps_export_samples.py` from origin/reviewer. It skipped the older `pandascore_2026111612.jsonl.gz` because gzip decompression returned `invalid block type`; the valid `pandascore_2026111922.jsonl.gz` yielded three matches. Index: match 1791311 (GamerLegion vs BIG), 882 messages / 866 in-round / 103,303 bytes; 1803639 (Apogee Esports vs maybe), 183 / 181 / 12,207 bytes; 1796498 (Brute vs Nice Try), 158 / 155 / 10,746 bytes. Exported files and index: `scratch/ps_samples/`. No source, process or configuration changed.
