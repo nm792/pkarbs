@@ -11,7 +11,7 @@ const ev = [
   { slug: 'nhl-lak-tor-2026-11-19', ended: true, markets: [mk('moneyline', 'g')] },
   { slug: 'cs2-a-b-2026-11-21', markets: [mk('moneyline', 'f')] }];
 const pk = pickMarkets(ev), conds = pk.map((m) => m.cond).join(',');
-if (conds !== 'a,c,e') bad.push('pickMarkets wrong: ' + conds);
+if (conds !== 'a,e') bad.push('pickMarkets wrong: ' + conds);
 if (pk[0] && (pk[0].league !== 'nhl' || pk[0].start !== '2026-11-21T18:00:00.000Z')) bad.push('league/start wrong ' + JSON.stringify(pk[0]));
 // gz writer: two flushes make a two-member gzip file that decompresses to all rows in order; empty flush writes nothing
 const f = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'psb-')), 'books.jsonl.gz'), w = gzWriter(f);

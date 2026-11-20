@@ -1,13 +1,13 @@
-// PM NHL + NBA moneyline book recorder (Goalserve thread, 20 Nov 2026): BOTH tokens' OWN books (YES and NO are separate books), tick level,
+// PM NHL moneyline book recorder (Goalserve thread, 20 Nov 2026): BOTH tokens' OWN books (YES and NO are separate books), tick level,
 // one local clock (Date.now() at receive). Reuses newState/applyMsg/floorBytes from pm_cs2_books.js (same dir). Read-only; Node 22, no deps.
 // Disk-light: rows are buffered and appended as one gzip member every 30 s to books.jsonl.gz (multi-member gzip, crash-safe, readable by
-// Python gzip and by feeds/ps_lead_test.py find(d,'books')). Only the moneyline market of a game event (slug nhl-xxx-yyy-YYYY-MM-DD / nba-...).
+// Python gzip and by feeds/ps_lead_test.py find(d,'books')). Only the moneyline market of an NHL game event (slug nhl-xxx-yyy-YYYY-MM-DD); NBA is out of scope (Nick).
 // Usage: node pm_sport_books.js <outDir> [endISO] [floorGB=10]   (stops itself below floorGB free; 0 disables)
 // Output: markets.jsonl {cond,q,outcomes,tokens,smt,start,slug,league}; books.jsonl.gz rows as pm_cs2_books.js (recv_ms, asset, outcome, bids, asks ...).
 const fs = require('fs'), path = require('path'), zlib = require('zlib');
 const { newState, applyMsg, floorBytes } = require('./pm_cs2_books.js');
 const UA = { 'User-Agent': 'pkarbs-sport-recorder', 'Accept-Encoding': 'gzip' };
-const SLUG = /^(nhl|nba)-[a-z0-9]+-[a-z0-9]+-\d{4}-\d\d-\d\d$/;
+const SLUG = /^(nhl)-[a-z0-9]+-[a-z0-9]+-\d{4}-\d\d-\d\d$/;
 
 // events: Gamma event objects. -> NHL/NBA game-event moneyline markets with exactly two tokens and two outcomes.
 function pickMarkets(events) {
@@ -52,7 +52,7 @@ if (require.main === module) {
       try {
         const lo = new Date(Date.now() - 8 * 3600e3).toISOString(), hi = new Date(Date.now() + 36 * 3600e3).toISOString();
         const fresh = [];
-        for (const tag of ['nhl', 'nba']) {
+        for (const tag of ['nhl']) {
           for (let off = 0; off < 1000; off += 100) {
             const r = await fetch(`https://gamma-api.polymarket.com/events?tag_slug=${tag}&closed=false&limit=100&offset=${off}`, { headers: UA });
             if (r.status !== 200) { log('gamma status ' + r.status); break; }
