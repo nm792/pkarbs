@@ -16,3 +16,13 @@ Planted check (+3c injected 5 s after every kept event, same pipeline): kill LEA
 
 ## What would settle it
 More matches (the capture restart; 12 matches minimum and more kills), own-book asks from the slim pmcs2 recorder at event times (replaces last-trade prices), and an independent audit with the rule-to-code table. Next live read of the capture is queued for the 09:11Z session.
+
+## Update 16:05Z: 15 matches (P95 added 5 new matches; b7ed383e68)
+
+Command: `python3 -I it/ps_inround_test.py scratch/ps_samples` and with plant `0.03`. Same script as above, unchanged.
+
+- Kills (n=652 market-rows): LEAD +0.75c, p<0.0001 (optimistic: rows are not independent). ANTICIPATION +0.15c, p=0.20 (clean). 11 of 15 matches positive (73%). Largest: 1803648 +3.01c (n=38), 1791311 +2.91c (n=14, truncated), 1791312 +1.77c, 1803639 +1.75c. Negatives: 1791310 -0.48c, 1789179 -0.21c, 1791306 -0.05c, 1789182 -0.03c.
+- Planted +3c: kills read +2.25c, so about 1.5c of the 3c came back (about 50%). Scaling the real +0.75c by that gives a true lead of maybe 1.5c, with wide error. Not yet above the 1.25c taker fee with any margin.
+- Round end: LEAD +0.87c but ANTICIPATION +0.99c (p<0.0001): the price already moves before the score changes, so it is not a lead.
+- Pre-registered verdict: UNKNOWN. Sample size now met (15 matches). LEAD +0.75c is below the +1.0c PASS bar and above the +0.5c FAIL bar. The rows-vs-events count of kept kills was not separately checked against the 150 bar here. The five new matches are mostly small or partial samples.
+- Still UNCHECKED: no independent audit or rule-to-code table by another thread. Prices are last public trades, not each token's own book asks.
