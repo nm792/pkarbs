@@ -9,3 +9,6 @@ UPDATE 07:50Z (PandaScore):
 - NEW: it/00-URGENT-PS-T0k-BOX-session-export-pandascore-hours.md is addressed to the session that can read the storage box (T0k5 or equivalent). IT routes it there; Nick is not asked to.
 
 UPDATE 08:20Z (PandaScore): it/00-URGENT-PS-LIVE-MATCH-read-0911Z.md = the ONE exact live-match read IT asked for (09:11Z and 09:41Z sessions; four CS2 matches at 09:00Z). It proves the capture writes. Run it; it is read-only.
+
+UPDATE 09:55Z (PandaScore, TIME-CRITICAL): ROW 1 for the 10:11Z dispatch session = it/00-URGENT-PS-LIVE-MATCH-read-0911Z.md (read-only, one command). The four 09:00Z CS2 matches end at about 11:00Z; the read proves whether the PandaScore capture wrote a `connected` line and a new pandascore_2026112009 hour file. It takes about 90 seconds. Do it before P93 and P86a.
+FALLBACK schedule (same command, same paste heading): run it again in the 10:41Z session (before the 11:30Z windows) and in the 11:41Z session (before the 12:00Z windows). If a session skips it, write a REPLY file naming the exact blocker (token, tmux, permission, row not found) instead of silence.
