@@ -276,16 +276,6 @@ Copied only the 24 missing hour files (00-05 for esports, tennis, hockey_nhl and
 
 ## P84 Goalserve interim table (20 Nov)
 
-- Step 1: PASS. Reviewer-script checks ended `ALL PASS` (reversed outcome order, sign, and no-PM-market cases). Code checksums: `goalserve_descriptive_by_sport.py` 8a494f8c833917d53c1cad0c9d7bc489d43d2a9c623bcdd378206a4bf4f61c80; `test_goalserve_descriptive_by_sport.py` b8c4f4efd1d715ad3e97d3bb5c619b8d43c0e987cb6a4a2aa969460cd9fdd889. Reviewer branch also contains `build_report.py`; it was not named for execution by step 1.
-- Step 2: The note's exact `goalserve_20261119.jsonl` path does not exist. The only matching poll log is `goalserve_20261117.jsonl`; its last row has keys `t, tennis, soccer, baseball, hockey_nhl, esports, basketball`. At 02:45Z payload-hour counts were esports 51 (18 Nov 00 through 20 Nov 02), tennis 27 (19 Nov 00 through 20 Nov 02), hockey_nhl 27 (19 Nov 00 through 20 Nov 02), basketball 27 (19 Nov 00 through 20 Nov 02). The 20 Nov 02:20Z preflight independently reported current 20 Nov 02 files for all four.
-- Step 3: The recorder market inventory contains tennis, NBA, NHL absent, and basketball absent; the full leading categories were tennis moneyline 4,700, CS2 child moneyline 772, CS2 moneyline 544, Dota2 child moneyline 410, Dota2 moneyline 202, cricket moneyline 138, NBA moneyline 93, NFL moneyline 28, LoL child moneyline 36, and LoL moneyline 9. No hockey or basketball market was present, so step 5 was skipped as directed.
-- Step 4: INCOMPLETE. Started the two prescribed low-priority scans concurrently. Neither completed; no new result was produced. VOL2 available space fell from 17,654,091,776 bytes at 02:43Z to 14,852,890,624 bytes at 02:47Z, below the 17 GB pre-run gate. I stopped both scan processes at 02:48Z; no files were deleted. Existing `desc-esports.json` and `desc-tennis.json` predate these runs (mtimes 02:22Z and 02:28Z) and are not claimed as this run's outputs.
-- Step 6: Completed from the existing look-1 result. Cells: `cs2|Map 1 Winner` (6 matches, 240 events; informational, no boundary); `cs2|Map 2 Winner` (6, 239; informational, no boundary); `cs2|Match Winner` (6, 215; unknown, below 12-match/60-event minimum); `unparsed|Map 3 Winner` (1, 13; informational, no boundary); `unparsed|Map 4 Winner` (1, 6; informational, no boundary). Values remain in the existing result file.
-
-Status: partial; steps 1, 2, 3 and 6 are recorded, step 4 has no completed output, step 5 was correctly skipped. No claim of a completed interim table.
-
-## P84 Goalserve interim table (20 Nov)
-
 P84a scope completed: steps 1, 2, 3 and 6. Status commit: 7b80fa22298f89b0247854bec51259883ee88235.
 
 - Step 1: PASS. Reviewer-script checks ended `ALL PASS` (reversed outcome order, sign, and no-PM-market cases). SHA256 `goalserve_descriptive_by_sport.py`: 8a494f8c833917d53c1cad0c9d7bc489d43d2a9c623bcdd378206a4bf4f61c80; `test_goalserve_descriptive_by_sport.py`: b8c4f4efd1d715ad3e97d3bb5c619b8d43c0e987cb6a4a2aa969460cd9fdd889.
