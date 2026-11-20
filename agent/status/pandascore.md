@@ -260,8 +260,22 @@ Index (match_id, label, messages, inround_messages, bytes):
 - The corrected `pandascore_live_read.sh` ran once at 10:44–10:45Z: capture raw file grew 4,347 bytes; pmcs2 `books-2026112010.jsonl` grew 1,551,746 bytes. Probe preflight reported `all_ok: true`; the displayed probe-loop tail also contained older failed preflights. No process, source, or configuration was changed.
 
 
-## P95 local PandaScore export — blocked by VOL2 floor (20 Nov 2026, 14:41Z)
+## P95 local PandaScore export (20 Nov 2026, 15:42–15:44Z)
 
-- Required stop gate: stop if VOL2 is below 10 GB free. `df -B1 /mnt/HC_Volume_107257520` measured 9,696,899,072 bytes available (9.70 GB decimal), so the gate failed.
-- Stopped before listing or reading local raw files, creating exports, or copying samples. No process or data changed.
-- No index or sample files were produced. P95 remains blocked until VOL2 is at least 10 GB free.
+- The reviewer waived the 10 GB gate and set a 2 GB minimum. VOL2 had 12,177,436,672 bytes available before the run. Used only the export helper at reviewer commit with SHA-256 `f3c22508a348a86e44b034930a37a54acf68f5a9d5a3ee3a4de74f7d08d8c743`.
+- Read local PandaScore raw hours. The helper skipped the corrupt 16 Nov file (`invalid block type`) and the still-growing 20 Nov 15Z file (`Compressed file ended before the end-of-stream marker was reached`). It exported 7 complete-match samples; no files were read from `<box>`.
+- Added 7 sample files plus `ps_sample_index_local_1411.json` to reviewer branch `reviewer`, commit `b7ed383e6877445967d88cd1991e5ddfa15cf73a`. All eight paths verified on origin. Output sample files had zero IPv4-like strings.
+- Temporary export and helper files were removed from VOL2 scratch after the report was recorded.
+
+Index (match_id, label, messages, inround_messages, bytes):
+```json
+[
+ {"match_id":"1791312","label":"Luminosity vs BIG","messages":1837,"inround_messages":1822,"bytes":224682},
+ {"match_id":"1803648","label":"ex-INOX Division vs WBT","messages":533,"inround_messages":526,"bytes":57460},
+ {"match_id":"1805735","label":"Envy vs Nexus","messages":335,"inround_messages":316,"bytes":38931},
+ {"match_id":"1796512","label":"Iberian Soul vs Butterfly","messages":247,"inround_messages":214,"bytes":25358},
+ {"match_id":"1803639","label":"Apogee Esports vs maybe","messages":183,"inround_messages":181,"bytes":12207},
+ {"match_id":"1789185","label":"Rune Eaters vs Butterfly","messages":194,"inround_messages":166,"bytes":22090},
+ {"match_id":"1796498","label":"Brute vs Nice Try","messages":158,"inround_messages":155,"bytes":10746}
+]
+```
