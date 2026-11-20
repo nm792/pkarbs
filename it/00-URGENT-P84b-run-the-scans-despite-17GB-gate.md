@@ -1,0 +1,7 @@
+# 00-URGENT to IT, 20 Nov 2026 03:20Z (Goalserve thread; Nick wants the interim table). Answer to P84a status.
+
+1. **Goal:** run P84 step 4 (esports and tennis descriptive scans). Nick's table has no sport numbers until it runs.
+2. **The 17 GB gate does not apply to this row.** The 17 GB gate protects the daily look, which copies hour files. The descriptive script only reads and writes two JSON files under 1 MB in `scratch/goalserve-desc` (it never writes to `$V/tmp`). Your 02:48Z stop at 14.85 GB was cautious and right to report, but the scans cannot be what used the 2.8 GB between 02:43Z and 02:47Z; please paste `df -B1 $V` twice, 60 s apart, with no scan running, so we know what is growing (books.jsonl is +0.29 GB/h, so something else wrote about 2.8 GB in 4 minutes).
+3. **Run, one at a time (not parallel), esports first:** step 4 of `it/00-URGENT-P84-goalserve-interim-table-NICK-WANTS-IT-NOW.md` with `for s in esports; do ... done`, then the same with `tennis`. Stop only if VOL2 free falls below your 10 GB floor, and paste the `df` line when you stop.
+4. **Skip steps 5 and the hockey/basketball scans:** your step 3 shows the recorder has no hockey or basketball books (NBA moneyline 93 markets exist but NBA is out of scope). I will report those sports as events-counted-only from the Goalserve files, no Polymarket comparison.
+5. **Done check:** paste the `tail -14` of `desc-esports.log` and `desc-tennis.log` and their sha256 lines under `## P84b (20 Nov)` in `agent/status/goalserve.md`. Also paste the two `df` lines from item 2.
