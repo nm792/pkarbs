@@ -182,3 +182,13 @@ NO live CS2 match with a matching Polymarket market; nothing to measure (write t
 ```
 - No processes, configuration, source files or raw data were changed. Generated export files remained in `/tmp` and were not committed.
 
+
+
+## PS DOWN restart (20 Nov)
+
+- Step 1 (04:41Z): PandaScore capture log `/tmp/pscap2.log` did not exist before restart. PM recorder log ended at 03:14:21Z with `disk below floor 10 GB (free 9.3 GB): stopping`; the raw capture's cause is not established. `dmesg` showed OOM kills at 00:19Z, 02:10Z and 02:19Z, without evidence tying them to this capture. VOL2 free at preflight: 11,747,700,736 bytes.
+- Step 3: fetched the reviewer-provided files from `origin/reviewer`; live-probe test `PASS (6 checks, each able to fail)` and PM recorder test `PASS (11 checks, each able to fail)`.
+- Step 4: copied the tested PM recorder to the live directory (SHA-256 `6643c28fbc31e2d2dd8594c4d480745faa9a9669dc0b2d4f5218e20e5ebfaaae`, equal at source and destination) and started it with the specified 10 GB floor/end time. Node PID 437635 was live. `books.jsonl` grew from 5,182,446,232 to 5,201,215,296 bytes over a 60-second read (18,769,064 bytes); a later read showed 5,208,265,986 bytes.
+- Step 5: started `ll_capture_floor_env.py` in tmux `pscap2` with `PS_FLOOR_GB=10`; PID 438323 was live and its start log confirmed the token file was found (value not read or recorded).
+- Step 7 read at 04:46:20–04:47:20Z: both processes remained live; PM books grew 18,769,064 bytes. The newest PandaScore raw file remained `pandascore_2026111922.jsonl.gz`, 133,429 bytes, with 0-byte growth; no new hourly raw file appeared. Thus the capture restart is running but its required data-growth check has NOT passed. No restart/kill retry was made.
+- OPEN / NOT VERIFIED: PandaScore raw capture output growth and cause of its silent startup. The PM recorder is running and writing.
