@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-19T23:00:00Z |
-| origin_tip | 8dea82a7bf |
-| newest_origin_commit | 2026-11-19T22:00:11Z heartbeat 2026-11-19T22:00:00Z (no-model status_heartbeat.sh, R1) |
+| generated_utc | 2026-11-20T00:00:00Z |
+| origin_tip | 89c77ccb77 |
+| newest_origin_commit | 2026-11-19T23:47:06Z report P79 Goalserve copy-back |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
