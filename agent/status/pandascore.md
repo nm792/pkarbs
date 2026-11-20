@@ -64,7 +64,22 @@
 
 - Step 1: reviewer script and test ran; `PASS (4 checks, each able to fail)`.
 - Step 2: 3 probe JSON files found: `pandascore-cs2-probe-20261119T103941Z.json` (33,085 bytes), `...142655Z.json` (87,302 bytes), and `...162903Z.json` (82,650 bytes).
-- Step 3: read-only scan completed against the 4,787,028,846-byte `pmcs2/books.jsonl`; output: `matches=3 series_rows=424 onsets=143 median_lead_s=-28.21 share_PS_led=0.15`. Exploratory/interim/unchecked; all three map series had no book rows, so ask-depth values are unavailable.
+- Step 3: completed read-only scan against the 4,787,028,846-byte `pmcs2/books.jsonl`; complete output follows (exploratory/interim/unchecked):
+
+```text
+EXPLORATORY / INTERIM / UNCHECKED. books=/mnt/HC_Volume_107257520/pkarbs/pmcs2/books.jsonl probes=/mnt/HC_Volume_107257520/pkarbs/scratch/pandascore-cs2-probe/pandascore-cs2-probe-20261119T103941Z.json,/mnt/HC_Volume_107257520/pkarbs/scratch/pandascore-cs2-probe/pandascore-cs2-probe-20261119T142655Z.json,/mnt/HC_Volume_107257520/pkarbs/scratch/pandascore-cs2-probe/pandascore-cs2-probe-20261119T162903Z.json
+match | series | events | with_onset | median_lead_s | share_PS_led | ask_best_sz(median) | ask_top3_sz(median)
+1789179 | map | 16 | 0 | None | None | NO_BOOK_ROWS | NO_BOOK_ROWS
+1789179 | match | 16 | 13 | -28.18 | 0.08 | NO_BOOK_ROWS | NO_BOOK_ROWS
+1789181 | map | 40 | 0 | None | None | NO_BOOK_ROWS | NO_BOOK_ROWS
+1789181 | match | 40 | 35 | -23.9 | 0.17 | NO_BOOK_ROWS | NO_BOOK_ROWS
+1791310 | map | 50 | 48 | -32.71 | 0.06 | NO_BOOK_ROWS | NO_BOOK_ROWS
+1791310 | match | 50 | 47 | -22.92 | 0.23 | NO_BOOK_ROWS | NO_BOOK_ROWS
+ALL: matches=3 series_rows=424 onsets=143 median_lead_s=-28.21 share_PS_led=0.15
+probe summary pandascore-cs2-probe-20261119T103941Z.json {"map_rising_team_token": {"n_events": 16, "n_with_onset": 0, "median_onset_s": null, "share_onset_after_feed": null, "n_placebo_with_onset": 0, "placebo_median_s": null, "real_minus_placebo_s": null}, "map_other_token": {"n_events": 16, "n_with_onset": 0, "median_onset_s": null, "share_onset_after_feed": null, "n_placebo_with_onset": 0, "placebo_median_s": null, "real_minus_placebo_s": null}, "match_rising_team_token": {"n_events": 16, "n_with_onset": 13, "median_onset_s": -28.18, "share_onset_after_feed": 0.077, "n_placebo_with_onset": 1, "placebo_median_s": 4.05, "real_minus_placebo_s": -32.23}, "match_other_token": {"n_events": 16, "n_with_onset": 13, "median_onset_s": -28.18, "share_onset_after_feed": 0.077, "n_placebo_with_onset": 1, "placebo_median_s": 4.05, "real_minus_placebo_s": -32.23}}
+probe summary pandascore-cs2-probe-20261119T142655Z.json {"map_rising_team_token": {"n_events": 50, "n_with_onset": 48, "median_onset_s": -32.71, "share_onset_after_feed": 0.062, "n_placebo_with_onset": 1, "placebo_median_s": -14.92, "real_minus_placebo_s": -17.79}, "map_other_token": {"n_events": 50, "n_with_onset": 49, "median_onset_s": -32.35, "share_onset_after_feed": 0.082, "n_placebo_with_onset": 1, "placebo_median_s": -17.43, "real_minus_placebo_s": -17.43}, "match_rising_team_token": {"n_events": 50, "n_with_onset": 47, "median_onset_s": -22.92, "share_onset_after_feed": 0.234, "n_placebo_with_onset": 1, "placebo_median_s": -13.53, "real_minus_placebo_s": -9.39}, "match_other_token": {"n_events": 50, "n_with_onset": 46, "median_onset_s": -21.28, "share_onset_after_feed": 0.239, "n_placebo_with_onset": 1, "placebo_median_s": -13.53, "real_minus_placebo_s": -7.75}}
+probe summary pandascore-cs2-probe-20261119T162903Z.json {"map_rising_team_token": {"n_events": 40, "n_with_onset": 0, "median_onset_s": null, "share_onset_after_feed": null, "n_placebo_with_onset": 2, "placebo_median_s": -53.59, "real_minus_placebo_s": null}, "map_other_token": {"n_events": 40, "n_with_onset": 0, "median_onset_s": null, "share_onset_after_feed": null, "n_placebo_with_onset": 2, "placebo_median_s": -53.59, "real_minus_placebo_s": null}, "match_rising_team_token": {"n_events": 40, "n_with_onset": 35, "median_onset_s": -23.9, "share_onset_after_feed": 0.171, "n_placebo_with_onset": 4, "placebo_median_s": -24.71, "real_minus_placebo_s": 0.81}, "match_other_token": {"n_events": 40, "n_with_onset": 34, "median_onset_s": -21.11, "share_onset_after_feed": 0.147, "n_placebo_with_onset": 3, "placebo_median_s": -13.74, "real_minus_placebo_s": -7.37}}
+```
 - Step 4: no matching `PREFLIGHT all`, `events:` or `FINAL` lines were found in the specified probe `.log` files. The raw directory listing showed `pandascore_2026111612.jsonl.gz` (216,915 bytes) and `pandascore_2026111922.jsonl.gz` (133,419 bytes).
 
 ## PS look 1 (20 Nov)
