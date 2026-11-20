@@ -14,6 +14,11 @@ def get(url):
     return json.loads(subprocess.run(["curl", "-s", "--compressed", "-H", "User-Agent: " + UA, url], capture_output=True, text=True).stdout)
 
 
+def same(a, b):
+    a, b = norm(a), norm(b)
+    return bool(a and b and (a == b or a in b or b in a))
+
+
 def norm(s):
     return re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).strip()
 
@@ -59,8 +64,11 @@ def feed_series(sample, eid):
             if min(o) <= 1.0 or m.get("suspend") not in (0, "0", False, None) or any(x.get("suspend") not in (0, "0", False, None) for x in ps):
                 continue
             inv = [1 / x for x in o]
-            ph = {norm(x.get("name")): inv[i] / sum(inv) for i, x in enumerate(ps)}
-            rows.append((r["recv_ns"] / 1e9, ph.get(norm(h)), ph.get(norm(a)), h, a))
+            side = {}
+            for i, x in enumerate(ps):
+                n = norm(x.get("name"))
+                side["h" if n in ("home", "1", norm(h)) else "a" if n in ("away", "2", norm(a)) else "?%d" % i] = inv[i] / sum(inv)
+            rows.append((r["recv_ns"] / 1e9, side.get("h"), side.get("a"), h, a, (e.get("info") or {}).get("score")))
     return rows
 
 
@@ -84,24 +92,35 @@ def main():
         pts = [t for t in tr if t["outcome"] == o]
         ax.scatter([ts(t["timestamp"]) for t in pts], [t["price"] for t in pts], s=[max(6, min(120, t["size"] / 4)) for t in pts], alpha=.5, c=cols[o], label="PM trades of %s token (own price)" % o)
     if fs:
-        h = fs[0][3]
+        h = fs[-1][3]      # last row's names (hockey rows can list the teams swapped for the first pre-game rows)
         ax.step([ts(x[0]) for x in fs], [x[1] for x in fs], where="post", c="k", lw=1.6, label="Goalserve implied win prob, %s (normalised 1/odds)" % h)
-        ax.step([ts(x[0]) for x in fs], [x[2] for x in fs], where="post", c="gray", lw=1.0, ls="--", label="Goalserve implied win prob, %s" % fs[0][4])
+        ax.step([ts(x[0]) for x in fs], [x[2] for x in fs], where="post", c="gray", lw=1.0, ls="--", label="Goalserve implied win prob, %s" % fs[-1][4])
         for i in range(1, len(fs)):
             if fs[i][1] is not None and fs[i - 1][1] is not None and abs(fs[i][1] - fs[i - 1][1]) >= 0.02:
                 ax.axvline(ts(fs[i][0]), c="red", alpha=.25, lw=1)
-    ax.set_ylim(0, 1); ax.set_ylabel("probability / price"); ax.set_title("%s  (EXPLORATORY; red lines = Goalserve moves of 2c or more)" % ev["title"]); ax.legend(loc="best", fontsize=8); fig.autofmt_xdate(); fig.tight_layout(); fig.savefig(a.out, dpi=110)
+            if fs[i][5] != fs[i - 1][5] and fs[i][5] not in (None, ""):
+                ax.axvline(ts(fs[i][0]), c="green", alpha=.35, lw=1, ls=":")
+    ax.set_ylim(0, 1); ax.set_ylabel("probability / price"); ax.set_title("%s  (EXPLORATORY; red = Goalserve odds move >=2c, green dotted = Goalserve score change)" % ev["title"]); ax.legend(loc="best", fontsize=8); fig.autofmt_xdate(); fig.tight_layout(); fig.savefig(a.out, dpi=110)
     n = 0
+    both = []
     print("trades in window", len(tr), "goalserve rows", len(fs))
     for i in range(1, len(fs)):
         if fs[i][1] is None or fs[i - 1][1] is None or abs(fs[i][1] - fs[i - 1][1]) < 0.02:
             continue
-        t = fs[i][0]; h = fs[i][3]
-        pre = [x["price"] for x in tr if norm(x["outcome"]) == norm(h) and t - 60 <= x["timestamp"] < t]
-        post = [x["price"] for x in tr if norm(x["outcome"]) == norm(h) and t <= x["timestamp"] < t + 60]
+        t = fs[i][0]; h = fs[-1][3]
+        pre = [x["price"] for x in tr if same(x["outcome"], h) and t - 60 <= x["timestamp"] < t]
+        post = [x["price"] for x in tr if same(x["outcome"], h) and t <= x["timestamp"] < t + 60]
         n += 1
+        if pre and post:
+            sg = 1 if fs[i][1] > fs[i - 1][1] else -1
+            d = sg * (statistics.median(post) - statistics.median(pre))
+            both.append(d)
         print("%s Goalserve %s %.3f -> %.3f | PM %s trades 60s before median %s (n=%d), 60s after median %s (n=%d)" % (ts(t).strftime("%H:%M:%S"), h, fs[i - 1][1], fs[i][1], h, statistics.median(pre) if pre else None, len(pre), statistics.median(post) if post else None, len(post)))
     print("moves>=2c", n)
+    if both:
+        print("SUMMARY moves with trades in both 60 s windows: %d; PM own-token median moved WITH the Goalserve move in %d (%.0f%%); mean signed change %.1f c; median %.1f c" % (len(both), sum(1 for x in both if x > 0), 100.0 * sum(1 for x in both if x > 0) / len(both), 100 * sum(both) / len(both), 100 * statistics.median(both)))
+    else:
+        print("SUMMARY no move had trades in both 60 s windows")
 
 
 if __name__ == "__main__":
