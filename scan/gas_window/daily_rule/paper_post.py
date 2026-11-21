@@ -32,14 +32,17 @@ def token_buckets(snapshot):
     for tid, v in snapshot["tok"].items():
         q, out = v["label"].rsplit("|", 1); toks[tid] = (N.bucket_bounds(q), out)
     edges = sorted({b for b, _ in toks.values()}); return {tid: (edges.index(b), out, b) for tid, (b, out) in toks.items()}
-def run(books, page, D, prm, nowcast=None, clock_end=None):
-    """Returns decisions (list of dicts). Counted decisions have shadow=False and kind 'post'. clock_end: ns cut-off (10:00 ET on D)."""
+def run(books, page, D, prm, nowcast=None, clock_end=None, window_s=10.0):
+    """Returns decisions (list of dicts). Counted decisions have shadow=False and kind 'post'. clock_end: ns cut-off (10:00 ET on D).
+    window_s: the decision moment is the logged page change; only book snapshots in [change, change + window_s] may fill it (default 10 s, covers 1 s book polls and a short latency).
+    A cheaper ask that shows up in a LATER book is not a fill of this decision (R-003 item 2, A8)."""
     chg = page_change(page, D); decisions = []; spent_tok = {}; spent_rule = {}; level_taken = {}; level_max = {}
     for snap in books:
         ns = snap["recv_ns"]
         if clock_end and ns > clock_end: break
         tb = token_buckets(snap)
         if chg and ns >= chg[0]:
+            if ns > chg[0] + window_s * 1e9: continue                          # later books never fill this decision
             val = chg[1]; bounds = {}
             for tid, (i, out, b) in tb.items(): bounds[i] = b
             win = next((i for i, (lo, hi) in bounds.items() if lo <= val < hi), None)
@@ -103,11 +106,11 @@ def sanity(page_path, books_path, decisions_path, now_ns, max_age_s=120):
     return res
 def main(argv=None):
     ap = argparse.ArgumentParser(); ap.add_argument("--books", required=True); ap.add_argument("--page", required=True); ap.add_argument("--date", required=True)
-    ap.add_argument("--out", required=True); ap.add_argument("--fee-rate", type=float, default=0.05); ap.add_argument("--nowcast", help="mean,sd of the AAA print for D (enables SHADOW rules)")
+    ap.add_argument("--out", required=True); ap.add_argument("--fee-rate", type=float, default=0.05); ap.add_argument("--window-s", type=float, default=10.0); ap.add_argument("--nowcast", help="mean,sd of the AAA print for D (enables SHADOW rules)")
     a = ap.parse_args(argv); D = dt.date.fromisoformat(a.date); prm = R.Params(fee_rate=a.fee_rate, rule_caps=(("yes_fav", 0.10), ("no_out", 0.05), ("post", 0.10)))
     nc = tuple(float(x) for x in a.nowcast.split(",")) if a.nowcast else None
     end = dt.datetime(D.year, D.month, D.day, 10, 0, tzinfo=ET).timestamp() * 1e9
-    dec = run(read_jsonl(a.books), read_jsonl(a.page), D, prm, nc, end)
+    dec = run(read_jsonl(a.books), read_jsonl(a.page), D, prm, nc, end, a.window_s)
     with open(a.out, "w") as f:
         for d in dec: f.write(json.dumps(d) + "\n")
     print(f"decisions {len(dec)} counted {sum(1 for d in dec if not d['shadow'])} shadow {sum(1 for d in dec if d['shadow'])} page_change {page_change(read_jsonl(a.page), D)}")
