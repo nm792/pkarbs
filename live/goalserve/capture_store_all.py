@@ -32,6 +32,7 @@ SPORTS = {
 # sports whose changed bodies are stored (gzip, one file per UTC hour). esports keeps its original
 # directory and file name; the others write <sport>_payloads/<sport>_<UTC hour>.jsonl.gz beside it.
 STORE_SPORTS = ("esports", "tennis", "hockey_nhl")
+FLOOR_B = float(os.environ.get("GOALSERVE_STORE_FLOOR_GB", "10")) * 1e9
 PAYDIR = "/mnt/HC_Volume_107257520/pkarbs/goalserve/esports_payloads"   # Nick yes 14:43:42Z 13 Nov (inbox #300)
 _payload_stopped = {}   # sport -> True once its store has stopped (log written once)
 
@@ -43,13 +44,13 @@ def _stop_log(sport, rec):
 def store_payload(sport, recv_ns, data):
     """Append the changed raw body, gzipped, one file per UTC hour, for the sports in STORE_SPORTS.
     esports keeps PAYDIR/esports_<hour>.jsonl.gz; others use OUT/<sport>_payloads/<sport>_<hour>.jsonl.gz.
-    Stops (and logs once per sport) if the output filesystem is at or below the 15 GB floor."""
+    Stops (and logs once per sport) if the output filesystem is at or below the floor (default 10 GB = IT's VOL2 floor since 20 Nov; was 15 GB; env GOALSERVE_STORE_FLOOR_GB)."""
     try:
         free = shutil.disk_usage(OUT).free
-        if free <= 15e9:
+        if free <= FLOOR_B:
             if not _payload_stopped.get(sport):
                 _payload_stopped[sport] = True
-                _stop_log(sport, {"free_b": free, "action": "payload store stopped: free <= 15 GB"})
+                _stop_log(sport, {"free_b": free, "action": "payload store stopped: free <= %.1f GB" % (FLOOR_B / 1e9)})
             return
         d = PAYDIR if sport == "esports" else os.path.join(OUT, f"{sport}_payloads")
         os.makedirs(d, exist_ok=True)

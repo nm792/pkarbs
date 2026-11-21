@@ -8,7 +8,7 @@ case "$SPORT" in esports) START=20261118; FLAG="";; tennis) START=20261119; FLAG
 G=$V/pkarbs/goalserve; PM1=$V/pkarbs/thesports/final-topics-32295b
 X=$V/pkarbs/scratch/goalserve-run-tree; T=$V/pkarbs/scratch/goalserve-daily-$SPORT; mkdir -p "$T/gs" "$V/tmp"
 AV=$(df -B1 --output=avail "$V" | tail -1); echo "date $(date -u +%FT%TZ) avail_bytes $AV"
-[ "$AV" -gt "${MIN_FREE:-15000000000}" ] || { echo "STOP: data disk free below 15 GB"; exit 1; }
+[ "$AV" -gt "${MIN_FREE:-10500000000}" ] || { echo "STOP: data disk free below 10.5 GB"; exit 1; }
 rm -rf "$X" && mkdir -p "$X" && git -C "$GITDIR" fetch -q origin claude/project-thread-vg2ckg && git -C "$GITDIR" archive origin/claude/project-thread-vg2ckg feeds | tar -x -C "$X" || { echo "STOP: export failed"; exit 1; }
 echo "commit $(git -C "$GITDIR" log -1 --format=%H origin/claude/project-thread-vg2ckg)"; cd "$X" || exit 1
 # pin the signed code (checker, 18 Nov): abort if any of the four files differs from the signed hashes
