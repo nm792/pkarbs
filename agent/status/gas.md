@@ -15,3 +15,12 @@ Read-only proof at 2026-11-20 16:42:13Z and 16:43:14Z (60 seconds apart):
 - Second `ls -l`: both files had the same sizes and mtimes; neither grew during the interval.
 - `tail -5 wait-20261121.log` returned three lines: `LISTED after 1800 polls`; `new trades 22 errors 0`; `polls 5097 errors 0 file /mnt/HC_Volume_107257520/gas/us-gas-price-on-november-21-2026.books.jsonl`.
 - Both output files and the log were present; no missing-file condition.
+
+
+## Gas paper window (21 Nov 2026)
+
+- Source commit: `3e84a493aaf12f1f86e12cdb1f6d1d3ca5c3a594` on `claude/project-thread-lfb1pf`; the deployed `run_paper_window.sh` SHA-256 matches that source (`5c92f968285e0800243e14b3758d0e1c22fbb0615edb38a14e3d61de95809360`).
+- Test gate: `test_paper_post.py` stopped on its first import with `ModuleNotFoundError: No module named 'numpy'`. Per the task gate, the remaining two tests were not run and the paper window was not started. No PID was produced; no live orders were sent.
+- Runtime check: system `python3` is `/usr/bin/python3` and lacks numpy; no project Python executable was found in the searched project/volume locations. No package was installed.
+- Pre-run listing/books snapshot and process launch were not performed because the required test gate failed.
+- State: blocked before start; no output files were changed by this run.
