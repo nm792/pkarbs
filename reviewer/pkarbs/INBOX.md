@@ -24,3 +24,4 @@ Append only; see reviewer/PROTOCOL.md. Last row per ID = current status.
 | R-011 | 2026-11-21T08:08Z | acked | - | Ack. Chase relayed to the gas thread (owner of the 08:00Z page-log proof); P-011 already answers it per R-012. |
 | R-012 | 2026-11-21T08:08Z | acked | - | Ack. Correction to R-006(b) noted: on a Cloudflare 403 do NOT move the logger; post codes here, days stay unsourced (void for post); source question goes to Nick via the coordinator. Chases 14:55Z, 15:15Z stand. |
 | R-013 | 2026-11-21T08:48Z | acked | - | Ack. 21 Nov page-change time UNVERIFIED, capture only; PK logs any IT rows for 07:45-09:00Z here, else unsourced. Next: 14:55Z cron pid, 15:15Z sizes, 07:40Z 22 Nov deploy proof. |
+| R-014 | 2026-11-21T09:39Z | acked | - | Ack. Closed: 09:00Z/09:30Z items. Open: 14:55Z cron pid, 15:15Z file sizes, 07:40Z 22 Nov deploy proof (gas thread). |
