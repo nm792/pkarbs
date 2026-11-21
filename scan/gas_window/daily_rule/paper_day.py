@@ -29,7 +29,7 @@ def day_row(D, books, page, prm, gamma_markets, nowcast=None):
             win = next((i for i, (lo, hi) in bounds.items() if lo <= chg[1] < hi), None)
             if win is not None: cap = S.capacity_row(first, {tid: ((i == win) == (o == "Yes")) for tid, (i, o, b) in tb.items()}, prm)
     row = dict(date=D.isoformat(), page_change_ns=chg[0] if chg else None, page_value=chg[1] if chg else None, n_books=len(books), n_page_rows=len(page),
-               n_page_200=sum(1 for r in page if r.get("status") == 200), counted_fills=len(counted), unresolved=unresolved,
+               n_page_200=sum(1 for r in page if r.get("status") == 200), counted_fills=len(counted), unfilled_hold=sum(1 for r in settled if r['kind'] == 'post_unfilled_hold'), unresolved=unresolved,
                post_pnl=P.day_pnl(settled), shadow_pnl={k: sum(r["pnl"] for r in settled if r["shadow"] and r["kind"] == k and r["pnl"] is not None) for k in ("yes_fav", "no_out")},
                cost=sum(r["cost"] for r in counted), markouts=S.markout_summary(counted), capacity=cap,
                fee_rate=prm.fee_rate, page_log_ok=chg is not None)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""PAPER run of the `post` rule (and shadow rules) against the LIVE recorded books, under the Reviewer's conditions (reviewer/REVIEW-RESPONSE-2026-11-20-gas-daily-and-mechanics.md e5648c5e; R-005, R-006):
+"""PAPER run of the `post` rule (and shadow rules) against the LIVE recorded books, under the Reviewer's conditions (reviewer/REVIEW-RESPONSE-2026-11-20-gas-daily-and-mechanics.md e5648c5e; R-005, R-006, R-007):
  1. a decision may only be taken AFTER the first logged AAA page row that shows the event date D (not at a fixed 03:30);
- 2. fills come ONLY from the own-token asks in the LATEST book snapshot received at or before decision time + latency (A1, A8): never from prints or later books;
+ 2. fills come ONLY from the own-token asks in the LATEST book snapshot received at or before decision time + latency (A1, A8): never from prints or later books; and the level must still be shown after the SETTLED A3 250 ms taker hold;
  3. settlement from the Polymarket resolution (gamma outcomePrices), cross-checked against the page value;
  4. $/day with an event-clustered CI against $200/day (A9), rebates separate; fee rate is a parameter (0.05 from 20 Nov 23:59Z, SETTLED);
  5. sanity check within 15 minutes of the first live day (sanity()).
@@ -32,10 +32,11 @@ def token_buckets(snapshot):
     for tid, v in snapshot["tok"].items():
         q, out = v["label"].rsplit("|", 1); toks[tid] = (N.bucket_bounds(q), out)
     edges = sorted({b for b, _ in toks.values()}); return {tid: (edges.index(b), out, b) for tid, (b, out) in toks.items()}
-def run(books, page, D, prm, nowcast=None, clock_end=None, latency_s=2.0, max_stale_s=5.0):
+def run(books, page, D, prm, nowcast=None, clock_end=None, latency_s=2.0, max_stale_s=5.0, hold_s=0.25, max_wait_s=5.0):
     """Returns decisions (list of dicts). Counted decisions have shadow=False and kind 'post'. clock_end: ns cut-off (10:00 ET on D).
     Decision moment = the logged page read (recv_ns). Fill book = the LATEST own-token book snapshot received at or before decision time + latency_s (R-006 a); latency_s is an ASSUMED page-read-to-order delay of at most 2 s, NOT measured (paper: no order path exists).
-    The snapshot must also be no older than max_stale_s (5 s) at decision time, else there is no decision (a stale book is not a decision-time book). One decision, one snapshot: a better ask in any LATER snapshot, or in an earlier snapshot that a newer one superseded, is never filled (A8)."""
+    The snapshot must also be no older than max_stale_s (5 s) at decision time, else there is no decision (a stale book is not a decision-time book). One decision, one snapshot: a better ask in any LATER snapshot, or in an earlier snapshot that a newer one superseded, is never filled (A8).
+    SETTLED A3 taker hold (R-007): a post decision counts as filled only if the SAME level (token, price) is still shown with at least the decided size in the first snapshot at or after page read + latency_s + hold_s (hold_s = 0.25 s, not later than max_wait_s); otherwise it is logged as shadow kind 'post_unfilled_hold', status 'unfilled (hold)', and not counted. hold_s=None switches the check off (tests only)."""
     chg = page_change(page, D); decisions = []; spent_tok = {}; spent_rule = {}; level_taken = {}; level_max = {}
     dec_snap = None
     if chg:
@@ -78,6 +79,19 @@ def run(books, page, D, prm, nowcast=None, clock_end=None, latency_s=2.0, max_st
                     if sh <= 0: continue
                     level_taken[key] = level_taken.get(key, 0.0) + sh; spent_tok[(tid, "s")] = spent_tok.get((tid, "s"), 0.0) + sh * p; spent_rule[kind] = spent_rule.get(kind, 0.0) + sh * p
                     decisions.append(dict(shadow=True, kind=kind, recv_ns=ns, token=tid, label=v["label"], price=p, size_shown=sz, shares=sh, cost=sh * p, fee=R.fee_per_share(p, prm.fee_rate) * sh, q=qq))
+    if chg and hold_s is not None:
+        t_chk = chg[0] + (latency_s + hold_s) * 1e9
+        chk = next((b for b in books if b["recv_ns"] >= t_chk), None)
+        if chk is not None and chk["recv_ns"] - t_chk > max_wait_s * 1e9: chk = None
+        out = []
+        for d in decisions:
+            if d["shadow"]: out.append(d); continue
+            lvl = None
+            if chk is not None and d["token"] in chk["tok"]:
+                lvl = next((s for p, s in chk["tok"][d["token"]]["asks"] if abs(p - d["price"]) < 1e-9), None)
+            if lvl is not None and lvl >= d["shares"] - 1e-9: out.append(dict(d, status="filled", hold_check_ns=chk["recv_ns"]))
+            else: out.append(dict(d, shadow=True, kind="post_unfilled_hold", status="unfilled (hold)", hold_check_ns=chk["recv_ns"] if chk else None))
+        decisions = out
     return decisions
 def settle(decisions, gamma_markets, prm=None):
     """gamma_markets: list of gamma market dicts (clobTokenIds, outcomes, outcomePrices). A token wins when its outcomePrice is >= 0.99 (resolved). Returns (rows with pnl, unresolved count)."""

@@ -3,6 +3,8 @@ import datetime as dt, math, os, random, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import paper_post as P, paper_score as S, rule as R
 from test_helpers_paper import snap, page, ns, D, PRM
+_run = P.run
+P.run = lambda *a, **k: _run(*a, **{"hold_s": None, **k})
 fails = 0
 def check(n, c):
     global fails; print(("ok   " if c else "FAIL ") + n); fails += 0 if c else 1

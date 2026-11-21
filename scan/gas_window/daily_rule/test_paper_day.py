@@ -13,12 +13,15 @@ GM = [dict(clobTokenIds=json.dumps(["t1Yes", "t1No"]), outcomes='["Yes","No"]', 
       dict(clobTokenIds=json.dumps(["t3Yes", "t3No"]), outcomes='["Yes","No"]', outcomePrices='["0","1"]')]
 b0 = snap(ns(3, 15, 2), {(1, "Yes"): [[0.90, 100]], (2, "No"): [[0.92, 100]]})
 b1 = bids(bids(snap(ns(3, 16, 2), {}), "t1Yes", [[0.97, 9]]), "t2No", [[0.97, 9]])
-rows = [b0, b1]
+b0b = snap(ns(3, 15, 3), {(1, "Yes"): [[0.90, 100]], (2, "No"): [[0.92, 100]]})
+rows = [b0, b0b, b1]
 row, settled = PD.day_row(D, rows, [page(ns(3, 15))], PRM, GM)
 check("planted day: page change time and value logged", row["page_change_ns"] == ns(3, 15) and row["page_value"] == 3.705 and row["page_log_ok"])
 check("planted day: two counted fills settle as wins, pnl > 0", row["counted_fills"] == 2 and row["unresolved"] == 0 and row["post_pnl"] > 0)
 check("planted day: +1min markout positive", row["markouts"]["+1min"]["pnl"] > 0)
 check("planted day: capacity row counts both eligible asks (200 shares)", row["capacity"]["eligible_shares"] == 200)
+row3, _ = PD.day_row(D, [b0, b1], [page(ns(3, 15))], PRM, GM)
+check("hold: the ask is gone/unseen at the hold check -> 0 counted fills, 2 logged unfilled (hold), P&L 0", row3["counted_fills"] == 0 and row3["unfilled_hold"] == 2 and row3["post_pnl"] == 0 and row3["page_log_ok"])
 row2, _ = PD.day_row(D, rows, [page(ns(3, 15), status=403, val=None)], PRM, GM)
 check("403-only page log: day is NOT scored (page_log_ok false, no fills)", not row2["page_log_ok"] and row2["counted_fills"] == 0)
 agg = PD.aggregate([row, row2])
