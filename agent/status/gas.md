@@ -20,7 +20,8 @@ Read-only proof at 2026-11-20 16:42:13Z and 16:43:14Z (60 seconds apart):
 ## Gas paper window (21 Nov 2026)
 
 - Source commit: `3e84a493aaf12f1f86e12cdb1f6d1d3ca5c3a594` on `claude/project-thread-lfb1pf`; the deployed `run_paper_window.sh` SHA-256 matches that source (`5c92f968285e0800243e14b3758d0e1c22fbb0615edb38a14e3d61de95809360`).
-- Test gate: `test_paper_post.py` stopped on its first import with `ModuleNotFoundError: No module named 'numpy'`. Per the task gate, the remaining two tests were not run and the paper window was not started. No PID was produced; no live orders were sent.
-- Runtime check: system `python3` is `/usr/bin/python3` and lacks numpy; no project Python executable was found in the searched project/volume locations. No package was installed.
-- Pre-run listing/books snapshot and process launch were not performed because the required test gate failed.
-- State: blocked before start; no output files were changed by this run.
+- Selected `/mnt/HC_Volume_107257520/mfw-venv/bin/python` (Python 3.14.4, numpy 2.5.3); no environment or package was changed.
+- Tests on the exact deployed source: `test_paper_post.py` — all pass (28 checks; `ALL PASS 0`); `test_aaa_page_log.py` — all pass (6 checks; `ALL PASS 0`); `test_run_paper_window.sh` — 3 of 3 pass.
+- Pre-start snapshot saved at `/mnt/HC_Volume_107257520/gas/paper_window_20261121.prestart-20261121T0612Z.txt` at 2026-11-21 06:13:09Z: listing JSON (403 bytes), books file (27,109,015 bytes, 5,097 lines; head and tail included). Original source files were not changed.
+- Started `run_paper_window.sh 2026-11-21` at 2026-11-21 06:13:19Z. PID 1976772 was verified running from the deploy directory; the script is sleeping in its own wait loop for the 07:40Z window. Its outer log is currently empty, as expected before the window; capture output has not yet been verified. No live orders were sent.
+- State: test gate passed and the scheduled paper-window process is running; window capture is pending its 07:40Z start.
