@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-21T07:00:00Z |
-| origin_tip | 2c0f4ea61f |
-| newest_origin_commit | 2026-11-21T06:16:41Z Run PK arbs gas paper window P98b |
+| generated_utc | 2026-11-21T08:00:19Z |
+| origin_tip | 9691e7ee26 |
+| newest_origin_commit | 2026-11-21T07:00:12Z heartbeat 2026-11-21T07:00:00Z (no-model status_heartbeat.sh, R1) |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
