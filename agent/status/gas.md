@@ -41,3 +41,21 @@ Read-only proof at 2026-11-20 16:42:13Z and 16:43:14Z (60 seconds apart):
 - Books file `/mnt/HC_Volume_107257520/gas/us-gas-price-on-november-21-2026.books.jsonl`: 63,760,708 bytes and 11,693 lines at both reads; mtime 09:29:59Z. No growth across the 61-second check.
 - `paper_books_2026-11-21.log` tail: `polls 6596 errors 0`; no error count at that read.
 - 21 Nov remains capture-only. The late 14:50–15:00Z book window is staged separately under P98e and has not yet run.
+
+
+## Gas deploy 20293df7 / P98e (21 Nov 2026)
+
+- Source: `20293df7f1195e8c17956f2abd963b6327f4ef14` from `claude/project-thread-lfb1pf`; exported to `/mnt/HC_Volume_107257520/pkarbs/deploy/gas-20293df7` (53 files). Python: `/mnt/HC_Volume_107257520/mfw-venv/bin/python`, 3.14.4 / numpy 2.5.3.
+- Tests on deployed source: `test_paper_post.py` 41 checks, `test_paper_score.py` 21, `test_paper_day.py` 10, `test_aaa_page_log.py` 6, `test_run_paper_window.sh` 3/3, `test_run_paper_day.sh` 1/1; all passed.
+- Four crontab entries installed at 11:15Z, with PATH set to the tested Python environment: 07:35 capture; 14:50 waiter; 16:10 and 20:10 scorer. Pre-edit crontab: `/mnt/HC_Volume_107257520/pkarbs/deploy/crontab.pre-P98e-20261121T111505Z`.
+- Late-books runner is staged at `/mnt/HC_Volume_107257520/pkarbs/deploy/gas-20293df7/start_late_books.sh`, syntax-checked; background session `proc_cb4baa47f8c5`, PID 2259571, is waiting to run the 14:50–15:00Z capture. It must be verified after its window.
+- The first attempted sleeper referenced a nonexistent deployment path; it was terminated after verifying its command line. The replacement runs the actual VOL2 deploy path. No capture was lost or overwritten.
+- No live orders. Current AAA log is returning HTTP 403; see P98c.
+
+## P98c Gas paper-window read-only check (21 Nov 2026)
+
+- At 11:16:27Z, PID 1976772 was absent. The running `aaa_page_log.py` was PID 2053710 from deploy `gas-3e84a493`; no `run_paper_window.sh` or `pm_gas_books.py` process was present at the check.
+- AAA page log `/mnt/HC_Volume_107257520/gas/aaa_page_2026-11-21.jsonl`: 433 lines at 11:16:27Z and 435 at 11:17:28Z. First and last three rows all showed HTTP 403; latest row time 11:17:03Z. The live logger is continuing to append 403 rows, with no prices.
+- Books file `/mnt/HC_Volume_107257520/gas/us-gas-price-on-november-21-2026.books.jsonl`: 63,760,708 bytes and 11,693 lines at both reads; mtime 09:29:59Z. No growth across the 61-second check.
+- `paper_books_2026-11-21.log` tail: `polls 6596 errors 0`; no error count at that read.
+- 21 Nov remains capture-only. The late 14:50–15:00Z book window is staged separately under P98e and has not yet run.
