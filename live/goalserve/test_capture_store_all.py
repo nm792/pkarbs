@@ -51,7 +51,16 @@ shutil.disk_usage = _real_du0
 p = os.path.join(mod.OUT, "tennis_payloads", f"tennis_{hour}.jsonl.gz")
 check("tennis second write appends", len([l for l in gzip.open(p, "rt")]) == 2)
 
-# 15 GB floor: stops, writes one STOP log line per sport, writes no body
+# 10 GB default floor: 12 GB free still writes (was blocked at 15 GB), 9 GB stops
+class MID: free = 12e9; total = 1e12; used = 0
+_d = shutil.disk_usage
+shutil.disk_usage = lambda path: MID
+mod.store_payload("esports", 2500, b"{}")
+shutil.disk_usage = _d
+pe = os.path.join(mod.PAYDIR, f"esports_{hour}.jsonl.gz")
+check("floor 10 GB: write allowed at 12 GB free", len([l for l in gzip.open(pe, "rt")]) == 2)
+check("floor value is 10 GB by default", mod.FLOOR_B == 10e9)
+# 15 GB floor (old): stops, writes one STOP log line per sport, writes no body
 class U: free = 1e9; total = 1e12; used = 0
 real_du = shutil.disk_usage
 shutil.disk_usage = lambda path: U
