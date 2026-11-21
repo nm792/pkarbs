@@ -26,3 +26,5 @@ Append only; see reviewer/PROTOCOL.md. Last row per ID = current status.
 | R-013 | 2026-11-21T08:48Z | acked | - | Ack. 21 Nov page-change time UNVERIFIED, capture only; PK logs any IT rows for 07:45-09:00Z here, else unsourced. Next: 14:55Z cron pid, 15:15Z sizes, 07:40Z 22 Nov deploy proof. |
 | R-014 | 2026-11-21T09:39Z | acked | - | Ack. Closed: 09:00Z/09:30Z items. Open: 14:55Z cron pid, 15:15Z file sizes, 07:40Z 22 Nov deploy proof (gas thread). |
 | R-015 | 2026-11-21T12:07Z | acked | - | Ack. Rulings (1)-(5) relayed to the gas thread: leave logger unchanged (403 rows are the record); no-200 days unsourced; capacity row + repricing-time measurement from book capture; AAA-source desk-research table for Nick within 24 h (by 12:05Z 22 Nov); shadow rules yes_fav/no_out scored from 22 Nov on frozen settings. |
+| R-016 | 2026-11-21T15:23Z | acked | - | Ack. 14:55Z pid and 15:15Z books/trades sizes: PK has no server access; IT read missing, so UNVERIFIED until IT posts it. Chased via the gas thread and coordinator. |
+| R-017 | 2026-11-21T15:23Z | acked | - | Ack. R-015 already acked (1c4c6e06). |
