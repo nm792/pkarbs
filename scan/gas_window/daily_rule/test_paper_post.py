@@ -28,10 +28,10 @@ cheap = {(1, "Yes"): [[0.90, 50]], (0, "No"): [[0.90, 50]]}
 books = [snap(ns(3, 30), cheap), snap(ns(3, 31), cheap)]
 check("no decision when no page row shows D", P.run(books, [page(ns(3, 0), asof="11/20/26")], D, PRM) == [])
 # 2. 403 rows never count as a page change
-check("403 rows do not trigger", P.run(books, [page(ns(3, 15, 5), status=403, val=None)], D, PRM) == [])
+check("403 rows do not trigger", P.run(books, [page(ns(3, 15, 1), status=403, val=None)], D, PRM) == [])
 check("page_change ignores a 200 row with the OLD date", P.page_change([page(ns(3, 0), asof="11/20/26")], D) is None)
 # 3. decision only from the snapshot at/after the change, own-token asks, correct side
-books = [snap(ns(3, 10), cheap), snap(ns(3, 15, 5), cheap)]
+books = [snap(ns(3, 10), cheap), snap(ns(3, 15, 1), cheap)]
 dec = P.run(books, [page(ns(3, 15))], D, PRM)
 check("only snapshots at/after the page change are used", dec and all(d["recv_ns"] >= ns(3, 15) for d in dec))
 toks = {d["token"] for d in dec}
@@ -41,16 +41,16 @@ check("fee uses the passed rate 0.05", abs(dec[0]["fee"] - 0.05 * 0.9 * 0.1 * de
 check("all counted decisions are non-shadow post", all(d["kind"] == "post" and d["shadow"] is False for d in dec))
 # 4. wrong-side token with a cheap ask is never taken
 wrong = {(2, "Yes"): [[0.10, 99]], (1, "No"): [[0.10, 99]]}
-check("YES of a non-page bucket / NO of the page bucket never taken", P.run([snap(ns(3, 15, 5), wrong)], [page(ns(3, 15))], D, PRM) == [])
+check("YES of a non-page bucket / NO of the page bucket never taken", P.run([snap(ns(3, 15, 1), wrong)], [page(ns(3, 15))], D, PRM) == [])
 # 5. price above the edge threshold not taken (0.995-p-fee<0.003 at p=0.993)
-check("ask 0.993 is not taken (edge 0.0016 < 0.003)", P.run([snap(ns(3, 15, 5), {(1, "Yes"): [[0.993, 50]]})], [page(ns(3, 15))], D, PRM) == [])
-# 6. displayed size never double counted across 5 identical snapshots
+check("ask 0.993 is not taken (edge 0.0016 < 0.003)", P.run([snap(ns(3, 15, 1), {(1, "Yes"): [[0.993, 50]]})], [page(ns(3, 15))], D, PRM) == [])
+# 6. one decision, one snapshot: 5 identical snapshots in the window give at most the displayed 5 shares
 many = [snap(ns(3, 15, s), {(1, "Yes"): [[0.90, 5]]}) for s in range(5)]
 dec = P.run(many, [page(ns(3, 15))], D, PRM)
 check("same displayed 5 shares seen 5 times -> at most 5 shares", sum(d["shares"] for d in dec) <= 5 + 1e-9 and sum(d["shares"] for d in dec) > 0)
-# 7. a larger size that appears later adds only the increment
+# 7. the latest book at decision time decides the size
 grow = [snap(ns(3, 15, 0), {(1, "Yes"): [[0.90, 5]]}), snap(ns(3, 15, 1), {(1, "Yes"): [[0.90, 8]]})]
-check("size grows 5->8: total 8 not 13", abs(sum(d["shares"] for d in P.run(grow, [page(ns(3, 15))], D, PRM)) - 8) < 1e-9)
+check("size 5 then 8: only the latest book counts, total 8 not 13", abs(sum(d["shares"] for d in P.run(grow, [page(ns(3, 15))], D, PRM)) - 8) < 1e-9)
 # 8. page value outside every bucket (cannot happen live) -> no decision, no crash
 check("value outside buckets -> no decision", P.run(books, [page(ns(3, 15), val=9.99)], D, PRM) != None)
 # 9. clock_end cuts off
@@ -61,7 +61,7 @@ sh = P.run(pre, [], D, PRM, nowcast=(3.705, 0.004))
 check("pre-page shadow decisions exist and are all shadow", sh and all(d["shadow"] for d in sh))
 check("no shadow decision without --nowcast", P.run(pre, [], D, PRM) == [])
 # 11. settle from gamma outcomePrices
-dec = P.run([snap(ns(3, 15, 5), cheap)], [page(ns(3, 15))], D, PRM)
+dec = P.run([snap(ns(3, 15, 1), cheap)], [page(ns(3, 15))], D, PRM)
 gm = [dict(clobTokenIds=json.dumps(["t1Yes", "t1No"]), outcomes='["Yes","No"]', outcomePrices='["1","0"]'),
       dict(clobTokenIds=json.dumps(["t0Yes", "t0No"]), outcomes='["Yes","No"]', outcomePrices='["0","1"]')]
 rows, un = P.settle(dec, gm)
@@ -91,14 +91,22 @@ with tempfile.TemporaryDirectory() as td:
     s = P.sanity(pg, bk, dc, now + 600 * 10**9); check("sanity: stale logs -> not ok", not s["ok"])
     s = P.sanity(pg, bk, os.path.join(td, "none"), now); check("sanity: missing decisions file -> not ok", not s["ok"])
     # main end to end
-    out = os.path.join(td, "o.jsonl"); open(bk, "w").write("\n".join(json.dumps(x) for x in [snap(ns(3, 15, 5), cheap)]) + "\n")
+    out = os.path.join(td, "o.jsonl"); open(bk, "w").write("\n".join(json.dumps(x) for x in [snap(ns(3, 15, 1), cheap)]) + "\n")
     open(pg, "w").write(json.dumps(page(ns(3, 15))) + "\n")
     P.main(["--books", bk, "--page", pg, "--date", "2026-11-21", "--out", out]); o = [json.loads(l) for l in open(out)]
     check("main writes decisions at fee 0.05 default", o and abs(o[0]["fee"] - 0.05 * 0.9 * 0.1 * o[0]["shares"]) < 1e-9)
-# 14. R-003 item 2: a planted cheap ask that appears only in a LATER book must NOT be filled; one inside the decision window is
+# 14. R-003/R-006: the fill uses ONLY the latest own-token book at or before decision time + 2 s latency
 late = [snap(ns(3, 15, 1), {(1, "Yes"): [[0.995, 50]]}), snap(ns(3, 16, 30), {(1, "Yes"): [[0.90, 50]]})]
 check("cheap ask first shown 90 s after the page change is rejected", P.run(late, [page(ns(3, 15))], D, PRM) == [])
 soon = [snap(ns(3, 15, 1), {(1, "Yes"): [[0.995, 50]]}), snap(ns(3, 15, 4), {(1, "Yes"): [[0.90, 50]]})]
-check("cheap ask shown 4 s after the change is inside the 10 s decision window", len(P.run(soon, [page(ns(3, 15))], D, PRM)) == 1)
-check("window_s=0 rejects the 4 s one", P.run(soon, [page(ns(3, 15))], D, PRM, window_s=0) == [])
+check("cheap ask shown 4 s after the change is outside the 2 s latency: rejected", P.run(soon, [page(ns(3, 15))], D, PRM) == [])
+check("same 4 s book is used if the assumed latency is 5 s (parameter is live)", len(P.run(soon, [page(ns(3, 15))], D, PRM, latency_s=5)) == 1)
+sup = [snap(ns(3, 15, 0), {(1, "Yes"): [[0.90, 50]]}), snap(ns(3, 15, 1), {(1, "Yes"): [[0.995, 50]]})]
+check("a cheap ask in an earlier book superseded by a newer one at decision time is rejected", P.run(sup, [page(ns(3, 15))], D, PRM) == [])
+okb = [snap(ns(3, 15, 1), {(1, "Yes"): [[0.90, 50]]})]
+check("cheap ask in the latest book at decision time + 1 s is filled", len(P.run(okb, [page(ns(3, 15))], D, PRM)) == 1)
+pre = [snap(ns(3, 14, 59), {(1, "Yes"): [[0.90, 50]]}), snap(ns(3, 15, 9), {(1, "Yes"): [[0.99, 50]]})]
+check("latest book at or before the decision (taken 1 s before the page read) is the fill book", len(P.run(pre, [page(ns(3, 15))], D, PRM)) == 1)
+stale = [snap(ns(3, 10), {(1, "Yes"): [[0.90, 50]]})]
+check("a book 5 minutes older than the decision is not a decision-time book", P.run(stale, [page(ns(3, 15))], D, PRM) == [])
 print("FAILED" if fails else "ALL PASS", fails); sys.exit(1 if fails else 0)

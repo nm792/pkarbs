@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""PAPER run of the `post` rule (and shadow rules) against the LIVE recorded books, under the Reviewer's conditions (reviewer/REVIEW-RESPONSE-2026-11-20-gas-daily-and-mechanics.md e5648c5e):
+"""PAPER run of the `post` rule (and shadow rules) against the LIVE recorded books, under the Reviewer's conditions (reviewer/REVIEW-RESPONSE-2026-11-20-gas-daily-and-mechanics.md e5648c5e; R-005, R-006):
  1. a decision may only be taken AFTER the first logged AAA page row that shows the event date D (not at a fixed 03:30);
- 2. fills come ONLY from the own-token asks in the book snapshot logged at the decision moment, at the displayed size (A1, A8): never from prints or later books;
+ 2. fills come ONLY from the own-token asks in the LATEST book snapshot received at or before decision time + latency (A1, A8): never from prints or later books;
  3. settlement from the Polymarket resolution (gamma outcomePrices), cross-checked against the page value;
  4. $/day with an event-clustered CI against $200/day (A9), rebates separate; fee rate is a parameter (0.05 from 20 Nov 23:59Z, SETTLED);
  5. sanity check within 15 minutes of the first live day (sanity()).
@@ -32,17 +32,20 @@ def token_buckets(snapshot):
     for tid, v in snapshot["tok"].items():
         q, out = v["label"].rsplit("|", 1); toks[tid] = (N.bucket_bounds(q), out)
     edges = sorted({b for b, _ in toks.values()}); return {tid: (edges.index(b), out, b) for tid, (b, out) in toks.items()}
-def run(books, page, D, prm, nowcast=None, clock_end=None, window_s=10.0):
+def run(books, page, D, prm, nowcast=None, clock_end=None, latency_s=2.0, max_stale_s=5.0):
     """Returns decisions (list of dicts). Counted decisions have shadow=False and kind 'post'. clock_end: ns cut-off (10:00 ET on D).
-    window_s: the decision moment is the logged page change; only book snapshots in [change, change + window_s] may fill it (default 10 s, covers 1 s book polls and a short latency).
-    A cheaper ask that shows up in a LATER book is not a fill of this decision (R-003 item 2, A8)."""
+    Decision moment = the logged page read (recv_ns). Fill book = the LATEST own-token book snapshot received at or before decision time + latency_s (R-006 a); latency_s is an ASSUMED page-read-to-order delay of at most 2 s, NOT measured (paper: no order path exists).
+    The snapshot must also be no older than max_stale_s (5 s) at decision time, else there is no decision (a stale book is not a decision-time book). One decision, one snapshot: a better ask in any LATER snapshot, or in an earlier snapshot that a newer one superseded, is never filled (A8)."""
     chg = page_change(page, D); decisions = []; spent_tok = {}; spent_rule = {}; level_taken = {}; level_max = {}
+    dec_snap = None
+    if chg:
+        cand = [b for b in books if chg[0] + (latency_s - max_stale_s) * 1e9 <= b["recv_ns"] <= chg[0] + latency_s * 1e9 and not (clock_end and b["recv_ns"] > clock_end)]
+        dec_snap = cand[-1] if cand else None
     for snap in books:
         ns = snap["recv_ns"]
         if clock_end and ns > clock_end: break
         tb = token_buckets(snap)
-        if chg and ns >= chg[0]:
-            if ns > chg[0] + window_s * 1e9: continue                          # later books never fill this decision
+        if chg and snap is dec_snap:
             val = chg[1]; bounds = {}
             for tid, (i, out, b) in tb.items(): bounds[i] = b
             win = next((i for i, (lo, hi) in bounds.items() if lo <= val < hi), None)
@@ -106,11 +109,11 @@ def sanity(page_path, books_path, decisions_path, now_ns, max_age_s=120):
     return res
 def main(argv=None):
     ap = argparse.ArgumentParser(); ap.add_argument("--books", required=True); ap.add_argument("--page", required=True); ap.add_argument("--date", required=True)
-    ap.add_argument("--out", required=True); ap.add_argument("--fee-rate", type=float, default=0.05); ap.add_argument("--window-s", type=float, default=10.0); ap.add_argument("--nowcast", help="mean,sd of the AAA print for D (enables SHADOW rules)")
+    ap.add_argument("--out", required=True); ap.add_argument("--fee-rate", type=float, default=0.05); ap.add_argument("--latency-s", type=float, default=2.0); ap.add_argument("--nowcast", help="mean,sd of the AAA print for D (enables SHADOW rules)")
     a = ap.parse_args(argv); D = dt.date.fromisoformat(a.date); prm = R.Params(fee_rate=a.fee_rate, rule_caps=(("yes_fav", 0.10), ("no_out", 0.05), ("post", 0.10)))
     nc = tuple(float(x) for x in a.nowcast.split(",")) if a.nowcast else None
     end = dt.datetime(D.year, D.month, D.day, 10, 0, tzinfo=ET).timestamp() * 1e9
-    dec = run(read_jsonl(a.books), read_jsonl(a.page), D, prm, nc, end, a.window_s)
+    dec = run(read_jsonl(a.books), read_jsonl(a.page), D, prm, nc, end, a.latency_s)
     with open(a.out, "w") as f:
         for d in dec: f.write(json.dumps(d) + "\n")
     print(f"decisions {len(dec)} counted {sum(1 for d in dec if not d['shadow'])} shadow {sum(1 for d in dec if d['shadow'])} page_change {page_change(read_jsonl(a.page), D)}")
