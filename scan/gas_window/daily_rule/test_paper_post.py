@@ -18,6 +18,8 @@ def snap(t, asks):
     return dict(recv_ns=t, tok=tok)
 def page(t, status=200, asof="11/21/26", val=3.705): return dict(recv_ns=t, status=status, price_as_of=asof, regular_current=val)
 PRM = R.Params(fee_rate=0.05, bank=10000, rule_caps=(("yes_fav", .10), ("no_out", .05), ("post", .10)))
+_run = P.run
+P.run = lambda *a, **k: _run(*a, **{"hold_s": None, **k})      # tests below check the fill-book rule alone; the hold check has its own tests (section 15)
 fails = 0
 def check(name, cond):
     global fails
@@ -91,7 +93,7 @@ with tempfile.TemporaryDirectory() as td:
     s = P.sanity(pg, bk, dc, now + 600 * 10**9); check("sanity: stale logs -> not ok", not s["ok"])
     s = P.sanity(pg, bk, os.path.join(td, "none"), now); check("sanity: missing decisions file -> not ok", not s["ok"])
     # main end to end
-    out = os.path.join(td, "o.jsonl"); open(bk, "w").write("\n".join(json.dumps(x) for x in [snap(ns(3, 15, 1), cheap)]) + "\n")
+    out = os.path.join(td, "o.jsonl"); open(bk, "w").write("\n".join(json.dumps(x) for x in [snap(ns(3, 15, 1), cheap), snap(ns(3, 15, 3), cheap)]) + "\n")
     open(pg, "w").write(json.dumps(page(ns(3, 15))) + "\n")
     P.main(["--books", bk, "--page", pg, "--date", "2026-11-21", "--out", out]); o = [json.loads(l) for l in open(out)]
     check("main writes decisions at fee 0.05 default", o and abs(o[0]["fee"] - 0.05 * 0.9 * 0.1 * o[0]["shares"]) < 1e-9)
@@ -109,4 +111,15 @@ pre = [snap(ns(3, 14, 59), {(1, "Yes"): [[0.90, 50]]}), snap(ns(3, 15, 9), {(1, 
 check("latest book at or before the decision (taken 1 s before the page read) is the fill book", len(P.run(pre, [page(ns(3, 15))], D, PRM)) == 1)
 stale = [snap(ns(3, 10), {(1, "Yes"): [[0.90, 50]]})]
 check("a book 5 minutes older than the decision is not a decision-time book", P.run(stale, [page(ns(3, 15))], D, PRM) == [])
+# 15. R-007 / SETTLED A3: 250 ms taker hold + latency: the level must still be shown at the first snapshot at or after read + 2 s + 0.25 s
+live = [snap(ns(3, 15, 1), {(1, "Yes"): [[0.90, 50]]}), snap(ns(3, 15, 3), {(1, "Yes"): [[0.90, 50]]})]
+check("hold: level still shown with enough size at the hold check -> filled", [d["status"] for d in _run(live, [page(ns(3, 15))], D, PRM)] == ["filled"])
+gone = [snap(ns(3, 15, 1), {(1, "Yes"): [[0.90, 50]]}), snap(ns(3, 15, 3), {(1, "Yes"): [[0.995, 50]]})]
+r = _run(gone, [page(ns(3, 15))], D, PRM)
+check("hold: the ask vanishes at the next snapshot -> NOT filled, logged 'unfilled (hold)', not counted", len(r) == 1 and r[0]["status"] == "unfilled (hold)" and r[0]["shadow"] and r[0]["kind"] == "post_unfilled_hold")
+thin = [snap(ns(3, 15, 1), {(1, "Yes"): [[0.90, 50]]}), snap(ns(3, 15, 3), {(1, "Yes"): [[0.90, 2]]})]
+check("hold: level shown but smaller than the decided size -> unfilled", all(d["status"] == "unfilled (hold)" for d in _run(thin, [page(ns(3, 15))], D, PRM)))
+check("hold: no snapshot after read + 2.25 s -> unfilled, never assumed filled", all(d["status"] == "unfilled (hold)" for d in _run([snap(ns(3, 15, 1), {(1, "Yes"): [[0.90, 50]]})], [page(ns(3, 15))], D, PRM)))
+check("hold: the check snapshot 60 s later does not count", all(d["status"] == "unfilled (hold)" for d in _run([snap(ns(3, 15, 1), {(1, "Yes"): [[0.90, 50]]}), snap(ns(3, 16, 5), {(1, "Yes"): [[0.90, 50]]})], [page(ns(3, 15))], D, PRM)))
+check("hold: unfilled rows are excluded from the counted day P&L", P.day_pnl(P.settle(r, [dict(clobTokenIds=json.dumps(["t1Yes", "t1No"]), outcomes='["Yes","No"]', outcomePrices='["1","0"]')])[0]) == 0)
 print("FAILED" if fails else "ALL PASS", fails); sys.exit(1 if fails else 0)
