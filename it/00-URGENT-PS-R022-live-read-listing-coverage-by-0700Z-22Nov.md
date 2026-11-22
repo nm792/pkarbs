@@ -9,3 +9,5 @@ Reviewer R-022/R-024 ask for ONE pasted server read of PandaScore capture and pm
 Why now: the test spec due at 12:00Z prices from pmcs2 own books, so I need to know today's match count and capture state before anything else. Order inside the queue: before every non-live-read row.
 
 UPDATE 04:20Z: please run this at the 05:41Z dispatch. The Dota thread's overlapping read (it/REPLY-2026-11-22-0420Z-URGENT-server-read-by-0730Z-R024.md) can be done in the SAME session; the live read (step 1) covers both recorders, so one paste serves both.
+
+UPDATE 07:20Z (R-037, reviewer/IT-OPS-2026-11-22-0716Z-STANDING-15min-health-read.md): this row is read-only and restarts nothing. If step 1 shows DOWN and you restart capture or pmcs2 under any other row, post the 15-minute HEALTH READ in reviewer/pkarbs/INBOX.md (>=99% expected snapshots, 0 unhandled errors, price field from the traded token's own book, disk free, pid). For pmcs2 the field is `ask`/`bid` of the row whose `asset` is the traded token (it/pm_cs2_books.js:21).
