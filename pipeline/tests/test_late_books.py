@@ -29,3 +29,11 @@ def test_due_window_is_plus_minus_60s():
     end = 1_000_000.0
     assert B.due(end, 3.0, end - 3 * 3600) and B.due(end, 3.0, end - 3 * 3600 + 59) and B.due(end, 3.0, end - 3 * 3600 - 59)
     assert not B.due(end, 3.0, end - 3 * 3600 + 61) and not B.due(end, 1.0, end - 3 * 3600)
+
+def test_health_counts_only_own_book_captures_and_errors():
+    exp = {("e1", 3.0), ("e2", 3.0), ("e3", 1.0)}
+    rows = [dict(event="e1", lead_h=3.0, ask=0.8, token="T1"), dict(event="e2", lead_h=3.0, error="x"), dict(event="e3", lead_h=1.0, ask=0.5)]
+    h = B.health(exp, rows)
+    assert h["expected"] == 3 and h["captured"] == 1 and h["errors"] == 1 and h["own_book_ok"] is False
+    ok = B.health({("e1", 3.0)}, [rows[0]]); assert ok["pct"] == 100.0 and ok["own_book_ok"]
+    assert B.health(set(), [])["pct"] is None

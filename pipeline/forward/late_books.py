@@ -135,6 +135,35 @@ def summarize(rows):
     return out
 
 
+def health(expected, rows):
+    """expected: set of (event_id, lead_h) windows that fell due in the period; rows: JSONL records of the period.
+    returns dict(expected, captured, pct, errors, own_book_ok). A capture counts only if it has a numeric ask taken from the leader token's own book."""
+    got = {(r.get("event"), r.get("lead_h")) for r in rows if "error" not in r and isinstance(r.get("ask"), (int, float)) and r.get("token")}
+    errs = sum(1 for r in rows if "error" in r)
+    hit = len(expected & got)
+    return dict(expected=len(expected), captured=hit, pct=(100.0 * hit / len(expected)) if expected else None, errors=errs, own_book_ok=all(r.get("token") for r in rows if "error" not in r))
+
+
+def cmd_health(a):
+    series = [l.strip() for l in open(a.series_file) if l.strip() and not l.startswith("#")]; now = time.time(); lo = now - a.minutes * 60 - TOL_S
+    exp = set()
+    for s in series:
+        try:
+            for ev in open_events(s):
+                end = ts(ev["endDate"])
+                for L in LEADS_H:
+                    if lo <= end - L * 3600 <= now - TOL_S: exp.add((ev["id"], L))
+        except Exception as ex: print("list error", s, ex)
+    rows = []
+    for fn in sorted(os.listdir(a.out)):
+        if fn.startswith("late_books_") and fn.endswith(".jsonl"):
+            rows += [r for r in (json.loads(l) for l in open(os.path.join(a.out, fn))) if r.get("t", 0) >= lo]
+    h = health(exp, rows); st = os.statvfs(a.out); h["disk_free_GB"] = round(st.f_bavail * st.f_frsize / 1e9, 1); h["now"] = dt.datetime.utcfromtimestamp(now).strftime("%FT%TZ")
+    h["verdict"] = "PASS" if (h["pct"] is None or h["pct"] >= 99) and h["errors"] == 0 and h["own_book_ok"] else "FAIL"
+    h["price_source"] = "fields ask/bid/depth02 = best own ask/bid of the leader token (field `token`) from POST /books; never 1 - other token"
+    print(json.dumps(h))
+
+
 def cmd_summarize(a):
     rows = []
     for fn in sorted(os.listdir(a.out)):
@@ -146,5 +175,6 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(); sp = p.add_subparsers(dest="cmd", required=True)
     s = sp.add_parser("snap"); s.add_argument("--series", required=True); s.add_argument("--out")
     r = sp.add_parser("record"); r.add_argument("--series-file", required=True); r.add_argument("--out", required=True); r.add_argument("--max-hours", type=float, default=26)
+    h = sp.add_parser("health"); h.add_argument("--series-file", required=True); h.add_argument("--out", required=True); h.add_argument("--minutes", type=float, default=15)
     u = sp.add_parser("summarize"); u.add_argument("--out", required=True)
-    a = p.parse_args(); {"snap": cmd_snap, "record": cmd_record, "summarize": cmd_summarize}[a.cmd](a)
+    a = p.parse_args(); {"snap": cmd_snap, "record": cmd_record, "summarize": cmd_summarize, "health": cmd_health}[a.cmd](a)
