@@ -13,6 +13,13 @@ const ev = [
 const pk = pickMarkets(ev), conds = pk.map((m) => m.cond).join(',');
 if (conds !== 'a,e') bad.push('pickMarkets wrong: ' + conds);
 if (pk[0] && (pk[0].league !== 'nhl' || pk[0].start !== '2026-11-21T18:00:00.000Z')) bad.push('league/start wrong ' + JSON.stringify(pk[0]));
+// tennis mode: any slug, but the event must carry the tennis tag; only the 2-outcome moneyline is picked
+const tv = [{ slug: 'atp-mayot-gaston-2026-11-19', tags: [{ slug: 'sports' }, { slug: 'tennis' }], markets: [mk('moneyline', 't1'), mk('totals', 't2')] },
+  { slug: 'itf-x-y-2026-11-19', tags: [{ slug: 'tennis' }], ended: true, markets: [mk('moneyline', 't3')] },
+  { slug: 'nhl-edm-car-2026-11-21', tags: [{ slug: 'nhl' }], markets: [mk('moneyline', 't4')] }];
+const tp = pickMarkets(tv, 'tennis').map((m) => m.cond).join(',');
+if (tp !== 't1') bad.push('tennis pick wrong: ' + tp);
+if (pickMarkets(tv).map((m) => m.cond).join(',') !== 't4') bad.push('nhl mode must pick only the nhl slug');
 // gz writer: two flushes make a two-member gzip file that decompresses to all rows in order; empty flush writes nothing
 const f = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'psb-')), 'books.jsonl.gz'), w = gzWriter(f);
 if (w.flush() !== 0 || fs.existsSync(f)) bad.push('empty flush wrote');
@@ -24,4 +31,4 @@ if (rows.length !== 3 || rows.map((r) => r.recv_ms).join() !== '1,2,3' || rows[0
 const w2 = gzWriter(f + '2'); let raw = 0;
 for (let i = 0; i < 5000; i++) { const r = { recv_ms: 1795000000000 + i * 137, asset: '7'.repeat(70), outcome: 'Edmonton Oilers', q: 'Oilers vs. Hurricanes', cond: '0x' + 'a'.repeat(64), bid: 0.5 + (i % 5) / 100, ask: 0.54, bids: [{ price: 0.5, size: 100 + i }, { price: 0.49, size: 300 }, { price: 0.48, size: 50 }], asks: [{ price: 0.54, size: 80 }, { price: 0.55, size: 120 }], ts: 1795000000000 + i * 137, ev: 'price_change' }; raw += JSON.stringify(r).length + 1; w2.add(r); }
 const gzb = w2.flush(); if (!(gzb < 0.15 * raw)) bad.push('compression ' + gzb + ' of ' + raw);
-console.log(bad.length ? 'FAIL: ' + bad.join('; ') : 'PASS (7 checks, each able to fail)'); process.exit(bad.length ? 1 : 0);
+console.log(bad.length ? 'FAIL: ' + bad.join('; ') : 'PASS (9 checks, each able to fail)'); process.exit(bad.length ? 1 : 0);

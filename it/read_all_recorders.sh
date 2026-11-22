@@ -13,8 +13,9 @@ DIR[cs2_probe]=$P/scratch/pandascore-cs2-probe;        PAT[cs2_probe]='probe'
 DIR[pmcs2]=$P/pmcs2;                                   PAT[pmcs2]='pm_cs2_books'
 DIR[pmdota]=$P/pmdota;                                 PAT[pmdota]='pm_dota_books'
 DIR[pmsport_nhl]=$P/pmsport;                           PAT[pmsport_nhl]='pm_sport_books'
+DIR[pmtennis]=$P/pmtennis;                          PAT[pmtennis]='pm_sport_books'
 DIR[final_topics_books]=$P/thesports/final-topics-32295b; PAT[final_topics_books]='capture.py'
-KEYS="goalserve_esports goalserve_tennis goalserve_hockey_nhl pandascore_raw cs2_probe pmcs2 pmdota pmsport_nhl final_topics_books"
+KEYS="goalserve_esports goalserve_tennis goalserve_hockey_nhl pandascore_raw cs2_probe pmcs2 pmdota pmsport_nhl pmtennis final_topics_books"
 echo "READ $(date -u +%FT%TZ) gap ${GAP}s"
 declare -A A
 for k in $KEYS; do A[$k]=$(newest "${DIR[$k]}"); done
