@@ -1,0 +1,782 @@
+{
+ "summary": {
+  "asof": "2026-11-22",
+  "arm": 2,
+  "forward_events": 72,
+  "eligible": 10,
+  "scored_events": 10,
+  "bets_resolved": 9,
+  "wins": 5,
+  "pending_bets": 0,
+  "cost": 13.93,
+  "gross": 8.08,
+  "fees": 0.48,
+  "net": 7.6,
+  "net_per_day": 0.703,
+  "pending_mark": 0,
+  "paired_t": 1.13,
+  "logscore": 0.3066,
+  "top3_share": 1.17,
+  "week_cluster_t": null,
+  "days": 10.81,
+  "verdict": "not yet defined: needs 100 events with a bet (have 9)"
+ },
+ "events": [
+  {
+   "event": "KXALLINMENTION-26NOV12",
+   "series": "KXALLINMENTION",
+   "start": "2026-11-12T20:30:00+00:00",
+   "resolved": true,
+   "hist": 14,
+   "eligible": true,
+   "bet": {
+    "word": "Investigate / Investigated / Investigation",
+    "side": "YES",
+    "price": 0.19,
+    "size": 4.0,
+    "q": 0.6162,
+    "fee": 0.05,
+    "cost": 0.76,
+    "oi": 0,
+    "w": 1,
+    "pnl_gross": 3.24,
+    "pnl_net": 3.1900000000000004
+   }
+  },
+  {
+   "event": "KXALLINMENTION-26NOV11",
+   "series": "KXALLINMENTION",
+   "start": "2026-11-11T21:45:00+00:00",
+   "resolved": true,
+   "hist": 14,
+   "eligible": true,
+   "bet": {
+    "word": "Israel / Israeli",
+    "side": "YES",
+    "price": 0.12,
+    "size": 2.0,
+    "q": 0.2828,
+    "fee": 0.02,
+    "cost": 0.24,
+    "oi": 0,
+    "w": 0,
+    "pnl_gross": -0.24,
+    "pnl_net": -0.26
+   }
+  },
+  {
+   "event": "KXBARRMENTION-26NOV19",
+   "series": "KXBARRMENTION",
+   "start": "2026-11-18T19:00:00+00:00",
+   "resolved": true,
+   "hist": 8,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONABBV-27FEB03",
+   "series": "KXEARNINGSMENTIONABBV",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONABT-27JAN21",
+   "series": "KXEARNINGSMENTIONABT",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONADI-26NOV24",
+   "series": "KXEARNINGSMENTIONADI",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONANET-27FEB11",
+   "series": "KXEARNINGSMENTIONANET",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONAPH-27JAN27",
+   "series": "KXEARNINGSMENTIONAPH",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONARM-27FEB03",
+   "series": "KXEARNINGSMENTIONARM",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONAS-27FEB23",
+   "series": "KXEARNINGSMENTIONAS",
+   "start": "2026-11-18T15:00:00+00:00",
+   "resolved": false,
+   "hist": 2,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONASML-27JAN27",
+   "series": "KXEARNINGSMENTIONASML",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONASTS-27MAR01",
+   "series": "KXEARNINGSMENTIONASTS",
+   "start": "2026-11-11T15:00:00+00:00",
+   "resolved": false,
+   "hist": 2,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONAVGO-26DEC09",
+   "series": "KXEARNINGSMENTIONAVGO",
+   "start": "2026-11-19T15:00:00+00:00",
+   "resolved": false,
+   "hist": 4,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONBKNG-27FEB17",
+   "series": "KXEARNINGSMENTIONBKNG",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONCAT-27JAN28",
+   "series": "KXEARNINGSMENTIONCAT",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONCIEN-26DEC10",
+   "series": "KXEARNINGSMENTIONCIEN",
+   "start": "2026-11-19T15:00:00+00:00",
+   "resolved": false,
+   "hist": 1,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONCOP-27FEB04",
+   "series": "KXEARNINGSMENTIONCOP",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONCRM-26DEC02",
+   "series": "KXEARNINGSMENTIONCRM",
+   "start": "2026-11-19T16:01:00+00:00",
+   "resolved": false,
+   "hist": 3,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONCSCO-27FEB10",
+   "series": "KXEARNINGSMENTIONCSCO",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONCVX-27JAN29",
+   "series": "KXEARNINGSMENTIONCVX",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONDE-26NOV25",
+   "series": "KXEARNINGSMENTIONDE",
+   "start": "2026-11-11T23:00:00+00:00",
+   "resolved": false,
+   "hist": 4,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONDHR-27JAN27",
+   "series": "KXEARNINGSMENTIONDHR",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONGE-27JAN21",
+   "series": "KXEARNINGSMENTIONGE",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONGILD-27FEB09",
+   "series": "KXEARNINGSMENTIONGILD",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONHD-27FEB23",
+   "series": "KXEARNINGSMENTIONHD",
+   "start": "2026-11-18T15:00:00+00:00",
+   "resolved": false,
+   "hist": 5,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONHIMS-27FEB22",
+   "series": "KXEARNINGSMENTIONHIMS",
+   "start": "2026-11-11T15:00:00+00:00",
+   "resolved": false,
+   "hist": 5,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONIBM-27JAN27",
+   "series": "KXEARNINGSMENTIONIBM",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONKLAC-27JAN28",
+   "series": "KXEARNINGSMENTIONKLAC",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONKLAR-27FEB19",
+   "series": "KXEARNINGSMENTIONKLAR",
+   "start": "2026-11-18T15:00:00+00:00",
+   "resolved": false,
+   "hist": 3,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONLIN-27FEB04",
+   "series": "KXEARNINGSMENTIONLIN",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONLRCX-27JAN27",
+   "series": "KXEARNINGSMENTIONLRCX",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONLUCID-27FEB23",
+   "series": "KXEARNINGSMENTIONLUCID",
+   "start": "2026-11-11T15:00:00+00:00",
+   "resolved": false,
+   "hist": 2,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONLULU-26DEC10",
+   "series": "KXEARNINGSMENTIONLULU",
+   "start": "2026-11-19T15:00:00+00:00",
+   "resolved": false,
+   "hist": 2,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONMRK-27FEB02",
+   "series": "KXEARNINGSMENTIONMRK",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONMRVL-26DEC01",
+   "series": "KXEARNINGSMENTIONMRVL",
+   "start": "2026-11-18T15:00:00+00:00",
+   "resolved": false,
+   "hist": 4,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONNEE-27JAN26",
+   "series": "KXEARNINGSMENTIONNEE",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONNEM-27FEB18",
+   "series": "KXEARNINGSMENTIONNEM",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONNVDA-27FEB24",
+   "series": "KXEARNINGSMENTIONNVDA",
+   "start": "2026-11-19T15:00:00+00:00",
+   "resolved": false,
+   "hist": 8,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONORCL-26DEC10",
+   "series": "KXEARNINGSMENTIONORCL",
+   "start": "2026-11-19T15:00:00+00:00",
+   "resolved": false,
+   "hist": 5,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONPFE-27FEB02",
+   "series": "KXEARNINGSMENTIONPFE",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONPLD-27JAN20",
+   "series": "KXEARNINGSMENTIONPLD",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONPM-27FEB05",
+   "series": "KXEARNINGSMENTIONPM",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONPSKY-27FEB24",
+   "series": "KXEARNINGSMENTIONPSKY",
+   "start": "2026-11-11T15:00:00+00:00",
+   "resolved": false,
+   "hist": 2,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONRKLB-27FEB25",
+   "series": "KXEARNINGSMENTIONRKLB",
+   "start": "2026-11-11T15:00:00+00:00",
+   "resolved": false,
+   "hist": 3,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONRTX-27JAN26",
+   "series": "KXEARNINGSMENTIONRTX",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONSCHW-27JAN20",
+   "series": "KXEARNINGSMENTIONSCHW",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONSKHY-27JAN27",
+   "series": "KXEARNINGSMENTIONSKHY",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONSNDK-27JAN28",
+   "series": "KXEARNINGSMENTIONSNDK",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONTGT-27MAR02",
+   "series": "KXEARNINGSMENTIONTGT",
+   "start": "2026-11-19T15:00:00+00:00",
+   "resolved": false,
+   "hist": 5,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONTJX-27FEB24",
+   "series": "KXEARNINGSMENTIONTJX",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONTMO-27JAN28",
+   "series": "KXEARNINGSMENTIONTMO",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONTMUS-27FEB10",
+   "series": "KXEARNINGSMENTIONTMUS",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONTOL-26DEC08",
+   "series": "KXEARNINGSMENTIONTOL",
+   "start": "2026-11-19T15:00:00+00:00",
+   "resolved": false,
+   "hist": 2,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONTTWO-27FEB04",
+   "series": "KXEARNINGSMENTIONTTWO",
+   "start": "2026-11-11T15:00:00+00:00",
+   "resolved": false,
+   "hist": 2,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONTXN-27JAN26",
+   "series": "KXEARNINGSMENTIONTXN",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONUNH-27JAN26",
+   "series": "KXEARNINGSMENTIONUNH",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONUNP-27JAN26",
+   "series": "KXEARNINGSMENTIONUNP",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONVSCO-26DEC03",
+   "series": "KXEARNINGSMENTIONVSCO",
+   "start": "2026-11-19T15:00:00+00:00",
+   "resolved": false,
+   "hist": 2,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONWELL-27FEB10",
+   "series": "KXEARNINGSMENTIONWELL",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONXOM-27JAN29",
+   "series": "KXEARNINGSMENTIONXOM",
+   "start": "2026-11-19T01:00:00+00:00",
+   "resolved": false,
+   "hist": 0,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXEARNINGSMENTIONZETA-27FEB23",
+   "series": "KXEARNINGSMENTIONZETA",
+   "start": "2026-11-11T15:00:00+00:00",
+   "resolved": false,
+   "hist": 2,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXFOXSATMENTION-26NOV14",
+   "series": "KXFOXSATMENTION",
+   "start": "2026-11-13T22:15:00+00:00",
+   "resolved": true,
+   "hist": 4,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXFTNMENTION-26NOV15",
+   "series": "KXFTNMENTION",
+   "start": "2026-11-13T23:30:53+00:00",
+   "resolved": true,
+   "hist": 25,
+   "eligible": true,
+   "bet": {
+    "word": "Cyber / Cybersecurity / Cyberattack",
+    "side": "YES",
+    "price": 0.26,
+    "size": 5.0,
+    "q": 0.3846,
+    "fee": 0.07,
+    "cost": 1.3,
+    "oi": 0,
+    "w": 0,
+    "pnl_gross": -1.3,
+    "pnl_net": -1.37
+   }
+  },
+  {
+   "event": "KXHEARINGMENTION-26NOV17",
+   "series": "KXHEARINGMENTION",
+   "start": "2026-11-13T16:00:00+00:00",
+   "resolved": true,
+   "hist": 53,
+   "eligible": true,
+   "bet": null
+  },
+  {
+   "event": "KXHILLARYMENTION-26NOV14",
+   "series": "KXHILLARYMENTION",
+   "start": "2026-11-13T17:00:00+00:00",
+   "resolved": true,
+   "hist": 1,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXJOHNSONMENTION-26NOV14",
+   "series": "KXJOHNSONMENTION",
+   "start": "2026-11-13T22:15:00+00:00",
+   "resolved": true,
+   "hist": 9,
+   "eligible": false,
+   "bet": null
+  },
+  {
+   "event": "KXPSAKIMENTION-26NOV11",
+   "series": "KXPSAKIMENTION",
+   "start": "2026-11-11T19:15:00+00:00",
+   "resolved": true,
+   "hist": 51,
+   "eligible": true,
+   "bet": {
+    "word": "Midterm / Election",
+    "side": "YES",
+    "price": 0.45,
+    "size": 1.0,
+    "q": 0.7184,
+    "fee": 0.02,
+    "cost": 0.45,
+    "oi": 0,
+    "w": 1,
+    "pnl_gross": 0.55,
+    "pnl_net": 0.53
+   }
+  },
+  {
+   "event": "KXRUBIOMENTION-26NOV13",
+   "series": "KXRUBIOMENTION",
+   "start": "2026-11-13T20:00:00+00:00",
+   "resolved": true,
+   "hist": 10,
+   "eligible": true,
+   "bet": {
+    "word": "China / Chinese",
+    "side": "YES",
+    "price": 0.65,
+    "size": 15.01,
+    "q": 0.888,
+    "fee": 0.24,
+    "cost": 9.7565,
+    "oi": 0,
+    "w": 1,
+    "pnl_gross": 5.2535,
+    "pnl_net": 5.0135
+   }
+  },
+  {
+   "event": "KXTHEWEEKNIGHTMENTION-26NOV12",
+   "series": "KXTHEWEEKNIGHTMENTION",
+   "start": "2026-11-12T19:35:00+00:00",
+   "resolved": true,
+   "hist": 24,
+   "eligible": true,
+   "bet": {
+    "word": "Grocery",
+    "side": "NO",
+    "price": 0.72,
+    "size": 1.0,
+    "q": 0.2376,
+    "fee": 0.02,
+    "cost": 0.72,
+    "oi": 1,
+    "w": 0,
+    "pnl_gross": 0.28,
+    "pnl_net": 0.26
+   }
+  },
+  {
+   "event": "KXWORLDNEWSMENTION-26NOV13",
+   "series": "KXWORLDNEWSMENTION",
+   "start": "2026-11-13T18:30:00+00:00",
+   "resolved": true,
+   "hist": 90,
+   "eligible": true,
+   "bet": {
+    "word": "El Ni\u00f1o",
+    "side": "YES",
+    "price": 0.26,
+    "size": 0.91,
+    "q": 0.4291,
+    "fee": 0.02,
+    "cost": 0.2366,
+    "oi": 0,
+    "w": 0,
+    "pnl_gross": -0.2366,
+    "pnl_net": -0.2566
+   }
+  },
+  {
+   "event": "KXWORLDNEWSMENTION-26NOV12",
+   "series": "KXWORLDNEWSMENTION",
+   "start": "2026-11-12T18:30:00+00:00",
+   "resolved": true,
+   "hist": 89,
+   "eligible": true,
+   "bet": {
+    "word": "Nvidia",
+    "side": "NO",
+    "price": 0.09,
+    "size": 2.0,
+    "q": 0.4858,
+    "fee": 0.02,
+    "cost": 0.18,
+    "oi": 1,
+    "w": 1,
+    "pnl_gross": -0.18,
+    "pnl_net": -0.19999999999999998
+   }
+  },
+  {
+   "event": "KXWORLDNEWSMENTION-26NOV11",
+   "series": "KXWORLDNEWSMENTION",
+   "start": "2026-11-11T18:45:00+00:00",
+   "resolved": true,
+   "hist": 88,
+   "eligible": true,
+   "bet": {
+    "word": "SNAP / Food Stamp",
+    "side": "NO",
+    "price": 0.29,
+    "size": 1.0,
+    "q": 0.1717,
+    "fee": 0.02,
+    "cost": 0.29,
+    "oi": 1,
+    "w": 0,
+    "pnl_gross": 0.71,
+    "pnl_net": 0.69
+   }
+  }
+ ]
+}
