@@ -54,8 +54,9 @@ chk("nolead: real gross = -spread (-2c +-0.1)", abs(gross(R0)["mean_c"] + 2) < 0
 base = gross(k.run(M0, 0.5, only_isolated=True)); pr = gross(k.run(M0, 0.5, plant=0.03, only_isolated=True))
 rec = (pr["mean_c"] - base["mean_c"]) / 3.0
 chk("plant +3c at 120 s spacing recovered 95-105%", 0.95 <= rec <= 1.05, rec)
-bf = {t: list(b.r) for mk_ in M0[0]["mk"] for t, b in mk_["tok"].items()}; k.run(M0, 0.5, plant=0.03)
-chk("plant does not mutate the original rows", bf == {t: list(b.r) for mk_ in M0[0]["mk"] for t, b in mk_["tok"].items()})
+snap = lambda: {(mk_["q"], t): list(b.r) for mk_ in M0[0]["mk"] for t, b in mk_["tok"].items()}
+bf = snap(); k.run(M0, 0.5, plant=0.03)
+chk("plant does not mutate the original rows (all markets)", bf == snap())
 rnd = random.Random(3); pl = [gross(k.run(M0, 0.5, "placebo", rnd=rnd)).get("mean_c") for _ in range(20)]
 pl = [x for x in pl if x is not None]
 chk("placebo = -spread on no-lead book", len(pl) > 0 and abs(sum(pl) / len(pl) + 2) < 0.1, pl[:1])
