@@ -1,0 +1,33 @@
+"""Offline checks. Run: python3 -I test_mentions_pm_ws_paper.py <mentions_pm_ws_paper.py>"""
+import sys, importlib.util, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(sys.argv[1])))
+sp = importlib.util.spec_from_file_location('w', sys.argv[1]); W = importlib.util.module_from_spec(sp); sys.modules['w'] = W; sp.loader.exec_module(W)
+ok = N = 0
+def chk(n, c):
+    global ok, N; N += 1; ok += bool(c); print('check', N, 'ok' if c else 'FAIL', n)
+b = W.Book(); b.snapshot({'asks': [{'price': '0.3', 'size': '100'}, {'price': '0.9', 'size': '5'}], 'bids': [{'price': '0.2', 'size': '50'}]}, 1.0)
+chk('snapshot builds asks and bids', b.asks == {.3: 100., .9: 5.} and b.bids == {.2: 50.})
+b.change('SELL', .3, 40, 2.0); b.change('SELL', .9, 0, 2.0); b.change('SELL', .35, 10, 2.0)
+chk('price_change SELL updates the ask side, size 0 deletes the level', b.asks == {.3: 40., .35: 10.})
+b.change('BUY', .2, 0, 3.0)
+chk('price_change BUY touches only bids', b.bids == {} and b.asks == {.3: 40., .35: 10.})
+t = W.take([(.30, 100), (.40, 1000), (.80, 500)], .5, 200.)
+chk('take walks .30 x100 then .40 to $200 and never touches .80', abs(t['cost'] - 200) < 1e-6 and abs(t['size'] - (100 + 170 / .4)) < 1e-6 and not t['partial'])
+chk('take partial when depth is short', W.take([(.3, 100)], .5, 200.)['partial'])
+chk('take respects the 5c floor', W.take([(.03, 1000)], .5, 200.)['size'] == 0)
+chk('resting bid: print below our price fills without queue', abs(W.resting_fill(.30, 100, 500, [(.29, 40)]) - 40) < 1e-9)
+chk('resting bid: print at our price first consumes the queue (500 ahead)', W.resting_fill(.30, 100, 500, [(.30, 300), (.30, 150)]) == 0 and abs(W.resting_fill(.30, 100, 500, [(.30, 300), (.30, 350)]) - 100) < 1e-9)
+chk('resting bid: print above our price never fills', W.resting_fill(.30, 100, 0, [(.31, 1000)]) == 0)
+T = 1_800_000_000.0; sl = W.slots(T - 100000, T)
+chk('slots: 13 listing + 4 point variants + 72 during', len(sl) == 13 + 4 + 72 and ('T-1h', T - 3600) in sl)
+ok_, missed = W.due([('T-1h', 100.), ('T-6h', 10.), ('T-15m', 500.)], 105., set())
+chk('due: on-time slot taken, 95 s late slot missed, future slot waits', ok_ == [('T-1h', 100.)] and missed == [('T-6h', 10.)])
+runs = [dict(t=1000 - 60 * i, accepting_tokens=100, books_received=100, connected=True, last_msg_age_s=3, errors_new=0) for i in range(15)][::-1]
+ok2, miss2 = W.due([('T-1h', 100.), ('T-6h', 10.)], 105., set(), since=50.)
+chk('due: slots before the process start are ignored, not counted missed', ok2 == [('T-1h', 100.)] and miss2 == [])
+chk('health PASS with 15 heartbeats, 100% books', W.health_eval(runs, 1000)[0])
+chk('health FAIL at 90% books', not W.health_eval([dict(r, books_received=90) for r in runs], 1000)[0])
+chk('health FAIL on an error', not W.health_eval(runs[:-1] + [dict(runs[-1], errors_new=1)], 1000)[0])
+chk('health FAIL when heartbeats stop (3 in window)', not W.health_eval(runs[-3:], 1000)[0])
+chk('health FAIL when the stream is silent 120 s', not W.health_eval(runs[:-1] + [dict(runs[-1], last_msg_age_s=120)], 1000)[0])
+print(f'{"PASS" if ok == N else "FAIL"} ({ok} of {N} checks)'); sys.exit(0 if ok == N else 1)
