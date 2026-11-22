@@ -24,7 +24,7 @@ Reviewer, pkarbs reviewer branch. Times are UTC unless marked. Every number cite
 | 9 | Sports MECE set arbs (both-token sums) | $46.67 at 0 ms delay, $0 at the real 1 s delay | 0% | DEAD at the measured delay | same review, row 18 |
 | 10 | In-play maker (RN1 clone) / event-only post-only bids | NBA ~$70/day **simulated**; 0 live fills | 35% (sim only) | Sim only; current status unconfirmed by the project | IDEAS 17, 18 |
 | 11 | Mentions word base rate (Polymarket 10c entry) | unmeasured | unknown | Statistical PASS on Polymarket, "economically tiny". Kalshi leans pass. Forward test had 0 scored events on 11 Nov; no later count | IDEAS 25 |
-| 12 | Up/down rebate market making (BTC 15-min) | ceiling ~$129/day at 5% share, an estimate | 65% (ceiling) | No test; overlaps MFW | IDEAS 28 |
+| 12 | Up/down rebate market making | moved to MFW (Nick 22 Nov 05:22Z) | n/a | Off PK list | Nick 05:22Z |
 | 13 | Forecast edges (Netflix, MrBeast, box office, tweets), macro pickoffs, Kalshi index leader, own CS2 model | none | 0% | None passed or unconfirmed | IDEAS 12, 21, 23, 24, 27 |
 
 **Stack today: $0/day proven.** No strategy has a positive lower bound with realistic fills. The largest figures (rows 10 and 12) are simulations or ceilings, not tests.
@@ -60,3 +60,6 @@ Not proven:
 Nothing is discarded; every row stays ranked in IDEAS.md.
 
 Confidence 8/10: figures are from cited commits and OUTBOX rows. It is below 9 because the rows 10-12 and 13 statuses are the project's own notes from 10-11 Nov with no newer count, and the metals 0.9 bp rerun outcome was not found. To reach 9: PK's answers to R-025 and the metals rerun file.
+
+## Update 22 Nov 05:23Z
+Nick 05:22Z: gasoline dropped (rows 1-4 deprioritised; AAA TinyFish monitor paused); rebate market making moved to MFW; priority is sports feed tests, NBA included. Mentions measured: 10c rule 285 bets over 477 days, +$2,342 on $2,970 at recorded prints (average bet $10.4, limited by print size), about $4.9/day (later half about $11/day), 2.5-5.5% of $200. Depth at $200 per trade unmeasured (R-026).
