@@ -5,6 +5,7 @@ Line 1 = meta (time, Hyperliquid xyz marks, last Yahoo closes). Then one row per
 import gzip, json, sys, time, urllib.request
 from universe import UNDER
 from snaplib import market_tokens, token_row
+from pscanlib import perp_depth_usd
 
 G = "https://gamma-api.polymarket.com"; C = "https://clob.polymarket.com"
 
@@ -44,8 +45,18 @@ def main(run, label):
     t0 = time.time()
     marks = hl_marks()
     closes = {k: yahoo_close(v[1]) for k, v in UNDER.items()}
+    hl_depth = {}
+    for k, v in UNDER.items():
+        b = req("https://api.hyperliquid.xyz/info", {"type": "l2Book", "coin": "xyz:" + v[0]})
+        try:
+            bids, asks = b["levels"]
+            bb = [(float(x["px"]), float(x["sz"])) for x in bids]; aa = [(float(x["px"]), float(x["sz"])) for x in asks]
+            mid = (max(p for p, _ in bb) + min(p for p, _ in aa)) / 2
+            hl_depth[k] = dict(mid=mid, ask5bp=perp_depth_usd(aa, mid, 5, "ask"), bid5bp=perp_depth_usd(bb, mid, 5, "bid"))
+        except Exception:
+            hl_depth[k] = None
     out = open("%s/snap_%s.jsonl" % (run, label), "a")
-    out.write(json.dumps(dict(kind="meta", t=t0, label=label, marks=marks, closes=closes, margins={k: v[3] for k, v in UNDER.items()})) + "\n")
+    out.write(json.dumps(dict(kind="meta", t=t0, label=label, marks=marks, closes=closes, margins={k: v[3] for k, v in UNDER.items()}, hl_depth=hl_depth)) + "\n")
     toks = []   # (event slug, family, under, market dict, outcome, token)
     for e in uni:
         ev = req(G + "/events?slug=" + e["slug"])

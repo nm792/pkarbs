@@ -96,5 +96,10 @@ check("T2 zero edge: PASS rule fires in <= 4 of 40 no-edge panels (got %d)" % fi
 check("fee: 0.04*p*(1-p) at 0.5 is 0.01", abs(fee(0.5) - 0.01) < 1e-12)
 check("gap sign: win at 0.8 -> +0.1936; loss at 0.8 -> -0.8064", abs(gap(True, 0.8) - 0.1936) < 1e-9 and abs(gap(False, 0.8) + 0.8064) < 1e-9)
 check("T6 per-day floor caps deployed $ at $2,000 per Monday", per_day_floor({("a", 1): [dict(kind="HIGH", strike=1, price=0.5, usd=10000.0, win=True)]}, 1) < 0.5 * 10000 * 0.2 + 1 and per_day_floor({("a", 1): [dict(kind="HIGH", strike=1, price=0.5, usd=10000.0, win=True)]}, 1) <= 2000 * 0.49 + 1e-6)
+
+# ---------- Amendment 3: last_print (exploratory) must not look ahead and must use the right token
+lp = [dict(tok="Y", side="SELL", p=0.60, s=1, t=T - 5000), dict(tok="Y", side="BUY", p=0.70, s=1, t=T - 100), dict(tok="Y", side="BUY", p=0.99, s=1, t=T + 10), dict(tok="N", side="BUY", p=0.10, s=1, t=T - 50)]
+check("last_print: latest YES print before T (0.70, age 100 s), ignoring the print after T and the other token", last_print(lp, "Y", T) == (0.70, 100))
+check("last_print: None when only later prints exist", last_print([dict(tok="Y", side="BUY", p=0.5, s=1, t=T)], "Y", T) is None)
 print("ALL PASS" if not fails else "FAILED: %s" % fails)
 raise SystemExit(1 if fails else 0)

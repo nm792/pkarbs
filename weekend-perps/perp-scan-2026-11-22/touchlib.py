@@ -138,3 +138,12 @@ def per_day_floor(weeks_sel, n_mondays, per_trade=PER_TRADE, cap=DAY_CAP):
         pnl = sum(s["usd"] * gap(s["win"], s["price"], s.get("rate", FEE_RATE)) for s in rows)
         tot += pnl * (min(1.0, cap / dep) if dep > 0 else 0.0)
     return tot / n_mondays if n_mondays else 0.0
+
+
+def last_print(prints, yes_token, T):
+    """last print of the YES token (any side, any age) with timestamp < T -> (price, age_seconds) or None. Never uses a print at or after T."""
+    best = None
+    for r in prints:
+        if r["tok"] == yes_token and r["t"] < T and (best is None or r["t"] > best["t"]):
+            best = r
+    return (float(best["p"]), T - best["t"]) if best else None

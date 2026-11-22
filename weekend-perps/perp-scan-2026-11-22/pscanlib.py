@@ -106,3 +106,12 @@ def notional(trades, t0=None, t1=None):
             continue
         tot += float(r["price"]) * float(r["size"])
     return tot
+
+
+def perp_depth_usd(levels_px_sz, mid, bps=5.0, side="ask"):
+    """$ notional resting within `bps` basis points of mid on one side of a perp book. levels_px_sz = [(px, sz)] in any order.
+    side 'ask': px in [mid, mid*(1+bps/1e4)] ; side 'bid': px in [mid*(1-bps/1e4), mid]. Notional = px*sz (sz in base units)."""
+    if not mid or mid <= 0:
+        return 0.0
+    lo, hi = (mid, mid * (1 + bps / 1e4)) if side == "ask" else (mid * (1 - bps / 1e4), mid)
+    return sum(px * sz for px, sz in levels_px_sz if lo - 1e-12 <= px <= hi + 1e-12)

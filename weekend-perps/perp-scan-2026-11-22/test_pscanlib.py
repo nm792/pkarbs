@@ -49,5 +49,12 @@ rows = [{"price": 0.5, "size": 100, "timestamp": 10}, {"price": 0.2, "size": 100
 check("notional full", abs(notional(rows) - 79.0) < 1e-9)
 check("notional window [15,30) excludes both ends", abs(notional(rows, 15, 30) - 20.0) < 1e-9)
 
+
+# T8 perp depth within 5 bp of mid (any list order)
+asks_p = [(100.10, 3.0), (100.04, 2.0), (100.00, 1.0), (99.9, 50.0)]
+check("perp ask depth within 5 bp of mid 100: 100.00*1 + 100.04*2 = 300.08 (100.10 is 10 bp away, 99.9 is below mid)", abs(perp_depth_usd(asks_p, 100.0, 5, "ask") - 300.08) < 1e-9)
+check("same answer when reversed", abs(perp_depth_usd(list(reversed(asks_p)), 100.0, 5, "ask") - 300.08) < 1e-9)
+check("perp bid side mirrors: 99.96*4 = 399.84, 99.90 outside", abs(perp_depth_usd([(99.96, 4.0), (99.9, 7.0)], 100.0, 5, "bid") - 399.84) < 1e-9)
+check("zero mid gives 0", perp_depth_usd(asks_p, 0.0) == 0.0)
 print("ALL PASS" if not fails else "FAILED: %s" % fails)
 raise SystemExit(1 if fails else 0)
