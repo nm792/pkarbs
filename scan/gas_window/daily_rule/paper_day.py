@@ -42,7 +42,8 @@ def aggregate(rows):
     out["cells"] = {k: S.cell_status(v, SIGMA[k]) for k, v in cells.items() if v}
     ests = {k: (sum(v) / len(v), SIGMA[k] / len(v) ** 0.5) for k, v in cells.items() if len(v) >= 2}
     if len(ests) >= 2: out["shrunk"] = S.shrink(ests)
-    out["power_days_post_backtest_edge"] = S.power_days(2.60, 7.06)
+    out["power_days_post_backtest_edge_at_registered_sigma"] = S.power_days(2.60, SIGMA["post"])   # R-020: registered sigma 10.59, not the backtest SD 7.06
+    b60 = S.cs_bounds([2.60] * 60, SIGMA["post"]); out["post_success_threshold_mean_at_60d"] = b60[1] - 2.60 if b60 else None   # CS half-width at the 60-day max
     return out
 def main(argv=None):
     ap = argparse.ArgumentParser(); ap.add_argument("--date", required=True); ap.add_argument("--books", required=True); ap.add_argument("--page", required=True)
