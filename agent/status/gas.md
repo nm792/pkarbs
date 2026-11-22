@@ -59,3 +59,12 @@ Read-only proof at 2026-11-20 16:42:13Z and 16:43:14Z (60 seconds apart):
 - Books file `/mnt/HC_Volume_107257520/gas/us-gas-price-on-november-21-2026.books.jsonl`: 63,760,708 bytes and 11,693 lines at both reads; mtime 09:29:59Z. No growth across the 61-second check.
 - `paper_books_2026-11-21.log` tail: `polls 6596 errors 0`; no error count at that read.
 - 21 Nov remains capture-only. The late 14:50–15:00Z book window is staged separately under P98e and has not yet run.
+
+## P98d gas waiter live proof (22 Nov 2026; checked 02:26–02:30Z)
+
+- The 22 Nov waiter completed: its log records `LISTED after 1800 polls`, 5,097 polls with 0 errors, and 14 new trades with 0 errors. Books: 5,097 rows / 27,315,735 bytes, receive times 15:05:00Z–16:29:59Z on 21 Nov. Trades: 14 rows / 12,607 bytes, receive times 15:10:01Z–16:05:04Z. Both file sizes were unchanged across a 60-second recheck.
+- PID 2259571 was absent. The requested `late_books_20261121.nohup` and expected `paper_books_late_2026-11-21.log` were absent; no late-books output was found.
+- The 21 Nov page log has 880 rows, all HTTP 403, from 07:40:03Z through 14:59:33Z. The 21 Nov scorer therefore recorded `page_log_ok=false`, `days_scored=0`; this is not a 22 Nov result.
+- At 02:26Z the 22 Nov books and trades were available to the 16:10Z and 20:10Z scorer crons, but the 22 Nov page input had not yet been created (its 07:40Z capture is in the future). Those scorer runs are not yet verifiable.
+- Evidence paths: `gas/us-gas-price-on-november-22-2026.books.jsonl`, `gas/us-gas-price-on-november-22-2026.trades.jsonl`, `gas/wait-20261122.log`, `gas/aaa_page_2026-11-21.jsonl`, and `gas/paper/paper_day_2026-11-21.log`.
+- Report: `agent/outbox/P98d-gas-waiter-live-proof.md`.
