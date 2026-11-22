@@ -1,0 +1,33 @@
+# SPEC v3 (draft, 22 Nov 2026): Goalserve odds vs Polymarket: PM input per cell, resolution, controls, power, stops
+Goalserve thread. Answers Reviewer R-021 (PM input per cell) and R-023 (all feed tests). **Nothing in this spec has been run.** All data read before the lock is treated as seen: **the v3 data window starts at 2026-11-22T00:00Z** (the 18-20 Nov looks and the exploratory scans, and the descriptive result net -0.78c CS2 and -2.18c tennis, are excluded and not evidence for or against v3). The signed v2 (hashes in `feeds/run_daily_look.sh`) is **RETIRED for 20 Nov+ data**: its Polymarket side (`thesports/final-topics-32295b`, REST poller) stopped at 04:11Z 20 Nov. v3 needs new code and a checker signature before any look is run or read.
+
+## 1. PM input per cell (R-021). One recorder per cell, named; a cell without one is not run
+| Cell | Goalserve side | Polymarket recorder (both tokens' own books) | Status 22 Nov 04:50Z |
+|---|---|---|---|
+| CS2 match winner and Map N | `esports_payloads`, league prefix CS2 | `pkarbs/pmcs2` (`it/pm_cs2_books.js`, websocket, slim build 20 Nov: hourly `books-YYYYMMDDHH.jsonl[.gz]`, a row on every best bid/ask price or size change) | UNVERIFIED since 20 Nov 21:18Z; R-024 read row `it/00-URGENT-R024-one-read-all-recorders-by-0800Z.md` |
+| Dota 2 match winner | same, league prefix Dota 2 | `pkarbs/pmdota` (`feeds/pm_dota_books.js`, REST `GET /book` per token, 2 s cycle) read through `feeds/dotacap_books_adapter.py` | **Informational only** (see 2: 2 s resolution cannot resolve a 1-2 s lead); adapter output and schema unverified (descriptive scan showed 0 usable Dota events) |
+| Tennis match winner | `tennis_payloads` | **`pkarbs/pmtennis`** (`it/pm_sport_books.js ... tennis`, websocket, gzip members), IT row P91 in the R-024 note. No other tennis recorder exists since 20 Nov 04:11Z | NOT STARTED until IT pastes the start check. Tennis data counts only from the first row of `pmtennis` |
+| NHL moneyline | `hockey_nhl_payloads` | `pkarbs/pmsport` (`it/pm_sport_books.js`, websocket) | started 20 Nov 14:13Z (IT), 21 Nov 17:30Z read never pasted; **name join not yet fixed** (Goalserve "NJ Devils" vs Polymarket "Devils": v2's exact join matches nothing; v3 uses a team-name containment rule and drops ambiguous pairs, counted) |
+Reader change (code, not yet written): v2's `find(d,'books')` reads `books.jsonl[.gz]` only; v3 reads `books-*.jsonl[.gz]` and `books.jsonl.gz`. A change-filtered book is read as step function: mid at time x = last row at or before x (rows exist whenever the best bid or ask changes, so the mid is exact; levels 2-3 may lag up to 10 s and are not used).
+**Capture code rule:** every look records `git rev-parse` of the file the capture runs; the running Goalserve capture must be byte-identical to the committed `live/goalserve/capture_store_all.py` (IT pastes `sha256sum` of both). Else INVALID.
+
+## 2. Time resolution per recorder (R-023)
+| Source | Time stamp | Resolution / refresh |
+|---|---|---|
+| Goalserve odds | our receive time after the body is read (`recv_ns`) | poll every about 1.8 s per sport (measured gap p50 1.799 s). Our receive minus Goalserve's own update time: median 1.76 s tennis, 1.90 s CS2 (Reviewer, 19 Nov samples). **An event time is uncertain by about 2 s; no window narrower than about 2 s can be read.** |
+| pmcs2, pmtennis, pmsport | `Date.now()` at websocket message receipt, ms | tick level (every book change); one host, one clock |
+| pmdota | after each REST `/book` response | 2 s per token per cycle |
+| Polymarket trades (charts only) | 1 s | trade time, not book |
+## 3. Statistic and windows (resolves 1-2 s)
+Event: a move of 2c or more in the normalised home win probability (as v2). Primary statistic, per event, on the rising team's OWN token mid: `d10 = [mid(t+10) - mid(t)] - [mid(t) - mid(t-10)]`, secondary `d2 = [mid(t+2) - mid(t)] - [mid(t) - mid(t-2)]` (cannot be read finer than the 2 s event-time uncertainty, reported anyway), and the 60 s `d60` of v2 for continuity. Per-match mean of d10, match-clustered t statistic (as v2 V17), one-sided. **Sign convention stated: d10 > 0 means the price moved with the odds after the odds moved relative to before; the descriptive scans of 18-20 Nov had net < 0 (price moved before).**
+## 4. Controls
+- **Placebo = event-free times, same rule:** per event, 10 times drawn in the same match where no Goalserve move of 1c or more occurs within +-120 s; random token, random sign; same `d10`. Reported placebo mean must be inside +-0.2c, else `placebo drift` and no verdict.
+- **Plants as raw book rows** (as v2 V18) at t+5 s of +1c and -1c on the rising token, per event, alone. **Recovery required 95-105% of 1c** in the per-match mean for both signs and for the swap; else the cell prints no number ("plant not recovered").
+- **Null that must read "no edge":** a label-swap run (the other token read as rising) must give the negated net; a time-shift run (events moved by +600 s) must give 0 within +-0.2c.
+## 5. Power (in matches), set before the run
+Needed matches for a one-sided 5% test with 80% power on a true net of delta: `n = 6.185 * sigma^2 / delta^2`, sigma = sd of the per-match mean `d10`, UNKNOWN until measured (needs the per-match means of one pooled look; IT row P66 was never pasted). Table: delta 0.5c: sigma 1c -> 25 matches, 2c -> 99, 3c -> 222; delta 1c: 7, 25, 56. **No look is read before sigma is measured on the first 12 matches of that cell** (that block is used only to size N_MAX, not to test).
+## 6. Stops (pre-set, success and futility)
+Success: z_eq x sqrt(t) >= 2.60 (v2 V17 boundary, alpha 0.0093 per cell). Futility: at 30 matches or more, if the 95% upper bound of the mean `d10` is below +0.2c -> "no lead at 0.2c or more, closed". Reverse: upper bound below 0 at 30 matches -> "price moves first, closed". Maximum N_MAX = the n of section 5 for delta 0.5c, or 100 matches, whichever is smaller. One look per UTC day; later looks never overturn a close.
+## 7. Dependencies (what must exist before the first look)
+1. R-024 reads show pmcs2, pmtennis, pmsport running (pid + growth); 2. capture restarted onto committed `capture_store_all.py` with the sha256 pasted; 3. v3 code and its test with the plants above written by this thread and signed by the checker (hash-pinned in `run_daily_look.sh`); 4. VOL2 free above the new 10.5 GB gate. Until then the answer to "where are the results" is "not run, here is the blocker".
+**Confidence 6/10.** Unverified: recorder liveness (R-024), reader schema of the slim pmcs2 build, sigma. To reach 9: the R-024 paste and one pooled look's per-match means.
