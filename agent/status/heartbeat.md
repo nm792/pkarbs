@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-22T07:00:05Z |
-| origin_tip | f5a30932d4 |
-| newest_origin_commit | 2026-11-22T06:00:34Z heartbeat 2026-11-22T06:00:22Z (no-model status_heartbeat.sh, R1) |
+| generated_utc | 2026-11-22T08:00:22Z |
+| origin_tip | 30f0ba455e |
+| newest_origin_commit | 2026-11-22T07:25:15Z P101a: report verified stale thesports box copy |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
