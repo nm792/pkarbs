@@ -39,6 +39,12 @@ Source: `perp-scan-2026-11-22/run-2026-11-22/snap_sun2240.jsonl` (1,496 tokens, 
 - Depth by family (tradable tokens, median $, sum $): OPEN 2 tradable, $417 total; TOUCH-STOCK 524 tradable, median $61, $82.7k; TOUCH-METALS 77, median $25; TOUCH-OIL 10, median $262; CLOSE-STOCK 157, median $50.
 - Still to come: 23:06Z (metals and oil after the 23:00Z reopen), Mon 14:20Z (equity open), IT P92 (SPX/SPY recorded books).
 
+## UPDATE Sun 22 Nov 23:06Z: books after the 23:00Z metals/oil reopen (OFF-PRIME container run; `snap_sun2306.jsonl`, HEALTH READ PASS)
+- **Gold K3550:** perp mark rose to 3574 after the reopen (3548.5 at 22:40Z, so no candidate then). The YES token has **no ask at all** ($0 depth): nobody is offering it. Nat gas K3.7 LOW (perp 3.65): also no ask.
+- **Stocks, 16 candidates now:** 9 still at 0.99 or 0.98 (about $400-600 depth, 1-2c upside); 6 had no ask. One new tradable: **COIN K102.5 YES at 0.89 with $31 of depth** (it had no ask at 22:40Z). MSFT K495 (0.91, $5 at 22:40Z) no longer shows.
+- Reading: after the reopen, metals and oil gap candidates have no sellers rather than a stale ask, so they cannot be bought at any price in size. The only stale-looking quote found across both snapshots is $31 and $5 deep. Weekly "hit" family: about $0/day at decision-time depth on this weekend. One weekend only.
+- Depth shift sun2240 to sun2306 (median $, tradable tokens): TOUCH-METALS 77 tokens, median $25 to $101, total $4.4k to $15.0k (28 tokens at or above $200); TOUCH-OIL 10, $262 to $152.
+
 ## What lands next (nothing waits on this file)
 1. **Sun 22 Nov 22:40Z and 23:06Z:** decision-time own-token book snapshots of all 58 events (metals and oil reopen 23:00Z), `snapshot.py`, scheduled; **Mon 23 Nov 14:20Z:** equity open snapshot (after the 12:00Z due time, addendum).
 2. **IT row P92** (`it/P92-perps-open-contract-depth-read.md`): `ocbooks_depth.py` on the recorded SPX/SPY books 19-22 Nov: best ask and $ depth within 3c at T-60, T-30, T-10 per token.
