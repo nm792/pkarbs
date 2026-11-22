@@ -68,3 +68,12 @@ Read-only proof at 2026-11-20 16:42:13Z and 16:43:14Z (60 seconds apart):
 - At 02:26Z the 22 Nov books and trades were available to the 16:10Z and 20:10Z scorer crons, but the 22 Nov page input had not yet been created (its 07:40Z capture is in the future). Those scorer runs are not yet verifiable.
 - Evidence paths: `gas/us-gas-price-on-november-22-2026.books.jsonl`, `gas/us-gas-price-on-november-22-2026.trades.jsonl`, `gas/wait-20261122.log`, `gas/aaa_page_2026-11-21.jsonl`, and `gas/paper/paper_day_2026-11-21.log`.
 - Report: `agent/outbox/P98d-gas-waiter-live-proof.md`.
+
+
+## Gas deploy 888269b2 / P100a (22 Nov 2026)
+
+- Source commit: `888269b2f84245d39abf1fc7ebf7dcaccdb59b75` on `claude/project-thread-lfb1pf`; exported to the VOL2 deployment `gas-888269b2`.
+- VOL2 free before tests: 10,574,237,696 bytes; after tests and deployment: 10,564,354,048 bytes.
+- Passed on the exact source: `test_paper_post.py`, `test_paper_score.py`, `test_paper_day.py`, `test_aaa_page_log.py`, `test_run_paper_window.sh` (3/3), and `test_run_paper_day.sh` (1/1). `test_aaa_page_tinyfish.py` was not run, as explicitly directed; no TinyFish key was needed and the direct page logger was left unchanged.
+- Repointed all four recurring gas-window crontab entries from `gas-20293df7` to `gas-888269b2`; crontab readback confirms 4 new-deploy references and zero gas-window references to the old deploy. Other crontab lines were unchanged.
+- No live orders.
