@@ -31,6 +31,14 @@ No. Depth within 5 bp of mid on the xyz books at 06:30Z: SP500 $393k ask / $198k
 - **Plausibility check (committed with the result).** First candle pull was empty (451 of 451 cells): the analysis printed `no_candle: 451` and zero cells, which I treated as implausible, found the cause (Hyperliquid keeps 1-minute history only for recent days; 5-minute only about 17 days) and recorded it as Amendments 1 and 2 before the amended numbers. One n = 1 line printed during the 5-minute attempt is disclosed in Amendment 2. Final run: 451 cells, 258 candidates, 226 strikes with a usable print, 8,264 NOPRINT, 85 DEAD. Volumes: all 58 events complete (no incomplete pagination); WTI monthly $48.7k/day over 3,744 trades is plausible.
 - Limits: Pyth spot vs the futures used for the last close vs the xyz perp is a basis; the 1-hour perp price is up to 20-50 minutes older than T; prints are not quotes; stale-price reference uses prints up to many hours old (median 4.8 h); 29 weekends.
 
+## UPDATE Sun 22 Nov 22:40Z: first decision-time own-token books (OFF-PRIME container run; Prime run not yet on any branch)
+Source: `perp-scan-2026-11-22/run-2026-11-22/snap_sun2240.jsonl` (1,496 tokens, all with their own book; HEALTH READ PASS), `analyze_snapshot.py`. 14 YES tokens where the xyz mark had already crossed the strike (close = Friday):
+- **12 of 14 were already at 0.99 or had no ask.** Weekly stock "hit" YES asks sat at 0.99 with about $396-401 of depth (AMZN K252, COIN K105, GOOGL K270, META K570, NVDA K132, PLTR K147, TSLA K352.5): dead bucket, 1c upside. COIN K102.5, MSFT K487.5, MSTR K80 had no ask at all.
+- **Only tradable candidate: MSFT K495 YES at 0.91 with $5 of depth** (the monthly MSFT, COIN and MSTR contracts had no ask).
+- Reading: by Sunday 22:40Z the weekly "hit" contracts have already repriced to the perp gap. The earlier stale-price reference (+$5.1/day, last prints median 4.8 h old) is not available at decision time: the quotes are not stale. $/day for row 2 at decision-time depth is about $0 (one tradable token, $5). This is one weekend; it is a MEASURED depth, not a MEASURED edge.
+- Depth by family (tradable tokens, median $, sum $): OPEN 2 tradable, $417 total; TOUCH-STOCK 524 tradable, median $61, $82.7k; TOUCH-METALS 77, median $25; TOUCH-OIL 10, median $262; CLOSE-STOCK 157, median $50.
+- Still to come: 23:06Z (metals and oil after the 23:00Z reopen), Mon 14:20Z (equity open), IT P92 (SPX/SPY recorded books).
+
 ## What lands next (nothing waits on this file)
 1. **Sun 22 Nov 22:40Z and 23:06Z:** decision-time own-token book snapshots of all 58 events (metals and oil reopen 23:00Z), `snapshot.py`, scheduled; **Mon 23 Nov 14:20Z:** equity open snapshot (after the 12:00Z due time, addendum).
 2. **IT row P92** (`it/P92-perps-open-contract-depth-read.md`): `ocbooks_depth.py` on the recorded SPX/SPY books 19-22 Nov: best ask and $ depth within 3c at T-60, T-30, T-10 per token.
