@@ -72,7 +72,7 @@ def main(run):
             t1 = t0 + 41 * 3600 * 1000                                                                                                   # Monday 17:00Z
             for tk in TKS:
                 sym = UNDER[tk][0]
-                r = req("https://api.hyperliquid.xyz/info", {"type": "candleSnapshot", "req": {"coin": "xyz:" + sym, "interval": "5m", "startTime": t0, "endTime": t1}})
+                r = req("https://api.hyperliquid.xyz/info", {"type": "candleSnapshot", "req": {"coin": "xyz:" + sym, "interval": "1h", "startTime": t0, "endTime": t1}})
                 cand["%s|%s" % (tk, d)] = [[c["T"], float(c["c"])] for c in r] if isinstance(r, list) else None
             print("candles", d, flush=True)
         with gzip.open(p_c, "wt") as f: json.dump(cand, f)
