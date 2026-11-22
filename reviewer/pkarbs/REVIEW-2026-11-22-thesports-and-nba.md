@@ -19,7 +19,7 @@ The stop on 20 Nov (Nick 03:16Z "no use"; PK P72 c849817814 "no current Goalserv
 
 Access: the free trial ended 16 Nov and was not paid (rule at the time: "No paying or extending"). So new live TheSports tests need a paid or new trial, which is Nick's decision. The recorded 6-16 Nov data (TheSports messages plus the PM book poller in `thesports/final-topics-32295*`, partly in the repo as `rn1/scores/thesports/final-topics-32295*-slim`) can still be tested offline if it was not deleted. IT asked on 20 Nov 09:25Z whether to delete final-topics-32295b (65b6db323a); no answer is on any branch, and T0k3 ships files older than 7 days to the storage box.
 
-## 2. NBA paper test (R-028)
+## 2. NBA paper test (R-029)
 
 What exists: the free Polymarket sports WS reaches us a median 4.9 s after the NBA official play, 2.1 s before the price is half-moved, with 33% of the move done (n 1,209 scores, 14 games, `winmodels/us/NOTE-nba-true-event-time-2026-11-04.md`). The simulated rule (post-only bid at mid x 0.975 rounded down to 0.001, side the jump model says should rise, 10 s, held to result, fills only on prints trading strictly through our price) gives about +$9.6/game at 5 s, 90% range -$0.4 to +$18.9, about $70/day at 7.2 games/day. It is a sim on trade-derived mids, 429 games of 2025-26; the 2026 sample held to result was -$42/game at 0 s on 39 games. No paper or live order was ever placed (the NBA book recorder task was cancelled 7 Nov).
 
@@ -31,7 +31,7 @@ Minimum valid paper test (MODELLING-PRINCIPLES 8, 10, 12, 13, 14):
 5. Controls before any number: event-free-time placebo, plant injected as raw book/print rows (recovery 95-105%), label swap; power from the sim's per-game sd; pre-set success and futility stops.
 6. Capacity: shares resting ahead at our price at decision time (the 5 Nov sample had a median 6,324 ahead), reported per event.
 
-## 3. Offline TheSports checks that cost no new access (R-027)
+## 3. Offline TheSports checks that cost no new access (R-028)
 - D1 Dota: finish with the 12 Nov registrations re-paired from disk (PK's own 13 Nov status said they were re-pairable), evaluated exactly as pre-registered, with the planted and placebo checks.
 - NBA: the 6-16 Nov TheSports basketball messages vs the PM sports WS (`pmws.jsonl`) and the PM NBA books in the same folder: delay of each against the official `timeActual` and against the price. That tells whether TheSports NBA is faster than the free PM stream, which is the only reason to pay for it.
 
