@@ -4,7 +4,7 @@ Prints one INBOX-ready line: share of expected snapshots captured (tokens with a
 price source, disk free, pid, PASS/FAIL. FAIL if capture < 99%, any err row, marks/closes missing, or disk < 15 GB."""
 import json, os, shutil, sys
 
-def read(run, label, pid=None, disk_path=None):
+def read(run, label, pid=None, disk_path=None, free_gb=None):
     rows = [json.loads(l) for l in open("%s/snap_%s.jsonl" % (run, label))]
     meta = [r for r in rows if r["kind"] == "meta"][-1]
     toks = [r for r in rows if r["kind"] == "tok"]; errs = [r for r in rows if r["kind"] == "err"]
@@ -12,7 +12,8 @@ def read(run, label, pid=None, disk_path=None):
     cap = ok / len(toks) if toks else 0.0
     nm = sum(v is not None for v in meta["marks"].values()); nc = sum(v is not None for v in meta["closes"].values())
     nd = sum(v is not None for v in (meta.get("hl_depth") or {}).values())
-    free_gb = shutil.disk_usage(disk_path or run).free / 1e9
+    if free_gb is None:   # real run: measure the disk; tests inject a value so they do not depend on the machine's free space
+        free_gb = shutil.disk_usage(disk_path or run).free / 1e9
     fails = []
     if cap < 0.99: fails.append("capture %.1f%% < 99%%" % (100 * cap))
     if errs: fails.append("%d err rows" % len(errs))
