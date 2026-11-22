@@ -90,7 +90,7 @@ def series_ordinals(msgs):
         if g is not None and g not in order: order.append(g)
         cr = m["payload"].get("current_round") or {}
         if first is None and g is not None and cr: first = (cr.get("round_number") or 0)
-    return {g: i + 1 for i, g in enumerate(order)}, bool(first and first > 2)
+    return {g: i + 1 for i, g in enumerate(order)}, bool(first and first > 1)   # capture must open before the first round of the first game seen
 
 
 def load_match(f, mk, books):
@@ -191,16 +191,17 @@ def mean_spread_c(R, tag="row"):
 
 
 def shuffle_p(M, L, nperm=2000, seed=5):
-    """within-match label shuffle: per match, each event is scored with its real favoured token or the other token with prob 1/2; p = share of shuffles with mean >= real."""
+    """within-match BLOCK label shuffle (60 s blocks): each block is scored with its real favoured token or the other token with prob 1/2; p = share of shuffles with mean >= real."""
     real = run(M, L); sw = run(M, L, "swap"); rnd = random.Random(seed); pairs = []
     for mid in real:
         for a, b in zip(real[mid], sw[mid]):
             x, y = _ev_val(a, "row", 15.0, "gross"), _ev_val(b, "row", 15.0, "gross")
-            if x is not None and y is not None: pairs.append((mid, x, y))
+            if x is not None and y is not None: pairs.append(((mid, int(a["t"] // 60)), x, y))
     if not pairs: return None
-    obs = st.mean(p[1] for p in pairs); c = 0
+    obs = st.mean(p[1] for p in pairs); c = 0; blocks = sorted({p[0] for p in pairs})
     for _ in range(nperm):
-        if st.mean(p[1] if rnd.random() < .5 else p[2] for p in pairs) >= obs - 1e-12: c += 1
+        flip = {b: rnd.random() < .5 for b in blocks}   # BLOCK shuffle: all events of one match within the same 60 s share a label flip (kills inside a round are correlated)
+        if st.mean(p[2] if flip[p[0]] else p[1] for p in pairs) >= obs - 1e-12: c += 1
     return c / nperm
 
 
@@ -219,14 +220,14 @@ def main(sd, pd, L=0.5, plant=0.03, nplace=200):
     sh = summ(run(M, L, "shift"), "row", 15.0, "gross"); ctl["shift300_gross"] = sh
     rnd = random.Random(7); pl = []
     for _ in range(nplace):
-        s = summ(run(M, L, "placebo", rnd=rnd), "row", 15.0, "gross")
-        if s.get("used"): pl.append(s["mean_c"])
+        pr_ = run(M, L, "placebo", rnd=rnd); s = summ(pr_, "row", 15.0, "gross"); sp_ = mean_spread_c(pr_)
+        if s.get("used") and sp_ is not None: pl.append(s["mean_c"] + sp_)     # deviation of placebo gross from MINUS ITS OWN entry spread; no edge reads 0
     pl.sort()
     if pl:
-        ctl["placebo_gross_c"] = dict(draws=len(pl), mean=st.mean(pl), p2_5=pl[int(.025 * len(pl))], p97_5=pl[min(len(pl) - 1, int(.975 * len(pl)))])
-    ctl["expected_gross_if_no_edge_c"] = None if spread is None else -spread     # gross = exit bid - entry ask reads about minus the spread when there is no edge
-    ok_pl = bool(pl and spread is not None and ctl["placebo_gross_c"]["p2_5"] - 0.05 <= -spread <= ctl["placebo_gross_c"]["p97_5"] + 0.05)
-    ok_sh = bool(sh.get("used") and spread is not None and sh["boot_c"][0] - 0.05 <= -spread <= sh["boot_c"][1] + 0.05)
+        ctl["placebo_dev_from_minus_spread_c"] = dict(draws=len(pl), mean=st.mean(pl), p2_5=pl[int(.025 * len(pl))], p97_5=pl[min(len(pl) - 1, int(.975 * len(pl)))])
+    shift_run = run(M, L, "shift"); sh_sp = mean_spread_c(shift_run); ctl["expected_gross_if_no_edge_c_real_times"] = None if spread is None else -spread
+    ok_pl = bool(pl and ctl["placebo_dev_from_minus_spread_c"]["p2_5"] - 0.05 <= 0 <= ctl["placebo_dev_from_minus_spread_c"]["p97_5"] + 0.05)   # each control compared with its OWN spread
+    ok_sh = bool(sh.get("used") and sh_sp is not None and sh["boot_c"][0] - 0.05 <= -sh_sp <= sh["boot_c"][1] + 0.05)
     ctl["placebo_ok"] = ok_pl; ctl["shift_ok"] = ok_sh
     ok_plant = False
     if plant:

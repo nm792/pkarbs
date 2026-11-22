@@ -11,7 +11,7 @@ def chk(name, ok, extra=""):
     if not ok: fails.append(name)
 T0 = 1_800_000_000.0
 
-def make(d, lead, gaps=(120,), startround=0, nkills=20):
+def make(d, lead, gaps=(120,), startround=0, nkills=20, evspread=0.0):
     """one game, kills favouring home/away alternately; gaps cycles for the spacing; books for moneyline (H,A), Map 1 (H2,A2), Map 2 (H3,A3);
     a lead = cents the favoured token rises 3 s after a kill (kept 20 s). startround>0 makes the capture start mid-game."""
     t = T0; msgs = []; kills = []
@@ -28,9 +28,9 @@ def make(d, lead, gaps=(120,), startround=0, nkills=20):
         ts = T0 + s; adj = 0.0
         for kt, fav in kills:
             if kt + 3 <= ts < kt + 23: adj += lead if fav == "home_team" else -lead
-        h = 0.5 + adj
+        h = 0.5 + adj; sp = 0.01 + (evspread if any(kt <= ts < kt + 30 for kt, _ in kills) else 0.0)
         for ha, aa in (("H", "A"), ("H2", "A2"), ("H3", "A3")):
-            rows.append((ts, ha, h - .01, h + .01, 50)); rows.append((ts, aa, (1 - h) - .01, (1 - h) + .01, 50))
+            rows.append((ts, ha, h - sp, h + sp, 50)); rows.append((ts, aa, (1 - h) - sp, (1 - h) + sp, 50))
     with open(os.path.join(d, "markets.jsonl"), "w") as f:
         for c, q, a, b in (("c", "Counter-Strike: Alpha vs Beta (BO3)", "H", "A"), ("c1", "Counter-Strike: Alpha vs Beta - Map 1 Winner", "H2", "A2"), ("c2", "Counter-Strike: Alpha vs Beta - Map 2 Winner", "H3", "A3")):
             f.write(json.dumps(dict(cond=c, q=q, outcomes=["Alpha", "Beta"], tokens=[a, b], start="x")) + "\n")
@@ -89,6 +89,12 @@ chk("gate passes on the 120 s lead fixture and real numbers are printed", g1["ga
 sd2 = tempfile.mkdtemp(); os.rename(os.path.join(d2, "ps_sample_1.jsonl.gz"), os.path.join(sd2, "ps_sample_1.jsonl.gz"))
 g2 = quiet(k.main, sd2, d2, 0.5, 0.03, 20)
 chk("gate FAILS and withholds the real number at 20 s spacing", (not g2["gate_pass"]) and isinstance(g2["real"], str) and g2["real"].startswith("WITHHELD"), g2["real"][:40] if isinstance(g2["real"], str) else g2["real"])
+
+# ---- no edge, spread widens by 2c after every kill: controls must still pass (they compare with their OWN spread)
+d5 = tempfile.mkdtemp(); make(d5, 0.0, evspread=0.02); sd5 = tempfile.mkdtemp(); g5 = None
+os.rename(os.path.join(d5, "ps_sample_1.jsonl.gz"), os.path.join(sd5, "ps_sample_1.jsonl.gz")); g5 = quiet(k.main, sd5, d5, 0.5, 0.03, 20)
+chk("event-time spread widening with no edge: placebo and shift controls still pass", g5["controls"]["placebo_ok"] and g5["controls"]["shift_ok"], (g5["controls"].get("placebo_dev_from_minus_spread_c"), g5["controls"]["expected_gross_if_no_edge_c_real_times"]))
+chk("startround 1 (round 2 first seen) counts as mid-game", len(k.run((lambda dd: (make(dd, 0.0, startround=1), load(dd))[1])(tempfile.mkdtemp()), 0.5)[1][0]["rs"]) == 1)
 
 # ---- book helpers
 b = k.Book([(1.0, .4, .5), (3.0, .41, .51)])
