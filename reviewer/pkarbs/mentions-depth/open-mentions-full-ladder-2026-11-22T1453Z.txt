@@ -1,0 +1,93 @@
+snapshot_utc 2026-11-22T14:53:56Z
+
+## what-will-salesforce-say-during-their-next-earnings-call-20261202 vol24h=4046 vol=4046 liq=3038 end=2026-12-03T04:59:00Z https://polymarket.com/event/what-will-salesforce-say-during-their-next-earnings-call-20261202
+  AI 50+ times | vol24h=714 vol=714 | Yes: bestask=0.77 top$=31 ask$all=2313 ask$0.05-0.97=1931 lvls=12 | No: bestask=0.3 top$=10 ask$all=4297 ask$0.05-0.97=3782 lvls=8
+  Agent / Agentic 40+ times | vol24h=11 vol=11 | Yes: bestask=0.97 top$=7 ask$all=5703 ask$0.05-0.97=7 lvls=3 | No: bestask=0.25 top$=25 ask$all=554 ask$0.05-0.97=517 lvls=6
+  Slack 30+ times | vol24h=418 vol=418 | Yes: bestask=0.95 top$=48 ask$all=11581 ask$0.05-0.97=54 lvls=4 | No: bestask=0.46 top$=9 ask$all=2143 ask$0.05-0.97=1641 lvls=9
+  Data Center | vol24h=426 vol=426 | Yes: bestask=0.45 top$=20 ask$all=2213 ask$0.05-0.97=1000 lvls=14 | No: bestask=0.998 top$=132 ask$all=905 ask$0.05-0.97=0 lvls=2
+  Fabric | vol24h=2096 vol=2096 | Yes: bestask=0.88 top$=40 ask$all=4752 ask$0.05-0.97=1463 lvls=5 | No: bestask=0.988 top$=14 ask$all=4552 ask$0.05-0.97=0 lvls=9
+  Europe | vol24h=80 vol=80 | Yes: bestask=0.73 top$=29 ask$all=2373 ask$0.05-0.97=2331 lvls=4 | No: bestask=0.28 top$=28 ask$all=1304 ask$0.05-0.97=788 lvls=9
+  Headless | vol24h=302 vol=302 | Yes: bestask=0.98 top$=5 ask$all=52 ask$0.05-0.97=0 lvls=2 | No: bestask=0.1 top$=6 ask$all=4284 ask$0.05-0.97=3767 lvls=10
+  Braze | vol24h=0 vol=0 | Yes: bestask=0.98 top$=88 ask$all=303 ask$0.05-0.97=0 lvls=2 | No: bestask=0.12 top$=34 ask$all=417 ask$0.05-0.97=385 lvls=6
+  EVENT total ask $ (all tokens, all levels) = 47745 over 16 tokens
+
+## what-will-trump-or-melania-say-during-the-thanksgiving-turkey-pardon-on-november-24 vol24h=3852 vol=13088 liq=9937 end=2026-11-24T23:59:00Z https://polymarket.com/event/what-will-trump-or-melania-say-during-the-thanksgiving-turkey-pardon-on-november-24
+  Bean | vol24h=0 vol=558 | Yes: bestask=0.27 top$=5 ask$all=1201 ask$0.05-0.97=463 lvls=10 | No: bestask=0.87 top$=69 ask$all=5430 ask$0.05-0.97=445 lvls=6
+  Potato | vol24h=109 vol=698 | Yes: bestask=0.36 top$=7 ask$all=2032 ask$0.05-0.97=1321 lvls=12 | No: bestask=0.7 top$=42 ask$all=2263 ask$0.05-0.97=1257 lvls=10
+  Tomato | vol24h=285 vol=2622 | Yes: bestask=0.14 top$=10 ask$all=1666 ask$0.05-0.97=958 lvls=13 | No: bestask=0.87 top$=114 ask$all=6525 ask$0.05-0.97=2077 lvls=9
+  Chicken / Egg | vol24h=14 vol=662 | Yes: bestask=0.62 top$=6 ask$all=1294 ask$0.05-0.97=1041 lvls=9 | No: bestask=0.49 top$=10 ask$all=2292 ask$0.05-0.97=792 lvls=9
+  Iran | vol24h=526 vol=1151 | Yes: bestask=0.63 top$=6 ask$all=3195 ask$0.05-0.97=2983 lvls=15 | No: bestask=0.39 top$=2 ask$all=5415 ask$0.05-0.97=3911 lvls=13
+  Joe / Biden | vol24h=368 vol=1163 | Yes: bestask=0.75 top$=19 ask$all=2043 ask$0.05-0.97=1821 lvls=9 | No: bestask=0.28 top$=6 ask$all=2875 ask$0.05-0.97=1377 lvls=20
+  Xi / China | vol24h=158 vol=252 | Yes: bestask=0.64 top$=154 ask$all=2560 ask$0.05-0.97=2421 lvls=10 | No: bestask=0.39 top$=203 ask$all=3015 ask$0.05-0.97=1511 lvls=12
+  Ballroom | vol24h=722 vol=2187 | Yes: bestask=0.7 top$=140 ask$all=3511 ask$0.05-0.97=3385 lvls=12 | No: bestask=0.32 top$=22 ask$all=2789 ask$0.05-0.97=1286 lvls=13
+  West Virginia | vol24h=694 vol=1603 | Yes: bestask=0.94 top$=14 ask$all=3253 ask$0.05-0.97=339 lvls=5 | No: bestask=0.08 top$=2 ask$all=31676 ask$0.05-0.97=474 lvls=20
+  Border | vol24h=8 vol=270 | Yes: bestask=0.82 top$=14 ask$all=2447 ask$0.05-0.97=2302 lvls=9 | No: bestask=0.48 top$=24 ask$all=2942 ask$0.05-0.97=1437 lvls=16
+  Poultry | vol24h=164 vol=1122 | Yes: bestask=0.29 top$=110 ask$all=1764 ask$0.05-0.97=1152 lvls=13 | No: bestask=0.78 top$=16 ask$all=3581 ask$0.05-0.97=2566 lvls=12
+  Drone / Helipad | vol24h=848 vol=801 | Yes: bestask=0.74 top$=15 ask$all=2547 ask$0.05-0.97=2287 lvls=15 | No: bestask=0.31 top$=25 ask$all=1815 ask$0.05-0.97=1305 lvls=11
+  EVENT total ask $ (all tokens, all levels) = 98131 over 24 tokens
+
+## what-will-deere-say-during-their-next-earnings-call-20261125 vol24h=964 vol=964 liq=2526 end=2026-11-26T04:59:00Z https://polymarket.com/event/what-will-deere-say-during-their-next-earnings-call-20261125
+  Demand 20+ times | vol24h=236 vol=236 | Yes: bestask=0.78 top$=77 ask$all=2866 ask$0.05-0.97=2746 lvls=10 | No: bestask=0.3 top$=6 ask$all=1691 ask$0.05-0.97=1173 lvls=7
+  Fertilizer | vol24h=0 vol=0 | Yes: bestask=0.97 top$=33 ask$all=1369 ask$0.05-0.97=33 lvls=3 | No: bestask=0.29 top$=29 ask$all=592 ask$0.05-0.97=555 lvls=6
+  ExactShot | vol24h=214 vol=214 | Yes: bestask=0.53 top$=14 ask$all=1249 ask$0.05-0.97=1132 lvls=6 | No: bestask=0.6 top$=12 ask$all=1121 ask$0.05-0.97=1089 lvls=7
+  Tenna | vol24h=47 vol=47 | Yes: bestask=0.63 top$=13 ask$all=1389 ask$0.05-0.97=1357 lvls=7 | No: bestask=0.49 top$=10 ask$all=1968 ask$0.05-0.97=1453 lvls=8
+  Iowa | vol24h=45 vol=45 | Yes: bestask=0.29 top$=28 ask$all=1157 ask$0.05-0.97=648 lvls=8 | No: bestask=0.96 top$=48 ask$all=1794 ask$0.05-0.97=1762 lvls=4
+  Starlink | vol24h=5 vol=5 | Yes: bestask=0.38 top$=38 ask$all=747 ask$0.05-0.97=710 lvls=5 | No: bestask=0.97 top$=38 ask$all=70 ask$0.05-0.97=38 lvls=3
+  Technology 10+ times | vol24h=121 vol=121 | Yes: bestask=0.98 top$=10 ask$all=3516 ask$0.05-0.97=0 lvls=2 | No: bestask=0.2 top$=20 ask$all=1168 ask$0.05-0.97=652 lvls=8
+  See & Spray | vol24h=296 vol=296 | Yes: bestask=0.98 top$=5 ask$all=32 ask$0.05-0.97=0 lvls=2 | No: bestask=0.13 top$=15 ask$all=1491 ask$0.05-0.97=986 lvls=12
+  EVENT total ask $ (all tokens, all levels) = 22220 over 16 tokens
+
+## what-will-dell-say-during-their-next-earnings-call-20261124 vol24h=901 vol=901 liq=2761 end=2026-11-25T04:59:00Z https://polymarket.com/event/what-will-dell-say-during-their-next-earnings-call-20261124
+  AI 50+ times | vol24h=38 vol=38 | Yes: bestask=0.9 top$=44 ask$all=3323 ask$0.05-0.97=3203 lvls=7 | No: bestask=0.2 top$=12 ask$all=1069 ask$0.05-0.97=560 lvls=9
+  DRAM / NAND 3+ times | vol24h=25 vol=25 | Yes: bestask=0.94 top$=42 ask$all=172 ask$0.05-0.97=52 lvls=4 | No: bestask=0.16 top$=10 ask$all=1105 ask$0.05-0.97=595 lvls=9
+  Vera Rubin | vol24h=453 vol=453 | Yes: bestask=0.93 top$=19 ask$all=16390 ask$0.05-0.97=76 lvls=6 | No: bestask=0.22 top$=4 ask$all=4325 ask$0.05-0.97=3819 lvls=11
+  Inference | vol24h=3 vol=3 | Yes: bestask=0.89 top$=36 ask$all=5011 ask$0.05-0.97=36 lvls=3 | No: bestask=0.18 top$=32 ask$all=1079 ask$0.05-0.97=566 lvls=10
+  Shortage | vol24h=66 vol=66 | Yes: bestask=0.79 top$=16 ask$all=1311 ask$0.05-0.97=1271 lvls=6 | No: bestask=0.27 top$=5 ask$all=1500 ask$0.05-0.97=989 lvls=10
+  Blackwell | vol24h=7 vol=7 | Yes: bestask=0.5 top$=50 ask$all=1038 ask$0.05-0.97=530 lvls=7 | No: bestask=0.95 top$=796 ask$all=833 ask$0.05-0.97=801 lvls=4
+  CrowdStrike | vol24h=310 vol=310 | Yes: bestask=0.93 top$=38 ask$all=755 ask$0.05-0.97=639 lvls=5 | No: bestask=0.97 top$=53 ask$all=85 ask$0.05-0.97=53 lvls=3
+  EVENT total ask $ (all tokens, all levels) = 37998 over 14 tokens
+
+## what-will-trump-say-in-november-2026 vol24h=139 vol=9535 liq=2609 end=2026-12-01T04:59:00Z https://polymarket.com/event/what-will-trump-say-in-november-2026
+  Make Iran Great Again | vol24h=0 vol=52 | Yes: bestask=0.08 top$=14 ask$all=1014 ask$0.05-0.97=397 lvls=9 | No: bestask=0.98 top$=186 ask$all=302 ask$0.05-0.97=0 lvls=2
+  Autism | vol24h=0 vol=138 | Yes: bestask=0.78 top$=58 ask$all=1479 ask$0.05-0.97=1353 lvls=6 | No: bestask=0.98 top$=11 ask$all=532 ask$0.05-0.97=0 lvls=2
+  Peace in the Middle East | vol24h=0 vol=60 | Yes: bestask=0.5 top$=55 ask$all=1235 ask$0.05-0.97=619 lvls=6 | No: bestask=0.95 top$=28 ask$all=1226 ask$0.05-0.97=803 lvls=5
+  Third Term | vol24h=0 vol=166 | Yes: bestask=0.87 top$=15 ask$all=2733 ask$0.05-0.97=128 lvls=6 | No: bestask=0.93 top$=20 ask$all=519 ask$0.05-0.97=44 lvls=5
+  Epstein | vol24h=0 vol=353 | Yes: bestask=0.49 top$=98 ask$all=1127 ask$0.05-0.97=509 lvls=5 | No: bestask=0.96 top$=20 ask$all=220 ask$0.05-0.97=137 lvls=4
+  Rocket Man | vol24h=121 vol=897 | Yes: bestask=0.08 top$=8 ask$all=6414 ask$0.05-0.97=539 lvls=16 | No: bestask=0.985 top$=56 ask$all=780 ask$0.05-0.97=0 lvls=10
+  Shark | vol24h=0 vol=45 | Yes: bestask=0.69 top$=3 ask$all=1012 ask$0.05-0.97=895 lvls=6 | No: bestask=0.98 top$=9 ask$all=78 ask$0.05-0.97=0 lvls=2
+  Nazi | vol24h=6 vol=141 | Yes: bestask=0.3 top$=30 ask$all=1088 ask$0.05-0.97=467 lvls=9 | No: bestask=0.89 top$=232 ask$all=6581 ask$0.05-0.97=256 lvls=5
+  Clown | vol24h=1 vol=307 | Yes: bestask=0.89 top$=56 ask$all=5156 ask$0.05-0.97=81 lvls=5 | No: bestask=0.87 top$=27 ask$all=2522 ask$0.05-0.97=45 lvls=6
+  Gay | vol24h=11 vol=194 | Yes: bestask=0.27 top$=2 ask$all=1066 ask$0.05-0.97=441 lvls=8 | No: bestask=0.89 top$=206 ask$all=6616 ask$0.05-0.97=225 lvls=4
+  Shut Up | vol24h=0 vol=127 | Yes: bestask=0.16 top$=1 ask$all=974 ask$0.05-0.97=447 lvls=8 | No: bestask=0.98 top$=30 ask$all=58 ask$0.05-0.97=0 lvls=2
+  Prediction | vol24h=0 vol=195 | Yes: bestask=0.89 top$=101 ask$all=5339 ask$0.05-0.97=165 lvls=5 | No: bestask=0.95 top$=57 ask$all=1535 ask$0.05-0.97=816 lvls=5
+  Refund | vol24h=0 vol=0 | Yes: bestask=0.9 top$=32 ask$all=184 ask$0.05-0.97=147 lvls=5 | No: bestask=0.98 top$=10 ask$all=376 ask$0.05-0.97=0 lvls=2
+  EVENT total ask $ (all tokens, all levels) = 50168 over 26 tokens
+
+## what-will-trump-say-in-the-philippines vol24h=12 vol=3351 liq=338 end=2026-12-01T04:59:00Z https://polymarket.com/event/what-will-trump-say-in-the-philippines
+  Duterte | vol24h=4 vol=79 | Yes: bestask=0.03 top$=0 ask$all=1613 ask$0.05-0.97=313 lvls=12 | No: bestask=0.99 top$=6 ask$all=100 ask$0.05-0.97=0 lvls=2
+  Election | vol24h=8 vol=320 | Yes: bestask=0.12 top$=11 ask$all=997 ask$0.05-0.97=401 lvls=11 | No: bestask=0.98 top$=9 ask$all=157 ask$0.05-0.97=0 lvls=2
+  EVENT total ask $ (all tokens, all levels) = 2866 over 4 tokens
+
+## what-will-trump-say-in-china-apec vol24h=10 vol=18431 liq=417 end=2026-12-01T04:59:00Z https://polymarket.com/event/what-will-trump-say-in-china-apec
+  Artificial | vol24h=5 vol=589 | Yes: bestask=0.053 top$=1 ask$all=1631 ask$0.05-0.97=333 lvls=12 | No: bestask=0.998 top$=52 ask$all=181 ask$0.05-0.97=0 lvls=2
+  Taiwan | vol24h=5 vol=2690 | Yes: bestask=0.575 top$=4 ask$all=16456 ask$0.05-0.97=641 lvls=18 | No: bestask=0.99 top$=5 ask$all=498 ask$0.05-0.97=0 lvls=3
+  EVENT total ask $ (all tokens, all levels) = 18766 over 4 tokens
+
+## what-will-caedrel-say-during-his-worlds-2026-final-stream vol24h=0 vol=21882 liq=70 end=2026-11-15T04:59:00Z https://polymarket.com/event/what-will-caedrel-say-during-his-worlds-2026-final-stream
+  Riot 3+ times | vol24h=0 vol=1688 | Yes: bestask=0.68 top$=11 ask$all=301 ask$0.05-0.97=99 lvls=6 | No: bestask=0.99 top$=25 ask$all=25 ask$0.05-0.97=0 lvls=1
+  Bot gap / Bot diff 2+ times | vol24h=0 vol=889 | Yes: bestask=0.97 top$=150 ask$all=359 ask$0.05-0.97=150 lvls=3 | No: bestask=0.99 top$=28 ask$all=28 ask$0.05-0.97=0 lvls=1
+  Top gap / Top diff 2+ times | vol24h=0 vol=579 | Yes: bestask=0.97 top$=89 ask$all=297 ask$0.05-0.97=89 lvls=3 | No: bestask=None top$=0 ask$all=0 ask$0.05-0.97=0 lvls=0
+  My ace | vol24h=0 vol=380 | Yes: bestask=0.65 top$=13 ask$all=3672 ask$0.05-0.97=143 lvls=12 | No: bestask=0.998 top$=15 ask$all=89 ask$0.05-0.97=0 lvls=2
+  EVENT total ask $ (all tokens, all levels) = 4771 over 8 tokens
+
+## what-will-the-announcers-say-during-the-cowboys-vs-packers-game-20261018 vol24h=0 vol=5519 liq=66 end=2026-10-19T00:25:00Z https://polymarket.com/event/what-will-the-announcers-say-during-the-cowboys-vs-packers-game-20261018
+  Turf | vol24h=0 vol=117 | Yes: bestask=0.01 top$=0 ask$all=928 ask$0.05-0.97=9 lvls=4 | No: bestask=None top$=0 ask$all=0 ask$0.05-0.97=0 lvls=0
+  No Good | vol24h=0 vol=225 | Yes: bestask=0.97 top$=33 ask$all=33 ask$0.05-0.97=33 lvls=1 | No: bestask=None top$=0 ask$all=0 ask$0.05-0.97=0 lvls=0
+  Wild | vol24h=0 vol=304 | Yes: bestask=0.019 top$=0 ask$all=972 ask$0.05-0.97=0 lvls=5 | No: bestask=0.999 top$=50 ask$all=50 ask$0.05-0.97=0 lvls=1
+  Offside / Offsides | vol24h=0 vol=422 | Yes: bestask=0.01 top$=0 ask$all=981 ask$0.05-0.97=0 lvls=3 | No: bestask=0.998 top$=20 ask$all=45 ask$0.05-0.97=0 lvls=2
+  EVENT total ask $ (all tokens, all levels) = 3009 over 8 tokens
+
+## what-will-the-announcers-say-during-the-seahawks-vs-broncos-game-20261015 vol24h=0 vol=5408 liq=93 end=2026-10-16T00:20:00Z https://polymarket.com/event/what-will-the-announcers-say-during-the-seahawks-vs-broncos-game-20261015
+  Turf | vol24h=0 vol=179 | Yes: bestask=0.98 top$=24 ask$all=34 ask$0.05-0.97=0 lvls=2 | No: bestask=None top$=0 ask$all=0 ask$0.05-0.97=0 lvls=0
+  Wind / Windy | vol24h=0 vol=348 | Yes: bestask=0.049 top$=1 ask$all=962 ask$0.05-0.97=50 lvls=7 | No: bestask=None top$=0 ask$all=0 ask$0.05-0.97=0 lvls=0
+  EVENT total ask $ (all tokens, all levels) = 996 over 4 tokens

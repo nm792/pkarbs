@@ -1,0 +1,33 @@
+{
+ "7": {
+  "events_closed": 16,
+  "gamma_volume": 258544,
+  "trade_volume_total": 161873,
+  "trade_vol_last_24h_before_end": 66127,
+  "trade_vol_last_6h_before_end": 2446,
+  "bets": 3,
+  "net_floor": -28.25,
+  "per_day": -4.04,
+  "pct_of_200": -2.02
+ },
+ "30": {
+  "events_closed": 67,
+  "gamma_volume": 1526644,
+  "trade_volume_total": 849087,
+  "trade_vol_last_24h_before_end": 278772,
+  "trade_vol_last_6h_before_end": 89634,
+  "bets": 21,
+  "net_floor": 60.02,
+  "per_day": 2.0,
+  "pct_of_200": 1.0
+ },
+ "calendar_trade_volume_last_7d_all_events_incl_open": 142484,
+ "calendar_trade_volume_last_7d_by_family": {
+  "earnings-call": 18241,
+  "other": 3267,
+  "sports-announcers": 3,
+  "trump-event": 120089,
+  "trump-weekly": 884
+ },
+ "trade_over_gamma_ratio_median": 0.669
+}

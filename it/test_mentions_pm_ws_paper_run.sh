@@ -1,0 +1,12 @@
+#!/bin/bash
+# Each check can fail. Run: bash test_mentions_pm_ws_paper_run.sh <path to mentions_pm_ws_paper_run.sh>
+set -u; S=$1; T=$(mktemp -d); trap 'pkill -P $$ 2>/dev/null; rm -rf "$T"' EXIT
+git init -q "$T/up" && git -C "$T/up" checkout -q -b b1 && mkdir "$T/up/it"
+printf 'import sys\nprint("STUB")\nsys.exit(3)\n' > "$T/up/it/mentions_pm_ws_paper.py"; echo x=1 > "$T/up/it/ws_min.py"; echo x=1 > "$T/up/it/mentions_pm_daily_scorer.py"
+git -C "$T/up" add . && git -C "$T/up" -c user.name=t -c user.email=t@t commit -qm s; git clone -q "$T/up" "$T/clone"
+O=$T/V/pkarbs/mentions/ws-paper; V=$T/V GITDIR=$T/clone BR=b1 bash "$S"; grep -q "no events.json" "$O/supervisor.log" || { echo "FAIL: missing events.json not caught"; exit 1; }
+mkdir -p "$T/V/pkarbs/mentions/daily/state"; echo '{}' > "$T/V/pkarbs/mentions/daily/state/events.json"
+( V=$T/V GITDIR=$T/clone BR=b1 timeout 8 bash "$S" ) ; 
+n=$(grep -c "python exited rc=3" "$O/supervisor.log"); [ "$n" -ge 1 ] || { echo "FAIL: exit not recorded"; exit 1; }
+[ -s "$O/mentions_pm_ws_paper.py" ] && [ -s "$O/ws_min.py" ] || { echo "FAIL: files not fetched"; exit 1; }
+echo "PASS (3 checks, each able to fail)"
