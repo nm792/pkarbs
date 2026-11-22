@@ -20,3 +20,5 @@ UPDATE 15:10Z (PandaScore): P95 (read-only export, under 5 MB) runs with a 2 GB 
 ## UPDATE 22 Nov 04:15Z: put it/00-URGENT-PS-R022-live-read-listing-coverage-by-0700Z-22Nov.md FIRST (read-only, three commands, due 07:30Z). P95/P97 exports are done.
 
 ## UPDATE 22 Nov 04:20Z: R022 row runs at the 05:41Z dispatch, merged with the Dota 0730Z read in one session.
+
+## UPDATE 22 Nov 12:50Z: it/00-URGENT-PS-P105-one-pmcs2-hour-plant-on-Prime.md goes right after P102 (P102 already holds the PandaScore listing, so it/00-URGENT-PS-R022 is superseded by P102).
