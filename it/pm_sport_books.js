@@ -1,19 +1,20 @@
 // PM NHL moneyline book recorder (Goalserve thread, 20 Nov 2026): BOTH tokens' OWN books (YES and NO are separate books), tick level,
 // one local clock (Date.now() at receive). Reuses newState/applyMsg/floorBytes from pm_cs2_books.js (same dir). Read-only; Node 22, no deps.
 // Disk-light: rows are buffered and appended as one gzip member every 30 s to books.jsonl.gz (multi-member gzip, crash-safe, readable by
-// Python gzip and by feeds/ps_lead_test.py find(d,'books')). Only the moneyline market of an NHL game event (slug nhl-xxx-yyy-YYYY-MM-DD); NBA is out of scope (Nick).
-// Usage: node pm_sport_books.js <outDir> [endISO] [floorGB=10] [league=nhl|tennis]   (stops itself below floorGB free; 0 disables). league default nhl; tennis = every tennis moneyline (match winner).
+// Python gzip and by feeds/ps_lead_test.py find(d,'books')). Only the moneyline market of an NHL or NBA game event (slug nhl|nba-xxx-yyy-YYYY-MM-DD; NBA re-enabled 22 Nov by R-029/R-054, was cut 20 Nov).
+// Usage: node pm_sport_books.js <outDir> [endISO] [floorGB=10] [league=nhl|nba|tennis]   (stops itself below floorGB free; 0 disables). league default nhl; nba = NBA game moneylines, same code path; tennis = every tennis moneyline (match winner).
 // Output: markets.jsonl {cond,q,outcomes,tokens,smt,start,slug,league}; books.jsonl.gz rows as pm_cs2_books.js (recv_ms, asset, outcome, bids, asks ...).
 const fs = require('fs'), path = require('path'), zlib = require('zlib');
 const { newState, applyMsg, floorBytes } = require('./pm_cs2_books.js');
 const UA = { 'User-Agent': 'pkarbs-sport-recorder', 'Accept-Encoding': 'gzip' };
-const SLUG = /^(nhl)-[a-z0-9]+-[a-z0-9]+-\d{4}-\d\d-\d\d$/;
+const SLUG = /^(nhl|nba)-[a-z0-9]+-[a-z0-9]+-\d{4}-\d\d-\d\d$/;
 
 // events: Gamma event objects. -> NHL/NBA game-event moneyline markets with exactly two tokens and two outcomes.
 function pickMarkets(events, league = 'nhl') {
   const res = [];
   for (const e of events) {
-    const mt = league === 'tennis' ? [null, 'tennis'] : SLUG.exec(e.slug || ''); if (!mt || e.ended === true) continue;
+    let mt = league === 'tennis' ? [null, 'tennis'] : SLUG.exec(e.slug || ''); if (!mt || e.ended === true) continue;
+    if (league !== 'tennis' && mt[1] !== league) continue; // league filter: nhl mode never records NBA and vice versa
     if (league === 'tennis' && !(e.tags || []).some((t) => t && t.slug === 'tennis')) continue;
     for (const m of e.markets || []) {
       if (m.sportsMarketType !== 'moneyline') continue;
@@ -37,7 +38,7 @@ function gzWriter(file) {
 module.exports = { pickMarkets, gzWriter, SLUG };
 
 if (require.main === module) {
-  const OUT = process.argv[2], END = process.argv[3] ? Date.parse(process.argv[3]) : Infinity, FLOOR = floorBytes(process.argv[4]), LEAGUE = process.argv[5] === 'tennis' ? 'tennis' : 'nhl';
+  const OUT = process.argv[2], END = process.argv[3] ? Date.parse(process.argv[3]) : Infinity, FLOOR = floorBytes(process.argv[4]), LEAGUE = ['tennis', 'nba'].includes(process.argv[5]) ? process.argv[5] : 'nhl';
   fs.mkdirSync(OUT, { recursive: true });
   const gw = gzWriter(path.join(OUT, 'books.jsonl.gz'));
   const app = (n, o) => fs.appendFileSync(path.join(OUT, n), JSON.stringify(o) + '\n');
