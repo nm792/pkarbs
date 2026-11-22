@@ -1,0 +1,13 @@
+events 67 window days 30
+{'variant': 'listing+1h', 'anchor': 'A', 'events_with_fill': 21, 'fills': 77, 'stake': 782.34, 'net': 399.39, 'wins': 39, 'per_day': 13.31, 'pct_of_200': 6.66, 'placebo_mean': -14.96, 'placebo_sd': 336.59, 'z': 1.23}
+{'variant': 'listing+1h', 'anchor': 'B', 'events_with_fill': 21, 'fills': 77, 'stake': 782.34, 'net': 399.39, 'wins': 39, 'per_day': 13.31, 'pct_of_200': 6.66, 'placebo_mean': -291.0, 'placebo_sd': 348.37, 'z': 1.98}
+{'variant': 'T-24h', 'anchor': 'A', 'events_with_fill': 21, 'fills': 78, 'stake': 771.69, 'net': 181.94, 'wins': 28, 'per_day': 6.06, 'pct_of_200': 3.03, 'placebo_mean': -240.8, 'placebo_sd': 338.94, 'z': 1.25}
+{'variant': 'T-24h', 'anchor': 'B', 'events_with_fill': 21, 'fills': 95, 'stake': 769.97, 'net': 27.73, 'wins': 19, 'per_day': 0.92, 'pct_of_200': 0.46, 'placebo_mean': -265.47, 'placebo_sd': 272.25, 'z': 1.08}
+{'variant': 'T-15m', 'anchor': 'A', 'events_with_fill': 11, 'fills': 32, 'stake': 837.78, 'net': -98.44, 'wins': 10, 'per_day': -3.28, 'pct_of_200': -1.64, 'placebo_mean': -18.89, 'placebo_sd': 124.99, 'z': -0.64}
+{'variant': 'T-15m', 'anchor': 'B', 'events_with_fill': 14, 'fills': 31, 'stake': 489.56, 'net': -218.79, 'wins': 5, 'per_day': -7.29, 'pct_of_200': -3.65, 'placebo_mean': -36.6, 'placebo_sd': 205.68, 'z': -0.89}
+{'variant': 'T-1h', 'anchor': 'A', 'events_with_fill': 14, 'fills': 116, 'stake': 2084.2, 'net': -278.53, 'wins': 29, 'per_day': -9.28, 'pct_of_200': -4.64, 'placebo_mean': 41.99, 'placebo_sd': 431.42, 'z': -0.74}
+{'variant': 'T-6h', 'anchor': 'A', 'events_with_fill': 16, 'fills': 68, 'stake': 1502.24, 'net': -299.0, 'wins': 19, 'per_day': -9.97, 'pct_of_200': -4.98, 'placebo_mean': 68.19, 'placebo_sd': 411.65, 'z': -0.89}
+{'variant': 'T-1h', 'anchor': 'B', 'events_with_fill': 27, 'fills': 167, 'stake': 2021.74, 'net': -478.45, 'wins': 45, 'per_day': -15.95, 'pct_of_200': -7.97, 'placebo_mean': -378.91, 'placebo_sd': 474.17, 'z': -0.21}
+{'variant': 'T-6h', 'anchor': 'B', 'events_with_fill': 23, 'fills': 130, 'stake': 2051.9, 'net': -651.59, 'wins': 29, 'per_day': -21.72, 'pct_of_200': -10.86, 'placebo_mean': -319.14, 'placebo_sd': 348.39, 'z': -0.95}
+{'variant': 'during', 'anchor': 'B', 'events_with_fill': 44, 'fills': 479, 'stake': 6246.23, 'net': -1990.81, 'wins': 96, 'per_day': -66.36, 'pct_of_200': -33.18, 'placebo_mean': -744.01, 'placebo_sd': 787.14, 'z': -1.58}
+{'variant': 'during', 'anchor': 'A', 'events_with_fill': 20, 'fills': 599, 'stake': 9781.16, 'net': -2367.84, 'wins': 150, 'per_day': -78.93, 'pct_of_200': -39.46, 'placebo_mean': -393.66, 'placebo_sd': 843.73, 'z': -2.34}
