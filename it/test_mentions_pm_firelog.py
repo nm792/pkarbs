@@ -18,4 +18,10 @@ chk('ask exactly at limit is allowed (edge = 10c)', F.fills_at([(.50, 10)], .5, 
 chk('day cap room 50 limits the bet to $50', abs(F.paper_bet(asks, .5, 200., 50., .04)['cost'] - 50) < 1e-6)
 chk('no room left -> no bet', F.paper_bet(asks, .5, 200., 0., .04) is None)
 chk('parse_asks sorts and floats', F.parse_asks({'asks': [{'price': '0.5', 'size': '3'}, {'price': '0.2', 'size': '1'}]}) == [(.2, 1.), (.5, 3.)])
+runs = [dict(t=1000 - 120 * i, pid=5, books_expected=10, books_read=10) for i in range(7)]
+w, rr, rb, be, br, errs, okh = F.health_eval(runs, 1000, '')
+chk('health PASS: 7 runs, 100% books, no errors', okh and rb == 1.0)
+chk('health FAIL on 90% books', not F.health_eval([dict(r, books_read=9) for r in runs], 1000, '')[-1])
+chk('health FAIL on a traceback in the log', not F.health_eval(runs, 1000, 'Traceback (most recent call last)')[-1])
+chk('health FAIL when only 3 runs in 15 min (stopped cron)', not F.health_eval(runs[:3], 1000, '')[-1])
 print(f'{"PASS" if ok == N else "FAIL"} ({ok} of {N} checks)'); sys.exit(0 if ok == N else 1)
