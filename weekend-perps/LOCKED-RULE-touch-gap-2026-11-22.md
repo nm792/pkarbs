@@ -1,0 +1,22 @@
+# LOCKED RULE: weekend/after-hours perp gap vs Polymarket weekly "hit" contracts (R-036 item 2, IDEAS 4-10)
+Locked 22 Nov 2026 ~06:30Z, committed before any outcome number is computed. Desk analysis on public data, no orders (A7). Raw data collection (markets, prints, perp candles, closes) is allowed before this rule is committed; no win rate, gap or $ figure has been computed.
+
+**Question.** When the Hyperliquid xyz perp has already crossed a strike of a Polymarket weekly "Will <X> hit (HIGH|LOW) $K week of <Monday>?" contract before the cash market (or Pyth session) reopens, was the contract's own YES token still priced below the outcome? (Own-token price: only the YES token's own prints; NO is never derived from YES.)
+
+**Universe.** Events `will-<tk>-hit-week-of-<month>-<day>-<year>` for tk in {xauusd, xagusd, ng, nvda, aapl, msft, meta, googl, tsla, coin, hood, pltr, mu, amzn, mstr, nflx} (the underlyings with an xyz perp and a weekly PM event; `wti` has no weekly event) and every Monday from 2026-05-04 to 2026-11-16 (the Hyperliquid xyz candle history starts 27 Apr). Missing events, missing candles or missing closes are counted and excluded, never filled.
+
+**Decision time T.** Stocks: Monday 09:20 America/New_York (10 min before the cash open). Metals and gas: Sunday 17:50 America/New_York (10 min before the Pyth/CME session reopen at 18:00).
+
+**Signal.** P = close of the last Hyperliquid `xyz:<SYM>` 1-minute candle that ended at or before T. C = the last daily close before T from Yahoo (stocks: the Friday close; metals/gas: the front-month future's Friday close: GC=F, SI=F, NG=F). Margin m = 0.2% for stocks, 0.5% for metals and gas (the Pyth spot vs future vs perp basis). A strike is a **candidate** when HIGH: C < K <= P(1-m); LOW: P(1+m) <= K < C. Only the perp's crossing decides candidacy; the YES price is never used to select.
+
+**Entry price (print-based, a FLOOR).** No historical books exist. A candidate strike's price is the size-weighted average price of the YES token's taker BUY prints with timestamp in [T-60 min, T) and price in (0.05, 0.95) (dead-bucket rule), each print's size capped at $200 notional. A candidate with no such print is counted as NOPRINT and excluded (not a loss, not a win). This is a FLOOR on capacity (SETTLED capacity rule): the real depth at T is unknown for these weeks.
+
+**Outcome.** YES wins when the market resolved YES (gamma outcomePrices). Fee per share = 0.04 p (1-p) unless the market's gamma `feeSchedule` gives another rate (then that rate; the rate used is printed). gap per share = win - price - fee.
+
+**Metrics.** n candidate strikes with a print, n weeks, mean gap (capped-$ weighted), YES win rate vs mean price. 95% CI by bootstrap over weeks (cluster = the Monday), 10,000 resamples, seed 1. **Permutation placebo:** within each ticker, shuffle the (P, C) pair across weeks (200 permutations, seed 1), rebuild the candidate set from the real strikes of the real week, recompute mean gap; p = share of permutations with mean gap >= observed. FLOOR $/day = total capped-$ gap / number of Mondays in the sample, capped at $2,000 deployed per Monday; shown as % of $200.
+
+**Verdict.** PASS-eligible only if n strikes >= 60, weeks >= 12, gap CI lower bound > 0 and placebo p <= 0.05. If the gap is positive but the count is short: UNPROVEN (state power: the n needed). Otherwise FAIL (FLOOR). A FAIL on this print-based design does not close the idea: depth at T is unmeasured, so the order is "record decision-time books each weekend" (snapshots are scheduled).
+
+**Tests that must be able to fail (committed with the code, run before the real run).** (T1) planted: perp crosses strike, YES price 0.80, win 100% -> gap about +0.19, PASS-eligible, placebo p small. (T2) zero edge: win rate = price -> gap about 0, CI contains 0. (T3) candidate logic: close already beyond strike -> not a candidate; perp inside margin -> not a candidate; LOW mirror. (T4) no print -> NOPRINT, excluded and counted. (T5) a print at 0.97 or 0.03 is excluded and counted. (T6) cap: a $5,000 print counts as $200. (T7) a first-element price reader or a print inside [T, T+60) must fail the no-look-ahead check.
+
+**Not done here (stated).** Kalshi gold/WTI/silver/copper/S&P series (analysis only, A6) are not tested; stocks with only monthly events are covered by the capacity snapshot only; time-of-day reaction after T is not measured here.
