@@ -1,0 +1,1271 @@
+{
+ "asof": 1795325250.4438815,
+ "freeze": "2026-11-10T15:00:00+00:00",
+ "print_depth_summary": {
+  "events": 17,
+  "with_qualifying_print": 8,
+  "median_usd": 0.0,
+  "mean_usd": 19.82,
+  "max_usd": 151.06,
+  "events_ge_200": 0,
+  "events_ge_50": 2,
+  "share_ge_200": 0.0
+ },
+ "events": [
+  {
+   "id": "1364633",
+   "title": "What will Trump say during his Veterans Day remarks at Arlington?",
+   "start": 1794409566.0,
+   "status": "resolved",
+   "usd_yes": 2.0,
+   "usd_no": 7.6,
+   "usd_total": 9.6,
+   "n_prints": 5,
+   "first_print_usd": 1.0
+  },
+  {
+   "id": "1367682",
+   "title": "What will Caedrel say during his Worlds 2026 Final stream?",
+   "start": 1794441650.0,
+   "status": "open",
+   "usd_yes": 0.0,
+   "usd_no": 0.0,
+   "usd_total": 0.0,
+   "n_prints": 0,
+   "first_print_usd": null
+  },
+  {
+   "id": "1372564",
+   "title": "What will Andy Burnham say at the next Prime Minister's Questions event?",
+   "start": 1794500602.0,
+   "status": "resolved",
+   "usd_yes": 0.0,
+   "usd_no": 0.0,
+   "usd_total": 0.0,
+   "n_prints": 0,
+   "first_print_usd": null
+  },
+  {
+   "id": "1375377",
+   "title": "What will MrBeast say during his next YouTube video?",
+   "start": 1794525742.0,
+   "status": "resolved",
+   "usd_yes": 0.0,
+   "usd_no": 0.0,
+   "usd_total": 0.0,
+   "n_prints": 0,
+   "first_print_usd": null
+  },
+  {
+   "id": "1375828",
+   "title": "What will NVIDIA say during their next earnings call?",
+   "start": 1794530606.0,
+   "status": "resolved",
+   "usd_yes": 0.0,
+   "usd_no": 0.0,
+   "usd_total": 0.0,
+   "n_prints": 0,
+   "first_print_usd": null
+  },
+  {
+   "id": "1375849",
+   "title": "What will Disney say during their next earnings call?",
+   "start": 1794530905.0,
+   "status": "resolved",
+   "usd_yes": 0.0,
+   "usd_no": 0.0,
+   "usd_total": 0.0,
+   "n_prints": 0,
+   "first_print_usd": null
+  },
+  {
+   "id": "1375856",
+   "title": "What will Target say during their next earnings call?",
+   "start": 1794531110.0,
+   "status": "resolved",
+   "usd_yes": 9.5,
+   "usd_no": 0.0,
+   "usd_total": 9.5,
+   "n_prints": 1,
+   "first_print_usd": 9.5
+  },
+  {
+   "id": "1375881",
+   "title": "What will Palo Alto Networks say during their next earnings call?",
+   "start": 1794531328.0,
+   "status": "resolved",
+   "usd_yes": 0.0,
+   "usd_no": 0.0,
+   "usd_total": 0.0,
+   "n_prints": 0,
+   "first_print_usd": null
+  },
+  {
+   "id": "1375888",
+   "title": "What will Walmart say during their next earnings call?",
+   "start": 1794531400.0,
+   "status": "resolved",
+   "usd_yes": 0.0,
+   "usd_no": 0.0,
+   "usd_total": 0.0,
+   "n_prints": 0,
+   "first_print_usd": null
+  },
+  {
+   "id": "1405659",
+   "title": "What will Trump say in the Philippines?",
+   "start": 1794874212.0,
+   "status": "open",
+   "usd_yes": 0.0,
+   "usd_no": 0.0,
+   "usd_total": 0.0,
+   "n_prints": 0,
+   "first_print_usd": null
+  },
+  {
+   "id": "1405699",
+   "title": "What will Trump say during his trilateral meeting with Xi and Putin?",
+   "start": 1794874705.0,
+   "status": "resolved",
+   "usd_yes": 2.83,
+   "usd_no": 14.04,
+   "usd_total": 16.88,
+   "n_prints": 2,
+   "first_print_usd": 14.04
+  },
+  {
+   "id": "1410740",
+   "title": "What will Trump say in China (APEC)?",
+   "start": 1794935717.0,
+   "status": "open",
+   "usd_yes": 0.0,
+   "usd_no": 0.0,
+   "usd_total": 0.0,
+   "n_prints": 0,
+   "first_print_usd": null
+  },
+  {
+   "id": "1426382",
+   "title": "What will Trump say during his November 20 news conference?",
+   "start": 1795115916.0,
+   "status": "resolved",
+   "usd_yes": 34.5,
+   "usd_no": 47.5,
+   "usd_total": 82.0,
+   "n_prints": 16,
+   "first_print_usd": 2.25
+  },
+  {
+   "id": "1434437",
+   "title": "What will Trump or Melania say during the Thanksgiving Turkey Pardon?",
+   "start": 1795219472.0,
+   "status": "open",
+   "usd_yes": 81.92,
+   "usd_no": 69.14,
+   "usd_total": 151.06,
+   "n_prints": 10,
+   "first_print_usd": 1.7
+  },
+  {
+   "id": "1437566",
+   "title": "What will Dell say during their next earnings call?",
+   "start": 1795278049.0,
+   "status": "open",
+   "usd_yes": 17.8,
+   "usd_no": 28.05,
+   "usd_total": 45.85,
+   "n_prints": 5,
+   "first_print_usd": 2.8
+  },
+  {
+   "id": "1437568",
+   "title": "What will Deere say during their next earnings call?",
+   "start": 1795278105.0,
+   "status": "open",
+   "usd_yes": 0.0,
+   "usd_no": 8.88,
+   "usd_total": 8.88,
+   "n_prints": 3,
+   "first_print_usd": 2.8
+  },
+  {
+   "id": "1437585",
+   "title": "What will Salesforce say during their next earnings call?",
+   "start": 1795278156.0,
+   "status": "open",
+   "usd_yes": 0.0,
+   "usd_no": 13.2,
+   "usd_total": 13.2,
+   "n_prints": 3,
+   "first_print_usd": 4.0
+  }
+ ],
+ "live_snapshot": [
+  {
+   "id": "1367682",
+   "title": "What will Caedrel say during his Worlds 2026 Final stream?",
+   "books": [
+    {
+     "word": "Dragon / Drake 20+ times",
+     "side": "YES",
+     "q": 0.406,
+     "limit": 0.306,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Dragon / Drake 20+ times",
+     "side": "NO",
+     "q": 0.406,
+     "limit": 0.494,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Crab / Scuttle 10+ times",
+     "side": "YES",
+     "q": 0.406,
+     "limit": 0.306,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Crab / Scuttle 10+ times",
+     "side": "NO",
+     "q": 0.406,
+     "limit": 0.494,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Baron 7+ times",
+     "side": "YES",
+     "q": 0.406,
+     "limit": 0.306,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Baron 7+ times",
+     "side": "NO",
+     "q": 0.406,
+     "limit": 0.494,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Dive 7+ times",
+     "side": "YES",
+     "q": 0.604,
+     "limit": 0.504,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Dive 7+ times",
+     "side": "NO",
+     "q": 0.604,
+     "limit": 0.296,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Draft 5+ times",
+     "side": "YES",
+     "q": 0.406,
+     "limit": 0.306,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Draft 5+ times",
+     "side": "NO",
+     "q": 0.406,
+     "limit": 0.494,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Elder 3+ times",
+     "side": "YES",
+     "q": 0.406,
+     "limit": 0.306,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Elder 3+ times",
+     "side": "NO",
+     "q": 0.406,
+     "limit": 0.494,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Grub 3+ times",
+     "side": "YES",
+     "q": 0.406,
+     "limit": 0.306,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Grub 3+ times",
+     "side": "NO",
+     "q": 0.406,
+     "limit": 0.494,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Riot 3+ times",
+     "side": "YES",
+     "q": 0.406,
+     "limit": 0.306,
+     "best_ask": 0.68,
+     "depth_usd": 0
+    },
+    {
+     "word": "Riot 3+ times",
+     "side": "NO",
+     "q": 0.406,
+     "limit": 0.494,
+     "best_ask": 0.99,
+     "depth_usd": 0
+    },
+    {
+     "word": "Bot gap / Bot diff 2+ times",
+     "side": "YES",
+     "q": 0.406,
+     "limit": 0.306,
+     "best_ask": 0.97,
+     "depth_usd": 0
+    },
+    {
+     "word": "Bot gap / Bot diff 2+ times",
+     "side": "NO",
+     "q": 0.406,
+     "limit": 0.494,
+     "best_ask": 0.99,
+     "depth_usd": 0
+    },
+    {
+     "word": "Top gap / Top diff 2+ times",
+     "side": "YES",
+     "q": 0.406,
+     "limit": 0.306,
+     "best_ask": 0.97,
+     "depth_usd": 0
+    },
+    {
+     "word": "Top gap / Top diff 2+ times",
+     "side": "NO",
+     "q": 0.406,
+     "limit": 0.494,
+     "best_ask": 0.76,
+     "depth_usd": 0
+    },
+    {
+     "word": "Int / Inting",
+     "side": "YES",
+     "q": 0.406,
+     "limit": 0.306,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Int / Inting",
+     "side": "NO",
+     "q": 0.406,
+     "limit": 0.494,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "My ace",
+     "side": "YES",
+     "q": 0.406,
+     "limit": 0.306,
+     "best_ask": 0.65,
+     "depth_usd": 0
+    },
+    {
+     "word": "My ace",
+     "side": "NO",
+     "q": 0.406,
+     "limit": 0.494,
+     "best_ask": 0.998,
+     "depth_usd": 0
+    },
+    {
+     "word": "-No Qualifying Event-",
+     "side": "YES",
+     "q": 0.022,
+     "limit": -0.078,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "-No Qualifying Event-",
+     "side": "NO",
+     "q": 0.022,
+     "limit": 0.878,
+     "best_ask": null,
+     "depth_usd": 0
+    }
+   ]
+  },
+  {
+   "id": "1405659",
+   "title": "What will Trump say in the Philippines?",
+   "books": [
+    {
+     "word": "Duterte",
+     "side": "YES",
+     "q": 0.419,
+     "limit": 0.319,
+     "best_ask": 0.46,
+     "depth_usd": 0
+    },
+    {
+     "word": "Duterte",
+     "side": "NO",
+     "q": 0.419,
+     "limit": 0.481,
+     "best_ask": 0.98,
+     "depth_usd": 0
+    },
+    {
+     "word": "Six Seven",
+     "side": "YES",
+     "q": 0.201,
+     "limit": 0.101,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Six Seven",
+     "side": "NO",
+     "q": 0.201,
+     "limit": 0.699,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Crypto / Bitcoin",
+     "side": "YES",
+     "q": 0.046,
+     "limit": -0.054,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Crypto / Bitcoin",
+     "side": "NO",
+     "q": 0.046,
+     "limit": 0.854,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "China",
+     "side": "YES",
+     "q": 0.624,
+     "limit": 0.524,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "China",
+     "side": "NO",
+     "q": 0.624,
+     "limit": 0.276,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Election",
+     "side": "YES",
+     "q": 0.302,
+     "limit": 0.202,
+     "best_ask": 0.12,
+     "depth_usd": 16.4
+    },
+    {
+     "word": "Election",
+     "side": "NO",
+     "q": 0.302,
+     "limit": 0.598,
+     "best_ask": 0.98,
+     "depth_usd": 0
+    },
+    {
+     "word": "SI / Superintelligence",
+     "side": "YES",
+     "q": 0.351,
+     "limit": 0.251,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "SI / Superintelligence",
+     "side": "NO",
+     "q": 0.351,
+     "limit": 0.549,
+     "best_ask": null,
+     "depth_usd": 0
+    }
+   ]
+  },
+  {
+   "id": "1410740",
+   "title": "What will Trump say in China (APEC)?",
+   "books": [
+    {
+     "word": "Rare Earth",
+     "side": "YES",
+     "q": 0.105,
+     "limit": 0.005,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Rare Earth",
+     "side": "NO",
+     "q": 0.105,
+     "limit": 0.795,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Jensen / Huang",
+     "side": "YES",
+     "q": 0.613,
+     "limit": 0.513,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Jensen / Huang",
+     "side": "NO",
+     "q": 0.613,
+     "limit": 0.287,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Spy",
+     "side": "YES",
+     "q": 0.419,
+     "limit": 0.319,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Spy",
+     "side": "NO",
+     "q": 0.419,
+     "limit": 0.481,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Artificial",
+     "side": "YES",
+     "q": 0.419,
+     "limit": 0.319,
+     "best_ask": 0.078,
+     "depth_usd": 12.8
+    },
+    {
+     "word": "Artificial",
+     "side": "NO",
+     "q": 0.419,
+     "limit": 0.481,
+     "best_ask": 0.998,
+     "depth_usd": 0
+    },
+    {
+     "word": "Taiwan",
+     "side": "YES",
+     "q": 0.315,
+     "limit": 0.215,
+     "best_ask": 0.197,
+     "depth_usd": 7.7
+    },
+    {
+     "word": "Taiwan",
+     "side": "NO",
+     "q": 0.315,
+     "limit": 0.585,
+     "best_ask": 0.99,
+     "depth_usd": 0
+    },
+    {
+     "word": "Nuclear",
+     "side": "YES",
+     "q": 0.622,
+     "limit": 0.522,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Nuclear",
+     "side": "NO",
+     "q": 0.622,
+     "limit": 0.278,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Ukraine",
+     "side": "YES",
+     "q": 0.461,
+     "limit": 0.361,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Ukraine",
+     "side": "NO",
+     "q": 0.461,
+     "limit": 0.439,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Palestine",
+     "side": "YES",
+     "q": 0.263,
+     "limit": 0.163,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Palestine",
+     "side": "NO",
+     "q": 0.263,
+     "limit": 0.637,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Soybean",
+     "side": "YES",
+     "q": 0.368,
+     "limit": 0.268,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Soybean",
+     "side": "NO",
+     "q": 0.368,
+     "limit": 0.532,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Election",
+     "side": "YES",
+     "q": 0.302,
+     "limit": 0.202,
+     "best_ask": null,
+     "depth_usd": 0
+    },
+    {
+     "word": "Election",
+     "side": "NO",
+     "q": 0.302,
+     "limit": 0.598,
+     "best_ask": null,
+     "depth_usd": 0
+    }
+   ]
+  },
+  {
+   "id": "1434437",
+   "title": "What will Trump or Melania say during the Thanksgiving Turkey Pardon?",
+   "books": [
+    {
+     "word": "Bean",
+     "side": "YES",
+     "q": 0.419,
+     "limit": 0.319,
+     "best_ask": 0.26,
+     "depth_usd": 58.83
+    },
+    {
+     "word": "Bean",
+     "side": "NO",
+     "q": 0.419,
+     "limit": 0.481,
+     "best_ask": 0.88,
+     "depth_usd": 0
+    },
+    {
+     "word": "Potato",
+     "side": "YES",
+     "q": 0.46,
+     "limit": 0.36,
+     "best_ask": 0.39,
+     "depth_usd": 0
+    },
+    {
+     "word": "Potato",
+     "side": "NO",
+     "q": 0.46,
+     "limit": 0.44,
+     "best_ask": 0.69,
+     "depth_usd": 0
+    },
+    {
+     "word": "Tomato",
+     "side": "YES",
+     "q": 0.419,
+     "limit": 0.319,
+     "best_ask": 0.15,
+     "depth_usd": 151.21
+    },
+    {
+     "word": "Tomato",
+     "side": "NO",
+     "q": 0.419,
+     "limit": 0.481,
+     "best_ask": 0.87,
+     "depth_usd": 0
+    },
+    {
+     "word": "Chicken / Egg",
+     "side": "YES",
+     "q": 0.419,
+     "limit": 0.319,
+     "best_ask": 0.63,
+     "depth_usd": 0
+    },
+    {
+     "word": "Chicken / Egg",
+     "side": "NO",
+     "q": 0.419,
+     "limit": 0.481,
+     "best_ask": 0.48,
+     "depth_usd": 19.2
+    },
+    {
+     "word": "Iran",
+     "side": "YES",
+     "q": 0.635,
+     "limit": 0.535,
+     "best_ask": 0.77,
+     "depth_usd": 0
+    },
+    {
+     "word": "Iran",
+     "side": "NO",
+     "q": 0.635,
+     "limit": 0.265,
+     "best_ask": 0.35,
+     "depth_usd": 0
+    },
+    {
+     "word": "Joe / Biden",
+     "side": "YES",
+     "q": 0.473,
+     "limit": 0.373,
+     "best_ask": 0.78,
+     "depth_usd": 0
+    },
+    {
+     "word": "Joe / Biden",
+     "side": "NO",
+     "q": 0.473,
+     "limit": 0.427,
+     "best_ask": 0.31,
+     "depth_usd": 189.17
+    },
+    {
+     "word": "Xi / China",
+     "side": "YES",
+     "q": 0.419,
+     "limit": 0.319,
+     "best_ask": 0.63,
+     "depth_usd": 0
+    },
+    {
+     "word": "Xi / China",
+     "side": "NO",
+     "q": 0.419,
+     "limit": 0.481,
+     "best_ask": 0.42,
+     "depth_usd": 240.71
+    },
+    {
+     "word": "Ballroom",
+     "side": "YES",
+     "q": 0.151,
+     "limit": 0.051,
+     "best_ask": 0.71,
+     "depth_usd": 0
+    },
+    {
+     "word": "Ballroom",
+     "side": "NO",
+     "q": 0.151,
+     "limit": 0.749,
+     "best_ask": 0.35,
+     "depth_usd": 51.45
+    },
+    {
+     "word": "West Virginia",
+     "side": "YES",
+     "q": 0.613,
+     "limit": 0.513,
+     "best_ask": 0.93,
+     "depth_usd": 0
+    },
+    {
+     "word": "West Virginia",
+     "side": "NO",
+     "q": 0.613,
+     "limit": 0.287,
+     "best_ask": 0.16,
+     "depth_usd": 65.05
+    },
+    {
+     "word": "Border",
+     "side": "YES",
+     "q": 0.689,
+     "limit": 0.589,
+     "best_ask": 0.94,
+     "depth_usd": 0
+    },
+    {
+     "word": "Border",
+     "side": "NO",
+     "q": 0.689,
+     "limit": 0.211,
+     "best_ask": 0.41,
+     "depth_usd": 0
+    },
+    {
+     "word": "Poultry",
+     "side": "YES",
+     "q": 0.419,
+     "limit": 0.319,
+     "best_ask": 0.29,
+     "depth_usd": 147.48
+    },
+    {
+     "word": "Poultry",
+     "side": "NO",
+     "q": 0.419,
+     "limit": 0.481,
+     "best_ask": 0.78,
+     "depth_usd": 0
+    },
+    {
+     "word": "Drone / Helipad",
+     "side": "YES",
+     "q": 0.419,
+     "limit": 0.319,
+     "best_ask": 0.66,
+     "depth_usd": 0
+    },
+    {
+     "word": "Drone / Helipad",
+     "side": "NO",
+     "q": 0.419,
+     "limit": 0.481,
+     "best_ask": 0.35,
+     "depth_usd": 210.29
+    }
+   ]
+  },
+  {
+   "id": "1437566",
+   "title": "What will Dell say during their next earnings call?",
+   "books": [
+    {
+     "word": "AI 50+ times",
+     "side": "YES",
+     "q": 0.905,
+     "limit": 0.805,
+     "best_ask": 0.97,
+     "depth_usd": 0
+    },
+    {
+     "word": "AI 50+ times",
+     "side": "NO",
+     "q": 0.905,
+     "limit": -0.005,
+     "best_ask": 0.21,
+     "depth_usd": 0
+    },
+    {
+     "word": "DRAM / NAND 3+ times",
+     "side": "YES",
+     "q": 0.574,
+     "limit": 0.474,
+     "best_ask": 0.96,
+     "depth_usd": 0
+    },
+    {
+     "word": "DRAM / NAND 3+ times",
+     "side": "NO",
+     "q": 0.574,
+     "limit": 0.326,
+     "best_ask": 0.17,
+     "depth_usd": 17.0
+    },
+    {
+     "word": "Vera Rubin",
+     "side": "YES",
+     "q": 0.574,
+     "limit": 0.474,
+     "best_ask": 0.82,
+     "depth_usd": 0
+    },
+    {
+     "word": "Vera Rubin",
+     "side": "NO",
+     "q": 0.574,
+     "limit": 0.326,
+     "best_ask": 0.28,
+     "depth_usd": 18.2
+    },
+    {
+     "word": "Inference",
+     "side": "YES",
+     "q": 0.537,
+     "limit": 0.437,
+     "best_ask": 0.89,
+     "depth_usd": 0
+    },
+    {
+     "word": "Inference",
+     "side": "NO",
+     "q": 0.537,
+     "limit": 0.363,
+     "best_ask": 0.18,
+     "depth_usd": 35.55
+    },
+    {
+     "word": "Shortage",
+     "side": "YES",
+     "q": 0.716,
+     "limit": 0.616,
+     "best_ask": 0.97,
+     "depth_usd": 0
+    },
+    {
+     "word": "Shortage",
+     "side": "NO",
+     "q": 0.716,
+     "limit": 0.184,
+     "best_ask": 0.21,
+     "depth_usd": 0
+    },
+    {
+     "word": "Blackwell",
+     "side": "YES",
+     "q": 0.574,
+     "limit": 0.474,
+     "best_ask": 0.49,
+     "depth_usd": 0
+    },
+    {
+     "word": "Blackwell",
+     "side": "NO",
+     "q": 0.574,
+     "limit": 0.326,
+     "best_ask": 0.91,
+     "depth_usd": 0
+    },
+    {
+     "word": "CrowdStrike",
+     "side": "YES",
+     "q": 0.383,
+     "limit": 0.283,
+     "best_ask": 0.42,
+     "depth_usd": 0
+    },
+    {
+     "word": "CrowdStrike",
+     "side": "NO",
+     "q": 0.383,
+     "limit": 0.517,
+     "best_ask": 0.67,
+     "depth_usd": 0
+    }
+   ]
+  },
+  {
+   "id": "1437568",
+   "title": "What will Deere say during their next earnings call?",
+   "books": [
+    {
+     "word": "Demand 20+ times",
+     "side": "YES",
+     "q": 0.83,
+     "limit": 0.73,
+     "best_ask": 0.75,
+     "depth_usd": 0
+    },
+    {
+     "word": "Demand 20+ times",
+     "side": "NO",
+     "q": 0.83,
+     "limit": 0.07,
+     "best_ask": 0.31,
+     "depth_usd": 0
+    },
+    {
+     "word": "Fertilizer",
+     "side": "YES",
+     "q": 0.574,
+     "limit": 0.474,
+     "best_ask": 0.97,
+     "depth_usd": 0
+    },
+    {
+     "word": "Fertilizer",
+     "side": "NO",
+     "q": 0.574,
+     "limit": 0.326,
+     "best_ask": 0.29,
+     "depth_usd": 29.0
+    },
+    {
+     "word": "ExactShot",
+     "side": "YES",
+     "q": 0.574,
+     "limit": 0.474,
+     "best_ask": 0.53,
+     "depth_usd": 0
+    },
+    {
+     "word": "ExactShot",
+     "side": "NO",
+     "q": 0.574,
+     "limit": 0.326,
+     "best_ask": 0.58,
+     "depth_usd": 0
+    },
+    {
+     "word": "Tenna",
+     "side": "YES",
+     "q": 0.574,
+     "limit": 0.474,
+     "best_ask": 0.65,
+     "depth_usd": 0
+    },
+    {
+     "word": "Tenna",
+     "side": "NO",
+     "q": 0.574,
+     "limit": 0.326,
+     "best_ask": 0.47,
+     "depth_usd": 0
+    },
+    {
+     "word": "Iowa",
+     "side": "YES",
+     "q": 0.574,
+     "limit": 0.474,
+     "best_ask": 0.38,
+     "depth_usd": 38.0
+    },
+    {
+     "word": "Iowa",
+     "side": "NO",
+     "q": 0.574,
+     "limit": 0.326,
+     "best_ask": 0.96,
+     "depth_usd": 0
+    },
+    {
+     "word": "Starlink",
+     "side": "YES",
+     "q": 0.83,
+     "limit": 0.73,
+     "best_ask": 0.38,
+     "depth_usd": 38.0
+    },
+    {
+     "word": "Starlink",
+     "side": "NO",
+     "q": 0.83,
+     "limit": 0.07,
+     "best_ask": 0.97,
+     "depth_usd": 0
+    },
+    {
+     "word": "Technology 10+ times",
+     "side": "YES",
+     "q": 0.574,
+     "limit": 0.474,
+     "best_ask": 0.86,
+     "depth_usd": 0
+    },
+    {
+     "word": "Technology 10+ times",
+     "side": "NO",
+     "q": 0.574,
+     "limit": 0.326,
+     "best_ask": 0.2,
+     "depth_usd": 34.23
+    },
+    {
+     "word": "See & Spray",
+     "side": "YES",
+     "q": 0.574,
+     "limit": 0.474,
+     "best_ask": 0.92,
+     "depth_usd": 0
+    },
+    {
+     "word": "See & Spray",
+     "side": "NO",
+     "q": 0.574,
+     "limit": 0.326,
+     "best_ask": 0.13,
+     "depth_usd": 46.55
+    }
+   ]
+  },
+  {
+   "id": "1437585",
+   "title": "What will Salesforce say during their next earnings call?",
+   "books": [
+    {
+     "word": "AI 50+ times",
+     "side": "YES",
+     "q": 0.905,
+     "limit": 0.805,
+     "best_ask": 0.76,
+     "depth_usd": 46.96
+    },
+    {
+     "word": "AI 50+ times",
+     "side": "NO",
+     "q": 0.905,
+     "limit": -0.005,
+     "best_ask": 0.3,
+     "depth_usd": 0
+    },
+    {
+     "word": "Agent / Agentic 40+ times",
+     "side": "YES",
+     "q": 0.787,
+     "limit": 0.687,
+     "best_ask": 0.97,
+     "depth_usd": 0
+    },
+    {
+     "word": "Agent / Agentic 40+ times",
+     "side": "NO",
+     "q": 0.787,
+     "limit": 0.113,
+     "best_ask": 0.25,
+     "depth_usd": 0
+    },
+    {
+     "word": "Slack 30+ times",
+     "side": "YES",
+     "q": 0.574,
+     "limit": 0.474,
+     "best_ask": 0.98,
+     "depth_usd": 0
+    },
+    {
+     "word": "Slack 30+ times",
+     "side": "NO",
+     "q": 0.574,
+     "limit": 0.326,
+     "best_ask": 0.28,
+     "depth_usd": 5.88
+    },
+    {
+     "word": "Data Center",
+     "side": "YES",
+     "q": 0.832,
+     "limit": 0.732,
+     "best_ask": 0.108,
+     "depth_usd": 216.82
+    },
+    {
+     "word": "Data Center",
+     "side": "NO",
+     "q": 0.832,
+     "limit": 0.068,
+     "best_ask": 0.991,
+     "depth_usd": 0
+    },
+    {
+     "word": "Fabric",
+     "side": "YES",
+     "q": 0.716,
+     "limit": 0.616,
+     "best_ask": 0.88,
+     "depth_usd": 0
+    },
+    {
+     "word": "Fabric",
+     "side": "NO",
+     "q": 0.716,
+     "limit": 0.184,
+     "best_ask": 0.91,
+     "depth_usd": 0
+    },
+    {
+     "word": "Europe",
+     "side": "YES",
+     "q": 0.572,
+     "limit": 0.472,
+     "best_ask": 0.73,
+     "depth_usd": 0
+    },
+    {
+     "word": "Europe",
+     "side": "NO",
+     "q": 0.572,
+     "limit": 0.328,
+     "best_ask": 0.28,
+     "depth_usd": 39.6
+    },
+    {
+     "word": "Headless",
+     "side": "YES",
+     "q": 0.574,
+     "limit": 0.474,
+     "best_ask": 0.87,
+     "depth_usd": 0
+    },
+    {
+     "word": "Headless",
+     "side": "NO",
+     "q": 0.574,
+     "limit": 0.326,
+     "best_ask": 0.15,
+     "depth_usd": 41.46
+    },
+    {
+     "word": "Braze",
+     "side": "YES",
+     "q": 0.574,
+     "limit": 0.474,
+     "best_ask": 0.98,
+     "depth_usd": 0
+    },
+    {
+     "word": "Braze",
+     "side": "NO",
+     "q": 0.574,
+     "limit": 0.326,
+     "best_ask": 0.12,
+     "depth_usd": 26.4
+    }
+   ]
+  }
+ ]
+}
