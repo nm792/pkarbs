@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""PAPER run of the `post` rule (and shadow rules) against the LIVE recorded books, under the Reviewer's conditions (reviewer/REVIEW-RESPONSE-2026-11-20-gas-daily-and-mechanics.md e5648c5e; R-005, R-006, R-007):
+"""PAPER run of the `post` rule (and shadow rules) against the LIVE recorded books, under the Reviewer's conditions (reviewer/REVIEW-RESPONSE-2026-11-20-gas-daily-and-mechanics.md e5648c5e):
  1. a decision may only be taken AFTER the first logged AAA page row that shows the event date D (not at a fixed 03:30);
- 2. fills come ONLY from the own-token asks in the LATEST book snapshot received at or before decision time + latency (A1, A8): never from prints or later books; and the level must still be shown after the SETTLED A3 250 ms taker hold;
+ 2. fills come ONLY from the own-token asks in the book snapshot logged at the decision moment, at the displayed size (A1, A8): never from prints or later books;
  3. settlement from the Polymarket resolution (gamma outcomePrices), cross-checked against the page value;
  4. $/day with an event-clustered CI against $200/day (A9), rebates separate; fee rate is a parameter (0.05 from 20 Nov 23:59Z, SETTLED);
  5. sanity check within 15 minutes of the first live day (sanity()).
-No orders are ever sent (A6/A7). Inputs: books JSONL from pm_gas_books.py, page JSONL from aaa_page_log.py. yes_fav / no_out are SHADOW only (logged, never counted)."""
+No orders are ever sent (A6/A7). Inputs: books JSONL from pm_gas_books.py, page JSONL from aaa_watch.py. yes_fav / no_out are SHADOW only (logged, never counted)."""
 import argparse, datetime as dt, json, math, os, random, sys
 from zoneinfo import ZoneInfo
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, ".."))
@@ -32,10 +32,10 @@ def token_buckets(snapshot):
     for tid, v in snapshot["tok"].items():
         q, out = v["label"].rsplit("|", 1); toks[tid] = (N.bucket_bounds(q), out)
     edges = sorted({b for b, _ in toks.values()}); return {tid: (edges.index(b), out, b) for tid, (b, out) in toks.items()}
-def run(books, page, D, prm, nowcast=None, clock_end=None, latency_s=2.0, max_stale_s=5.0, hold_s=0.25, max_wait_s=5.0):
+def run(books, page, D, prm, nowcast=None, clock_end=None, latency_s=2.0, max_stale_s=2.0, hold_s=0.25, max_wait_s=5.0):
     """Returns decisions (list of dicts). Counted decisions have shadow=False and kind 'post'. clock_end: ns cut-off (10:00 ET on D).
     Decision moment = the logged page read (recv_ns). Fill book = the LATEST own-token book snapshot received at or before decision time + latency_s (R-006 a); latency_s is an ASSUMED page-read-to-order delay of at most 2 s, NOT measured (paper: no order path exists).
-    The snapshot must also be no older than max_stale_s (5 s) at decision time, else there is no decision (a stale book is not a decision-time book). One decision, one snapshot: a better ask in any LATER snapshot, or in an earlier snapshot that a newer one superseded, is never filled (A8).
+    The snapshot must also be received at or after the page RESPONSE (max_stale_s = latency_s = 2 s, so the window is [response, response + 2 s]; R-020: a book older than the response was seen before the page value was known), else there is no decision (a stale book is not a decision-time book). One decision, one snapshot: a better ask in any LATER snapshot, or in an earlier snapshot that a newer one superseded, is never filled (A8).
     SETTLED A3 taker hold (R-007): a post decision counts as filled only if the SAME level (token, price) is still shown with at least the decided size in the first snapshot at or after page read + latency_s + hold_s (hold_s = 0.25 s, not later than max_wait_s); otherwise it is logged as shadow kind 'post_unfilled_hold', status 'unfilled (hold)', and not counted. hold_s=None switches the check off (tests only)."""
     chg = page_change(page, D); decisions = []; spent_tok = {}; spent_rule = {}; level_taken = {}; level_max = {}
     dec_snap = None
