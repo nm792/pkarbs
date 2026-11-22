@@ -16,4 +16,7 @@ r = T.read_once("k", boom); chk("exception -> 599 no price", r["status"] == 599 
 D = dt.date(2026, 11, 21)
 good = T.read_once("k", lambda k: (200, {"results": [{"text": SAMPLE}]})); good["recv_ns"] = 5
 chk("row works with paper_post.page_change", P.page_change([good], D) == (5, 3.6594))
+import time
+def slow(k): time.sleep(0.05); return 200, {"results": [{"text": SAMPLE}]}
+r = T.read_once("k", slow); chk("R-020: recv_ns (response) is after request_ns by the round trip", r["recv_ns"] - r["request_ns"] >= 50_000_000)
 print("ALL PASS" if not bad else "FAILED", bad); raise SystemExit(bad)

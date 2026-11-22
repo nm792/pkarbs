@@ -13,13 +13,13 @@ def fetch(key, timeout=150):
     req = urllib.request.Request(API, data=json.dumps({"urls": [URL], "format": "markdown", "ttl": 0}).encode(), headers={"X-API-Key": key, "Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=timeout) as r: return r.status, json.loads(r.read())
 def read_once(key, fetcher=fetch):
-    ns = time.time_ns()
+    req_ns = time.time_ns()   # R-020: recv_ns is stamped AFTER the response (decision time), request start kept separately
     try:
-        st, body = fetcher(key); res = (body.get("results") or [{}])[0]; asof, price = parse(res.get("text"))
+        st, body = fetcher(key); ns = time.time_ns(); res = (body.get("results") or [{}])[0]; asof, price = parse(res.get("text"))
         ok = st == 200 and asof is not None
-        return dict(recv_ns=ns, status=200 if ok else (st if st != 200 else 599), price_as_of=asof if ok else None, regular_current=price if ok else None, src="tinyfish", latency_ms=res.get("latency_ms"))
+        return dict(request_ns=req_ns, recv_ns=ns, status=200 if ok else (st if st != 200 else 599), price_as_of=asof if ok else None, regular_current=price if ok else None, src="tinyfish", latency_ms=res.get("latency_ms"))
     except Exception as e:
-        return dict(recv_ns=ns, status=getattr(e, "code", 599), price_as_of=None, regular_current=None, src="tinyfish", error=type(e).__name__)
+        return dict(request_ns=req_ns, recv_ns=time.time_ns(), status=getattr(e, "code", 599), price_as_of=None, regular_current=None, src="tinyfish", error=type(e).__name__)
 def main(argv=None):
     ap = argparse.ArgumentParser(); ap.add_argument("--out", required=True); ap.add_argument("--start-epoch", type=float, default=0); ap.add_argument("--until-epoch", type=float, required=True); ap.add_argument("--interval", type=float, default=60)
     a = ap.parse_args(argv); key = os.environ.get("TINYFISH_API_KEY")
