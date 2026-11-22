@@ -1,0 +1,2332 @@
+{
+ "freeze": "2026-01-01T00:00:00+00:00",
+ "span_days": 325.6,
+ "cap": 200.0,
+ "daycap": 2000.0,
+ "segments": {
+  "ALL": {
+   "events": 917,
+   "bets": 268,
+   "bets_per_day": 0.823,
+   "bets_per_active_day": 1.99,
+   "net": 2149.73,
+   "per_day": 6.602,
+   "pct_of_200": 3.3,
+   "cost": 3661.63,
+   "wins": 154,
+   "avg_cost": 13.66,
+   "event_usd_median": 13920.0,
+   "event_usd_first24h_median": 1483.0,
+   "contract_usd_median": 641.0,
+   "contract_usd_mean": 3605.0,
+   "single_print_rule": {
+    "events": 917,
+    "bets": 268,
+    "bets_per_day": 0.823,
+    "bets_per_active_day": 1.99,
+    "net": 1960.12,
+    "per_day": 6.02,
+    "pct_of_200": 3.01,
+    "cost": 2590.72,
+    "wins": 154,
+    "avg_cost": 9.67,
+    "event_usd_median": 13920.0,
+    "event_usd_first24h_median": 1483.0,
+    "contract_usd_median": 641.0,
+    "contract_usd_mean": 3605.0
+   },
+   "segment_usd_per_active_day_median": 70118.0,
+   "segment_usd_per_calendar_day_mean": 193026.0
+  },
+  "earnings-call": {
+   "events": 126,
+   "bets": 29,
+   "bets_per_day": 0.089,
+   "bets_per_active_day": 1.32,
+   "net": 414.4,
+   "per_day": 1.273,
+   "pct_of_200": 0.64,
+   "cost": 365.07,
+   "wins": 21,
+   "avg_cost": 12.59,
+   "event_usd_median": 7543.0,
+   "event_usd_first24h_median": 1267.0,
+   "contract_usd_median": 377.0,
+   "contract_usd_mean": 2472.0,
+   "single_print_rule": {
+    "events": 126,
+    "bets": 29,
+    "bets_per_day": 0.089,
+    "bets_per_active_day": 1.32,
+    "net": 310.82,
+    "per_day": 0.955,
+    "pct_of_200": 0.48,
+    "cost": 294.55,
+    "wins": 21,
+    "avg_cost": 10.16,
+    "event_usd_median": 7543.0,
+    "event_usd_first24h_median": 1267.0,
+    "contract_usd_median": 377.0,
+    "contract_usd_mean": 2472.0
+   },
+   "segment_usd_per_active_day_median": 3892.0,
+   "segment_usd_per_calendar_day_mean": 14324.0
+  },
+  "other": {
+   "events": 404,
+   "bets": 86,
+   "bets_per_day": 0.264,
+   "bets_per_active_day": 1.43,
+   "net": 592.7,
+   "per_day": 1.82,
+   "pct_of_200": 0.91,
+   "cost": 1017.45,
+   "wins": 47,
+   "avg_cost": 11.83,
+   "event_usd_median": 9609.0,
+   "event_usd_first24h_median": 671.0,
+   "contract_usd_median": 464.0,
+   "contract_usd_mean": 2075.0,
+   "single_print_rule": {
+    "events": 404,
+    "bets": 86,
+    "bets_per_day": 0.264,
+    "bets_per_active_day": 1.43,
+    "net": 533.41,
+    "per_day": 1.638,
+    "pct_of_200": 0.82,
+    "cost": 871.22,
+    "wins": 47,
+    "avg_cost": 10.13,
+    "event_usd_median": 9609.0,
+    "event_usd_first24h_median": 671.0,
+    "contract_usd_median": 464.0,
+    "contract_usd_mean": 2075.0
+   },
+   "segment_usd_per_active_day_median": 18558.0,
+   "segment_usd_per_calendar_day_mean": 46259.0
+  },
+  "sports-announcers": {
+   "events": 93,
+   "bets": 44,
+   "bets_per_day": 0.135,
+   "bets_per_active_day": 1.91,
+   "net": 439.37,
+   "per_day": 1.349,
+   "pct_of_200": 0.67,
+   "cost": 639.4,
+   "wins": 28,
+   "avg_cost": 14.53,
+   "event_usd_median": 20086.0,
+   "event_usd_first24h_median": 8663.0,
+   "contract_usd_median": 683.0,
+   "contract_usd_mean": 1145.0,
+   "single_print_rule": {
+    "events": 93,
+    "bets": 44,
+    "bets_per_day": 0.135,
+    "bets_per_active_day": 1.91,
+    "net": 353.16,
+    "per_day": 1.085,
+    "pct_of_200": 0.54,
+    "cost": 485.42,
+    "wins": 28,
+    "avg_cost": 11.03,
+    "event_usd_median": 20086.0,
+    "event_usd_first24h_median": 8663.0,
+    "contract_usd_median": 683.0,
+    "contract_usd_mean": 1145.0
+   },
+   "segment_usd_per_active_day_median": 2199.0,
+   "segment_usd_per_calendar_day_mean": 7043.0
+  },
+  "trump": {
+   "events": 294,
+   "bets": 109,
+   "bets_per_day": 0.335,
+   "bets_per_active_day": 1.3,
+   "net": 703.26,
+   "per_day": 2.16,
+   "pct_of_200": 1.08,
+   "cost": 1639.72,
+   "wins": 58,
+   "avg_cost": 15.04,
+   "event_usd_median": 29854.0,
+   "event_usd_first24h_median": 4584.0,
+   "contract_usd_median": 1212.0,
+   "contract_usd_mean": 6493.0,
+   "single_print_rule": {
+    "events": 294,
+    "bets": 109,
+    "bets_per_day": 0.335,
+    "bets_per_active_day": 1.3,
+    "net": 762.73,
+    "per_day": 2.342,
+    "pct_of_200": 1.17,
+    "cost": 939.53,
+    "wins": 58,
+    "avg_cost": 8.62,
+    "event_usd_median": 29854.0,
+    "event_usd_first24h_median": 4584.0,
+    "contract_usd_median": 1212.0,
+    "contract_usd_mean": 6493.0
+   },
+   "segment_usd_per_active_day_median": 31276.0,
+   "segment_usd_per_calendar_day_mean": 125400.0
+  }
+ },
+ "bets": {
+  "trump": [
+   {
+    "day": "2026-01-03",
+    "start": 1767447600.936228,
+    "cost": 200.0,
+    "pnl": -200.0,
+    "id": "140798",
+    "title": "What will Trump say during his Venezuela press conference today?"
+   },
+   {
+    "day": "2026-01-05",
+    "start": 1767626147.02,
+    "cost": 1.999999000000125,
+    "pnl": -1.999999000000125,
+    "id": "137384",
+    "title": "What will Trump say during the State of the Union address?"
+   },
+   {
+    "day": "2026-01-12",
+    "start": 1768233004.32254,
+    "cost": 1.7000000000000002,
+    "pnl": -1.7000000000000002,
+    "id": "159891",
+    "title": "What will Trump say at the Detroit Economic Club on Tuesday?"
+   },
+   {
+    "day": "2026-01-13",
+    "start": 1768345682.367047,
+    "cost": 11.189990000787583,
+    "pnl": -11.189990000787583,
+    "id": "162281",
+    "title": "What will Trump say during \"CBS Evening News\" on January 13?"
+   },
+   {
+    "day": "2026-01-14",
+    "start": 1768402712.300204,
+    "cost": 17.5,
+    "pnl": 32.5,
+    "id": "163893",
+    "title": "What will Trump say during Signing Ceremony on January 14?"
+   },
+   {
+    "day": "2026-01-15",
+    "start": 1768489606.346663,
+    "cost": 23.6,
+    "pnl": -23.6,
+    "id": "165949",
+    "title": "What will Trump say during Panthers visit on January 15?"
+   },
+   {
+    "day": "2026-01-20",
+    "start": 1768943662.020578,
+    "cost": 5.0,
+    "pnl": -5.0,
+    "id": "177588",
+    "title": "What will Trump say during the Board of Peace Charter Announcement on January 22?"
+   },
+   {
+    "day": "2026-01-30",
+    "start": 1769742512.231529,
+    "cost": 4.999999000256451,
+    "pnl": 7.820511999743548,
+    "id": "193032",
+    "title": "What will Trump say during the Fed Chairman announcement on Friday?"
+   },
+   {
+    "day": "2026-02-03",
+    "start": 1770141427.652,
+    "cost": 5.0,
+    "pnl": 1.2499999999999998,
+    "id": "197690",
+    "title": "What will Trump say during signing at 2pm?"
+   },
+   {
+    "day": "2026-02-05",
+    "start": 1770304205.566,
+    "cost": 4.0,
+    "pnl": 16.0,
+    "id": "199420",
+    "title": "What will Trump say during the announcement on February 5?"
+   },
+   {
+    "day": "2026-02-11",
+    "start": 1770821568.796057,
+    "cost": 4.999998000322779,
+    "pnl": 12.08482599967722,
+    "id": "205057",
+    "title": "What will Trump say during the Champion of Coal event?"
+   },
+   {
+    "day": "2026-02-12",
+    "start": 1770908606.402965,
+    "cost": 16.0,
+    "pnl": 3.999999999999999,
+    "id": "206365",
+    "title": "What will Trump say during the EPA announcement?"
+   },
+   {
+    "day": "2026-02-13",
+    "start": 1770952260.504488,
+    "cost": 9.2304,
+    "pnl": 9.999600000000001,
+    "id": "207100",
+    "title": "What will Trump say during remarks at Fort Bragg? "
+   },
+   {
+    "day": "2026-02-26",
+    "start": 1772134840.088,
+    "cost": 0.9999990000002401,
+    "pnl": -0.9999990000002401,
+    "id": "232123",
+    "title": "What will Trump say in Corpus Christi on February 27? "
+   },
+   {
+    "day": "2026-03-05",
+    "start": 1772724180.736,
+    "cost": 28.211399998474,
+    "pnl": 105.158600001526,
+    "id": "245899",
+    "title": "What will Trump say during Inter Miami event on March 5? "
+   },
+   {
+    "day": "2026-03-06",
+    "start": 1772813174.219736,
+    "cost": 2.25,
+    "pnl": -2.25,
+    "id": "250033",
+    "title": "What will Trump say during the College Football Roundtable on March 6? "
+   },
+   {
+    "day": "2026-03-06",
+    "start": 1772831967.041878,
+    "cost": 1.0,
+    "pnl": 4.0,
+    "id": "250384",
+    "title": "What will Trump say this week (March 15)?"
+   },
+   {
+    "day": "2026-03-08",
+    "start": 1773011970.976025,
+    "cost": 4.9,
+    "pnl": 5.1,
+    "id": "254778",
+    "title": "What will Trump say during remarks to the Republican Members Issues Conference?"
+   },
+   {
+    "day": "2026-03-09",
+    "start": 1773079229.46167,
+    "cost": 36.47239400551177,
+    "pnl": -36.47239400551177,
+    "id": "256855",
+    "title": "What will Trump say during press conference on March 9? "
+   },
+   {
+    "day": "2026-03-19",
+    "start": 1773884839.014586,
+    "cost": 9.999998998888914,
+    "pnl": 12.222222001111085,
+    "id": "284413",
+    "title": "What will Trump say during Japanese PM events? "
+   },
+   {
+    "day": "2026-03-20",
+    "start": 1774018452.616,
+    "cost": 1.0,
+    "pnl": -1.0,
+    "id": "289844",
+    "title": "What will Trump say during Memphis Roundtable? "
+   },
+   {
+    "day": "2026-03-20",
+    "start": 1774037682.554388,
+    "cost": 117.26,
+    "pnl": 415.74,
+    "id": "290672",
+    "title": "What will Trump say this week? (March 29)"
+   },
+   {
+    "day": "2026-03-24",
+    "start": 1774369104.450861,
+    "cost": 21.785,
+    "pnl": -21.785,
+    "id": "303422",
+    "title": "What will Trump say during NRCC Dinner on March 25? "
+   },
+   {
+    "day": "2026-03-25",
+    "start": 1774464111.423911,
+    "cost": 1.0,
+    "pnl": 3.0,
+    "id": "304590",
+    "title": "What will Trump say during Greek Independence Day event on March 26? "
+   },
+   {
+    "day": "2026-03-25",
+    "start": 1774468251.015844,
+    "cost": 6.0,
+    "pnl": -6.0,
+    "id": "307746",
+    "title": "What will Trump say during Cabinet meeting on March 26? "
+   },
+   {
+    "day": "2026-03-26",
+    "start": 1774551128.202218,
+    "cost": 2.66,
+    "pnl": -2.66,
+    "id": "311048",
+    "title": "What will Trump say during FII PRIORITY Summit on March 27? "
+   },
+   {
+    "day": "2026-03-31",
+    "start": 1774973641.309686,
+    "cost": 4.68,
+    "pnl": -4.68,
+    "id": "329473",
+    "title": "What will Trump say during Executive Order Signing on March 31? "
+   },
+   {
+    "day": "2026-04-01",
+    "start": 1775013174.594552,
+    "cost": 2.1,
+    "pnl": -2.1,
+    "id": "330936",
+    "title": "What will Trump say during Address to the Nation on April 1? "
+   },
+   {
+    "day": "2026-04-05",
+    "start": 1775427353.629264,
+    "cost": 1.0,
+    "pnl": -1.0,
+    "id": "347970",
+    "title": "What will Trump say during news conference on April 6? "
+   },
+   {
+    "day": "2026-04-13",
+    "start": 1776094577.664228,
+    "cost": 1.9999990000001049,
+    "pnl": -1.9999990000001049,
+    "id": "375219",
+    "title": "What will Trump say during dinner with Dutch royals on April 13? "
+   },
+   {
+    "day": "2026-04-13",
+    "start": 1776117204.58,
+    "cost": 2.25,
+    "pnl": -2.25,
+    "id": "376050",
+    "title": "What will Trump say during Fox Business interview on April 15?"
+   },
+   {
+    "day": "2026-04-21",
+    "start": 1776733573.854,
+    "cost": 2.4190400000000003,
+    "pnl": -2.503222592,
+    "id": "401255",
+    "title": "What will Trump say during CNBC: Squawk Box appearance on April 21?"
+   },
+   {
+    "day": "2026-04-29",
+    "start": 1777496633.595,
+    "cost": 0.9999990000002483,
+    "pnl": -1.02839897693625,
+    "id": "431625",
+    "title": "What will Trump say during remarks at The Villages?"
+   },
+   {
+    "day": "2026-05-04",
+    "start": 1777906859.704643,
+    "cost": 27.099999001090964,
+    "pnl": -28.065631696625875,
+    "id": "448088",
+    "title": "What will Trump say during remarks at the Small Business Summit?"
+   },
+   {
+    "day": "2026-05-11",
+    "start": 1778512572.489461,
+    "cost": 15.299999001214175,
+    "pnl": 14.216872650390673,
+    "id": "474163",
+    "title": "What will Trump say during remarks with National Football Champions?"
+   },
+   {
+    "day": "2026-05-19",
+    "start": 1779205116.440195,
+    "cost": 1.9999980000002688,
+    "pnl": -2.07039793766427,
+    "id": "502318",
+    "title": "What will Trump and Melania say during the Congressional Picnic? "
+   },
+   {
+    "day": "2026-05-27",
+    "start": 1779850311.756494,
+    "cost": 10.0,
+    "pnl": 9.8,
+    "id": "529192",
+    "title": "What will Trump say during Cabinet meeting?"
+   },
+   {
+    "day": "2026-06-01",
+    "start": 1780336017.630209,
+    "cost": 6.0,
+    "pnl": 9.0,
+    "id": "548787",
+    "title": "What will Trump say this week? (June 2 - 7)"
+   },
+   {
+    "day": "2026-06-08",
+    "start": 1780941530.923,
+    "cost": 5.6000000000000005,
+    "pnl": 14.238719999999999,
+    "id": "573371",
+    "title": "What will Trump say during Tele-Rally on June 8?"
+   },
+   {
+    "day": "2026-06-15",
+    "start": 1781507547.365778,
+    "cost": 9.5,
+    "pnl": 9.31,
+    "id": "596772",
+    "title": "What will Trump say during meeting with French President?"
+   },
+   {
+    "day": "2026-06-28",
+    "start": 1782664257.898294,
+    "cost": 22.5666,
+    "pnl": 18.808174559999998,
+    "id": "644841",
+    "title": "What will Trump post this week? (June 29 - July 5)"
+   },
+   {
+    "day": "2026-07-01",
+    "start": 1782921226.439499,
+    "cost": 35.0,
+    "pnl": -35.7,
+    "id": "655468",
+    "title": "What will Trump say at the Burning Hills Amphitheater on July 1?"
+   },
+   {
+    "day": "2026-07-11",
+    "start": 1783742631.966743,
+    "cost": 3.7199999999999998,
+    "pnl": -3.8509439999999997,
+    "id": "690224",
+    "title": "What will Trump post this week? (July 13 - July 19)"
+   },
+   {
+    "day": "2026-07-13",
+    "start": 1783953675.437996,
+    "cost": 10.8,
+    "pnl": 9.00128,
+    "id": "699061",
+    "title": "What will Trump say during the Freedom 250 Grand Prix Showcase?"
+   },
+   {
+    "day": "2026-07-17",
+    "start": 1784256021.994984,
+    "cost": 5.0,
+    "pnl": -5.18248,
+    "id": "712216",
+    "title": "What will Trump say during WHCA Dinner?"
+   },
+   {
+    "day": "2026-07-23",
+    "start": 1784816383.183012,
+    "cost": 6.0,
+    "pnl": -6.168,
+    "id": "738288",
+    "title": "What will Trump say during his Announcement on the Ratepayer Protection Pledge?"
+   },
+   {
+    "day": "2026-07-25",
+    "start": 1784939034.216067,
+    "cost": 5.04,
+    "pnl": 15.806784,
+    "id": "745732",
+    "title": "What will Trump say during remarks in Michigan?"
+   },
+   {
+    "day": "2026-07-25",
+    "start": 1784939035.985659,
+    "cost": 4.68,
+    "pnl": -4.852224,
+    "id": "745731",
+    "title": "What will Trump say during tribute to Lindsey Graham?"
+   },
+   {
+    "day": "2026-07-28",
+    "start": 1785204242.682826,
+    "cost": 2.9400000000000004,
+    "pnl": 17.958864,
+    "id": "758878",
+    "title": "What will Trump say during Cabinet Meeting?"
+   },
+   {
+    "day": "2026-07-28",
+    "start": 1785208303.497915,
+    "cost": 49.96,
+    "pnl": 62.66934800000001,
+    "id": "759173",
+    "title": "What will Trump say on Fox News: Fox & Friends?"
+   },
+   {
+    "day": "2026-07-28",
+    "start": 1785265600.074033,
+    "cost": 1.4000000000000001,
+    "pnl": 18.547919999999998,
+    "id": "764489",
+    "title": "What will Trump say during Tele-Rally on July 28?"
+   },
+   {
+    "day": "2026-07-28",
+    "start": 1785276686.490505,
+    "cost": 3.0,
+    "pnl": -3.1056,
+    "id": "765646",
+    "title": "What places will Trump mention in August?"
+   },
+   {
+    "day": "2026-07-30",
+    "start": 1785420434.286532,
+    "cost": 50.0,
+    "pnl": -51.0,
+    "id": "772553",
+    "title": "What will Trump say during his Announcement on Freedom Haulers?"
+   },
+   {
+    "day": "2026-08-03",
+    "start": 1785765930.56927,
+    "cost": 70.01870000000001,
+    "pnl": -72.08751044,
+    "id": "790502",
+    "title": "What will Trump say during his Executive Order signing?"
+   },
+   {
+    "day": "2026-08-03",
+    "start": 1785800943.370214,
+    "cost": 14.75,
+    "pnl": 17.427925000000002,
+    "id": "793590",
+    "title": "What will Trump say during remarks in Las Vegas?"
+   },
+   {
+    "day": "2026-08-06",
+    "start": 1786031111.240532,
+    "cost": 29.4,
+    "pnl": 30.00024,
+    "id": "806399",
+    "title": "What will Trump say during the Team USA Reception?"
+   },
+   {
+    "day": "2026-08-06",
+    "start": 1786032402.456071,
+    "cost": 2.04,
+    "pnl": 3.9061439999999994,
+    "id": "806782",
+    "title": "What will Trump say during Tele-Rally with Megan Degenfelder?"
+   },
+   {
+    "day": "2026-08-10",
+    "start": 1786330518.014929,
+    "cost": 10.8,
+    "pnl": -11.11536,
+    "id": "825383",
+    "title": "What will Trump say during Tele-Rally with Darline Graham?"
+   },
+   {
+    "day": "2026-08-11",
+    "start": 1786488753.0,
+    "cost": 5.46,
+    "pnl": -5.621616,
+    "id": "835858",
+    "title": "What will Trump say during remarks in New York?"
+   },
+   {
+    "day": "2026-08-19",
+    "start": 1787163121.0,
+    "cost": 20.0,
+    "pnl": 79.36,
+    "id": "876566",
+    "title": "What will Trump or Melania say during remarks in the White House Rose Garden?"
+   },
+   {
+    "day": "2026-08-21",
+    "start": 1787348637.0,
+    "cost": 6.2,
+    "pnl": -6.3984000000000005,
+    "id": "887135",
+    "title": "What will Trump say this week? (August 24 - August 30)"
+   },
+   {
+    "day": "2026-08-24",
+    "start": 1787586176.0,
+    "cost": 18.99949900000019,
+    "pnl": -19.608683576100187,
+    "id": "904654",
+    "title": "What will Trump say during Rose Garden event?"
+   },
+   {
+    "day": "2026-08-24",
+    "start": 1787589886.0,
+    "cost": 12.5,
+    "pnl": 37.125,
+    "id": "905021",
+    "title": "What will Trump say during Tele-Rallies on August 24?"
+   },
+   {
+    "day": "2026-08-24",
+    "start": 1787607114.0,
+    "cost": 2.1,
+    "pnl": 18.8244,
+    "id": "906672",
+    "title": "What will Trump say during remarks at NASA?"
+   },
+   {
+    "day": "2026-08-26",
+    "start": 1787788409.0,
+    "cost": 5.48,
+    "pnl": -5.679264,
+    "id": "918327",
+    "title": "What will Trump say this week? (August 31 - September 6)"
+   },
+   {
+    "day": "2026-08-26",
+    "start": 1787788455.0,
+    "cost": 2.48,
+    "pnl": 28.428736,
+    "id": "918328",
+    "title": "What will Trump say in September?"
+   },
+   {
+    "day": "2026-08-31",
+    "start": 1788188619.0,
+    "cost": 49.0,
+    "pnl": -50.2632,
+    "id": "942380",
+    "title": "What will Trump say during healthcare affordability announcement?"
+   },
+   {
+    "day": "2026-09-04",
+    "start": 1788558300.0,
+    "cost": 34.1,
+    "pnl": -35.03412,
+    "id": "966743",
+    "title": "What will Trump say this week? (September 7 - September 13)"
+   },
+   {
+    "day": "2026-09-09",
+    "start": 1788989754.0,
+    "cost": 1.2,
+    "pnl": 3.7635199999999998,
+    "id": "996085",
+    "title": "What will Trump say during his remarks in Arlington?"
+   },
+   {
+    "day": "2026-09-14",
+    "start": 1789421640.0,
+    "cost": 6.25,
+    "pnl": -6.467499999999999,
+    "id": "1025145",
+    "title": "What will Trump say during remarks in North Carolina?"
+   },
+   {
+    "day": "2026-09-17",
+    "start": 1789677528.0,
+    "cost": 42.2,
+    "pnl": 19.268928000000002,
+    "id": "1039908",
+    "title": "What will Trump say during the United Nations General Assembly?"
+   },
+   {
+    "day": "2026-09-18",
+    "start": 1789741803.0,
+    "cost": 50.6295989992157,
+    "pnl": -52.07248713714655,
+    "id": "1043218",
+    "title": "What will Trump say during his announcement on healthcare?"
+   },
+   {
+    "day": "2026-09-18",
+    "start": 1789768786.0,
+    "cost": 3.41,
+    "pnl": 27.468604,
+    "id": "1045035",
+    "title": "What will Trump say this week? (September 21 - September 27)"
+   },
+   {
+    "day": "2026-09-22",
+    "start": 1790118544.0,
+    "cost": 2.1,
+    "pnl": -2.1756,
+    "id": "1066509",
+    "title": "What will Trump say during his remarks at Xi Jinping\u2019s state arrival?"
+   },
+   {
+    "day": "2026-09-24",
+    "start": 1790264782.0,
+    "cost": 3.4499999999999997,
+    "pnl": -3.4927799999999998,
+    "id": "1074492",
+    "title": "What will Trump say during his evening remarks with Xi Jinping?"
+   },
+   {
+    "day": "2026-09-25",
+    "start": 1790368200.0,
+    "cost": 15.0,
+    "pnl": 14.7,
+    "id": "1082060",
+    "title": "What will Trump post this week? (September 28 - October 4)"
+   },
+   {
+    "day": "2026-09-25",
+    "start": 1790368270.0,
+    "cost": 15.0,
+    "pnl": 14.7,
+    "id": "1082063",
+    "title": "What will Trump say this week? (September 28 - October 4)"
+   },
+   {
+    "day": "2026-09-28",
+    "start": 1790606264.0,
+    "cost": 16.430000001419998,
+    "pnl": 37.87662699735728,
+    "id": "1098221",
+    "title": "What will Trump say during his announcement?"
+   },
+   {
+    "day": "2026-09-28",
+    "start": 1790633026.0,
+    "cost": 2.1994,
+    "pnl": -2.2824974399999998,
+    "id": "1100181",
+    "title": "What will Trump say during his remarks at the Andrew W. Mellon Auditorium?"
+   },
+   {
+    "day": "2026-09-29",
+    "start": 1790642108.0,
+    "cost": 15.0,
+    "pnl": 14.925,
+    "id": "1100808",
+    "title": "What will Trump say in October?"
+   },
+   {
+    "day": "2026-09-29",
+    "start": 1790642172.0,
+    "cost": 7.800000000000001,
+    "pnl": 22.14228,
+    "id": "1100809",
+    "title": "What companies will Trump mention in October?"
+   },
+   {
+    "day": "2026-09-29",
+    "start": 1790726086.0,
+    "cost": 10.2,
+    "pnl": 9.60008,
+    "id": "1105929",
+    "title": "What will Trump say during his remarks at Peterbilt Motors Company?"
+   },
+   {
+    "day": "2026-09-29",
+    "start": 1790726164.0,
+    "cost": 10.19000000042155,
+    "pnl": 9.590668990806787,
+    "id": "1105930",
+    "title": "What will Trump say during his rally in Oklahoma?"
+   },
+   {
+    "day": "2026-09-30",
+    "start": 1790779884.0,
+    "cost": 20.59,
+    "pnl": -21.27918,
+    "id": "1108908",
+    "title": "What will Trump say during Hispanic Heritage Month Celebration?"
+   },
+   {
+    "day": "2026-10-01",
+    "start": 1790865931.0,
+    "cost": 12.420000000000002,
+    "pnl": 10.351471999999998,
+    "id": "1114098",
+    "title": "What will Trump say during his Midterm Rally in Alabama?"
+   },
+   {
+    "day": "2026-10-02",
+    "start": 1790960856.0,
+    "cost": 10.0,
+    "pnl": -10.2,
+    "id": "1119919",
+    "title": "What will Trump say during his Midterm Rally in Ohio?"
+   },
+   {
+    "day": "2026-10-02",
+    "start": 1790980023.0,
+    "cost": 15.0,
+    "pnl": 14.925,
+    "id": "1121420",
+    "title": "What will Trump say this week? (October 5 - October 11)"
+   },
+   {
+    "day": "2026-10-02",
+    "start": 1790980126.0,
+    "cost": 15.0,
+    "pnl": 14.925,
+    "id": "1121429",
+    "title": "What will Trump post this week? (October 5 - October 11)"
+   },
+   {
+    "day": "2026-10-04",
+    "start": 1791131191.0,
+    "cost": 2.8000000000000003,
+    "pnl": -2.8963200000000002,
+    "id": "1131722",
+    "title": "What will Trump say during his Midterm Rally in Nebraska?"
+   },
+   {
+    "day": "2026-10-05",
+    "start": 1791237192.0,
+    "cost": 25.0,
+    "pnl": 24.5,
+    "id": "1139565",
+    "title": "What will Trump say during his Midterm Rally in Texas?"
+   },
+   {
+    "day": "2026-10-08",
+    "start": 1791469724.0,
+    "cost": 5.8,
+    "pnl": -5.84118,
+    "id": "1153956",
+    "title": "What will Trump say during his Science Summit remarks?"
+   },
+   {
+    "day": "2026-10-12",
+    "start": 1791764472.0,
+    "cost": 25.0,
+    "pnl": 24.875,
+    "id": "1174239",
+    "title": "What will Trump say this week? (October 12 - October 18)"
+   },
+   {
+    "day": "2026-10-12",
+    "start": 1791825177.0,
+    "cost": 55.00000000000001,
+    "pnl": 44.75249999999999,
+    "id": "1178076",
+    "title": "What will Trump say during his Midterm Rally in Alaska?"
+   },
+   {
+    "day": "2026-10-13",
+    "start": 1791935016.0,
+    "cost": 1.4000000000000001,
+    "pnl": 3.5899199999999998,
+    "id": "1185505",
+    "title": "What will Trump say during his Midterm Rally in Arizona?"
+   },
+   {
+    "day": "2026-10-14",
+    "start": 1792019072.0,
+    "cost": 4.56,
+    "pnl": 4.916288000000001,
+    "id": "1191104",
+    "title": "What will Trump say during his Midterm Rally in Georgia?"
+   },
+   {
+    "day": "2026-10-15",
+    "start": 1792106306.0,
+    "cost": 14.280000000000001,
+    "pnl": 27.625751999999995,
+    "id": "1197002",
+    "title": "What will Trump say during his Midterm Rally in Kentucky?"
+   },
+   {
+    "day": "2026-10-18",
+    "start": 1792338108.0,
+    "cost": 1.55,
+    "pnl": 3.4393049999999996,
+    "id": "1212334",
+    "title": "What will Trump say during his Midterm Rally in Kansas?"
+   },
+   {
+    "day": "2026-10-19",
+    "start": 1792452072.0,
+    "cost": 6.5200000000000005,
+    "pnl": 25.479999999999997,
+    "id": "1220583",
+    "title": "What will Trump say during his Midterm Rally in North Carolina?"
+   },
+   {
+    "day": "2026-10-21",
+    "start": 1792598879.0,
+    "cost": 5.5,
+    "pnl": 16.5,
+    "id": "1230285",
+    "title": "What will Trump say during his roundtable?"
+   },
+   {
+    "day": "2026-10-22",
+    "start": 1792680520.0,
+    "cost": 10.999999999743581,
+    "pnl": -10.999999999743581,
+    "id": "1235511",
+    "title": "What will Trump say during his Midterm Rally in Florida?"
+   },
+   {
+    "day": "2026-10-23",
+    "start": 1792768629.0,
+    "cost": 3.0,
+    "pnl": 9.0,
+    "id": "1240998",
+    "title": "What will Trump say during his Midterm Rally in Georgia?"
+   },
+   {
+    "day": "2026-10-23",
+    "start": 1792789478.0,
+    "cost": 25.0,
+    "pnl": 25.0,
+    "id": "1242628",
+    "title": "What will Trump say this week? (October 26 - November 1)"
+   },
+   {
+    "day": "2026-10-23",
+    "start": 1792793776.0,
+    "cost": 25.0,
+    "pnl": 25.0,
+    "id": "1242924",
+    "title": "What will Trump say during his Midterm Rally in Michigan?"
+   },
+   {
+    "day": "2026-10-26",
+    "start": 1793026920.0,
+    "cost": 9.860000000000001,
+    "pnl": 19.139999999999997,
+    "id": "1259575",
+    "title": "What will Trump say during his Midterm Rally in Mississippi?"
+   },
+   {
+    "day": "2026-10-26",
+    "start": 1793054926.0,
+    "cost": 5.1,
+    "pnl": 11.899999999999999,
+    "id": "1262376",
+    "title": "What will Trump say during his Midterm Rally in Lubbock, Texas?"
+   },
+   {
+    "day": "2026-10-27",
+    "start": 1793111692.0,
+    "cost": 6.6000000000000005,
+    "pnl": -6.6000000000000005,
+    "id": "1266382",
+    "title": "What will Trump say during his Midterm Rally in Ohio?"
+   },
+   {
+    "day": "2026-11-11",
+    "start": 1794409566.0,
+    "cost": 0.9999999999999857,
+    "pnl": -1.0072000003359856,
+    "id": "1364633",
+    "title": "What will Trump say during his Veterans Day remarks at Arlington?"
+   },
+   {
+    "day": "2026-11-17",
+    "start": 1794874705.0,
+    "cost": 14.040000000000001,
+    "pnl": -14.143896000000002,
+    "id": "1405699",
+    "title": "What will Trump say during his trilateral meeting with Xi and Putin?"
+   },
+   {
+    "day": "2026-11-19",
+    "start": 1795115916.0,
+    "cost": 4.5,
+    "pnl": -4.52475,
+    "id": "1426382",
+    "title": "What will Trump say during his November 20 news conference?"
+   }
+  ],
+  "other": [
+   {
+    "day": "2026-01-03",
+    "start": 1767481386.88597,
+    "cost": 0.6,
+    "pnl": 4.4,
+    "id": "141492",
+    "title": "What will Jensen Huang say during NVIDIA Keynote?"
+   },
+   {
+    "day": "2026-01-05",
+    "start": 1767624427.00974,
+    "cost": 5.999997999796076,
+    "pnl": 7.248298000203924,
+    "id": "145143",
+    "title": "What will Tim Walz say during his press conference on January 5?"
+   },
+   {
+    "day": "2026-01-08",
+    "start": 1767904103.504091,
+    "cost": 5.0,
+    "pnl": -5.0,
+    "id": "151679",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (January 18)"
+   },
+   {
+    "day": "2026-01-14",
+    "start": 1768418333.254614,
+    "cost": 1.0,
+    "pnl": 9.0,
+    "id": "164353",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (January 25)"
+   },
+   {
+    "day": "2026-01-14",
+    "start": 1768423954.475459,
+    "cost": 0.999999,
+    "pnl": 0.6666660000000001,
+    "id": "164504",
+    "title": "What will Zohran Mamdani say during the next NYC Mayor's Office announcement?"
+   },
+   {
+    "day": "2026-01-22",
+    "start": 1769108290.333099,
+    "cost": 24.75,
+    "pnl": 74.25,
+    "id": "181612",
+    "title": "What will J.D. Vance say at the March for Life on Friday?"
+   },
+   {
+    "day": "2026-02-13",
+    "start": 1771015040.138787,
+    "cost": 2.5,
+    "pnl": 2.5,
+    "id": "208163",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (February 22)"
+   },
+   {
+    "day": "2026-02-17",
+    "start": 1771341952.479488,
+    "cost": 8.549999999999999,
+    "pnl": 6.450000000000001,
+    "id": "211796",
+    "title": "What will Zohran Mamdani say during the next NYC Mayor's Office announcement?"
+   },
+   {
+    "day": "2026-03-05",
+    "start": 1772726840.601103,
+    "cost": 200.0,
+    "pnl": 200.0,
+    "id": "248050",
+    "title": "What will Secretary Hegseth or Brad Cooper say during their press conference?"
+   },
+   {
+    "day": "2026-03-05",
+    "start": 1772751891.273945,
+    "cost": 86.4,
+    "pnl": -86.4,
+    "id": "245943",
+    "title": "What will Keir Starmer say at the next Prime Minister's Questions event?"
+   },
+   {
+    "day": "2026-03-23",
+    "start": 1774291623.553,
+    "cost": 1.7600000000000002,
+    "pnl": -1.7600000000000002,
+    "id": "300706",
+    "title": "What will MrBeast say during his next YouTube video?"
+   },
+   {
+    "day": "2026-03-29",
+    "start": 1774823450.865355,
+    "cost": 30.0,
+    "pnl": 70.0,
+    "id": "323159",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (April 5)"
+   },
+   {
+    "day": "2026-03-30",
+    "start": 1774878705.127751,
+    "cost": 20.0,
+    "pnl": -20.0,
+    "id": "323185",
+    "title": "What will Karoline Leavitt say during the next White House press briefing?"
+   },
+   {
+    "day": "2026-04-10",
+    "start": 1775852856.734357,
+    "cost": 9.85443421903099,
+    "pnl": -10.094882419762461,
+    "id": "364520",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (April 13)"
+   },
+   {
+    "day": "2026-04-20",
+    "start": 1776709949.598662,
+    "cost": 13.632,
+    "pnl": -13.90464,
+    "id": "400243",
+    "title": "What will Kevin Warsh say during Senate Nomination Hearing?"
+   },
+   {
+    "day": "2026-04-22",
+    "start": 1776880506.449732,
+    "cost": 15.35946705247944,
+    "pnl": -15.845991017182913,
+    "id": "407189",
+    "title": "What will be said on the next All-In Podcast? (April 24)"
+   },
+   {
+    "day": "2026-04-23",
+    "start": 1776980779.141018,
+    "cost": 4.920000000000001,
+    "pnl": 1.1906399999999997,
+    "id": "410367",
+    "title": "What will Keir Starmer say at the next Prime Minister's Questions event?"
+   },
+   {
+    "day": "2026-05-04",
+    "start": 1777909601.979585,
+    "cost": 24.6,
+    "pnl": -25.172719999999998,
+    "id": "448163",
+    "title": "What will JD Vance say during remarks in Des Moines?"
+   },
+   {
+    "day": "2026-05-25",
+    "start": 1779726169.448194,
+    "cost": 5.300000000000001,
+    "pnl": -5.399640000000001,
+    "id": "523915",
+    "title": "What will Bernie Sanders say during Fighting Oligarchy Tour?"
+   },
+   {
+    "day": "2026-05-26",
+    "start": 1779820369.92791,
+    "cost": 10.8,
+    "pnl": 9.00128,
+    "id": "527953",
+    "title": "What will JD Vance say during Air Force Academy Address?"
+   },
+   {
+    "day": "2026-06-01",
+    "start": 1780333495.718026,
+    "cost": 1.0,
+    "pnl": -1.0,
+    "id": "548682",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (June 1)"
+   },
+   {
+    "day": "2026-06-02",
+    "start": 1780417046.442033,
+    "cost": 10.0,
+    "pnl": 10.0,
+    "id": "552095",
+    "title": "What will Keir Starmer say at the next Prime Minister's Questions event?"
+   },
+   {
+    "day": "2026-06-11",
+    "start": 1781200938.249588,
+    "cost": 1.0999989999413273,
+    "pnl": -1.1365189721117746,
+    "id": "584455",
+    "title": "What will be said on the next Lemonade Stand Podcast? (June 17)"
+   },
+   {
+    "day": "2026-06-12",
+    "start": 1781277871.363487,
+    "cost": 5.0,
+    "pnl": -5.1,
+    "id": "587548",
+    "title": "What will Elon post this week? (June 15 - 21)"
+   },
+   {
+    "day": "2026-06-15",
+    "start": 1781562391.470675,
+    "cost": 2.4499979997567967,
+    "pnl": -2.500563584511915,
+    "id": "599041",
+    "title": "What will be said during the fifth episode of Rick and Morty: Season 9?"
+   },
+   {
+    "day": "2026-06-18",
+    "start": 1781797022.870032,
+    "cost": 0.904,
+    "pnl": 4.7156256,
+    "id": "608710",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (June 22)"
+   },
+   {
+    "day": "2026-06-25",
+    "start": 1782422098.607755,
+    "cost": 3.6612,
+    "pnl": 16.558712640000003,
+    "id": "634481",
+    "title": "What will Speed say during his Colombia vs Portugal World Cup stream?"
+   },
+   {
+    "day": "2026-06-29",
+    "start": 1782742208.297002,
+    "cost": 1.8499989996471784,
+    "pnl": -1.9114189709938623,
+    "id": "647932",
+    "title": "What will be said on the next Lemonade Stand Podcast? (July 1)"
+   },
+   {
+    "day": "2026-06-29",
+    "start": 1782742246.038209,
+    "cost": 3.9312,
+    "pnl": 1.0742054399999998,
+    "id": "647933",
+    "title": "What will MrBeast say during his next gaming YouTube video?"
+   },
+   {
+    "day": "2026-06-30",
+    "start": 1782851163.760702,
+    "cost": 14.200800000000001,
+    "pnl": 8.85766752,
+    "id": "652568",
+    "title": "What will be said during the seventh episode of Rick and Morty: Season 9?"
+   },
+   {
+    "day": "2026-06-30",
+    "start": 1782854128.157,
+    "cost": 16.8084,
+    "pnl": 7.343175840000002,
+    "id": "652688",
+    "title": "What will be said during the 2026 Nathan's Hot Dog Eating Competition?"
+   },
+   {
+    "day": "2026-07-07",
+    "start": 1783467446.851896,
+    "cost": 3.3,
+    "pnl": -3.4122,
+    "id": "678456",
+    "title": "What will JD Vance say during remarks in Milwaukee?"
+   },
+   {
+    "day": "2026-07-25",
+    "start": 1784999450.575914,
+    "cost": 2.4792,
+    "pnl": -2.5704345600000003,
+    "id": "748363",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (July 27)"
+   },
+   {
+    "day": "2026-07-28",
+    "start": 1785203416.445784,
+    "cost": 2.79,
+    "pnl": -2.891556,
+    "id": "758839",
+    "title": "What will be said during Episode 12 of Big Brother?"
+   },
+   {
+    "day": "2026-07-28",
+    "start": 1785206413.976586,
+    "cost": 3.0875,
+    "pnl": 20.555055000000003,
+    "id": "759033",
+    "title": "What will Karoline Leavitt say during the next White House press briefing?"
+   },
+   {
+    "day": "2026-08-03",
+    "start": 1785769430.774305,
+    "cost": 23.25,
+    "pnl": 7.5175,
+    "id": "790609",
+    "title": "What will be said on the next All-In Podcast? (August 7)"
+   },
+   {
+    "day": "2026-08-11",
+    "start": 1786456125.349871,
+    "cost": 1.7000000000000002,
+    "pnl": 8.243559999999999,
+    "id": "830776",
+    "title": "What will be said during Episode 19 of Big Brother?"
+   },
+   {
+    "day": "2026-08-11",
+    "start": 1786456126.381451,
+    "cost": 1.7000000000000002,
+    "pnl": 8.243559999999999,
+    "id": "830767",
+    "title": "What will be said during Episode 18 of Big Brother?"
+   },
+   {
+    "day": "2026-08-11",
+    "start": 1786456373.169721,
+    "cost": 1.7000000000000002,
+    "pnl": 8.243559999999999,
+    "id": "830777",
+    "title": "What will be said during Episode 20 of Big Brother?"
+   },
+   {
+    "day": "2026-08-16",
+    "start": 1786891279.0,
+    "cost": 0.5994,
+    "pnl": -0.6219374400000001,
+    "id": "859558",
+    "title": "What will the NYT front-page headlines say this week? (August 17 - August 23)"
+   },
+   {
+    "day": "2026-08-17",
+    "start": 1787006363.0,
+    "cost": 13.860000000000001,
+    "pnl": -14.048496000000002,
+    "id": "867905",
+    "title": "What will be said during Episode 22 of Big Brother?"
+   },
+   {
+    "day": "2026-08-18",
+    "start": 1787063721.0,
+    "cost": 8.22,
+    "pnl": 32.616960000000006,
+    "id": "870938",
+    "title": "What will Kevin Warsh say during his speech at Jackson Hole?"
+   },
+   {
+    "day": "2026-08-18",
+    "start": 1787067061.0,
+    "cost": 4.0,
+    "pnl": 15.872,
+    "id": "871127",
+    "title": "What will Mamdani say during next live announcement?"
+   },
+   {
+    "day": "2026-08-20",
+    "start": 1787268857.0,
+    "cost": 12.200000000000001,
+    "pnl": -12.5904,
+    "id": "882987",
+    "title": "What will Andy Burnham say at the next Prime Minister's Questions event?"
+   },
+   {
+    "day": "2026-08-21",
+    "start": 1787349131.0,
+    "cost": 9.299999999999999,
+    "pnl": -9.5604,
+    "id": "887147",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (August 24)"
+   },
+   {
+    "day": "2026-08-26",
+    "start": 1787703727.0,
+    "cost": 3.1,
+    "pnl": 27.788400000000003,
+    "id": "913373",
+    "title": "What will be said during the sixth episode of President Curtis: Season 1?"
+   },
+   {
+    "day": "2026-08-26",
+    "start": 1787703969.0,
+    "cost": 5.6000000000000005,
+    "pnl": -5.7926400000000005,
+    "id": "913394",
+    "title": "What will Mamdani say during next live announcement?"
+   },
+   {
+    "day": "2026-08-26",
+    "start": 1787704069.0,
+    "cost": 10.54,
+    "pnl": -10.818256,
+    "id": "913395",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (August 31)"
+   },
+   {
+    "day": "2026-08-31",
+    "start": 1788196239.0,
+    "cost": 26.8300000032,
+    "pnl": 68.3967370384102,
+    "id": "942921",
+    "title": "What will be said on the next All-In Podcast? (September 4)"
+   },
+   {
+    "day": "2026-08-31",
+    "start": 1788202449.0,
+    "cost": 7.0100000008,
+    "pnl": 53.7418230155688,
+    "id": "943321",
+    "title": "What will be said during Episode 28 of Big Brother?"
+   },
+   {
+    "day": "2026-08-31",
+    "start": 1788202620.0,
+    "cost": 14.9400000008,
+    "pnl": -15.391236984422882,
+    "id": "943415",
+    "title": "What will be said during Episode 29 of Big Brother?"
+   },
+   {
+    "day": "2026-08-31",
+    "start": 1788202685.0,
+    "cost": 2.79,
+    "pnl": 28.108444000000002,
+    "id": "943464",
+    "title": "What will be said during Episode 30 of Big Brother?"
+   },
+   {
+    "day": "2026-09-03",
+    "start": 1788476286.0,
+    "cost": 22.42799999902,
+    "pnl": -23.094907100145083,
+    "id": "961501",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (September 7)"
+   },
+   {
+    "day": "2026-09-12",
+    "start": 1789171894.0,
+    "cost": 5.5,
+    "pnl": 44.3042,
+    "id": "1007185",
+    "title": "What will Elon post this week? (September 14 - September 20)"
+   },
+   {
+    "day": "2026-09-12",
+    "start": 1789171920.0,
+    "cost": 0.99999999999999,
+    "pnl": 8.055309999560011,
+    "id": "1007186",
+    "title": "What will the NYT front-page headlines say this week? (September 14 - September 20)"
+   },
+   {
+    "day": "2026-09-14",
+    "start": 1789423292.0,
+    "cost": 2.0,
+    "pnl": -2.072,
+    "id": "1025270",
+    "title": "What will be said during Episode 34 of Big Brother?"
+   },
+   {
+    "day": "2026-09-14",
+    "start": 1789423308.0,
+    "cost": 3.0,
+    "pnl": 26.892,
+    "id": "1025271",
+    "title": "What will be said during Episode 35 of Big Brother?"
+   },
+   {
+    "day": "2026-09-14",
+    "start": 1789423340.0,
+    "cost": 3.0,
+    "pnl": 26.892,
+    "id": "1025272",
+    "title": "What will be said during Episode 36 of Big Brother?"
+   },
+   {
+    "day": "2026-09-16",
+    "start": 1789524896.0,
+    "cost": 8.4,
+    "pnl": -8.64192,
+    "id": "1030959",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (September 21)"
+   },
+   {
+    "day": "2026-09-17",
+    "start": 1789664434.0,
+    "cost": 2.8000000000000003,
+    "pnl": -2.8963200000000002,
+    "id": "1038836",
+    "title": "What will be said on the next All-In Podcast? (September 18)"
+   },
+   {
+    "day": "2026-09-18",
+    "start": 1789768685.0,
+    "cost": 4.2,
+    "pnl": 25.65552,
+    "id": "1045034",
+    "title": "What will be said on the next Lemonade Stand Podcast? (September 23)"
+   },
+   {
+    "day": "2026-09-18",
+    "start": 1789768914.0,
+    "cost": 0.5,
+    "pnl": 4.482,
+    "id": "1045084",
+    "title": "What will the NYT front-page headlines say this week? (September 21 - September 27)"
+   },
+   {
+    "day": "2026-09-18",
+    "start": 1789768991.0,
+    "cost": 11.7762,
+    "pnl": 18.921750239999998,
+    "id": "1045102",
+    "title": "What will Elon post this week? (September 21 - September 27)"
+   },
+   {
+    "day": "2026-09-21",
+    "start": 1789951754.0,
+    "cost": 10.200000000000001,
+    "pnl": -10.5264,
+    "id": "1056321",
+    "title": "What will JD Vance say during his rally in North Carolina?"
+   },
+   {
+    "day": "2026-09-21",
+    "start": 1790031974.0,
+    "cost": 14.395199999999999,
+    "pnl": 15.295379839999999,
+    "id": "1061371",
+    "title": "What will be said during the final episode of President Curtis: Season 1?"
+   },
+   {
+    "day": "2026-09-21",
+    "start": 1790032045.0,
+    "cost": 4.2,
+    "pnl": -4.34448,
+    "id": "1061378",
+    "title": "What will be said during Episode 39 of Big Brother?"
+   },
+   {
+    "day": "2026-09-21",
+    "start": 1790032052.0,
+    "cost": 0.9999999999998911,
+    "pnl": -1.0204000064678889,
+    "id": "1061384",
+    "title": "What will be said during Episode 40 of Big Brother?"
+   },
+   {
+    "day": "2026-09-23",
+    "start": 1790201275.0,
+    "cost": 15.0,
+    "pnl": 14.7,
+    "id": "1071369",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (September 28)"
+   },
+   {
+    "day": "2026-09-25",
+    "start": 1790350194.0,
+    "cost": 15.0,
+    "pnl": -15.3,
+    "id": "1080501",
+    "title": "What will be said on the next Lemonade Stand Podcast? (September 30)"
+   },
+   {
+    "day": "2026-09-25",
+    "start": 1790365835.0,
+    "cost": 22.8,
+    "pnl": -23.36544,
+    "id": "1081812",
+    "title": "What will be said during the second episode of South Park: Season 29?"
+   },
+   {
+    "day": "2026-09-25",
+    "start": 1790365835.0,
+    "cost": 2.5,
+    "pnl": -2.55,
+    "id": "1081821",
+    "title": "What will the NYT front-page headlines say this week? (September 28 - October 4)"
+   },
+   {
+    "day": "2026-09-25",
+    "start": 1790365835.0,
+    "cost": 2.5,
+    "pnl": 2.45,
+    "id": "1081822",
+    "title": "What will Elon post this week? (September 28 - October 4)"
+   },
+   {
+    "day": "2026-09-29",
+    "start": 1790641642.0,
+    "cost": 6.339999,
+    "pnl": 2.0499330099999997,
+    "id": "1100782",
+    "title": "What will MrBeast say during his next YouTube video?"
+   },
+   {
+    "day": "2026-09-29",
+    "start": 1790641723.0,
+    "cost": 10.0,
+    "pnl": -10.2,
+    "id": "1100793",
+    "title": "What will be said on the next All-In Podcast? (October 2)"
+   },
+   {
+    "day": "2026-10-01",
+    "start": 1790895826.0,
+    "cost": 15.5,
+    "pnl": 9.4411,
+    "id": "1116395",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (October 5)"
+   },
+   {
+    "day": "2026-10-02",
+    "start": 1790979706.0,
+    "cost": 15.0,
+    "pnl": 14.925,
+    "id": "1121399",
+    "title": "What will Elon post this week? (October 5 - October 11)"
+   },
+   {
+    "day": "2026-10-05",
+    "start": 1791235784.0,
+    "cost": 12.0,
+    "pnl": -12.06,
+    "id": "1139478",
+    "title": "What will Mamdani say during next live announcement?"
+   },
+   {
+    "day": "2026-10-05",
+    "start": 1791237228.0,
+    "cost": 25.0,
+    "pnl": 24.875,
+    "id": "1139566",
+    "title": "What will be said on the next Lemonade Stand Podcast? (October 7)"
+   },
+   {
+    "day": "2026-10-07",
+    "start": 1791331259.0,
+    "cost": 25.0,
+    "pnl": 24.875,
+    "id": "1145588",
+    "title": "What will be said on the next Lemonade Stand Podcast? (October 14)"
+   },
+   {
+    "day": "2026-10-08",
+    "start": 1791419378.0,
+    "cost": 5.88,
+    "pnl": 5.8506,
+    "id": "1151163",
+    "title": "What will Andy Burnham say at the next Prime Minister's Questions event?"
+   },
+   {
+    "day": "2026-10-12",
+    "start": 1791764516.0,
+    "cost": 12.5,
+    "pnl": -12.5625,
+    "id": "1174242",
+    "title": "What will Elon post this week? (October 12 - October 18)"
+   },
+   {
+    "day": "2026-10-14",
+    "start": 1792019842.0,
+    "cost": 10.66,
+    "pnl": -10.66,
+    "id": "1191141",
+    "title": "What will Kevin Warsh say during October Press Conference?"
+   },
+   {
+    "day": "2026-10-15",
+    "start": 1792105879.0,
+    "cost": 25.0,
+    "pnl": 25.0,
+    "id": "1196991",
+    "title": "What will Andy Burnham say at the next Prime Minister's Questions event?"
+   },
+   {
+    "day": "2026-10-21",
+    "start": 1792609532.0,
+    "cost": 1.56,
+    "pnl": 1.56,
+    "id": "1231237",
+    "title": "What will be said during the Michigan U.S. Senate debate?"
+   },
+   {
+    "day": "2026-10-22",
+    "start": 1792627274.0,
+    "cost": 5.929,
+    "pnl": -5.929,
+    "id": "1232464",
+    "title": "What will Andy Burnham say at the next Prime Minister's Questions event?"
+   },
+   {
+    "day": "2026-10-29",
+    "start": 1793307742.0,
+    "cost": 2.9499999999999997,
+    "pnl": 2.0379050000000003,
+    "id": "1279826",
+    "title": "What will be said on the first Joe Rogan Experience episode of the week? (November 2)"
+   }
+  ],
+  "earnings-call": [
+   {
+    "day": "2026-05-18",
+    "start": 1779127920.366621,
+    "cost": 32.450000001374995,
+    "pnl": 8.523093331989868,
+    "id": "498978",
+    "title": "What will NVIDIA say during their next earnings call?"
+   },
+   {
+    "day": "2026-05-27",
+    "start": 1779904161.60635,
+    "cost": 6.25,
+    "pnl": -6.4375,
+    "id": "531236",
+    "title": "What will Dell say during their next earnings call?"
+   },
+   {
+    "day": "2026-07-09",
+    "start": 1783619924.673347,
+    "cost": 2.8000000000000003,
+    "pnl": 17.10368,
+    "id": "685127",
+    "title": "What will Delta Air Lines say during their next earnings call?"
+   },
+   {
+    "day": "2026-07-11",
+    "start": 1783742006.531616,
+    "cost": 9.893999999442,
+    "pnl": 26.477049859815402,
+    "id": "690144",
+    "title": "What will JPMorgan say during their next earnings call?"
+   },
+   {
+    "day": "2026-07-31",
+    "start": 1785513906.134321,
+    "cost": 30.6,
+    "pnl": 28.80024,
+    "id": "777061",
+    "title": "What will SpaceX say during their next earnings call?"
+   },
+   {
+    "day": "2026-07-31",
+    "start": 1785514407.242789,
+    "cost": 30.6,
+    "pnl": 28.80024,
+    "id": "777111",
+    "title": "What will AMD say during their next earnings call?"
+   },
+   {
+    "day": "2026-08-04",
+    "start": 1785802496.577194,
+    "cost": 6.0,
+    "pnl": 23.808,
+    "id": "793664",
+    "title": "What will Uber say during their next earnings call?"
+   },
+   {
+    "day": "2026-08-04",
+    "start": 1785802568.31396,
+    "cost": 3.57,
+    "pnl": -3.695664,
+    "id": "793665",
+    "title": "What will Disney say during their next earnings call?"
+   },
+   {
+    "day": "2026-08-11",
+    "start": 1786456486.863715,
+    "cost": 2.9,
+    "pnl": 7.01764,
+    "id": "830794",
+    "title": "What will Yeti say during their next earnings call?"
+   },
+   {
+    "day": "2026-08-17",
+    "start": 1786982088.0,
+    "cost": 10.29,
+    "pnl": -10.499915999999999,
+    "id": "865836",
+    "title": "What will Home Depot say during their next earnings call?"
+   },
+   {
+    "day": "2026-08-17",
+    "start": 1787006201.0,
+    "cost": 14.26079900148143,
+    "pnl": 46.39277635884648,
+    "id": "867884",
+    "title": "What will Walmart say during their next earnings call?"
+   },
+   {
+    "day": "2026-08-20",
+    "start": 1787267842.0,
+    "cost": 6.0,
+    "pnl": 53.784,
+    "id": "882938",
+    "title": "What will Nvidia say during their next earnings call?"
+   },
+   {
+    "day": "2026-08-20",
+    "start": 1787268783.0,
+    "cost": 4.96,
+    "pnl": -5.126656,
+    "id": "882986",
+    "title": "What will Ulta say during their next earnings call?"
+   },
+   {
+    "day": "2026-08-24",
+    "start": 1787596878.0,
+    "cost": 2.79,
+    "pnl": 28.108444000000002,
+    "id": "905647",
+    "title": "What will Best Buy say during their next earnings call?"
+   },
+   {
+    "day": "2026-08-31",
+    "start": 1788192072.0,
+    "cost": 14.8,
+    "pnl": 58.726400000000005,
+    "id": "942658",
+    "title": "What will Lululemon say during their next earnings call?"
+   },
+   {
+    "day": "2026-09-17",
+    "start": 1789669503.0,
+    "cost": 15.0,
+    "pnl": 14.7,
+    "id": "1039089",
+    "title": "What will Costco say during their next earnings call?"
+   },
+   {
+    "day": "2026-09-28",
+    "start": 1790616766.0,
+    "cost": 15.000000001020409,
+    "pnl": -15.306000002001225,
+    "id": "1098904",
+    "title": "What will Micron say during their next earnings call?"
+   },
+   {
+    "day": "2026-09-29",
+    "start": 1790641503.0,
+    "cost": 20.0,
+    "pnl": 19.6,
+    "id": "1100780",
+    "title": "What will Nike say during their next earnings call?"
+   },
+   {
+    "day": "2026-10-02",
+    "start": 1790981472.0,
+    "cost": 17.6,
+    "pnl": 17.05104,
+    "id": "1121492",
+    "title": "What will Constellation Brands say during their next earnings call?"
+   },
+   {
+    "day": "2026-10-02",
+    "start": 1790981501.0,
+    "cost": 5.77,
+    "pnl": 5.654599999999999,
+    "id": "1121494",
+    "title": "What will Levi Strauss & Co. say during their next earnings call?"
+   },
+   {
+    "day": "2026-10-05",
+    "start": 1791237407.0,
+    "cost": 13.25,
+    "pnl": 11.687725,
+    "id": "1139569",
+    "title": "What will PepsiCo say during their next earnings call?"
+   },
+   {
+    "day": "2026-10-05",
+    "start": 1791237432.0,
+    "cost": 12.5,
+    "pnl": 12.4375,
+    "id": "1139570",
+    "title": "What will Delta Air Lines say during their next earnings call?"
+   },
+   {
+    "day": "2026-10-17",
+    "start": 1792271272.0,
+    "cost": 25.0,
+    "pnl": 25.0,
+    "id": "1207591",
+    "title": "What will Meta say during their next earnings call?"
+   },
+   {
+    "day": "2026-10-19",
+    "start": 1792452402.0,
+    "cost": 25.0,
+    "pnl": 25.0,
+    "id": "1220602",
+    "title": "What will Procter & Gamble say during their next earnings call?"
+   },
+   {
+    "day": "2026-10-23",
+    "start": 1792790090.0,
+    "cost": 14.879999999999999,
+    "pnl": 14.879999999999999,
+    "id": "1242673",
+    "title": "What will Verizon say during their next earnings call?"
+   },
+   {
+    "day": "2026-11-01",
+    "start": 1793564686.0,
+    "cost": 5.1424,
+    "pnl": -5.18559616,
+    "id": "1296948",
+    "title": "What will AMD say during their next earnings call?"
+   },
+   {
+    "day": "2026-11-01",
+    "start": 1793564768.0,
+    "cost": 6.0100000005105265,
+    "pnl": -6.058681000532692,
+    "id": "1296950",
+    "title": "What will Apple say during their next earnings call?"
+   },
+   {
+    "day": "2026-11-02",
+    "start": 1793649559.0,
+    "cost": 2.25,
+    "pnl": 2.737625,
+    "id": "1303058",
+    "title": "What will Uber say during their next earnings call?"
+   },
+   {
+    "day": "2026-11-13",
+    "start": 1794531110.0,
+    "cost": 9.5,
+    "pnl": -9.57695,
+    "id": "1375856",
+    "title": "What will Target say during their next earnings call?"
+   }
+  ],
+  "sports-announcers": [
+   {
+    "day": "2026-06-15",
+    "start": 1781553967.137,
+    "cost": 4.62,
+    "pnl": 16.235856,
+    "id": "598626",
+    "title": "What will the announcers say during England vs Croatia World Cup Match?"
+   },
+   {
+    "day": "2026-06-18",
+    "start": 1781807663.80691,
+    "cost": 30.0,
+    "pnl": 29.4,
+    "id": "609179",
+    "title": "What will the announcers say during Germany vs Ivory Coast World Cup Match?"
+   },
+   {
+    "day": "2026-06-18",
+    "start": 1781807693.159121,
+    "cost": 8.548900000502,
+    "pnl": 71.1358741819858,
+    "id": "609180",
+    "title": "What will the announcers say during Netherlands vs Sweden World Cup Match?"
+   },
+   {
+    "day": "2026-06-18",
+    "start": 1781807711.439765,
+    "cost": 12.749999994,
+    "pnl": 121.78816667286134,
+    "id": "609181",
+    "title": "What will the announcers say during Brazil vs Haiti World Cup Match?"
+   },
+   {
+    "day": "2026-06-19",
+    "start": 1781882227.049458,
+    "cost": 23.800000002,
+    "pnl": 35.62562666465013,
+    "id": "612132",
+    "title": "What will the announcers say during USA vs Australia World Cup Match?"
+   },
+   {
+    "day": "2026-06-22",
+    "start": 1782141337.510061,
+    "cost": 6.5,
+    "pnl": -6.7262,
+    "id": "622452",
+    "title": "What will the announcers say during Argentina vs Austria World Cup Match?"
+   },
+   {
+    "day": "2026-06-22",
+    "start": 1782141514.604336,
+    "cost": 5.5,
+    "pnl": -5.599,
+    "id": "622461",
+    "title": "What will the announcers say during France vs Iraq World Cup Match?"
+   },
+   {
+    "day": "2026-06-22",
+    "start": 1782141538.677068,
+    "cost": 8.2445,
+    "pnl": 6.597099,
+    "id": "622462",
+    "title": "What will the announcers say during Norway Vs Senegal World Cup Match?"
+   },
+   {
+    "day": "2026-06-22",
+    "start": 1782164198.783116,
+    "cost": 82.8,
+    "pnl": -83.82672,
+    "id": "623479",
+    "title": "What will the announcers say during England vs Ghana World Cup Match?"
+   },
+   {
+    "day": "2026-06-25",
+    "start": 1782424161.756443,
+    "cost": 4.0,
+    "pnl": 35.856,
+    "id": "634548",
+    "title": "What will the announcers say during Uruguay vs Spain World Cup Match?"
+   },
+   {
+    "day": "2026-06-25",
+    "start": 1782424222.736555,
+    "cost": 6.5600000000000005,
+    "pnl": 13.761567999999999,
+    "id": "634549",
+    "title": "What will the announcers say during Panama vs England World Cup Match?"
+   },
+   {
+    "day": "2026-06-25",
+    "start": 1782424250.445986,
+    "cost": 5.2608,
+    "pnl": -5.45279744,
+    "id": "634550",
+    "title": "What will the announcers say during Jordan vs Argentina World Cup Match?"
+   },
+   {
+    "day": "2026-06-26",
+    "start": 1782440376.693008,
+    "cost": 15.487000000839,
+    "pnl": -15.94027628876539,
+    "id": "635193",
+    "title": "What will the announcers say during Croatia vs Ghana World Cup Match?"
+   },
+   {
+    "day": "2026-06-28",
+    "start": 1782664373.599641,
+    "cost": 2.449999000125089,
+    "pnl": 7.6838530237443115,
+    "id": "644844",
+    "title": "What will the announcers say during South Africa vs Canada World Cup Match?"
+   },
+   {
+    "day": "2026-06-29",
+    "start": 1782743425.41844,
+    "cost": 3.299998999833531,
+    "pnl": 26.175413024041937,
+    "id": "647987",
+    "title": "What will the announcers say during Brazil vs Japan World Cup Match?"
+   },
+   {
+    "day": "2026-06-29",
+    "start": 1782745584.139143,
+    "cost": 31.5,
+    "pnl": -32.319,
+    "id": "648065",
+    "title": "What will the announcers say during Germany vs Paraguay World Cup Match?"
+   },
+   {
+    "day": "2026-06-29",
+    "start": 1782770301.096424,
+    "cost": 9.115700000022,
+    "pnl": 31.191560136454484,
+    "id": "649118",
+    "title": "What will the announcers say during France vs Sweden World Cup Match?"
+   },
+   {
+    "day": "2026-06-29",
+    "start": 1782770467.745336,
+    "cost": 14.037700000595,
+    "pnl": -14.472053929764337,
+    "id": "649119",
+    "title": "What will the announcers say during Mexico vs Ecuador World Cup Match?"
+   },
+   {
+    "day": "2026-06-30",
+    "start": 1782853460.239051,
+    "cost": 26.700000000000003,
+    "pnl": 22.802311999999997,
+    "id": "652658",
+    "title": "What will the announcers say during England vs DR Congo World Cup Match?"
+   },
+   {
+    "day": "2026-06-30",
+    "start": 1782854169.090286,
+    "cost": 71.765,
+    "pnl": 52.508098000000004,
+    "id": "652689",
+    "title": "What will the announcers say during USA vs Bosnia & Herzegovina World Cup Match?"
+   },
+   {
+    "day": "2026-07-01",
+    "start": 1782937435.420847,
+    "cost": 13.040000001000001,
+    "pnl": -13.399655620062783,
+    "id": "656256",
+    "title": "What will the announcers say during Spain vs Austria World Cup Match?"
+   },
+   {
+    "day": "2026-07-03",
+    "start": 1783046470.808568,
+    "cost": 8.397200000000002,
+    "pnl": 21.350960639999997,
+    "id": "661019",
+    "title": "What will the announcers say during Australia vs Egypt World Cup Match?"
+   },
+   {
+    "day": "2026-07-03",
+    "start": 1783046664.836338,
+    "cost": 8.6,
+    "pnl": 51.10792000000001,
+    "id": "661032",
+    "title": "What will the announcers say during Argentina vs Cape Verde World Cup Match?"
+   },
+   {
+    "day": "2026-07-03",
+    "start": 1783047113.0825,
+    "cost": 0.65,
+    "pnl": 4.32738,
+    "id": "661047",
+    "title": "What will the announcers say during Colombia vs Ghana World Cup Match?"
+   },
+   {
+    "day": "2026-07-04",
+    "start": 1783130594.65449,
+    "cost": 15.2,
+    "pnl": -15.34592,
+    "id": "664521",
+    "title": "What will the announcers say during Canada vs Morocco World Cup Match?"
+   },
+   {
+    "day": "2026-07-05",
+    "start": 1783255815.826322,
+    "cost": 16.853798999677426,
+    "pnl": 10.073570252047478,
+    "id": "669628",
+    "title": "What will the announcers say during Brazil vs Norway World Cup Match?"
+   },
+   {
+    "day": "2026-07-05",
+    "start": 1783255843.919539,
+    "cost": 14.7,
+    "pnl": -14.99988,
+    "id": "669629",
+    "title": "What will the announcers say during Mexico vs England World Cup Match?"
+   },
+   {
+    "day": "2026-07-06",
+    "start": 1783350793.39248,
+    "cost": 18.66999900000002,
+    "pnl": 25.70225901479998,
+    "id": "673434",
+    "title": "What will the announcers say during USA vs Belgium World Cup Match?"
+   },
+   {
+    "day": "2026-07-07",
+    "start": 1783391640.348832,
+    "cost": 27.155,
+    "pnl": -28.07762,
+    "id": "675184",
+    "title": "What will the announcers say during Argentina vs Egypt World Cup Match?"
+   },
+   {
+    "day": "2026-07-07",
+    "start": 1783391649.718098,
+    "cost": 4.0,
+    "pnl": -4.128,
+    "id": "675185",
+    "title": "What will the announcers say during Switzerland vs Colombia World Cup Match?"
+   },
+   {
+    "day": "2026-07-09",
+    "start": 1783603390.218188,
+    "cost": 21.200000000000003,
+    "pnl": 18.401439999999997,
+    "id": "684283",
+    "title": "What will the announcers say during France vs Morocco World Cup Match?"
+   },
+   {
+    "day": "2026-07-09",
+    "start": 1783604042.565451,
+    "cost": 10.2,
+    "pnl": 9.60008,
+    "id": "684306",
+    "title": "What will the announcers say during Spain vs Belgium World Cup Match?"
+   },
+   {
+    "day": "2026-07-09",
+    "start": 1783607000.987754,
+    "cost": 2.9400000000000004,
+    "pnl": 17.958864,
+    "id": "684419",
+    "title": "What will announcers say during Benoit Saint-Denis vs Paddy Pimblett at UFC 329?"
+   },
+   {
+    "day": "2026-07-09",
+    "start": 1783607103.138376,
+    "cost": 0.35000000000000003,
+    "pnl": 4.636979999999999,
+    "id": "684420",
+    "title": "What will announcers say during Cory Sandhagen vs Mario Bautista at UFC 329?"
+   },
+   {
+    "day": "2026-07-10",
+    "start": 1783648487.071,
+    "cost": 3.4000000000000004,
+    "pnl": 16.487119999999997,
+    "id": "686262",
+    "title": "What will the announcers say during Argentina vs Switzerland World Cup Match?"
+   },
+   {
+    "day": "2026-07-10",
+    "start": 1783649307.020263,
+    "cost": 11.799999999999999,
+    "pnl": 8.006480000000002,
+    "id": "686304",
+    "title": "What will the announcers say during Norway vs England World Cup Match?"
+   },
+   {
+    "day": "2026-07-14",
+    "start": 1784068991.254227,
+    "cost": 2.9400000000000004,
+    "pnl": -3.0411360000000003,
+    "id": "704398",
+    "title": "What will the announcers say during England vs Argentina World Cup Match?"
+   },
+   {
+    "day": "2026-07-16",
+    "start": 1784220009.965896,
+    "cost": 4.4,
+    "pnl": -4.5564800000000005,
+    "id": "710575",
+    "title": "What will the announcers say during France vs England World Cup Match?"
+   },
+   {
+    "day": "2026-09-14",
+    "start": 1789415100.0,
+    "cost": 2.9699999997716815,
+    "pnl": -3.025836004436229,
+    "id": "1024598",
+    "title": "What will the announcers say during the Broncos vs Chiefs game?"
+   },
+   {
+    "day": "2026-09-19",
+    "start": 1789778162.0,
+    "cost": 36.72,
+    "pnl": 13.868736000000002,
+    "id": "1045577",
+    "title": "What will the announcers say during the Dolphins vs 49ers game?"
+   },
+   {
+    "day": "2026-09-19",
+    "start": 1789778192.0,
+    "cost": 12.6,
+    "pnl": 8.1984,
+    "id": "1045581",
+    "title": "What will the announcers say during the Colts vs Chiefs game?"
+   },
+   {
+    "day": "2026-09-22",
+    "start": 1790118658.0,
+    "cost": 5.67,
+    "pnl": -5.835564,
+    "id": "1066510",
+    "title": "What will the announcers say during the Falcons vs Packers game?"
+   },
+   {
+    "day": "2026-09-26",
+    "start": 1790392792.0,
+    "cost": 14.0,
+    "pnl": 5.832000000000001,
+    "id": "1083513",
+    "title": "What will the announcers say during the Ravens vs Cowboys game?"
+   },
+   {
+    "day": "2026-09-26",
+    "start": 1790392835.0,
+    "cost": 10.0,
+    "pnl": 9.8,
+    "id": "1083514",
+    "title": "What will the announcers say during the Rams vs Broncos game?"
+   }
+  ]
+ }
+}

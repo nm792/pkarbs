@@ -1,0 +1,78 @@
+slug,fam,start,end,status,resolved,gamma_volume,trade_volume_total,trade_vol_last_6h_before_end,trade_vol_last_24h_before_end,trade_vol_first_hour,trade_vol_last_7d,ask_depth_at_decision,bet_side,bet_word,bet_price,bet_size_usd,bet_pnl_floor
+what-will-be-said-in-the-next-avengers-doomsday-trailer-20260715175510946,other,2026-07-16,2026-12-18,closed,True,13878,11195,0,0,18,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-mrbeast-say-during-his-next-gaming-youtube-video-20260926,other,2026-09-21,2026-10-31,closed,True,7082,5156,0,0,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-in-october-2026,trump-event,2026-09-29,2026-10-31,closed,True,14915,11691,44,526,220,0,UNMEASURED (no recorder in first hour),YES,Slob,0.5,15.0,14.93
+what-companies-will-trump-mention-in-october,trump-event,2026-09-29,2026-11-01,closed,True,11961,7980,233,319,128,0,UNMEASURED (no recorder in first hour),YES,BMW,0.26,7.8,22.14
+what-foods-will-trump-mention-in-october,trump-event,2026-09-29,2026-11-01,closed,True,150504,78733,0,136,31,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-mamdani-say-during-next-live-announcement-20261005,other,2026-10-05,2026-11-01,closed,True,6607,5878,0,0,12,0,UNMEASURED (no recorder in first hour),YES,Safe / Safer / Safety,0.5,12.0,-12.06
+what-will-mrbeast-say-during-his-next-gaming-youtube-video-20261006222126545,other,2026-10-07,2026-11-30,closed,True,5919,4887,0,0,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-mamdani-say-during-next-live-announcement-20261007,other,2026-10-08,2026-11-01,closed,True,5099,4647,0,0,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-mamdani-say-during-next-live-announcement-20261012,other,2026-10-12,2026-11-01,closed,True,3701,2995,0,0,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-the-announcers-say-during-the-seahawks-vs-broncos-game-20261015,sports-announcers,2026-10-14,2026-10-16,open,False,5408,2936,477,1368,280,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-the-announcers-say-during-the-cowboys-vs-packers-game-20261018,sports-announcers,2026-10-14,2026-10-19,open,False,5519,3266,246,745,0,3,UNMEASURED (no recorder in first hour),,,,,
+what-will-be-said-on-the-first-joe-rogan-experience-episode-of-the-week-october-19,other,2026-10-14,2026-10-26,closed,True,3319,2657,0,0,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-kevin-warsh-say-during-october-press-conference,other,2026-10-14,2026-10-28,closed,True,45323,26092,10661,12351,69,0,UNMEASURED (no recorder in first hour),NO,Inflation 20+ times,0.41,10.66,-10.66
+what-will-elon-post-this-week-october-19-october-25-20261025,other,2026-10-17,2026-10-26,closed,True,1240,990,204,228,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-post-this-week-october-19-october-25-2026,trump-weekly,2026-10-17,2026-10-26,closed,True,1427,1054,429,439,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-this-week-october-19-october-25-20261025,trump-weekly,2026-10-17,2026-10-26,closed,True,7227,5288,348,731,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-mamdani-say-during-next-live-announcement-20261019,other,2026-10-19,2026-12-01,closed,True,5873,5686,0,0,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-mrbeast-say-during-his-next-gaming-youtube-video-20261024,other,2026-10-19,2026-11-08,closed,True,1728,1550,0,16,0,919,UNMEASURED (no recorder in first hour),,,,,
+what-will-andy-burnham-say-at-the-next-prime-ministers-questions-event-20261028,other,2026-10-22,2026-10-29,closed,True,5250,3390,0,1807,32,0,UNMEASURED (no recorder in first hour),NO,Immigration,0.7,5.93,-5.93
+what-will-be-said-on-the-first-joe-rogan-experience-episode-of-the-week-october-26,other,2026-10-22,2026-11-02,closed,True,4680,3866,0,0,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-during-his-midterm-rally-in-florida-october-23,trump-event,2026-10-22,2026-10-23,closed,True,63199,37387,5912,12681,276,0,UNMEASURED (no recorder in first hour),YES,Drill Baby Drill,0.39,11.0,-11.0
+what-will-trump-say-during-his-midterm-rally-in-georgia-october-24,trump-event,2026-10-23,2026-10-24,closed,True,79073,42396,8135,21909,368,0,UNMEASURED (no recorder in first hour),NO,Russia / Ukraine,0.25,3.0,9.0
+what-will-mamdani-say-during-next-live-announcement-20261022,other,2026-10-23,2026-12-01,closed,True,6570,6262,0,0,233,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-this-week-october-26-november-1-20261101,trump-weekly,2026-10-23,2026-11-02,closed,True,6178,4862,141,273,150,0,UNMEASURED (no recorder in first hour),YES,Muscle / Muscular,0.5,25.0,25.0
+what-will-trump-post-this-week-october-26-november-1-20261101,trump-weekly,2026-10-23,2026-11-02,closed,True,2539,835,74,101,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-be-said-on-the-next-lemonade-stand-podcast-october-28,other,2026-10-23,2026-10-29,closed,True,3741,3293,0,2589,265,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-verizon-say-during-their-next-earnings-call-october-26,earnings-call,2026-10-23,2026-10-27,closed,True,6179,4136,0,1737,273,0,UNMEASURED (no recorder in first hour),YES,AI / Artificial Intelligence 15+ times,0.5,14.88,14.88
+what-will-coca-cola-say-during-their-next-earnings-call-october-27,earnings-call,2026-10-23,2026-10-28,closed,True,9644,6970,0,4509,259,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-robinhood-say-during-their-next-earnings-call-october-27-5pm,earnings-call,2026-10-23,2026-10-28,closed,True,7509,5641,1219,3766,265,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-during-his-midterm-rally-in-michigan-october-26,trump-event,2026-10-23,2026-10-25,closed,True,59257,33064,5816,9045,188,0,UNMEASURED (no recorder in first hour),YES,Maduro,0.5,25.0,25.0
+what-will-trump-say-during-his-midterm-rally-in-mississippi-october-26-ms,trump-event,2026-10-26,2026-10-26,closed,True,19639,10058,4993,5479,85,0,UNMEASURED (no recorder in first hour),NO,Russia / Ukraine,0.34,9.86,19.14
+what-will-google-say-during-their-next-earnings-call-october-28,earnings-call,2026-10-26,2026-10-29,closed,True,6918,4431,964,3572,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-during-his-midterm-rally-in-corpus-christi-texas-october-27-tx,trump-event,2026-10-26,2026-10-27,closed,True,24730,12721,4889,7388,6,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-during-his-midterm-rally-in-lubbock-texas-october-27-lubbock-tx,trump-event,2026-10-26,2026-10-27,closed,True,329853,122502,2892,7444,24,0,UNMEASURED (no recorder in first hour),NO,Russia / Ukraine,0.3,5.1,11.9
+what-will-microsoft-say-during-their-next-earnings-call-october-28,earnings-call,2026-10-26,2026-10-29,closed,True,3855,2817,652,2116,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-during-his-midterm-rally-in-ohio-october-28-oh,trump-event,2026-10-27,2026-10-28,closed,True,65818,29529,10991,22538,53,0,UNMEASURED (no recorder in first hour),NO,America First,0.33,6.6,-6.6
+what-will-trump-say-during-his-midterm-rally-in-south-carolina-october-29-sc,trump-event,2026-10-27,2026-10-29,closed,True,51674,27306,8901,16530,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-amazon-say-during-their-next-earnings-call-october-29,earnings-call,2026-10-28,2026-10-30,closed,True,4265,2814,409,1940,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-andy-burnham-say-at-the-next-prime-ministers-questions-event-20261104,other,2026-10-28,2026-11-12,closed,True,6793,4330,0,2272,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-during-his-midterm-rally-in-florida-october-30-daytona,trump-event,2026-10-28,2026-10-30,closed,True,41898,21254,9279,13606,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-in-november-2026,trump-event,2026-10-28,2026-12-01,open,False,9535,7532,0,0,0,770,UNMEASURED (no recorder in first hour),,,,,
+what-will-be-said-on-the-first-joe-rogan-experience-episode-of-the-week-november-2,other,2026-10-29,2026-11-09,closed,True,2440,1961,0,0,5,0,UNMEASURED (no recorder in first hour),YES,Fuck / Fucking 10+ times,0.59,2.95,2.04
+what-will-be-said-on-the-next-lemonade-stand-podcast-november-4,other,2026-10-29,2026-11-05,closed,True,6824,4779,89,321,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-during-his-midterm-rally-in-kansas-november-1-salina-ks,trump-event,2026-10-31,2026-11-02,closed,True,43740,37953,1116,3999,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-during-his-midterm-rally-in-iowa-november-1-dubuque-ia,trump-event,2026-10-31,2026-11-01,closed,True,35675,21902,3005,6207,7,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-amd-say-during-their-next-earnings-call-november-3,earnings-call,2026-11-01,2026-11-04,closed,True,6712,5027,797,2680,34,0,UNMEASURED (no recorder in first hour),NO,Revenue 15+ times,0.16,5.14,-5.19
+what-will-apple-say-during-their-next-earnings-call-november-2,earnings-call,2026-11-01,2026-11-03,closed,True,6308,4963,562,3173,67,0,UNMEASURED (no recorder in first hour),NO,Revenue,0.19,6.01,-6.06
+what-will-trump-say-this-week-november-2-november-8-20261108,trump-weekly,2026-11-01,2026-11-09,closed,True,18745,13745,67,202,1,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-uber-say-during-their-next-earnings-call-november-4,earnings-call,2026-11-02,2026-11-05,closed,True,6126,4444,0,2817,125,0,UNMEASURED (no recorder in first hour),NO,Freight,0.45,2.25,2.74
+what-will-trump-say-on-november-4,trump-event,2026-11-04,2026-11-05,closed,True,12273,9467,671,8546,0,146,UNMEASURED (no recorder in first hour),,,,,
+what-will-airbnb-say-during-their-next-earnings-call-november-5,earnings-call,2026-11-04,2026-11-06,closed,True,4786,3551,252,2538,247,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-at-cape-canaveral-november-6,trump-event,2026-11-05,2026-11-06,closed,True,12936,8103,533,1817,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-constellation-energy-say-during-their-next-earnings-call-november-9,earnings-call,2026-11-06,2026-11-10,closed,True,3087,2598,0,1661,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-coreweave-say-during-their-next-earnings-call-november-10,earnings-call,2026-11-06,2026-11-11,closed,True,8391,6750,2278,5372,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-applied-materials-say-during-their-next-earnings-call-november-12,earnings-call,2026-11-06,2026-11-13,closed,True,3378,2724,0,1667,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-cisco-say-during-their-next-earnings-call-november-12,earnings-call,2026-11-06,2026-11-13,closed,True,5166,4092,35,2995,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-be-said-on-the-first-joe-rogan-experience-episode-of-the-week-november-9,other,2026-11-06,2026-11-16,closed,True,4555,4273,0,0,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-the-nyt-front-page-headlines-say-on-sunday-november-15-20261115,other,2026-11-07,2026-11-16,closed,True,10306,5510,0,0,0,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-during-60-minutes-extended-interview,trump-event,2026-11-08,2026-11-09,closed,True,25398,14148,552,9908,56,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-this-week-november-9-november-15-20261115,trump-weekly,2026-11-09,2026-11-16,closed,True,3630,3272,585,700,0,884,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-during-his-veterans-day-remarks-at-arlington,trump-event,2026-11-11,2026-11-11,closed,True,3290,2694,45,2694,13,0,UNMEASURED (no recorder in first hour),YES,Tariff,0.28,1.0,-1.01
+what-will-caedrel-say-during-his-worlds-2026-final-stream,other,2026-11-12,2026-11-15,open,False,21884,13421,1499,6892,78,1092,UNMEASURED (no recorder in first hour),,,,,
+what-will-andy-burnham-say-at-the-next-prime-ministers-questions-event-20261118,other,2026-11-12,2026-11-19,closed,True,1759,1583,0,1198,6,1256,UNMEASURED (no recorder in first hour),,,,,
+what-will-mrbeast-say-during-his-next-youtube-video-20261114,other,2026-11-12,2026-11-15,closed,True,3607,1575,306,1196,270,0,UNMEASURED (no recorder in first hour),,,,,
+what-will-nvidia-say-during-their-next-earnings-call-november-17,earnings-call,2026-11-13,2026-11-18,closed,True,9298,5234,508,3525,0,4202,UNMEASURED (no recorder in first hour),,,,,
+what-will-disney-say-during-their-next-earnings-call-november-17,earnings-call,2026-11-13,2026-11-18,closed,True,4051,2600,0,1285,0,1840,UNMEASURED (no recorder in first hour),,,,,
+what-will-target-say-during-their-next-earnings-call-november-18,earnings-call,2026-11-13,2026-11-19,closed,True,4085,2927,0,1991,10,2670,UNMEASURED (no recorder in first hour),YES,Inflation,0.19,9.5,-9.58
+what-will-palo-alto-networks-say-during-their-next-earnings-call-november-18,earnings-call,2026-11-13,2026-11-19,closed,True,3119,2251,66,1694,0,2192,UNMEASURED (no recorder in first hour),,,,,
+what-will-walmart-say-during-their-next-earnings-call-november-19,earnings-call,2026-11-13,2026-11-20,closed,True,7804,4958,0,3653,0,4687,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-in-the-philippines,trump-event,2026-11-17,2026-12-01,open,False,3351,2401,0,0,0,2401,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-during-his-trilateral-meeting-with-xi-and-putin,trump-event,2026-11-17,2026-11-19,closed,True,163899,92465,0,45759,234,92465,UNMEASURED (no recorder in first hour),NO,Nuclear / Nuke,0.26,14.04,-14.14
+what-will-trump-say-in-china-apec,trump-event,2026-11-17,2026-12-01,open,False,18431,10543,0,0,0,10543,UNMEASURED (no recorder in first hour),,,,,
+what-will-trump-say-during-his-november-20-news-conference,trump-event,2026-11-19,2026-11-20,closed,True,10191,7195,981,5126,359,7195,UNMEASURED (no recorder in first hour),NO,Putin / Xi (3+ times),0.45,4.5,-4.52
+what-will-trump-or-melania-say-during-the-thanksgiving-turkey-pardon-on-november-24,trump-event,2026-11-21,2026-11-24,open,False,13088,6569,0,0,307,6569,UNMEASURED (no recorder in first hour),,,,,
+what-will-dell-say-during-their-next-earnings-call-20261124,earnings-call,2026-11-21,2026-11-25,open,False,901,397,0,0,82,397,UNMEASURED (no recorder in first hour),,,,,
+what-will-deere-say-during-their-next-earnings-call-20261125,earnings-call,2026-11-21,2026-11-26,open,False,964,470,0,0,70,470,UNMEASURED (no recorder in first hour),,,,,
+what-will-salesforce-say-during-their-next-earnings-call-20261202,earnings-call,2026-11-21,2026-12-03,open,False,4046,1783,0,0,90,1783,UNMEASURED (no recorder in first hour),,,,,
