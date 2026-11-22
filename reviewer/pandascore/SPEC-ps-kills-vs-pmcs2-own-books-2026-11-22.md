@@ -30,13 +30,14 @@ Matches needed N = 2 * ((z_a + z_b) * s_m / d)^2, d = 0.5c net, s_m = between-ma
 | Rule | Code location | Test that can fail | Checked by |
 |---|---|---|---|
 | Map N = game_id rank | audit_ps_inround.py ordinals() | test_audit_ps_inround.py | audit thread (done 20 Nov for that script) |
-| Entry = first own-ask row at or after recv+1 s+L | NEW script, not written | NEW | UNCHECKED |
-| Markout = own bid at +15/+60 s | NEW | NEW | UNCHECKED |
-| Fee from market field, both listed | NEW | NEW | UNCHECKED |
-| Event-free placebo, 200 draws | NEW (audit's A5 is on trades) | NEW | UNCHECKED |
-| Plant as raw book rows, 95-105% | NEW | NEW | UNCHECKED |
+| Entry = first own-ask row at or after recv+1 s+L (within 5 s); state variant reported | feeds/ps_kills_vs_pmcs2.py `Book.first_at_or_after`, `trade_event` | test_ps_kills_vs_pmcs2.py (first_at_or_after 5 s wait; state = last row <= t) | UNCHECKED by another thread |
+| Markout = own bid at +15/+60 s | `trade_event` (HS) | synthetic lead 3c book: gross = +3c - 2c spread | UNCHECKED |
+| Fee 0.03 and 0.05 *p*(1-p) listed | `fee`, `trade_event` | net03 = gross - 0.75c asserted | UNCHECKED |
+| Event-free placebo (30 s clear of any PS event, random side) | `run(mode="placebo")` | no-lead book reads -spread | UNCHECKED |
+| Plant as raw book rows, recovery 95-105% | `plant_book`, `main()` plant block | 100.0% on synthetic; mutant that mutates the input fails | UNCHECKED |
+| Label swap and +300 s shift controls | `run(mode="swap"/"shift")` | swap reads -5c on lead book | UNCHECKED |
 | Match-clustered bootstrap + sign test | audit_ps_inround.py boot_matches/sign_test_p | existing | audit thread |
 
 ## 7. What is still missing before 12:00Z
-(a) The R-022 server read (it/00-URGENT-PS-R022-...) for capture state and today's both-token match count. (b) The new scorer `feeds/ps_kills_vs_pmcs2.py` and its tests (I write it, another thread checks the table). (c) Real pmcs2 book files on this box: the scorer must run on a server export of pmcs2 hours (IT row to follow once (a) shows matches exist).
+(a) The R-022 server read (it/00-URGENT-PS-R022-...) for capture state and today's both-token match count. (b) DONE 22 Nov 05:00Z: scorer `feeds/ps_kills_vs_pmcs2.py` + `feeds/test_ps_kills_vs_pmcs2.py` (11 checks pass on synthetic data; a mutant that mutates its input fails). Not yet run on real data. Another thread must check the table. (c) Real pmcs2 book files on this box: the scorer must run on a server export of pmcs2 hours (IT row to follow once (a) shows matches exist).
 Confidence 6/10 that this design matches R-022/R-023: L unmeasured, power unknown, and no pmcs2 hours seen yet. To reach 9: the (a) read, one exported pmcs2 hour to run the plant, measured send latency.

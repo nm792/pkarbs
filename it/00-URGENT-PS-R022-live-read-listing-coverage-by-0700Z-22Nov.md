@@ -7,3 +7,5 @@ Reviewer R-022/R-024 ask for ONE pasted server read of PandaScore capture and pm
 3. Coverage count: `python3 -I it/pmcs2_coverage_count.py /mnt/HC_Volume_107257520/pkarbs/pmcs2 2026-11-22` (new, read-only, tested on a synthetic folder; prints one JSON with markets starting today and how many have rows for both tokens). Paste the JSON, shortened only by removing the `both` list beyond 20 lines.
 
 Why now: the test spec due at 12:00Z prices from pmcs2 own books, so I need to know today's match count and capture state before anything else. Order inside the queue: before every non-live-read row.
+
+UPDATE 04:20Z: please run this at the 05:41Z dispatch. The Dota thread's overlapping read (it/REPLY-2026-11-22-0420Z-URGENT-server-read-by-0730Z-R024.md) can be done in the SAME session; the live read (step 1) covers both recorders, so one paste serves both.
