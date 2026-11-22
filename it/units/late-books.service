@@ -1,0 +1,11 @@
+[Unit]
+Description=Late-resolving series decision-time book recorder (read-only, never places orders)
+After=network-online.target
+[Service]
+Type=simple
+WorkingDirectory=/mnt/HC_Volume_107257520/pkarbs
+ExecStart=/usr/bin/python3 pipeline/forward/late_books.py record --series-file it/late_books_series.txt --out /mnt/HC_Volume_107257520/late-books --max-hours 720
+Restart=always
+RestartSec=5
+[Install]
+WantedBy=multi-user.target
