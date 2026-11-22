@@ -44,15 +44,15 @@ check("all counted decisions are non-shadow post", all(d["kind"] == "post" and d
 # 4. wrong-side token with a cheap ask is never taken
 wrong = {(2, "Yes"): [[0.10, 99]], (1, "No"): [[0.10, 99]]}
 check("YES of a non-page bucket / NO of the page bucket never taken", P.run([snap(ns(3, 15, 1), wrong)], [page(ns(3, 15))], D, PRM) == [])
-# 5. price above the edge threshold not taken (0.995-p-fee<0.003 at p=0.993)
+# 5. price above the edge threshold not taken (0.995-p-fee<0.003 at p=0.99)
 check("ask 0.993 is not taken (edge 0.0016 < 0.003)", P.run([snap(ns(3, 15, 1), {(1, "Yes"): [[0.993, 50]]})], [page(ns(3, 15))], D, PRM) == [])
-# 6. one decision, one snapshot: 5 identical snapshots in the window give at most the displayed 5 shares
+# 6. displayed size never double counted across 5 identical snapshots
 many = [snap(ns(3, 15, s), {(1, "Yes"): [[0.90, 5]]}) for s in range(5)]
 dec = P.run(many, [page(ns(3, 15))], D, PRM)
 check("same displayed 5 shares seen 5 times -> at most 5 shares", sum(d["shares"] for d in dec) <= 5 + 1e-9 and sum(d["shares"] for d in dec) > 0)
-# 7. the latest book at decision time decides the size
+# 7. a larger size that appears later adds only the increment
 grow = [snap(ns(3, 15, 0), {(1, "Yes"): [[0.90, 5]]}), snap(ns(3, 15, 1), {(1, "Yes"): [[0.90, 8]]})]
-check("size 5 then 8: only the latest book counts, total 8 not 13", abs(sum(d["shares"] for d in P.run(grow, [page(ns(3, 15))], D, PRM)) - 8) < 1e-9)
+check("size grows 5->8: total 8 not 13", abs(sum(d["shares"] for d in P.run(grow, [page(ns(3, 15))], D, PRM)) - 8) < 1e-9)
 # 8. page value outside every bucket (cannot happen live) -> no decision, no crash
 check("value outside buckets -> no decision", P.run(books, [page(ns(3, 15), val=9.99)], D, PRM) != None)
 # 9. clock_end cuts off
@@ -75,7 +75,7 @@ check("losing fills lose cost+fee", all(abs(r["pnl"] + r["cost"] + r["fee"]) < 1
 rows, un = P.settle(dec, [dict(clobTokenIds=json.dumps(["t1Yes", "t1No"]), outcomes='["Yes","No"]', outcomePrices='["0.62","0.38"]')])
 check("unresolved/unknown tokens give pnl None and are counted", un == len(dec) and all(r["pnl"] is None for r in rows))
 check("day_pnl ignores unresolved", P.day_pnl(rows) == 0)
-# 12. report: planted constant +300/day clears 200, planted +100/day does not
+# 12. report: planted constant +300/day clears 200, planted +100/day does not, noisy mean 250 with sd huge does not
 r = P.report([300.0] * 20); check("CI: constant 300 clears $200", r["clears_target"] and r["mean"] == 300)
 r = P.report([100.0] * 20); check("CI: constant 100 does NOT clear $200", not r["clears_target"])
 r = P.report([2.63, -5, 40, 0, 1, 3, 2, 12, -3, 4] * 3); check("CI: gas-like $/day does NOT clear $200", not r["clears_target"])
@@ -93,7 +93,7 @@ with tempfile.TemporaryDirectory() as td:
     s = P.sanity(pg, bk, dc, now + 600 * 10**9); check("sanity: stale logs -> not ok", not s["ok"])
     s = P.sanity(pg, bk, os.path.join(td, "none"), now); check("sanity: missing decisions file -> not ok", not s["ok"])
     # main end to end
-    out = os.path.join(td, "o.jsonl"); open(bk, "w").write("\n".join(json.dumps(x) for x in [snap(ns(3, 15, 1), cheap), snap(ns(3, 15, 3), cheap)]) + "\n")
+    out = os.path.join(td, "o.jsonl"); open(bk, "w").write("\n".join(json.dumps(x) for x in [snap(ns(3, 15, 1), cheap)]) + "\n")
     open(pg, "w").write(json.dumps(page(ns(3, 15))) + "\n")
     P.main(["--books", bk, "--page", pg, "--date", "2026-11-21", "--out", out]); o = [json.loads(l) for l in open(out)]
     check("main writes decisions at fee 0.05 default", o and abs(o[0]["fee"] - 0.05 * 0.9 * 0.1 * o[0]["shares"]) < 1e-9)
@@ -102,13 +102,16 @@ late = [snap(ns(3, 15, 1), {(1, "Yes"): [[0.995, 50]]}), snap(ns(3, 16, 30), {(1
 check("cheap ask first shown 90 s after the page change is rejected", P.run(late, [page(ns(3, 15))], D, PRM) == [])
 soon = [snap(ns(3, 15, 1), {(1, "Yes"): [[0.995, 50]]}), snap(ns(3, 15, 4), {(1, "Yes"): [[0.90, 50]]})]
 check("cheap ask shown 4 s after the change is outside the 2 s latency: rejected", P.run(soon, [page(ns(3, 15))], D, PRM) == [])
-check("same 4 s book is used if the assumed latency is 5 s (parameter is live)", len(P.run(soon, [page(ns(3, 15))], D, PRM, latency_s=5)) == 1)
+check("same 4 s book is used if the assumed latency is 5 s (parameter is live)", len(P.run(soon, [page(ns(3, 15))], D, PRM, latency_s=5, max_stale_s=5)) == 1)
 sup = [snap(ns(3, 15, 0), {(1, "Yes"): [[0.90, 50]]}), snap(ns(3, 15, 1), {(1, "Yes"): [[0.995, 50]]})]
 check("a cheap ask in an earlier book superseded by a newer one at decision time is rejected", P.run(sup, [page(ns(3, 15))], D, PRM) == [])
 okb = [snap(ns(3, 15, 1), {(1, "Yes"): [[0.90, 50]]})]
 check("cheap ask in the latest book at decision time + 1 s is filled", len(P.run(okb, [page(ns(3, 15))], D, PRM)) == 1)
 pre = [snap(ns(3, 14, 59), {(1, "Yes"): [[0.90, 50]]}), snap(ns(3, 15, 9), {(1, "Yes"): [[0.99, 50]]})]
-check("latest book at or before the decision (taken 1 s before the page read) is the fill book", len(P.run(pre, [page(ns(3, 15))], D, PRM)) == 1)
+check("R-020: a book received 1 s BEFORE the page response is never the fill book", P.run(pre, [page(ns(3, 15))], D, PRM) == [])
+req = [snap(ns(3, 14, 59), {(1, "Yes"): [[0.90, 50]]})]   # page row: request at 03:14:57, RESPONSE (recv_ns) at 03:15:00; the cheap ask sits between request and response
+check("R-020 planted: response 3 s after request, a better ask in a book between request and response does NOT fill", P.run(req, [dict(page(ns(3, 15)), request_ns=ns(3, 14, 57))], D, PRM) == [])
+check("R-020: the same ask received 1 s AFTER the response fills", len(P.run([snap(ns(3, 15, 1), {(1, "Yes"): [[0.90, 50]]})], [page(ns(3, 15))], D, PRM)) == 1)
 stale = [snap(ns(3, 10), {(1, "Yes"): [[0.90, 50]]})]
 check("a book 5 minutes older than the decision is not a decision-time book", P.run(stale, [page(ns(3, 15))], D, PRM) == [])
 # 15. R-007 / SETTLED A3: 250 ms taker hold + latency: the level must still be shown at the first snapshot at or after read + 2 s + 0.25 s
