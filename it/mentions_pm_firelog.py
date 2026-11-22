@@ -10,7 +10,7 @@ Files in OUT: firelog_<UTC date>.jsonl.gz (every firing snapshot), paper_bets.js
 Usage: python3 -I mentions_pm_firelog.py --scorer PATH --state DIR --out DIR [--cap 200] [--daycap 2000] [--score]"""
 import argparse, csv, datetime as dt, gzip, importlib.util, json, os, time
 ap = argparse.ArgumentParser(); ap.add_argument('--scorer', required=True); ap.add_argument('--state', required=True); ap.add_argument('--out', required=True)
-ap.add_argument('--cap', type=float, default=200.); ap.add_argument('--daycap', type=float, default=2000.); ap.add_argument('--score', action='store_true')
+ap.add_argument('--cap', type=float, default=200.); ap.add_argument('--daycap', type=float, default=2000.); ap.add_argument('--score', action='store_true'); ap.add_argument('--health', action='store_true')
 
 
 def load(p):
@@ -44,11 +44,12 @@ def paper_bet(asks, limit, cap, room, rate):
 def main():
     a = ap.parse_args(); sc = load(a.scorer); os.makedirs(a.out, exist_ok=True); now = time.time(); today = dt.datetime.fromtimestamp(now, dt.timezone.utc).strftime('%Y-%m-%d')
     bets_fn = os.path.join(a.out, 'paper_bets.jsonl'); bets = [json.loads(l) for l in open(bets_fn)] if os.path.exists(bets_fn) else []
+    if a.health: return health(a, now)
     if a.score: return score(sc, a, bets)
     closed = list(json.load(open(os.path.join(a.state, 'events.json'))).values())
     op = [sc.slim(e) for e in (sc.fetch(f'{sc.GAMMA}/events?tag_slug=mention-markets&closed=false&limit=100&order=startDate&ascending=false') or [])]
     pool = [e for e in closed if sc.resolved(e)]; have = {b['event'] for b in bets}; used = sum(b['cost'] for b in bets if b['day'] == today)
-    n_ev = n_fire = n_books = 0; fn = os.path.join(a.out, 'firelog_%s.jsonl.gz' % today)
+    n_ev = n_fire = n_books = n_exp = 0; fn = os.path.join(a.out, 'firelog_%s.jsonl.gz' % today)
     with gzip.open(fn, 'at') as lf:
         for e in op:
             if not e['markets']: continue
@@ -58,6 +59,7 @@ def main():
             for m in e['markets']:
                 q = sc.q_for(hist, e, m); books = {}
                 for oi, tok in enumerate(m['toks'][:2]):
+                    n_exp += 1
                     b = sc.fetch(f'https://clob.polymarket.com/book?token_id={tok}')
                     if b is None: continue
                     books[oi] = parse_asks(b); n_books += 1
@@ -75,7 +77,32 @@ def main():
                         row = dict(t=int(now), day=today, event=e['id'], title=e['title'], fam=e['fam'], cond=m['cond'], word=m['label'], side='YES' if o == 0 else 'NO', q=round(q, 4), age_s=int(now - t0),
                                    size=pb['size'], cost=pb['cost'], avg=pb['avg'], fee=pb['fee'], partial=pb['partial'], depth_usd=pb['depth_usd'], tok=m['toks'][o])
                         open(bets_fn, 'a').write(json.dumps(row) + '\n'); have.add(e['id']); used += pb['cost']
+    open(os.path.join(a.out, 'runs.jsonl'), 'a').write(json.dumps(dict(t=int(now), pid=os.getpid(), events=n_ev, books_expected=n_exp, books_read=n_books, firings=n_fire)) + '\n')
     open(os.path.join(a.out, 'heartbeat.txt'), 'w').write('%s UTC events_in_window=%d books_read=%d firings=%d paper_bets_total=%d day_used=$%.2f\n' % (dt.datetime.fromtimestamp(now, dt.timezone.utc).isoformat(), n_ev, n_books, n_fire, len(have), used))
+
+
+def health_eval(runs, now, errors_text, window=900, period=120):
+    """HEALTH READ for the last 15 min (R-037). runs: list of dict(t, pid, books_expected, books_read). Returns (lines, ok)."""
+    w = [r for r in runs if now - r['t'] <= window]
+    exp_runs = window // period; ratio_runs = len(w) / exp_runs
+    be = sum(r['books_expected'] for r in w); br = sum(r['books_read'] for r in w); ratio_books = (br / be) if be else None
+    errs = [l for l in errors_text.splitlines() if 'Traceback' in l or 'Error' in l or 'SystemExit' in l]
+    ok = len(w) >= exp_runs - 1 and (ratio_books is None or ratio_books >= .99) and not errs
+    return w, ratio_runs, ratio_books, be, br, errs, ok
+
+
+def health(a, now):
+    fn = os.path.join(a.out, 'runs.jsonl'); runs = [json.loads(l) for l in open(fn)] if os.path.exists(fn) else []
+    logs = sorted(f for f in os.listdir(a.out) if f.startswith('run-') and f.endswith('.log'))
+    et = open(os.path.join(a.out, logs[-1])).read()[-20000:] if logs else ''
+    et2 = open(os.path.join(a.out, 'cron-errors.log')).read()[-5000:] if os.path.exists(os.path.join(a.out, 'cron-errors.log')) else ''
+    w, rr, rb, be, br, errs, ok = health_eval(runs, now, et + et2)
+    st = os.statvfs(a.out); free = st.f_bavail * st.f_frsize / 1e9
+    print('MENTIONS FIREWATCH HEALTH READ %s UTC' % dt.datetime.fromtimestamp(now, dt.timezone.utc).strftime('%Y-%m-%d %H:%M'))
+    print('runs in last 15 min: %d of 7 expected (every 2 min); snapshots (token books) captured %s of expected %d (%s); errors in log tail: %d; disk free at %s: %.1f GB; last pids: %s' % (
+        len(w), br, be, 'n/a: no mention event in its first hour in the window, so none were expected' if rb is None else '%.1f%%' % (100 * rb), len(errs), a.out, free, sorted({r['pid'] for r in w})[-2:]))
+    print('price source: asks come from the traded token\'s OWN book, CLOB /book?token_id=<clobTokenIds[0] for YES, [1] for NO>, field asks[].price / asks[].size (parse_asks line in mentions_pm_firelog.py); NO is never derived from YES')
+    print('RESULT: ' + ('PASS' if ok else 'FAIL: stop, keep files, fix, restart, post a new read within 15 min'))
 
 
 def score(sc, a, bets):
