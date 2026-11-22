@@ -35,7 +35,7 @@ def make(d, lead):
     os.makedirs(d, exist_ok=True)
     json.dump(dict(cond="c", q="Counter-Strike: Alpha vs Beta (BO3)", outcomes=["Alpha", "Beta"], tokens=["H", "A"], start="x"), open(os.path.join(d, "markets.jsonl"), "w"))
     with open(os.path.join(d, "markets.jsonl"), "a") as f: f.write("\n")
-    with open(os.path.join(d, "books-2027010100.jsonl"), "w") as f:
+    with open(os.path.join(d, "books-" + __import__("time").strftime("%Y%m%d%H", __import__("time").gmtime(t0)) + ".jsonl"), "w") as f:
         for ts, b, a, tk in rows: f.write(json.dumps(dict(recv_ms=int(ts * 1000), asset=tk, bid=round(b, 4), ask=round(a, 4))) + "\n")
 
 def load(d):
@@ -74,4 +74,7 @@ chk("placebo on LEAD book is below the real event gross (event-free times do not
 b = k.Book([(1.0, .4, .5), (3.0, .41, .51)])
 chk("first_at_or_after respects 5 s wait", b.first_at_or_after(3.5) is None and b.first_at_or_after(2.0)[0] == 3.0)
 chk("state = last row at/before t", b.state(2.9)[0] == 1.0 and b.state(0.5) is None)
+d2 = tempfile.mkdtemp(); make(d2, 0.0); os.rename(os.path.join(d2, [x for x in os.listdir(d2) if x.startswith("books-")][0]), os.path.join(d2, "books-2020010100.jsonl"))
+mk2, bk2 = k.load_books(d2, 1_800_000_000.0, 1_800_000_000.0 + 1e5)
+chk("hour filter skips a books file whose hour is far outside the window", len(bk2) == 0, len(bk2))
 print("ALL PASS" if not fails else "FAILED: %s" % fails); sys.exit(1 if fails else 0)

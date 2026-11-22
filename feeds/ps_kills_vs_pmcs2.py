@@ -64,7 +64,12 @@ def load_books(d, t0, t1):
         try: mk.append(json.loads(l))
         except Exception: pass
     want = {t for m in mk for t in m.get("tokens", [])}; rows = {t: [] for t in want}
+    import calendar
     for p in sorted(glob.glob(os.path.join(d, "books-*.jsonl*"))):
+        mh = re.match(r"books-(\d{10})\.jsonl", os.path.basename(p))
+        if mh:   # hour filter: only hours overlapping [t0-1 h, t1+1 h]; never parse a whole recorder history
+            h0 = calendar.timegm(__import__("time").strptime(mh.group(1), "%Y%m%d%H"))
+            if h0 + 3600 < t0 - 3600 or h0 > t1 + 3600: continue
         op = gzip.open if p.endswith(".gz") else open
         try:
             with op(p, "rt") as f:
@@ -146,7 +151,8 @@ def summ(R, tag="row", h=15.0, key="net03"):
 
 def main(sd, pd, L=0.5, plant=0.03, nplace=200):
     fs = sorted(glob.glob(os.path.join(sd, "ps_sample_*.jsonl.gz")))
-    t0 = min(json.loads(next(gzip.open(f, "rt")))["recv_ns"] for f in fs) / 1e9; t1 = t0 + 10 * 86400
+    t0 = min(json.loads(next(gzip.open(f, "rt")))["recv_ns"] for f in fs) / 1e9
+    t1 = max(json.loads(l)["recv_ns"] for f in fs for l in gzip.open(f, "rt")) / 1e9
     mk, books = load_books(pd, t0, t1)
     M = [x for x in (load_match(f, mk, books) for f in fs) if x and x["mk"]]
     res = dict(L=L, matches_with_both_token_books=len(M), match_ids=[m["mid"] for m in M])
