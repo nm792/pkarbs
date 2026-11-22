@@ -29,3 +29,22 @@ C. Dedup to one row per event (or say event x market and drop "150 kills" for ro
 D. Build `ordinals` from the series (first game_id seen, `not_started` rows) or skip Map N markets when the capture starts mid-series; add one Map-N fixture.
 
 I did not edit the author's files. Test command and result: `python3 -I feeds/test_ps_kills_vs_pmcs2.py` ALL PASS (12). Fixture mutation: `sed "s/t += 120/t += 20/"` on that test, run as a copy, fails the plant check (recovery 1.95).
+
+---
+# RE-CHECK (22 Nov ~13:00Z) at reviewer e3e493d08a
+Ran `python3 -I feeds/test_ps_kills_vs_pmcs2.py` on that tree: ALL PASS (24 checks). Read the new `ps_kills_vs_pmcs2.py` (about 250 lines) against SPEC 1-6 and my items A-D.
+
+**Verdict: A, B (shift end artifact, CI), C (one row per event, 99%, staleness, gap, ask size, gate) and the Map-N fixture are FIXED and tested. I can sign the table rows below. Four rules remain untested or only partly covered, none blocks a run on the P105 plant hour; the first two decide whether the gate can ever pass on real books. Confidence 8/10.**
+
+| Rule | Status 22 Nov 13:00Z |
+|---|---|
+| Map N by game order | CHECKED for mid-GAME start (round_number > 2 skips Map N, tested). **Residual, untested:** a capture that starts at round 1 of a LATER map (mid-series) passes the check and gives that map rank 1. Use the series score or the first `not_started` game_id, or restrict Map N to samples whose first message is before game 1. |
+| Entry row / state, markout 15 and 60 s, fee on entry | CHECKED; 60 s now summarised but still no assertion on its value; exit fee and no-exit-bid split are stated as not coded (agreed). |
+| Plant on isolated events | CHECKED. Isolated = no other kept kill -30/+15 s; tests at 120 s (100%), 20 s all events (196.7%, documented), 20 s isolated (not measurable, gate fails), mixed 120/20 s (100% on 15 isolated). Covers only the 15 s markout and only isolated events, as stated. |
+| Placebo and shift gate | **Untested on variable spreads.** The gate asks that minus the mean spread AT EVENT TIMES lies inside the placebo draw interval (+-0.05c) / the shift match-bootstrap interval. The placebo interval is only the spread of 200 random draws over fixed data, so it is narrow; real spreads at random times differ from spreads at event times, so the gate can fail with no edge. The fixture has a constant spread, so no test can show this. Compare each control with minus ITS OWN mean spread (placebo rows' own spread), or run the gate once on the P105 hour and read the numbers before trusting it. If it blocks, that is a design flaw, not an edge. |
+| Label swap below real | CHECKED. |
+| Within-match shuffle | Coded as an independent per-event flip between the real and the other token (2000 permutations), not a shuffle inside rounds. It ignores clustering, so it is NOT evidence; the match bootstrap and sign test are. State that in the result. |
+| Placebo rows | Placebo times are drawn separately for each market, so placebo events are not one row per event (3 markets give 3 times the rows). Mean unaffected; counts and match weights are. |
+| Real file schema | **Untested against a real pmcs2 row.** Field names (`recv_ms`, `asset`, `bid`, `ask`, `asks[0].size` as a dict, best level first) and markets.jsonl keys (`q`, `outcomes`, `tokens`) come from the author's fixture. One real row and one real markets.jsonl line from the P105 hour must be pasted into a test before the first real run; if `asks` levels are lists or worst-first, ask size is wrong without any failure. |
+
+Not edited: the author's files. Test command: `python3 -I feeds/test_ps_kills_vs_pmcs2.py`.
