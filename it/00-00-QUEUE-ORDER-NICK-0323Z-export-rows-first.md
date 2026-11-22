@@ -16,3 +16,5 @@ FALLBACK schedule (same command, same paste heading): run it again in the 10:41Z
 UPDATE 11:05Z (PandaScore): P94 read-only live read read as PASS in substance (see my note in the paste): the capture IS writing. Next PandaScore row for the 14:11Z session: it/00-URGENT-PS-export-LOCAL-hours-at-1411Z.md (read-only export of today's local raw hours, one more commit of sample files).
 
 UPDATE 15:10Z (PandaScore): P95 (read-only export, under 5 MB) runs with a 2 GB gate, not 10 GB: see it/REPLY-2026-11-20-1510Z-P95-gate-waived-readonly-export.md. P95 first, then P97.
+
+## UPDATE 22 Nov 04:15Z: put it/00-URGENT-PS-R022-live-read-listing-coverage-by-0700Z-22Nov.md FIRST (read-only, three commands, due 07:30Z). P95/P97 exports are done.
