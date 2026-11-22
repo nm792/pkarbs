@@ -1,0 +1,226 @@
+{
+ "summary": {
+  "asof": "2026-11-20",
+  "forward_events": 13,
+  "resolved_events": 9,
+  "open_events": 4,
+  "resolved_with_bet": 3,
+  "pending_bets": 1,
+  "wins": 0,
+  "cost": 24.54,
+  "net_pnl": -25.29,
+  "net_per_day": -2.619,
+  "pending_mark": -1.77,
+  "paired_t": -1.17,
+  "top3_share": null,
+  "week_cluster_t": null,
+  "logscore": -0.2637,
+  "events_to_100_with_bet": 97,
+  "books_with_fill": 0,
+  "days_since_freeze": 9.66,
+  "verdict": "PASS/FAIL not yet defined: needs 100 events with a bet (have 3)"
+ },
+ "events": [
+  {
+   "id": "1364633",
+   "title": "What will Trump say during his Veterans Day remarks at Arlington?",
+   "fam": "trump-event",
+   "start": "2026-11-11T15:06:06+00:00",
+   "n_markets": 13,
+   "status": "resolved",
+   "window_done": true,
+   "hist_events": 386,
+   "bet": {
+    "word": "Tariff",
+    "side": "YES",
+    "price": 0.2799999664,
+    "size": 3.571429,
+    "q": 0.6173,
+    "t_offset_min": 10.4,
+    "fee": 0.0288,
+    "cost": 1.0,
+    "won": false,
+    "pnl_net": -1.0288,
+    "placebo": 1.4007,
+    "book": {
+     "status": "no --books given"
+    }
+   }
+  },
+  {
+   "id": "1367682",
+   "title": "What will Caedrel say during his Worlds 2026 Final stream?",
+   "fam": "other",
+   "start": "2026-11-12T00:00:50+00:00",
+   "n_markets": 13,
+   "status": "open",
+   "window_done": true,
+   "hist_events": 542,
+   "bet": null
+  },
+  {
+   "id": "1372564",
+   "title": "What will Andy Burnham say at the next Prime Minister's Questions event?",
+   "fam": "other",
+   "start": "2026-11-12T16:23:22+00:00",
+   "n_markets": 10,
+   "status": "resolved",
+   "window_done": true,
+   "hist_events": 542,
+   "bet": null
+  },
+  {
+   "id": "1375377",
+   "title": "What will MrBeast say during his next YouTube video?",
+   "fam": "other",
+   "start": "2026-11-12T23:22:22+00:00",
+   "n_markets": 13,
+   "status": "resolved",
+   "window_done": true,
+   "hist_events": 542,
+   "bet": null
+  },
+  {
+   "id": "1375828",
+   "title": "What will NVIDIA say during their next earnings call?",
+   "fam": "earnings-call",
+   "start": "2026-11-13T00:43:26+00:00",
+   "n_markets": 10,
+   "status": "resolved",
+   "window_done": true,
+   "hist_events": 163,
+   "bet": null
+  },
+  {
+   "id": "1375849",
+   "title": "What will Disney say during their next earnings call?",
+   "fam": "earnings-call",
+   "start": "2026-11-13T00:48:25+00:00",
+   "n_markets": 9,
+   "status": "resolved",
+   "window_done": true,
+   "hist_events": 163,
+   "bet": null
+  },
+  {
+   "id": "1375856",
+   "title": "What will Target say during their next earnings call?",
+   "fam": "earnings-call",
+   "start": "2026-11-13T00:51:50+00:00",
+   "n_markets": 8,
+   "status": "resolved",
+   "window_done": true,
+   "hist_events": 163,
+   "bet": {
+    "word": "Inflation",
+    "side": "YES",
+    "price": 0.19,
+    "size": 50.0,
+    "q": 0.5971,
+    "t_offset_min": 16.8,
+    "fee": 0.3078,
+    "cost": 9.5,
+    "won": false,
+    "pnl_net": -9.8078,
+    "placebo": -9.8078,
+    "book": {
+     "status": "no --books given"
+    }
+   }
+  },
+  {
+   "id": "1375881",
+   "title": "What will Palo Alto Networks say during their next earnings call?",
+   "fam": "earnings-call",
+   "start": "2026-11-13T00:55:28+00:00",
+   "n_markets": 8,
+   "status": "resolved",
+   "window_done": true,
+   "hist_events": 163,
+   "bet": null
+  },
+  {
+   "id": "1375888",
+   "title": "What will Walmart say during their next earnings call?",
+   "fam": "earnings-call",
+   "start": "2026-11-13T00:56:40+00:00",
+   "n_markets": 9,
+   "status": "resolved",
+   "window_done": true,
+   "hist_events": 163,
+   "bet": null
+  },
+  {
+   "id": "1405659",
+   "title": "What will Trump say in the Philippines?",
+   "fam": "trump-event",
+   "start": "2026-11-17T00:10:12+00:00",
+   "n_markets": 6,
+   "status": "open",
+   "window_done": true,
+   "hist_events": 388,
+   "bet": null
+  },
+  {
+   "id": "1405699",
+   "title": "What will Trump say during his trilateral meeting with Xi and Putin?",
+   "fam": "trump-event",
+   "start": "2026-11-17T00:18:25+00:00",
+   "n_markets": 12,
+   "status": "resolved",
+   "window_done": true,
+   "hist_events": 388,
+   "bet": {
+    "word": "Nuclear / Nuke",
+    "side": "NO",
+    "price": 0.26,
+    "size": 54.0,
+    "q": 0.4192,
+    "t_offset_min": 46.7,
+    "fee": 0.4156,
+    "cost": 14.04,
+    "won": false,
+    "pnl_net": -14.4556,
+    "placebo": 6.9013,
+    "book": {
+     "status": "no --books given"
+    }
+   }
+  },
+  {
+   "id": "1410740",
+   "title": "What will Trump say in China (APEC)?",
+   "fam": "trump-event",
+   "start": "2026-11-17T17:15:17+00:00",
+   "n_markets": 10,
+   "status": "open",
+   "window_done": true,
+   "hist_events": 388,
+   "bet": null
+  },
+  {
+   "id": "1426382",
+   "title": "What will Trump say during his November 20 news conference?",
+   "fam": "trump-event",
+   "start": "2026-11-19T19:18:36+00:00",
+   "n_markets": 12,
+   "status": "open",
+   "window_done": true,
+   "hist_events": 389,
+   "bet": {
+    "word": "Putin / Xi (3+ times)",
+    "side": "NO",
+    "price": 0.45,
+    "size": 5.0,
+    "q": 0.419,
+    "t_offset_min": 23.9,
+    "fee": 0.0495,
+    "cost": 2.25,
+    "mark": -1.7745,
+    "book": {
+     "status": "no --books given"
+    }
+   }
+  }
+ ]
+}

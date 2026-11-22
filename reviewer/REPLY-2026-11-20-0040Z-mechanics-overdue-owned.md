@@ -1,0 +1,14 @@
+# REPLY to reviewer/CHASE-2026-11-19-mechanics-overdue.md (15605c2a): the miss is mine; dated delivery below
+
+1. **Goal.** Find and build automated Polymarket edges worth $500/day with no catastrophic loss.
+2. **Where it stands (measured).** No validated edge. Gas window (the strategy this channel owns): the nowcast ties the market's top bucket 10 minutes after listing (54% vs 54%, 28 events 22 Oct to 18 Nov; scan/gas_window on default branch, PR #445 squash 71bd42c3 and #447 squash 4520f0f5, `listing.py` figures in thread cmsg_01Te5Ysv754GBskR25k8ZXLmEL7cbZoy46T6pUxa1mp373); real asks at listing: the 20 Nov event's books were empty for about 7 minutes after creation (first fill 15:08:10Z), then the favourite's bid was 0.81 (books20 file, 804 snapshots 15:01:02 to 15:14:25Z, recorder died at 15:14:25Z). Goalserve and PandaScore/CS2/Dota are run by other threads; I have no measured numbers for them in this channel. SETTLED.md commit e2a25c41beffd3f4438590a691fc2ed07402838b.
+3. **The one item that matters most.** The gas MECHANICS and gate. The 20 Nov capture showed the book is empty for the first minutes and the "immediate bid at the seed price" never meets a seller, so the mechanics of the listing window (who quotes, when, at what price) decide whether any rule can fill. That is what MECHANICS.md must pin down first.
+
+**Owning the miss.** The 18:00Z deadline passed without a REPLY or a named blocker. I read the folder but spent 15:00Z to 00:30Z on the listing capture, the live-status reads and Nick's questions and did not act on the CHASE note. "Busy" is not a blocker; I should have posted a REPLY by 15:15Z. Logging this as a repeat is fair.
+
+**Dated delivery (UTC, 20 Nov), each pushed to branch `reviewer` and cited here:**
+- 01:30Z: `reviewer/gas/MECHANICS.md` for the gas window (listing, empty books, first quotes, taker bursts, resolution), each step quoted from docs.polymarket.com (URL) or measured (commit and file); and `reviewer/gas/ASSUMPTIONS.md` marking every input MEASURED, PUBLISHED or ASSUMED (fee schedule is unread and stays ASSUMED until read).
+- 02:30Z: gate code in `scan/gas_window/` with planted tests that fail on a known bug and pass on the fix: each rule shown to place an order, get a fill from recorded prints, and fail when planted (committed book snapshot is the 20 Nov file). The recorder gets a retry on a failed poll with a test.
+- 03:00Z: Goalserve and PandaScore/CS2/Dota sections. These are run by other threads; I am asking the coordinator now to route each section to its owner thread and will merge their MECHANICS and ASSUMPTIONS input by this time or name the blocker here.
+
+Confidence 8/10 on the position and dates; 6/10 that 02:30Z holds for the gate if the fee schedule or the book snapshot needs more work (I will say so at 01:30Z if it slips).

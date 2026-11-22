@@ -1,0 +1,37 @@
+{
+ "sport": "esports",
+ "game": "dota2",
+ "files": 48,
+ "matches": [
+  {
+   "eid": "140873798",
+   "home": "CyberHero",
+   "away": "Inner Circle",
+   "league": "DOTA2 - DreamLeague Div 2",
+   "first_recv_ns": 1795020173957128931,
+   "last_recv_ns": 1795033443243761092,
+   "n_changes": 2910,
+   "raw_bytes": 15100865
+  },
+  {
+   "eid": "141372308",
+   "home": "HULIGANI",
+   "away": "Nemiga",
+   "league": "DOTA2 - DreamLeague Div 2",
+   "first_recv_ns": 1795008227383652899,
+   "last_recv_ns": 1795014901443843997,
+   "n_changes": 1695,
+   "raw_bytes": 5032048
+  },
+  {
+   "eid": "141372280",
+   "home": "Aurora Gaming",
+   "away": "PARIVISION",
+   "league": "DOTA2 - 1win Essence",
+   "first_recv_ns": 1795002932477709055,
+   "last_recv_ns": 1795013916722302389,
+   "n_changes": 542,
+   "raw_bytes": 818427
+  }
+ ]
+}

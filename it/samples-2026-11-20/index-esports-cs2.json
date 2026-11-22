@@ -1,0 +1,37 @@
+{
+ "sport": "esports",
+ "game": "cs2",
+ "files": 48,
+ "matches": [
+  {
+   "eid": "141397891",
+   "home": "Walczaki",
+   "away": "KUUSAMO",
+   "league": "CS2 - CCT Europe Series 15 Play-In",
+   "first_recv_ns": 1795079527485337932,
+   "last_recv_ns": 1795089661002358512,
+   "n_changes": 1557,
+   "raw_bytes": 10955023
+  },
+  {
+   "eid": "141436160",
+   "home": "ex-INOX",
+   "away": "FORZE Reload",
+   "league": "CS2 - CCT Europe Series 14",
+   "first_recv_ns": 1795099833484532872,
+   "last_recv_ns": 1795112629598745134,
+   "n_changes": 1430,
+   "raw_bytes": 9266037
+  },
+  {
+   "eid": "141401874",
+   "home": "WBT",
+   "away": "MOUZ NXT",
+   "league": "CS2 - European Pro League",
+   "first_recv_ns": 1795087211362556434,
+   "last_recv_ns": 1795098715128942167,
+   "n_changes": 1320,
+   "raw_bytes": 8517875
+  }
+ ]
+}

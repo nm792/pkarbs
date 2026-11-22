@@ -1,0 +1,6 @@
+Mentions forward test, KALSHI arm 2, 2026-11-20 (freeze 2026-11-11T10:00:00+00:00, 3c, paper only)
+forward events 72 (eligible 10, scored/resolved 10); bets resolved 9 (wins 5, cost $13.93), pending bets 0
+NET P&L after Kalshi taker fees (resolved only): $7.60 (gross 8.08, fees 0.48) = $0.855/day over 8.9 days
+pending entries marked to last price (UNRESOLVED, information only): $0.00
+paired t 1.13 | log score 0.3066 | top3 share 1.17 | week-cluster t None
+not yet defined: needs 100 events with a bet (have 9)

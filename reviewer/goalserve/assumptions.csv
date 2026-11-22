@@ -1,0 +1,28 @@
+input,value,status,source,used_by,blocks_what
+goalserve_poll_gap_p50,"1.799 s (p10 1.778, p90 1.82 tennis)",MEASURED,agent/status/goalserve.md @cba525b086,poll-gap outage rule 10 s,nothing
+goalserve_poll_gap_esports_p50,"1.799 s (p10 1.783, p90 1.821)",MEASURED,agent/status/goalserve.md @cba525b086,same,nothing
+clock_offset,0.0002 s,MEASURED,agent/status/goalserve.md @cba525b086,join of both streams,nothing
+pm_ws_message_lag_p50,"0.018 s (p10 0.018, p90 0.023)",MEASURED,agent/status/goalserve.md @cba525b086 (27198 msgs),PM move timestamp,nothing
+secondsDelay_sports_markets,1 s (75/75 sampled),MEASURED,"gamma secondsDelay + clob-markets sd, live 20 Nov",tradeability only,nothing in the look
+tick_size,0.001 esports/tennis; 0.01 NHL/AHL/basketball,MEASURED,clob-markets live 20 Nov,onset threshold sanity,nothing
+min_order_size,5 shares,MEASURED,clob-markets mos live 20 Nov,depth reading,nothing
+taker_fee_rate_tennis_nhl_ahl_bball,0.05,MEASURED,clob-markets fd.r live 20 Nov,cost term (future),nothing in the look
+taker_fee_rate_esports,0.03 (docs table says 0.05),MEASURED,clob-markets fd.r live 20 Nov,cost term (future),nothing in the look
+tennis_resolution_rule,advancing player; 50-50 if cancelled/14 d; itftennis.com,MEASURED,gamma description M25 Slobozia,market definition,nothing
+nhl_resolution_rule,final score incl OT/SO; nhl.com/scores,MEASURED,gamma description Sabres v Capitals,market definition,nothing
+capture_store_gaps_19Nov,"07:17-07:52, 08:15-08:42, 09:12-09:59Z and 429 window 03:29-05:10Z",MEASURED,P67 file listing,excluded via poll-gap rule,nothing once excluded
+fee_formula,"C x rate x p x (1-p), takers only, makers 0",PUBLISHED,docs.polymarket.com/trading/fees.md,cost term (future),nothing in the look
+fee_change_20Nov_2359Z,rates and rebates change,PUBLISHED,docs.polymarket.com/programs/fee-and-rebate-changes-november-2026.md,cost term (future),nothing in the look
+taker_hold_250ms_scope,crypto/finance up/down only,PUBLISHED,docs.polymarket.com/concepts/order-lifecycle.md,tradeability,nothing in the look
+sports_delay_semantics,"order pending, cannot cancel, status delayed",PUBLISHED,order-lifecycle.md / place-orders.md,tradeability,nothing in the look
+settlement_onchain_atomic,"matched by operator, settled onchain",PUBLISHED,order-lifecycle.md,none,nothing
+uma_resolution_2h_challenge,"2 h challenge, DVM on dispute",PUBLISHED,concepts/resolution.md,none (no hold to resolution),nothing
+bookmaker_identity,bet365 per vendor docs; payload bm empty,ASSUMED,vendor docs in project files,interpretation of odds source,any claim naming the bookmaker
+goalserve_latency_vs_event,unknown,ASSUMED,not measured,lead sign,any 'lead of N seconds' claim
+send_rtt_to_clob,unknown,ASSUMED,not measured,execution,any trade claim
+queue_priority,price-time (not stated in docs read),ASSUMED,UNSOURCED,execution,any fill claim
+own_fill_ws_broadcast_latency,unknown,ASSUMED,not measured,execution,any trade claim
+event_definition,"signed mid change d in fixed +-60 s windows, volatility-matched; no onset time",ASSUMED,feeds/PREREG-goalserve-odds-vs-pm-v2-2026-11-18.md V11/V6,event definition,a different definition = new test
+window_half_width,60 s,ASSUMED,PREREG,pre/post comparison,a different window = new test
+pass_bar,"V6: >=12 matches, >=60 events, mean d>=0.005, share>placebo>=55%; V17 boundary z_eq>=2.60/sqrt(t), N_MAX cs2 100",ASSUMED,PREREG V6/V17 (pre-registered),verdict,"nothing: pre-registered, not changed after data"
+esports_resolution_rule,not pulled,ASSUMED,UNSOURCED,market definition,none for the look

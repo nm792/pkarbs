@@ -1,0 +1,68 @@
+{
+ "summary": {
+  "asof": "2026-11-22",
+  "arm": 1,
+  "forward_events": 2,
+  "eligible": 2,
+  "scored_events": 2,
+  "bets_resolved": 2,
+  "wins": 1,
+  "pending_bets": 0,
+  "cost": 1.09,
+  "gross": -0.09,
+  "fees": 0.06,
+  "net": -0.15,
+  "net_per_day": -0.013,
+  "pending_mark": 0,
+  "paired_t": null,
+  "logscore": -0.0147,
+  "top3_share": null,
+  "week_cluster_t": null,
+  "days": 11.6,
+  "verdict": "not yet defined: needs 100 events with a bet (have 2)"
+ },
+ "events": [
+  {
+   "event": "KXTRUMPMENTION-26NOV11",
+   "series": "KXTRUMPMENTION",
+   "start": "2026-11-11T01:30:00+00:00",
+   "resolved": true,
+   "hist": 258,
+   "eligible": true,
+   "bet": {
+    "word": "Space Force",
+    "side": "YES",
+    "price": 0.27,
+    "size": 1.0,
+    "q": 0.3695,
+    "fee": 0.02,
+    "cost": 0.27,
+    "oi": 0,
+    "w": 1,
+    "pnl_gross": 0.73,
+    "pnl_net": 0.71
+   }
+  },
+  {
+   "event": "KXVANCEMENTION-26NOV11",
+   "series": "KXVANCEMENTION",
+   "start": "2026-11-11T01:30:00+00:00",
+   "resolved": true,
+   "hist": 84,
+   "eligible": true,
+   "bet": {
+    "word": "Marine",
+    "side": "YES",
+    "price": 0.41,
+    "size": 2.0,
+    "q": 0.5604,
+    "fee": 0.04,
+    "cost": 0.82,
+    "oi": 0,
+    "w": 0,
+    "pnl_gross": -0.82,
+    "pnl_net": -0.86
+   }
+  }
+ ]
+}

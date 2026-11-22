@@ -27,4 +27,12 @@ if r is not None and r > 0: bad.append("move BEFORE event read as lead after: %r
 g = fresh(); g["pm_n"]["ta"] = 3; g["ps_n"]["m1"] = 4; g["pm_lag"].extend([.05]); g["ps_lag"].extend([.2])
 p = g["preflight"](["ta", "tb"], {"m1": {"label": "x"}})
 if p["checks"]["every_pm_token_has_a_book_message"] or p["all_ok"]: bad.append("preflight passed with a silent token")
-print("FAIL: " + "; ".join(bad) if bad else "PASS (4 checks, each able to fail)"); sys.exit(1 if bad else 0)
+g = fresh()  # (5) discovery must find a CS2 event created 40 h before the match: gamma date filters use CREATION date, only the tag source returns it
+def fake(url):
+    if "tag_slug=counter-strike-2" in url and "offset=0" in url: return [dict(id="e40", title="Counter-Strike: A vs B (BO3)", markets=[])]
+    return []
+got = [e["id"] for e in g["gamma_cs2_events"](fake, now)]
+if got != ["e40"]: bad.append("event created long before the match not found via tag source: %r" % got)
+def fake_dup(url): return [dict(id="e1", title="Counter-Strike: X vs Y", markets=[])] if "offset=0" in url else []
+if len(g["gamma_cs2_events"](fake_dup, now)) != 1: bad.append("same event from two sources not deduped")
+print("FAIL: " + "; ".join(bad) if bad else "PASS (6 checks, each able to fail)"); sys.exit(1 if bad else 0)

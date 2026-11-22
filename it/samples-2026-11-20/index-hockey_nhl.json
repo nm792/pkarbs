@@ -1,0 +1,37 @@
+{
+ "sport": "hockey_nhl",
+ "game": null,
+ "files": 24,
+ "matches": [
+  {
+   "eid": "141363870",
+   "home": "NJ Devils",
+   "away": "MTL Canadiens",
+   "league": "NHL",
+   "first_recv_ns": 1795047373506744168,
+   "last_recv_ns": 1795058085317262384,
+   "n_changes": 1600,
+   "raw_bytes": 4384998
+  },
+  {
+   "eid": "141398313",
+   "home": "HC Merano",
+   "away": "HC Asiago",
+   "league": "Alps Hockey League",
+   "first_recv_ns": 1795116448038685093,
+   "last_recv_ns": 1795124275847218290,
+   "n_changes": 1570,
+   "raw_bytes": 3810340
+  },
+  {
+   "eid": "141363869",
+   "home": "Boston University",
+   "away": "Quinnipiac",
+   "league": "NCAAH",
+   "first_recv_ns": 1795046401368522491,
+   "last_recv_ns": 1795054904487989791,
+   "n_changes": 1499,
+   "raw_bytes": 3800877
+  }
+ ]
+}
