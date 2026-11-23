@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """PandaScore CS2 kills vs each token's OWN book in pmcs2 (spec: reviewer/pandascore/SPEC-ps-kills-vs-pmcs2-own-books-2026-11-22.md; checker notes: reviewer/pandascore/CHECK-ps-kills-vs-pmcs2-2026-11-22.md).
-usage: python3 -I feeds/ps_kills_vs_pmcs2.py SAMPLEDIR PMCS2DIR [--L 0.5] [--plant 0.03] [--nplacebo 200] [--out result.json]
+usage: python3 -I feeds/ps_kills_vs_pmcs2.py SAMPLEDIR PMCS2DIR [--L 0.5] [--delay 1.0] [--plant 0.03] [--nplacebo 200] [--out result.json]
 SAMPLEDIR = ps_sample_*.jsonl.gz (one match each); PMCS2DIR = markets.jsonl + books-*.jsonl[.gz]. Offline, read-only, no network.
 Events: audit_ps_inround.events/dedup (kills, 15 s). Map N = rank of game_id (Map-N markets skipped if the capture started mid-game). ONE ROW PER EVENT (markets averaged).
 Entry = favoured token's OWN best ask in the first row at/after recv+1 s+L (within 5 s) = PRIMARY ('row'); book STATE at that time (last row <= T) = 'state'.
@@ -252,5 +252,6 @@ def main(sd, pd, L=0.5, plant=0.03, nplace=200):
 
 if __name__ == "__main__":
     a = sys.argv[1:]; g = lambda k, d: type(d)(a[a.index(k) + 1]) if k in a else d
+    DELAY = g("--delay", 1.0)   # R-065: market seconds_delay read from CLOB /markets (1 s on CS2 match markets, 23 Nov 09:00Z); never assume 250 ms
     r = main(a[0], a[1], g("--L", 0.5), g("--plant", 0.03), g("--nplacebo", 200))
     if "--out" in a: json.dump(r, open(a[a.index("--out") + 1], "w"), indent=1, default=str)
