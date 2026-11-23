@@ -17,3 +17,5 @@ Steps (Prime). G=/mnt/HC_Volume_107257520/pkarbs/goalserve ; W=/mnt/HC_Volume_10
 Done check: paste the PREFLIGHT VERDICT line and the HEALTH VERDICT line, plus 'pgrep -af capture_store_all' showing one pid.
 
 R-067 update: pre-flight now FAILS FAST ('no live lock holder') if .capture.lock is not held, and the second-copy probe times out at 10 s. ALWAYS pass --pids NEWPID.
+
+Expected write: ~200 MB/day for what is measured (poll log ~57 MB/day, Reviewer read 56,760 -> 96,470 bytes in 60 s at 02:47Z; esports_payloads ~6 MB/hour = ~144 MB/day, IT P60 read 19 Nov); basketball is removed from the code (it was 95 MB/hour, IT P60), so it adds 0. UNMEASURED: tennis_payloads and hockey_nhl_payloads (never sized; they were excluded from shipping because they are large), so I CANNOT state that the total is under 500 MB/day. IT, before starting, paste: `ls -l --block-size=M $G/tennis_payloads $G/hockey_nhl_payloads | grep 20261119` (or any full day); sum x 1 = MB/day. If tennis+hockey > ~300 MB/day, do NOT start this row in the small-writer slot; ask the owner for an esports-only variant.
