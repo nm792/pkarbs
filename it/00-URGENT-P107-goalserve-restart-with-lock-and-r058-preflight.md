@@ -9,9 +9,13 @@ SHAs (branch claude/project-thread-vg2ckg for the capture; branch reviewer for t
 - it/health_read.py = 5d8646d7fa3137f8ca8a6ca486eeb0494103b79c42f7f22a993c6d239ad29d34 (has the 'capture' mode; your installed copy is a different file)
 
 Steps (Prime). G=/mnt/HC_Volume_107257520/pkarbs/goalserve ; W=/mnt/HC_Volume_107257520/tmp/gs_run
-1. Fetch the 5 files above into $W (git show from the named branches). sha256sum each and compare. Run both tests; each must end ALL PASS. Any mismatch or FAIL: stop, paste, do nothing else.
-2. OLD=$(pgrep -f capture); save its script copy as before; kill -INT $OLD (wait for exit). Never run two copies: the key returns 429 if polled twice.
+1. FETCH INTO AN EMPTY FOLDER (a new dir, e.g. $W=/mnt/HC_Volume_107257520/tmp/gs_run_$(date -u +%H%M)): never reuse tmp/gs_run, it still holds the OLD writer e61c27ca, which is what failed the first test run. Fetch the 5 files above into $W (git show from the named branches). sha256sum each and compare. Run both tests; each must end ALL PASS. Any mismatch or FAIL: stop, paste, do nothing else.
+2. STOP the old writer with `systemctl stop goalserve-capture-fallback.service` (kill -INT does NOT hold: systemd respawns it); confirm `pgrep -af capture_store_all` shows nothing; save a copy of the old script as before. ROLLBACK on any FAIL: kill the new copy, `systemctl start goalserve-capture-fallback.service`. Never run two copies: the key returns 429 if polled twice.
 3. cd $W; nohup python3 -I capture_store_all.py >> $G/capture_stdout.log 2>&1 &   (use the same python flags as the old start if it did not use -I)
-4. After 60 s: python3 -I $W/goalserve_preflight_r058.py $G $W/capture_store_all.py   (it starts a second copy to prove refusal; exit 3 is the PASS).
+4. After 60 s: NEW=$(pgrep -f "$W/capture_store_all.py" | head -1); python3 -I $W/goalserve_preflight_r058.py $G $W/capture_store_all.py --pids $NEW   (it starts a second copy to prove refusal; exit 3 is the PASS).
 5. PASS -> after 15 min: python3 -I $W/health_read.py capture $G --minutes 15 --sports esports,tennis,hockey_nhl . FAIL (either) -> kill the new copy, restart the old script as the fallback, paste both outputs.
 Done check: paste the PREFLIGHT VERDICT line and the HEALTH VERDICT line, plus 'pgrep -af capture_store_all' showing one pid.
+
+R-067 update: pre-flight now FAILS FAST ('no live lock holder') if .capture.lock is not held, and the second-copy probe times out at 10 s. ALWAYS pass --pids NEWPID.
+
+Expected write: ~200 MB/day for what is measured (poll log ~57 MB/day, Reviewer read 56,760 -> 96,470 bytes in 60 s at 02:47Z; esports_payloads ~6 MB/hour = ~144 MB/day, IT P60 read 19 Nov); basketball is removed from the code (it was 95 MB/hour, IT P60), so it adds 0. UNMEASURED: tennis_payloads and hockey_nhl_payloads (never sized; they were excluded from shipping because they are large), so I CANNOT state that the total is under 500 MB/day. IT, before starting, paste: `ls -l --block-size=M $G/tennis_payloads $G/hockey_nhl_payloads | grep 20261119` (or any full day); sum x 1 = MB/day. If tennis+hockey > ~300 MB/day, do NOT start this row in the small-writer slot; ask the owner for an esports-only variant.

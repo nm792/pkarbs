@@ -1,4 +1,5 @@
 # 00-URGENT to IT, 22 Nov 2026 (Mentions thread; Reviewer R-031/R-033/R-035 due 14:00Z/18:00Z). Paper only, public read-only APIs, no keys, no orders. Ahead of other PK items except R-024 reads.
+Expected write: ~1 MB/day, hard upper bound ~3 MB/day, far under 500 MB/day (basis, computed from code it/mentions_pm_firelog.py: cron every 2 minutes, only events inside the first hour after listing (30 runs per event), one gzipped record per firing market with both full ladders (about 4 KB raw), at most about 12 markets x 30 runs x 4 KB = 1.4 MB raw per event, gzip about 4x, at most 10 new events a day; plus runs.jsonl 150 B per run = 0.1 MB/day; no raw book storage).
 
 Goal (project): find and build automated Polymarket edges toward $200-500/day, each judged on MEASURED own-token depth at decision time.
 Where we stand: mentions backtest = FLOOR 3.3% of $200 ($6.61/day, print-capped; mentions/forward-pm-daily-2026-11-22/RESULT-mentions-depth-2026-11-22.md). No MEASURED depth exists because no mention-market book was ever recorded in the first hour.

@@ -2,8 +2,8 @@
 """R-058 PRE-FLIGHT for the Goalserve capture, run by IT on Prime ~60 s AFTER starting capture_store_all.py. Any FAIL = exit 1 = IT kills the new copy and restarts the old one; nothing counts as started.
 Checks: (1) exactly ONE writer process matching the script; (2) a SECOND copy is refused (exit 3, before any poll, so it cannot trigger a 429); (3) poll log grew >= MINROWS rows in the last 60 s with no `err` rows;
 (4) newest payload file in each of the three payload folders touched within 120 s (store is change-driven; 120 s is an operational bound, stated); (5) disk free >= 10.5 GB (the gate).
-Usage: python3 -I goalserve_preflight_r058.py GOALSERVE_DIR SCRIPT [--minrows 25] [--freegb 10.5] [--pids PID,PID] [--second-cmd 'python3 SCRIPT']"""
-import argparse, glob, json, os, shutil, subprocess, sys, time
+Usage: python3 -I goalserve_preflight_r058.py GOALSERVE_DIR SCRIPT --pids NEWPID [--minrows 25] [--freegb 10.5]  (ALWAYS pass --pids NEWPID: pgrep also counts the systemd fallback copy) [--second-cmd 'python3 SCRIPT']"""
+import argparse, fcntl, glob, json, os, shutil, subprocess, sys, time
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("dir"); ap.add_argument("script")
@@ -17,8 +17,23 @@ def main():
     pids = [p for p in pids if p != str(os.getpid())]
     chk("single writer: exactly 1 process", len(pids) == 1, "pids=" + ",".join(pids))
     if not a.skip_second:
-        r = subprocess.run([sys.executable, a.script], capture_output=True, text=True, timeout=30)
-        chk("second copy refused (exit 3)", r.returncode == 3, "rc=%s" % r.returncode)
+        held = False
+        try:
+            fd = open(os.path.join(a.dir, ".capture.lock"), "a")
+            try:
+                fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB); fcntl.flock(fd, fcntl.LOCK_UN)
+            except OSError:
+                held = True
+            fd.close()
+        except OSError:
+            pass
+        chk("live lock holder exists (.capture.lock is held)", held, "no live lock holder: the new copy is not running or not holding the lock" if not held else "")
+        if held:
+            try:
+                r = subprocess.run([sys.executable, a.script], capture_output=True, text=True, timeout=10); rc = r.returncode
+            except subprocess.TimeoutExpired:
+                rc = "timeout"
+            chk("second copy refused (exit 3)", rc == 3, "rc=%s" % rc)
     logs = sorted(glob.glob(os.path.join(a.dir, "goalserve_*.jsonl")))
     n = errs = 0
     if logs:

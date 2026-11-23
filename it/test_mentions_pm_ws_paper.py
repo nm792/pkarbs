@@ -1,5 +1,5 @@
 """Offline checks. Run: python3 -I test_mentions_pm_ws_paper.py <mentions_pm_ws_paper.py>"""
-import sys, importlib.util, os
+import sys, importlib.util, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(sys.argv[1])))
 sp = importlib.util.spec_from_file_location('w', sys.argv[1]); W = importlib.util.module_from_spec(sp); sys.modules['w'] = W; sp.loader.exec_module(W)
 ok = N = 0
@@ -41,4 +41,8 @@ chk('preflight FAIL when a second copy was not refused', not W.preflight_eval(di
 chk('preflight FAIL when the health checker lacks the mode', not W.preflight_eval(dict(good, health_ok=False))[0])
 d = tempfile.mkdtemp(); l1 = W.acquire_lock(d)
 chk('single-instance lock: first taken, second refused, retaken after release', l1 is not None and W.acquire_lock(d) is None and (l1.close() or True) and W.acquire_lock(d) is not None)
+d2 = tempfile.mkdtemp(); json.dump({'7': [['S-5h', 500.0], ['S-30m', 900.0]], '8': [['x', 1.0]]}, open(d2 + '/extra_slots.json', 'w'))
+evx = {'7': dict(slots=[('T-1h', 700.0)])}; W.merge_extra(evx, d2)
+chk('extra slots: merged and sorted for a known event, unknown event ignored', evx['7']['slots'] == [('S-5h', 500.0), ('T-1h', 700.0), ('S-30m', 900.0)] and '8' not in evx)
+chk('extra slots: no file = unchanged', W.merge_extra({'7': dict(slots=[('a', 1.0)])}, tempfile.mkdtemp())['7']['slots'] == [('a', 1.0)])
 print(f'{"PASS" if ok == N else "FAIL"} ({ok} of {N} checks)'); sys.exit(0 if ok == N else 1)

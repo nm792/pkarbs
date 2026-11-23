@@ -1,0 +1,128 @@
+{
+ "rule": "LAG-RULE-v2.md",
+ "events": 79,
+ "C0_vs_yahoo_prev_close_bp": {
+  "n": 74,
+  "median": 3.213127132002014,
+  "p90": 9.778461997361473
+ },
+ "lag": {
+  "moves": 620,
+  "measurable": 393,
+  "caught_up": 284,
+  "censored_30m": 109,
+  "lag_p25": 61,
+  "lag_median": 253,
+  "lag_p75": 1000000000,
+  "within_10s": 52,
+  "within_60s": 98,
+  "within_300s": 206,
+  "share_within_300s": 0.5241730279898219,
+  "first_print_gap_median": 92.0
+ },
+ "plant_30s": {
+  "moves": 620,
+  "measurable": 393,
+  "caught_up": 388,
+  "censored_30m": 5,
+  "lag_p25": 30,
+  "lag_median": 30,
+  "lag_p75": 30,
+  "within_10s": 52,
+  "within_60s": 388,
+  "within_300s": 388,
+  "share_within_300s": 0.9872773536895675,
+  "first_print_gap_median": 30
+ },
+ "null_times": {
+  "moves": 620,
+  "measurable": 245,
+  "caught_up": 101,
+  "censored_30m": 144,
+  "lag_p25": 550,
+  "lag_median": 1000000000,
+  "lag_p75": 1000000000,
+  "within_10s": 4,
+  "within_60s": 10,
+  "within_300s": 38,
+  "share_within_300s": 0.15510204081632653,
+  "first_print_gap_median": 272
+ },
+ "lag_by_size": {
+  "abs_dp<0.05": {
+   "moves": 307,
+   "measurable": 173,
+   "caught_up": 109,
+   "censored_30m": 64,
+   "lag_p25": 155,
+   "lag_median": 642,
+   "lag_p75": 1000000000,
+   "within_10s": 10,
+   "within_60s": 26,
+   "within_300s": 68,
+   "share_within_300s": 0.3930635838150289,
+   "first_print_gap_median": 179
+  },
+  "abs_dp>=0.05": {
+   "moves": 313,
+   "measurable": 220,
+   "caught_up": 175,
+   "censored_30m": 45,
+   "lag_p25": 20,
+   "lag_median": 141,
+   "lag_p75": 1117,
+   "within_10s": 42,
+   "within_60s": 72,
+   "within_300s": 138,
+   "share_within_300s": 0.6272727272727273,
+   "first_print_gap_median": 61
+  }
+ },
+ "stale": {
+  "n": 11251,
+  "usd": 215553.60196522257,
+  "pnl": -20284.799425326557,
+  "buy_usd": 923498.0488537169,
+  "pnl_ci_by_event": [
+   -68376.61998947327,
+   35611.855600879775
+  ],
+  "usd_per_event": 2728.526607154716,
+  "pnl_per_event": -256.7696129788172
+ },
+ "stale_placebo_fair_30min_old": {
+  "n": 11826,
+  "usd": 222680.57177296875,
+  "pnl": -28922.231157003505,
+  "pnl_ci_by_event": [
+   -73218.61423864817,
+   19803.277779438555
+  ]
+ },
+ "by_month": {
+  "2026-08": {
+   "events": 21,
+   "taker_buy_usd_per_event": 17201,
+   "stale_usd_per_event": 3201,
+   "stale_pnl_per_event": -579
+  },
+  "2026-09": {
+   "events": 21,
+   "taker_buy_usd_per_event": 12942,
+   "stale_usd_per_event": 2840,
+   "stale_pnl_per_event": -56
+  },
+  "2026-10": {
+   "events": 22,
+   "taker_buy_usd_per_event": 8209,
+   "stale_usd_per_event": 1631,
+   "stale_pnl_per_event": -188
+  },
+  "2026-11": {
+   "events": 15,
+   "taker_buy_usd_per_event": 7326,
+   "stale_usd_per_event": 3520,
+   "stale_pnl_per_event": -188
+  }
+ }
+}

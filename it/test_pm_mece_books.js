@@ -1,6 +1,6 @@
 // Test for pm_mece_books.js. Run: node test_pm_mece_books.js (PASS or FAIL: ..., exit 1). Every check can fail.
 const fs = require('fs'), os = require('os'), path = require('path'), zlib = require('zlib');
-const { pickMarkets, hourWriter, dirBytes } = require('./pm_mece_books.js');
+const { pickMarkets, hourWriter, dirBytes, acquireLock } = require('./pm_mece_books.js');
 const bad = [], NOW = Date.parse('2026-11-21T15:00:00Z');
 const mk = (smt, c, start, toks = '["1","2"]') => ({ sportsMarketType: smt, clobTokenIds: toks, outcomes: '["Yes","No"]', question: 'q' + c, conditionId: c, gameStartTime: start });
 const live = '2026-11-21T15:30:00Z', old = '2026-11-21T09:00:00Z', far = '2026-11-22T15:00:00Z';
@@ -27,4 +27,9 @@ else {
   if (r15.length !== 2 || r15[1].bid !== 0.51 || r16.length !== 1 || r16[0].asset !== 'B') bad.push('multi-member round trip wrong');
 }
 if (dirBytes(dir) <= 0) bad.push('dirBytes zero');
-console.log(bad.length ? 'FAIL: ' + bad.join('; ') : 'PASS (6 checks, each able to fail)'); process.exit(bad.length ? 1 : 0);
+const ld = fs.mkdtempSync(path.join(os.tmpdir(), 'mece-lock-'));
+if (acquireLock(ld, process.pid) !== true) bad.push('first lock not acquired');
+if (acquireLock(ld, process.ppid) !== false) bad.push('second copy (live pid) not refused');   // pidfile holds our pid, alive, != ppid
+fs.writeFileSync(path.join(ld, 'recorder.pid'), '99999999');
+if (acquireLock(ld, process.pid) !== true) bad.push('stale pid not taken over');
+console.log(bad.length ? 'FAIL: ' + bad.join('; ') : 'PASS (9 checks, each able to fail)'); process.exit(bad.length ? 1 : 0);
