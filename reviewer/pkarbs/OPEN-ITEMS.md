@@ -15,7 +15,7 @@ Created 2026-11-22T05:49Z by the Reviewer on Nick's order (22 Nov 05:48Z: "I am 
 | 8 | NBA event-only post-only bid paper test | Nick 22 Nov 05:22Z | PK (sports) | spec 22 Nov 12:00; recorders by 23 Nov 00:00 | OPEN | R-029 | 2026-11-22T23:42Z: P106 blocked on PK commit of NBA pm_sport_books.js (R-054). |
 | 9 | TheSports legs: T1 tennis (FAIL, power only for +10c), D1 Dota (never evaluated), NBA/LoL/cricket books (box copy) | Nick 22 Nov 05:22Z | PK (sports) | 22 Nov 12:00 | OPEN; reclassified | R-028 (05:45Z), R-032 | |
 | 10 | PandaScore CS2 kills vs pmcs2 own books | 13 Nov | PK (sports) | 22 Nov 08:00 read; 12:00 spec | OPEN; no valid result | R-022 | |
-| 11 | Goalserve odds/scores (esports, tennis, NHL) | 12 Nov | PK (sports) | 22 Nov 08:00 | OPEN; no PM side since 20 Nov 04:11Z | R-021, R-024 | |
+| 11 | Goalserve odds/scores (esports, tennis, NHL) | 12 Nov | PK (sports) | 22 Nov 08:00 | OPEN; no PM side since 20 Nov 04:11Z | R-021, R-024 | 23 Nov 03:05Z R-057: health-read mode mismatch (capture vs {ws,raw,final}); PK command/SHA due 03:45Z |
 | 12 | Own CS2 win model vs PM price | 10 Nov | PK | 23 Nov 06:00 (re-audit) | OPEN; verdict unconfirmed | R-034 | 22 Nov 05:55Z PK: see REAUDIT-2026-11-22.md row 30: no-edge claim is NOT ledger-grade (no measured depth); stays OPEN. |
 | 13 | OddsPapi / Pinnacle sharp-book lead | Nick 5 Nov | PK | 23 Nov 06:00 (re-audit) | OPEN; sim only | R-034 | 22 Nov 05:55Z PK: see REAUDIT-2026-11-22.md row 17: lead 1-2 s sits inside the 1 s taker delay; coarse windows; stays OPEN. |
 | 14 | Rugby and tennis-book captures (never scored) | Nov | PK | 23 Nov 06:00 (re-audit) | OPEN | R-034 | 22 Nov 05:55Z PK: see REAUDIT-2026-11-22.md rows 19-20: rugby volume $8K/4 matches MEASURED, 7 of 85 usable events; tennis NO never recorded; stays OPEN. |
@@ -26,7 +26,7 @@ Created 2026-11-22T05:49Z by the Reviewer on Nick's order (22 Nov 05:48Z: "I am 
 | 19 | Forecast edges (Netflix, MrBeast, box office), macro pickoffs, Kalshi index leader | Oct-Nov | PK | 23 Nov 06:00 (re-audit) | OPEN for re-audit | R-034 | 22 Nov 05:55Z PK: see REAUDIT-2026-11-22.md rows 27-29,36: "N" in the draft means placebo-matched null on print data only; per rule 2 these stay OPEN until a depth-measured test. |
 | 20 | Up/down rebate market making | 11 Nov | MFW | - | MOVED to MFW (Nick 22 Nov 05:22Z) | R-026 | |
 
-| 21 | P106 NBA recorders on Prime (for #8) | Nick 22 Nov 05:22Z | PK delivered; IT runs | PK: done 22 Nov 23:48Z (d12edd59, start cmd 7e98f50a). IT: install + health read (ws open, tokens N, books growing 60 s apart) by 23 Nov 02:00Z | PK FIX DELIVERED, IT run pending; WS leg unverified | R-054 | 2026-11-23T00:40Z: logged |
+| 21 | P106 NBA recorders on Prime (for #8) | Nick 22 Nov 05:22Z | PK delivered; IT runs | PK: done 22 Nov 23:48Z (d12edd59, start cmd 7e98f50a). IT: install + health read (ws open, tokens N, books growing 60 s apart) by 23 Nov 02:00Z | PK FIX DELIVERED, IT run pending; WS leg unverified | R-054 | 2026-11-23T00:40Z: logged | 23 Nov 03:05Z R-057: IT health read FAIL (tokens 0, duplicate writers); PK fix SHA + IT steps due 03:45Z; P102 dead recorders due 04:15Z |
 | 22 | P104 perps snapshot crons on Prime (for #7) | Nick 22 Nov 05:48Z | PK delivered; IT runs | PK: done 23 Nov 00:05Z (7a510219, test made host-independent; cause UNVERIFIED on Prime). IT: rerun the 4 test files and install crons by 23 Nov 02:00Z | PK FIX DELIVERED, IT rerun pending | R-054 | 2026-11-23T00:40Z: logged |
 
 Source of older rows: reviewer/IDEAS.md (rows 0-28) and REVIEW-2026-11-22-sports-esports-feeds.md.
