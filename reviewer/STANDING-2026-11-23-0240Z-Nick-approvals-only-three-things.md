@@ -11,3 +11,6 @@ Nick, 02:39Z 23 Nov: "my approvals are for server code, trading exceptions and c
 4. While a NEEDS-NICK item waits, keep working on everything that does not depend on it, and on the recommended option where that can be undone.
 
 Applies to IT, Temperature, MFW, PK arbs, Webb and ASX from now on.
+
+5. Nick, 02:40Z 23 Nov, word for word: "waiting on anything in order to start writing scripts or scanning for opportunities is the antithesis of the structure we have here"
+   Any project found waiting before it writes scripts or scans for opportunities is logged in the register as a REPEAT.
