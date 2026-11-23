@@ -8,7 +8,7 @@ Own-token books: asks and bids of the SAME token; YES and NO are separate books.
 import argparse, collections, datetime as dt, fcntl, gzip, json, os, statistics, sys, time, urllib.request
 GAMMA = "https://gamma-api.polymarket.com"; CLOB = "https://clob.polymarket.com"
 UA = {"User-Agent": "Mozilla/5.0", "Accept-Encoding": "gzip", "Content-Type": "application/json"}
-LEADS_H = (3.0, 1.0, 0.5); TOL_S = 60.0
+LEADS_H = (3.0, 1.0, 0.5); TOL_S = 60.0; FULL = set()
 
 
 def jget(url, body=None, timeout=20):
@@ -79,9 +79,11 @@ def books_for(tokens):
     return got
 
 
-def snap_event(ev, now=None):
+def snap_event(ev, now=None, full=False):
+    """full=True also stores the slim own-token ladders (asks best-first, top 20; bids best-first, top 5) of every candidate token (used for the Elon bracket series)."""
     now = now or time.time(); t0 = time.time(); bk = books_for(candidates(ev)); m = measure(bk)
-    return dict(series=ev.get("seriesSlug") or (ev.get("series") or [{}])[0].get("slug"), event=ev["id"], slug=ev.get("slug"), end=ev["endDate"],
+    extra = dict(books={t: dict(asks=b["asks"][:20], bids=b["bids"][:5]) for t, b in bk.items()}) if full else {}
+    return dict(**extra, series=ev.get("seriesSlug") or (ev.get("series") or [{}])[0].get("slug"), event=ev["id"], slug=ev.get("slug"), end=ev["endDate"],
                 hours_to_end=(ts(ev["endDate"]) - now) / 3600, t=now, latency_s=time.time() - t0, n_tokens=len(bk), **(m or {}))
 
 
@@ -134,6 +136,7 @@ def cmd_preflight(a):
 
 def cmd_record(a):
     series = [l.strip() for l in open(a.series_file) if l.strip() and not l.startswith("#")]
+    FULL.update(x for x in (a.full_series or "").split(",") if x)
     lock = acquire_lock(a.out)
     if lock is None: print("second copy refused: lock held"); sys.exit(1)
     os.makedirs(a.out, exist_ok=True); done = set(); t_end = time.time() + a.max_hours * 3600; ev_cache = {}; last_list = 0
@@ -153,7 +156,7 @@ def cmd_record(a):
                     if key in done: continue
                     if due(end, L, now):
                         done.add(key)
-                        try: r = snap_event(ev, now); r["lead_h"] = L
+                        try: r = snap_event(ev, now, full=(s in FULL)); r["lead_h"] = L
                         except Exception as ex: r = dict(series=s, event=ev["id"], lead_h=L, error=str(ex), t=now)
                         with open(f"{a.out}/resolving_books_{dt.datetime.utcfromtimestamp(now):%Y%m%d}.jsonl", "a") as f: f.write(json.dumps(r) + "\n")
         time.sleep(5)
@@ -210,7 +213,7 @@ def cmd_summarize(a):
 if __name__ == "__main__":
     p = argparse.ArgumentParser(); sp = p.add_subparsers(dest="cmd", required=True)
     s = sp.add_parser("snap"); s.add_argument("--series", required=True); s.add_argument("--out")
-    r = sp.add_parser("record"); r.add_argument("--series-file", required=True); r.add_argument("--out", required=True); r.add_argument("--max-hours", type=float, default=26)
+    r = sp.add_parser("record"); r.add_argument("--series-file", required=True); r.add_argument("--out", required=True); r.add_argument("--max-hours", type=float, default=26); r.add_argument("--full-series", default="")
     pf = sp.add_parser("preflight"); pf.add_argument("--series-file", required=True); pf.add_argument("--out", required=True); pf.add_argument("--seconds", type=float, default=60)
     h = sp.add_parser("health"); h.add_argument("--series-file", required=True); h.add_argument("--out", required=True); h.add_argument("--minutes", type=float, default=15)
     u = sp.add_parser("summarize"); u.add_argument("--out", required=True)

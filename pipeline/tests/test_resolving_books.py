@@ -54,3 +54,10 @@ def test_preflight_check_needs_equal_counts_levels_and_rows():
 def test_closed_markets_are_not_candidates():
     ev = {"markets": [dict(clobTokenIds='["y1","n1"]', outcomes='["Yes","No"]', closed=True), dict(clobTokenIds='["y2","n2"]', outcomes='["Yes","No"]', acceptingOrders=False), dict(clobTokenIds='["y3","n3"]', outcomes='["Yes","No"]', closed=False, acceptingOrders=True)]}
     assert B.candidates(ev) == ["y3"]
+
+def test_snap_event_full_stores_all_candidate_ladders(monkeypatch):
+    bk = {"A": dict(asks=[(0.6, 5)], bids=[(0.5, 5)]), "B": dict(asks=[(0.3, 5)], bids=[(0.2, 5)])}
+    monkeypatch.setattr(B, "books_for", lambda toks: bk)
+    ev = dict(id="e", endDate="2026-11-25T00:00:00Z", markets=[dict(clobTokenIds='["A","a"]', outcomes='["Yes","No"]'), dict(clobTokenIds='["B","b"]', outcomes='["Yes","No"]')])
+    r = B.snap_event(ev, 0.0, full=True)
+    assert set(r["books"]) == {"A", "B"} and r["token"] == "A" and "books" not in B.snap_event(ev, 0.0)
