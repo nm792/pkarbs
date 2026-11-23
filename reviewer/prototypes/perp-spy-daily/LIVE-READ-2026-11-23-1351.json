@@ -1,0 +1,31 @@
+{
+ "read_utc": "2026-11-23T13:51:12.528663+00:00",
+ "read_seconds": 1.08,
+ "event": "spy-up-or-down-on-november-23-2026",
+ "hours_to_close": 7.15,
+ "C0_perp_at_prev_close": 6925.8,
+ "C0_ts": 1795208399000,
+ "pm_perp_mark": 7075.8,
+ "pm_perp_ts": 1795441871000,
+ "hl_xyz_sp500_mid": 7075.05,
+ "move_bp": 214.3,
+ "fair_up": 0.9999,
+ "Up": {
+  "book_ts": "1795441873227",
+  "best_ask": 0.93,
+  "ask_size": "571.11",
+  "best_bid": "0.9",
+  "fair": 0.9999,
+  "edge_at_ask": 0.0673,
+  "top5_ask_usd": 1764.79
+ },
+ "Down": {
+  "book_ts": "1795441873516",
+  "best_ask": 0.1,
+  "ask_size": "92.59",
+  "best_bid": "0.07",
+  "fair": 0.0001,
+  "edge_at_ask": -0.1035,
+  "top5_ask_usd": 147.04
+ }
+}
