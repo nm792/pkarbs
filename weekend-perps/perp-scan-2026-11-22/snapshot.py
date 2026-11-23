@@ -2,7 +2,7 @@
 """Read-only snapshot of OWN-TOKEN books for the perp-related universe at a decision time. No keys, no orders.
 Usage: python3 snapshot.py RUNDIR LABEL      (reads RUNDIR/universe.json; appends RUNDIR/snap_<LABEL>.jsonl)
 Line 1 = meta (time, Hyperliquid xyz marks, last Yahoo closes). Then one row per token (YES and NO separately, each from its own book)."""
-import gzip, json, sys, time, urllib.request
+import glob, gzip, json, os, sys, time, urllib.request
 from universe import UNDER
 from snaplib import market_tokens, token_row
 from pscanlib import perp_depth_usd
@@ -30,21 +30,35 @@ def hl_marks():
     return {k: px[v[0]] for k, v in UNDER.items() if v[0] in px}
 
 
-def yahoo_close(sym):
-    d = req("https://query1.finance.yahoo.com/v8/finance/chart/%s?range=7d&interval=1d" % sym.replace("^", "%5E"))
-    try:
-        r = d["chart"]["result"][0]
-        cl = [c for c in r["indicators"]["quote"][0]["close"] if c is not None]
-        return cl[-1]
-    except Exception:
-        return None
+def yahoo_close(sym, attempts=6):
+    """last Yahoo daily close; Yahoo answers HTTP 429 now and then, so retry with growing waits (5, 10, 15 ... s) instead of giving up."""
+    for i in range(attempts):
+        d = req("https://query1.finance.yahoo.com/v8/finance/chart/%s?range=7d&interval=1d" % sym.replace("^", "%5E"), tries=1)
+        try:
+            r = d["chart"]["result"][0]
+            cl = [c for c in r["indicators"]["quote"][0]["close"] if c is not None]
+            return cl[-1]
+        except Exception:
+            time.sleep(5 * (i + 1))
+    return None
 
 
 def main(run, label):
     uni = json.load(open(run + "/universe.json"))["events"]
     t0 = time.time()
     marks = hl_marks()
-    closes = {k: yahoo_close(v[1]) for k, v in UNDER.items()}
+    closes = {}
+    for k, v in UNDER.items():   # paced: Yahoo answers HTTP 429 to 18 back-to-back calls (mon1420 run: the last one, NG=F, came back empty twice)
+        closes[k] = yahoo_close(v[1]); time.sleep(1.0)
+    carried = []   # Yahoo still empty after the retries: carry the last close seen in an earlier snapshot of this run folder (a close only changes at the cash close) and say so in the meta line
+    for k in [k for k, v in closes.items() if v is None]:
+        for f in sorted(glob.glob(run + "/snap_*.jsonl"), key=os.path.getmtime, reverse=True):
+            try:
+                c = json.loads(open(f).readline())["closes"].get(k)
+            except Exception:
+                c = None
+            if c is not None:
+                closes[k] = c; carried.append(k); break
     hl_depth = {}
     for k, v in UNDER.items():
         b = req("https://api.hyperliquid.xyz/info", {"type": "l2Book", "coin": "xyz:" + v[0]})
@@ -56,7 +70,7 @@ def main(run, label):
         except Exception:
             hl_depth[k] = None
     out = open("%s/snap_%s.jsonl" % (run, label), "a")
-    out.write(json.dumps(dict(kind="meta", t=t0, label=label, marks=marks, closes=closes, margins={k: v[3] for k, v in UNDER.items()}, hl_depth=hl_depth)) + "\n")
+    out.write(json.dumps(dict(kind="meta", t=t0, label=label, marks=marks, closes=closes, closes_carried=carried, margins={k: v[3] for k, v in UNDER.items()}, hl_depth=hl_depth)) + "\n")
     toks = []   # (event slug, family, under, market dict, outcome, token)
     for e in uni:
         ev = req(G + "/events?slug=" + e["slug"])
