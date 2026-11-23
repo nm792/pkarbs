@@ -7,3 +7,5 @@ Read-only on the recorders' files. Scratch on VOL2 tmp (SCRATCH RULE), not /tmp.
 4. Paste `result.json` (whole) and the first 20 lines of stdout into agent/status/pandascore.md under "## PS P105 (22 Nov)". Also paste: number of matches with both token books, plant recovery value and in_band_95_105, placebo mean. Delete $T afterwards. No restart, no edit of recorder files, no network.
 PASS for this row = result.json exists and shows matches_with_both_token_books and plant.recovery. A recovery outside 95-105% is a valid, wanted answer: paste it, do not retry. Zero matches is a valid answer too: paste the list of files read.
 Any number from this run is labelled "first Prime run, ONE hour, not evidence" until the spec's stops apply.
+
+Expected write: ~3 MB ONE-OFF, 0 MB/day (basis: step 2 writes at most 12 sample files of 10-450 KB each, measured 2.4 MB for 15 matches in scratch/ps_samples, plus a result.json of about 5 KB; all in VOL2 tmp and deleted at the end of step 4; the scorer reads recorder files and writes nothing there).
