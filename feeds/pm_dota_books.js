@@ -11,6 +11,8 @@ fs.mkdirSync(OUT, { recursive: true });
 const app = (n, o) => fs.appendFileSync(path.join(OUT, n), JSON.stringify(o) + '\n');
 const log = (m) => fs.appendFileSync(path.join(OUT, 'recorder.log'), new Date().toISOString() + ' ' + m + '\n');
 const UA = { 'User-Agent': 'pkarbs-dota-recorder' };
+const GAMMA = process.env.GAMMA_URL || 'https://gamma-api.polymarket.com', CLOB = process.env.CLOB_URL || 'https://clob.polymarket.com';
+const DISC_MS = +process.env.DISC_MS || 300000;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let stop = false; process.on('SIGTERM', () => { stop = true; });
 const live = () => !stop && Date.now() < END;
@@ -18,24 +20,38 @@ const mk = new Map(), last = {};
 async function discover() {
   while (live()) {
     try {
-      const r = await fetch('https://gamma-api.polymarket.com/events?series_id=10309&active=true&closed=false&limit=100', { headers: { ...UA, 'Accept-Encoding': 'gzip' } });
-      if (r.status === 200) for (const e of await r.json()) for (const m of e.markets || []) {
-        if (mk.has(m.conditionId)) continue;
-        if (!/Game\s*\d+\s*Winner|\(BO\d\)/i.test(m.question || '')) continue;
-        let toks, oc; try { toks = JSON.parse(m.clobTokenIds); oc = JSON.parse(m.outcomes); } catch { continue; }
-        if (!toks || toks.length !== 2) continue;
-        const start = Date.parse(m.gameStartTime || e.startTime || '') || null;
-        const row = { cond: m.conditionId, q: m.question, outcomes: oc, tokens: toks, smt: m.sportsMarketType || null, start: start && new Date(start).toISOString() };
-        mk.set(m.conditionId, { ...row, st: start }); app('markets.jsonl', row); log('market ' + m.question);
-      } else log('gamma status ' + r.status);
+      // page through ALL active Dota events (limit 100 per page; a busy BLAST day has more than 100 events)
+      for (let off = 0, n = 100; n === 100 && off < 900; off += 100) {
+        const r = await fetch(GAMMA + '/events?series_id=10309&active=true&closed=false&limit=100&offset=' + off, { headers: { ...UA, 'Accept-Encoding': 'gzip' } });
+        if (r.status !== 200) { log('gamma status ' + r.status); break; }
+        const evs = await r.json(); n = evs.length;
+        for (const e of evs) for (const m of e.markets || []) {
+          if (!/Game\s*\d+\s*Winner|\(BO\d\)/i.test(m.question || '')) continue;
+          const start = Date.parse(m.gameStartTime || e.startTime || '') || null;
+          const known = mk.get(m.conditionId);
+          if (known) {
+            // RESCHEDULED market: Polymarket moves gameStartTime; a cached start left the window closed forever (23 Nov bug)
+            if (start && start !== known.st) {
+              log('reschedule ' + m.question + ' ' + new Date(known.st || 0).toISOString() + ' -> ' + new Date(start).toISOString());
+              known.st = start; known.start = new Date(start).toISOString();
+              app('markets.jsonl', { cond: known.cond, q: known.q, outcomes: known.outcomes, tokens: known.tokens, smt: known.smt, start: known.start });
+            }
+            continue;
+          }
+          let toks, oc; try { toks = JSON.parse(m.clobTokenIds); oc = JSON.parse(m.outcomes); } catch { continue; }
+          if (!toks || toks.length !== 2) continue;
+          const row = { cond: m.conditionId, q: m.question, outcomes: oc, tokens: toks, smt: m.sportsMarketType || null, start: start && new Date(start).toISOString() };
+          mk.set(m.conditionId, { ...row, st: start }); app('markets.jsonl', row); log('market ' + m.question);
+        }
+      }
     } catch (e) { log('discover error ' + e.message); }
-    await sleep(300000);
+    await sleep(DISC_MS);
   }
 }
 async function one(m, i) {
   const tok = m.tokens[i];
   try {
-    const r = await fetch('https://clob.polymarket.com/book?token_id=' + tok, { headers: UA }); const recv = Date.now();
+    const r = await fetch(CLOB + '/book?token_id=' + tok, { headers: UA }); const recv = Date.now();
     if (r.status !== 200) { if (r.status === 429) await sleep(3000); return; }
     const b = await r.json();
     const lv = (a, d) => (a || []).map((x) => [+x.price, +x.size]).sort((p, q) => d ? q[0] - p[0] : p[0] - q[0]).slice(0, 10);
