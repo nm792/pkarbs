@@ -19,17 +19,28 @@ if not m or int(m.group(2))==0 or int(m.group(2))!=2*int(m.group(1)):
     print("FAIL tokens: need >0 and = 2 x markets; log line:",repr(line)); sys.exit(1)
 print("PASS tokens:",m.group(2),"for",m.group(1),"markets")
 now=datetime.datetime.now(datetime.timezone.utc).timestamp()
-inwin=set()
+inwin=set(); toks={}
 for l in open(os.path.join(t,"markets.jsonl")):
     r=json.loads(l)
     if r.get("start"):
         s=datetime.datetime.fromisoformat(r["start"].replace("Z","+00:00")).timestamp()
-        if s-1200<=now<=s+18000: inwin.add(r["cond"])
+        if s-1200<=now<=s+18000: inwin.add(r["cond"]); toks[r["cond"]]=r["tokens"]
 bp=os.path.join(t,"books.jsonl"); rows=[json.loads(x) for x in open(bp)] if os.path.exists(bp) else []
 if not inwin:
     print("UNVERIFIED live data: no market inside its [start-20 min, +5 h] window now; 60 s of real rows cannot be proved"); sys.exit(2)
-miss=[c for c in inwin if len({r["token"] for r in rows if r["cond"]==c})!=2]
-if miss: print("FAIL live data: %d of %d in-window markets lack rows for both tokens"%(len(miss),len(inwin))); sys.exit(1)
-print("PASS live data: both tokens' rows for all",len(inwin),"in-window markets,",len(rows),"rows")
+# A closed/resolved market has no order book (CLOB /book returns 404): it can never produce rows, so it is not a recorder fault. Only markets whose book exists (HTTP 200) must have rows for both tokens.
+import urllib.request,urllib.error
+CLOB=os.environ.get("CLOB_URL","https://clob.polymarket.com")
+def has_book(tok):
+    try: urllib.request.urlopen(urllib.request.Request(CLOB+"/book?token_id="+tok,headers={"User-Agent":"preflight"}),timeout=10); return True
+    except urllib.error.HTTPError as e: return e.code!=404
+    except Exception: return True
+live=[c for c in inwin if all(has_book(k) for k in toks[c])]
+nobook=len(inwin)-len(live)
+if not live:
+    print("UNVERIFIED live data: %d in-window markets, all without a book (resolved)"%len(inwin)); sys.exit(2)
+miss=[c for c in live if len({r["token"] for r in rows if r["cond"]==c})!=2]
+if miss: print("FAIL live data: %d of %d in-window markets WITH a live book lack rows for both tokens"%(len(miss),len(live))); sys.exit(1)
+print("PASS live data: both tokens' rows for all",len(live),"in-window markets with a book;",nobook,"resolved (no book) excluded;",len(rows),"rows")
 PY
 echo "scratch dir: $T"; exit $rc
