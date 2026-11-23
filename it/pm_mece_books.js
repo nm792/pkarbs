@@ -54,20 +54,36 @@ async function fetchEvents(tag, lo, hi, log) {
   }
   return out;
 }
-module.exports = { pickMarkets, hourWriter, dirBytes, SETS };
+// single-instance lock (R-058): pidfile created with O_EXCL; a live pid holding it => refuse (false); stale pid => take over. Same code as pm_sport_books.js.
+function acquireLock(dir, pid = process.pid) {
+  fs.mkdirSync(dir, { recursive: true }); const f = path.join(dir, 'recorder.pid');
+  for (let i = 0; i < 2; i++) {
+    try { fs.writeFileSync(f, String(pid), { flag: 'wx' }); return true; } catch (e) { if (e.code !== 'EEXIST') throw e; }
+    let old = parseInt(fs.readFileSync(f, 'utf8'), 10), alive = false;
+    if (old > 0) { try { process.kill(old, 0); alive = true; } catch (e) { alive = e.code === 'EPERM'; } }
+    if (alive && old !== pid) return false;
+    try { fs.unlinkSync(f); } catch {}
+  }
+  return false;
+}
+module.exports = { pickMarkets, hourWriter, dirBytes, SETS, acquireLock };
 
 if (require.main === module) {
   const OUT = process.argv[2], END = process.argv[3] ? Date.parse(process.argv[3]) : Infinity, FLOOR = floorBytes(process.argv[4]), CAP = (process.argv[5] === undefined ? 3 : Number(process.argv[5])) * 1e9;
+  const PREFLIGHT = process.argv[6] === 'preflight' ? (parseInt(process.argv[7], 10) || 60) : 0; // [endISO floorGB capGB] preflight [seconds]: run, check, exit 0 only if PASS
   fs.mkdirSync(OUT, { recursive: true });
+  if (!acquireLock(OUT)) { fs.appendFileSync(path.join(OUT, 'recorder.log'), new Date().toISOString() + ' REFUSED: another recorder holds ' + path.join(OUT, 'recorder.pid') + '\n'); console.error('REFUSED: second copy (pidfile ' + path.join(OUT, 'recorder.pid') + ')'); process.exit(2); }
+  const unlock = () => { try { if (parseInt(fs.readFileSync(path.join(OUT, 'recorder.pid'), 'utf8'), 10) === process.pid) fs.unlinkSync(path.join(OUT, 'recorder.pid')); } catch {} };
+  process.on('exit', unlock);
   const gw = hourWriter(OUT);
   const app = (n, o) => fs.appendFileSync(path.join(OUT, n), JSON.stringify(o) + '\n');
   const log = (m) => fs.appendFileSync(path.join(OUT, 'recorder.log'), new Date().toISOString() + ' ' + m + '\n');
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   let stop = false; process.on('SIGTERM', () => { stop = true; gw.flush(); });
   const live = () => !stop && Date.now() < END;
-  const st = newState(), known = new Set(); let ws = null, open = false, backoff = 2000;
+  const st = newState(), known = new Set(); let ws = null, open = false, backoff = 2000; let wsTokens = 0;
   setInterval(() => { try { gw.flush(); } catch (e) { log('flush error ' + e.message); } }, 30000);
-  const subscribe = (toks) => { if (open && toks.length) ws.send(JSON.stringify({ assets_ids: toks, operation: 'subscribe' })); };
+  const subscribe = (toks) => { if (open && toks.length) wsTokens += toks.length; if (open && toks.length) ws.send(JSON.stringify({ assets_ids: toks, operation: 'subscribe' })); };
   async function discover() {
     while (live()) {
       try {
@@ -75,7 +91,7 @@ if (require.main === module) {
         const evs = await fetchEvents('soccer', lo, hi, log);
         const fresh = pickMarkets(evs, { now: Date.now() }), freshSet = new Set(fresh.map((m) => m.cond)), gone = [];
         for (const c of [...known]) if (!freshSet.has(c)) { known.delete(c); for (const t of Object.keys(st.meta)) if (st.meta[t].cond === c) { gone.push(t); delete st.meta[t]; delete st.books[t]; delete st.last[t]; } }
-        if (open && gone.length) ws.send(JSON.stringify({ assets_ids: gone, operation: 'unsubscribe' }));
+        if (open && gone.length) wsTokens = Math.max(0, wsTokens - gone.length); if (open && gone.length) ws.send(JSON.stringify({ assets_ids: gone, operation: 'unsubscribe' }));
         const newToks = [];
         for (const m of fresh) {
           if (known.has(m.cond)) continue; known.add(m.cond); app('markets.jsonl', m); log('market ' + m.set + ' ' + m.q);
@@ -96,9 +112,9 @@ if (require.main === module) {
     while (live()) {
       await new Promise((resolve) => {
         const toks = Object.keys(st.meta); let hb, chk, finished = false;
-        const done = () => { if (finished) return; finished = true; open = false; clearInterval(hb); clearInterval(chk); try { ws.close(); } catch {} resolve(); };
+        const done = () => { if (finished) return; finished = true; open = false; wsTokens = 0; clearInterval(hb); clearInterval(chk); try { ws.close(); } catch {} resolve(); };
         ws = new WebSocket('wss://ws-subscriptions-clob.polymarket.com/ws/market');
-        ws.onopen = () => { open = true; backoff = 2000; log('ws open, tokens ' + toks.length); ws.send(JSON.stringify({ assets_ids: toks, type: 'market' })); hb = setInterval(() => { try { ws.send('PING'); } catch {} }, 10000); };
+        ws.onopen = () => { open = true; backoff = 2000; wsTokens = toks.length; log('ws open, tokens ' + toks.length); ws.send(JSON.stringify({ assets_ids: toks, type: 'market' })); hb = setInterval(() => { try { ws.send('PING'); } catch {} }, 10000); };
         ws.onmessage = (ev) => {
           const recv = Date.now(); let d; try { d = JSON.parse(ev.data); } catch { return; }
           for (const e of Array.isArray(d) ? d : [d]) applyMsg(st, e, recv, (row) => gw.add(row));
@@ -109,7 +125,17 @@ if (require.main === module) {
       st.books = {}; st.last = {}; if (live()) { await sleep(backoff); backoff = Math.min(backoff * 2, 60000); }
     }
   }
-  setInterval(() => log(`alive rows=${st.rows} msgs=${st.msgs} markets=${known.size} pending=${gw.pending()}`), 600000);
-  log('start ' + new Date().toISOString());
+  // R-057 (a): no tokens within NOTOK_S (default 120) s of start => FATAL, exit 4 (ALLOW_IDLE=1 disables, for a no-game window; the normal live window is game start -3.5 h .. +MECE_HI_H h).
+  const NOTOK_S = parseInt(process.env.NOTOKEN_EXIT_S, 10) || 120;
+  if (!process.env.ALLOW_IDLE && !PREFLIGHT) setTimeout(() => { if (!Object.keys(st.meta).length) { log('FATAL: 0 tokens ' + NOTOK_S + ' s after start (no live 3-way sets); exit 4'); process.exit(4); } }, NOTOK_S * 1000);
+  setInterval(() => log(`alive rows=${st.rows} msgs=${st.msgs} markets=${known.size} ws_tokens=${wsTokens} pending=${gw.pending()}`), PREFLIGHT ? 5000 : 600000);
+  log('start ' + new Date().toISOString() + (PREFLIGHT ? ' PREFLIGHT ' + PREFLIGHT + 's' : ''));
+  if (PREFLIGHT) {
+    setTimeout(() => {
+      gw.flush(); const exp = known.size * 2, ok = wsTokens > 0 && wsTokens === exp && st.rows > 0;
+      const rep = { preflight: ok ? 'PASS' : 'FAIL', markets: known.size, expected_tokens: exp, ws_tokens: wsTokens, rows_written: st.rows, msgs: st.msgs, seconds: PREFLIGHT };
+      log('PREFLIGHT ' + JSON.stringify(rep)); console.log(JSON.stringify(rep)); stop = true; unlock(); process.exit(ok ? 0 : 5);
+    }, PREFLIGHT * 1000);
+  }
   Promise.all([discover(), stream()]).then(() => { gw.flush(); log('done'); process.exit(0); });
 }
