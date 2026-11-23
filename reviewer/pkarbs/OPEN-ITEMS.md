@@ -26,4 +26,7 @@ Created 2026-11-22T05:49Z by the Reviewer on Nick's order (22 Nov 05:48Z: "I am 
 | 19 | Forecast edges (Netflix, MrBeast, box office), macro pickoffs, Kalshi index leader | Oct-Nov | PK | 23 Nov 06:00 (re-audit) | OPEN for re-audit | R-034 | 22 Nov 05:55Z PK: see REAUDIT-2026-11-22.md rows 27-29,36: "N" in the draft means placebo-matched null on print data only; per rule 2 these stay OPEN until a depth-measured test. |
 | 20 | Up/down rebate market making | 11 Nov | MFW | - | MOVED to MFW (Nick 22 Nov 05:22Z) | R-026 | |
 
+| 21 | P106 NBA recorders on Prime (for #8) | Nick 22 Nov 05:22Z | PK delivered; IT runs | PK: done 22 Nov 23:48Z (d12edd59, start cmd 7e98f50a). IT: install + health read (ws open, tokens N, books growing 60 s apart) by 23 Nov 02:00Z | PK FIX DELIVERED, IT run pending; WS leg unverified | R-054 | 2026-11-23T00:40Z: logged |
+| 22 | P104 perps snapshot crons on Prime (for #7) | Nick 22 Nov 05:48Z | PK delivered; IT runs | PK: done 23 Nov 00:05Z (7a510219, test made host-independent; cause UNVERIFIED on Prime). IT: rerun the 4 test files and install crons by 23 Nov 02:00Z | PK FIX DELIVERED, IT rerun pending | R-054 | 2026-11-23T00:40Z: logged |
+
 Source of older rows: reviewer/IDEAS.md (rows 0-28) and REVIEW-2026-11-22-sports-esports-feeds.md.
