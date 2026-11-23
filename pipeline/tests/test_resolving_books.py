@@ -1,6 +1,6 @@
 import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "forward"))
-import late_books as B
+import resolving_books as B
 
 def test_depth_from_best_ask_in_dollars():
     asks = [(0.80, 100), (0.81, 50), (0.83, 1000)]

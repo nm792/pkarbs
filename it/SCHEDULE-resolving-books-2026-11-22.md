@@ -1,7 +1,7 @@
 # SCHEDULE: decision-time book recorder for late-resolving series (R-036), dated 2026-11-22
 
-Source: gamma `events/keyset?closed=false` read 22 Nov ~06:20Z for the 34 series in `it/late_books_series.txt` (`pipeline/out/listing1/late_books_snap_2026-11-22.json`). The recorder re-reads the open-event list every 10 minutes, so events listed later (the next day's Up/Down contracts, new Elon brackets) are picked up without any edit. A snapshot is taken at T-3 h, T-1 h and T-30 min (within +-60 s) of each event end, all candidate tokens in one POST /books.
-Plausibility check (15 min after the first window): the first line of `late_books_YYYYMMDD.jsonl` must have `hours_to_end` within 0.02 of 3.0, a numeric `ask` between 0.01 and 0.99, and `latency_s` under 5.
+Source: gamma `events/keyset?closed=false` read 22 Nov ~06:20Z for the 34 series in `it/resolving_books_series.txt` (`pipeline/out/listing1/resolving_books_snap_2026-11-22.json`). The recorder re-reads the open-event list every 10 minutes, so events listed later (the next day's Up/Down contracts, new Elon brackets) are picked up without any edit. A snapshot is taken at T-3 h, T-1 h and T-30 min (within +-60 s) of each event end, all candidate tokens in one POST /books.
+Plausibility check (15 min after the first window): the first line of `resolving_books_YYYYMMDD.jsonl` must have `hours_to_end` within 0.02 of 3.0, a numeric `ask` between 0.01 and 0.99, and `latency_s` under 5.
 
 Windows already known (events open on 22 Nov 06:20Z). Today's earliest: box-office-openings Sun 22 Nov 09:00Z (T-3h) and 11:00Z (T-1h); if the service is not up by 09:00Z the 09:00Z window is missed and the 11:00Z / 11:30Z windows still count.
 

@@ -119,7 +119,7 @@ def cmd_record(a):
                         done.add(key)
                         try: r = snap_event(ev, now); r["lead_h"] = L
                         except Exception as ex: r = dict(series=s, event=ev["id"], lead_h=L, error=str(ex), t=now)
-                        with open(f"{a.out}/late_books_{dt.datetime.utcfromtimestamp(now):%Y%m%d}.jsonl", "a") as f: f.write(json.dumps(r) + "\n")
+                        with open(f"{a.out}/resolving_books_{dt.datetime.utcfromtimestamp(now):%Y%m%d}.jsonl", "a") as f: f.write(json.dumps(r) + "\n")
         time.sleep(5)
 
 
@@ -156,7 +156,7 @@ def cmd_health(a):
         except Exception as ex: print("list error", s, ex)
     rows = []
     for fn in sorted(os.listdir(a.out)):
-        if fn.startswith("late_books_") and fn.endswith(".jsonl"):
+        if fn.startswith("resolving_books_") and fn.endswith(".jsonl"):
             rows += [r for r in (json.loads(l) for l in open(os.path.join(a.out, fn))) if r.get("t", 0) >= lo]
     h = health(exp, rows); st = os.statvfs(a.out); h["disk_free_GB"] = round(st.f_bavail * st.f_frsize / 1e9, 1); h["now"] = dt.datetime.utcfromtimestamp(now).strftime("%FT%TZ")
     h["verdict"] = "PASS" if (h["pct"] is None or h["pct"] >= 99) and h["errors"] == 0 and h["own_book_ok"] else "FAIL"
@@ -167,7 +167,7 @@ def cmd_health(a):
 def cmd_summarize(a):
     rows = []
     for fn in sorted(os.listdir(a.out)):
-        if fn.startswith("late_books_") and fn.endswith(".jsonl"): rows += [json.loads(l) for l in open(os.path.join(a.out, fn))]
+        if fn.startswith("resolving_books_") and fn.endswith(".jsonl"): rows += [json.loads(l) for l in open(os.path.join(a.out, fn))]
     for r in summarize(rows): print(json.dumps(r))
 
 

@@ -54,3 +54,10 @@ def test_late_pool_is_winner_only_banded_cheapest_first():
     assert abs(r["bet"] - 200.0) < 1e-9
     exp = 80 * (1 / 0.8 - 1) - 80 / 0.8 * L.fee_ps(0.8) + 120 * (1 / 0.9 - 1) - 120 / 0.9 * L.fee_ps(0.9)
     assert abs(r["pnl"] - exp) < 1e-9
+
+def test_refresh_stops_at_known_and_returns_only_new():
+    import refresh_events as R
+    pages = {None: dict(events=[dict(id="e5"), dict(id="e4")], next_cursor="c1"), "c1": dict(events=[dict(id="e3"), dict(id="e2")], next_cursor="c2"), "c2": dict(events=[dict(id="e1")], next_cursor=None)}
+    known = {"e3", "e2", "e1"}
+    out = R.new_events(lambda c: pages[c], known)
+    assert [e["id"] for e in out] == ["e5", "e4"] and "e5" in known     # page 2 is all known: stop

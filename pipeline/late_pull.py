@@ -3,7 +3,7 @@ import collections, concurrent.futures as cf, datetime as dt, os, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import families as F, pit_store as P, screen, pandas as pd
 def targets(nmax=40):
-    ev = [e for e in P.load_events("/home/user/pk_cache/events.jsonl") + P.load_events("/home/user/pk_cache/events_deep.jsonl") if not F.excluded_reason(e)]
+    ev = [e for e in P.load_events("/home/user/pk_cache/events.jsonl") + P.load_events("/home/user/pk_cache/events_deep.jsonl") + (P.load_events("/home/user/pk_cache/events_refresh.jsonl") if os.path.exists("/home/user/pk_cache/events_refresh.jsonl") else []) if not F.excluded_reason(e)]
     fams = set(pd.read_csv(os.path.join(os.path.dirname(os.path.abspath(__file__)), "out/listing1/listing_hours_series2.csv")).fam)
     now = max(screen.parse_ts(e["endDate"]) for e in ev if screen.parse_ts(e["endDate"]) < time.time())
     by = collections.defaultdict(dict)

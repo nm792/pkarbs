@@ -4,7 +4,7 @@ After=network-online.target
 [Service]
 Type=simple
 WorkingDirectory=/mnt/HC_Volume_107257520/pkarbs
-ExecStart=/usr/bin/python3 pipeline/forward/late_books.py record --series-file it/late_books_series.txt --out /mnt/HC_Volume_107257520/late-books --max-hours 720
+ExecStart=/usr/bin/python3 pipeline/forward/resolving_books.py record --series-file it/resolving_books_series.txt --out /mnt/HC_Volume_107257520/resolving-books --max-hours 720
 Restart=always
 RestartSec=5
 [Install]
