@@ -35,18 +35,35 @@ function gzWriter(file) {
     pending() { return buf.length; },
   };
 }
-module.exports = { pickMarkets, gzWriter, SLUG };
+// single-instance lock (R-058): pidfile created with O_EXCL; a live pid holding it => refuse (false); stale pid => take over.
+function acquireLock(dir, pid = process.pid) {
+  fs.mkdirSync(dir, { recursive: true }); const f = path.join(dir, 'recorder.pid');
+  for (let i = 0; i < 2; i++) {
+    try { fs.writeFileSync(f, String(pid), { flag: 'wx' }); return true; } catch (e) { if (e.code !== 'EEXIST') throw e; }
+    let old = parseInt(fs.readFileSync(f, 'utf8'), 10), alive = false;
+    if (old > 0) { try { process.kill(old, 0); alive = true; } catch (e) { alive = e.code === 'EPERM'; } }
+    if (alive && old !== pid) return false;
+    try { fs.unlinkSync(f); } catch {}
+  }
+  return false;
+}
+module.exports = { pickMarkets, gzWriter, SLUG, acquireLock };
 
 if (require.main === module) {
   const OUT = process.argv[2], END = process.argv[3] ? Date.parse(process.argv[3]) : Infinity, FLOOR = floorBytes(process.argv[4]), LEAGUE = ['tennis', 'nba'].includes(process.argv[5]) ? process.argv[5] : 'nhl';
+  const PREFLIGHT = process.argv[6] === 'preflight' ? (parseInt(process.argv[7], 10) || 60) : 0; // preflight [seconds]: run, check, exit 0 only if PASS
+  const GAMMA = process.env.GAMMA_URL || 'https://gamma-api.polymarket.com', WSURL = process.env.PM_WS_URL || 'wss://ws-subscriptions-clob.polymarket.com/ws/market';
   fs.mkdirSync(OUT, { recursive: true });
+  const log = (m) => fs.appendFileSync(path.join(OUT, 'recorder.log'), new Date().toISOString() + ' ' + m + '\n');
+  if (!acquireLock(OUT)) { log('REFUSED: another recorder holds ' + path.join(OUT, 'recorder.pid')); console.error('REFUSED: second copy (pidfile ' + path.join(OUT, 'recorder.pid') + ')'); process.exit(2); }
+  const unlock = () => { try { if (parseInt(fs.readFileSync(path.join(OUT, 'recorder.pid'), 'utf8'), 10) === process.pid) fs.unlinkSync(path.join(OUT, 'recorder.pid')); } catch {} };
+  process.on('exit', unlock);
   const gw = gzWriter(path.join(OUT, 'books.jsonl.gz'));
   const app = (n, o) => fs.appendFileSync(path.join(OUT, n), JSON.stringify(o) + '\n');
-  const log = (m) => fs.appendFileSync(path.join(OUT, 'recorder.log'), new Date().toISOString() + ' ' + m + '\n');
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   let stop = false; process.on('SIGTERM', () => { stop = true; gw.flush(); });
   const live = () => !stop && Date.now() < END;
-  const st = newState(), known = new Set(); let ws = null, open = false, backoff = 2000;
+  const st = newState(), known = new Set(); let ws = null, open = false, backoff = 2000, wsTokens = 0;
   setInterval(() => { try { gw.flush(); } catch (e) { log('flush error ' + e.message); } }, 30000);
   const subscribe = (toks) => { if (open && toks.length) ws.send(JSON.stringify({ assets_ids: toks, operation: 'subscribe' })); };
   async function discover() {
@@ -56,7 +73,7 @@ if (require.main === module) {
         const fresh = [];
         for (const tag of [LEAGUE]) {
           for (let off = 0; off < 1000; off += 100) {
-            const r = await fetch(`https://gamma-api.polymarket.com/events?tag_slug=${tag}&closed=false&limit=100&offset=${off}`, { headers: UA });
+            const r = await fetch(`${GAMMA}/events?tag_slug=${tag}&closed=false&limit=100&offset=${off}`, { headers: UA });
             if (r.status !== 200) { log('gamma status ' + r.status); break; }
             const evs = await r.json(); fresh.push(...pickMarkets(evs, LEAGUE).filter((m) => m.start && m.start >= lo && m.start <= hi)); if (evs.length < 100) break;
           }
@@ -66,7 +83,7 @@ if (require.main === module) {
           if (known.has(m.cond)) continue; known.add(m.cond); app('markets.jsonl', m); log('market ' + m.slug + ' ' + m.q);
           m.tokens.forEach((t, i) => { st.meta[t] = { outcome: m.outcomes[i], q: m.q, cond: m.cond }; newToks.push(t); });
         }
-        subscribe(newToks);
+        subscribe(newToks); wsTokens = open ? Object.keys(st.meta).length : wsTokens;
         try { const s = fs.statfsSync(OUT), fr = s.bavail * s.bsize; if (fr < FLOOR) { log('disk below floor ' + (FLOOR / 1e9) + ' GB (free ' + (fr / 1e9).toFixed(1) + ' GB): stopping'); stop = true; } } catch (e) { log('statfs error ' + e.message); }
       } catch (e) { log('discover error ' + e.message); }
       for (let i = 0; i < 300 && live(); i++) await sleep(1000);
@@ -74,11 +91,14 @@ if (require.main === module) {
   }
   async function stream() {
     while (live()) {
+      // R-057: NEVER connect with 0 tokens (the old code opened the socket before discovery finished: 'ws open, tokens 0').
+      while (live() && Object.keys(st.meta).length === 0) await sleep(500);
+      if (!live()) break;
       await new Promise((resolve) => {
         const toks = Object.keys(st.meta); let hb, chk, finished = false;
         const done = () => { if (finished) return; finished = true; open = false; clearInterval(hb); clearInterval(chk); try { ws.close(); } catch {} resolve(); };
-        ws = new WebSocket('wss://ws-subscriptions-clob.polymarket.com/ws/market');
-        ws.onopen = () => { open = true; backoff = 2000; log('ws open, tokens ' + toks.length); ws.send(JSON.stringify({ assets_ids: toks, type: 'market' })); hb = setInterval(() => { try { ws.send('PING'); } catch {} }, 10000); };
+        ws = new WebSocket(WSURL);
+        ws.onopen = () => { open = true; backoff = 2000; wsTokens = toks.length; log('ws open, tokens ' + toks.length); ws.send(JSON.stringify({ assets_ids: toks, type: 'market' })); hb = setInterval(() => { try { ws.send('PING'); } catch {} }, 10000); };
         ws.onmessage = (ev) => {
           const recv = Date.now(); let d; try { d = JSON.parse(ev.data); } catch { return; }
           for (const e of Array.isArray(d) ? d : [d]) applyMsg(st, e, recv, (row) => gw.add(row));
@@ -89,7 +109,18 @@ if (require.main === module) {
       st.books = {}; if (live()) { await sleep(backoff); backoff = Math.min(backoff * 2, 60000); }
     }
   }
-  setInterval(() => log(`alive rows=${st.rows} msgs=${st.msgs} markets=${known.size} pending=${gw.pending()}`), 600000);
-  log('start ' + new Date().toISOString());
+  const NOTOK_S = parseInt(process.env.NOTOKEN_EXIT_S, 10) || 120;
+  // R-057 (a): no tokens within NOTOK_S (default 120) s of start => FATAL, non-zero exit (ALLOW_IDLE=1 disables, for a no-game window).
+  const startMs = Date.now();
+  if (!process.env.ALLOW_IDLE && !PREFLIGHT) setTimeout(() => { if (!Object.keys(st.meta).length) { log('FATAL: 0 tokens ' + NOTOK_S + ' s after start (no ' + LEAGUE + ' markets found); exit 4'); process.exit(4); } }, NOTOK_S * 1000);
+  setInterval(() => log(`alive rows=${st.rows} msgs=${st.msgs} markets=${known.size} ws_tokens=${wsTokens} pending=${gw.pending()}`), PREFLIGHT ? 5000 : 600000);
+  log('start ' + new Date().toISOString() + (PREFLIGHT ? ' PREFLIGHT ' + PREFLIGHT + 's' : ''));
+  if (PREFLIGHT) {
+    setTimeout(() => {
+      gw.flush(); const exp = known.size * 2, ok = wsTokens > 0 && wsTokens === exp && st.rows > 0;
+      const rep = { preflight: ok ? 'PASS' : 'FAIL', markets: known.size, expected_tokens: exp, ws_tokens: wsTokens, rows_written: st.rows, msgs: st.msgs, seconds: PREFLIGHT };
+      log('PREFLIGHT ' + JSON.stringify(rep)); console.log(JSON.stringify(rep)); stop = true; unlock(); process.exit(ok ? 0 : 5);
+    }, PREFLIGHT * 1000);
+  }
   Promise.all([discover(), stream()]).then(() => { gw.flush(); log('done'); process.exit(0); });
 }
