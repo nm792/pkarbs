@@ -9,7 +9,7 @@ SHAs (branch claude/project-thread-vg2ckg for the capture; branch reviewer for t
 - it/health_read.py = 5d8646d7fa3137f8ca8a6ca486eeb0494103b79c42f7f22a993c6d239ad29d34 (has the 'capture' mode; your installed copy is a different file)
 
 Steps (Prime). G=/mnt/HC_Volume_107257520/pkarbs/goalserve ; W=/mnt/HC_Volume_107257520/tmp/gs_run
-1. Fetch the 5 files above into $W (git show from the named branches). sha256sum each and compare. Run both tests; each must end ALL PASS. Any mismatch or FAIL: stop, paste, do nothing else.
+1. FETCH INTO AN EMPTY FOLDER (a new dir, e.g. $W=/mnt/HC_Volume_107257520/tmp/gs_run_$(date -u +%H%M)): never reuse tmp/gs_run, it still holds the OLD writer e61c27ca, which is what failed the first test run. Fetch the 5 files above into $W (git show from the named branches). sha256sum each and compare. Run both tests; each must end ALL PASS. Any mismatch or FAIL: stop, paste, do nothing else.
 2. OLD=$(pgrep -f capture); save its script copy as before; kill -INT $OLD (wait for exit). Never run two copies: the key returns 429 if polled twice.
 3. cd $W; nohup python3 -I capture_store_all.py >> $G/capture_stdout.log 2>&1 &   (use the same python flags as the old start if it did not use -I)
 4. After 60 s: python3 -I $W/goalserve_preflight_r058.py $G $W/capture_store_all.py   (it starts a second copy to prove refusal; exit 3 is the PASS).
