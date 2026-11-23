@@ -3,7 +3,7 @@
 logs to /mnt/HC_Volume_107257520/pkarbs/goalserve/. Reads /etc/pkarbs/goalserve.env (USER/KEY, mode 600).
 Per TASK-goalserve-trial: per poll log recv ns, HTTP Date, payload sha1, change first-seen.
 """
-import os, sys, time, gzip, json, hashlib, shutil, datetime, urllib.request, urllib.parse
+import os, sys, time, gzip, json, hashlib, shutil, datetime, urllib.request, urllib.parse, fcntl
 
 def load_creds():
     d = {}
@@ -78,7 +78,19 @@ def fetch(rel):
 
 last = {}  # sport -> (sha1, first_seen_ns)
 
+def acquire_lock():
+    # R-058 single-instance lock: a second copy is refused (exit 3). Lock is held by the open fd for the process life.
+    fd = open(os.path.join(OUT, ".capture.lock"), "a")
+    try:
+        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        print("capture already running (lock held): refusing second copy", file=sys.stderr)
+        sys.exit(3)
+    return fd
+
 def main():
+    global _LOCK
+    _LOCK = acquire_lock()
     logf = os.path.join(OUT, f"goalserve_{datetime.datetime.now(datetime.timezone.utc):%Y%m%d}.jsonl")
     with open(logf, "a") as out:
         while True:

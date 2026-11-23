@@ -78,6 +78,18 @@ check("floor: hockey_nhl has its own STOP log", os.path.exists(os.path.join(mod.
 check("floor: esports unaffected until it is called", not os.path.exists(os.path.join(mod.OUT, "esports_payloads_STOP.log")))
 check("basketball store is a no-op (not in STORE_SPORTS)", not os.path.exists(os.path.join(mod.OUT, "basketball_payloads_STOP.log")))
 
+os.makedirs(mod.OUT, exist_ok=True)
+l1 = mod.acquire_lock()
+check("first lock acquired", l1 is not None)
+try:
+    mod.acquire_lock(); refused = False
+except SystemExit as e:
+    refused = (e.code == 3)
+check("second copy refused (exit 3) while first holds the lock", refused)
+l1.close()
+l3 = mod.acquire_lock()
+check("lock re-acquirable after first copy exits", l3 is not None)
+
 shutil.rmtree(tmp)
 print("ALL PASS" if not fails else "FAILED: " + "; ".join(fails))
 sys.exit(1 if fails else 0)
