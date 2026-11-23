@@ -9,7 +9,7 @@ Stdlib only (ws_min.py beside it). One process; run under IT's caps (nice, memor
 Rules (frozen model, no refit): fair YES = per-word causal base rate q at LISTING (mentions_pm_daily_scorer.q_for), NO fair = 1-q; underpriced = ask <= fair-10c and >= 5c; $200 per (decision, token), $2,000/day cap.
 Decision times: listing+0..60 min every 5 min; T-24h; T-6h; T-1h; T-15m; during = every 5 min over [T-6h, T] (T = Gamma endDate). A decision later than 90 s after its time is logged as MISSED, never filled late.
 Usage: python3 -I mentions_pm_ws_paper.py --scorer P --state DIR --out DIR [--cap 200] [--daycap 2000] | --health | --score"""
-import argparse, collections, datetime as dt, importlib.util, json, os, shutil, socket, sys, time
+import argparse, collections, datetime as dt, fcntl, importlib.util, json, os, shutil, socket, sys, time
 
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 WSURL = 'wss://ws-subscriptions-clob.polymarket.com/ws/market'
@@ -100,12 +100,63 @@ def universe(sc, state, now):
     return ev, toks
 
 
+def acquire_lock(out):
+    """Single-instance lock (R-058): returns an open fd holding the lock, or None if another copy holds it."""
+    fd = open(os.path.join(out, '.lock'), 'w')
+    try: fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError: fd.close(); return None
+    return fd
+
+
+def preflight_eval(i):
+    """R-058 gate. i: expected_tokens, tokens_subscribed, books_received, msgs, seconds, lines_written, second_copy_refused, health_ok. Any fail = nothing starts."""
+    why = []
+    if i['expected_tokens'] <= 0: why.append('expected tokens = 0')
+    if i['tokens_subscribed'] <= 0: why.append('tokens subscribed = 0')
+    if i['tokens_subscribed'] != i['expected_tokens']: why.append('tokens subscribed %d != expected %d' % (i['tokens_subscribed'], i['expected_tokens']))
+    if i['tokens_subscribed'] and i['books_received'] / i['tokens_subscribed'] < .99: why.append('books received %d of %d (< 99%%)' % (i['books_received'], i['tokens_subscribed']))
+    if i['msgs'] <= 0 or i['lines_written'] <= 0: why.append('no real live data written (msgs %d, lines %d)' % (i['msgs'], i['lines_written']))
+    if i['seconds'] < 60: why.append('ran %ds, need 60 s of live data' % i['seconds'])
+    if not i['second_copy_refused']: why.append('a second copy was NOT refused by the single-instance lock')
+    if not i['health_ok']: why.append('health checker does not support this mode')
+    return (not why), why
+
+
+def preflight_cmd(sc, a):
+    """Run by IT on Prime BEFORE any start; commit the printed block and PREFLIGHT.json. Writes 60 s of real data to <out>/preflight/."""
+    import ws_min
+    pd = os.path.join(a.out, 'preflight'); os.makedirs(pd, exist_ok=True); lock = acquire_lock(a.out)
+    if lock is None: print('PREFLIGHT FAIL: another copy holds the lock (already running)'); return 1
+    second = acquire_lock(a.out) is None
+    now = time.time(); ev, toks = universe(sc, a.state, now); expected = sum(len(m['toks']) for e in ev.values() for m in e['markets'])
+    w = ws_min.WS(WSURL, timeout=20); w.sock.settimeout(1.0); w.send(json.dumps({'assets_ids': list(toks), 'type': 'market'})); sub = len(toks); seen = set(); msgs = 0; lines = 0; t0 = time.time(); fn = os.path.join(pd, 'sample.jsonl')
+    with open(fn, 'w') as f:
+        while time.time() - t0 < 62:
+            try: raw = w.recv()
+            except socket.timeout: continue
+            if raw in ('PONG', 'pong'): continue
+            msgs += 1
+            for x in (lambda j: j if isinstance(j, list) else [j])(json.loads(raw)):
+                if x.get('event_type') == 'book': seen.add(x['asset_id'])
+                f.write(json.dumps(x)[:2000] + '\n'); lines += 1
+    w.close()
+    syn = [dict(t=1000 - 60 * i, accepting_tokens=10, books_received=10, connected=True, last_msg_age_s=1, errors_new=0) for i in range(15)][::-1]
+    info = dict(expected_tokens=expected, tokens_subscribed=sub, books_received=len(seen & set(toks)), msgs=msgs, seconds=int(time.time() - t0), lines_written=lines, second_copy_refused=second, health_ok=health_eval(syn, 1000)[0] and not health_eval([dict(r, books_received=1) for r in syn], 1000)[0])
+    ok, why = preflight_eval(info); rec = dict(t=int(time.time()), ok=ok, why=why, **info); json.dump(rec, open(os.path.join(a.out, 'PREFLIGHT.json'), 'w'))
+    print('PREFLIGHT %s UTC: expected tokens %d, subscribed %d, books received %d, messages %d in %d s, lines written %d, second copy refused %s, health checker ok %s' % (dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%d %H:%M'), expected, sub, info['books_received'], msgs, info['seconds'], lines, second, info['health_ok']))
+    print('PREFLIGHT ' + ('PASS: supervisor may start' if ok else 'FAIL: ' + '; '.join(why) + ' -> NOTHING STARTS; commit this output and tell the Mentions thread'))
+    return 0 if ok else 1
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--scorer'); ap.add_argument('--state'); ap.add_argument('--out', required=True); ap.add_argument('--cap', type=float, default=200.); ap.add_argument('--daycap', type=float, default=2000.)
-    ap.add_argument('--health', action='store_true'); ap.add_argument('--score', action='store_true'); a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
+    ap.add_argument('--health', action='store_true'); ap.add_argument('--score', action='store_true'); ap.add_argument('--preflight', action='store_true'); a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
     if a.health: return health_cmd(a)
     sc = load('sc', a.scorer)
     if a.score: return score_cmd(sc, a)
+    if a.preflight: return preflight_cmd(sc, a)
+    lock = acquire_lock(a.out)
+    if lock is None: sys.stderr.write('another copy holds the lock; refusing to start\n'); return 3
     import ws_min
     dec_fn = os.path.join(a.out, 'decisions.jsonl'); fill_fn = os.path.join(a.out, 'fills.jsonl'); run_fn = os.path.join(a.out, 'runs.jsonl')
     done = set(); used = collections.defaultdict(float)
@@ -202,4 +253,4 @@ def score_cmd(sc, a):
     open(os.path.join(a.out, 'SCORE.txt'), 'w').write(txt); print(txt)
 
 
-if __name__ == '__main__': main()
+if __name__ == '__main__': sys.exit(main() or 0)
