@@ -10,6 +10,10 @@ const OUT = process.argv[2], END = process.argv[3] ? Date.parse(process.argv[3])
 fs.mkdirSync(OUT, { recursive: true });
 const app = (n, o) => fs.appendFileSync(path.join(OUT, n), JSON.stringify(o) + '\n');
 const log = (m) => fs.appendFileSync(path.join(OUT, 'recorder.log'), new Date().toISOString() + ' ' + m + '\n');
+// single-instance lock (R-058): a second copy on the same OUT dir refuses to start (exit 3)
+const LOCK = path.join(OUT, 'recorder.lock');
+try { const old = +fs.readFileSync(LOCK, 'utf8'); if (old && old !== process.pid) { try { process.kill(old, 0); fs.appendFileSync(path.join(OUT, 'recorder.log'), new Date().toISOString() + ' LOCK held by live pid ' + old + ', refusing to start\n'); console.error('lock held by ' + old); process.exit(3); } catch (e) { if (e.code !== 'ESRCH') throw e; } } } catch (e) { if (e.code !== 'ENOENT') throw e; }
+fs.writeFileSync(LOCK, String(process.pid)); process.on('exit', () => { try { if (+fs.readFileSync(LOCK, 'utf8') === process.pid) fs.unlinkSync(LOCK); } catch {} });
 const UA = { 'User-Agent': 'pkarbs-dota-recorder' };
 const GAMMA = process.env.GAMMA_URL || 'https://gamma-api.polymarket.com', CLOB = process.env.CLOB_URL || 'https://clob.polymarket.com';
 const DISC_MS = +process.env.DISC_MS || 300000;
@@ -44,8 +48,9 @@ async function discover() {
           mk.set(m.conditionId, { ...row, st: start }); app('markets.jsonl', row); log('market ' + m.question);
         }
       }
+      log('discovery markets ' + mk.size + ' tokens ' + mk.size * 2);
     } catch (e) { log('discover error ' + e.message); }
-    await sleep(DISC_MS);
+    for (let w = 0; w < DISC_MS && live(); w += 1000) await sleep(1000);  // wake on END/SIGTERM within 1 s, not after a full DISC_MS
   }
 }
 async function one(m, i) {
