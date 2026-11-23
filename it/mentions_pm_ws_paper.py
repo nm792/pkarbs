@@ -148,6 +148,16 @@ def preflight_cmd(sc, a):
     return 0 if ok else 1
 
 
+def merge_extra(ev, out):
+    """R-071: extra decision slots from <out>/extra_slots.json {event_id: [[variant, epoch_seconds], ...]} (e.g. times anchored to the speech start, which Gamma does not give). Unknown events are ignored."""
+    fn = os.path.join(out, 'extra_slots.json')
+    if not os.path.exists(fn): return ev
+    for k, lst in json.load(open(fn)).items():
+        e = ev.get(str(k)) or ev.get(k)
+        if e: e['slots'] = sorted(set(map(tuple, e['slots'])) | {(v, float(t)) for v, t in lst}, key=lambda x: x[1])
+    return ev
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--scorer'); ap.add_argument('--state'); ap.add_argument('--out', required=True); ap.add_argument('--cap', type=float, default=200.); ap.add_argument('--daycap', type=float, default=2000.)
     ap.add_argument('--health', action='store_true'); ap.add_argument('--score', action='store_true'); ap.add_argument('--preflight', action='store_true'); a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
@@ -171,7 +181,7 @@ def main():
         now = time.time()
         try:
             if now - last_uni > 300 or w is None:
-                ev2, toks2 = universe(sc, a.state, now); last_uni = now
+                ev2, toks2 = universe(sc, a.state, now); ev2 = merge_extra(ev2, a.out); last_uni = now
                 if set(toks2) != set(toks) or w is None:
                     ev, toks = ev2, toks2
                     if w: w.close()
