@@ -22,7 +22,7 @@ def test_slim_book_sorts_best_last_inputs():
     assert b["asks"][0][0] == 0.5 and b["bids"][0][0] == 0.4
 
 def test_summarize_groups_by_series_and_lead():
-    rows = [dict(series="s", lead_h=1.0, ask=0.8, depth02=10, depth05=20), dict(series="s", lead_h=1.0, ask=0.9, depth02=30, depth05=40), dict(series="s", error="x")]
+    rows = [dict(series="s", lead_h=1.0, token="a", ask=0.8, depth02=10, depth05=20), dict(series="s", lead_h=1.0, token="b", ask=0.9, depth02=30, depth05=40), dict(series="s", error="x")]
     s = B.summarize(rows); assert len(s) == 1 and s[0]["n"] == 2 and s[0]["depth02_med"] == 20
 
 def test_due_window_is_plus_minus_60s():
@@ -61,3 +61,29 @@ def test_snap_event_full_stores_all_candidate_ladders(monkeypatch):
     ev = dict(id="e", endDate="2026-11-25T00:00:00Z", markets=[dict(clobTokenIds='["A","a"]', outcomes='["Yes","No"]'), dict(clobTokenIds='["B","b"]', outcomes='["Yes","No"]')])
     r = B.snap_event(ev, 0.0, full=True)
     assert set(r["books"]) == {"A", "B"} and r["token"] == "A" and "books" not in B.snap_event(ev, 0.0)
+
+ONE_SIDED = {"WIN": dict(bids=[(0.999, 50)], asks=[]), "LOSE": dict(bids=[], asks=[(0.002, 80)])}    # decided market: winner bids only, loser asks only
+
+def test_one_sided_decided_book_has_a_leader_and_is_counted():
+    m = B.measure(ONE_SIDED)
+    assert m["token"] == "WIN" and m["book_state"] == "bids_only" and m["ask"] is None and m["depth02"] == 0.0 and m["bid"] == 0.999
+    row = dict(event="e", lead_h=1.0, **m)
+    h = B.health({("e", 1.0)}, [row]); assert h["pct"] == 100.0 and h["own_book_ok"] and h["one_sided"] == 1
+
+def test_asks_only_when_no_bids_anywhere():
+    m = B.measure({"X": dict(bids=[], asks=[(0.7, 5)]), "Y": dict(bids=[], asks=[(0.4, 5)])})
+    assert m["token"] == "Y" and m["book_state"] == "asks_only"
+
+def test_summarize_separates_one_sided_rows():
+    rows = [dict(series="s", lead_h=1.0, token="T", ask=0.8, depth02=10, depth05=20), dict(series="s", lead_h=1.0, token="W", ask=None, book_state="bids_only", depth02=0.0, depth05=0.0)]
+    s = B.summarize(rows)[0]; assert s["n"] == 1 and s["n_one_sided"] == 1 and s["depth02_med"] == 10
+
+def test_old_both_sides_rule_fails_the_planted_case():
+    """mutant: the old leader() needed both sides; with it the planted decided book yields no token and health goes false."""
+    def old(books):
+        best = None
+        for t, b in books.items():
+            if not b["bids"] or not b["asks"]: continue
+            if best is None or b["bids"][0][0] > best[1]: best = (t, b["bids"][0][0])
+        return best[0] if best else None
+    assert old(ONE_SIDED) is None and B.leader(ONE_SIDED) == "WIN"

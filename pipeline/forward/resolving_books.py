@@ -48,19 +48,23 @@ def candidates(ev):
 
 
 def leader(books):
-    """books: {token: slim_book}. leader = highest own best bid among tokens that have a bid and an ask."""
+    """books: {token: slim_book}. leader = highest own best bid among tokens that have any bid (a decided market can leave the winner with bids only);
+    if no token has a bid, the lowest own best ask. Returns None only when every book is empty."""
     best = None
     for t, b in books.items():
-        if not b["bids"] or not b["asks"]: continue
-        if best is None or b["bids"][0][0] > best[1]: best = (t, b["bids"][0][0])
-    return best[0] if best else None
+        if b["bids"] and (best is None or b["bids"][0][0] > best[1]): best = (t, b["bids"][0][0])
+    if best: return best[0]
+    asks = [(b["asks"][0][0], t) for t, b in books.items() if b["asks"]]
+    return min(asks)[1] if asks else None
 
 
 def measure(books):
+    """own-token summary of the leader. book_state: two_sided / bids_only (decided winner) / asks_only. ask is None and depth 0.0 when the leader has no asks."""
     t = leader(books)
     if t is None: return None
     a = books[t]["asks"]; bd = books[t]["bids"]
-    return dict(token=t, bid=bd[0][0], ask=a[0][0], depth02=ask_depth_usd(a, 0.02), depth05=ask_depth_usd(a, 0.05), n_levels=len(a))
+    st = "two_sided" if (a and bd) else ("bids_only" if bd else "asks_only")
+    return dict(token=t, bid=bd[0][0] if bd else None, ask=a[0][0] if a else None, depth02=ask_depth_usd(a, 0.02), depth05=ask_depth_usd(a, 0.05), n_levels=len(a), book_state=st)
 
 
 def open_events(series):
@@ -165,11 +169,13 @@ def cmd_record(a):
 def summarize(rows):
     by = collections.defaultdict(list)
     for r in rows:
-        if "error" in r or "ask" not in r: continue
+        if "error" in r or "token" not in r: continue
         by[(r["series"], r.get("lead_h"))].append(r)
     out = []
-    for (s, L), rs in sorted(by.items(), key=lambda x: (x[0][0], str(x[0][1]))):
-        out.append(dict(series=s, lead_h=L, n=len(rs), ask_med=statistics.median(r["ask"] for r in rs), depth02_med=statistics.median(r["depth02"] for r in rs),
+    for (s, L), rs0 in sorted(by.items(), key=lambda x: (x[0][0], str(x[0][1]))):
+        rs = [r for r in rs0 if isinstance(r.get("ask"), (int, float))]
+        if not rs: out.append(dict(series=s, lead_h=L, n=len(rs0), n_one_sided=len(rs0), ask_med=None, depth02_med=None, depth05_med=None, depth02_min=None, depth02_max=None)); continue
+        out.append(dict(series=s, lead_h=L, n=len(rs), n_one_sided=len(rs0) - len(rs), ask_med=statistics.median(r["ask"] for r in rs), depth02_med=statistics.median(r["depth02"] for r in rs),
                         depth05_med=statistics.median(r["depth05"] for r in rs), depth02_min=min(r["depth02"] for r in rs), depth02_max=max(r["depth02"] for r in rs)))
     return out
 
@@ -177,10 +183,12 @@ def summarize(rows):
 def health(expected, rows):
     """expected: set of (event_id, lead_h) windows that fell due in the period; rows: JSONL records of the period.
     returns dict(expected, captured, pct, errors, own_book_ok). A capture counts only if it has a numeric ask taken from the leader token's own book."""
-    got = {(r.get("event"), r.get("lead_h")) for r in rows if "error" not in r and isinstance(r.get("ask"), (int, float)) and r.get("token")}
+    # a capture counts when the row names the leader token and either has a numeric ask or is an honest one-sided (decided) book: market state, not a miss
+    got = {(r.get("event"), r.get("lead_h")) for r in rows if "error" not in r and r.get("token") and (isinstance(r.get("ask"), (int, float)) or r.get("book_state") in ("bids_only", "asks_only"))}
     errs = sum(1 for r in rows if "error" in r)
     hit = len(expected & got)
-    return dict(expected=len(expected), captured=hit, pct=(100.0 * hit / len(expected)) if expected else None, errors=errs, own_book_ok=all(r.get("token") for r in rows if "error" not in r))
+    return dict(expected=len(expected), captured=hit, pct=(100.0 * hit / len(expected)) if expected else None, errors=errs, own_book_ok=all(r.get("token") for r in rows if "error" not in r),
+                one_sided=sum(1 for r in rows if r.get("book_state") in ("bids_only", "asks_only")))
 
 
 def cmd_health(a):
