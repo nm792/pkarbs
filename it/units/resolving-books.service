@@ -3,7 +3,9 @@ Description=Late-resolving series decision-time book recorder (read-only, never 
 After=network-online.target
 [Service]
 Type=simple
+TimeoutStartSec=180
 WorkingDirectory=/mnt/HC_Volume_107257520/pkarbs
+ExecStartPre=/usr/bin/python3 pipeline/forward/resolving_books.py preflight --series-file it/resolving_books_series.txt --out /mnt/HC_Volume_107257520/resolving-books --seconds 60
 ExecStart=/usr/bin/python3 pipeline/forward/resolving_books.py record --series-file it/resolving_books_series.txt --out /mnt/HC_Volume_107257520/resolving-books --max-hours 720
 Restart=always
 RestartSec=5

@@ -5,7 +5,7 @@ Subcommands:
   summarize --out DIR                      depth table: per series x lead, median own-token ask $ at leader ask..+0.02 and ..+0.05, leader ask, n
 Candidate tokens: YES token of bracket events, both tokens of single Up/Down markets. Leader = candidate with the highest own best bid (own book, never 1 - other).
 Own-token books: asks and bids of the SAME token; YES and NO are separate books."""
-import argparse, collections, datetime as dt, gzip, json, os, statistics, sys, time, urllib.request
+import argparse, collections, datetime as dt, fcntl, gzip, json, os, statistics, sys, time, urllib.request
 GAMMA = "https://gamma-api.polymarket.com"; CLOB = "https://clob.polymarket.com"
 UA = {"User-Agent": "Mozilla/5.0", "Accept-Encoding": "gzip", "Content-Type": "application/json"}
 LEADS_H = (3.0, 1.0, 0.5); TOL_S = 60.0
@@ -37,6 +37,7 @@ def ask_depth_usd(asks, slack):
 def candidates(ev):
     out = []
     for m in ev["markets"]:
+        if m.get("closed") is True or m.get("acceptingOrders") is False: continue    # closed brackets have no book
         toks = json.loads(m["clobTokenIds"]) if isinstance(m.get("clobTokenIds"), str) else m.get("clobTokenIds")
         outs = json.loads(m["outcomes"]) if isinstance(m.get("outcomes"), str) else m.get("outcomes")
         if not toks or not outs or len(toks) != 2: continue
@@ -98,8 +99,43 @@ def cmd_snap(a):
     json.dump(rows, open(a.out, "w")) if a.out else print(json.dumps(rows, indent=1)); return rows
 
 
+def acquire_lock(out):
+    """single-instance lock: returns the open handle, or None if another process holds it (second copy refused)."""
+    os.makedirs(out, exist_ok=True); fh = open(os.path.join(out, ".lock"), "w")
+    try: fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError: fh.close(); return None
+    fh.write(str(os.getpid())); fh.flush(); return fh
+
+
+def preflight_check(expected_tokens, got_books, rows_written, min_rows):
+    """R-058: tokens/books >0 and equal to expected; 60 s of real live data written. returns (ok, list of failures)."""
+    f = []
+    if expected_tokens <= 0: f.append("expected tokens = 0")
+    if len(got_books) != expected_tokens: f.append(f"books returned {len(got_books)} != expected tokens {expected_tokens}")
+    if not any(b["asks"] or b["bids"] for b in got_books.values()): f.append("no book has any level")
+    if rows_written < min_rows: f.append(f"only {rows_written} live rows written (< {min_rows})")
+    return (not f), f
+
+
+def cmd_preflight(a):
+    """Run by IT on Prime BEFORE starting the service. Any FAIL: exit 1, nothing starts. Writes 60 s of real snapshots to OUT/preflight.jsonl."""
+    series = [l.strip() for l in open(a.series_file) if l.strip() and not l.startswith("#")]
+    lk = acquire_lock(a.out)
+    if lk is None: print("FAIL single-instance lock held by another process (a recorder is already running)"); sys.exit(1)
+    evs = [ev for s in series for ev in open_events(s)]; toks = sorted({t for ev in evs for t in candidates(ev)})
+    print(f"events {len(evs)} expected tokens {len(toks)} series {len(series)}")
+    path = os.path.join(a.out, "preflight.jsonl"); n = 0; t_end = time.time() + a.seconds; bk = {}
+    with open(path, "w") as f:
+        while time.time() < t_end:
+            bk = books_for(toks); f.write(json.dumps(dict(t=time.time(), n_books=len(bk), n_levels=sum(len(b["asks"]) + len(b["bids"]) for b in bk.values()))) + "\n"); f.flush(); n += 1; time.sleep(5)
+    ok, fails = preflight_check(len(toks), bk, n, max(1, int(a.seconds / 5) - 2))
+    print("PASS preflight" if ok else "FAIL preflight: " + "; ".join(fails)); print(f"rows {n} file {path} bytes {os.path.getsize(path)}"); lk.close(); sys.exit(0 if ok else 1)
+
+
 def cmd_record(a):
     series = [l.strip() for l in open(a.series_file) if l.strip() and not l.startswith("#")]
+    lock = acquire_lock(a.out)
+    if lock is None: print("second copy refused: lock held"); sys.exit(1)
     os.makedirs(a.out, exist_ok=True); done = set(); t_end = time.time() + a.max_hours * 3600; ev_cache = {}; last_list = 0
     while time.time() < t_end:
         now = time.time()
@@ -175,6 +211,7 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(); sp = p.add_subparsers(dest="cmd", required=True)
     s = sp.add_parser("snap"); s.add_argument("--series", required=True); s.add_argument("--out")
     r = sp.add_parser("record"); r.add_argument("--series-file", required=True); r.add_argument("--out", required=True); r.add_argument("--max-hours", type=float, default=26)
+    pf = sp.add_parser("preflight"); pf.add_argument("--series-file", required=True); pf.add_argument("--out", required=True); pf.add_argument("--seconds", type=float, default=60)
     h = sp.add_parser("health"); h.add_argument("--series-file", required=True); h.add_argument("--out", required=True); h.add_argument("--minutes", type=float, default=15)
     u = sp.add_parser("summarize"); u.add_argument("--out", required=True)
-    a = p.parse_args(); {"snap": cmd_snap, "record": cmd_record, "summarize": cmd_summarize, "health": cmd_health}[a.cmd](a)
+    a = p.parse_args(); {"snap": cmd_snap, "record": cmd_record, "summarize": cmd_summarize, "health": cmd_health, "preflight": cmd_preflight}[a.cmd](a)

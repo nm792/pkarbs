@@ -37,3 +37,20 @@ def test_health_counts_only_own_book_captures_and_errors():
     assert h["expected"] == 3 and h["captured"] == 1 and h["errors"] == 1 and h["own_book_ok"] is False
     ok = B.health({("e1", 3.0)}, [rows[0]]); assert ok["pct"] == 100.0 and ok["own_book_ok"]
     assert B.health(set(), [])["pct"] is None
+
+def test_single_instance_lock_refuses_second(tmp_path):
+    a = B.acquire_lock(str(tmp_path)); assert a is not None
+    assert B.acquire_lock(str(tmp_path)) is None
+    a.close(); b = B.acquire_lock(str(tmp_path)); assert b is not None
+
+def test_preflight_check_needs_equal_counts_levels_and_rows():
+    bk = {"A": dict(asks=[(0.5, 1)], bids=[]), "B": dict(asks=[], bids=[])}
+    assert B.preflight_check(2, bk, 10, 10)[0]
+    assert not B.preflight_check(3, bk, 10, 10)[0]            # 2 books for 3 tokens
+    assert not B.preflight_check(0, {}, 10, 10)[0]            # zero expected
+    assert not B.preflight_check(2, bk, 3, 10)[0]             # not enough live rows
+    assert not B.preflight_check(1, {"A": dict(asks=[], bids=[])}, 10, 10)[0]   # empty books
+
+def test_closed_markets_are_not_candidates():
+    ev = {"markets": [dict(clobTokenIds='["y1","n1"]', outcomes='["Yes","No"]', closed=True), dict(clobTokenIds='["y2","n2"]', outcomes='["Yes","No"]', acceptingOrders=False), dict(clobTokenIds='["y3","n3"]', outcomes='["Yes","No"]', closed=False, acceptingOrders=True)]}
+    assert B.candidates(ev) == ["y3"]

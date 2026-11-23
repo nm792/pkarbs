@@ -5,8 +5,9 @@ Why: no order book was ever stored at the time a late-resolving contract is pric
 
 ## Steps
 1. `cd /mnt/HC_Volume_107257520/pkarbs && git fetch origin claude/project-thread-o5rbz8 && git checkout FETCH_HEAD -- pipeline it` (do NOT commit from /root/pkarbs). Paste the commit id and `sha256sum pipeline/forward/resolving_books.py`.
-2. `python3 -m pytest -q pipeline/tests/test_resolving_books.py` and paste the last line (expect `7 passed`).
+2. `python3 -m pytest -q pipeline/tests/test_resolving_books.py` and paste the last line (expect `10 passed`).
 3. `mkdir -p /mnt/HC_Volume_107257520/resolving-books`.
+4a. PREFLIGHT (R-058, committed, run by IT on Prime BEFORE any start): `python3 pipeline/forward/resolving_books.py preflight --series-file it/resolving_books_series.txt --out /mnt/HC_Volume_107257520/resolving-books --seconds 60`. It checks: expected tokens (open, accepting-orders candidate tokens of the 34 series) > 0 and equal to the books returned; at least one book has levels; 60 s of real live rows written to `preflight.jsonl`; single-instance lock free. Paste the output (expect `PASS preflight`, about 469 expected tokens on 23 Nov 02:50Z). ANY `FAIL`: nothing starts; paste it and stop. The unit also runs the same preflight as ExecStartPre, so a failing preflight blocks the service. A second copy is refused by the lock (`second copy refused: lock held`, exit 1).
 4. `cp it/units/resolving-books.service /etc/systemd/system/ && systemctl daemon-reload && systemctl enable --now resolving-books.service` (Restart=always is in the unit).
 5. `bash it/resolving_books_preflight.sh` (paste all of it; every FAIL fixed within 15 min or named), then `bash it/resolving_books_live_read.sh` (pid line must show a number; file growth is only expected inside a window).
 6. Disk: about 1 MB per day; no floor issue.
