@@ -49,6 +49,13 @@ def norm(s):
     return re.sub(r'[^a-z]', '', (s or '').lower())
 
 
+KEEP_THRESHOLD = False  # R-064 2a: True keeps digits so "AI 5+ times" and "AI 50+ times" are different words. Default False = the FROZEN rule (norm strips digits).
+
+
+def wkey(s):
+    return re.sub(r'[^a-z0-9]', '', (s or '').lower()) if KEEP_THRESHOLD else norm(s)
+
+
 def fam(title):  # identical to mentions/pm_forward.py
     t = (title or '').lower()
     if 'trump' in t and 'week' in t:
@@ -72,7 +79,7 @@ def slim(e):
         except Exception:
             p, toks = [], []
         fs = m.get('feeSchedule') or {}
-        ms.append(dict(cond=m.get('conditionId'), word=norm(m.get('groupItemTitle') or m.get('question')),
+        ms.append(dict(cond=m.get('conditionId'), word=wkey(m.get('groupItemTitle') or m.get('question')),
                        label=m.get('groupItemTitle') or m.get('question'), prices=p, toks=toks,
                        closed=bool(m.get('closed')), start=m.get('startDate') or e.get('startDate') or '',
                        closedTime=m.get('closedTime') or m.get('endDate') or '', fee=(fs.get('rate') if m.get('feeType') == 'mentions_fees' or fs else 0) or 0))

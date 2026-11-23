@@ -55,4 +55,17 @@ bf = sc.book_fill(entry, {'f1b': [(T0, 0, [(.50, 3), (.60, 100), (.80, 100)])]})
 chk('book: walks asks under limit (.767): 3@.50 + 2@.60', bf['status'] == 'filled' and abs(bf['avg'] - (3 * .5 + 2 * .6) / 5) < 1e-9)
 # summary: 100-event gate text
 chk('verdict undefined below 100 bets', 'not yet defined' in s['verdict'])
+def _gm(title, win):
+    return {'id': 1, 'title': 'x', 'markets': [{'conditionId': 'c', 'groupItemTitle': title, 'question': title, 'outcomePrices': json.dumps([1.0 if win else 0.0, 0.0 if win else 1.0]), 'clobTokenIds': json.dumps(['a', 'b'])}]}
+def _w(title, win): return sc.slim(_gm(title, win))['markets'][0]['word']
+_old = sc.KEEP_THRESHOLD
+sc.KEEP_THRESHOLD = False
+chk('R-064 2a PLANTED: frozen rule pools "AI 5+ times" and "AI 50+ times" under one word (the bug)', _w('AI 5+ times', 1) == _w('AI 50+ times', 0) == 'aitimes')
+chk('R-064 2a planted: a plain 1+ word never pools with a count market', _w('AI', 1) == 'ai')
+sc.KEEP_THRESHOLD = True
+chk('R-064 2a fix: KEEP_THRESHOLD separates thresholds', _w('AI 5+ times', 1) == 'ai5times' and _w('AI 50+ times', 0) == 'ai50times')
+chk('R-064 2a fix: bracket spelling "Iran (5+ times)" equals "Iran 5+ times"', _w('Iran (5+ times)', 1) == _w('Iran 5+ times', 1) == 'iran5times')
+_h = [dict(markets=[dict(word=_w('AI 5+ times', 1), prices=[1.0, 0.0])]), dict(markets=[dict(word=_w('AI 50+ times', 0), prices=[0.0, 1.0])])]
+chk('R-064 2a fix: q for AI 50+ uses only its own history (2 pooled wins would give a higher q)', sc.q_for(_h, None, dict(word=_w('AI 50+ times', 0))) < sc.q_for(_h[:1] + [dict(markets=[dict(word=_w('AI 5+ times', 1), prices=[1.0, 0.0])])], None, dict(word=_w('AI 5+ times', 1))))
+sc.KEEP_THRESHOLD = _old
 print(f'{"PASS" if ok == N else "FAIL"} ({ok} of {N} checks)'); sys.exit(0 if ok == N else 1)
