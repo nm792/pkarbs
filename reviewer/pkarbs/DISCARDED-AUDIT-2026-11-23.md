@@ -18,7 +18,6 @@ Sources: REAUDIT-2026-11-22.md (36 rows plus the 23 Nov update), REVIEW-2026-11-
 | 4 | **NBA event-only post-only bid (RN1 clone)** (OPEN-ITEMS 8, 18) | Dormant: 0 live fills | **CAP** plus never tested: it was dropped on a simulation, never paper-run | The 6 Nov fill sim matched RN1 to about 1 point; about $70/day simulated (35%, SIMULATION label) | P106e NBA keeper (pre-flight f5be71e7, health a4744a2b) is queued first in IT's release order |
 | 5 | **Macro-release stale-quote pickoff** (OPEN-ITEMS 19) | Killed against a $50/day bar at $8-38/day | **§5** (killed at a threshold), **CAP** (reachable depth never captured: the FOMC 28 Oct capture was lost), **POOL** (41% from one FOMC day, so the average is one day) | FLOOR 4-19% of $200 on print data | Book capture at FOMC/CPI/jobs releases on own-token asks. It stacks (§4): $8-38 is a layer, not a reason to kill |
 | 6 | **Late-resolving deep-volume families** (OPEN-ITEMS 6) | Not discarded, but at risk on the summed sign flip | **POOL** (the summed $53/day flips across lead times) | 5 of 81 families have a 95% lower bound above 0, e.g. **wti-15m +$29/day on 38 events** | Prime rerun before 11:00Z (it/IT-2026-11-23-prime-late-leader-final.md); resolving-books recorder NOT RUNNING |
-| 7 | **OddsPapi / Pinnacle sharp-book lead** (OPEN-ITEMS 13) | Lead of 1-2 s "inside the 1 s taker delay" | **§1** (judged against a 1 s delay; SETTLED A3 is a **250 ms** hold), coarse windows | A 1-2 s lead is 4-8x the real hold, on 4-6% of matches | Rescore at 250 ms on both-token books (Goalserve valid look) |
 | 8 | **Copper / metals Sunday reopen** (OPEN-ITEMS 15) | Charged 9 bp instead of 0.9 bp; then "unknown" | **COST** (fixed), **§2** (needs about 20 signals, about 18 weekends) | Held-out copper **+87.2 bp, CI +7.8 to +183.1 (n 9, post hoc)**; metals +18.6 bp, CI -67.4 to +119.8 (n 25) | Forward shadow cell; no new data needed beyond the perps logger |
 | 9 | **Weekend perps post-open drift** (OPEN-ITEMS 7) | NOT PASSED | **§2**, **§5**: 13 weekends vs about 30 needed | +35 bp net, CI -22 to +96 | Forward check on the P104 snapshot logger |
 | 10 | **Earnings-beat contracts** (OPEN-ITEMS 19) | Folded into "forecast edges, none passed" | **POOL** (lumped with Netflix and MrBeast), never followed up | Test +6.8c +- 3.2c (train +1.4c) | Own-token books on the next earnings-beat listings |
@@ -31,6 +30,7 @@ Sources: REAUDIT-2026-11-22.md (36 rows plus the 23 Nov update), REVIEW-2026-11-
 
 | thesis | evidence | label |
 |---|---|---|
+| OddsPapi / Pinnacle sharp-book lead (CORRECTED 09:00Z, was reopen rank 7) | CLOB `/markets/<id>` read 23 Nov 09:00Z: **seconds_delay = 1** on soccer, NHL, tennis and CS2 match markets (2 each); 0 on 2 NBA games and on futures. OddsPapi tested tennis and multi-sport, so the 1 s judgement was right: a 1-2 s lead sits inside a 1 s matching delay plus latency. SETTLED A3 (250 ms) does not hold for these markets | Weak, stays OPEN low (coarse windows); not reopened |
 | Sports MECE YES side | **YES rescan -$302 at delay 0** (shadow/run_sims.sh, delays 0,1,3,market). It already loses before any hold, so the missing 250 ms cell cannot rescue it | OK, dead |
 | 2-way MECE on NHL/CS2 | 528,000 own-ask observations, min askA+askB 1.001 | OK for those markets only |
 | Tennis taker-on-message (TheSports T1) | 86-99% of the move already priced; -3.4c. The +10c test was underpowered for smaller edges, but the pricing evidence closes taker | OK for taker; maker untested |
@@ -62,5 +62,7 @@ Sources: REAUDIT-2026-11-22.md (36 rows plus the 23 Nov update), REVIEW-2026-11-
 
 ## D. Ledger
 Every row in A and B maps to an OPEN-ITEMS row (1-22) or is added as rows 23-27 (sports-MECE 250 ms note under 13; mentions transcript base rate 23; mentions live nowcast 24; count-market pooling check 25; earnings-beat follow-up 26; untested perps legs (after-hours gaps, NVDA) 27). Nothing leaves the ledger.
+
+**Correction 09:00Z:** rank 7 (sharp-book lead) is withdrawn and moved to B after the CLOB seconds_delay read. Ranks below it move up one.
 
 **Confidence 7/10** that each fact is right, the rows do not overlap, and A plus B cover every PK verdict on file. To reach 9: (a) the 17 Nov MECE probe files (still missing); (b) PK's check of the count-market title pooling; (c) the source of the 1.25c CS2 fee; (d) the overdue 06:00Z REAUDIT final from the PK thread. All four sit with PK, not in public sources.
