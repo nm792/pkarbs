@@ -1,5 +1,10 @@
 # Nautilus-native live paper node: LATE-RESOLVING wti-up-or-down-15m (R-078 item 3, R-081), spec for the audit gate, 24 Nov 2026 (v2)
 
+**Goal:** find and build un-publicised Polymarket edges that reliably deliver $500/day (bar $200/day per strategy on the CI lower bound).
+**Where we stand (measured):** $0/day; the late-resolving scan has no MEASURED cell, only FLOORs: causal $53/day summed over 81 families (26% of $200) and a hindsight ceiling of $868/day (pipeline/R036-late-winner-scan-2026-11-22.md, late_leader.py 3364acc6d3, tapes to 19 Nov); wti-15m +$29.05/day, lower bound +$5.52, 11 bets, UNPROVEN.
+**The one item that matters:** decision-time own-token books for these series exist nowhere until IT restarts the resolving-books recorder on commit 131c2c6200 and posts a health read; without them every $/day stays a FLOOR.
+
+
 Labels on every $: **SIM** = produced by the Nautilus paper node, **FLOOR** = backtest with fills capped at printed size, **UNPROVEN** = sample or interval does not settle it. Today every $ is FLOOR and UNPROVEN; no SIM figure exists. Paper only, on Prime under IT caps (R-039). Confidence 6/10.
 
 ## 0. What is built and what is not
