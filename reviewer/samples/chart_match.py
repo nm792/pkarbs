@@ -31,13 +31,22 @@ def market_for(slug):
     raise SystemExit("no two-outcome market in " + slug)
 
 
-def trades_for(cond):
+def check_rows(rows, cond):
+    """R-080a: v2 SILENTLY IGNORES unknown params and then returns OTHER markets' trades; every row must carry the requested condition id."""
+    bad = [r for r in rows if (r.get("condition_id") or r.get("conditionId") or r.get("condition")) != cond]
+    if bad:
+        raise SystemExit("data-api returned %d of %d rows for another market (condition filter ignored?)" % (len(bad), len(rows)))
+    return rows
+
+
+def trades_for(cond, getter=None):
+    getter = getter or get
     out, cur = [], None
     while True:
-        d = get("https://data-api.polymarket.com/v2/trades?condition=%s&limit=1000%s" % (cond, "&cursor=" + cur if cur else ""))
+        d = getter("https://data-api.polymarket.com/v2/trades?condition=%s&limit=1000%s" % (cond, "&cursor=" + cur if cur else ""))
         if "data" not in d:
             raise SystemExit("data-api error: " + json.dumps(d)[:300])
-        out += d["data"]
+        out += check_rows(d["data"], cond)
         cur = (d.get("pagination") or {}).get("next_cursor")
         if not cur or not (d.get("pagination") or {}).get("has_more"):
             return out
