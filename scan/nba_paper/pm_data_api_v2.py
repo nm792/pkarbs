@@ -32,7 +32,12 @@ def _get(url):
     return json.load(urllib.request.urlopen(req, timeout=30))
 
 
-def fetch_trades(condition_id, base=None, param='condition_id', limit=500, max_pages=20, getter=_get):
+def in_window(rows, start=None, end=None):
+    """v2 silently ignores start/end (P-R080-1): window by row timestamp ourselves. start/end are NEVER sent."""
+    return [r for r in rows if (start is None or r['timestamp'] >= start) and (end is None or r['timestamp'] <= end)]
+
+
+def fetch_trades(condition_id, base=None, param='condition_id', limit=500, max_pages=20, getter=_get, start=None, end=None):
     base = base or BASE
     out, cur = [], None
     for _ in range(max_pages):
@@ -46,4 +51,4 @@ def fetch_trades(condition_id, base=None, param='condition_id', limit=500, max_p
         cur = pg.get('next_cursor')
         if not pg.get('has_more') or not rows or not cur:
             break
-    return out
+    return in_window(out, start, end)
