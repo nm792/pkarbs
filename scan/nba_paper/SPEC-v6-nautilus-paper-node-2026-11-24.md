@@ -50,7 +50,7 @@ No file named 'ledger' exists in the repos I can read, so I use as ledger rows: 
 | 14 | MINT fill-only mapping + de-dup | Nick 03:33Z; R-091 item 4b | mint_map.py | TESTED 15 checks |
 | 15 | Engine settings named, unsupported setting = no start | R-091 item 4c | section above | pre-flight P1-P5; NOT BUILT |
 | 16 | Own node, own trader id, own account | R-091 item 4 (3b) | gate bucket e68e8ca3f | config check P6; NOT BUILT |
-| 17 | NBA feed delay (free WS about 4.9-5.5 s after the play; price half-moves about 2.8 s after the WS) | R-030/B1; winmodels note | winmodels/us/NOTE-nba-true-event-time-2026-11-04.md | measured delay must exist before any P&L is called valid; NOT BUILT |
+| 17 | NBA feed delay (free WS about 4.9-5.5 s after the play; the price is half-moved about 2.1 s after the WS frame, REVIEW-2026-11-22 line 24) | R-030/B1; winmodels note | winmodels/us/NOTE-nba-true-event-time-2026-11-04.md | measured delay must exist before any P&L is called valid; NOT BUILT |
 | 18 | Order latency 0.206 s median, p90 1.281 s (n=30) | A3 / latency note | agent/outbox/nautilus-order-latency-2026-11-05.md | sensitivity cells; NOT BUILT |
 | 19 | Queue measurement 6,300 shares ahead (5 min of books only) | README B | rn1-recheck README B | joining arm only; NOT BUILT |
 | 20 | Power with planted edge and null | MODELLING-PRINCIPLES 2 | s2 | test_plant, null run; NOT BUILT |
