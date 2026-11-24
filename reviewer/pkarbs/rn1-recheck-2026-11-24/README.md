@@ -38,7 +38,7 @@ Wallet 0x2005d16a84ceefa912d4e380cd32e7ff827875ea (name "RN1"). 4,000 fills from
 
 Confidence 6/10. One night of RN1 fills, print-based markouts, and a maker/taker split that rests on the taker_only flag. To reach 9: P106e book-based markouts on RN1's NBA fills (same night), and an on-chain maker check on a sample.
 
-## E. Per sport, 3 days (21 Nov 03:25Z to 24 Nov 03:25Z), added 03:40Z (Nick 03:24Z: "can this work for other sports?")
+## E. Per sport, 3 days (21 Nov 03:25Z to 24 Nov 03:25Z), added 03:29Z (Nick 03:24Z: "can this work for other sports?")
 Same method. 32,942 fills; maker by the taker_only set difference. Resolved = token result from gamma. P&L is to the result, before rebates (rebates add about +0.5% per the 3 Nov decomposition).
 - **All sports:** maker $5.57M = **94.7% of $**; resolved maker P&L **+$31,736 on $5.37M = +0.59%**. Taker +$21,320 on $286K (+7.4%; mostly two LaLiga/Belgian cells).
 - **CORRECTION to section A:** NBA maker over 3 days is **-$1,819 on $270K (-0.7%)**, not the +10.5% of one night. Daily NBA maker P&L: 21 Nov -$4,681, 22 Nov -$7,979, 23 Nov +$5,078, 24 Nov +$5,764. One night proves nothing; the daily swings are larger than the edge.
