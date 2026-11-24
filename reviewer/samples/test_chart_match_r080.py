@@ -19,4 +19,7 @@ chk("rows without any condition id are REFUSED", ok)
 seen = []
 cm.trades_for(C, lambda u: (seen.append(u), good(u))[1])
 chk("request uses condition= (not markets=/condition_ids=)", "v2/trades?condition=%s" % C in seen[0] and "markets=" not in seen[0])
+w = cm.in_window([{"timestamp": 99}, {"timestamp": 100}, {"timestamp": 150}, {"timestamp": 200}, {"timestamp": 201}], 100, 200)
+chk("PLANTED out-of-window trades (99, 201) are EXCLUDED, edges kept", [t["timestamp"] for t in w] == [100, 150, 200])
+chk("no start/end params are ever sent to /v2/trades", all("start=" not in u and "end=" not in u for u in seen))
 print("ALL PASS" if not F else "FAILED: " + "; ".join(F)); sys.exit(1 if F else 0)
