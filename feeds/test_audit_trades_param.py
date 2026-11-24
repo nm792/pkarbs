@@ -23,4 +23,7 @@ d = tempfile.mkdtemp(); json.dump([dict(condition_id=OTHER)], open(os.path.join(
 try: a.trades(MINE, d, fetch=fake); ok = False
 except a.WrongMarketRows: ok = True
 chk("a poisoned CACHE file of another market is refused", ok)
+rows = [dict(condition_id=MINE, timestamp=t) for t in (100, 940, 1000, 1070, 5000)]
+w = a.window_trades(rows, 1000, 1010)
+chk("planted out-of-window trades (t=100, 5000) are excluded, in-window kept", [r["timestamp"] for r in w] == [940, 1000, 1070], [r["timestamp"] for r in w])
 print("ALL PASS" if not fails else "FAILED %s" % fails); sys.exit(1 if fails else 0)
