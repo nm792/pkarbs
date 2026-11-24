@@ -37,3 +37,25 @@ Wallet 0x2005d16a84ceefa912d4e380cd32e7ff827875ea (name "RN1"). 4,000 fills from
 - **Gamma `/events?...&limit=100` now returns 406;** limit 50 works.
 
 Confidence 6/10. One night of RN1 fills, print-based markouts, and a maker/taker split that rests on the taker_only flag. To reach 9: P106e book-based markouts on RN1's NBA fills (same night), and an on-chain maker check on a sample.
+
+## E. Per sport, 3 days (21 Nov 03:25Z to 24 Nov 03:25Z), added 03:40Z (Nick 03:24Z: "can this work for other sports?")
+Same method. 32,942 fills; maker by the taker_only set difference. Resolved = token result from gamma. P&L is to the result, before rebates (rebates add about +0.5% per the 3 Nov decomposition).
+- **All sports:** maker $5.57M = **94.7% of $**; resolved maker P&L **+$31,736 on $5.37M = +0.59%**. Taker +$21,320 on $286K (+7.4%; mostly two LaLiga/Belgian cells).
+- **CORRECTION to section A:** NBA maker over 3 days is **-$1,819 on $270K (-0.7%)**, not the +10.5% of one night. Daily NBA maker P&L: 21 Nov -$4,681, 22 Nov -$7,979, 23 Nov +$5,078, 24 Nov +$5,764. One night proves nothing; the daily swings are larger than the edge.
+- **Price band (answers "stale asks after the game is resolved?"):** maker fills at 0.95-0.99 made +1.03% on $476K, and at >= 0.99 -0.46% on $262K. That band is 13% of maker $ and breaks even, so the money is NOT from stale post-result quotes. The swings are in the 0.20-0.50 band (-7.8% on $1.42M) and the 0.50-0.80 band (+6.3% on $2.21M).
+
+| league | maker $ | maker % | resolved maker P&L | 10-min markout (top-8 markets) | entry below last print | first minute |
+|---|---|---|---|---|---|---|
+| College football | $1,195,007 | 100% | +$26,801 (+2.2%) | -1.03% | +2.85% | -0.99% |
+| NFL | $787,217 | 100% | -$3,101 (-0.4%) | +1.22% | +1.80% | -0.70% |
+| Premier League | $620,860 | 99% | +$3,523 (+0.6%) | +3.11% | +1.43% | -1.03% |
+| LaLiga | $563,358 | 93% | -$15,825 (-2.8%) | -0.28% | +1.97% | -0.11% |
+| ATP | $299,869 | 100% | +$4,250 (+2.0%) | +0.25% | +1.87% | -0.35% |
+| NBA | $299,511 | 56% | -$1,819 (-0.7%) | +1.11% | +4.69% | -1.29% |
+| Serie A | $281,209 | 100% | +$25,070 (+8.9%) | -2.56% | +1.99% | +0.17% |
+| Ligue 1 | $190,240 | 98% | +$27,314 (+14.4%) | +4.31% | +1.35% | -0.19% |
+| Bundesliga | $179,981 | 100% | -$6,841 (-3.8%) | n/a | | |
+| Brasileirão | $139,478 | 99% | -$16,043 (-13.1%) | n/a | | |
+
+By market type, resolved maker: CFB spreads +14.0% ($467K) but totals -23.2% ($177K); EPL winner +3.6% ($358K); NBA spreads +4.7% ($88K), totals -4.7% ($103K). Markouts are print-based (last print on the same token) over the 8 largest markets per league only.
+**Reading:** in every sport RN1's bids fill 1.4-4.7% under the last print and give back 0.1-1.3% in the first minute: the same engine everywhere. Both resolved P&L and 10-min markout are positive for Premier League, Ligue 1 and ATP. Both are mixed for CFB, NFL, NBA and Serie A, and both negative for LaLiga. Three days to result is far too noisy to rank leagues. Book-based markouts over weeks are needed.
