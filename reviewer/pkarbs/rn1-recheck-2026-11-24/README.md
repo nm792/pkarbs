@@ -66,11 +66,11 @@ Source: data-api **/v2/positions** for the wallet (status CLOSED and OPEN, sort_
 - Polymarket's own leaderboard for the wallet (/v2/leaderboard, time_period=month; the param is honoured, a bogus value errors) gives **+$396,512 on $129.4M volume**, sports alone +$253,081. The gap to my +$275K is not reconciled. Likely causes are a different window, a different volume definition (about 2x mine), and rebates. UNVERIFIED.
 - **NBA (slug nba-), last 30 days: +$7,672 on $4.11M bought = +0.19%, about $256/day.** 17 of 30 days positive. Daily range -$28,523 (22 Nov) to +$26,493 (17 Nov). The month total is far smaller than single-day swings, so NBA is not shown positive.
 - Maker vs taker: the positions endpoint has no maker/taker split. The 3-day trade pull (section E) had NBA at 56% maker. A full 30-day split needs a trade pull per market (7,227 NBA markets); not done.
-- By sport, last 30 days: cs2 +$163K (+3.6%), Saudi league (sea) +$114K (+4.0%), nfl +$55K (+1.0%), Ligue 1 +$40K (+4.0%), cfb +$34K (+0.6%), Bundesliga +$14K, nba +$8K, LaLiga +$7K; epl -$120K (-4.3%), ucl -$46K, wta -$56K, atp -$180K (-1.9%).
+- By sport, last 30 days: cs2 +$163K (+3.6%), Serie A (slug sea; CORRECTION 10:06Z: earlier mislabelled "Saudi league") +$114K (+4.0%), nfl +$55K (+1.0%), Ligue 1 +$40K (+4.0%), cfb +$34K (+0.6%), Bundesliga +$14K, nba +$8K, LaLiga +$7K; epl -$120K (-4.3%), ucl -$46K, wta -$56K, atp -$180K (-1.9%).
 
-## G. Probe: CS2, Saudi league, Ligue 1 (added 10:00Z, Nick 09:55-09:56Z: "probe on CS2, Ligue 1 and the Saudi League first. Not full recordings"; "he could simply be using GRID")
+## G. Probe: CS2, Serie A (slug sea, earlier mislabelled Saudi), Ligue 1 (added 10:00Z, Nick 09:55-09:56Z: "probe on CS2, Ligue 1 and the Saudi League first. Not full recordings"; "he could simply be using GRID")
 **Method.**
-- Markets: RN1's 25 largest markets per league over the last 30 days, from section F positions. Coverage is CS2 34%, Saudi 28% and Ligue 1 41% of his $ in each.
+- Markets: RN1's 25 largest markets per league over the last 30 days, from section F positions. Coverage is CS2 34%, Serie A 28% and Ligue 1 41% of his $ in each.
 - Pull: data-api /v2/trades by condition_id, with every row asserted to that market (R-080). RN1 rows use user= with taker_only=false and true; the maker/taker split is the set difference. The market tape uses taker_only=true.
 - P&L is to the result, from position final prices, before rebates.
 - "vs print" = his fill price against the last earlier print by anyone, in outcome-0 terms, signed so positive is in his favour.
@@ -81,12 +81,12 @@ Source: data-api **/v2/positions** for the wallet (status CLOSED and OPEN, sort_
 | | maker share | maker $ / P&L | taker $ / P&L | maker vs print | maker markout 30 s / 60 s / 300 s | taker pre 30 s | taker markout 30 s / 60 s / 300 s |
 |---|---|---|---|---|---|---|---|
 | CS2 | 75% | $1.13M / +$67.7K (+6.0%) | $380K / -$36.5K (-9.6%) | +0.86c | +0.46 / +0.45 / -0.17c | +0.61c | +1.61 / +2.03 / -0.28c |
-| Saudi | 96% | $750K / +$42.2K (+5.6%) | $36K / +$1.0K (+2.9%) | +0.86c | +0.31 / +0.60 / +0.46c | +0.92c | +5.55 / +4.38 / +4.92c (36 fills) |
+| Serie A (sea) | 96% | $750K / +$42.2K (+5.6%) | $36K / +$1.0K (+2.9%) | +0.86c | +0.31 / +0.60 / +0.46c | +0.92c | +5.55 / +4.38 / +4.92c (36 fills) |
 | Ligue 1 | 86% | $358K / -$16.5K (-4.6%) | $57K / -$5.1K (-9.0%) | +0.40c | +0.20 / +0.09 / +0.52c | +2.01c | -1.21 / -1.32 / -2.56c (43 fills) |
 
 **Reading.**
 - **CS2:** the profit is the maker side: resting bids that fill about 0.9c under the last print and are not picked off (small positive markout). His taker fills move in his favour for about 60 s (+2.0c) and then fade (-0.3c by 300 s), and they lose 9.6% to the result. They follow a move already under way (+0.6c in the 30 s before).
   - That is fast reaction, but it is not the source of his money. A GRID-style data edge would show up as taker profit; here the taker side loses.
   - We have no public-feed timestamps for these matches, so "30 s ahead of any feed" cannot be tested on his fills here. Our own PandaScore test (reviewer/pandascore/RESULT-inround-sign-placebo-10matches-2026-11-20.md, 15 matches, UNCHECKED) found the Polymarket price already moving about 1c in the 15 s BEFORE PandaScore's round-end message. So the market as a whole leads that public feed.
-- **Saudi:** almost pure maker, +5.6%, with resting quotes and no adverse selection. That is a copyable-rule candidate.
+- **Serie A (sea; NOT Saudi):** almost pure maker, +5.6%, with resting quotes and no adverse selection. That is a copyable-rule candidate.
 - **Ligue 1:** in his top 25 markets the maker side LOST 4.6%. Yet section F has the whole league at +4.0% and section E's 3 days at +14.4%. So the gain comes from his smaller markets, or it is noise.
