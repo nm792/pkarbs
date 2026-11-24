@@ -32,6 +32,13 @@ SPORTS = {
 # sports whose changed bodies are stored (gzip, one file per UTC hour). esports keeps its original
 # directory and file name; the others write <sport>_payloads/<sport>_<UTC hour>.jsonl.gz beside it.
 STORE_SPORTS = ("esports", "tennis", "hockey_nhl")
+# Optional trim (IT sets it at start): GOALSERVE_STORE_SPORTS=esports,hockey_nhl stores ONLY those sports' bodies (polling and the poll log are unchanged). Default = all three. Unknown names refuse to start.
+_ss = os.environ.get("GOALSERVE_STORE_SPORTS", "").strip()
+if _ss:
+    _want = tuple(x.strip() for x in _ss.split(",") if x.strip())
+    if not _want or any(x not in STORE_SPORTS for x in _want):
+        sys.exit("GOALSERVE_STORE_SPORTS must be a subset of %s, got %r" % (",".join(STORE_SPORTS), _ss))
+    STORE_SPORTS = _want
 FLOOR_B = float(os.environ.get("GOALSERVE_STORE_FLOOR_GB", "10")) * 1e9
 PAYDIR = "/mnt/HC_Volume_107257520/pkarbs/goalserve/esports_payloads"   # Nick yes 14:43:42Z 13 Nov (inbox #300)
 _payload_stopped = {}   # sport -> True once its store has stopped (log written once)

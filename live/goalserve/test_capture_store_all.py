@@ -90,6 +90,17 @@ l1.close()
 l3 = mod.acquire_lock()
 check("lock re-acquirable after first copy exits", l3 is not None)
 
+# trim option (GOALSERVE_STORE_SPORTS)
+import subprocess
+def _trim(val):
+    env = dict(os.environ); env["GOALSERVE_STORE_SPORTS"] = val
+    code = "import sys,types\nsrc=open(%r).read()\nsrc=src.replace('/etc/pkarbs/goalserve.env',%r).replace(%r,%r)\nm=types.ModuleType('c')\nexec(compile(src,'c','exec'),m.__dict__)\nprint(','.join(m.STORE_SPORTS))" % (src_path, env_path, real_root, out_dir)
+    return subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, env=env)
+env_path = env
+r = _trim("esports,hockey_nhl"); check("GOALSERVE_STORE_SPORTS=esports,hockey_nhl stores only those (no tennis)", r.stdout.strip() == "esports,hockey_nhl")
+r = _trim("esports,soccer"); check("unknown sport in GOALSERVE_STORE_SPORTS refuses to start", r.returncode != 0 and "subset" in (r.stderr + r.stdout))
+r = _trim(""); check("unset/empty = all three stored (default unchanged)", r.stdout.strip() == "esports,tennis,hockey_nhl")
+
 shutil.rmtree(tmp)
 print("ALL PASS" if not fails else "FAILED: " + "; ".join(fails))
 sys.exit(1 if fails else 0)
