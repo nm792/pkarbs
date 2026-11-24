@@ -4,6 +4,10 @@ import sys, json, time, datetime, calendar, os, requests
 from oclib import open_ts, KS
 OUT = sys.argv[1]; A = sys.argv[2] if len(sys.argv) > 2 else "2026-08-03"; Z = sys.argv[3] if len(sys.argv) > 3 else "2026-11-18"
 G = "https://gamma-api.polymarket.com"; P = "https://api.perpetuals.polymarket.com"; D = "https://data-api.polymarket.com"
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "perp-scan-2026-11-22"))
+from pmtrades import check_rows   # R-080
+
 def get(u, **q):
     for k in range(5):
         try:
@@ -55,8 +59,9 @@ tr = {}
 for m in mk:
     rows = []; cur = None
     while True:
-        r = get(D + "/v2/trades", condition=m["cond"], limit=500, **({"cursor": cur} if cur else {}))
+        r = get(D + "/v2/trades", condition_id=m["cond"], limit=500, **({"cursor": cur} if cur else {}))
         if not r: break
+        check_rows(r["data"], {m["cond"]}, m["slug"])   # R-080: v2 ignores unknown params; verify the filter took
         rows += [dict(token_id=x["token_id"], side=x["side"], price=x["price"], size=x["size"], timestamp=x["timestamp"]) for x in r["data"]]
         cur = r["pagination"].get("next_cursor")
         if not r["pagination"].get("has_more") or not cur: break
