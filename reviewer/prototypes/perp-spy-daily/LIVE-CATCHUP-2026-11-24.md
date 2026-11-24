@@ -10,3 +10,13 @@ Rule `CATCHUP-RULE.md` live section (2049e5a5). Code `live_catchup.py` (C0 for t
   - Mean +1.8c/share, $0.28 total at 5 shares. The other 5 moves: the ask was already above the catch-up target (book had moved within a second, or the jump was too small against a 3c spread).
 - Planted 30 s catch-up: measured 30.2-30.7 s where the real book had not already caught up; plant trades captured on all 8 moves.
 - Ask sizes at entry: 59.7, 50.0, 80.5 shares, so up to ~$20-27 per trade at the touch.
+
+## Window 2: 15:18-17:15Z (`live_2026-11-24_w2_book_v2.jsonl.gz`, 6,847 rows; output `live_catchup_result_2026-11-24_w2.json`; 15-min check at 15:36Z passed: 0.95 rows/s, 0 errors, book live)
+- 10 moves. Quote lag: 5, 7, 11, 13, 14, 20, 35, 52, 107, 512 s.
+- 2 trades: 15:21:45Z bought Down at 0.76 (only 5 shares at the ask), sold 0.77 after 39 s, -0.4c; 15:42:25Z bought Down at 0.84, sold 0.85 after 46 s, -0.05c. 8 moves skipped: the ask had already moved past the catch-up target at the first poll (and from 15:50Z the market was at 0.88-0.93 or 0.07-0.15, where a 10 bp move shifts the probability by about 1-2c).
+- Planted 30 s: measured 30.2-30.8 s where the book had not already moved; plant trades on all 10 moves.
+
+## Both windows (24 Nov, 13:22-17:15Z)
+- 18 moves; quote lag median about 28 s (4 s to 512 s; 7 of 18 under 15 s).
+- 5 trades: +3.2c, +2.2c, +0.2c, -0.4c, -0.05c. Mean **+1.0c per share**, $0.25 total at 5 shares. 13 of 18 moves gave no entry because the ask had already moved.
+- Scale against the bar: at the observed ~5 trades/day, ~50-80 shares at the touch and +1c, this is about $2-4/day before any doubt about the sign. Detecting a 1c edge needs a few hundred trades (weeks of logging at this rate).
