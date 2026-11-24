@@ -65,12 +65,19 @@ def load_events(path):
     return [json.loads(l) for l in open(path)]
 
 
+def check_condition(rows, condition_id):
+    """/v2/trades silently ignores unknown query params and then returns OTHER markets' trades (R-080): every returned row must carry the requested condition_id."""
+    bad = [x.get("condition_id") for x in rows if (x.get("condition_id") or "").lower() != condition_id.lower()]
+    if bad: raise RuntimeError(f"/v2/trades returned {len(bad)} rows for other conditions (first {bad[0]}) when {condition_id} was requested")
+
+
 def pull_trades(condition_id, max_pages=40):
     """All trades for a market, paged by cursor. Rows: (ts, side, token_id, price, size, outcome_index)."""
     out, cur = [], None
     for _ in range(max_pages):
         u = f"{DATA}/v2/trades?condition={condition_id}&limit=500" + (f"&cursor={cur}" if cur else "")
         d = http_json(u)
+        check_condition(d["data"], condition_id)
         out += [(x["timestamp"], x["side"], x["token_id"], x["price"], x["size"], x["outcome_index"]) for x in d["data"]]
         p = d.get("pagination", {})
         if not p.get("has_more") or not p.get("next_cursor"): break

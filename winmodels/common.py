@@ -40,6 +40,8 @@ def pull_trades(cond, start, end, sub='trades'):
         if cur: p['cursor'] = cur
         c, d = jget('https://data-api.polymarket.com/v2/trades', p)
         if c != 200 or not d: break
+        bad = [z.get('condition_id') for z in d['data'] if (z.get('condition_id') or '').lower() != cond.lower()]
+        if bad: raise RuntimeError(f'/v2/trades returned other conditions ({bad[0]}) for {cond} (R-080: unknown params are silently ignored)')
         allt += [{k: z[k] for k in ('timestamp', 'outcome_index', 'side', 'price', 'size')} for z in d['data']]
         cur = d['pagination'].get('next_cursor')
         if not d['pagination'].get('has_more') or not cur: break

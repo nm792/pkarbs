@@ -11,6 +11,8 @@ def poll(meta, seen, path):
     for b in meta["brackets"]:
         try:
             r = E.jget(f"{DATA}/v2/trades?condition={b['cond']}&limit=100")
+            bad = [x.get("condition_id") for x in r.get("data", []) if (x.get("condition_id") or "").lower() != b["cond"].lower()]
+            if bad: raise RuntimeError(f"/v2/trades returned other conditions ({bad[0]}) for {b['cond']}")
         except Exception as ex:
             print("trade poll error", ex, flush=True); continue
         for x in r.get("data", []):
