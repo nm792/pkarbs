@@ -6,7 +6,7 @@ Type=simple
 TimeoutStartSec=180
 WorkingDirectory=/mnt/HC_Volume_107257520/pkarbs
 ExecStartPre=/usr/bin/python3 pipeline/forward/resolving_books.py preflight --series-file it/resolving_books_series.txt --out /mnt/HC_Volume_107257520/resolving-books --seconds 60
-ExecStart=/usr/bin/python3 pipeline/forward/resolving_books.py record --series-file it/resolving_books_series.txt --out /mnt/HC_Volume_107257520/resolving-books --max-hours 720 --full-series elon-tweets,elon-tweets-48h
+ExecStart=/usr/bin/python3 pipeline/forward/resolving_books.py record --series-file it/resolving_books_series.txt --out /mnt/HC_Volume_107257520/resolving-books --max-hours 720 --full-series elon-tweets,elon-tweets-48h,trump-truth-social,khamenei-daily-tweets,zelenskyy-tweets,ted-cruz-daily-tweets,nycmayor-tweets,cz-tweets,whitehouse-daily-tweets
 Restart=always
 RestartSec=5
 [Install]
