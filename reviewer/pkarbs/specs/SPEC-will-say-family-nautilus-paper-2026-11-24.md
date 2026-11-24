@@ -3,14 +3,14 @@
 Paper only, no orders ever (SETTLED A6/A7). STATUS: SPEC ONLY. Nothing here is built for Nautilus. The existing recorder P121 (it/mentions_pm_ws_paper.py at 075452ecd5, health PASS 10:23Z) is the evidence feed, not the paper node. Earnings-beat ("will X beat EPS/revenue") is EXCLUDED: it is a different contract with its own spec (R-087, due 25 Nov 14:00Z).
 
 ## 0. Scope: one family, every "will X say Y" market (Nick 24 Nov 02:50Z, repeated x3)
-- One family: every Polymarket event tagged mention-markets, plus any "will X say Y" market without the tag. Live read 14:2xZ: 11 open events and 132 markets. Sub-types include earnings-call mentions (Dell 24 Nov, Deere 25 Nov, Salesforce 2 Dec), Trump/White House remarks (pardon 24 Nov, November, APEC, Philippines), keynotes (Jensen Huang GTC DC), streamers (Caedrel) and sports announcers.
+- One family: every Polymarket event tagged mention-markets, plus any "will X say Y" market without the tag. Live read 14:07Z: 11 open events and 132 markets. Sub-types include earnings-call mentions (Dell 24 Nov, Deere 25 Nov, Salesforce 2 Dec), Trump/White House remarks (pardon 24 Nov, November, APEC, Philippines), keynotes (Jensen Huang GTC DC), streamers (Caedrel) and sports announcers.
 - Sub-types are CELLS of one family, judged separately (no pooled averages), sharing one rule.
 
 ## 1. Known facts (each cited; each must hold or the node does not start)
 | # | Fact | Source |
 |---|---|---|
 | F1 | Each token is its own book; price from its own asks only; NO never derived from YES | SETTLED A1 |
-| F2 | Fee: feeType mentions_fees, feeSchedule rate 0.01, exponent 1, takerOnly true, rebateRate 0.25 on 126 of 132 open markets; 6 markets have no schedule. Taker fee = size x 0.01 x p(1-p): 0.25c/share at p 0.5. CORRECTION to my earlier "0.04" (R-070) and to the scorer docstring: the code reads each market's own rate. | gamma /events?tag_slug=mention-markets, read 24 Nov 14:2xZ |
+| F2 | Fee: feeType mentions_fees, feeSchedule rate 0.01, exponent 1, takerOnly true, rebateRate 0.25 on 126 of 132 open markets; 6 markets have no schedule. Taker fee = size x 0.01 x p(1-p): 0.25c/share at p 0.5. CORRECTION to my earlier "0.04" (R-070) and to the scorer docstring: the code reads each market's own rate. | gamma /events?tag_slug=mention-markets, read 24 Nov 14:07Z |
 | F3 | CLOB seconds_delay = 0 on mentions markets (Dell "AI 50+" and the Seahawks announcer market read 24 Nov), so SETTLED A3's 250 ms taker hold applies | clob /markets/<cid>; SETTLED A3 |
 | F4 | Tick 0.001, minimum order 5 shares | clob /markets/<cid> |
 | F5 | Depth is thin: listed liquidity per EVENT $11 to $7,571 (pardon $7,571, Jensen $4,437, Dell $1,141) | gamma, same read |
