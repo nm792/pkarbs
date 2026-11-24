@@ -1,0 +1,20 @@
+# Goalserve v3 scorer: run it READ-ONLY on Prime (NHL cell now; CS2 cell when its recorder is shown continuous)
+
+Files (branch claude/project-thread-vg2ckg, merged PR 475, squash 005d5610ba). Fetch into an EMPTY folder W=/mnt/HC_Volume_107257520/tmp/gs_v3_$(date -u +%H%M); sha256sum must match; both tests must end ALL PASS:
+- feeds/goalserve_odds_vs_pm_v3.py  37923c5cacff923739a3614f8c9e4c28c5a1261a7f9eef572527af34e10c8fc0
+- feeds/test_goalserve_odds_vs_pm_v3.py  01c7f8ac28a85bb47ac1cc9cb8715ae7a164d4d6d2cd58616f9b5a1a99adad17  (24 checks; run: python3 -I test_goalserve_odds_vs_pm_v3.py)
+- Needs these three from the SAME branch in the SAME folder (it imports them): feeds/ps_lead_test.py, feeds/goalserve_odds_vs_pm.py, feeds/goalserve_odds_vs_pm_v2.py (paste their sha256 too).
+v3 is UNSIGNED: every number it prints is UNCHECKED until another thread signs the rule-to-code table. This job only produces the read.
+
+Run (read-only, nice -n 19; reads files, writes one JSON to $W). V=/mnt/HC_Volume_107257520 ; G=$V/pkarbs/goalserve
+1. NHL cell (pmsport recorder started 24 Nov 01:55:53Z; capture locked build since 23 Nov 17:00:11Z, so the window starts at the first full hour after both):
+   END=$(date -u -d '1 hour ago' +%Y-%m-%dT%H:00:00Z)     # the last COMPLETE hour; the poll log must reach END + 60 s or the scorer refuses
+   nice -n 19 python3 -I $W/goalserve_odds_vs_pm_v3.py --sport hockey_nhl --files "$G/hockey_nhl_payloads/hockey_nhl_*.jsonl.gz" --pm $V/pkarbs/pmsport --poll-log "$G/goalserve_*.jsonl" --start-iso 2026-11-24T02:00:00Z --end-iso $END --clock-note "Prime clock, single host" --out $W/v3_nhl.json
+   Paste: the printed line, and `python3 -c "import json;r=json.load(open('$W/v3_nhl.json'));print(json.dumps(r['cells'],indent=1,default=str));print(r['drops']);print(r['goalserve_audit']['market_names_used'],r['goalserve_audit']['market_names_excluded'])"`.
+   Expected early answer: 'unknown (sizing block incomplete ...)' until 12 matches have usable events: that is the CORRECT result, not a fault. If market_names_used is empty, paste market_names_excluded (the NHL market name may differ from my allowed set; I then add it).
+2. CS2 / Dota cell: ONLY if `ls $V/pkarbs/pmcs2/books-*.jsonl* | tail -50` shows hourly files with no gap since 23 Nov 17:00Z (paste the list). Then the same command with --sport esports --files "$G/esports_payloads/esports_*.jsonl.gz" --pm $V/pkarbs/pmcs2 --pm $V/pkarbs/pmdota(optional, informational) --start-iso <first hour of the continuous run, not before 2026-11-23T17:00:00Z> --out $W/v3_esports.json. A gap in pmcs2 = start after the gap. If pmcs2 is not running, say so; do NOT start a long recorder for this row.
+3. Daily: repeat step 1 (new END, same START) once per UTC day, same folder, new output name. One look per day; later looks never overturn a close.
+
+Disk: the scorer writes only $W/*.json (a few KB). Memory: it loads one day to a few days of pmsport rows (about 6 MB/day gz) and the Goalserve hockey hour files; expected under 1 GB for NHL.
+
+PAYLOADS THE TEST NEEDS (IT measured tennis+NHL at 2.72 GB/day on 19 Nov): the v3 test needs hockey_nhl_payloads (NHL cell, pmsport is running) and esports_payloads (CS2, Dota; about 144 MB/day). It does NOT need tennis_payloads now: no tennis Polymarket recorder (pmtennis) is known to be running, so tennis cannot be scored. A TRIMMED CAPTURE is ready: live/goalserve/capture_store_all.py (same PR, sha256 e70ab809b8fa3ea20499925a676f2bfdf914050c17f810110d1e0453cda36c62, test 24 checks) honours GOALSERVE_STORE_SPORTS=esports,hockey_nhl (polling and the poll log are unchanged; default without the variable is unchanged). To use it, IT restarts the capture with that variable set, through the P110 steps (fresh empty folder, pre-flight, health read). This is a RESTART of the live capture = a new pre-flight; I do not ask for it unless Nick/Reviewer want the disk back (tennis is most of the 2.72 GB/day). Until then nothing changes and the NHL cell is not affected.

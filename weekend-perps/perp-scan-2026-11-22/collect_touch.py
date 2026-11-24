@@ -4,6 +4,7 @@ Usage: python3 collect_touch.py RUNDIR   -> RUNDIR/touch_events.json.gz, touch_c
 Public APIs only (gamma, data-api, Hyperliquid info, Yahoo chart). Idempotent per stage (skips a finished file)."""
 import calendar, datetime, gzip, json, os, sys, time, urllib.parse, urllib.request
 from universe import UNDER
+from pmtrades import check_rows   # R-080
 
 G = "https://gamma-api.polymarket.com"; D = "https://data-api.polymarket.com"
 TKS = ["xauusd", "xagusd", "ng", "nvda", "aapl", "msft", "meta", "googl", "tsla", "coin", "hood", "pltr", "mu", "amzn", "mstr", "nflx"]
@@ -33,13 +34,14 @@ def slug(tk, d):
     return "will-%s-hit-week-of-%s-%d-%d" % (tk, calendar.month_name[d.month].lower(), d.day, d.year)
 
 
-def trades(event_id):
+def trades(event_id, conds):
     rows, cur = [], None
     for _ in range(200):
         r = req(D + "/v2/trades?event_id=%s&limit=500" % event_id + ("&cursor=" + urllib.parse.quote(cur) if cur else ""))
         if not isinstance(r, dict) or "_error" in r:
             return rows, False
         data = r.get("data") or []
+        check_rows(data, conds, "event %s" % event_id)   # R-080
         rows += [dict(c=x.get("condition_id"), tok=x.get("token_id"), side=x.get("side"), p=x["price"], s=x["size"], t=x["timestamp"], o=x.get("outcome")) for x in data]
         pg = r.get("pagination") or {}
         if not data or not pg.get("has_more") or not pg.get("next_cursor"):
@@ -60,7 +62,7 @@ def main(run):
                 e = e[0]
                 ms = [dict(cid=m.get("conditionId"), q=m.get("question"), outcomes=m.get("outcomes"), tokens=m.get("clobTokenIds"), prices=m.get("outcomePrices"),
                            closed=m.get("closed"), fee=m.get("feeSchedule")) for m in e.get("markets") or []]
-                tr, ok = trades(e["id"])
+                tr, ok = trades(e["id"], {m["cid"] for m in ms if m.get("cid")})
                 out.append(dict(tk=tk, monday=str(d), found=True, id=e["id"], closed=e.get("closed"), markets=ms, trades=tr, trades_complete=ok))
                 print(slug(tk, d), "markets", len(ms), "trades", len(tr), ok, flush=True)
         with gzip.open(p_ev, "wt") as f: json.dump(out, f)

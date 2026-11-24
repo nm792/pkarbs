@@ -240,13 +240,30 @@ def find_markets(h, a):
     return [(q, cid, o) for cid, (q, o) in out.items()]
 
 
-def trades(cid, cache):
+class WrongMarketRows(Exception):
+    pass
+
+
+def check_rows(rows, cid):
+    """R-080: data-api v2 /trades silently IGNORES unknown params and then returns OTHER markets' trades. Every row must carry the requested condition_id."""
+    bad = [r.get("condition_id") for r in rows if r.get("condition_id") != cid]
+    if bad: raise WrongMarketRows("%d of %d rows are not condition_id %s (e.g. %s)" % (len(bad), len(rows), cid, bad[0]))
+    return rows
+
+
+def window_trades(rows, t0, t1, pad=60):
+    """R-080 addendum: /v2/trades silently ignores start/end, so the request returns whole-market history. The window is applied HERE, by timestamp."""
+    return [x for x in rows if t0 - pad <= x["timestamp"] <= t1 + pad]
+
+
+def trades(cid, cache, fetch=None):
+    fetch = fetch or get
     p = os.path.join(cache, f"trades_{cid}.json")
-    if os.path.exists(p): return json.load(open(p))
+    if os.path.exists(p): return check_rows(json.load(open(p)), cid)
     r = []; cur = None
     for _ in range(40):
-        j = get(f"https://data-api.polymarket.com/v2/trades?condition={cid}&limit=500" + (f"&cursor={cur}" if cur else ""))
-        r += j.get("data", []); cur = j.get("next_cursor")
+        j = fetch(f"https://data-api.polymarket.com/v2/trades?condition_id={cid}&limit=500" + (f"&cursor={cur}" if cur else ""))
+        r += check_rows(j.get("data", []), cid); cur = j.get("next_cursor")
         if not cur or not j.get("data"): break
     os.makedirs(cache, exist_ok=True); json.dump(r, open(p, "w")); return r
 
@@ -281,7 +298,7 @@ def load_match(f, cache):
             m = re.search(r"map (\d+)", ql)
             if not m: continue
             mapno = int(m.group(1))
-        tr = [x for x in trades(cid, cache) if t0 - 60 <= x["timestamp"] <= t1 + 60]
+        tr = window_trades(trades(cid, cache), t0, t1)
         t_0 = Tok([x for x in tr if x.get("outcome_index") == 0]); t_1 = Tok([x for x in tr if x.get("outcome_index") == 1])
         if len(t_0.ts) < 30: continue
         mk.append(dict(q=q, cid=cid, mapno=mapno, tmap=tmap, t0=t_0, t1=t_1))

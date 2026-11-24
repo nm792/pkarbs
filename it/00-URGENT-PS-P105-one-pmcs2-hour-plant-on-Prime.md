@@ -9,3 +9,5 @@ PASS for this row = result.json exists and shows matches_with_both_token_books a
 Any number from this run is labelled "first Prime run, ONE hour, not evidence" until the spec's stops apply.
 
 Expected write: ~3 MB ONE-OFF, 0 MB/day (basis: step 2 writes at most 12 sample files of 10-450 KB each, measured 2.4 MB for 15 matches in scratch/ps_samples, plus a result.json of about 5 KB; all in VOL2 tmp and deleted at the end of step 4; the scorer reads recorder files and writes nothing there).
+
+R-070(F): restate the kills verdict at the 0.03 fee (0.75c at p 0.5; source: Polymarket gamma feeSchedule rate 0.03 sports_fees_v2 on current CS2 match markets, https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2, checked 23 Nov 09:00Z, which supersedes R-064(5)). The scorer's PRIMARY figure is row_15s_net03 (rate 0.03); net05 is secondary and labelled docs-table.

@@ -24,4 +24,5 @@ fl = [dict(t=T, cost=1500., pnl=150.), dict(t=T + 1, cost=1500., pnl=300.)]
 c = X.daycap(fl, 2000., bt.day)
 chk('day cap scales second fill to $500 of $1500', abs(c[1]['cost'] - 500) < 1e-9 and abs(c[1]['pnl'] - 100) < 1e-9)
 chk('peak hour picks the hour with most notional', X.peak_hour({'c1': [(3600 * 5 + 10, 'BUY', .5, 10, 0), (3600 * 9 + 10, 'BUY', .5, 100, 0)]}, E) == 3600 * 9)
+chk('R-080 addendum PLANTED trades just before and just after the window are excluded (v2 ignores start/end, the screen filters by timestamp)', X.fills(sc, E, qs, {'c1': [(T - 3601, 'BUY', .60, 100, 0), (T + 1, 'BUY', .60, 100, 0)]}, T - 3600, 3600) == [] and len(X.fills(sc, E, qs, {'c1': [(T - 3600, 'BUY', .60, 100, 0), (T, 'BUY', .60, 100, 0)]}, T - 3600, 3600)) == 2)
 print(f'{"PASS" if ok == N else "FAIL"} ({ok} of {N} checks)'); sys.exit(0 if ok == N else 1)

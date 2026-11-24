@@ -37,4 +37,9 @@ with tempfile.TemporaryDirectory() as t:
     poll(True)
     p = subprocess.run([sys.executable, "-I", os.path.join(H, "health_read.py"), "capture", t, "--now", str(NOW), "--sports", "esports"], capture_output=True, text=True)
     chk("capture: 25% of polls missing FAILS the poll bar", "FAIL esports polls" in p.stdout and p.returncode == 1)
+    def disk(*extra):
+        return subprocess.run([sys.executable, "-I", os.path.join(H, "health_read.py"), "capture", t, "--now", str(NOW), "--sports", "esports", "--free-gb-test", "9.7"] + list(extra), capture_output=True, text=True).stdout
+    poll(False)
+    chk("floor: free 9.7 GB with --floor-gb 5 PASSES the disk bar", "PASS disk free 9.70 GB (floor 5 GB)" in disk("--floor-gb", "5"))
+    chk("floor: free 9.7 GB with the default floor FAILS the disk bar", "FAIL disk free 9.70 GB (floor 10 GB)" in disk())
 print("ALL PASS" if not F else "FAILED: " + ", ".join(F)); sys.exit(1 if F else 0)

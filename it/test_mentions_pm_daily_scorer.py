@@ -68,4 +68,27 @@ chk('R-064 2a fix: bracket spelling "Iran (5+ times)" equals "Iran 5+ times"', _
 _h = [dict(markets=[dict(word=_w('AI 5+ times', 1), prices=[1.0, 0.0])]), dict(markets=[dict(word=_w('AI 50+ times', 0), prices=[0.0, 1.0])])]
 chk('R-064 2a fix: q for AI 50+ uses only its own history (2 pooled wins would give a higher q)', sc.q_for(_h, None, dict(word=_w('AI 50+ times', 0))) < sc.q_for(_h[:1] + [dict(markets=[dict(word=_w('AI 5+ times', 1), prices=[1.0, 0.0])])], None, dict(word=_w('AI 5+ times', 1))))
 sc.KEEP_THRESHOLD = _old
+_C = '0xabc'
+chk('R-080 trades_url uses a param the v2 API honours (condition)', 'condition=' + _C in sc.trades_url(_C) and 'markets=' not in sc.trades_url(_C) and 'condition_ids=' not in sc.trades_url(_C))
+chk('R-080 rows_match PASSES when every row has the requested condition_id', sc.rows_match([{'condition_id': _C}, {'condition_id': _C}], _C))
+chk('R-080 PLANTED wrong-param result (rows of other markets) FAILS rows_match', not sc.rows_match([{'condition_id': _C}, {'condition_id': '0xother'}], _C))
+_f = sc.fetch
+sc.fetch = lambda u: {'data': [{'condition_id': '0xother', 'timestamp': 1, 'side': 'BUY', 'price': .5, 'size': 1, 'outcome_index': 0}], 'pagination': {'has_more': False}}
+_r = sc.pull_trades(_C)
+sc.fetch = lambda u: {'data': [{'condition_id': _C, 'timestamp': 1, 'side': 'BUY', 'price': .5, 'size': 1, 'outcome_index': 0}], 'pagination': {'has_more': False}}
+_r2 = sc.pull_trades(_C)
+sc.fetch = _f
+chk('R-080 pull_trades refuses another market\'s rows (None) and keeps the right ones', _r == (_C, None) and _r2 == (_C, [(1, 'BUY', .5, 1, 0)]))
+_calls = []
+def _pg(u):
+    _calls.append(u); return [{'i': 1}] * 50 if len(_calls) == 1 else [{'i': 2}] * 3
+_f2 = sc.fetch; sc.fetch = _pg; _oe = sc.open_events(); sc.fetch = lambda u: None; _oe2 = sc.open_events(); sc.fetch = _f2
+chk('R-076 open_events pages at limit=50 (offset 0 then 50) and returns None on a failed read', len(_oe) == 53 and 'limit=50' in _calls[0] and 'offset=50' in _calls[1] and _oe2 is None)
+_ev = dict(markets=[dict(cond='cw', word='w', label='w', toks=['y', 'n'], fee=.04, prices=[1., 0.], closed=True, start='', closedTime='')])
+_tr = {'cw': [(T0 - 5000, 'BUY', .10, 100, 0), (T0 + sc.WIN + 5000, 'BUY', .10, 100, 0)]}
+chk('R-080 addendum PLANTED out-of-window trades (before start, after the first hour) are excluded by pick_entry (v2 ignores start/end, we filter by timestamp)', sc.pick_entry(_ev, [], _tr, T0) is None and sc.pick_entry(_ev, [dict(markets=[dict(word='w', prices=[1., 0.])]) for _ in range(5)], _tr, T0) is None)
+_tr['cw'].append((T0 + 600, 'BUY', .10, 100, 0))
+_h = [dict(markets=[dict(word='w', prices=[1., 0.])]) for _ in range(5)]
+chk('R-080 addendum an in-window trade of the same shape IS picked (and the planted ones still are not)', sc.pick_entry(_ev, _h, _tr, T0) is not None and sc.pick_entry(_ev, _h, _tr, T0)[0] == T0 + 600)
+chk('R-080 addendum pull_trades never sends start/end params', 'start=' not in sc.trades_url('c') and 'end=' not in sc.trades_url('c'))
 print(f'{"PASS" if ok == N else "FAIL"} ({ok} of {N} checks)'); sys.exit(0 if ok == N else 1)

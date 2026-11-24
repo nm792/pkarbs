@@ -102,13 +102,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("kind", choices=("ws", "capture")); ap.add_argument("dir"); ap.add_argument("--minutes", type=float, default=15)
     ap.add_argument("--pid-pattern", default=""); ap.add_argument("--sports", default="esports,tennis,hockey_nhl"); ap.add_argument("--now", type=float)
+    ap.add_argument("--floor-gb", type=float, default=10); ap.add_argument("--free-gb-test", type=float, default=None)  # floor = the recorder's own floor (small writers 5); --free-gb-test is for tests only
     a = ap.parse_args()
     now = a.now or time.time(); fails = []
     print("HEALTH READ %s kind=%s dir=%s window=%g min" % (time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(now)), a.kind, a.dir, a.minutes))
     (ws if a.kind == "ws" else capture)(a, now, fails)
     d = shutil.disk_usage(a.dir)
     pid = pid_of(a.pid_pattern) if a.pid_pattern else None
-    out(d.free > 10e9 and (pid is not None or not a.pid_pattern), "disk free %.2f GB (floor 10 GB); pid %s" % (d.free / 1e9, pid or ("n/a" if not a.pid_pattern else "NONE")), fails)
+    free = d.free if a.free_gb_test is None else a.free_gb_test * 1e9
+    out(free > a.floor_gb * 1e9 and (pid is not None or not a.pid_pattern), "disk free %.2f GB (floor %g GB); pid %s" % (free / 1e9, a.floor_gb, pid or ("n/a" if not a.pid_pattern else "NONE")), fails)
     print("HEALTH VERDICT %s%s" % ("PASS" if not fails else "FAIL", "" if not fails else " (%d bar(s) failed: on FAIL stop the run, keep the files, fix, restart, new read within 15 min)" % len(fails)))
     sys.exit(1 if fails else 0)
 

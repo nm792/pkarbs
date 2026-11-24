@@ -47,7 +47,9 @@ def main():
     if a.health: return health(a, now)
     if a.score: return score(sc, a, bets)
     closed = list(json.load(open(os.path.join(a.state, 'events.json'))).values())
-    op = [sc.slim(e) for e in (sc.fetch(f'{sc.GAMMA}/events?tag_slug=mention-markets&closed=false&limit=100&order=startDate&ascending=false') or [])]
+    raw_open = sc.open_events()
+    if raw_open is None: raise SystemExit('gamma open-events read failed (R-076); nothing logged this run, cron retries')
+    op = [sc.slim(e) for e in raw_open]
     pool = [e for e in closed if sc.resolved(e)]; have = {b['event'] for b in bets}; used = sum(b['cost'] for b in bets if b['day'] == today)
     n_ev = n_fire = n_books = n_exp = 0; fn = os.path.join(a.out, 'firelog_%s.jsonl.gz' % today)
     with gzip.open(fn, 'at') as lf:
@@ -107,7 +109,9 @@ def health(a, now):
 
 def score(sc, a, bets):
     rows = []; allev = {}
-    for e in (sc.fetch(f'{sc.GAMMA}/events?tag_slug=mention-markets&closed=false&limit=100&order=startDate&ascending=false') or []): allev[e['id']] = sc.slim(e)
+    raw_open = sc.open_events()
+    if raw_open is None: raise SystemExit('gamma open-events read failed (R-076)')
+    for e in raw_open: allev[e['id']] = sc.slim(e)
     for e in json.load(open(os.path.join(a.state, 'events.json'))).values(): allev.setdefault(e['id'], e)
     for b in bets:
         e = allev.get(b['event'])

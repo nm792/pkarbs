@@ -35,8 +35,10 @@ def find_markets(h, a, t0):
 def trades(cid):
     r = []; cur = None
     for _ in range(40):
-        j = get(f"https://data-api.polymarket.com/v2/trades?condition={cid}&limit=500" + (f"&cursor={cur}" if cur else ""))
-        r += j.get("data", []); cur = j.get("next_cursor")
+        j = get(f"https://data-api.polymarket.com/v2/trades?condition_id={cid}&limit=500" + (f"&cursor={cur}" if cur else ""))
+        pg = j.get("data", [])
+        if any(x.get("condition_id") != cid for x in pg): raise SystemExit("v2/trades returned rows of another market (R-080): refusing")
+        r += pg; cur = j.get("next_cursor")
         if not cur or not j.get("data"): break
     return r
 def main(sd, od):

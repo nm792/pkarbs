@@ -1,0 +1,348 @@
+end_date,title,gamma_closed,gamma_volume_SHARES_not_usd,event_id
+2026-12-02,Zscaler (ZS) beats quarterly earnings?,true,4344,1434929
+2026-12-01,Will Okta (OKTA) beat quarterly earnings?,false,1427,1434911
+2026-12-01,Will Marvell (MRVL) beat quarterly earnings?,false,2686,1434884
+2026-12-01,Will CrowdStrike (CRWD) beat quarterly earnings?,true,3314,1434885
+2026-11-24,Will Dell (DELL) beat quarterly earnings?,false,1962,1434875
+2026-11-24,Will Analog Devices (ADI) beat quarterly earnings?,false,3367,1434858
+2026-11-23,Will Dick's Sporting Goods (DKS) beat quarterly earnings?,false,14401,1434836
+2026-11-20,Will Moog (MOG.A) beat quarterly earnings?,true,5755,1200559
+2026-11-19,Intuit (INTU) beats quarterly earnings?,true,760,1405844
+2026-11-18,Will Woodward (WWD) beat quarterly earnings?,true,3604,1308741
+2026-11-18,Will Palo Alto Networks (PANW) beat quarterly earnings?,true,437,1308725
+2026-11-18,Target (TGT) beats quarterly earnings?,true,1418,1405470
+2026-11-17,Will Williams-Sonoma (WSM) beat quarterly earnings?,true,1690,1308740
+2026-11-17,Will Viking (VIK) beat quarterly earnings?,true,3107,1308742
+2026-11-17,Will Nvidia (NVDA) beat quarterly earnings?,true,49896,1308738
+2026-11-17,Will La-Z-Boy (LZB) beat quarterly earnings?,true,6171,1308743
+2026-11-17,Will Home Depot (HD) beat quarterly earnings?,true,9764,1308737
+2026-11-17,Will Grab (GRAB) beat quarterly earnings?,false,3294,1308739
+2026-11-17,Will Dolby (DLB) beat quarterly earnings?,true,2393,1308733
+2026-11-17,Will Disney (DIS) beat quarterly earnings?,true,3300,1308732
+2026-11-17,Will Amer Sports (AS) beat quarterly earnings?,true,2487,1308731
+2026-11-16,Will Tyson Foods (TSN) beat quarterly earnings?,true,2996,1308730
+2026-11-16,Will Powell Industries (POWL) beat quarterly earnings?,true,253,1308729
+2026-11-16,Will Getty Images (GETY) beat quarterly earnings?,true,3740,1308728
+2026-11-16,Will AECOM (ACM) beat quarterly earnings?,true,3300,1308727
+2026-11-12,Will Virgin Galactic (SPCE) beat quarterly earnings?,true,743,1308726
+2026-11-12,Will Newsmax (NMAX) beat quarterly earnings?,true,3559,1308724
+2026-11-12,Will Cerebras Systems (CBRS) beat quarterly earnings?,true,7117,1317017
+2026-11-12,Will Applied Materials (AMAT) beat quarterly earnings?,true,3037,1308723
+2026-11-11,Will Rumble (RUM) beat quarterly earnings?,true,932,1308721
+2026-11-11,Will Pixelworks (PXLW) beat quarterly earnings?,true,1947,1262848
+2026-11-10,Will eToro (ETOR) beat quarterly earnings?,true,401,1308717
+2026-11-10,Will Wix (WIX) beat quarterly earnings?,true,1498,1308722
+2026-11-10,Will StubHub (STUB) beat quarterly earnings?,true,1132,1308720
+2026-11-10,Will Sonos (SONO) beat quarterly earnings?,true,968,1308719
+2026-11-10,Will CoreWeave (CRWV) beat quarterly earnings?,true,888,1316992
+2026-11-09,Will Theravance Biopharma (TBPH) beat quarterly earnings?,false,1694,1262854
+2026-11-09,Will The Trade Desk (TTD) beat quarterly earnings?,true,1579,1308718
+2026-11-09,Will Rocket Lab (RKLB) beat quarterly earnings?,true,5102,1262853
+2026-11-09,Will Quantum Computing (QUBT) beat quarterly earnings?,true,4003,1308716
+2026-11-09,Will Occidental Petroleum (OXY) beat quarterly earnings?,true,2650,1262820
+2026-11-09,Will Occidental Petroleum (OXY) beat quarterly earnings?,true,596,1308715
+2026-11-09,Will KKR (KKR) beat quarterly earnings?,true,4207,1262819
+2026-11-09,Will Hims & Hers (HIMS) beat quarterly earnings?,true,3908,1262818
+2026-11-06,Will Under Armour (UAA) beat quarterly earnings?,true,680,1262815
+2026-11-06,Will Moderna (MRNA) beat quarterly earnings?,true,1769,1262816
+2026-11-06,Will Humana (HUM) beat quarterly earnings?,true,1687,1262814
+2026-11-06,Will Franklin Resources (BEN) beat quarterly earnings?,true,1128,1262813
+2026-11-05,Will Yelp (YELP) beat quarterly earnings?,true,1379,1200554
+2026-11-05,Will Wynn Resorts (WYNN) beat quarterly earnings?,true,567,1308714
+2026-11-05,Will Wendy's (WEN) beat quarterly earnings?,true,2489,1308712
+2026-11-05,Will Warby Parker (WRBY) beat quarterly earnings?,true,1017,1308713
+2026-11-05,Will Virtu Financial (VIRT) beat quarterly earnings?,true,868,1308711
+2026-11-05,Will USA TODAY (TDAY) beat quarterly earnings?,true,4281,1200529
+2026-11-05,Will US Foods (USFD) beat quarterly earnings?,true,1109,1308710
+2026-11-05,Will Tripadvisor (TRIP) beat quarterly earnings?,true,1023,1308693
+2026-11-05,Will Texas Roadhouse (TXRH) beat quarterly earnings?,true,1227,1200586
+2026-11-05,Will Teleflex (TFX) beat quarterly earnings?,true,1884,1200478
+2026-11-05,Will Sweetgreen (SG) beat quarterly earnings?,true,634,1308691
+2026-11-05,Will SoundHound AI (SOUN) beat quarterly earnings?,true,3838,1308692
+2026-11-05,Will Shake Shack (SHAK) beat quarterly earnings?,true,5028,1200551
+2026-11-05,Will Ralph Lauren (RL) beat quarterly earnings?,true,226,1308690
+2026-11-05,Will Playboy (PLBY) beat quarterly earnings?,true,3009,1308688
+2026-11-05,Will Peloton (PTON) beat quarterly earnings?,true,3208,1200546
+2026-11-05,Will Papa John's (PZZA) beat quarterly earnings?,true,371,1308689
+2026-11-05,Will Opendoor (OPEN) beat quarterly earnings?,true,845,1308686
+2026-11-05,Will Monster Beverage (MNST) beat quarterly earnings?,true,4420,1200542
+2026-11-05,Will Microchip Technology (MCHP) beat quarterly earnings?,true,535,1308685
+2026-11-05,Will Marex (MRX) beat quarterly earnings?,true,2275,1308687
+2026-11-05,Will Lumentum Holdings Inc (LITE) beat quarterly earnings?,true,2542,1262856
+2026-11-05,Will Krispy Kreme (DNUT) beat quarterly earnings?,true,501,1262809
+2026-11-05,Will IMAX (IMAX) beat quarterly earnings?,true,3123,1200473
+2026-11-05,Will IMAX (IMAX) beat quarterly earnings?,true,2271,1226834
+2026-11-05,Will IMAX (IMAX) beat quarterly earnings?,true,2249,1280464
+2026-11-05,Will Frontdoor (FTDR) beat quarterly earnings?,true,3295,1262811
+2026-11-05,Will Fidelity National Financial (FNF) beat quarterly earnings?,true,4361,1262810
+2026-11-05,Will Dropbox (DBX) beat quarterly earnings?,true,1231,1200536
+2026-11-05,Will DraftKings (DKNG) beat quarterly earnings?,true,2231,1200558
+2026-11-05,Will ConocoPhillips (COP) beat quarterly earnings?,true,1835,1262807
+2026-11-05,Will Con Edison (ED) beat quarterly earnings?,true,1033,1200537
+2026-11-05,Will Cloudflare (NET) beat quarterly earnings?,true,4724,1200563
+2026-11-05,Will Cigna (CI) beat quarterly earnings?,true,1882,1262808
+2026-11-05,Will BuzzFeed (BZFD) beat quarterly earnings?,true,527,1262667
+2026-11-05,Will BGC Group (BGC) beat quarterly earnings?,true,4989,1262806
+2026-11-05,Will Arm (ARM) beat quarterly earnings?,true,1674,1262805
+2026-11-05,Will Akamai (AKAM) beat quarterly earnings?,true,1542,1262804
+2026-11-05,Will Airbnb (ABNB) beat quarterly earnings?,true,2016,1262803
+2026-11-04,Will ZoomInfo (GTM) beat quarterly earnings?,true,120,1262738
+2026-11-04,Will Uber (UBER) beat quarterly earnings?,true,7815,1262802
+2026-11-04,Will TKO Group (TKO) beat quarterly earnings?,true,2901,1262793
+2026-11-04,Will Qualcomm (QCOM) beat quarterly earnings?,true,2129,1262792
+2026-11-04,Will News Corp (NWSA) beat quarterly earnings?,true,1152,1262779
+2026-11-04,Will New York Times (NYT) beat quarterly earnings?,true,1896,1262784
+2026-11-04,Will MetLife (MET) beat quarterly earnings?,true,1963,1262761
+2026-11-04,Will McDonald's (MCD) beat quarterly earnings?,true,1941,1262751
+2026-11-04,Will Kraft Heinz (KHC) beat quarterly earnings?,true,3024,1200561
+2026-11-04,Will HubSpot (HUBS) beat quarterly earnings?,true,1552,1262746
+2026-11-04,Will Goodyear (GT) beat quarterly earnings?,true,1006,1262725
+2026-11-04,Will Flutter Entertainment (FLUT) beat quarterly earnings?,true,3352,1262719
+2026-11-04,Will Expedia (EXPE) beat quarterly earnings?,true,2639,1262715
+2026-11-04,Will DoorDash (DASH) beat quarterly earnings?,true,1110,1262700
+2026-11-04,Will Datadog (DDOG) beat quarterly earnings?,true,310,1262703
+2026-11-04,Will Circle (CRCL) beat quarterly earnings?,true,1495,1262673
+2026-11-04,Will Chime (CHYM) beat quarterly earnings?,true,1400,1262674
+2026-11-04,Will Charles River Laboratories (CRL) beat quarterly earnings?,true,1306,1262680
+2026-11-04,Will CVS Health (CVS) beat quarterly earnings?,true,1366,1262697
+2026-11-04,Will CRISPR Therapeutics (CRSP) beat quarterly earnings?,true,2781,1262696
+2026-11-04,Will Beyond Meat (BYND) beat quarterly earnings?,true,4312,1262817
+2026-11-04,Will Atmos Energy (ATO) beat quarterly earnings?,true,669,1262666
+2026-11-04,Will AppLovin (APP) beat quarterly earnings?,true,1179,1262665
+2026-11-04,Will Amplitude (AMPL) beat quarterly earnings?,true,1971,1262664
+2026-11-04,Will Allstate (ALL) beat quarterly earnings?,true,339,1262655
+2026-11-04,Will Aflac (AFL) beat quarterly earnings?,true,523,1262654
+2026-11-04,Will AMC Entertainment (AMC) beat quarterly earnings?,true,2031,1262663
+2026-11-03,Will Yum! Brands (YUM) beat quarterly earnings?,true,2981,1262653
+2026-11-03,Will Toast (TOST) beat quarterly earnings?,true,1432,1262652
+2026-11-03,Will Sysco (SYY) beat quarterly earnings?,true,2361,1262651
+2026-11-03,Will Sunoco (SUN) beat quarterly earnings?,true,1093,1262650
+2026-11-03,Will Roku (ROKU) beat quarterly earnings?,true,1586,1200528
+2026-11-03,Will Pfizer (PFE) beat quarterly earnings?,true,2190,1262649
+2026-11-03,Will PJT Partners (PJT) beat quarterly earnings?,true,2509,1200502
+2026-11-03,Will Navitas Semiconductor (NVTS) beat quarterly earnings?,true,2081,1262648
+2026-11-03,Will Marathon Petroleum (MPC) beat quarterly earnings?,true,2223,1262647
+2026-11-03,Will FIS (FIS) beat quarterly earnings?,true,4249,1262646
+2026-11-03,Will DuPont (DD) beat quarterly earnings?,true,960,1262645
+2026-11-03,Will Chegg (CHGG) beat quarterly earnings?,true,471,1262644
+2026-11-03,Will Booking Holdings (BKNG) beat quarterly earnings?,true,2880,1262643
+2026-11-03,Will Aptiv (APTV) beat quarterly earnings?,true,5624,1200560
+2026-11-03,Will Apollo Global Management (APO) beat quarterly earnings?,true,1886,1262642
+2026-11-03,Will AMD (AMD) beat quarterly earnings?,true,2173,1262633
+2026-11-02,Will Williams (WMB) beat quarterly earnings?,true,2214,1262632
+2026-11-02,Will Waystar (WAY) beat quarterly earnings?,true,1545,1200565
+2026-11-02,Will Tower Semiconductor (TSEM) beat quarterly earnings?,true,2102,1262631
+2026-11-02,Will Palantir (PLTR) beat quarterly earnings?,true,1787,1262630
+2026-11-02,Will ON Semiconductor (ON) beat quarterly earnings?,true,1139,1262629
+2026-11-02,Will Marriott (MAR) beat quarterly earnings?,true,485,1262628
+2026-11-02,Will Hinge Health (HNGE) beat quarterly earnings?,true,3382,1262627
+2026-11-02,Will Fox (FOXA) beat quarterly earnings?,true,1213,1262626
+2026-11-02,Will Estée Lauder (EL) beat quarterly earnings?,true,2289,1262625
+2026-11-02,Will Clorox (CLX) beat quarterly earnings?,true,2385,1262624
+2026-11-02,Will Apple (AAPL) beat quarterly earnings?,true,2263,1262590
+2026-10-30,Will Piper Sandler (PIPR) beat quarterly earnings?,true,2591,1200484
+2026-10-30,Will Hess Midstream (HESM) beat quarterly earnings?,true,1036,1200523
+2026-10-30,Will ExxonMobil (XOM) beat quarterly earnings?,true,4644,1243296
+2026-10-30,Will ExxonMobil (XOM) beat quarterly earnings?,true,4590,1226836
+2026-10-30,Will ExxonMobil (XOM) beat quarterly earnings?,true,976,1200483
+2026-10-30,Will Colgate-Palmolive (CL) beat quarterly earnings?,true,4332,1200556
+2026-10-30,Will Chevron (CVX) beat quarterly earnings?,true,6083,1200557
+2026-10-30,Will Cboe (CBOE) beat quarterly earnings?,true,9879,1200555
+2026-10-29,Will Tradeweb (TW) beat quarterly earnings?,true,4172,1200553
+2026-10-29,Will Tradeweb (TW) beat quarterly earnings?,true,1269,1238016
+2026-10-29,Will The RealReal (REAL) beat quarterly earnings?,true,3278,1200547
+2026-10-29,Will Strategy (MSTR) beat quarterly earnings?,true,3424,1200545
+2026-10-29,Will Strategy (MSTR) beat quarterly earnings?,true,432,1237983
+2026-10-29,Will Starbucks (SBUX) beat quarterly earnings?,true,1615,1200550
+2026-10-29,Will SanDisk (SNDK) beat quarterly earnings?,true,4802,1200552
+2026-10-29,Will Roblox (RBLX) beat quarterly earnings?,true,4258,1200549
+2026-10-29,Will Rivian (RIVN) beat quarterly earnings?,true,1957,1200548
+2026-10-29,Will Reddit (RDDT) beat quarterly earnings?,true,6212,1200562
+2026-10-29,Will Pinterest (PINS) beat quarterly earnings?,true,1247,1262589
+2026-10-29,Will Merck (MRK) beat quarterly earnings?,true,3203,1200543
+2026-10-29,Will Mastercard (MA) beat quarterly earnings?,true,3521,1257570
+2026-10-29,Will Intercontinental Exchange (ICE) beat quarterly earnings?,true,3568,1200540
+2026-10-29,Will Intel (INTC) beat quarterly earnings?,true,464,1262572
+2026-10-29,Will Hyatt (H) beat quarterly earnings?,true,791,1200538
+2026-10-29,Will Hyatt (H) beat quarterly earnings?,true,440,1237978
+2026-10-29,Will Hilton Grand Vacations (HGV) beat quarterly earnings?,true,5603,1200564
+2026-10-29,Will Hilton Grand Vacations (HGV) beat quarterly earnings?,true,1327,1237981
+2026-10-29,Will Harley-Davidson (HOG) beat quarterly earnings?,true,1059,1200539
+2026-10-29,Will FTI Consulting (FCN) beat quarterly earnings?,true,2216,1237972
+2026-10-29,Will Eli Lilly (LLY) beat quarterly earnings?,true,15718,1200541
+2026-10-29,Will Coursera (COUR) beat quarterly earnings?,true,484,1200460
+2026-10-29,Will Coinbase (COIN) beat quarterly earnings?,true,5940,1236993
+2026-10-29,Will Caterpillar (CAT) beat quarterly earnings?,true,1701,1200535
+2026-10-29,Will Ares Management (ARES) beat quarterly earnings?,true,1046,1200534
+2026-10-29,Will Amazon (AMZN) beat quarterly earnings?,true,8832,1200533
+2026-10-28,Will eBay (EBAY) beat quarterly earnings?,true,2151,1200493
+2026-10-28,Will Wingstop (WING) beat quarterly earnings?,true,1305,1200532
+2026-10-28,Will Teladoc (TDOC) beat quarterly earnings?,true,2182,1200530
+2026-10-28,Will T-Mobile (TMUS) beat quarterly earnings?,true,3973,1200531
+2026-10-28,Will O'Reilly (ORLY) beat quarterly earnings?,true,1643,1200527
+2026-10-28,Will Microsoft (MSFT) beat quarterly earnings?,true,5323,1200526
+2026-10-28,Will MGM Resorts (MGM) beat quarterly earnings?,true,2419,1200525
+2026-10-28,Will Labcorp (LH) beat quarterly earnings?,true,2305,1200524
+2026-10-28,Will Google (GOOGL) beat quarterly earnings?,true,16577,1200495
+2026-10-28,Will Garmin (GRMN) beat quarterly earnings?,true,1305,1200522
+2026-10-28,Will Ford (F) beat quarterly earnings?,true,2313,1200520
+2026-10-28,Will FedEx (FDX) beat quarterly earnings?,true,5852,999590
+2026-10-28,Will FedEx (FDX) beat quarterly earnings?,true,1458,1200521
+2026-10-28,Will Etsy (ETSY) beat quarterly earnings?,true,2814,1200519
+2026-10-28,Will Chipotle (CMG) beat quarterly earnings?,true,1671,1200516
+2026-10-28,Will Carvana (CVNA) beat quarterly earnings?,true,2165,1200518
+2026-10-27,Will Visa (V) beat quarterly earnings?,true,17395,1200515
+2026-10-27,Will UPS (UPS) beat quarterly earnings?,true,3245,1200517
+2026-10-27,Will SoFi (SOFI) beat quarterly earnings?,true,5719,1200505
+2026-10-27,Will S&P Global (SPGI) beat quarterly earnings?,true,2912,1200506
+2026-10-27,Will Royal Caribbean (RCL) beat quarterly earnings?,true,5398,1200504
+2026-10-27,Will Robinhood (HOOD) beat quarterly earnings?,true,8096,1200497
+2026-10-27,Will PayPal (PYPL) beat quarterly earnings?,true,2018,1200503
+2026-10-27,Will NXP Semiconductors (NXPI) beat quarterly earnings?,true,1062,1200501
+2026-10-27,Will JetBlue (JBLU) beat quarterly earnings?,true,1540,1200499
+2026-10-27,Will Invesco (IVZ) beat quarterly earnings?,true,2484,1200498
+2026-10-27,Will Hilton (HLT) beat quarterly earnings?,true,2910,1200496
+2026-10-27,Will Coca-Cola (KO) beat quarterly earnings?,true,1415,1200500
+2026-10-27,Will CoStar Group (CSGP) beat quarterly earnings?,true,1872,1200491
+2026-10-27,Will Caesars (CZR) beat quarterly earnings?,true,906,1200492
+2026-10-27,Will Boeing (BA) beat quarterly earnings?,true,4155,1200490
+2026-10-27,Will Ares Capital (ARCC) beat quarterly earnings?,true,1482,1200489
+2026-10-26,Will Verizon (VZ) beat quarterly earnings?,true,3395,1200488
+2026-10-26,Will Electronic Arts (EA) beat quarterly earnings?,false,2137,1200487
+2026-10-26,Will Confluent (CFLT) beat quarterly earnings?,false,4412,1200482
+2026-10-23,Will American Express (AXP) beat quarterly earnings?,true,2874,1200481
+2026-10-22,Will Union Pacific (UNP) beat quarterly earnings?,true,2799,1200480
+2026-10-22,Will Tractor Supply (TSCO) beat quarterly earnings?,true,5417,1200479
+2026-10-22,Will SS&C (SSNC) beat quarterly earnings?,true,1782,1200477
+2026-10-22,Will S&T Bancorp (STBA) beat quarterly earnings?,true,1020,1149817
+2026-10-22,Will Procter & Gamble (PG) beat quarterly earnings?,true,3899,1200476
+2026-10-22,Will PG&E (PCG) beat quarterly earnings?,true,649,1200475
+2026-10-22,Will Lockheed Martin (LMT) beat quarterly earnings?,true,1047,1200474
+2026-10-22,Will Honeywell (HON) beat quarterly earnings?,true,1968,1200472
+2026-10-22,Will General Dynamics (GD) beat quarterly earnings?,true,1304,1200471
+2026-10-22,Will Dow (DOW) beat quarterly earnings?,true,956,1200470
+2026-10-22,Will CBRE (CBRE) beat quarterly earnings?,true,4413,1200459
+2026-10-22,Will Blackstone (BX) beat quarterly earnings?,true,4165,1149816
+2026-10-22,Will American Airlines (AAL) beat quarterly earnings?,true,5668,1149815
+2026-10-21,Will WD-40 (WDFC) beat quarterly earnings?,true,2982,1149814
+2026-10-21,Will United Bankshares (UBSI) beat quarterly earnings?,true,113,1149813
+2026-10-21,Will Texas Instruments (TXN) beat quarterly earnings?,true,1982,1149812
+2026-10-21,Will Tesla (TSLA) beat quarterly earnings?,true,4485,1149802
+2026-10-21,Will Moody's (MCO) beat quarterly earnings?,true,2035,1149809
+2026-10-21,Will Meta (META) beat quarterly earnings?,true,12460,1200194
+2026-10-21,Will MarketAxess (MKTX) beat quarterly earnings?,true,563,1149810
+2026-10-21,Will Kinder Morgan (KMI) beat quarterly earnings?,true,2166,1149808
+2026-10-21,Will Integra LifeSciences (IART) beat quarterly earnings?,true,1162,1149805
+2026-10-21,Will IBM (IBM) beat quarterly earnings?,true,2228,1149806
+2026-10-21,Will CME Group (CME) beat quarterly earnings?,true,1608,1149804
+2026-10-21,Will AT&T (T) beat quarterly earnings?,true,1853,1149811
+2026-10-20,Will United Airlines (UAL) beat quarterly earnings?,true,4787,1149803
+2026-10-20,Will Netflix (NFLX) beat quarterly earnings?,true,929,1149801
+2026-10-20,Will Mercantile Bank (MBWM) beat quarterly earnings?,true,2754,1149798
+2026-10-20,Will MSCI (MSCI) beat quarterly earnings?,true,1960,1149800
+2026-10-20,Will KeyCorp (KEY) beat quarterly earnings?,true,1720,1149797
+2026-10-20,Will Hasbro (HAS) beat quarterly earnings?,true,4239,1149796
+2026-10-20,Will Halliburton (HAL) beat quarterly earnings?,true,652,1149795
+2026-10-20,Will Equifax (EFX) beat quarterly earnings?,true,3666,1149794
+2026-10-20,Will Equifax (EFX) beat quarterly earnings?,true,979,1200566
+2026-10-20,Will Capital One (COF) beat quarterly earnings?,true,468,1200568
+2026-10-20,Will Capital One (COF) beat quarterly earnings?,true,31,1149785
+2026-10-20,Will Bank First (BFC) beat quarterly earnings?,true,2473,1149779
+2026-10-20,Will Ally (ALLY) beat quarterly earnings?,true,2584,1200569
+2026-10-20,Will Ally (ALLY) beat quarterly earnings?,true,1303,1149652
+2026-10-20,Will 3M (MMM) beat quarterly earnings?,true,3609,1149799
+2026-10-19,Will Wintrust Financial (WTFC) beat quarterly earnings?,true,675,1149651
+2026-10-16,Will Truist (TFC) beat quarterly earnings?,true,4191,1149650
+2026-10-16,Will M&T Bank (MTB) beat quarterly earnings?,true,3982,1149649
+2026-10-16,Will Citizens Financial Group (CFG) beat quarterly earnings?,true,1055,1149648
+2026-10-15,Will US Bancorp (USB) beat quarterly earnings?,true,1593,1149560
+2026-10-15,Will PNC (PNC) beat quarterly earnings?,true,2375,1149558
+2026-10-15,Will Interactive Brokers (IBKR) beat quarterly earnings?,true,3718,1149557
+2026-10-15,Will Charles Schwab (SCHW) beat quarterly earnings?,true,1262,1149559
+2026-10-15,Will BNY (BNY) beat quarterly earnings?,true,4974,1149556
+2026-10-14,Will State Street (STT) beat quarterly earnings?,true,2870,1149555
+2026-10-14,Will Morgan Stanley (MS) beat quarterly earnings?,true,4735,1149554
+2026-10-14,Will BlackRock (BLK) beat quarterly earnings?,true,8602,1106000
+2026-10-14,Will Bank of America (BAC) beat quarterly earnings?,true,4167,1149551
+2026-10-13,Will Wells Fargo (WFC) beat quarterly earnings?,true,4159,1106017
+2026-10-13,Will UnitedHealth (UNH) beat quarterly earnings?,true,1016,1106016
+2026-10-13,Will Johnson & Johnson (JNJ) beat quarterly earnings?,true,7481,1106014
+2026-10-13,Will JPMorgan Chase (JPM) beat quarterly earnings?,true,15064,1106015
+2026-10-13,Will Goldman Sachs (GS) beat quarterly earnings?,true,18177,1106013
+2026-10-13,Will Domino's Pizza (DPZ) beat quarterly earnings?,true,4174,1106012
+2026-10-13,Will Citigroup (C) beat quarterly earnings?,true,4095,1106011
+2026-10-12,Will Unity Bancorp (UNTY) beat quarterly earnings?,true,3004,1106010
+2026-10-09,Will Delta Air Lines (DAL) beat quarterly earnings?,true,3616,1106009
+2026-10-08,Will PepsiCo (PEP) beat quarterly earnings?,true,7958,1105999
+2026-10-06,Will Lamb Weston (LW) beat quarterly earnings?,true,996,1071142
+2026-10-05,Will McCormick (MKC) beat quarterly earnings?,true,1113,1071141
+2026-10-04,Will Dycom Industries (DY) beat quarterly earnings?,true,2019,806398
+2026-10-01,Will Nike (NKE) beat quarterly earnings?,true,2569,1034829
+2026-10-01,Will Accenture (ACN) beat quarterly earnings?,true,4249,1071140
+2026-09-30,Will Micron (MU) beat quarterly earnings?,true,6843,1034820
+2026-09-30,Will Jefferies (JEF) beat quarterly earnings?,true,3188,1034817
+2026-09-30,Will FactSet (FDS) beat quarterly earnings?,true,3129,1034816
+2026-09-29,Will Conagra (CAG) beat quarterly earnings?,true,4278,1034814
+2026-09-29,Will CarMax (KMX) beat quarterly earnings?,true,4503,1034818
+2026-09-28,Will Vail Resorts (MTN) beat quarterly earnings?,true,5410,1034819
+2026-09-28,Will Carnival (CCL) beat quarterly earnings?,true,2722,1034815
+2026-09-24,Will Costco (COST) beat quarterly earnings?,true,7640,999596
+2026-09-23,Will Paychex (PAYX) beat quarterly earnings?,true,3171,999595
+2026-09-23,Will Cracker Barrel (CBRL) beat quarterly earnings?,true,1748,985083
+2026-09-23,Will Cintas (CTAS) beat quarterly earnings?,true,5008,999593
+2026-09-22,Will KB Home (KBH) beat quarterly earnings?,true,1435,999592
+2026-09-22,Will AutoZone (AZO) beat quarterly earnings?,true,1739,999591
+2026-09-16,Will Lennar (LEN) beat quarterly earnings?,true,2683,985222
+2026-09-15,Will General Mills (GIS) beat quarterly earnings?,true,1163,999393
+2026-09-14,Will Dave and Buster's (PLAY) beat quarterly earnings?,true,856,985046
+2026-09-11,Will Kroger (KR) beat quarterly earnings?,true,1555,942725
+2026-09-10,Will RH (RH) beat quarterly earnings?,true,912,942735
+2026-09-10,Will Oracle (ORCL) beat quarterly earnings?,true,3541,916278
+2026-09-10,Will Macy's (M) beat quarterly earnings?,true,441,942726
+2026-09-10,Will Designer Brands (DBI) beat quarterly earnings?,true,694,942737
+2026-09-10,Will Adobe (ADBE) beat quarterly earnings?,true,3131,942724
+2026-09-09,Will Chewy (CHWY) beat quarterly earnings?,true,3152,916281
+2026-09-09,Will American Eagle Outfitters (AEO) beat quarterly earnings?,true,4560,882170
+2026-09-09,Will Academy Sports (ASO) beat quarterly earnings?,true,4362,873071
+2026-09-08,Will United Natural Foods (UNFI) beat quarterly earnings?,true,2470,916293
+2026-09-08,Will Korn Ferry (KFY) beat quarterly earnings?,true,2023,916291
+2026-09-08,Will GameStop (GME) beat quarterly earnings?,true,3405,916282
+2026-09-08,Will Casey's General Stores (CASY) beat quarterly earnings?,true,5104,916280
+2026-09-08,Will Braze (BRZE) beat quarterly earnings?,true,1146,916292
+2026-09-03,Will lululemon athletica (LULU) beat quarterly earnings?,true,4730,882165
+2026-09-03,Will Smith & Wesson (SWBI) beat quarterly earnings?,true,2579,882196
+2026-09-03,Will Samsara (IOT) beat quarterly earnings?,true,2864,882156
+2026-09-03,Will Docusign (DOCU) beat quarterly earnings?,true,3444,882166
+2026-09-03,Will Campbell's (CPB) beat quarterly earnings?,true,1756,882167
+2026-09-03,Will Asana (ASAN) beat quarterly earnings?,true,2624,882187
+2026-09-02,Will Sprinklr (CXM) beat quarterly earnings?,true,3823,882189
+2026-09-02,Will Snowflake (SNOW) beat quarterly earnings?,true,3379,882152
+2026-09-02,Will Hewlett Packard Enterprise (HPE) beat quarterly earnings?,true,4735,882155
+2026-09-02,Will Broadcom (AVGO) beat quarterly earnings?,true,5377,882134
+2026-09-01,Will Palo Alto Networks (PANW) beat quarterly earnings?,true,1143,873069
+2026-09-01,Will MongoDB (MDB) beat quarterly earnings?,true,1510,873070
+2026-09-01,Will GitLab (GTLB) beat quarterly earnings?,true,4655,882169
+2026-09-01,Will Dell Technologies (DELL) beat quarterly earnings?,true,6270,882136
+2026-08-27,Will Workday (WDAY) beat quarterly earnings?,true,2313,844226
+2026-08-27,Will The Gap (GAP) beat quarterly earnings?,true,1016,844245
+2026-08-27,Will Rubrik (RBRK) beat quarterly earnings?,true,2047,844235
+2026-08-27,Will PagerDuty (PD) beat quarterly earnings?,true,1209,873068
+2026-08-27,Will Marvell Tech (MRVL) beat quarterly earnings?,true,4784,844192
+2026-08-27,Will Dollar Tree (DLTR) beat quarterly earnings?,true,568,844233
+2026-08-27,Will Dollar General (DG) beat quarterly earnings?,true,3444,844227
+2026-08-27,Will Burlington Stores (BURL) beat quarterly earnings?,true,1295,844234
+2026-08-27,Will Build-A-Bear Workshop (BBW) beat quarterly earnings?,true,2243,844246
+2026-08-27,Will Best Buy (BBY) beat quarterly earnings?,true,2097,844244
+2026-08-27,Will Autodesk (ADSK) beat quarterly earnings?,true,3561,844225
+2026-08-26,Will Williams-Sonoma (WSM) beat quarterly earnings?,true,6561,844160
+2026-08-26,Will Urban Outfitters (URBN) beat quarterly earnings?,true,603,844188
+2026-08-26,Will Salesforce (CRM) beat quarterly earnings?,true,3290,844151
+2026-08-26,Will Okta (OKTA) beat quarterly earnings?,true,5579,844177
+2026-08-26,Will NVIDIA (NVDA) beat quarterly earnings?,true,85019,844149
+2026-08-26,Will Kohls (KSS) beat quarterly earnings?,true,4119,844191
+2026-08-26,Will JM Smucker (SJM) beat quarterly earnings?,true,1243,844179
+2026-08-26,Will HP (HPQ) beat quarterly earnings?,true,2979,844161
+2026-08-26,Will Five Below (FIVE) beat quarterly earnings?,true,2200,844178
+2026-08-26,Will CrowdStrike Holdings (CRWD) beat quarterly earnings?,true,1655,844150
+2026-08-26,Will Bath & Body Works (BBWI) beat quarterly earnings?,true,5289,844190
+2026-08-26,Will Abercrombie & Fitch (ANF) beat quarterly earnings?,true,2065,844189

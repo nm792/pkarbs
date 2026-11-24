@@ -1,6 +1,6 @@
 // PM EVENT book recorder for scheduled macro releases (23 Nov 2026, re-audit thread, R-070 D / DISCARDED-AUDIT rank 5).
 // Records BOTH tokens' OWN books (YES and NO separate) of every market of the named Gamma events, so a stale-quote pickoff can be scored on own-token asks.
-// Window: release time R (ISO, UTC) -> records from R-PRE_MIN to R+POST_MIN (defaults 15 and 15 min), idle outside; WS stays open only inside the window.
+// Window: release time R (ISO, UTC) -> records from R-PRE_MIN to R+POST_MIN (defaults 30 and 30 min), idle outside; WS stays open only inside the window.
 // Read-only. Node 22, no deps. Reuses pm_cs2_books.js (book state) and pm_mece_books.js (hourly gzip writer, lock).
 // Usage: node pm_event_books.js <outDir> <releaseISO> <slug1,slug2,...> [floorGB=10] [capGB=0.5] [preflight [seconds]]
 // Output: markets.jsonl {cond,q,outcomes,tokens,slug,release}; books-YYYYMMDDHH.jsonl.gz rows as pm_cs2_books.js (one row per best bid/ask or size change, top 3 levels).
@@ -18,15 +18,23 @@ function pickMarkets(events, release) {
       if (m.closed === true) continue;
       let toks, oc; try { toks = JSON.parse(m.clobTokenIds); oc = JSON.parse(m.outcomes); } catch { continue; }
       if (!toks || toks.length !== 2 || !oc || oc.length !== 2) continue;
-      res.push({ cond: m.conditionId, q: m.question, outcomes: oc, tokens: toks, slug: e.slug, release });
+      res.push({ cond: m.conditionId, q: m.question, outcomes: oc, tokens: toks, slug: e.slug, release, title: m.groupItemTitle || null, fee: m.feeSchedule || null, min_size: m.orderMinSize == null ? null : m.orderMinSize, tick: m.orderPriceMinTickSize == null ? null : m.orderPriceMinTickSize, seconds_delay: null });
     }
   }
   return res;
 }
 // inWindow(now, releaseMs, preMin, postMin): true from R-pre to R+post
-function inWindow(now, releaseMs, preMin = 15, postMin = 15) { return now >= releaseMs - preMin * 60e3 && now <= releaseMs + postMin * 60e3; }
+function inWindow(now, releaseMs, preMin = 30, postMin = 30) { return now >= releaseMs - preMin * 60e3 && now <= releaseMs + postMin * 60e3; }
 module.exports = { pickMarkets, inWindow };
 
+// CLOB /markets/<cond> carries seconds_delay (the per-market taker hold); null if the read fails (the scorer then refuses to fill without it).
+async function fetchDelay(cond, log) {
+  for (let a = 0; a < 2; a++) {
+    try { const r = await fetch('https://clob.polymarket.com/markets/' + cond, { headers: UA }); if (r.ok) { const d = await r.json(); return typeof d.seconds_delay === 'number' ? d.seconds_delay : null; } } catch (e) { log('clob ' + cond + ' error ' + e.message); }
+    await new Promise((r) => setTimeout(r, 1000));
+  }
+  return null;
+}
 async function fetchSlug(slug, log) {
   for (let a = 0; a < 3; a++) {
     try {
@@ -42,7 +50,7 @@ async function fetchSlug(slug, log) {
 if (require.main === module) {
   const [OUT, REL, SLUGS] = process.argv.slice(2, 5), FLOOR = floorBytes(process.argv[5]), CAP = (process.argv[6] === undefined ? 0.5 : Number(process.argv[6])) * 1e9;
   const PREFLIGHT = process.argv[7] === 'preflight' ? (parseInt(process.argv[8], 10) || 60) : 0;
-  const RMS = Date.parse(REL), PRE = Number(process.env.PRE_MIN) || 15, POST = Number(process.env.POST_MIN) || 15;
+  const RMS = Date.parse(REL), PRE = Number(process.env.PRE_MIN) || 30, POST = Number(process.env.POST_MIN) || 30;
   if (!OUT || !SLUGS || isNaN(RMS)) { console.error('usage: node pm_event_books.js <outDir> <releaseISO> <slug1,slug2> [floorGB] [capGB] [preflight [s]]'); process.exit(64); }
   if (!acquireLock(OUT)) { console.error('REFUSED: second copy (pidfile ' + path.join(OUT, 'recorder.pid') + ')'); process.exit(2); }
   const unlock = () => { try { if (parseInt(fs.readFileSync(path.join(OUT, 'recorder.pid'), 'utf8'), 10) === process.pid) fs.unlinkSync(path.join(OUT, 'recorder.pid')); } catch {} };
@@ -59,7 +67,7 @@ if (require.main === module) {
     const evs = []; for (const s of SLUGS.split(',')) evs.push(...await fetchSlug(s, log));
     markets = pickMarkets(evs, REL);
     if (!markets.length) { log('FATAL: 0 markets for slugs ' + SLUGS + '; exit 4'); console.error('FATAL: 0 markets'); process.exit(4); }
-    for (const m of markets) { fs.appendFileSync(path.join(OUT, 'markets.jsonl'), JSON.stringify(m) + '\n'); m.tokens.forEach((t, i) => { st.meta[t] = { outcome: m.outcomes[i], q: m.q, cond: m.cond }; }); }
+    for (const m of markets) { m.seconds_delay = await fetchDelay(m.cond, log); fs.appendFileSync(path.join(OUT, 'markets.jsonl'), JSON.stringify(m) + '\n'); m.tokens.forEach((t, i) => { st.meta[t] = { outcome: m.outcomes[i], q: m.q, cond: m.cond }; }); }
     log('start ' + new Date().toISOString() + ' markets=' + markets.length + ' release=' + REL + (PREFLIGHT ? ' PREFLIGHT ' + PREFLIGHT + 's' : ''));
     if (PREFLIGHT) setTimeout(() => {
       gw.flush(); const exp = markets.length * 2, ok = wsTokens > 0 && wsTokens === exp && st.rows > 0;

@@ -1,11 +1,11 @@
 #!/bin/bash
-# R-037/R-058 HEALTH READ for pm_sport_books.js (NBA/NHL/tennis). Usage: bash nba_health.sh <outDir> [wait_s=60]   Exit 0 = PASS, 1 = FAIL. Read-only.
+# R-037/R-058 HEALTH READ for pm_sport_books.js (NBA/NHL/tennis/soccer/ATP/NFL/CFB; for in-play leagues run it DURING a match window: no growth between games is normal). Usage: bash nba_health.sh <outDir> [wait_s=60]   Exit 0 = PASS, 1 = FAIL. Read-only.
 OUT="$1"; W="${2:-60}"; F=0; say() { echo "$*"; }
 P=$(cat "$OUT/recorder.pid" 2>/dev/null); ALIVE=no
 if [ -n "$P" ] && kill -0 "$P" 2>/dev/null && tr '\0' ' ' < "/proc/$P/cmdline" 2>/dev/null | grep -q pm_sport_books; then ALIVE=yes; fi
-N=$(pgrep -fc 'pm_sport_books\.js' || true)
+N=$(pgrep -fc -- "pm_sport_books\.js ${OUT%/} " || true)  # per output dir (R-082: several leagues run side by side, one writer per dir)
 [ "$ALIVE" = yes ] || { F=1; say "FAIL pid: recorder.pid ($P) is not a live pm_sport_books process"; }
-[ "$N" = 1 ] || { F=1; say "FAIL writers: $N pm_sport_books processes (must be exactly 1)"; }
+[ "$N" = 1 ] || { F=1; say "FAIL writers: $N pm_sport_books processes on $OUT (must be exactly 1)"; }
 TOK=$(grep -o 'ws open, tokens [0-9]*' "$OUT/recorder.log" 2>/dev/null | tail -1 | grep -o '[0-9]*$')
 [ "${TOK:-0}" -gt 0 ] 2>/dev/null || { F=1; say "FAIL tokens: last 'ws open' line says tokens '${TOK:-none}' (must be > 0)"; }
 M=$(wc -l < "$OUT/markets.jsonl" 2>/dev/null || echo 0)

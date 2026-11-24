@@ -42,5 +42,13 @@ const run = (srv, out, args, env = {}, ms = 30000) => new Promise((resolve) => {
   // stale pidfile (dead pid) is taken over
   const o3 = path.join(tmp, 'o3'); fs.mkdirSync(o3); fs.writeFileSync(path.join(o3, 'recorder.pid'), '999999');
   const r3 = await run(s1, o3, ['', '0', 'nba', 'preflight', '3']); if (r3.status !== 0) bad.push('stale pidfile must be taken over, preflight status ' + r3.status);
-  console.log(bad.length ? 'FAIL: ' + bad.join(' | ') : 'PASS (live-path: 8 checks incl. preflight, tokens 0, single instance)'); s1.close(); s0.close(); process.exit(bad.length ? 1 : 0);
+  // R-082 in-play-only soccer: 3 moneylines x 2 tokens = 6 tokens when the game started 10 min ago; none when it starts in 3 h or started 5 h ago
+  const soc = (min) => [{ slug: 'epl-aaa-bbb-2026-11-28', startTime: new Date(Date.now() + min * 60e3).toISOString(), markets: [0, 1, 2].map((i) => ({ sportsMarketType: 'moneyline', clobTokenIds: JSON.stringify(['S' + min + i + 'y', 'S' + min + i + 'n']), outcomes: '["Yes","No"]', question: 'q' + i, conditionId: 'sc' + min + i, gameStartTime: new Date(Date.now() + min * 60e3).toISOString() })) }];
+  const sA = await server(soc(-10)), rA = await run(sA, path.join(tmp, 'oA'), ['', '0', 'epl', 'preflight', '4']); let jA = {}; try { jA = JSON.parse(rA.stdout.trim().split('\n').pop()); } catch {}
+  if (rA.status !== 0 || jA.ws_tokens !== 6) bad.push('epl in-play game must give PASS with 6 tokens: ' + rA.status + ' ' + rA.stdout + rA.stderr);
+  const sB = await server(soc(180)), rB = await run(sB, path.join(tmp, 'oB'), ['', '0', 'epl', 'preflight', '3']); if (rB.status !== 5) bad.push('epl game 3 h before start must NOT be recorded (exit 5), got ' + rB.status);
+  const sC = await server(soc(-300)), rC = await run(sC, path.join(tmp, 'oC'), ['', '0', 'epl', 'preflight', '3']); if (rC.status !== 5) bad.push('epl game 5 h after start must NOT be recorded (exit 5), got ' + rC.status);
+  const rD = await run(sA, path.join(tmp, 'oD'), ['', '0', 'nba', 'preflight', '3']); if (rD.status !== 5) bad.push('nba mode must not pick an epl slug (exit 5), got ' + rD.status);
+  sA.close(); sB.close(); sC.close();
+  console.log(bad.length ? 'FAIL: ' + bad.join(' | ') : 'PASS (live-path: 8 original + 4 R-082 soccer checks)'); s1.close(); s0.close(); process.exit(bad.length ? 1 : 0);
 })();
