@@ -41,5 +41,15 @@ Source: resolving-books recorder (P127), series `wti-up-or-down-15m`, T-10m / T-
 ## 6. R-058 pre-flight (IT on Prime, before any start; any FAIL = nothing starts)
 Instruments loaded > 0 and equal to the expected count (2 tokens x open wti-15m events); single-instance lock (second copy refused); health checker supports the mode (rows per token per minute >= 1; own-token source named); 60 s of real live L2 data written to disk; Nautilus version and sandbox fill check from section 0 printed. Expected write: UNMEASURED until the 60 s pre-flight; budget 50 MB/day.
 
-## 7. What kills it
+## 7. Cells in this spec family (R-086(7)): late-resolving daily stock cells, all UNPROVEN and under $3/day
+Same node, same Nautilus-native design, same principles table; only the contract and the lead differ (daily contracts: arms at T-3h, T-1h primary, T-30m, because a daily contract exists for hours). Evidence is the same causal backtest (`late_leader.py` 3364acc6d3, 40 events each, tapes to 19 Nov, T-1h arm, FLOOR). Label every one UNPROVEN: 4-5 bets each, 5 positive lower bounds out of 81 families with about 2 expected by chance, 100% wins on 4-5 bets cannot support an edge claim.
+| Cell (series) | Bets / events | Avg price | Won | Print-capped stake | FLOOR $/day (T-1h) | 95% lower bound | In P127 universe |
+|---|---|---|---|---|---|---|---|
+| nvda-daily-up-down | 4 / 40 | 0.87 | 4 | $13.86 | +0.14 | +0.01 | yes (since 01:26Z) |
+| tsla-daily-up-down | 4 / 40 | 0.67 | 4 | $74.87 | +2.09 | +0.02 | added 24 Nov (restart needed) |
+| whitehouse-daily-tweets | 4 / 40 | 0.90 | 4 | $140.74 | +0.29 | +0.02 | yes (since 01:26Z) |
+| rklb-daily-up-or-down | 5 / 40 | 0.77 | 5 | $11.57 | +0.46 | +0.01 | added 24 Nov (restart needed) |
+Stop rules and capacity rules are those of sections 4 and 5; each cell has its own 400-event cap (about 560 days at 0.71 events/day, so these cells cannot reach a verdict by waiting: they are kept for stacking only if the depth is measured and the edge appears in a pooled daily-Up/Down cell across all 40+ daily stock series). Recording is the deliverable now, not a trading claim.
+
+## 8. What kills it
 Chainlink stream gaps or the "Down" default; the 250 ms hold re-quoting the book before the fill; depth under $20 per bet at the decision price (then capacity-limited, only worth stacking); the 2.4-day sample being a tail draw.
