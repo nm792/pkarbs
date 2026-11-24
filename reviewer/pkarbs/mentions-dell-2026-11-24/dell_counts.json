@@ -1,0 +1,32 @@
+{
+ "q1fy27_fool.txt": {
+  "AI 50+": 66,
+  "DRAM / NAND 3+": 10,
+  "Vera Rubin": 1,
+  "Inference": 3,
+  "Shortage": 0,
+  "Blackwell": 1,
+  "CrowdStrike": 1,
+  "words": 8857
+ },
+ "q3-2026_fool.txt": {
+  "AI 50+": 53,
+  "DRAM / NAND 3+": 10,
+  "Vera Rubin": 0,
+  "Inference": 0,
+  "Shortage": 1,
+  "Blackwell": 0,
+  "CrowdStrike": 0,
+  "words": 8086
+ },
+ "q4-2026_fool.txt": {
+  "AI 50+": 63,
+  "DRAM / NAND 3+": 4,
+  "Vera Rubin": 6,
+  "Inference": 6,
+  "Shortage": 2,
+  "Blackwell": 8,
+  "CrowdStrike": 0,
+  "words": 8935
+ }
+}
