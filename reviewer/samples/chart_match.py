@@ -39,6 +39,11 @@ def check_rows(rows, cond):
     return rows
 
 
+def in_window(tr, lo, hi):
+    """R-080 addendum: v2 /trades ignores start/end, so the window is applied here on each row's timestamp."""
+    return [t for t in tr if lo <= t["timestamp"] <= hi]
+
+
 def trades_for(cond, getter=None):
     getter = getter or get
     out, cur = [], None
@@ -93,7 +98,7 @@ def main():
     fs = feed_series(a.sample, a.eid) if a.sample else []
     lo = a.t_from or (min(x[0] for x in fs) - a.pad_min * 60 if fs else min(t["timestamp"] for t in tr))
     hi = a.t_to or (max(x[0] for x in fs) + a.pad_min * 60 if fs else max(t["timestamp"] for t in tr))
-    tr = [t for t in tr if lo <= t["timestamp"] <= hi]
+    tr = in_window(tr, lo, hi)
     ts = lambda x: datetime.datetime.fromtimestamp(x, datetime.timezone.utc)
     fig, ax = plt.subplots(figsize=(13, 5.5))
     cols = {outs[0]: "tab:blue", outs[1]: "tab:orange"}

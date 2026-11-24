@@ -224,11 +224,38 @@ def enum_closed(state, since):
     return list(cache.values())
 
 
+def open_events(page=50, maxpages=10):
+    """R-076: open mention events paged at limit=50 (Gamma has answered HTTP 406 to limit=100). Returns None if any page failed, never a silent empty list."""
+    out = []
+    for i in range(maxpages):
+        r = fetch(f'{GAMMA}/events?tag_slug=mention-markets&closed=false&limit={page}&offset={i * page}&order=startDate&ascending=false')
+        if r is None:
+            return None
+        out += r
+        if len(r) < page:
+            break
+    return out
+
+
+def trades_url(cond, cur=None):
+    """R-080: data-api v2 silently IGNORES unknown params; only condition_id / condition / conditionId filter. 'condition' is the one used here."""
+    return f'{DATA}/v2/trades?condition={cond}&limit=500' + (f'&cursor={cur}' if cur else '')
+
+
+def rows_match(rows, cond):
+    """R-080: every returned row must belong to the requested condition (a wrongly named filter returns OTHER markets' trades)."""
+    return all(x.get('condition_id') == cond for x in rows)
+
+
 def pull_trades(cond):
     out, cur = [], None
     for _ in range(150):
-        r = fetch(f'{DATA}/v2/trades?condition={cond}&limit=500' + (f'&cursor={cur}' if cur else ''))
+        r = fetch(trades_url(cond, cur))
         if r is None:
+            return cond, None
+        if not rows_match(r['data'], cond):
+            import sys
+            sys.stderr.write('trades: rows for another condition than %s; treating as a failed read\n' % cond)
             return cond, None
         out += [(x['timestamp'], x['side'], x['price'], x['size'], x['outcome_index']) for x in r['data']]
         p = r['pagination']
