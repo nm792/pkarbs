@@ -1,0 +1,21 @@
+{
+  "_note": "Frozen BEFORE game 1 (R-092 C4). Values are the rule LOCKED ON TRAIN by winmodels/us/nba_event.py (train = 39 games starting before 2026-10-28T00:00Z; locked at lag 3, best 1-min net with >= $5K filled) and beta fitted on the same train games. Nothing here is refit on paper-test data. If any listed file changes, the cell is a NEW cell. The repo's own held-out result for this configuration (39 test games, winmodels/us/out_nba_event.txt): lag 0 W10 gap 0.01: 1-min markout +3.74% [2.50, 5.11], result to settlement -11.5% [-28.12, +5.16], $-1,011; at lag 10: 1-min +0.13% [-1.92, 2.06], result -13.5%. This note supersedes the MINJ 0.01 / CAUGHT 0.5 cells named in spec v6 line 5: the frozen cell is MINJ 0.005, CAUGHT 1.0, W 10 s; other values are labelled sensitivity cells only.",
+  "beta": 0.18246138658500727,
+  "beta_fit": {"games": 39, "events": 135318, "r2": 0.06374343960250528, "target": "mid move from 2 s before to 30 s after the event vs model dFair, through-origin least squares"},
+  "MINJ": 0.005,
+  "CAUGHT": 1.0,
+  "W_seconds": 10,
+  "d_discount": 0.025,
+  "max_gap": 0.01,
+  "placement_in_paper_test": "NEW LEVEL inside the spread (best bid + 1 tick), NOT mid x (1 - d_discount); d_discount applies only to the labelled joining re-test arm",
+  "tick_size": "read from CLOB per market at decision time",
+  "blob_shas": {
+    "winmodels/us/nba_event.py": "8d100016cd2270d641c810e92d0eaa9c9c6f66fc",
+    "winmodels/us/nba_guard.py": "3cf61eea9c6dd8d80fa7be86a5d1753d64a42ebc",
+    "winmodels/us/params.json": "43f5a9ffcca07ab2c41e2da78742d5442d564dc8",
+    "winmodels/us/out_nba_event.txt": "71e611c080752f203923039b0a5a21d9f1113aa8",
+    "winmodels/common.py": "504502985c4a7a31a790632eb9db13724b9fb5d7"
+  },
+  "blob_sha_source": "git rev-parse origin/reviewer:<path> on 24 Nov 2026",
+  "stops": {"blind_games": 10, "sigma": "1.5 x baseline-arm per-game sd at game 10, then frozen", "looks": "10, 20, 40, then every 20", "max_games": 432, "interval": "Robbins normal-mixture, always-valid 95%", "code_blob": "see stops_harness.py committed alongside"}
+}
