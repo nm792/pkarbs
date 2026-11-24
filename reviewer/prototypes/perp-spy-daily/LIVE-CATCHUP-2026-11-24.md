@@ -14,5 +14,5 @@ Log: live_2026-11-24_session_book_v2.jsonl.gz, 6,793 rows at about 1/s with 1 er
 ## Reading
 - First live day with a tradeable book: positive, but 5 trades is far too few for any verdict (MODELLING-PRINCIPLES s2/s13).
 - Size is the limit: displayed ask size at entry was 5 to 80 shares. At \$200/trade the rule would walk deeper asks; not measured.
-- The fee used is the locked 0.04 rate. This market's own feeSchedule was not re-read today, so the after-fee figure is UNVERIFIED on fee.
+- FEE CORRECTION (read 16:07Z): this market's own feeSchedule is finance_prices_fees, rate 0.05, takerOnly, rebateRate 0.25, not the locked 0.04. Both legs are taker, so at 0.05: real **+0.84c per share** (+2.69, +1.73, -0.27, +0.34, -0.31c; 3 of 5 positive); planted +1.74c. The rule file keeps 0.04; any later scoring uses the market's own rate (SETTLED A4).
 - The logger is running again from 16:05Z for the rest of the session (to about 18:00Z), and a second read follows.
