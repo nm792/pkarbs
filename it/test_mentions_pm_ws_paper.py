@@ -65,7 +65,7 @@ old = ({'e': 1}, {'t1': 1}); new = ({}, {})
 chk('keep_or_replace keeps the old universe when the new one is empty', W.keep_or_replace(old, new) is old and W.keep_or_replace(old, ({'f': 1}, {'t2': 1}))[1] == {'t2': 1} and W.keep_or_replace(({}, {}), new) is new)
 bk = W.Book(); bk.snapshot({'asks': [{'price': '0.4', 'size': '10'}, {'price': '0.5', 'size': '20'}], 'bids': [{'price': '0.3', 'size': '5'}]}, 100.0)
 br = W.beat_row(103.0, 'tk', ('e1', 'c1', 0, 'Will Dell (DELL) beat quarterly earnings?'), bk)
-chk('beat_row logs own-token best ask/bid, full ask $ and the ladder', br['best_ask'] == .4 and br['best_bid'] == .3 and abs(br['ask_usd'] - 14.0) < 1e-9 and br['age_s'] == 3.0 and br['asks'][1] == [.5, 20.0])
+chk('beat_row is tagged family=earnings_beat and logs own-token best ask/bid, full ask $ and the ladder', br['family'] == 'earnings_beat' and br['best_ask'] == .4 and br['best_bid'] == .3 and abs(br['ask_usd'] - 14.0) < 1e-9 and br['age_s'] == 3.0 and br['asks'][1] == [.5, 20.0])
 class _Sb:
     GAMMA = 'g'
     def fetch(self, u): return [{'id': 9, 'title': 'Will Dell (DELL) beat quarterly earnings?', 'markets': [{'conditionId': 'c', 'acceptingOrders': True, 'clobTokenIds': json.dumps(['y', 'n'])}]}, {'id': 8, 'title': 'Dell earnings call words', 'markets': [{'conditionId': 'd', 'acceptingOrders': True, 'clobTokenIds': json.dumps(['a', 'b'])}]}]

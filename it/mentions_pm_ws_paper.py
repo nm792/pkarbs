@@ -115,7 +115,7 @@ def beat_universe(sc, page=50, maxpages=4):
 
 def beat_row(now, tok, meta, b):
     asks = sorted(b.asks.items()); bids = sorted(b.bids.items(), reverse=True)
-    return dict(t=int(now), event=meta[0], cond=meta[1], oi=meta[2], title=meta[3], best_ask=asks[0][0] if asks else None, best_bid=bids[0][0] if bids else None,
+    return dict(family='earnings_beat', t=int(now), event=meta[0], cond=meta[1], oi=meta[2], title=meta[3], best_ask=asks[0][0] if asks else None, best_bid=bids[0][0] if bids else None,
                 ask_usd=round(sum(p * s for p, s in asks), 2), asks=[list(x) for x in asks[:8]], bids=[list(x) for x in bids[:3]], age_s=round(now - b.ts, 1))
 
 
@@ -216,7 +216,7 @@ def main():
         for l in open(dec_fn):
             r = json.loads(l); done.add((r['event'], r['variant'], r['t_decision']))
             if r.get('take'): used[r['day']] += r['take']['cost']
-    books = collections.defaultdict(Book); btoks = {}; beat_fn = os.path.join(a.out, 'beat_books.jsonl'); pend = []; st = dict(msgs=0, reconnects=0, errors=0, errors_reported=0, missed=0, last_msg=time.time(), books_seen=set(), sub_time=0.0); ev = {}; toks = {}; w = None; last_hb = 0.0; last_uni = 0.0
+    books = collections.defaultdict(Book); btoks = {}; beat_fn = os.path.join(a.out, 'earnings_beat', 'books.jsonl'); pend = []; st = dict(msgs=0, reconnects=0, errors=0, errors_reported=0, missed=0, last_msg=time.time(), books_seen=set(), sub_time=0.0); ev = {}; toks = {}; w = None; last_hb = 0.0; last_uni = 0.0
     day = lambda t: dt.datetime.fromtimestamp(t, dt.timezone.utc).strftime('%Y-%m-%d')
     t_start = time.time()
     while True:
@@ -278,6 +278,7 @@ def main():
                 hb = dict(t=int(now), pid=os.getpid(), connected=w is not None, tokens_subscribed=acc, accepting_tokens=acc, books_received=len(st['books_seen']), msgs=st['msgs'], reconnects=st['reconnects'], errors_new=new, missed_slots=st['missed'], last_msg_age_s=int(now - st['last_msg']), events=len(ev), universe_failures=st.get('uni_fail', 0))
                 open(run_fn, 'a').write(json.dumps(hb) + '\n'); json.dump(hb, open(os.path.join(a.out, 'heartbeat.json'), 'w'))
                 if btoks:
+                    os.makedirs(os.path.dirname(beat_fn), exist_ok=True)
                     with open(beat_fn, 'a') as bf:
                         for tk, meta in btoks.items():
                             if tk in books: bf.write(json.dumps(beat_row(now, tk, meta, books[tk])) + '\n')
