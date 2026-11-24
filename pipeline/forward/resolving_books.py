@@ -8,7 +8,12 @@ Own-token books: asks and bids of the SAME token; YES and NO are separate books.
 import argparse, collections, datetime as dt, fcntl, gzip, json, os, statistics, sys, time, urllib.request
 GAMMA = "https://gamma-api.polymarket.com"; CLOB = "https://clob.polymarket.com"
 UA = {"User-Agent": "Mozilla/5.0", "Accept-Encoding": "gzip", "Content-Type": "application/json"}
-LEADS_H = (3.0, 1.0, 0.5); TOL_S = 60.0; FULL = set()
+LEADS_H = (3.0, 1.0, 0.5); LEADS_15M = (10 / 60, 5 / 60, 2 / 60); TOL_S = 60.0; FULL = set()
+
+
+def leads_for(series):
+    """decision leads in hours before the event end; 15-minute contracts use T-10m / T-5m / T-2m (a 3 h lead is before the contract exists)."""
+    return LEADS_15M if series.endswith("-15m") else LEADS_H
 
 
 def jget(url, body=None, timeout=20):
@@ -155,7 +160,7 @@ def cmd_record(a):
             for ev in es:
                 try: end = ts(ev["endDate"])
                 except Exception: continue
-                for L in LEADS_H:
+                for L in leads_for(s):
                     key = (ev["id"], L)
                     if key in done: continue
                     if due(end, L, now):
@@ -198,7 +203,7 @@ def cmd_health(a):
         try:
             for ev in open_events(s):
                 end = ts(ev["endDate"])
-                for L in LEADS_H:
+                for L in leads_for(s):
                     if lo <= end - L * 3600 <= now - TOL_S: exp.add((ev["id"], L))
         except Exception as ex: print("list error", s, ex)
     rows = []

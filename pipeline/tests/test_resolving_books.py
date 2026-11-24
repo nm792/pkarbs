@@ -87,3 +87,9 @@ def test_old_both_sides_rule_fails_the_planted_case():
             if best is None or b["bids"][0][0] > best[1]: best = (t, b["bids"][0][0])
         return best[0] if best else None
     assert old(ONE_SIDED) is None and B.leader(ONE_SIDED) == "WIN"
+
+def test_15m_series_use_short_leads_others_keep_3h_1h_30m():
+    assert B.leads_for("wti-up-or-down-15m") == (10 / 60, 5 / 60, 2 / 60)
+    assert B.leads_for("spx-daily-up-or-down") == (3.0, 1.0, 0.5)
+    end = 1_000_000.0
+    assert B.due(end, B.leads_for("wti-up-or-down-15m")[1], end - 300)          # 5 min before the end

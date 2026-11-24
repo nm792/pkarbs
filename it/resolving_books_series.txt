@@ -1,4 +1,4 @@
-# R-036 late-resolving series: one gamma series_slug per line (families with >= $1,000/day trade volume, 15m/1h and annual series excluded)
+# R-036 late-resolving series: one gamma series_slug per line (families with >= $1,000/day trade volume, annual and 1h series excluded; wti-up-or-down-15m added 24 Nov for R-078(3))
 elon-tweets
 elon-tweets-48h
 box-office-openings
@@ -33,3 +33,4 @@ nvda-daily-up-down
 russell-2000-daily-up-or-down
 silver-daily-up-or-down
 meta-daily-up-down
+wti-up-or-down-15m
