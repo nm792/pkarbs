@@ -6,7 +6,7 @@ r=json.load(open("result.json")); SG={int(k):v/1e4 for k,v in r["sigma_bp"].item
 def itp(tab,tau):
     if tau>23: return tab[23]*math.sqrt(tau/23) if tab is SG else tab[23]
     tau=max(tau,1.0); a=int(tau); b=min(a+1,23); w=tau-a; return tab[a]*(1-w)+tab[b]*w
-NY=ZoneInfo("America/New_York"); C0S={"2026-11-23":6925.8,"2026-11-24":7237.8}   # perp mark at prior close (20 Nov: LIVE-READ-2026-11-23-1351.json; 23 Nov 21:00Z: mark-history ts 1795467599000)
+NY=ZoneInfo("America/New_York"); C0S={"2026-11-23":6925.8,"2026-11-24":7237.8}   # 24 Nov: perp mark at 23 Nov 20:59:59Z (ts 1795467599000), same rule as 23 Nov   # perp at 20 Nov close (LIVE-READ-2026-11-23-1351.json)
 out={}
 for f in sys.argv[1:]:
     d=f.split("_")[1]; D=dt.date.fromisoformat(d); K=int(dt.datetime(D.year,D.month,D.day,16,tzinfo=NY).timestamp())
