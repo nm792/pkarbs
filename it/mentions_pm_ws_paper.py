@@ -95,6 +95,30 @@ def fetch_open(sc, page=50, maxpages=10):
     return out
 
 
+def beat_universe(sc, page=50, maxpages=4):
+    """R-086(5): RECORDING-ONLY tokens of open 'beat quarterly earnings' markets (tag earnings). Returns {token: (event_id, cond, outcome_index, title)}, or None if a read failed (caller keeps the old set). No decisions are taken on these: the book path is logged to beat_books.jsonl for the offline rescore."""
+    import re
+    out = {}
+    for i in range(maxpages):
+        r = sc.fetch(f'{sc.GAMMA}/events?tag_slug=earnings&closed=false&limit={page}&offset={i * page}')
+        if r is None: return None
+        for x in r:
+            if not re.search(r'beat', x.get('title', ''), re.I): continue
+            for m in x.get('markets', []):
+                if not m.get('acceptingOrders'): continue
+                try: tk = json.loads(m['clobTokenIds'])
+                except Exception: continue
+                for oi, t in enumerate(tk[:2]): out[t] = (str(x['id']), m.get('conditionId'), oi, x['title'][:80])
+        if len(r) < page: break
+    return out
+
+
+def beat_row(now, tok, meta, b):
+    asks = sorted(b.asks.items()); bids = sorted(b.bids.items(), reverse=True)
+    return dict(family='earnings_beat', t=int(now), event=meta[0], cond=meta[1], oi=meta[2], title=meta[3], best_ask=asks[0][0] if asks else None, best_bid=bids[0][0] if bids else None,
+                ask_usd=round(sum(p * s for p, s in asks), 2), asks=[list(x) for x in asks[:8]], bids=[list(x) for x in bids[:3]], age_s=round(now - b.ts, 1))
+
+
 def keep_or_replace(old, new):
     """Never shrink to zero on a bad read: an empty new universe with a non-empty old one keeps the old one."""
     return old if (not new[1] and old[1]) else new
@@ -192,7 +216,7 @@ def main():
         for l in open(dec_fn):
             r = json.loads(l); done.add((r['event'], r['variant'], r['t_decision']))
             if r.get('take'): used[r['day']] += r['take']['cost']
-    books = collections.defaultdict(Book); pend = []; st = dict(msgs=0, reconnects=0, errors=0, errors_reported=0, missed=0, last_msg=time.time(), books_seen=set(), sub_time=0.0); ev = {}; toks = {}; w = None; last_hb = 0.0; last_uni = 0.0
+    books = collections.defaultdict(Book); btoks = {}; beat_fn = os.path.join(a.out, 'earnings_beat', 'books.jsonl'); pend = []; st = dict(msgs=0, reconnects=0, errors=0, errors_reported=0, missed=0, last_msg=time.time(), books_seen=set(), sub_time=0.0); ev = {}; toks = {}; w = None; last_hb = 0.0; last_uni = 0.0
     day = lambda t: dt.datetime.fromtimestamp(t, dt.timezone.utc).strftime('%Y-%m-%d')
     t_start = time.time()
     while True:
@@ -205,10 +229,12 @@ def main():
                     if toks: ev2, toks2 = ev, toks
                     else: time.sleep(10); continue
                 ev2, toks2 = keep_or_replace((ev, toks), (ev2, toks2))
-                if set(toks2) != set(toks) or w is None:
-                    ev, toks = ev2, toks2
+                bt2 = beat_universe(sc)
+                if bt2 is None: bt2 = btoks
+                if set(toks2) != set(toks) or set(bt2) != set(btoks) or w is None:
+                    ev, toks, btoks = ev2, toks2, bt2
                     if w: w.close()
-                    w = ws_min.WS(WSURL, timeout=20); w.sock.settimeout(1.0); w.send(json.dumps({'assets_ids': list(toks), 'type': 'market'})); st['sub_time'] = now; st['books_seen'] = set(); st['reconnects'] += 1
+                    w = ws_min.WS(WSURL, timeout=20); w.sock.settimeout(1.0); w.send(json.dumps({'assets_ids': list(toks) + list(btoks), 'type': 'market'})); st['sub_time'] = now; st['books_seen'] = set(); st['reconnects'] += 1
                 else: ev = ev2
             try: raw = w.recv()
             except socket.timeout: raw = None
@@ -248,9 +274,14 @@ def main():
                     fl = resting_fill(p['bid_price'], p['shares'], p['queue'], [(pr, q) for pr, q, sd, tt in p['trades'] if sd == 'SELL'])
                     open(fill_fn, 'a').write(json.dumps(dict(key=p['key'], bid_price=p['bid_price'], bid_filled_shares=fl, bid_shares=p['shares'], A_confirmed_shares_60s=p.get('A_confirmed_shares'), n_trades_seen=len(p['trades']))) + '\n'); pend.remove(p)
             if now - last_hb >= 60:
-                last_hb = now; acc = len(toks); new = st['errors'] - st['errors_reported']; st['errors_reported'] = st['errors']
+                last_hb = now; acc = len(toks) + len(btoks); new = st['errors'] - st['errors_reported']; st['errors_reported'] = st['errors']
                 hb = dict(t=int(now), pid=os.getpid(), connected=w is not None, tokens_subscribed=acc, accepting_tokens=acc, books_received=len(st['books_seen']), msgs=st['msgs'], reconnects=st['reconnects'], errors_new=new, missed_slots=st['missed'], last_msg_age_s=int(now - st['last_msg']), events=len(ev), universe_failures=st.get('uni_fail', 0))
                 open(run_fn, 'a').write(json.dumps(hb) + '\n'); json.dump(hb, open(os.path.join(a.out, 'heartbeat.json'), 'w'))
+                if btoks:
+                    os.makedirs(os.path.dirname(beat_fn), exist_ok=True)
+                    with open(beat_fn, 'a') as bf:
+                        for tk, meta in btoks.items():
+                            if tk in books: bf.write(json.dumps(beat_row(now, tk, meta, books[tk])) + '\n')
         except (ConnectionError, OSError, ValueError) as ex:
             st['errors'] += 1; sys.stderr.write('%s %s %s\n' % (dt.datetime.now(dt.timezone.utc).isoformat(), type(ex).__name__, ex)); w = None; time.sleep(5)
 

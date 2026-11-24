@@ -63,4 +63,14 @@ except Exception: raised = False
 chk('universe raises RuntimeError on a failed read instead of returning an empty universe', raised)
 old = ({'e': 1}, {'t1': 1}); new = ({}, {})
 chk('keep_or_replace keeps the old universe when the new one is empty', W.keep_or_replace(old, new) is old and W.keep_or_replace(old, ({'f': 1}, {'t2': 1}))[1] == {'t2': 1} and W.keep_or_replace(({}, {}), new) is new)
+bk = W.Book(); bk.snapshot({'asks': [{'price': '0.4', 'size': '10'}, {'price': '0.5', 'size': '20'}], 'bids': [{'price': '0.3', 'size': '5'}]}, 100.0)
+br = W.beat_row(103.0, 'tk', ('e1', 'c1', 0, 'Will Dell (DELL) beat quarterly earnings?'), bk)
+chk('beat_row is tagged family=earnings_beat and logs own-token best ask/bid, full ask $ and the ladder', br['family'] == 'earnings_beat' and br['best_ask'] == .4 and br['best_bid'] == .3 and abs(br['ask_usd'] - 14.0) < 1e-9 and br['age_s'] == 3.0 and br['asks'][1] == [.5, 20.0])
+class _Sb:
+    GAMMA = 'g'
+    def fetch(self, u): return [{'id': 9, 'title': 'Will Dell (DELL) beat quarterly earnings?', 'markets': [{'conditionId': 'c', 'acceptingOrders': True, 'clobTokenIds': json.dumps(['y', 'n'])}]}, {'id': 8, 'title': 'Dell earnings call words', 'markets': [{'conditionId': 'd', 'acceptingOrders': True, 'clobTokenIds': json.dumps(['a', 'b'])}]}]
+chk('beat_universe keeps only beat markets (both tokens), not other earnings events', set(W.beat_universe(_Sb())) == {'y', 'n'})
+class _Sb2(_Sb):
+    def fetch(self, u): return None
+chk('beat_universe returns None on a failed read (caller keeps the old set)', W.beat_universe(_Sb2()) is None)
 print(f'{"PASS" if ok == N else "FAIL"} ({ok} of {N} checks)'); sys.exit(0 if ok == N else 1)
