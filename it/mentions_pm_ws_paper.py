@@ -84,9 +84,27 @@ def health_eval(runs, now, window=900):
     return (not why), why
 
 
+def fetch_open(sc, page=50, maxpages=10):
+    """R-076: page the open mention events at limit=50 with offset (Gamma has answered HTTP 406 to limit=100). Returns the list, or None if ANY page failed (sc.fetch returns None on failure), so the caller never mistakes a failed read for 'no events'."""
+    out = []
+    for i in range(maxpages):
+        r = sc.fetch(f'{sc.GAMMA}/events?tag_slug=mention-markets&closed=false&limit={page}&offset={i * page}&order=startDate&ascending=false')
+        if r is None: return None
+        out += r
+        if len(r) < page: return out
+    return out
+
+
+def keep_or_replace(old, new):
+    """Never shrink to zero on a bad read: an empty new universe with a non-empty old one keeps the old one."""
+    return old if (not new[1] and old[1]) else new
+
+
 def universe(sc, state, now):
     closed = list(json.load(open(os.path.join(state, 'events.json'))).values()); pool = [e for e in closed if sc.resolved(e)]; ev = {}; toks = {}
-    for x in sc.fetch(f'{sc.GAMMA}/events?tag_slug=mention-markets&closed=false&limit=100&order=startDate&ascending=false') or []:
+    raw_open = fetch_open(sc)
+    if raw_open is None: raise RuntimeError('gamma open-events read failed; keeping the last good universe')
+    for x in raw_open:
         e = sc.slim(x)
         if not e['markets'] or not x.get('endDate'): continue
         t0 = sc.start(e); T = sc.ts(x['endDate']); hist = [h for h in pool if h['fam'] == e['fam'] and h['id'] != e['id'] and sc.settled_at(h) <= t0]
@@ -148,6 +166,16 @@ def preflight_cmd(sc, a):
     return 0 if ok else 1
 
 
+def merge_extra(ev, out):
+    """R-071: extra decision slots from <out>/extra_slots.json {event_id: [[variant, epoch_seconds], ...]} (e.g. times anchored to the speech start, which Gamma does not give). Unknown events are ignored."""
+    fn = os.path.join(out, 'extra_slots.json')
+    if not os.path.exists(fn): return ev
+    for k, lst in json.load(open(fn)).items():
+        e = ev.get(str(k)) or ev.get(k)
+        if e: e['slots'] = sorted(set(map(tuple, e['slots'])) | {(v, float(t)) for v, t in lst}, key=lambda x: x[1])
+    return ev
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--scorer'); ap.add_argument('--state'); ap.add_argument('--out', required=True); ap.add_argument('--cap', type=float, default=200.); ap.add_argument('--daycap', type=float, default=2000.)
     ap.add_argument('--health', action='store_true'); ap.add_argument('--score', action='store_true'); ap.add_argument('--preflight', action='store_true'); a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
@@ -171,7 +199,12 @@ def main():
         now = time.time()
         try:
             if now - last_uni > 300 or w is None:
-                ev2, toks2 = universe(sc, a.state, now); last_uni = now
+                try: ev2, toks2 = universe(sc, a.state, now); ev2 = merge_extra(ev2, a.out); last_uni = now
+                except RuntimeError as ex:
+                    st['uni_fail'] = st.get('uni_fail', 0) + 1; sys.stderr.write('%s universe kept: %s\n' % (dt.datetime.now(dt.timezone.utc).isoformat(), ex)); last_uni = now - 240
+                    if toks: ev2, toks2 = ev, toks
+                    else: time.sleep(10); continue
+                ev2, toks2 = keep_or_replace((ev, toks), (ev2, toks2))
                 if set(toks2) != set(toks) or w is None:
                     ev, toks = ev2, toks2
                     if w: w.close()
@@ -216,7 +249,7 @@ def main():
                     open(fill_fn, 'a').write(json.dumps(dict(key=p['key'], bid_price=p['bid_price'], bid_filled_shares=fl, bid_shares=p['shares'], A_confirmed_shares_60s=p.get('A_confirmed_shares'), n_trades_seen=len(p['trades']))) + '\n'); pend.remove(p)
             if now - last_hb >= 60:
                 last_hb = now; acc = len(toks); new = st['errors'] - st['errors_reported']; st['errors_reported'] = st['errors']
-                hb = dict(t=int(now), pid=os.getpid(), connected=w is not None, tokens_subscribed=acc, accepting_tokens=acc, books_received=len(st['books_seen']), msgs=st['msgs'], reconnects=st['reconnects'], errors_new=new, missed_slots=st['missed'], last_msg_age_s=int(now - st['last_msg']), events=len(ev))
+                hb = dict(t=int(now), pid=os.getpid(), connected=w is not None, tokens_subscribed=acc, accepting_tokens=acc, books_received=len(st['books_seen']), msgs=st['msgs'], reconnects=st['reconnects'], errors_new=new, missed_slots=st['missed'], last_msg_age_s=int(now - st['last_msg']), events=len(ev), universe_failures=st.get('uni_fail', 0))
                 open(run_fn, 'a').write(json.dumps(hb) + '\n'); json.dump(hb, open(os.path.join(a.out, 'heartbeat.json'), 'w'))
         except (ConnectionError, OSError, ValueError) as ex:
             st['errors'] += 1; sys.stderr.write('%s %s %s\n' % (dt.datetime.now(dt.timezone.utc).isoformat(), type(ex).__name__, ex)); w = None; time.sleep(5)

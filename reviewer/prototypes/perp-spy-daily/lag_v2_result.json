@@ -1,0 +1,762 @@
+{
+ "rule": "LAG-RULE-v2.md",
+ "events": 79,
+ "C0_vs_yahoo_prev_close_bp": {
+  "n": 74,
+  "median": 3.213127132002014,
+  "p90": 9.778461997361473
+ },
+ "lag": {
+  "moves": 620,
+  "measurable": 393,
+  "caught_up": 284,
+  "censored_30m": 109,
+  "lag_p25": 61,
+  "lag_median": 253,
+  "lag_p75": 1000000000,
+  "within_10s": 52,
+  "within_60s": 98,
+  "within_300s": 206,
+  "share_within_300s": 0.5241730279898219,
+  "first_print_gap_median": 92.0
+ },
+ "plant_30s": {
+  "moves": 620,
+  "measurable": 393,
+  "caught_up": 388,
+  "censored_30m": 5,
+  "lag_p25": 30,
+  "lag_median": 30,
+  "lag_p75": 30,
+  "within_10s": 52,
+  "within_60s": 388,
+  "within_300s": 388,
+  "share_within_300s": 0.9872773536895675,
+  "first_print_gap_median": 30
+ },
+ "null_times": {
+  "moves": 620,
+  "measurable": 245,
+  "caught_up": 101,
+  "censored_30m": 144,
+  "lag_p25": 550,
+  "lag_median": 1000000000,
+  "lag_p75": 1000000000,
+  "within_10s": 4,
+  "within_60s": 10,
+  "within_300s": 38,
+  "share_within_300s": 0.15510204081632653,
+  "first_print_gap_median": 272
+ },
+ "lag_by_size": {
+  "abs_dp<0.05": {
+   "moves": 307,
+   "measurable": 173,
+   "caught_up": 109,
+   "censored_30m": 64,
+   "lag_p25": 155,
+   "lag_median": 642,
+   "lag_p75": 1000000000,
+   "within_10s": 10,
+   "within_60s": 26,
+   "within_300s": 68,
+   "share_within_300s": 0.3930635838150289,
+   "first_print_gap_median": 179
+  },
+  "abs_dp>=0.05": {
+   "moves": 313,
+   "measurable": 220,
+   "caught_up": 175,
+   "censored_30m": 45,
+   "lag_p25": 20,
+   "lag_median": 141,
+   "lag_p75": 1117,
+   "within_10s": 42,
+   "within_60s": 72,
+   "within_300s": 138,
+   "share_within_300s": 0.6272727272727273,
+   "first_print_gap_median": 61
+  }
+ },
+ "stale": {
+  "n": 11251,
+  "usd": 215553.60196522257,
+  "pnl": -20284.799425326557,
+  "buy_usd": 923498.0488537169,
+  "pnl_ci_by_event": [
+   -68376.61998947327,
+   35611.855600879775
+  ],
+  "usd_per_event": 2728.526607154716,
+  "pnl_per_event": -256.7696129788172
+ },
+ "stale_placebo_fair_30min_old": {
+  "n": 11826,
+  "usd": 222680.57177296875,
+  "pnl": -28922.231157003505,
+  "pnl_ci_by_event": [
+   -73218.61423864817,
+   19803.277779438555
+  ]
+ },
+ "by_month": {
+  "2026-08": {
+   "events": 21,
+   "taker_buy_usd_per_event": 17201,
+   "stale_usd_per_event": 3201,
+   "stale_pnl_per_event": -579
+  },
+  "2026-09": {
+   "events": 21,
+   "taker_buy_usd_per_event": 12942,
+   "stale_usd_per_event": 2840,
+   "stale_pnl_per_event": -56
+  },
+  "2026-10": {
+   "events": 22,
+   "taker_buy_usd_per_event": 8209,
+   "stale_usd_per_event": 1631,
+   "stale_pnl_per_event": -188
+  },
+  "2026-11": {
+   "events": 15,
+   "taker_buy_usd_per_event": 7326,
+   "stale_usd_per_event": 3520,
+   "stale_pnl_per_event": -188
+  }
+ },
+ "per_event": [
+  {
+   "date": "2026-08-03",
+   "prints": 639,
+   "buy_usd": 18495,
+   "stale_n": 132,
+   "stale_usd": 1650,
+   "stale_pnl": -1335.11
+  },
+  {
+   "date": "2026-08-04",
+   "prints": 521,
+   "buy_usd": 11452,
+   "stale_n": 108,
+   "stale_usd": 1924,
+   "stale_pnl": -1526.17
+  },
+  {
+   "date": "2026-08-05",
+   "prints": 877,
+   "buy_usd": 17397,
+   "stale_n": 326,
+   "stale_usd": 6944,
+   "stale_pnl": -5080.84
+  },
+  {
+   "date": "2026-08-06",
+   "prints": 937,
+   "buy_usd": 24833,
+   "stale_n": 172,
+   "stale_usd": 3296,
+   "stale_pnl": -593.52
+  },
+  {
+   "date": "2026-08-07",
+   "prints": 737,
+   "buy_usd": 14519,
+   "stale_n": 103,
+   "stale_usd": 1052,
+   "stale_pnl": -370.45
+  },
+  {
+   "date": "2026-08-10",
+   "prints": 1110,
+   "buy_usd": 27206,
+   "stale_n": 251,
+   "stale_usd": 8340,
+   "stale_pnl": -2136.64
+  },
+  {
+   "date": "2026-08-11",
+   "prints": 838,
+   "buy_usd": 26237,
+   "stale_n": 108,
+   "stale_usd": 2631,
+   "stale_pnl": 1546.34
+  },
+  {
+   "date": "2026-08-12",
+   "prints": 556,
+   "buy_usd": 9285,
+   "stale_n": 194,
+   "stale_usd": 4756,
+   "stale_pnl": 442.62
+  },
+  {
+   "date": "2026-08-13",
+   "prints": 777,
+   "buy_usd": 9780,
+   "stale_n": 105,
+   "stale_usd": 1410,
+   "stale_pnl": -407.33
+  },
+  {
+   "date": "2026-08-14",
+   "prints": 860,
+   "buy_usd": 13941,
+   "stale_n": 244,
+   "stale_usd": 2611,
+   "stale_pnl": 2809.9
+  },
+  {
+   "date": "2026-08-17",
+   "prints": 461,
+   "buy_usd": 16379,
+   "stale_n": 83,
+   "stale_usd": 1626,
+   "stale_pnl": 671.43
+  },
+  {
+   "date": "2026-08-18",
+   "prints": 288,
+   "buy_usd": 9245,
+   "stale_n": 86,
+   "stale_usd": 854,
+   "stale_pnl": 300.61
+  },
+  {
+   "date": "2026-08-19",
+   "prints": 574,
+   "buy_usd": 15256,
+   "stale_n": 173,
+   "stale_usd": 2705,
+   "stale_pnl": -2572.0
+  },
+  {
+   "date": "2026-08-20",
+   "prints": 393,
+   "buy_usd": 8238,
+   "stale_n": 124,
+   "stale_usd": 1578,
+   "stale_pnl": 1353.93
+  },
+  {
+   "date": "2026-08-21",
+   "prints": 510,
+   "buy_usd": 8896,
+   "stale_n": 215,
+   "stale_usd": 2030,
+   "stale_pnl": -1764.42
+  },
+  {
+   "date": "2026-08-24",
+   "prints": 645,
+   "buy_usd": 26361,
+   "stale_n": 161,
+   "stale_usd": 2917,
+   "stale_pnl": -2747.36
+  },
+  {
+   "date": "2026-08-25",
+   "prints": 406,
+   "buy_usd": 12681,
+   "stale_n": 153,
+   "stale_usd": 2606,
+   "stale_pnl": -2683.05
+  },
+  {
+   "date": "2026-08-26",
+   "prints": 2167,
+   "buy_usd": 44560,
+   "stale_n": 535,
+   "stale_usd": 9590,
+   "stale_pnl": -4306.56
+  },
+  {
+   "date": "2026-08-27",
+   "prints": 1643,
+   "buy_usd": 16297,
+   "stale_n": 171,
+   "stale_usd": 1200,
+   "stale_pnl": -272.13
+  },
+  {
+   "date": "2026-08-28",
+   "prints": 1742,
+   "buy_usd": 14659,
+   "stale_n": 207,
+   "stale_usd": 4590,
+   "stale_pnl": 7800.71
+  },
+  {
+   "date": "2026-08-31",
+   "prints": 2260,
+   "buy_usd": 15513,
+   "stale_n": 860,
+   "stale_usd": 2920,
+   "stale_pnl": -1290.11
+  },
+  {
+   "date": "2026-09-01",
+   "prints": 1162,
+   "buy_usd": 15195,
+   "stale_n": 130,
+   "stale_usd": 1613,
+   "stale_pnl": -1665.79
+  },
+  {
+   "date": "2026-09-02",
+   "prints": 1906,
+   "buy_usd": 28000,
+   "stale_n": 509,
+   "stale_usd": 4102,
+   "stale_pnl": -4002.64
+  },
+  {
+   "date": "2026-09-03",
+   "prints": 483,
+   "buy_usd": 14169,
+   "stale_n": 183,
+   "stale_usd": 5857,
+   "stale_pnl": -5825.14
+  },
+  {
+   "date": "2026-09-04",
+   "prints": 232,
+   "buy_usd": 8590,
+   "stale_n": 44,
+   "stale_usd": 1490,
+   "stale_pnl": 1386.86
+  },
+  {
+   "date": "2026-09-08",
+   "prints": 396,
+   "buy_usd": 4249,
+   "stale_n": 165,
+   "stale_usd": 795,
+   "stale_pnl": -817.54
+  },
+  {
+   "date": "2026-09-09",
+   "prints": 525,
+   "buy_usd": 17218,
+   "stale_n": 256,
+   "stale_usd": 5817,
+   "stale_pnl": 4656.04
+  },
+  {
+   "date": "2026-09-10",
+   "prints": 758,
+   "buy_usd": 23158,
+   "stale_n": 263,
+   "stale_usd": 3800,
+   "stale_pnl": 373.94
+  },
+  {
+   "date": "2026-09-11",
+   "prints": 698,
+   "buy_usd": 16370,
+   "stale_n": 230,
+   "stale_usd": 3741,
+   "stale_pnl": 385.14
+  },
+  {
+   "date": "2026-09-14",
+   "prints": 376,
+   "buy_usd": 14769,
+   "stale_n": 156,
+   "stale_usd": 1480,
+   "stale_pnl": -1530.4
+  },
+  {
+   "date": "2026-09-15",
+   "prints": 230,
+   "buy_usd": 10559,
+   "stale_n": 81,
+   "stale_usd": 1500,
+   "stale_pnl": 136.5
+  },
+  {
+   "date": "2026-09-16",
+   "prints": 331,
+   "buy_usd": 6839,
+   "stale_n": 88,
+   "stale_usd": 3442,
+   "stale_pnl": -1284.57
+  },
+  {
+   "date": "2026-09-17",
+   "prints": 293,
+   "buy_usd": 8538,
+   "stale_n": 129,
+   "stale_usd": 5715,
+   "stale_pnl": 983.73
+  },
+  {
+   "date": "2026-09-18",
+   "prints": 607,
+   "buy_usd": 23341,
+   "stale_n": 239,
+   "stale_usd": 7908,
+   "stale_pnl": -5873.98
+  },
+  {
+   "date": "2026-09-21",
+   "prints": 534,
+   "buy_usd": 6588,
+   "stale_n": 74,
+   "stale_usd": 468,
+   "stale_pnl": -214.48
+  },
+  {
+   "date": "2026-09-22",
+   "prints": 669,
+   "buy_usd": 12327,
+   "stale_n": 158,
+   "stale_usd": 2129,
+   "stale_pnl": -121.1
+  },
+  {
+   "date": "2026-09-23",
+   "prints": 325,
+   "buy_usd": 9532,
+   "stale_n": 42,
+   "stale_usd": 518,
+   "stale_pnl": -189.66
+  },
+  {
+   "date": "2026-09-24",
+   "prints": 374,
+   "buy_usd": 14980,
+   "stale_n": 103,
+   "stale_usd": 2812,
+   "stale_pnl": -2643.18
+  },
+  {
+   "date": "2026-09-25",
+   "prints": 384,
+   "buy_usd": 6001,
+   "stale_n": 157,
+   "stale_usd": 2370,
+   "stale_pnl": -1745.16
+  },
+  {
+   "date": "2026-09-28",
+   "prints": 209,
+   "buy_usd": 7284,
+   "stale_n": 60,
+   "stale_usd": 706,
+   "stale_pnl": -725.67
+  },
+  {
+   "date": "2026-09-29",
+   "prints": 238,
+   "buy_usd": 8546,
+   "stale_n": 73,
+   "stale_usd": 1344,
+   "stale_pnl": 926.6
+  },
+  {
+   "date": "2026-09-30",
+   "prints": 632,
+   "buy_usd": 15539,
+   "stale_n": 106,
+   "stale_usd": 2031,
+   "stale_pnl": 16619.86
+  },
+  {
+   "date": "2026-10-01",
+   "prints": 686,
+   "buy_usd": 10875,
+   "stale_n": 108,
+   "stale_usd": 2069,
+   "stale_pnl": 867.48
+  },
+  {
+   "date": "2026-10-02",
+   "prints": 415,
+   "buy_usd": 10278,
+   "stale_n": 171,
+   "stale_usd": 3000,
+   "stale_pnl": 501.89
+  },
+  {
+   "date": "2026-10-05",
+   "prints": 232,
+   "buy_usd": 7165,
+   "stale_n": 62,
+   "stale_usd": 1256,
+   "stale_pnl": 1176.75
+  },
+  {
+   "date": "2026-10-06",
+   "prints": 198,
+   "buy_usd": 4003,
+   "stale_n": 85,
+   "stale_usd": 3005,
+   "stale_pnl": 775.64
+  },
+  {
+   "date": "2026-10-07",
+   "prints": 406,
+   "buy_usd": 12388,
+   "stale_n": 69,
+   "stale_usd": 355,
+   "stale_pnl": -331.3
+  },
+  {
+   "date": "2026-10-08",
+   "prints": 193,
+   "buy_usd": 5959,
+   "stale_n": 47,
+   "stale_usd": 695,
+   "stale_pnl": -714.4
+  },
+  {
+   "date": "2026-10-09",
+   "prints": 221,
+   "buy_usd": 5319,
+   "stale_n": 123,
+   "stale_usd": 1556,
+   "stale_pnl": -1565.95
+  },
+  {
+   "date": "2026-10-12",
+   "prints": 238,
+   "buy_usd": 7731,
+   "stale_n": 39,
+   "stale_usd": 774,
+   "stale_pnl": 732.36
+  },
+  {
+   "date": "2026-10-13",
+   "prints": 542,
+   "buy_usd": 9940,
+   "stale_n": 69,
+   "stale_usd": 640,
+   "stale_pnl": 42.07
+  },
+  {
+   "date": "2026-10-14",
+   "prints": 329,
+   "buy_usd": 9106,
+   "stale_n": 74,
+   "stale_usd": 1137,
+   "stale_pnl": -1050.72
+  },
+  {
+   "date": "2026-10-15",
+   "prints": 800,
+   "buy_usd": 16420,
+   "stale_n": 261,
+   "stale_usd": 5947,
+   "stale_pnl": -5563.77
+  },
+  {
+   "date": "2026-10-16",
+   "prints": 486,
+   "buy_usd": 6080,
+   "stale_n": 190,
+   "stale_usd": 2216,
+   "stale_pnl": 2732.82
+  },
+  {
+   "date": "2026-10-19",
+   "prints": 348,
+   "buy_usd": 12678,
+   "stale_n": 84,
+   "stale_usd": 888,
+   "stale_pnl": -397.16
+  },
+  {
+   "date": "2026-10-20",
+   "prints": 439,
+   "buy_usd": 13295,
+   "stale_n": 116,
+   "stale_usd": 1475,
+   "stale_pnl": -1150.21
+  },
+  {
+   "date": "2026-10-21",
+   "prints": 376,
+   "buy_usd": 10961,
+   "stale_n": 113,
+   "stale_usd": 4207,
+   "stale_pnl": 61.73
+  },
+  {
+   "date": "2026-10-22",
+   "prints": 159,
+   "buy_usd": 5008,
+   "stale_n": 49,
+   "stale_usd": 1496,
+   "stale_pnl": 435.42
+  },
+  {
+   "date": "2026-10-23",
+   "prints": 192,
+   "buy_usd": 1302,
+   "stale_n": 69,
+   "stale_usd": 312,
+   "stale_pnl": 90.65
+  },
+  {
+   "date": "2026-10-26",
+   "prints": 238,
+   "buy_usd": 6815,
+   "stale_n": 37,
+   "stale_usd": 197,
+   "stale_pnl": 41.16
+  },
+  {
+   "date": "2026-10-27",
+   "prints": 292,
+   "buy_usd": 9035,
+   "stale_n": 71,
+   "stale_usd": 1321,
+   "stale_pnl": -986.61
+  },
+  {
+   "date": "2026-10-28",
+   "prints": 358,
+   "buy_usd": 5508,
+   "stale_n": 90,
+   "stale_usd": 2838,
+   "stale_pnl": 649.02
+  },
+  {
+   "date": "2026-10-29",
+   "prints": 281,
+   "buy_usd": 10459,
+   "stale_n": 51,
+   "stale_usd": 471,
+   "stale_pnl": -484.76
+  },
+  {
+   "date": "2026-10-30",
+   "prints": 38,
+   "buy_usd": 268,
+   "stale_n": 2,
+   "stale_usd": 21,
+   "stale_pnl": -0.8
+  },
+  {
+   "date": "2026-11-02",
+   "prints": 483,
+   "buy_usd": 16344,
+   "stale_n": 179,
+   "stale_usd": 4328,
+   "stale_pnl": 4994.26
+  },
+  {
+   "date": "2026-11-03",
+   "prints": 387,
+   "buy_usd": 5364,
+   "stale_n": 128,
+   "stale_usd": 1214,
+   "stale_pnl": -1022.91
+  },
+  {
+   "date": "2026-11-04",
+   "prints": 391,
+   "buy_usd": 15209,
+   "stale_n": 158,
+   "stale_usd": 10883,
+   "stale_pnl": -2067.52
+  },
+  {
+   "date": "2026-11-05",
+   "prints": 310,
+   "buy_usd": 3609,
+   "stale_n": 114,
+   "stale_usd": 2230,
+   "stale_pnl": 1378.18
+  },
+  {
+   "date": "2026-11-06",
+   "prints": 247,
+   "buy_usd": 3562,
+   "stale_n": 66,
+   "stale_usd": 1807,
+   "stale_pnl": 277.44
+  },
+  {
+   "date": "2026-11-09",
+   "prints": 138,
+   "buy_usd": 3117,
+   "stale_n": 60,
+   "stale_usd": 1867,
+   "stale_pnl": 548.83
+  },
+  {
+   "date": "2026-11-10",
+   "prints": 236,
+   "buy_usd": 5427,
+   "stale_n": 59,
+   "stale_usd": 828,
+   "stale_pnl": 337.46
+  },
+  {
+   "date": "2026-11-11",
+   "prints": 110,
+   "buy_usd": 1275,
+   "stale_n": 31,
+   "stale_usd": 267,
+   "stale_pnl": 70.61
+  },
+  {
+   "date": "2026-11-12",
+   "prints": 269,
+   "buy_usd": 3835,
+   "stale_n": 74,
+   "stale_usd": 1208,
+   "stale_pnl": -585.94
+  },
+  {
+   "date": "2026-11-13",
+   "prints": 384,
+   "buy_usd": 13485,
+   "stale_n": 46,
+   "stale_usd": 2923,
+   "stale_pnl": 985.02
+  },
+  {
+   "date": "2026-11-16",
+   "prints": 210,
+   "buy_usd": 7036,
+   "stale_n": 58,
+   "stale_usd": 4288,
+   "stale_pnl": 169.37
+  },
+  {
+   "date": "2026-11-17",
+   "prints": 247,
+   "buy_usd": 5538,
+   "stale_n": 67,
+   "stale_usd": 3063,
+   "stale_pnl": 423.14
+  },
+  {
+   "date": "2026-11-18",
+   "prints": 432,
+   "buy_usd": 8700,
+   "stale_n": 210,
+   "stale_usd": 4387,
+   "stale_pnl": -1521.58
+  },
+  {
+   "date": "2026-11-19",
+   "prints": 342,
+   "buy_usd": 12768,
+   "stale_n": 180,
+   "stale_usd": 11784,
+   "stale_pnl": -7773.34
+  },
+  {
+   "date": "2026-11-20",
+   "prints": 265,
+   "buy_usd": 4617,
+   "stale_n": 84,
+   "stale_usd": 1728,
+   "stale_pnl": 971.66
+  }
+ ]
+}
