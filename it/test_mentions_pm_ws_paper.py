@@ -45,4 +45,22 @@ d2 = tempfile.mkdtemp(); json.dump({'7': [['S-5h', 500.0], ['S-30m', 900.0]], '8
 evx = {'7': dict(slots=[('T-1h', 700.0)])}; W.merge_extra(evx, d2)
 chk('extra slots: merged and sorted for a known event, unknown event ignored', evx['7']['slots'] == [('S-5h', 500.0), ('T-1h', 700.0), ('S-30m', 900.0)] and '8' not in evx)
 chk('extra slots: no file = unchanged', W.merge_extra({'7': dict(slots=[('a', 1.0)])}, tempfile.mkdtemp())['7']['slots'] == [('a', 1.0)])
+class _Sc:
+    GAMMA = 'g'
+    def __init__(self, pages): self.pages = pages; self.calls = []
+    def fetch(self, u):
+        self.calls.append(u); k = len(self.calls) - 1
+        return self.pages[k] if k < len(self.pages) else []
+r2 = _Sc([[1] * 50, [2] * 50, [3] * 7]); out2 = W.fetch_open(r2)
+chk('fetch_open pages at limit=50 with offsets 0,50,100 and stops on a short page', len(out2) == 107 and all('limit=50' in u for u in r2.calls) and ['offset=0' in r2.calls[0], 'offset=50' in r2.calls[1], 'offset=100' in r2.calls[2]] == [True] * 3 and len(r2.calls) == 3)
+chk('fetch_open returns None (not an empty list) when ANY page fails (HTTP 406 case)', W.fetch_open(_Sc([[1] * 50, None])) is None and W.fetch_open(_Sc([None])) is None)
+class _Sc2(_Sc):
+    def fetch(self, u): return None
+json.dump({}, open(d + '/events.json', 'w'))
+try: W.universe(_Sc2([]), d, 0.0); raised = False
+except RuntimeError: raised = True
+except Exception: raised = False
+chk('universe raises RuntimeError on a failed read instead of returning an empty universe', raised)
+old = ({'e': 1}, {'t1': 1}); new = ({}, {})
+chk('keep_or_replace keeps the old universe when the new one is empty', W.keep_or_replace(old, new) is old and W.keep_or_replace(old, ({'f': 1}, {'t2': 1}))[1] == {'t2': 1} and W.keep_or_replace(({}, {}), new) is new)
 print(f'{"PASS" if ok == N else "FAIL"} ({ok} of {N} checks)'); sys.exit(0 if ok == N else 1)
