@@ -240,13 +240,25 @@ def find_markets(h, a):
     return [(q, cid, o) for cid, (q, o) in out.items()]
 
 
-def trades(cid, cache):
+class WrongMarketRows(Exception):
+    pass
+
+
+def check_rows(rows, cid):
+    """R-080: data-api v2 /trades silently IGNORES unknown params and then returns OTHER markets' trades. Every row must carry the requested condition_id."""
+    bad = [r.get("condition_id") for r in rows if r.get("condition_id") != cid]
+    if bad: raise WrongMarketRows("%d of %d rows are not condition_id %s (e.g. %s)" % (len(bad), len(rows), cid, bad[0]))
+    return rows
+
+
+def trades(cid, cache, fetch=None):
+    fetch = fetch or get
     p = os.path.join(cache, f"trades_{cid}.json")
-    if os.path.exists(p): return json.load(open(p))
+    if os.path.exists(p): return check_rows(json.load(open(p)), cid)
     r = []; cur = None
     for _ in range(40):
-        j = get(f"https://data-api.polymarket.com/v2/trades?condition={cid}&limit=500" + (f"&cursor={cur}" if cur else ""))
-        r += j.get("data", []); cur = j.get("next_cursor")
+        j = fetch(f"https://data-api.polymarket.com/v2/trades?condition_id={cid}&limit=500" + (f"&cursor={cur}" if cur else ""))
+        r += check_rows(j.get("data", []), cid); cur = j.get("next_cursor")
         if not cur or not j.get("data"): break
     os.makedirs(cache, exist_ok=True); json.dump(r, open(p, "w")); return r
 
