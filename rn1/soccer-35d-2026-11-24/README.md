@@ -56,5 +56,5 @@ Queue ahead at the best bid = the best-bid size (median row above). Pregame book
 
 ## 5. What is and isn't established
 - NOT established: that RN1's soccer maker book has a positive edge in Ligue 1 or Serie A (35 days, 130 and 196 games, one-week concentration). No $/day is claimed (R-034): RN1 P&L is RN1's own fills at RN1's sizes, not ours at $200 with measured queue.
-- Established: RN1 is about 90% maker by $ in every soccer league listed; it is the second or largest single maker in Ligue 1 and Serie A, with 7-8% of maker notional; makers are concentrated (top 5 = 26-30%).
+- Established: RN1 is about 90% maker by $ in every soccer league listed; it is the largest single maker in Ligue 1 (by $28K over the next) and the second in Serie A (the other is 9% bigger), with 7-8% of maker notional; makers are concentrated (top 5 = 26-30%).
 - Confidence 7/10 on the numbers as computed (data-api, resolution by Gamma closed prices, maker/taker by set difference, cross-check: RN1 maker notional in the competition pull equals the resolved maker notional in section 1 for Ligue 1, $986,455 each); 4/10 that this says anything about forward edge. To raise to 9: on-chain maker check on a sample, RN1 fills before 20 Oct, and in-play recorded books.
