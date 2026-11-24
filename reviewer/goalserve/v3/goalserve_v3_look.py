@@ -497,11 +497,17 @@ def run(a):
     t_hi = iso(a.t_end) if a.t_end else 3600.0 * math.floor((polls[-1] - 60) / 3600.0)
     if t_hi <= t_lo:
         raise SystemExit("STOP: window empty (t_end <= t_start)")
-    have = set()
+    have, keep = set(), []
     for f in files:
         m = re.search(r"_(\d{10})\.jsonl", os.path.basename(f))
-        if m:
-            have.add(calendar.timegm(time.strptime(m.group(1), "%Y%m%d%H")))
+        if not m:
+            keep.append(f)
+            continue
+        h = calendar.timegm(time.strptime(m.group(1), "%Y%m%d%H"))
+        if 3600.0 * math.floor(t_lo / 3600.0) <= h < t_hi:      # hour files outside the window are not read
+            have.add(h)
+            keep.append(f)
+    files = keep
     polled = {3600.0 * math.floor(x / 3600.0) for x in polls if t_lo <= x < t_hi}
     missing = sorted(h for h in polled if h not in have)
     if missing and not a.allow_missing:
