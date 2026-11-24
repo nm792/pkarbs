@@ -2,6 +2,20 @@
 
 1. **Goal:** reliably $200/day automated Polymarket edges, stacked. **Where this stands:** no MEASURED figure. Basis is a FLOOR of $8-38/day (print-sized trades in the 26 Oct macro scan; $38/day at 30% capture ex-largest day, $8-21 for a 1-3 s bot; 41% of profit from one FOMC day). **The item that matters most:** the first capture (Core PCE, Wed 25 Nov 13:30Z) decides whether stale asks persist after the print at all, and it needs no news feed to measure that.
 
+## 0. R-081 AMENDMENT (24 Nov 03:30Z): this spec describes a NAUTILUS-NATIVE LIVE PAPER NODE, not a replay
+(Correction to the INBOX relay: this file is the re-audit thread's own, committed cc8d64e0b5; the Reviewer did not file a second one.)
+- **Execution:** Nautilus live mode with paper execution on the live Polymarket feeds, run under the supervisor on Prime, joining the single live node. **Fills, fees and P&L come from Nautilus. No custom fill, queue or P&L code is part of the strategy.** Section 3's rule is the strategy logic only (trigger, token, price limit, size, per-day cap); it carries no fill model.
+- **What `it/macro_pickoff_score.py` is now:** an EVIDENCE tool over recorder files, not a simulator and not a result source. It answers one question: "was a stale ask on the winner's own book present at R+L, and how deep". Its `pnl` and `stake` fields are NOT reported as results; the only reported outputs are `ask_at_decision`, level size and whether the level survived `seconds_delay`. The 9 planted checks stay as the proof that the evidence tool can find a planted stale ask. Any $ comes from the Nautilus paper run.
+- **(a) Known-facts table:** section 1 above, plus **post-only behaviour: not used.** This rule is a taker (marketable limit at the decision ask), so there is no post-only or queue position; the PCE markets carry `seconds_delay` 0. If a maker variant is ever added it needs the queue-position measurement the NBA spec uses (depth ahead at our price from the recorder).
+- **(b) MODELLING-PRINCIPLES table:**
+| principle | how this spec meets it |
+|---|---|
+| 8 No hindsight | decision at R+L uses only the book at or before R+L and the winner mapped from the printed number; settlement winners are used only for the time-to-reprice measurement, never as a decision input; the control compares the same ask at R-20 min and R-1 s |
+| 12 Controls and plants | 9 planted-edge checks on the evidence tool with mutation proofs (removing the hold check or the 0.95 check fails the checks that should); a raw-row plant in the recorded books is still to be added before release 2; no result is reported unless the plant is found |
+| 13 Sequential stops | futility after 6 releases, success needs >= 8 releases, lower 95% bound > 0, top release < 40% (section 6) |
+| 14 Capacity from measured depth | stale depth in $ at <= 0.90 at R+0.5/2/5/15 s per bucket from recorded books; $200 per trade, $2,000/day cap; no $/day without it |
+- **(c) Measured queue position/depth:** the recorder (`pm_event_books.js`) feeds top-3 own-token levels per token at ms resolution; for the taker rule the evidence is level size at the decision ask and at the landing time.
+
 ## 1. SETTLED and market facts used (each read, not assumed)
 | fact | value | source |
 |---|---|---|
