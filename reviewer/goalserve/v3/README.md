@@ -2,7 +2,7 @@
 
 `goalserve_v3_look.py` implements `reviewer/goalserve/SPEC-v3-pm-inputs-and-controls-2026-11-22.md`. Written by the Reviewer because the owner's code was due 25 Nov 06:00Z (R-094) and the coordinator asked for it now. Not yet signed by a checker. Read-only; stdlib only.
 
-## Self test (`python3 -I test_goalserve_v3_look.py`): ALL PASS, 25 checks
+## Self test (`python3 -I test_goalserve_v3_look.py`): ALL PASS, 26 checks
 | Case | Planted | Result |
 |---|---|---|
 | T1 | price follows the odds 5 s later, 60 matches | mean d10 +0.040, controls OK, verdict lead (z_eq x sqrt(t) 9.72 vs 2.60) |
