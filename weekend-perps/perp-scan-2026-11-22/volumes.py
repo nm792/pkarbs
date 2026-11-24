@@ -3,6 +3,7 @@
 Usage: python3 volumes.py RUNDIR [days=7]   (reads RUNDIR/universe.json, writes RUNDIR/volumes.json). Read-only, public API."""
 import json, sys, time, urllib.request, urllib.parse
 from pscanlib import notional
+from pmtrades import check_rows   # R-080: v2 ignores unknown params, so verify every page against the event's markets
 
 D = "https://data-api.polymarket.com"
 
@@ -16,7 +17,12 @@ def get(u):
     return None
 
 
-def pull(event_id, t_from, max_pages=400):
+def event_conds(slug):
+    ev = get("https://gamma-api.polymarket.com/events?slug=" + slug)
+    return {m["conditionId"] for m in (ev[0].get("markets") or []) if m.get("conditionId")} if isinstance(ev, list) and ev else set()
+
+
+def pull(event_id, t_from, conds, max_pages=400):
     rows, cur, pages, complete = [], None, 0, False
     while pages < max_pages:
         q = "event_id=%s&limit=500" % event_id + ("&cursor=" + urllib.parse.quote(cur) if cur else "")
@@ -25,6 +31,7 @@ def pull(event_id, t_from, max_pages=400):
         if r is None:
             return rows, pages, False
         data = r.get("data") or []
+        check_rows(data, conds, "event %s page %d" % (event_id, pages))
         rows += [dict(price=x["price"], size=x["size"], timestamp=x["timestamp"], token_id=x.get("token_id"), side=x.get("side")) for x in data]
         pg = r.get("pagination") or {}
         if not data or (data and min(x["timestamp"] for x in data) < t_from):
@@ -42,7 +49,7 @@ def main(run, days=7):
     now = time.time(); t_from = now - days * 86400
     out = []
     for e in uni:
-        rows, pages, complete = pull(e["id"], t_from)
+        rows, pages, complete = pull(e["id"], t_from, event_conds(e["slug"]))
         rows = [r for r in rows if r["timestamp"] >= t_from]
         v7 = notional(rows)
         v24 = notional(rows, now - 86400)
