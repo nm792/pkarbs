@@ -25,3 +25,22 @@ ROOM does not mean a strategy: it only says a speech-to-order system could be wo
 
 ## Delivery
 Scorer + tests (both plants, placebo) 26 Nov 12:00Z under reviewer/pkarbs/will-say-nowcast/; event list and word timestamps from public replays by the same time (the external agent can pull transcripts via a webb task); IT run on Prime after that.
+
+## Amendment v1.1 (25 Nov 18:40Z, before any data was read)
+Reason: the v1 data source does not exist. it/mentions_pm_ws_paper.py (P121) keeps no continuous book log for will-say tokens: it writes decision rows at its slots, plus earnings-beat books once every 60 s. A 60 s snapshot cannot measure a window of seconds (SETTLED B1).
+- Data: public taker trade prints of each YES token (Data API v2 /trades, default takerOnly=true, integer-second timestamps). A taker BUY walks from the best ask, so:
+  - W_ub is the first BUY print above the cheap threshold after t_w. No cheap ask remained at that point.
+  - W_lb is the last cheap BUY print before W_ub. Cheap asks existed at least until then.
+  - W is bracketed as [W_lb, W_ub]. W_ub < 0 means a leak.
+- $ at L counts cheap BUY prints at or after t_w + L + 0.25 s, up to t_w + 300 s. It is a FLOOR: asks nobody lifted cannot be seen, and we would compete for these.
+- Resolution is 1 s on prints plus +-1 s on the transcript. L = 1 s is BELOW RESOLUTION and L = 2 s is AT RESOLUTION. Neither enters the verdict.
+- Verdict, per sub-family (no pooling):
+  - ROOM: n >= 20, median W_lb >= 5 s, and median $ at L = 5 s >= $50 and above the placebo 95th percentile.
+  - NO ROOM: n >= 20 and median W_ub < 2 s.
+  - Otherwise INCONCLUSIVE.
+- Placebo (MC type 1): 10 random pre-word times per word in [t_w - 6 h, t_w - 300 s].
+- Plants (MC type 2): a 100 sh @ 0.50 stale ask lifted at t_w + 3.0 s, which must give W_lb in 2.75-3.25 s and exactly +$50 at L = 1 and 2 s, with nothing else changed. A second plant lifted at t_w + 0.25 s must give $0 at every L >= 1. If either plant fails, the run is void.
+- Word times: webb T112, 32 resolved-YES words in 8 events since 15 Jul. It is in PR #203 and needs Nick's merge.
+- Expected outcome on n:
+  - The current sub-families have earnings 9, Trump 9 and other 14 YES words. All will be INCONCLUSIVE on n alone until more events resolve.
+  - These 8 events traded $2K-$60K each in total, so $50 per word at L = 5 s is a high bar.
