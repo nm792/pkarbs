@@ -3,6 +3,8 @@
 Goal: $200/day for PK (Nick). Paper only; nothing traded or staged. Each row stands alone (no pooled averages).
 Sources read at 01:20Z: pkarbs `reviewer` 18753603f5 (INBOX/OUTBOX, OPEN-ITEMS, DISCARDED-AUDIT, prototypes), trading-test `dialogue` 1f2e6b6cd (OPEN.md, OPEN-DONE.md, NEEDS-NICK.md, from_agent/pkarbs/*).
 
+**All PK insights live in INSIGHTS.md (same folder); read it before any scoring run, spec or IT note.**
+
 **Headline facts**
 - PK proven $/day: **$0**. No strategy has a scored live-paper result.
 - **The IT P lane has taken no PK row since 24 Nov 20:54Z** (PASS-P.tsv: "idle: no open P rows" every 30 min). Every P row is `waiting`. Most data is being recorded; nothing is being scored. That is the main reason nothing moves.
