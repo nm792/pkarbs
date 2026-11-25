@@ -1,0 +1,60 @@
+{
+ "J_plant": 0.004222972972972972,
+ "M": 500,
+ "cells": [
+  {
+   "cell": "planted, hold 250 ms",
+   "hold_s": 0.25,
+   "J": 0.004222972972972972,
+   "SUCCESS": 1.0,
+   "FUTILITY": 0.0,
+   "inconclusive": 0.0,
+   "median_games_to_success": 60
+  },
+  {
+   "cell": "planted, hold 1 s",
+   "hold_s": 1.0,
+   "J": 0.004222972972972972,
+   "SUCCESS": 0.0,
+   "FUTILITY": 0.0,
+   "inconclusive": 1.0,
+   "median_games_to_success": null
+  },
+  {
+   "cell": "planted, hold 0 ms",
+   "hold_s": 0.0,
+   "J": 0.004222972972972972,
+   "SUCCESS": 1.0,
+   "FUTILITY": 0.0,
+   "inconclusive": 0.0,
+   "median_games_to_success": 40
+  },
+  {
+   "cell": "planted NEGATIVE edge (-J), hold 250 ms",
+   "hold_s": 0.25,
+   "J": -0.004222972972972972,
+   "SUCCESS": 0.0,
+   "FUTILITY": 1.0,
+   "inconclusive": 0.0,
+   "median_games_to_success": null
+  },
+  {
+   "cell": "NULL (J=0), hold 250 ms",
+   "hold_s": 0.25,
+   "J": 0.0,
+   "SUCCESS": 0.006,
+   "FUTILITY": 0.006,
+   "inconclusive": 0.988,
+   "median_games_to_success": 280
+  },
+  {
+   "cell": "NULL (J=0), hold 1 s",
+   "hold_s": 1.0,
+   "J": 0.0,
+   "SUCCESS": 0.0,
+   "FUTILITY": 0.0,
+   "inconclusive": 1.0,
+   "median_games_to_success": null
+  }
+ ]
+}

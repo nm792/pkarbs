@@ -59,3 +59,58 @@ Same method. 32,942 fills; maker by the taker_only set difference. Resolved = to
 
 By market type, resolved maker: CFB spreads +14.0% ($467K) but totals -23.2% ($177K); EPL winner +3.6% ($358K); NBA spreads +4.7% ($88K), totals -4.7% ($103K). Markouts are print-based (last print on the same token) over the 8 largest markets per league only.
 **Reading:** in every sport RN1's bids fill 1.4-4.7% under the last print and give back 0.1-1.3% in the first minute: the same engine everywhere. Both resolved P&L and 10-min markout are positive for Premier League, Ligue 1 and ATP. Both are mixed for CFB, NFL, NBA and Serie A, and both negative for LaLiga. Three days to result is far too noisy to rank leagues. Book-based markouts over weeks are needed.
+
+## F. RN1 profit per month, 30 days to 24 Nov about 09:45Z (added 09:47Z, Nick 09:42Z: "you can easily work out what RN1 is making per month")
+Source: data-api **/v2/positions** for the wallet (status CLOSED and OPEN, sort_by=TIMESTAMP, cursor paging; every row is asserted to be the wallet). 93,500 positions, de-duplicated by token. P&L = total_pnl (realised plus resolved/unrealised) per token, dated by last_event_at. Buy $ = avg_price x total_size. Scripts: monthly_pull.py and monthly_an.py. **This is before maker rebates and liquidity rewards, which are paid separately.**
+- **All markets, last 30 days: +$274,637 on $61.1M bought = +0.45%** (37,002 markets; 17 of 31 days positive). Prior 30 days: +$524,462 on $66.7M (+0.79%).
+- Polymarket's own leaderboard for the wallet (/v2/leaderboard, time_period=month; the param is honoured, a bogus value errors) gives **+$396,512 on $129.4M volume**, sports alone +$253,081. The gap to my +$275K is not reconciled. Likely causes are a different window, a different volume definition (about 2x mine), and rebates. UNVERIFIED.
+- **NBA (slug nba-), last 30 days: +$7,672 on $4.11M bought = +0.19%, about $256/day.** 17 of 30 days positive. Daily range -$28,523 (22 Nov) to +$26,493 (17 Nov). The month total is far smaller than single-day swings, so NBA is not shown positive.
+- Maker vs taker: the positions endpoint has no maker/taker split. The 3-day trade pull (section E) had NBA at 56% maker. A full 30-day split needs a trade pull per market (7,227 NBA markets); not done.
+- By sport, last 30 days: cs2 +$163K (+3.6%), Serie A (slug sea; CORRECTION 10:06Z: earlier mislabelled "Saudi league") +$114K (+4.0%), nfl +$55K (+1.0%), Ligue 1 +$40K (+4.0%), cfb +$34K (+0.6%), Bundesliga +$14K, nba +$8K, LaLiga +$7K; epl -$120K (-4.3%), ucl -$46K, wta -$56K, atp -$180K (-1.9%).
+
+## G. Probe: CS2, Serie A (slug sea, earlier mislabelled Saudi), Ligue 1 (added 10:00Z, Nick 09:55-09:56Z: "probe on CS2, Ligue 1 and the Saudi League first. Not full recordings"; "he could simply be using GRID")
+**Method.**
+- Markets: RN1's 25 largest markets per league over the last 30 days, from section F positions. Coverage is CS2 34%, Serie A 28% and Ligue 1 41% of his $ in each.
+- Pull: data-api /v2/trades by condition_id, with every row asserted to that market (R-080). RN1 rows use user= with taker_only=false and true; the maker/taker split is the set difference. The market tape uses taker_only=true.
+- P&L is to the result, from position final prices, before rebates.
+- "vs print" = his fill price against the last earlier print by anyone, in outcome-0 terms, signed so positive is in his favour.
+- Markout = the price move after his fill, in his favour, at 10 s, 30 s, 60 s and 300 s.
+- "pre 30 s" = the move in his direction in the 30 s BEFORE his fill.
+- No new recorders. Books are NOT available in the cloud: the CS2 book recorder is on Prime. So "price vs book" here is price vs last print. Scripts: probe_pull.py and probe_an.py; output in probe_result.json.
+
+| | maker share | maker $ / P&L | taker $ / P&L | maker vs print | maker markout 30 s / 60 s / 300 s | taker pre 30 s | taker markout 30 s / 60 s / 300 s |
+|---|---|---|---|---|---|---|---|
+| CS2 | 75% | $1.13M / +$67.7K (+6.0%) | $380K / -$36.5K (-9.6%) | +0.86c | +0.46 / +0.45 / -0.17c | +0.61c | +1.61 / +2.03 / -0.28c |
+| Serie A (sea) | 96% | $750K / +$42.2K (+5.6%) | $36K / +$1.0K (+2.9%) | +0.86c | +0.31 / +0.60 / +0.46c | +0.92c | +5.55 / +4.38 / +4.92c (36 fills) |
+| Ligue 1 | 86% | $358K / -$16.5K (-4.6%) | $57K / -$5.1K (-9.0%) | +0.40c | +0.20 / +0.09 / +0.52c | +2.01c | -1.21 / -1.32 / -2.56c (43 fills) |
+
+**Reading.**
+- **CS2:** the profit is the maker side: resting bids that fill about 0.9c under the last print and are not picked off (small positive markout). His taker fills move in his favour for about 60 s (+2.0c) and then fade (-0.3c by 300 s), and they lose 9.6% to the result. They follow a move already under way (+0.6c in the 30 s before).
+  - That is fast reaction, but it is not the source of his money. A GRID-style data edge would show up as taker profit; here the taker side loses.
+  - We have no public-feed timestamps for these matches, so "30 s ahead of any feed" cannot be tested on his fills here. Our own PandaScore test (reviewer/pandascore/RESULT-inround-sign-placebo-10matches-2026-11-20.md, 15 matches, UNCHECKED) found the Polymarket price already moving about 1c in the 15 s BEFORE PandaScore's round-end message. So the market as a whole leads that public feed.
+- **Serie A (sea; NOT Saudi):** almost pure maker, +5.6%, with resting quotes and no adverse selection. That is a copyable-rule candidate.
+- **Ligue 1:** in his top 25 markets the maker side LOST 4.6%. Yet section F has the whole league at +4.0% and section E's 3 days at +14.4%. So the gain comes from his smaller markets, or it is noise.
+
+## H. Probe round 2: ALL markets, CS2 / Serie A / Ligue 1 (added 10:11Z, Nick 10:04Z "keep probing until we find something concrete")
+**Method.**
+- Every RN1 market in the three leagues over the last 30 days: CS2 330 markets (73 matches), Serie A 1,060 (45 matches), Ligue 1 549 (34 matches). Coverage is 100% of his $.
+- Pull: /v2/trades by condition_id, asserted per row. Maker/taker by the taker_only set difference. Kickoff from gamma gameStartTime (1,939 of 1,939 found). Market tape for the top 80 markets per league (CS2 70%, Serie A 56%, Ligue 1 72% of $).
+- Uncertainty: a bootstrap over MATCHES, since markets in one match are correlated. P&L is to the result, before rebates.
+- Scripts: probe2_pull.py, probe2_an.py, probe2_boot.py; outputs probe2_result.json, bootstrap.json, probe_result_top80.json.
+- Section G's top-25 figures are superseded.
+
+| | maker P&L (95% CI over matches) | matches maker+ | maker ex best 5 markets | taker P&L (95% CI) | taker markout 30 s / 60 s / 300 s (fills) |
+|---|---|---|---|---|---|
+| CS2 | +$70.4K on $3.54M, +2.0% (-$119K to +$275K) | 49% | -$23.6K | +$115.0K on $956K, +12.0% (-$45K to +$287K) | +2.31 / +2.51 / +2.77c (1,254) |
+| Serie A | +$101.0K on $2.69M, +3.8% (-$30K to +$268K) | 47% | -$3.7K | +$15.8K on $151K (-$10K to +$47K) | +2.76 / +2.28 / +1.98c (101) |
+| Ligue 1 | +$41.2K on $925K, +4.5% (-$37K to +$131K) | 47% | -$7.8K | -$0.5K on $81K | +0.17 / +0.17 / -0.82c (75) |
+
+**Findings.**
+1. **No copyable maker rule in any of the three leagues.** Maker P&L to the result has a 95% interval spanning zero everywhere. Fewer than half of matches are positive. Without the 5 best markets the maker side is negative in all three. The +4% is a handful of big results.
+   - Timing, market type and price band don't rescue it: every positive cell is driven by one or two matches. Examples: the Serie A maker 0-10 min pre-kickoff cell, +$60.8K on $48K; Serie A spreads, +$46.3K on $91K.
+   - Maker fills are small: median $22-46, 90th percentile $450-875.
+2. **CS2 taker: the concrete signal.** After RN1 takes liquidity in CS2, the price keeps moving his way: +2.3c at 30 s, +2.5c at 60 s and +2.8c at 5 min, over 1,254 taker fills in 80 markets. The 30 s before his take moved only +1.0c.
+   - That is well above the 0.75c fee at p 0.5 (0.03 x p(1-p)) and the 1 s sports delay. To the result it is +12.0% (+$115K on $956K), but with only 73 matches the interval spans zero (-$45K to +$287K). The top 20 taker fills make +$118K.
+   - This is the signature of **faster in-game information**: a data edge such as GRID or a faster stream. It is not a rule we can copy from public data.
+   - It matches our own PandaScore finding: Polymarket moves before the public round-end message.
+3. **What would settle CS2:** time his taker fills against public event times (PandaScore kills and round ends) for the same matches. If his takes land before the public event, that confirms a feed faster than public. Our PandaScore capture (P118) is not running (PK P-PS-039). The read-only CS2 book extract (IT P140) will give the spread and depth at his fills.

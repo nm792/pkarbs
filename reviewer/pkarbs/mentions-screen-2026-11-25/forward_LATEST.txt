@@ -1,0 +1,6 @@
+Mentions forward test, Polymarket 10c arm, 2026-11-25 (freeze 2026-11-10T15:00:00+00:00, paper only)
+forward events 19 (resolved 13, open 6); bets resolved 6 (wins 1, cost $31.29), pending bets 3
+NET P&L after fees (resolved only): $-26.51  = $-1.835/day over 14.4 days since freeze
+pending entries marked to current price (UNRESOLVED, information only): $19.19
+paired t vs same-event placebo -1.19 | log score -0.0898 | top3 share None | week-cluster t None | bets with a recorded own-token book fill 0
+PASS/FAIL not yet defined: needs 100 events with a bet (have 6)

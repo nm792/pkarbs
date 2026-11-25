@@ -1,0 +1,74 @@
+{
+ "cs2_maker": {
+  "events": 73,
+  "pnl": 70436,
+  "ci95": [
+   -118577,
+   275165
+  ],
+  "events_pos": 0.49,
+  "top5_markets": 94054,
+  "ex_top5": -23617
+ },
+ "cs2_taker": {
+  "events": 73,
+  "pnl": 114973,
+  "ci95": [
+   -45071,
+   286921
+  ],
+  "events_pos": 0.44,
+  "top5_markets": 90045,
+  "ex_top5": 24928,
+  "top20_fills": 118071,
+  "n_fills": 2152
+ },
+ "sea_maker": {
+  "events": 45,
+  "pnl": 100950,
+  "ci95": [
+   -29777,
+   267835
+  ],
+  "events_pos": 0.47,
+  "top5_markets": 104645,
+  "ex_top5": -3695
+ },
+ "sea_taker": {
+  "events": 45,
+  "pnl": 15803,
+  "ci95": [
+   -9712,
+   47000
+  ],
+  "events_pos": 0.4,
+  "top5_markets": 20028,
+  "ex_top5": -4225,
+  "top20_fills": 39816,
+  "n_fills": 231
+ },
+ "fl1_maker": {
+  "events": 34,
+  "pnl": 41239,
+  "ci95": [
+   -37415,
+   131071
+  ],
+  "events_pos": 0.47,
+  "top5_markets": 49041,
+  "ex_top5": -7802
+ },
+ "fl1_taker": {
+  "events": 34,
+  "pnl": -468,
+  "ci95": [
+   -16802,
+   16108
+  ],
+  "events_pos": 0.35,
+  "top5_markets": 9118,
+  "ex_top5": -9587,
+  "top20_fills": 12378,
+  "n_fills": 129
+ }
+}
