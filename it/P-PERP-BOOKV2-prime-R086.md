@@ -9,3 +9,5 @@ Paper/forward-test data only: public read-only endpoints (gamma, clob /book, api
 4. 60 s real data: run the script 90 s into a scratch folder; the file must hold at least 55 rows with both tokens' ask or bid present.
 Then install the cron (UTC): `20 13 * * 1-5` with the flock wrapper, the holiday skip, and `gzip` of the day file after the run; paste the pre-flight under `## Perp catch-up recorder (24 Nov)` in agent/status/goalserve.md; HEALTH READ 15 min after each start. VOL2: do not start if free < 15 GB; stop if free < 10 GB.
 Next step from the perps thread: Nautilus live-paper spec draft for catch-up and lag by Wed 25 Nov 12:00Z.
+
+**CORRECTION 25 Nov (cadence):** the Reviewer's 15-minute checks of this logger read 0.95-0.96 rows/s, not 1.00 (three HTTP calls per loop). The pre-flight read in step 3 as written (>= 99% of 60 cycles) would FAIL a healthy logger. Use the realised cadence: `python3 health_jsonl.py live_<date>_book_v2.jsonl 1 1.05 --tskey t --errkeys error --need perp --min-rows 55` (expected 57 cycles per minute, PASS needs 57 or more). If the Prime rate is below 0.94 rows/s, report the measured rate and do not start.
