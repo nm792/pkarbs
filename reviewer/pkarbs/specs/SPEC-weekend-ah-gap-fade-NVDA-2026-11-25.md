@@ -34,4 +34,4 @@ Thresholds |G| >= 0.5% and >= 2.0%; exit Monday 16:00 ET.
 Each report says: "we ran random-sign trades on the same weekends (MC type 1) to check the result, and planted 30 bp reversions in the data (MC type 2) to check the power."
 
 ## Delivery
-Code `reviewer/pkarbs/perps/ah_gap_fade.py` + `test_ah_gap_fade.py` (planted pass, planted zero, placebo) by 25 Nov 12:00Z. Offline run in the container on public candles first (no Prime needed for 1 h candles); 5 s logger weekends via an IT read-only row after that.
+Code `reviewer/pkarbs/perps/ah_gap_fade.py` + `test_ah_gap_fade.py` (planted pass, planted zero, placebo) by 25 Nov 12:00Z. Runs on Prime only (R-039, Nick 22 Nov 07:42Z: backtests never in a session container), from the pinned SHA via an IT read-only row: public HL 1 h candles + funding (xyz:NVDA, available from 1 May 2026, about 29 weekends) and NVDA daily open/close; half-spread assumption reported at 2, 5 and 10 bp until 5 s logger weekends replace it.

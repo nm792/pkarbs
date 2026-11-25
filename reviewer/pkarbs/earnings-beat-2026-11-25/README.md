@@ -35,6 +35,9 @@ Cheap YES is underpriced; favourites are fairly priced.
 - Depth: median $376 traded in the 24 h before the report on these markets (p75 $1,148). Capacity is small per market; volume is spread over ~200 markets/month.
 - J is inferred from prints; a late J could put post-report prints in the "pre" price (that would shrink, not create, the edge on cheap YES that won).
 
+## Host
+This screen ran in the session container on public data. Under R-039 (Nick 22 Nov) backtests run on Prime, so the screen is to be re-run there from the pinned SHA before any number is used beyond triage; the own-ask scoring (next step 1) runs on Prime.
+
 ## Next
 1. Own-token asks: P121 already records earnings-beat books (family tag `earnings_beat`) since 23 Nov. Score this rule against the YES token's own asks at each pre-report snapshot, and measure $ depth at those asks (IT read-only row, with P147).
 2. Forward: list open earnings-beat markets each day with YES ask < 50c and the ask depth; paper log, sequential test per real fill (PROMOTION RULE).
