@@ -87,7 +87,7 @@ Sources merged: the 14 rows of section A; OPEN-ITEMS.md rows 1-27; DISCARDED-AUD
 | L19 | Weekend perps drift (A13; OI 7; Reg P8) | P138 gated 29 Nov | Pre-flight 29 Nov 20:00; spec 28 Nov 12:00 | 28-29 Nov |
 | L20 | Copper/metals Sunday reopen (A13; OI 15; Reg P9) | Forward shadow; first read 31 Jan 2027 | Rides P138 | 29 Nov |
 | L21 | After-hours gaps / NVDA perps legs (OI 27; Reg P12) | RULE LOCKED 25 Nov 07:50Z: specs/SPEC-weekend-ah-gap-fade-NVDA-2026-11-25.md (fade |G|>=1% Fri 20:00 ET to Mon 09:35 ET, real touch + 0.9 bp + funding; MC type 1 placebo, type 2 planted 30 bp; <13 weekends = underpowered) | Code + 7 can-fail tests DONE 10:00Z (perps/ah_gap_fade.py, ALL OK incl. planted 30 bp and no-reversion-not-pass); IT runs on Prime (R-039) | IT row now |
-| L22 | Dota / TheSports D1 (A14; Reg P15) | P122b live since 23 Nov 17:24 | Scoring spec | 25 Nov 11:00 |
+| L22 | Dota / TheSports D1 (A14; Reg P15) | SPEC LOCKED 10:20Z: specs/SPEC-dota-thesports-lead-vs-pmdota-2026-11-25.md (STANDARD v1, events tower/Roshan/barracks/fight swing, planted 3c at +5 s, no deviations) | Scorer + tests after P124b gives box file location/format | 26 Nov 12:00 |
 | L23 | TheSports NBA delay, LoL, cricket box files (OI 9; Reg P14) | 39/40 Dota games, 885 NBA games captured; P124 list pending | Ask IT for the P124 manifest status; score LoL/cricket offline | 25 Nov 06:00 |
 | L24 | NHL / rugby (OI 14; Reg P13) | NHL in L13; rugby 6 Nations gate 30 Nov | Rugby recorder note | 29 Nov |
 | L25 | Re-audit final table (OI 5; Reg P18) | CLOSED 25 Nov 07:40Z: replaced by DISCARDED-AUDIT-2026-11-23 + this ledger + INSIGHTS.md | none | closed |
