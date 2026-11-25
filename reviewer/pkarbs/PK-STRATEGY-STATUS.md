@@ -52,6 +52,13 @@ Sources read at 01:20Z: pkarbs `reviewer` 18753603f5 (INBOX/OUTBOX, OPEN-ITEMS, 
 ## C. Waiting on Nick
 Nothing. PandaScore watchdog capture: Nick YES, card 25 Nov 01:17:07Z, released to IT (trading-test reviewer IT-OPS-2026-11-25-0125Z, ce801255d). P141 NBA probe: removed from this list (Nick 01:17Z: already discussed); stays unrun.
 
+## TOP PRIORITY (Nick 01:29Z 25 Nov): a valid lead/lag measurement for each TRIAL feed vs Polymarket own books, scored daily
+| Feed | Exact blocker | Clear it by (UTC) | Then daily |
+|---|---|---|---|
+| PandaScore | Capture v4+watchdog not yet live (Nick yes 01:17:07Z; IT P143 released, ce801255d). The swap needs a gap with no live CS2/Dota socket, and the PGL Major is running | Deploy in the first gap today; heartbeat health read 15 min later | IT standing row P152: every day 06:00Z, P105 plant run on each complete hour with CS2 books from the day before; result appended |
+| Goalserve NHL | 5 of 12 sizing matches at 14:00Z 24 Nov; placebo not OK at n=5 | P150 rerun after 25 Nov 06:00Z, which includes the 24-25 Nov night slate; expect sizing complete, test matches from the 25-26 Nov slate | P152 runs v3 NHL daily 06:00Z, cumulative window from 24 Nov 01:56Z |
+| Goalserve CS2 | pmcs2 hour 2026112322 missing stops the run | P150 from 23 Nov 23:00Z | Same P152 row, CS2 cell |
+
 ## D. FULL LEDGER: every PK item ever raised, each with a next action and a time (25 Nov 01:45Z)
 Sources merged: the 14 rows of section A; OPEN-ITEMS.md rows 1-27; DISCARDED-AUDIT-2026-11-23.md A (reopen ranks 1-14) and B (every stays-dead row); trading-test REGISTER.md P1-P21. Owner is the Reviewer unless named. Times are UTC. A row leaves only on Nick's word or a test that could pass.
 
@@ -72,7 +79,7 @@ Sources merged: the 14 rows of section A; OPEN-ITEMS.md rows 1-27; DISCARDED-AUD
 | L13 | Goalserve lead NHL/CS2 (A8; OI 11; Reg P16) | NHL 5 of 12 sizing matches | IT P150 rerun | next P run |
 | L14 | Tennis: Goalserve tennis, TheSports T1 maker (OI 9, 14) | No tennis PM recorder; T1 taker closed, maker untested | IT row to start the ATP keeper (P139a pre-flight PASS 05:24Z 24 Nov) | 25 Nov 06:00 |
 | L15 | PandaScore kills lead (A9; OI 10; Reg P11) | Watchdog capture approved 01:17Z | IT deploy; P151 plant run on 24 Nov 13-14Z | next P run |
-| L16 | CS2 fast-data taker / GRID (A10; settled) | RN1 taker +2.3c/30 s; public timing test dropped (Nick 01:28Z) | GRID access: price needs a sales quote (no public prices); Nick to approve contacting them | Nick |
+| L16 | CS2 fast-data taker / GRID (A10; settled) | Nick 01:29Z: he is handling the feed question himself; no new feeds until the trial feeds are timed | None from the Reviewer; do not raise | Nick |
 | L17 | RN1 soccer L1/SA (A12; settled maker no rule) | Recorders gated 27 Nov | Taker-side probe on soccer like CS2 section H, from public fills | 25 Nov 09:00 |
 | L18 | NBA maker (A11) | CLOSED by Nick 24 Nov 09:50Z | none | - |
 | L19 | Weekend perps drift (A13; OI 7; Reg P8) | P138 gated 29 Nov | Pre-flight 29 Nov 20:00; spec 28 Nov 12:00 | 28-29 Nov |
