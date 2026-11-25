@@ -33,3 +33,7 @@ So the $1,375 is an upper bound, and most of it sits on mispriced fairs.
 
 ## 5. Rerun with the count-word fix (KEEP_THRESHOLD on; screen_kt.py, 02:25Z)
 14 tokens have edge-priced asks, worth $2,634 in total. The count words flip as expected: Jensen "AI (30+ times)" is now a NO (fair 0.595), where the frozen rule said YES. The new top row is Salesforce "Data Center" YES at $1,043, but its fair of 0.915 comes from OTHER companies' calls, since history is pooled across the earnings-call family. That fails the speaker test. **Next (L3, due 10:00Z):** per-speaker transcript base rates for Salesforce (last 4 calls) and for Jensen Huang's last keynotes. Then rescreen only the words with speaker-level history.
+
+## 6. Per-speaker base rates (02:30Z 25 Nov)
+Open speaker markets by volume: Jensen GTC DC $22,642; Salesforce call $4,364; Deere call $1,156 (call 25 Nov, before any pull could land; skipped by $ priority). Trump month/trip markets ($34K) need a different base (whole-month speech), next.
+Word-count pull filed as webb T111 (branch claude/project-thread-tz33m0, e17d8d1): last 4 Salesforce calls x 8 words, last 4 Jensen keynotes x 12 words, rules quoted verbatim. Agent window 14:00-23:00Z, so results 25 Nov night; rescreen with per-speaker q on arrival. The task must reach webb main for the agent to see it.
