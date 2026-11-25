@@ -33,6 +33,7 @@ Moved here 25 Nov 04:10Z from: PK-STRATEGY-STATUS.md, REAUDIT-2026-11-22, DISCAR
 | I-14 | 25 Nov | A cross-company fair fails the speaker test: Salesforce "Data Center" top row uses a fair pooled across companies | README s.5 | Per-speaker base rates required before any speaker market is used: webb T111 (Salesforce last 4 calls, Jensen last 4 keynotes) |
 | I-15 | 25 Nov | Forward test so far: 6 resolved bets, 1 win, -$26.51 | forward_LATEST.txt | Too few to judge; kept running; P147 scores the P121 decisions |
 | I-16 | 25 Nov | Gamma "open" lists include ended events (Oct NFL announcer events) | screen_open_kt.json end dates | Screens filter on end > now |
+| I-18 | 25 Nov 09:30Z | Earnings-beat contracts: 1,610 closed markets, $21.8M volume (last 30 d $607K, 203 markets). Beat rate 73.6%. Cheap YES is underpriced: buy YES when the pre-report print < 50c = +58.7% per $ after fee (CI +24% to +97%, n=278), beats a calibrated-price null (MC type 2, p<0.0002); later half weaker (+38.5%, CI -2.6 to +85.5). Favourites fairly priced. Prints only; median $376 traded per market in the 24 h before the report | earnings-beat-2026-11-25 (calib.txt) | Next: score against own-token asks in P121's earnings_beat books + depth; daily forward list of open markets with YES ask < 50c |
 | I-17 | 25 Nov | The gamma tag that works is `tag_slug=mention-markets` ("mentions" returns 0) | vol.py | Used in vol.py / screen.py |
 
 ## Trial feeds and CS2

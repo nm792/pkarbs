@@ -1,0 +1,20 @@
+markets with jump found 1562
+usable (pre trade within 24h, price 3-97c) 1368 YES rate 0.736 mean price 0.712
+0.0-0.2 n=  94 price=0.118 realised=0.234 diff=+0.116 +-0.086
+0.2-0.4 n= 119 price=0.292 realised=0.361 diff=+0.070 +-0.086
+0.4-0.5 n=  65 price=0.443 realised=0.523 diff=+0.080 +-0.121
+0.5-0.6 n=  76 price=0.550 realised=0.605 diff=+0.055 +-0.110
+0.6-0.7 n= 120 price=0.646 realised=0.692 diff=+0.045 +-0.083
+0.7-0.8 n= 168 price=0.749 realised=0.762 diff=+0.013 +-0.064
+0.8-0.9 n= 286 price=0.850 realised=0.853 diff=+0.003 +-0.041
+0.9-1.0 n= 440 price=0.935 realised=0.925 diff=-0.010 +-0.025
+buy YES p>=0.8     n= 726 return/$ -0.005 [-0.030,+0.020]
+buy NO p<0.2       n=  94 return/$ -0.132 [-0.231,-0.036]
+buy YES all        n=1368 return/$ +0.131 [+0.057,+0.213]
+buy NO 0.6-0.8     n= 288 return/$ -0.083 [-0.258,+0.103]
+buy YES 0.4-0.6    n= 141 return/$ +0.137 [-0.026,+0.306]
+MC type 1 (random side, same data): 95th pct return/$ +0.141
+buy YES p<0.5: n=278 return/$ +0.587 [+0.241,+0.968]; MC type 2 calibrated-price null 95th pct +0.221, p=0.0000
+  earlier half: n=139 return/$ +0.790 [+0.246,+1.406]
+  later half: n=139 return/$ +0.385 [-0.026,+0.855]
+  24h pre-report $ traded per market: median 376, p75 1148
