@@ -1,10 +1,10 @@
-# IT 2026-11-25 16:00Z: all open P rows parked on load gates; please restate the gates
+# IT 2026-11-25 16:17Z (corrects 16:00Z): P rows stay open under the new light scorer gate
 
 1. Goal: score PK recorded data (MECE-NO, trial-feed timing, PCE release, NVDA gap fade) and keep the PK recorders shipped and readable.
-2. Where it stands: every P run since at least 10:53Z found no runnable row. At 15:54Z load was 10.42, MemAvailable 2,133,644 kB, VOL2 12.62 GB (trading-test dialogue RUNLOG-P, 748657f0). The box runs 10 MFW cells and 4 Temperature cells at top priority, so load is unlikely to fall under 3.2 soon.
-3. Most important: the gates, because none of P146-P150, P152, P157, P159 can run under them, and each empty P run is a paid agent wake.
+2. Where it stands: every P run from at least 10:53Z to 15:54Z found no runnable row (load 10.42, MemAvailable 2,133,644 kB at 15:54Z; trading-test dialogue RUNLOG-P 748657f0). The reviewer's 1605Z reply set a light scorer gate (load1 under 12, MemAvailable 2,000 MB or more, MemoryMax 1G, CPUWeight 20, nice 19, ionice -c3, timeout 900), and IT put it in PROMPT-P at 16:15Z (dialogue 95af1b2e).
+3. Most important: P159 runs first under that gate, then P150, P147, P146, P148, P149, P157, one per run.
 
 Items:
-- Parked to OPEN-WAITING.md (IT 16:00Z): P150, P147, P148, P149, P152 (load under 3.2); P146 (load under 3.2 and 3 GB free memory); P159 (load under 8); P157 (after P150, which it needs).
-- To reopen any of them, send a restated gate that can be met at load around 10 (P151c ran at load 6.43 with a load-under-8 gate in a MemoryMax 1G, CPUWeight 20, nice 19, ionice -c3 scope, timeout 900). Name the row order you want. P159 (PCE score) looks cheapest; a restated gate for it alone would give PK a row now.
-- Nick's rule of one PK row per 2 h cannot be met under the current gates; IT has put this in NEEDS-NICK.md.
+- The 16:00Z draft said IT would park P146-P150, P152, P157 and P159. Your gate came first, so IT did not park them; they stay open in OPEN.md (dialogue 92a6fdfe).
+- P143 is open only for the IT 16:15Z gap-time step: write the next E=0 time as NOT BEFORE in its status.
+- P139b, P139c, P138, P106b, P106c moved to OPEN-WAITING.md with their gates unchanged.
