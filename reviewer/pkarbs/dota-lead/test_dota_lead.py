@@ -73,3 +73,23 @@ class T(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TPm(unittest.TestCase):
+    def test_load_pmdota(self):
+        import gzip, json, os, tempfile
+        d = tempfile.mkdtemp(); p = os.path.join(d, 'books.2026112513.jsonl.gz')
+        rows = [dict(recv_ms=1000, token='t1', outcome='Team X', q='Game 1 Winner', cond='c1', bid='0.40', ask='0.42', bids=[], asks=[]),
+                dict(recv_ms=2000, token='t2', outcome='Team Y', q='Game 1 Winner', cond='c1', bid=None, ask='0.61', bids=[], asks=[]),
+                'not json']
+        with gzip.open(p, 'wt') as f:
+            for r in rows:
+                f.write((json.dumps(r) if isinstance(r, dict) else r) + '\n')
+        b = D.load_pmdota([p])
+        self.assertEqual(b['c1']['tokens']['Team X'], [(1.0, 0.40, 0.42)])
+        self.assertEqual(b['c1']['tokens']['Team Y'], [(2.0, None, 0.61)])
+        self.assertEqual(D.Mid(b['c1']['tokens']['Team Y']).at(5), None)   # one-sided row gives no mid
+        with gzip.open(p, 'at') as f:
+            f.write(json.dumps(dict(recv_ms=3000, token='t9', outcome='Team X', cond='c1', bid='0.4', ask='0.5')) + '\n')
+        with self.assertRaises(ValueError):
+            D.load_pmdota([p])

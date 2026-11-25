@@ -151,3 +151,27 @@ def run(matches, plant=False, seed=1):
     if plant:
         res['plant_ok'] = bool(chosen_ok) and all(chosen_ok)
     return res
+
+
+# ---- pmdota adapter (P124b, 25 Nov 22:2xZ: books.YYYYMMDDHH.jsonl.gz rows with recv_ms, token, outcome, q, cond, bid, ask, bids, asks) ----
+def load_pmdota(paths):
+    """-> {cond: dict(q=question, tokens={outcome_label: [(t_s, bid, ask)]})}. Each token keeps ONLY its own rows (SETTLED A1);
+    rows with a missing side keep None for that side (Mid skips them). recv_ms is our host clock."""
+    import gzip, json
+    out = {}
+    for p in paths:
+        op = gzip.open if p.endswith('.gz') else open
+        with op(p, 'rt') as f:
+            for line in f:
+                try:
+                    r = json.loads(line)
+                except ValueError:
+                    continue
+                c = out.setdefault(r['cond'], dict(q=r.get('q'), tokens={}, token_ids={}))
+                lab = r.get('outcome')
+                c['token_ids'].setdefault(lab, r['token'])
+                if c['token_ids'][lab] != r['token']:
+                    raise ValueError('two token ids for one outcome label in %s' % r['cond'])
+                f2 = lambda v: None if v in (None, '') else float(v)
+                c['tokens'].setdefault(lab, []).append((r['recv_ms'] / 1000.0, f2(r.get('bid')), f2(r.get('ask'))))
+    return out
