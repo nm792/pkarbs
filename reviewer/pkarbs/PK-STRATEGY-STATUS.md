@@ -52,4 +52,48 @@ Sources read at 01:20Z: pkarbs `reviewer` 18753603f5 (INBOX/OUTBOX, OPEN-ITEMS, 
 ## C. Waiting on Nick
 Nothing. PandaScore watchdog capture: Nick YES, card 25 Nov 01:17:07Z, released to IT (trading-test reviewer IT-OPS-2026-11-25-0125Z, ce801255d). P141 NBA probe: removed from this list (Nick 01:17Z: already discussed); stays unrun.
 
+## D. FULL LEDGER: every PK item ever raised, each with a next action and a time (25 Nov 01:45Z)
+Sources merged: the 14 rows of section A; OPEN-ITEMS.md rows 1-27; DISCARDED-AUDIT-2026-11-23.md A (reopen ranks 1-14) and B (every stays-dead row); trading-test REGISTER.md P1-P21. Owner is the Reviewer unless named. Times are UTC. A row leaves only on Nick's word or a test that could pass.
+
+| L | Item (source) | State now | Next action | When |
+|---|---|---|---|---|
+| L1 | Perp catch-up, SPY open contracts (A1) | 5 trades +0.84c/share; capacity $20-80 | IT P149 read; own live log + score | 25 Nov 13:20-17:30 |
+| L2 | Mentions frozen 10c rule, all families (A2; OI 1-2; Reg P1) | P121 books unscored | IT P147 score; rescore in cloud | 12:00 |
+| L3 | Mentions transcript base rate (OI 23; Reg P2) | Design 9138be8025, untested; Dell n=3 done (no bet) | Build the per-word transcript base rate for every open earnings-call word market from public transcripts, then check own asks | 25 Nov 10:00 |
+| L4 | Mentions live speech nowcast (OI 24; Reg P2) | Design only; frozen-fair during-event -$78.93/day is not a test of it | Specify hazard model and caption source; planted case at 250 ms | 26 Nov 06:00 |
+| L5 | Mentions count-market pooling defect (OI 25) | Fix flag + 5 tests delivered 23 Nov (effect -2%) | Confirm the deployed P121 scorer sha 5e44c570 carries the flag | 25 Nov 03:00 |
+| L6 | Mentions firelog P103 (Reg P17) | Never ran on Prime | Decide if P121 decisions.jsonl supersedes it; if yes close with that reason, else file the row | 25 Nov 03:00 |
+| L7 | Earnings-beat contracts (A3; OI 26; Reg P10) | Recorder tags family=earnings_beat; base rate due 08:00 | Base rate if not landed | 08:00 |
+| L8 | MECE buy-all-NO, 3+ legs (A4; OI 4; Reg P3) | P133 recording, unscored | IT P146; also find or declare lost the 17 Nov probe files | 12:00 |
+| L9 | Tweet / post counts incl. Trump (A5; OI 3; Reg P4) | P127r recording; Trump count used wrong source (6 of 63) | IT P148 rows; spec + first score | 12:00 |
+| L10 | Late-resolving wti-15m (A6; OI 6; Reg P7) | Screen +$29/day; recording | Forward score from P148 rows | 12:00 |
+| L11 | Late-resolving: other 4 families with 95% LB>0 of 81 (OI 6) | Only wti-15m and 4 stock dailies are recorded | List the other families from b33db0ee66 and add them to the P127r series file (IT row) | 25 Nov 06:00 |
+| L12 | Macro pickoff, Core PCE (A7; Reg P6) | P135b start gated 10:00 | IT flips P135b; score after release | 10:00-15:00 |
+| L13 | Goalserve lead NHL/CS2 (A8; OI 11; Reg P16) | NHL 5 of 12 sizing matches | IT P150 rerun | next P run |
+| L14 | Tennis: Goalserve tennis, TheSports T1 maker (OI 9, 14) | No tennis PM recorder; T1 taker closed, maker untested | IT row to start the ATP keeper (P139a pre-flight PASS 05:24Z 24 Nov) | 25 Nov 06:00 |
+| L15 | PandaScore kills lead (A9; OI 10; Reg P11) | Watchdog capture approved 01:17Z | IT deploy; P151 plant run on 24 Nov 13-14Z | next P run |
+| L16 | CS2 fast-data taker / GRID (A10; settled) | RN1 taker +2.3c/30 s; public timing test dropped (Nick 01:28Z) | GRID access: price needs a sales quote (no public prices); Nick to approve contacting them | Nick |
+| L17 | RN1 soccer L1/SA (A12; settled maker no rule) | Recorders gated 27 Nov | Taker-side probe on soccer like CS2 section H, from public fills | 25 Nov 09:00 |
+| L18 | NBA maker (A11) | CLOSED by Nick 24 Nov 09:50Z | none | - |
+| L19 | Weekend perps drift (A13; OI 7; Reg P8) | P138 gated 29 Nov | Pre-flight 29 Nov 20:00; spec 28 Nov 12:00 | 28-29 Nov |
+| L20 | Copper/metals Sunday reopen (A13; OI 15; Reg P9) | Forward shadow; first read 31 Jan 2027 | Rides P138 | 29 Nov |
+| L21 | After-hours gaps / NVDA perps legs (OI 27; Reg P12) | Rule lock was due 24 Nov 12:00, not found | Write the locked rule (pre-registered, planted case) | 25 Nov 09:00 |
+| L22 | Dota / TheSports D1 (A14; Reg P15) | P122b live since 23 Nov 17:24 | Scoring spec | 25 Nov 11:00 |
+| L23 | TheSports NBA delay, LoL, cricket box files (OI 9; Reg P14) | 39/40 Dota games, 885 NBA games captured; P124 list pending | Ask IT for the P124 manifest status; score LoL/cricket offline | 25 Nov 06:00 |
+| L24 | NHL / rugby (OI 14; Reg P13) | NHL in L13; rugby 6 Nations gate 30 Nov | Rugby recorder note | 29 Nov |
+| L25 | Re-audit final table (OI 5; Reg P18) | PK's own table never landed; DISCARDED-AUDIT + this ledger replace it | Close as replaced by this ledger | 25 Nov 02:00 |
+| L26 | Golden method on less-crowded rule-settled series (OI 16; Reg P19) | Untested beyond gas | Pick 3 candidate series with rule-settled statistics and list their volumes | 26 Nov 06:00 |
+| L27 | Forecast edges: Netflix, MrBeast, box office, Kalshi index leader (OI 19) | Print-only nulls; Kalshi leader dead (-17c to -29c) | Depth check on the next listing of each | 26 Nov 12:00 |
+| L28 | Daily Up/Down nowcast (DA B) | Capacity-limited, depth $32 | Re-measure depth once a week | 1 Dec |
+| L29 | Perp vs PM SPX open (DA B) | Capacity-limited, about $1.4K/day | Folded into L1 | - |
+| L30 | Chess in-play (DA B) | Capacity-limited, under $2K/day | Volume check | 1 Dec |
+| L31 | Mirror pairs (DA B) | Parked with MFW; midpoint-scored | Own-ask rescore if Nick reopens | Nick |
+| L32 | Intra-game maker / pre-kickoff rewards (DA B) | Closed by Nick; reward terms may have changed since 24 Oct | Read the current rewards terms and report any change | 25 Nov 12:00 |
+| L33 | Funding-window reversion at 0.9 bp (DA B) | Dead; 1x-spread sensitivity never printed | Print the 1x sensitivity | 26 Nov |
+| L34 | Midterm cross-venue MECE (DA B) | One-off, about $2.1K | none | - |
+| L35 | Gas daily (OI 17; Reg P20) | Off by Nick | none | - |
+| L36 | OddsPapi / Pinnacle lead (OI 13; Reg P21) | Closed, inside 1 s delay | none | - |
+| L37 | Own CS2 win model, sports MECE YES, 2-way MECE NHL/CS2, tennis taker, overshoot, qlib/SPY lags (OI 12; DA B) | Dead on tests that could pass | none | - |
+| L38 | Up/down rebate MM (OI 20) | Moved to MFW | none | - |
+
 Confidence 7/10 that every fact is right, rows do not overlap, and A+B cover every PK strategy on file. To reach 9: the outputs of the IT reads filed now (P137 24 Nov output, P121/P133/P127r scores, Goalserve rerun), and the 08:00Z/12:00Z owner deliverables or the Reviewer's own versions.
