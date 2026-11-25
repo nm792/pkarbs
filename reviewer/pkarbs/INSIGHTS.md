@@ -51,7 +51,7 @@ Moved here 25 Nov 04:10Z from: PK-STRATEGY-STATUS.md, REAUDIT-2026-11-22, DISCAR
 |---|---|---|---|---|
 | I-30 | 24 Nov | RN1's NBA is about 0 EV (+0.19% on $4.1M); our NBA maker held-out -11.5% [-28.1, +5.2] on 39 games | SETTLED S1 (Nick 09:50Z) | NBA maker closed; P141 not run; never re-asked |
 | I-31 | 24 Nov | RN1 soccer maker has no copyable rule: L1 +4.5%, SA +3.8%, CIs span 0, negative without his best 5 markets | rn1-recheck-2026-11-24 | Soccer maker spec must rank by edge per competing maker; recorders P139b from 27 Nov |
-| I-32 | 24 Nov | Soccer taker side is small: SA +$15.8K on $151K; L1 -$0.5K | same | L17 soccer taker probe (ledger) |
+| I-32 | 24 Nov | Soccer taker side is small: SA +$15.8K on $151K with markout +2.76c at 30 s on 101 fills (same fast-data pattern as CS2, 1/6 the $); L1 -$0.5K, markout +0.17c (75 fills) | rn1-recheck-2026-11-24 section H | L17 closed: SA taker rides on the CS2 fast-feed question, no separate work |
 | I-33 | 17 Nov | Each Polymarket token is its own book; price only from its own asks; mirroring only on resolved books | SETTLED A.1 | Every scorer and screen uses own-token asks |
 
 ## Late-resolving, MECE, macro, perps, other

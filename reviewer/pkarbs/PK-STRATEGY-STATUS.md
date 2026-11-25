@@ -82,11 +82,11 @@ Sources merged: the 14 rows of section A; OPEN-ITEMS.md rows 1-27; DISCARDED-AUD
 | L14 | Tennis: Goalserve tennis, TheSports T1 maker (OI 9, 14) | No tennis PM recorder; T1 taker closed, maker untested | IT row to start the ATP keeper (P139a pre-flight PASS 05:24Z 24 Nov) | 25 Nov 06:00 |
 | L15 | PandaScore kills lead (A9; OI 10; Reg P11) | Approved 01:17Z; deploy refused (root < 5 GB); P151 inputs missing | P153 recovery; P143 after T117b | next P run |
 | L16 | CS2 fast-data taker / GRID (A10; settled) | Nick 01:29Z: he is handling the feed question himself; no new feeds until the trial feeds are timed | None from the Reviewer; do not raise | Nick |
-| L17 | RN1 soccer L1/SA (A12; settled maker no rule) | Recorders gated 27 Nov | Taker-side probe on soccer like CS2 section H, from public fills | 25 Nov 09:00 |
+| L17 | RN1 soccer L1/SA (A12; settled maker no rule) | DONE (already in rn1-recheck section H, 24 Nov): SA taker +$15.8K on $151K (CI -$10K..+$47K), markout +2.76/+2.28/+1.98c at 30/60/300 s on 101 fills = same fast-data taker pattern as CS2 at 1/6 of the $; L1 taker -$0.5K, markout +0.17c (75 fills) = none | SA taker joins the CS2 fast-feed question (Nick's) when a feed is chosen; nothing separate | closed |
 | L18 | NBA maker (A11) | CLOSED by Nick 24 Nov 09:50Z | none | - |
 | L19 | Weekend perps drift (A13; OI 7; Reg P8) | P138 gated 29 Nov | Pre-flight 29 Nov 20:00; spec 28 Nov 12:00 | 28-29 Nov |
 | L20 | Copper/metals Sunday reopen (A13; OI 15; Reg P9) | Forward shadow; first read 31 Jan 2027 | Rides P138 | 29 Nov |
-| L21 | After-hours gaps / NVDA perps legs (OI 27; Reg P12) | Rule lock was due 24 Nov 12:00, not found | Write the locked rule (pre-registered, planted case) | 25 Nov 09:00 |
+| L21 | After-hours gaps / NVDA perps legs (OI 27; Reg P12) | RULE LOCKED 25 Nov 07:50Z: specs/SPEC-weekend-ah-gap-fade-NVDA-2026-11-25.md (fade |G|>=1% Fri 20:00 ET to Mon 09:35 ET, real touch + 0.9 bp + funding; MC type 1 placebo, type 2 planted 30 bp; <13 weekends = underpowered) | Code + can-fail tests, then offline run on public 1 h candles | 25 Nov 12:00 |
 | L22 | Dota / TheSports D1 (A14; Reg P15) | P122b live since 23 Nov 17:24 | Scoring spec | 25 Nov 11:00 |
 | L23 | TheSports NBA delay, LoL, cricket box files (OI 9; Reg P14) | 39/40 Dota games, 885 NBA games captured; P124 list pending | Ask IT for the P124 manifest status; score LoL/cricket offline | 25 Nov 06:00 |
 | L24 | NHL / rugby (OI 14; Reg P13) | NHL in L13; rugby 6 Nations gate 30 Nov | Rugby recorder note | 29 Nov |
