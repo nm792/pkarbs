@@ -3,8 +3,13 @@ Rules text (Gamma, 26 Nov): settlement = Pyth "Close" of the 1-minute candle for
 Fri 27 Nov 2026 is a 13:00 ET early close, so the release R = 18:00:00Z and the settling candle is the one that starts at R-60 s.
 We read that candle from Pyth Benchmarks (TradingView shim, public). Symbol 'Equity.US.<TICKER>/USD'. Read-only GETs, polled once a second from R.
 Config (optional) pyth_symbols.json in logdir: {slug: pyth_symbol} overrides the default symbol."""
-import json, os, time, gzip, urllib.request
+import json, os, time, gzip, urllib.request, urllib.parse
 URL = 'https://benchmarks.pyth.network/v1/shims/tradingview/history?symbol={sym}&resolution=1&from={a}&to={b}'
+HERMES_FEEDS = 'https://hermes.pyth.network/v2/price_feeds?query={q}&asset_type=equity'
+HERMES_AT = 'https://hermes.pyth.network/v2/updates/price/{ts}?ids[]={fid}&parsed=true'
+# P185 (26 Nov 14:00Z): the TradingView shim returned 404 for 'Equity.US.NVDA/USD' unencoded. Method A now URL-encodes the symbol;
+# method B (fallback, PRICE_METHOD=hermes in pyth_method.txt) reads Hermes' price published at R-1 s for the feed id of that symbol
+# (close of the final minute ~ last price before R; the node's 0.2% edge guard covers the gap).
 
 
 def ticker_of(slug):
@@ -43,6 +48,20 @@ class Source:
             over = json.load(open(p))
         self.sym = {s: over.get(s) or ('Equity.US.%s/USD' % ticker_of(s)) for s in evs if over.get(s) or ticker_of(s)}
         self.fetch, self.now = fetcher, now
+        pm = os.path.join(logdir, 'pyth_method.txt')
+        self.method = open(pm).read().strip() if os.path.exists(pm) else 'benchmarks'
+        self.fid = {}
+
+    def hermes_price(self, sym, ts):
+        if sym not in self.fid:
+            feeds = self.fetch(HERMES_FEEDS.format(q=urllib.parse.quote(sym.split('.')[-1].split('/')[0])))
+            hit = [f['id'] for f in feeds if (f.get('attributes') or {}).get('symbol') == sym]
+            if len(hit) != 1:
+                return None
+            self.fid[sym] = hit[0]
+        d = self.fetch(HERMES_AT.format(ts=ts, fid=self.fid[sym]))
+        p = (d.get('parsed') or [{}])[0].get('price') or {}
+        return float(p['price']) * 10 ** int(p['expo']) if 'price' in p else None
 
     def poll(self):
         out = []
@@ -51,7 +70,10 @@ class Source:
             if R is None or self.now() < R:
                 continue
             try:
-                v = candle_close(self.fetch(URL.format(sym=sym, a=int(R) - 180, b=int(R) + 60)), int(R) - 60)
+                if self.method == 'hermes':
+                    v = self.hermes_price(sym, int(R) - 1)
+                else:
+                    v = candle_close(self.fetch(URL.format(sym=urllib.parse.quote(sym, safe=''), a=int(R) - 180, b=int(R) + 60)), int(R) - 60)
             except Exception:
                 continue
             if v is not None:

@@ -11,7 +11,9 @@ import re, math
 
 USD_PER_TRADE = 200.0
 USD_PER_DAY = 2000.0
-MAXP = 0.95
+MAXP = 0.99            # Nick 26 Nov 13:17Z: '0.95 is edge if it is real' -> asks up to 0.99 are bought (net edge after fee must be > 0)
+LIMIT_SLIP = 0.05       # order limit = min(MAXP, ask + LIMIT_SLIP): walks levels just above the stale ask, bounded collateral
+MAX_COLLATERAL = 1000.0 # shares x limit per order (paper wallet realism: the venue locks limit x size)
 BATCH_MAX = 15
 EPS = 1e-9
 
@@ -155,7 +157,7 @@ class HeldOrders:
         out = {}
         for t in self.token_cond:
             a = self.ask.get(t)
-            out[t] = None if (a is None or a[0] >= MAXP) else (math.floor(USD_PER_TRADE / a[0]), MAXP)
+            out[t] = None if (a is None or a[0] >= MAXP) else (math.floor(min(USD_PER_TRADE / a[0], MAX_COLLATERAL / min(MAXP, a[0] + LIMIT_SLIP))), round(min(MAXP, a[0] + LIMIT_SLIP), 3))
         return out
 
 
@@ -176,10 +178,11 @@ def fire(held, truth, day_spent=0.0, usd_trade=USD_PER_TRADE, usd_day=USD_PER_DA
             skipped.append((cond, "own-ask quote older than %d ms" % stale_ms)); continue
         if a[0] >= maxp:
             skipped.append((cond, "ask %.3f >= %.2f (already repriced)" % (a[0], maxp))); continue
-        shares = math.floor(usd_trade / a[0])
+        limit = round(min(maxp, a[0] + LIMIT_SLIP), 3)
+        shares = math.floor(min(usd_trade / a[0], MAX_COLLATERAL / limit))
         if shares < (m.get("min_size") or 5):
             skipped.append((cond, "below min size")); continue
-        cands.append(dict(token=tok, cond=cond, side="YES" if tv else "NO", shares=shares, limit=maxp, ask=a[0], stake=shares * a[0]))
+        cands.append(dict(token=tok, cond=cond, side="YES" if tv else "NO", shares=shares, limit=limit, ask=a[0], stake=shares * a[0]))
     cands.sort(key=lambda o: -(1 - o["ask"]) / o["ask"])
     orders, spent = [], day_spent
     for o in cands:

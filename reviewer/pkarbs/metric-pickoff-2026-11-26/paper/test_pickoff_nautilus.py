@@ -67,9 +67,9 @@ def run(number_ts_offset_s, value=0.3, quotes=None):
 
 # value 0.3 -> c0(0.2) F, c1(0.3) T, c2(>=0.3) T, c3(<=0.2) F.  winners: n0, y1, y2, n3. Losers y0,n1,n2,y3.
 Q = {(0, "Y"): (0.60, 0.99), (0, "N"): (0.55, 0.60),   # n0 NO wins: stale 0.55 -> after release still stale 0.60 (<0.95) must be bought
-     (1, "Y"): (0.40, 0.35), (1, "N"): (0.60, 0.97),   # y1 YES wins stale 0.35
+     (1, "Y"): (0.40, 0.35), (1, "N"): (0.60, 0.995),   # y1 YES wins stale 0.35
      (2, "Y"): (0.45, 0.50), (2, "N"): (0.55, 0.99),   # y2 YES wins (threshold >=0.3) stale 0.50
-     (3, "Y"): (0.40, 0.99), (3, "N"): (0.97, 0.97)}   # n3 NO wins: ask already 0.97 -> must NOT be bought
+     (3, "Y"): (0.40, 0.99), (3, "N"): (0.995, 0.995)}   # n3 NO wins: ask already 0.995 -> must NOT be bought
 # Book snapshots at R+3 s: the number arrives at R+5 s (offset 5) so the post-release books are in place; before R the books show pre quotes.
 eng, fills, strat = run(5, 0.3, Q)
 sent = strat.log_rows[-1]
@@ -79,7 +79,7 @@ ck(fills is not None and len(fills) == 3, "Nautilus must report 3 fills, got %s"
 if fills is not None and len(fills):
     px = {str(r["instrument_id"]).split(".")[0]: float(r["avg_px"]) for _, r in fills.iterrows()}
     ck(abs(px.get("c1-YES", 0) - 0.35) < 1e-9 and abs(px.get("c0-NO", 0) - 0.60) < 1e-9 and abs(px.get("c2-YES", 0) - 0.50) < 1e-9, "fills must be at the stale own asks: %s" % px)
-    ck(all(float(r["avg_px"]) < 0.95 for _, r in fills.iterrows()), "no fill at or above 0.95")
+    ck(all(float(r["avg_px"]) < 0.99 for _, r in fills.iterrows()), "no fill at or above 0.99")
     comm = fills["commissions"].astype(str).tolist()
     ck(all("USDC" in c and not c.startswith("0.00 ") for c in comm), "Nautilus PolymarketFeeModel must charge a taker fee: %s" % comm)
 # pre-release rejection: the same number stamped BEFORE R must send nothing

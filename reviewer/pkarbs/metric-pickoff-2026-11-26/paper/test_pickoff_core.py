@@ -44,7 +44,7 @@ ck(sum(1 for v in H.held().values() if v) == 14, "held order for BOTH tokens of 
 tt = C.truth_table(mk, 0.3)
 ck(tt == {"c0": False, "c1": False, "c2": True, "c3": False, "c4": False, "c5": True, "c6": None}, "truth table wrong: %s" % tt)
 # planted stale asks: winning tokens stale, others already repriced
-H.reprice("n0", 0.74, 500, 2); H.reprice("n1", 0.80, 500, 2); H.reprice("y2", 0.35, 500, 2); H.reprice("n3", 0.97, 500, 2)
+H.reprice("n0", 0.74, 500, 2); H.reprice("n1", 0.80, 500, 2); H.reprice("y2", 0.35, 500, 2); H.reprice("n3", 0.995, 500, 2)
 H.reprice("n4", 0.60, 500, 2); H.reprice("y5", 0.40, 500, 2); H.reprice("y6", 0.30, 500, 2)
 orders, sk = C.fire(H, tt)
 by = {o["cond"]: o for o in orders}
@@ -52,10 +52,11 @@ ck(set(by) == {"c0", "c1", "c2", "c4", "c5"}, "fired set wrong: %s" % sorted(by)
 ck(by["c0"]["side"] == "NO" and by["c0"]["token"] == "n0", "losing bracket must fire NO token")
 ck(by["c2"]["side"] == "YES" and by["c2"]["token"] == "y2", "winning bracket must fire YES token")
 ck(by["c4"]["side"] == "NO" and by["c5"]["side"] == "YES", "ladder: NO on false threshold and YES on true threshold at once")
-ck(all(o["limit"] == 0.95 for o in orders), "limit must be 0.95")
+ck(all(abs(o["limit"] - min(0.99, o["ask"] + 0.05)) < 1e-9 for o in orders), "limit must be min(0.99, ask + 0.05)")
+ck(all(o["shares"] * o["limit"] <= 1000.0 + 1e-9 for o in orders), "collateral shares x limit <= $1,000")
 ck(by["c2"]["shares"] == int(200 / 0.35), "size = $200 / own ask")
 reasons = dict(sk)
-ck("c3" in reasons and "already repriced" in reasons["c3"], "NO ask 0.97 must be rejected as repriced")
+ck("c3" in reasons and "already repriced" in reasons["c3"], "NO ask 0.995 must be rejected as repriced")
 ck("c6" in reasons and "ambiguous" in reasons["c6"], "unparsed market must be skipped, never guessed")
 ck("y6" not in {o["token"] for o in orders}, "unparsed market's token must never be bought")
 # pre-release rejection: with the stale-quote guard, an ask not refreshed recently is refused
