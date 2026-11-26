@@ -19,6 +19,17 @@ open(os.path.join(d, 'pyth_method.txt'), 'w').write('hermes')
 H = {'feeds': [{'id': 'abc', 'attributes': {'symbol': 'Equity.US.NVDA/USD'}}, {'id': 'zzz', 'attributes': {'symbol': 'Equity.US.NVDA/USD.PRE'}}], 'at': {'parsed': [{'price': {'price': '12731000', 'expo': -5}}]}}
 s3 = P.Source({'nvda-week-november-27-2026': []}, d, release_s=R, fetcher=lambda u: H['feeds'] if 'price_feeds' in u else H['at'], now=lambda: R + 2)
 ck(abs(s3.poll()[0][2] - 127.31) < 1e-9, 'hermes fallback value')
+open(os.path.join(d, 'pyth_method.txt'), 'w').write('latest')
+T = [R - 40]; L = {'pt': R - 5, 'px': '12731000'}
+lat = lambda u: H['feeds'] if 'price_feeds' in u else {'parsed': [{'price': {'price': L['px'], 'expo': -5, 'publish_time': L['pt']}}]}
+s4 = P.Source({'nvda-week-november-27-2026': []}, d, release_s=R, fetcher=lat, now=lambda: T[0])
+ck(s4.poll() == [], 'latest: nothing before R-30')
+T[0] = R - 2; s4.poll()
+L.update(pt=R + 4, px='99900000'); T[0] = R + 4
+o4 = s4.poll()
+ck(len(o4) == 1 and abs(o4[0][2] - 127.31) < 1e-9 and o4[0][3]['publish_time'] == R - 5, 'latest: keeps last price inside final minute, ignores after-close print: %s' % o4)
+s5 = P.Source({'nvda-week-november-27-2026': []}, d, release_s=R, fetcher=lambda u: H['feeds'] if 'price_feeds' in u else {'parsed': [{'price': {'price': '1', 'expo': 0, 'publish_time': R - 200}}]}, now=lambda: R + 5)
+ck(s5.poll() == [], 'latest: stale price (before final minute) -> nothing')
 os.remove(os.path.join(d, 'pyth_method.txt'))
 json.dump({'Initiative A': 1, 'Initiative B': 2}, open(os.path.join(d, 'swiss_titles.json'), 'w'))
 evs = {'ch': [{'cond': 'a', 'title': 'Initiative A'}, {'cond': 'b', 'title': 'Initiative B'}, {'cond': 'c', 'title': 'Other'}]}
@@ -31,4 +42,4 @@ out = s.poll()
 ck(len(out) == 1 and out[0][1].startswith('MAP:'), 'one MAP release')
 tt = C.truth_by_map(evs['ch'], json.loads(out[0][1][4:]))
 ck(tt == {'a': False, 'b': True, 'c': None}, 'truth by map: %s' % tt)
-print('FAIL: ' + '; '.join(bad) if bad else 'PASS (9 checks)'); sys.exit(1 if bad else 0)
+print('FAIL: ' + '; '.join(bad) if bad else 'PASS (12 checks)'); sys.exit(1 if bad else 0)
