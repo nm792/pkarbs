@@ -1,0 +1,40 @@
+date,time_utc,event,title,end,hours_to_end,yes_best_ask,yes_best_ask_size,under_thr,depth_usd_under_thr,shares_under_thr,avg_price,fee_rate,fee_per_share,ask_levels
+2026-11-26,04:13Z,1434884,Will Marvell (MRVL) beat quarterly earnings?,2026-12-01T22:00:00,137.8,0.43,10.69,True,4.6,10.69,0.43,0.01,0.00245,11
+2026-11-26,04:13Z,1434911,Will Okta (OKTA) beat quarterly earnings?,2026-12-01T22:00:00,137.8,0.96,355.0,False,0.0,0.0,,0.01,,4
+2026-11-26,04:13Z,1459740,Will Rubrik (RBRK) beat quarterly earnings?,2026-11-30T22:00:00,113.8,0.89,48.87,False,0.0,0.0,,0.01,,6
+2026-11-26,04:13Z,1459741,Will Asana (ASAN) beat quarterly earnings?,2026-12-01T22:00:00,137.8,0.74,135.0,False,0.0,0.0,,0.01,,9
+2026-11-26,04:13Z,1459742,Will Box (BOX) beat quarterly earnings?,2026-12-01T22:00:00,137.8,0.73,191.0,False,0.0,0.0,,0.01,,5
+2026-11-26,04:13Z,1459743,Will GitLab (GTLB) beat quarterly earnings?,2026-12-01T22:00:00,137.8,0.95,50.0,False,0.0,0.0,,0.01,,5
+2026-11-26,04:13Z,1459744,Will MongoDB (MDB) beat quarterly earnings?,2026-12-01T22:00:00,137.8,0.86,20.0,False,0.0,0.0,,0.01,,6
+2026-11-26,04:13Z,1459747,Will American Eagle (AEO) beat quarterly earnings?,2026-12-02T22:00:00,161.8,0.96,25.0,False,0.0,0.0,,0.01,,4
+2026-11-26,04:13Z,1459748,Will Cracker Barrel (CBRL) beat quarterly earnings?,2026-12-02T14:00:00,153.8,0.74,5.0,False,0.0,0.0,,0.01,,8
+2026-11-26,04:13Z,1459749,Will Salesforce (CRM) beat quarterly earnings?,2026-12-02T22:00:00,161.8,0.85,230.2,False,0.0,0.0,,0.01,,11
+2026-11-26,04:13Z,1459750,Will Five Below (FIVE) beat quarterly earnings?,2026-12-02T22:00:00,161.8,0.92,30.0,False,0.0,0.0,,0.01,,8
+2026-11-26,04:13Z,1459754,Will Sprinklr (CXM) beat quarterly earnings?,2026-12-02T14:00:00,153.8,0.96,25.0,False,0.0,0.0,,0.01,,4
+2026-11-26,04:13Z,1459760,Will Dollar General (DG) beat quarterly earnings?,2026-12-03T21:00:00,184.8,0.92,286.65,False,0.0,0.0,,0.01,,7
+2026-11-26,04:13Z,1459761,Will DocuSign (DOCU) beat quarterly earnings?,2026-12-03T21:00:00,184.8,0.84,40.0,False,0.0,0.0,,0.01,,8
+2026-11-26,04:13Z,1459762,Will Samsara (IOT) beat quarterly earnings?,2026-12-03T21:00:00,184.8,0.95,30.0,False,0.0,0.0,,0.01,,5
+2026-11-26,04:13Z,1459763,Will Kroger (KR) beat quarterly earnings?,2026-12-03T21:00:00,184.8,0.8,141.0,False,0.0,0.0,,0.01,,6
+2026-11-26,04:13Z,1459764,Will Macy's (M) beat quarterly earnings?,2026-12-03T21:00:00,184.8,0.93,70.0,False,0.0,0.0,,0.01,,5
+2026-11-26,04:13Z,1459765,Will PagerDuty (PD) beat quarterly earnings?,2026-12-03T21:00:00,184.8,0.8,224.3,False,0.0,0.0,,0.01,,6
+2026-11-26,04:13Z,1459766,Will Smith & Wesson (SWBI) beat quarterly earnings?,2026-12-03T21:00:00,184.8,0.59,142.0,False,0.0,0.0,,0.01,,6
+2026-11-26,04:13Z,1459767,Will Build-A-Bear (BBW) beat quarterly earnings?,2026-12-04T21:00:00,208.8,0.94,10.0,False,0.0,0.0,,0.01,,6
+2026-11-26,04:13Z,1459768,Will Academy Sports (ASO) beat quarterly earnings?,2026-12-07T21:00:00,280.8,0.52,121.05,False,0.0,0.0,,0.01,,10
+2026-11-26,04:13Z,1459769,Will GameStop (GME) beat quarterly earnings?,2026-12-07T21:00:00,280.8,0.79,166.3,False,0.0,0.0,,0.01,,5
+2026-11-26,04:13Z,1459770,Will Dave & Buster's (PLAY) beat quarterly earnings?,2026-12-07T21:00:00,280.8,0.94,5.0,False,0.0,0.0,,0.01,,5
+2026-11-26,04:13Z,1459771,Will AutoZone (AZO) beat quarterly earnings?,2026-12-08T21:00:00,304.8,0.95,10.0,False,0.0,0.0,,0.01,,5
+2026-11-26,04:13Z,1459772,Will Braze (BRZE) beat quarterly earnings?,2026-12-08T21:00:00,304.8,0.79,282.5,False,0.0,0.0,,0.01,,6
+2026-11-26,04:13Z,1459773,Will Casey's (CASY) beat quarterly earnings?,2026-12-08T21:00:00,304.8,0.95,177.0,False,0.0,0.0,,0.01,,5
+2026-11-26,04:13Z,1459774,Will United Natural Foods (UNFI) beat quarterly earnings?,2026-12-08T21:00:00,304.8,0.71,82.0,False,0.0,0.0,,0.01,,5
+2026-11-26,04:13Z,1459775,Will Adobe (ADBE) beat quarterly earnings?,2026-12-09T22:00:00,329.8,0.74,41.0,False,0.0,0.0,,0.01,,15
+2026-11-26,04:13Z,1459776,Will Broadcom (AVGO) beat quarterly earnings?,2026-12-09T22:00:00,329.8,0.89,8.18,False,0.0,0.0,,0.01,,6
+2026-11-26,04:13Z,1459777,Will Chewy (CHWY) beat quarterly earnings?,2026-12-09T21:00:00,328.8,0.88,40.0,False,0.0,0.0,,0.01,,9
+2026-11-26,04:13Z,1459778,Will Campbell's (CPB) beat quarterly earnings?,2026-12-09T21:00:00,328.8,0.96,30.0,False,0.0,0.0,,0.01,,4
+2026-11-26,04:13Z,1459779,Will Korn Ferry (KFY) beat quarterly earnings?,2026-12-09T21:00:00,328.8,0.89,257.0,False,0.0,0.0,,0.01,,7
+2026-11-26,04:13Z,1459780,Will Lululemon (LULU) beat quarterly earnings?,2026-12-09T22:00:00,329.8,0.74,20.0,False,0.0,0.0,,0.01,,8
+2026-11-26,04:13Z,1459782,Will Vail Resorts (MTN) beat quarterly earnings?,2026-12-09T21:00:00,328.8,0.14,142.0,True,19.88,142.0,0.14,0.01,0.0012,5
+2026-11-26,04:13Z,1459784,Will RH (RH) beat quarterly earnings?,2026-12-09T21:00:00,328.8,0.6,112.0,False,0.0,0.0,,0.01,,8
+2026-11-26,04:13Z,1459839,Will Micron (MU) beat quarterly earnings?,2026-12-17T22:00:00,521.8,0.88,70.0,False,0.0,0.0,,0.01,,9
+2026-11-26,04:13Z,1459874,Will Nvidia (NVDA) beat Q4 FY2027 quarterly earnings?,2027-02-23T22:00:00,2153.8,0.81,102.0,False,0.0,0.0,,0.01,,15
+2026-11-26,04:13Z,1460613,Will AMD (AMD) beat Q4 2026 quarterly earnings?,2027-02-01T22:00:00,1625.8,0.83,222.5,False,0.0,0.0,,0.01,,9
+2026-11-26,04:13Z,1460617,Will CoreWeave (CRWV) beat Q4 2026 quarterly earnings?,2027-02-26T21:00:00,2224.8,0.18,243.6,True,80.53,415.62,0.1938,0.01,0.00156,12
