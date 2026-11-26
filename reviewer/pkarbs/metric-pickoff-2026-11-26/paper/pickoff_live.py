@@ -148,6 +148,7 @@ def main(argv):
     slugs = [e['slug'] for e in spec]
     REL = {e['slug']: iso_ns(e['release']) for e in spec}
     SRC = {e['slug']: e.get('source') for e in spec}
+    GUARD = {e['slug']: float(e.get('guard', 0.002)) for e in spec}   # per-event edge guard (fraction of the number)
     evs = {}
     for s in slugs:
         ev = gamma_event(s)
@@ -165,7 +166,7 @@ def main(argv):
     strategies = {}
     for i, (s, mk) in enumerate(evs.items()):
         strategies[s] = PickoffStrategy(PickoffConfig(strategy_id=f'PICKOFF-{i:03d}', markets_json=json.dumps(mk), event_slug=s, release_ns=REL[s], subscribe_source=False,
-                                                      edge_guard_frac=0.002))
+                                                      edge_guard_frac=GUARD.get(s, 0.002)))
     data = dict(POLYMARKET=PolymarketDataClientConfig(instrument_config=PolymarketInstrumentProviderConfig(event_slug_builder='pickoff_live:slugs_for_provider'),
                                                       auto_load_missing_instruments=False))
     execc = dict(POLYMARKET=SandboxExecutionClientConfig(venue='POLYMARKET', starting_balances=[f'{WALLET_PUSD} pUSD'], base_currency='pUSD', oms_type='NETTING',
