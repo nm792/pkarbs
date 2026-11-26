@@ -52,6 +52,9 @@ def parse_predicate(question):
         u1, u2 = m.group(2), m.group(4) or m.group(2)
         a = _num(m.group(1), u1 or u2); b = _num(m.group(3), u2)
         return {"kind": "between", "lo": min(a, b), "hi": max(a, b)}
+    m = re.search(r"\$(\d[\d,]*\.?\d*)\s*-\s*\$(\d[\d,]*\.?\d*)", q)      # price brackets "$105-$110" (stock/commodity weekly closes)
+    if m:
+        a = _num(m.group(1)); b = _num(m.group(2)); return {"kind": "between", "lo": min(a, b), "hi": max(a, b)}
     m = re.search(r"(\d[\d,]*\.?\d*)\s*-\s*(\d[\d,]*\.?\d*)\s*(k|m)?\s+jobs", q) or re.search(r"(\d[\d,]*\.?\d*)\s*-\s*(\d[\d,]*\.?\d*)\s*(k|m)\b", q)
     if m:
         u = m.group(3); a = _num(m.group(1), u); b = _num(m.group(2), u)
@@ -92,9 +95,31 @@ def evaluate(pred, value):
     return None
 
 
-def truth_table(markets, value):
-    """markets: [{cond, q, tokens:[yes,no], outcomes:['Yes','No']}] -> {cond: True|False|None}. Every market is decided from the SAME number."""
-    return {m["cond"]: evaluate(parse_predicate(m["q"]), value) for m in markets}
+def _edges(pred):
+    return [pred[k] for k in ("x", "lo", "hi") if pred and k in pred]
+
+
+def truth_table(markets, value, guard_frac=0.0):
+    """markets: [{cond, q, tokens:[yes,no], outcomes:['Yes','No']}] -> {cond: True|False|None}. Every market is decided from the SAME number.
+    guard_frac > 0: a market whose own edge lies within guard_frac x |value| of the number is None (skipped): protects against a source value that differs slightly from the settlement value."""
+    out = {}
+    for m in markets:
+        p = parse_predicate(m["q"])
+        if guard_frac and value is not None and any(abs(value - e) <= guard_frac * abs(value) for e in _edges(p)):
+            out[m["cond"]] = None
+        else:
+            out[m["cond"]] = evaluate(p, value)
+    return out
+
+
+def truth_by_name(markets, winner):
+    """Winner-named markets (elections, referendums): YES on the market whose title equals `winner` exactly (case/space-insensitive), NO on every
+    other market of the event. If no title matches exactly one market, every market is None (nothing traded: never guess)."""
+    norm = lambda x: " ".join((x or "").lower().split())
+    hits = [m for m in markets if norm(m.get("title")) == norm(winner)]
+    if len(hits) != 1:
+        return {m["cond"]: None for m in markets}
+    return {m["cond"]: (m is hits[0]) for m in markets}
 
 
 class HeldOrders:

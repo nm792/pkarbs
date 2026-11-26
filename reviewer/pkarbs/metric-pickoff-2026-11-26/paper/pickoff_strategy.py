@@ -22,6 +22,7 @@ class ReleaseNumber(Data):
     event_slug: str = ""
     value: float = 0.0
     source: str = ""
+    name: str = ""             # winner name for named events (elections); when set, markets are decided by title, not by value
 
 
 class PickoffConfig(StrategyConfig, frozen=True):
@@ -29,13 +30,15 @@ class PickoffConfig(StrategyConfig, frozen=True):
     event_slug: str
     release_ns: int            # scheduled release R (UTC ns); numbers stamped before R are refused (pre-release rejection)
     max_quote_age_ms: int = 0  # 0 = off
+    subscribe_source: bool = True  # backtest: ReleaseNumber arrives as data from client SRC; live paper: the source thread calls on_data on the loop
+    edge_guard_frac: float = 0.0   # skip markets whose edge is within this fraction of the number (0 = off)
 
 
 class PickoffStrategy(Strategy):
     def __init__(self, config: PickoffConfig):
         super().__init__(config)
         mk = json.loads(config.markets_json)
-        self.markets = [{"cond": m["cond"], "q": m["q"], "tokens": [m["yes_id"], m["no_id"]], "outcomes": ["Yes", "No"], "min_size": m.get("min_size", 5)} for m in mk]
+        self.markets = [{"cond": m["cond"], "q": m["q"], "title": m.get("title"), "tokens": [m["yes_id"], m["no_id"]], "outcomes": ["Yes", "No"], "min_size": m.get("min_size", 5)} for m in mk]
         self.held = C.HeldOrders(self.markets)
         self.ids = {t: InstrumentId.from_str(t) for m in self.markets for t in m["tokens"]}
         self.day_spent = {}
@@ -44,7 +47,8 @@ class PickoffStrategy(Strategy):
     def on_start(self):
         for t, iid in self.ids.items():
             self.subscribe_order_book_deltas(iid)
-        self.subscribe_data(DataType(ReleaseNumber), client_id=ClientId("SRC"))
+        if self.config.subscribe_source:
+            self.subscribe_data(DataType(ReleaseNumber), client_id=ClientId("SRC"))
 
     def _refresh(self, iid):
         book = self.cache.order_book(iid)
@@ -66,7 +70,7 @@ class PickoffStrategy(Strategy):
         for iid in self.ids.values():
             self._refresh(iid)
         day = now // 86_400_000_000_000
-        tt = C.truth_table(self.markets, data.value)
+        tt = C.truth_by_name(self.markets, data.name) if data.name else C.truth_table(self.markets, data.value, self.config.edge_guard_frac)
         orders, skipped = C.fire(self.held, tt, self.day_spent.get(day, 0.0), stale_ms=self.config.max_quote_age_ms or None, now_ms=now // 1_000_000)
         self.log_rows.append(dict(t=now, value=data.value, source=data.source, truth=tt, sent=[(o["cond"], o["side"], o["shares"], o["ask"]) for o in orders], skipped=skipped))
         built = []
