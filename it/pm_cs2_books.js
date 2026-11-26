@@ -9,8 +9,9 @@ const fs = require('fs'), path = require('path');
 const UA = { 'User-Agent': 'pkarbs-cs2-recorder', 'Accept-Encoding': 'gzip' };
 
 function newState() { return { books: {}, meta: {}, last: {}, rows: 0, msgs: 0, silentTokens: new Set() }; }
-const lv = (m, desc, n) => [...m.entries()].map(([p, s]) => [+p, s]).filter((x) => x[1] > 0).sort((a, b) => desc ? b[0] - a[0] : a[0] - b[0]).slice(0, n || 3).map(([price, size]) => ({ price, size }));
-const DEEP_MS = 10000;   // SLIM 20 Nov: a change that only moves levels 2-3 is written at most once per 10 s per token; best bid/ask price or size changes are always written; levels beyond 3 are not stored
+const LEVELS = parseInt(process.env.BOOK_LEVELS || '3', 10) || 3;   // FULL DEPTH (Nick card 26 Nov 05:57Z): BOOK_LEVELS=999 stores every level; default 3, unchanged for existing recorders
+const lv = (m, desc, n) => [...m.entries()].map(([p, s]) => [+p, s]).filter((x) => x[1] > 0).sort((a, b) => desc ? b[0] - a[0] : a[0] - b[0]).slice(0, n || LEVELS).map(([price, size]) => ({ price, size }));
+const DEEP_MS = process.env.DEEP_MS === undefined ? 10000 : Number(process.env.DEEP_MS);   // SLIM 20 Nov: a change that only moves levels 2-3 is written at most once per 10 s per token; best bid/ask price or size changes are always written; levels beyond 3 are not stored
 function emit(st, tok, recv, ts, ev, out, force) {
   const b = st.books[tok], m = st.meta[tok]; if (!b || !m) return;
   const bids = lv(b.bids, true), asks = lv(b.asks, false);
