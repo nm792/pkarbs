@@ -127,6 +127,46 @@ We are running a decision problem (which rules get paper capital and attention) 
 
 ---
 
+## 7A. Evolving the live population: history screen, then forward, hourly
+
+Added 26 Nov 2026 (Nick 00:48Z: "let's move to this method immediately"). Evidence and day-specific numbers live in `reviewer/evolution/EVIDENCE-2026-11-26.md` (trading-test, reviewer branch), not here. Supersedes `reviewer/evolution/EVOLUTION-METHOD-2026-11-26.md` (5752e586) after review `REVIEW-EVOLUTION-METHOD-2026-11-26.md` (45158d5).
+
+**Principle.** An evolutionary search has a population, a fitness score, a parent-selection rule and a variation rule. With noisy fitness, the literature's remedies are: keep re-evaluating every member instead of freezing its score, compare candidates on the same instances (racing), shrink noisy scores, and decide at pre-set sample sizes. Rules found by search on past data can fail out of sample after costs, so the verdict must use data the search did not see.
+
+- Jin & Branke (2005), "Evolutionary Optimization in Uncertain Environments: A Survey", *IEEE Trans. Evol. Comput.* 9(3):303-317. https://doi.org/10.1109/TEVC.2005.846356 (V, listing)
+- Beyer (2000), "Evolutionary algorithms in noisy environments: theoretical issues and guidelines for practice", *CMAME* 186(2-4):239-267. https://doi.org/10.1016/S0045-7825(99)00386-2 (V, listing)
+- López-Ibáñez, Dubois-Lacoste, Pérez Cáceres, Birattari & Stützle (2016), "The irace package: Iterated racing for automatic algorithm configuration", *Operations Research Perspectives* 3:43-58. https://doi.org/10.1016/j.orp.2016.09.002 (V, listing)
+- Jamieson & Talwalkar (2016), "Non-stochastic Best Arm Identification and Hyperparameter Optimization", AISTATS, PMLR 51:240-248 (successive halving). https://proceedings.mlr.press/v51/jamieson16.html (V)
+- Li, Jamieson, DeSalvo, Rostamizadeh & Talwalkar (2018), "Hyperband", *JMLR* 18(185):1-52. https://jmlr.org/papers/v18/16-558.html (V)
+- Jaderberg et al. (2017), "Population Based Training of Neural Networks", arXiv:1711.09846 (exploit = weak member takes a strong member's settings; explore = perturb or resample). (V, listing; method text read only in secondary summaries, arxiv.org blocked from the container)
+- Garivier & Moulines (2011), "On Upper-Confidence Bound Policies for Switching Bandit Problems", ALT, LNCS 6925. https://doi.org/10.1007/978-3-642-24412-4_16 (V)
+- Wang & Ramdas (2022), "False discovery rate control with e-values", *JRSS-B* 84(3):822-852 (e-BH controls FDR under any dependence). https://doi.org/10.1111/rssb.12489 (V, listing)
+- Allen & Karjalainen (1999), "Using genetic algorithms to find technical trading rules", *J. Financial Economics* 51(2):245-271: GA rules gave no consistent excess return over buy-and-hold out of sample after costs. journal citation confirmed via search listings; working paper https://papers.ssrn.com/abstract=6996 (V, listing; DOI not confirmed)
+
+**What our rules change.** Cells are never stopped or deleted without Nick's yes, so selection acts only through *where the next child goes*; losers are reported and stop receiving children. The population can only grow, so live slots (server load gate; no server spend; one node per cell and per wallet) are the binding limit. The history screen uses no slot, so the search widens there and only screened children take slots.
+
+**The loop (every hour, for MFW and for Temperature).**
+1. **Generate candidates.** Each candidate changes one setting of a parent. Steps come from measured ranges (MFW: his fills, measured BTC moves; Temperature: calibration and book data). Candidates drawn from the full prior range are allowed, because the screen, not a quota, decides whether they enter. Fixed rules are never varied: Temperature 0.975 ceiling, 0.05 floor on YES and NO, one entry per bucket per day; MFW 250 ms taker hold. Two changes are combined only after each beat the same parent on paired forward data, and the combination runs beside both (2×2) so an interaction shows.
+2. **History screen (no slot).** Every candidate is replayed on the full recorded history before it can take a slot: MFW on the recorded books (replay P&L at traded prices against a type-1 Monte Carlo null) and on all of his recorded fills (match minus the shifted-fill chance level); Temperature on the full ladder and 1-minute book history with the existing re-screen, oracle and type-1 Monte Carlo items. The pass rule is written before the run. Every candidate screened is logged (trial count for deflation, section 6). **MFW pass rule (Nick 26 Nov 03:23:35Z: "we must not discard any cells that are consistently profitable even if they do not match the behaviour of the original MFW"):** a candidate passes on EITHER axis. (a) Match: lift over the shifted-fill chance level > 0 on his recorded fills. (b) Consistent profit: replay P&L before rebates positive in total, positive on more than half of the full recorded days, and a market-level bootstrap share of totals <= 0 below 5%. Match is reported as information for every candidate, and a cell that is consistently profitable forward is never stopped or bred out for not matching him. (Rule (b) was written 26 Nov 03:30Z, after the first screen of 26 Nov had been seen; that screen is re-scored under it and labelled so.)
+3. **Parent choice.** Per axis (MFW: match and own edge, since a cell survives on either; Temperature: edge per settled bucket), pick the parent by top-two Thompson sampling on shrunk, recency-weighted estimates from valid forward windows (sections 5, 7, 11). Shrink toward the mean of all live cells of that strategy, with the between-cell variance estimated across all of them (families of 2-4 cells are too small to estimate it alone). Top-two TS has guarantees only for a fixed set of arms; with new arms entering it is used as an allocation heuristic.
+4. **Add.** If a slot is free and a screened candidate passed, it is added beside the others (existing add procedure, no stops). If not, the hourly update says why: no slot, no candidate passed, or no valid windows this hour.
+5. **Judge forward.** Each child is tested sequentially against its parent on the same markets (paired), and each cell on its own, with always-valid boundaries (section 13). The current MFW rule stays: per settled market, 16x keep, 5x kill verdict (reported, cell keeps running), 200 markets inconclusive (reported). Error control across the growing set of tests: e-BH on the e-values (Wang & Ramdas 2022). A cell's "proven" verdict uses only markets after it was chosen (winner's curse, section 5).
+6. **Report hourly.** Which candidate was added or why none; the leaderboard on valid windows only, each P&L with code SHA and error count; spare slots left.
+
+**Scores.**
+- Verdict on P&L: Nautilus only (PositionClosed realized_pnl per settled market; for Temperature per settled bucket).
+- Ranking aids must be shown to rank like Nautilus on history before use. Markout (fills marked to the token's later best bid) FAILED that check on 25 Nov (evidence file, part B): it picked the same winner as Nautilus in 20-25 of 43 cell pairs, no better than a coin. It is not used for ranking. Re-check when a denser recorded book is available.
+- MFW match is measured on his recorded fills and is the main low-noise axis already in use.
+- Temperature: compare siblings only on decisions where they differ (INSIGHTS #17); calibration on all bucket snapshots is a candidate ranking aid and must pass the same check before use.
+
+**Sample size.** No fixed edge is assumed. Markets needed for 80% power, two-sided 5%, are n = (2.8 × SD / δ)² for edge δ; the evidence file gives (2.8 × SD)², the markets needed for δ = $1 per market, per cell and code segment, so n for any δ is that number divided by δ². Always-valid sequential tests (section 13) need no δ at all. SDs come from valid windows only and are re-measured weekly; the per-market SD is a lower bound when a cell hits its account floor (counted per segment).
+
+**Our errors.** Cells ran unchanged overnight 25-26 Nov because no rule added a child on a schedule. The first draft of this method was forward-only, used a window that contained an all-cell roll, proposed a daily review against Nick's hourly rule, and rested on three bare inputs (a 1-in-4 random-child quota, the markout martingale, a $5 edge); all four are corrected above.
+
+**Rule.** Every hour: generate, screen on full history, add if a slot is free, judge forward on valid paired windows, report. Nothing is deleted or stopped without Nick's yes.
+
+---
+
 ## 8. No hindsight: decisions must be measurable on the information set at decision time
 
 **Principle.** In stochastic-process language, information available up to time t is a filtration F_t. A trading strategy must be *predictable* (or adapted): the position taken at t may depend only on F_t (strictly, F_{t-}). Any quantity that depends on the future, including the *time* chosen for a decision, breaks this, and the backtest no longer describes a strategy anyone could run. The same applies to the model's training data: a model fitted at t may use only rows whose inputs and labels were known before t. In machine learning this is called leakage.
@@ -304,6 +344,14 @@ Checked 21 Nov 2026 04:55-05:10Z. Every citation is now V. V = confirmed against
 
 **v3 (05:05Z):** citations checked; see section 17.
 
+**v7 (26 Nov 01:30Z):** section 7A added (evolution of the live population; Nick 26 Nov 00:48Z). New citations in 7A checked against publisher or index listings on 26 Nov; PBT method details from secondary summaries only.
+
 **v6 (05:35Z):** maths in sections 2, 3, 4 and 12 checked; see section 17.
 
 **Confidence 9/10** that every claim and citation is correct and that sections 1-14 are mutually exclusive and jointly cover the errors listed. Raised to 9/10 on 21 Nov 06:10Z: every claim is now checked against full text (22 papers) or the abstract (the rest), and the maths is checked. What remains below 10: claims supported by abstracts rather than full text, and the simulated 13x markout gain, which is a toy-model figure until measured on MFW's fills. Overlap that remains by design: sections 5 and 6 both treat selection bias (5 as estimation, 6 as testing); sections 8 and 9 both treat the Temperature error range (8 the leak, 9 the conditioning); sections 7 and 13 both govern forward tests (7 which cell to observe, 13 when to stop). The size of the markout variance reduction (section 12) is a claim about direction only until measured on MFW's fills.
+
+## Regime / informed-trader check (Nick, raised several times; recorded 23 Nov 04:07Z after being dropped)
+For any market where informed traders may be present, run a Hidden Markov (regime) view on real prints before judging a rule: at least an informed/news state and a noise/liquidity state, features from signed flow, trade size, inter-trade time and impact persistence, forward-filtered only (no smoothing or hindsight). Test each rule conditional on the filtered state at decision time. A rule is not "dead" until it has also failed conditional on regime.
+
+## No pooled averages as evidence (Nick, 23 Nov 06:50Z)
+Market-wide or pooled averages are never a headline or a verdict. Value strong signals per bucket/ladder on the real book (touch, depth, exit, costs), rank concrete instances with tx hashes, then ask if a rule generalises. Coordinator must reject and not relay any result built on pooled averages.
