@@ -3,7 +3,7 @@
 Goal: $200/day for PK (Nick). Paper only; nothing traded or staged. Each row stands alone (no pooled averages).
 Sources read at 01:20Z: pkarbs `reviewer` 18753603f5 (INBOX/OUTBOX, OPEN-ITEMS, DISCARDED-AUDIT, prototypes), trading-test `dialogue` 1f2e6b6cd (OPEN.md, OPEN-DONE.md, NEEDS-NICK.md, from_agent/pkarbs/*).
 
-**All PK insights live in INSIGHTS.md (same folder); read it before any scoring run, spec or IT note.**
+**All PK insights live in INSIGHTS.md (same folder); read it before any scoring run, spec or IT note.** **Each strategy's exact rules, parameters, code SHA and status live in STRATEGY.md, updated every day with a dated changelog (Nick 26 Nov 05:09Z).**
 
 **Headline facts**
 - PK proven $/day: **$0**. No strategy has a scored live-paper result.
