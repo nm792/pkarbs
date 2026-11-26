@@ -45,3 +45,4 @@ Parked or closed strategies, with the reasons, are in `PK-STRATEGY-STATUS.md` se
   - PCE SIM result recorded (row 7).
 - 2026-11-26 05:40Z: reviewed the PK thread's events code pushed 03:58-04:27Z (REVIEW-2026-11-26-events-code.md). Row 7: PCE figures relabelled as evidence-tool output, not SIM (M46); calendar cells and latency table added. Row 3: daily forward list added. Row 16 added (ONSET families, UNPROVEN).
 - 2026-11-26 05:50Z: row 16 anchor change: news-time R (webb T113) replaces price-jump R; rerun.py with fees + completeness (3cdab67673); Prime rerun routed (trading-test bd0da6139).
+- 2026-11-26 05:55Z: row 16 hypothesis registered (Nick 05:23Z: unscheduled events carry more stale-ask edge). Test in rerun.py 76d5618f9a, run after T113.
