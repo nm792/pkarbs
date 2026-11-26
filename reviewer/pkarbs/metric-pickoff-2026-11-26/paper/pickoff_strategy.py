@@ -70,7 +70,12 @@ class PickoffStrategy(Strategy):
         for iid in self.ids.values():
             self._refresh(iid)
         day = now // 86_400_000_000_000
-        tt = C.truth_by_name(self.markets, data.name) if data.name else C.truth_table(self.markets, data.value, self.config.edge_guard_frac)
+        if data.name.startswith("MAP:"):
+            tt = C.truth_by_map(self.markets, json.loads(data.name[4:]))
+        elif data.name:
+            tt = C.truth_by_name(self.markets, data.name)
+        else:
+            tt = C.truth_table(self.markets, data.value, self.config.edge_guard_frac)
         orders, skipped = C.fire(self.held, tt, self.day_spent.get(day, 0.0), stale_ms=self.config.max_quote_age_ms or None, now_ms=now // 1_000_000)
         self.log_rows.append(dict(t=now, value=data.value, source=data.source, truth=tt, sent=[(o["cond"], o["side"], o["shares"], o["ask"]) for o in orders], skipped=skipped))
         built = []

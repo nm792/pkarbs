@@ -135,12 +135,19 @@ def source_loop(src, strategies, loop, log, stop):
 
 def main(argv):
     ap = argparse.ArgumentParser()
-    ap.add_argument('--slugs', required=True); ap.add_argument('--release', required=True); ap.add_argument('--source')
+    ap.add_argument('--slugs'); ap.add_argument('--release'); ap.add_argument('--source')
+    ap.add_argument('--spec', help='JSON {"events": [{"slug", "release" ISO, "source" "mod:Class"}]}: many events, each with its own release time and source')
     ap.add_argument('--logdir', required=True); ap.add_argument('--run-s', type=int, default=0); ap.add_argument('--preflight', type=int, default=0)
     a = ap.parse_args(argv)
     os.makedirs(a.logdir, exist_ok=True)
-    slugs = [x.strip() for x in open(a.slugs).read().replace(',', '\n').split() if x.strip()]
-    R = int(dt.datetime.fromisoformat(a.release.replace('Z', '+00:00')).timestamp() * 1e9)
+    iso_ns = lambda x: int(dt.datetime.fromisoformat(x.replace('Z', '+00:00')).timestamp() * 1e9)
+    if a.spec:
+        spec = json.load(open(a.spec))['events']
+    else:
+        spec = [dict(slug=x.strip(), release=a.release, source=a.source) for x in open(a.slugs).read().replace(',', '\n').split() if x.strip()]
+    slugs = [e['slug'] for e in spec]
+    REL = {e['slug']: iso_ns(e['release']) for e in spec}
+    SRC = {e['slug']: e.get('source') for e in spec}
     evs = {}
     for s in slugs:
         ev = gamma_event(s)
@@ -157,7 +164,8 @@ def main(argv):
     DF, XF = build_factories()
     strategies = {}
     for i, (s, mk) in enumerate(evs.items()):
-        strategies[s] = PickoffStrategy(PickoffConfig(strategy_id=f'PICKOFF-{i:03d}', markets_json=json.dumps(mk), event_slug=s, release_ns=R, subscribe_source=False))
+        strategies[s] = PickoffStrategy(PickoffConfig(strategy_id=f'PICKOFF-{i:03d}', markets_json=json.dumps(mk), event_slug=s, release_ns=REL[s], subscribe_source=False,
+                                                      edge_guard_frac=0.002))
     data = dict(POLYMARKET=PolymarketDataClientConfig(instrument_config=PolymarketInstrumentProviderConfig(event_slug_builder='pickoff_live:slugs_for_provider'),
                                                       auto_load_missing_instruments=False))
     execc = dict(POLYMARKET=SandboxExecutionClientConfig(venue='POLYMARKET', starting_balances=[f'{WALLET_PUSD} pUSD'], base_currency='pUSD', oms_type='NETTING',
@@ -204,9 +212,19 @@ def main(argv):
             loop.call_soon_threadsafe(node.stop)
         threading.Thread(target=pf, daemon=True).start()
     else:
-        mod, cls = a.source.split(':')
-        src = getattr(__import__(mod), cls)(evs, a.logdir)
-        threading.Thread(target=source_loop, args=(src, strategies, loop, log, stop), daemon=True).start()
+        import inspect
+        for spec_src in sorted({v for v in SRC.values() if v}):
+            sub = {s: mk for s, mk in evs.items() if SRC.get(s) == spec_src}
+            if not sub:
+                continue
+            mod, cls = spec_src.split(':'); C_ = getattr(__import__(mod), cls)
+            kw = dict(release_s={s: REL[s] / 1e9 for s in sub}) if 'release_s' in inspect.signature(C_.__init__).parameters else {}
+            try:
+                src = C_(sub, a.logdir, **kw)
+            except Exception as e:
+                log.write(dict(t=time.time_ns(), ev='source not started', source=spec_src, err=repr(e)[:300])); print('SOURCE NOT STARTED', spec_src, e, flush=True); continue
+            log.write(dict(t=time.time_ns(), ev='source started', source=spec_src, events=len(sub)))
+            threading.Thread(target=source_loop, args=(src, strategies, loop, log, stop), daemon=True).start()
         threading.Thread(target=reports, daemon=True).start()
         if a.run_s:
             threading.Timer(a.run_s, lambda: loop.call_soon_threadsafe(node.stop)).start()

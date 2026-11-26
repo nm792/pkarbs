@@ -122,6 +122,14 @@ def truth_by_name(markets, winner):
     return {m["cond"]: (m is hits[0]) for m in markets}
 
 
+def truth_by_map(markets, outcome):
+    """Per-market official outcomes (referendums: each proposal passes or fails): outcome = {market title: True/False}. Exact title match only;
+    a market not in the map is None (not traded)."""
+    norm = lambda x: " ".join((x or "").lower().split())
+    o = {norm(k): bool(v) for k, v in outcome.items()}
+    return {m["cond"]: o.get(norm(m.get("title"))) for m in markets}
+
+
 class HeldOrders:
     """Per-token held (pre-built, unposted) order state, re-priced on every book update. YES and NO of every market both exist before the release."""
     def __init__(self, markets):
