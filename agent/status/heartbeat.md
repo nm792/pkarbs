@@ -2,9 +2,9 @@
 
 | field | value |
 |---|---|
-| generated_utc | 2026-11-27T06:00:36Z |
-| origin_tip | 4401d1c97f |
-| newest_origin_commit | 2026-11-27T05:00:20Z heartbeat 2026-11-27T05:00:00Z (no-model status_heartbeat.sh, R1) |
+| generated_utc | 2026-11-27T07:00:46Z |
+| origin_tip | 39febdf0ef |
+| newest_origin_commit | 2026-11-27T06:00:48Z heartbeat 2026-11-27T06:00:36Z (no-model status_heartbeat.sh, R1) |
 | written_by | no-model script /root/bin/status_heartbeat.sh (OPEN row R1) |
 
 Refresh cadence: hourly from crontab (pending CHANGE-BATCH approval). This file is
