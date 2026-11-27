@@ -24,10 +24,19 @@ def ticker_of(slug):
     return None
 
 
+def pyth_key():
+    """PYTH_API_KEY, else the only env var whose name contains PYTH (Prime keeps the key in /root/API_KEYS/pyth/.env under its own name)."""
+    if os.environ.get('PYTH_API_KEY'):
+        return os.environ['PYTH_API_KEY'].strip()
+    c = [v.strip() for n, v in os.environ.items() if 'PYTH' in n.upper() and 'PYTHON' not in n.upper() and 'PROXY' not in n.upper() and v.strip()]
+    return c[0] if len(c) == 1 else None
+
+
 def fetch(url, timeout=5):
     h = {'Accept-Encoding': 'gzip', 'User-Agent': 'pickoff-paper'}
-    if os.environ.get('PYTH_API_KEY'):          # Hermes requires a key since the Pyth Core upgrade (26 Aug 2026): Authorization: Bearer <key>
-        h['Authorization'] = 'Bearer ' + os.environ['PYTH_API_KEY']
+    k = pyth_key()
+    if k:                                       # Hermes / Pyth Pro need a key since the Pyth Core upgrade (26 Aug 2026): Authorization: Bearer <key>
+        h['Authorization'] = 'Bearer ' + k
     req = urllib.request.Request(url, headers=h)
     raw = urllib.request.urlopen(req, timeout=timeout).read()
     try:
