@@ -5,6 +5,7 @@ We read that candle from Pyth Benchmarks (TradingView shim, public). Symbol 'Equ
 Config (optional) pyth_symbols.json in logdir: {slug: pyth_symbol} overrides the default symbol."""
 import json, os, time, gzip, urllib.request, urllib.parse
 URL = 'https://benchmarks.pyth.network/v1/shims/tradingview/history?symbol={sym}&resolution=1&from={a}&to={b}'
+PRO_URL = 'https://pyth.dourolabs.app/v1/fixed_rate@1000ms/history?symbol={sym}&resolution=1&from={a}&to={b}'   # keyed route Nick verified 27 Nov 00:14Z (method 'pro')
 HERMES_FEEDS = 'https://hermes.pyth.network/v2/price_feeds?query={q}&asset_type=equity'
 HERMES_AT = 'https://hermes.pyth.network/v2/updates/price/{ts}?ids[]={fid}&parsed=true'
 HERMES_LATEST = 'https://hermes.pyth.network/v2/updates/price/latest?ids[]={fid}&parsed=true'
@@ -90,7 +91,9 @@ class Source:
             if self.now() < R:
                 continue
             try:
-                if self.method == 'hermes':
+                if self.method == 'pro':
+                    v = candle_close(self.fetch(PRO_URL.format(sym=urllib.parse.quote(sym, safe=''), a=int(R) - 180, b=int(R) + 60)), int(R) - 60)
+                elif self.method == 'hermes':
                     v = self.hermes_price(sym, int(R) - 1)
                 else:
                     v = candle_close(self.fetch(URL.format(sym=urllib.parse.quote(sym, safe=''), a=int(R) - 180, b=int(R) + 60)), int(R) - 60)

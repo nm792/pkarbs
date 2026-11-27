@@ -19,6 +19,11 @@ open(os.path.join(d, 'pyth_method.txt'), 'w').write('hermes')
 H = {'feeds': [{'id': 'abc', 'attributes': {'symbol': 'Equity.US.NVDA/USD'}}, {'id': 'zzz', 'attributes': {'symbol': 'Equity.US.NVDA/USD.PRE'}}], 'at': {'parsed': [{'price': {'price': '12731000', 'expo': -5}}]}}
 s3 = P.Source({'nvda-week-november-27-2026': []}, d, release_s=R, fetcher=lambda u: H['feeds'] if 'price_feeds' in u else H['at'], now=lambda: R + 2)
 ck(abs(s3.poll()[0][2] - 127.31) < 1e-9, 'hermes fallback value')
+open(os.path.join(d, 'pyth_method.txt'), 'w').write('pro')
+seen = []
+s6 = P.Source({'nvda-week-november-27-2026': []}, d, release_s=R, fetcher=lambda u: (seen.append(u), doc)[1], now=lambda: R + 2)
+o6 = s6.poll()
+ck(o6 and o6[0][2] == 127.31 and 'pyth.dourolabs.app' in seen[0] and 'Equity.US.NVDA%2FUSD' in seen[0], 'pro method: keyed history route, final-minute close: %s' % seen[:1])
 open(os.path.join(d, 'pyth_method.txt'), 'w').write('latest')
 T = [R - 40]; L = {'pt': R - 5, 'px': '12731000'}
 lat = lambda u: H['feeds'] if 'price_feeds' in u else {'parsed': [{'price': {'price': L['px'], 'expo': -5, 'publish_time': L['pt']}}]}
@@ -42,4 +47,4 @@ out = s.poll()
 ck(len(out) == 1 and out[0][1].startswith('MAP:'), 'one MAP release')
 tt = C.truth_by_map(evs['ch'], json.loads(out[0][1][4:]))
 ck(tt == {'a': False, 'b': True, 'c': None}, 'truth by map: %s' % tt)
-print('FAIL: ' + '; '.join(bad) if bad else 'PASS (12 checks)'); sys.exit(1 if bad else 0)
+print('FAIL: ' + '; '.join(bad) if bad else 'PASS (13 checks)'); sys.exit(1 if bad else 0)
