@@ -1,0 +1,24 @@
+"""Number source and parse path per family (the trigger = the number arriving from the source). SOURCES NOT REACHABLE FROM THE SESSION CONTAINER
+(bls.gov, bea.gov, dol.gov, federalreserve.gov all HTTP 403 from the agent proxy on 26 Nov 04:50Z; eia.gov 200 in 0.3 s), so no parser below is tested on a live page and
+NO source latency is measured: both are first jobs on Prime (pre-flight: poll each page at 100 ms from T-2 s on a past release day's archived page, log first-byte and parse time).
+Each entry: official release time rule, primary source (URL), parse path, value units, and the unit the market ladders use. 'verified' = read from the page this session."""
+SOURCES = {
+ "cpi_inflation": dict(clock="08:30 America/New_York", url="https://www.bls.gov/news.release/cpi.nr0.htm", api="https://api.bls.gov/publicAPI/v2/timeseries/data/CUSR0000SA0 (series CUSR0000SA0, CUSR0000SA0L1E core)",
+     parse="HTML table 'Table A' first row: all-items and core, seasonally adjusted 1-month % and 12-month %; regex on the <pre> text block 'rose 0.3 percent in ...'", units="percent, 1 decimal", verified=False),
+ "jobs_unemp": dict(clock="08:30 America/New_York", url="https://www.bls.gov/news.release/empsit.nr0.htm", api="https://api.bls.gov/publicAPI/v2/timeseries/data/CES0000000001 and LNS14000000",
+     parse="summary paragraph 'Total nonfarm payroll employment increased by N,000'; unemployment rate 'was X.X percent'; payrolls in thousands (market ladders in k)", units="thousands; percent 1 decimal", verified=False),
+ "gdp": dict(clock="08:30 America/New_York", url="https://www.bea.gov/data/gdp/gross-domestic-product", api="https://apps.bea.gov/api/data (key needed)", parse="release text 'real GDP increased at an annual rate of X.X percent'", units="percent 1 decimal", verified=False),
+ "pce": dict(clock="08:30 America/New_York", url="https://www.bea.gov/data/personal-consumption-expenditures-price-index", api="BEA API", parse="release table: PCE price index and core, month % and year %", units="percent 1 decimal", verified=False),
+ "jobless_claims": dict(clock="08:30 America/New_York Thursday (Wednesday in Thanksgiving week)", url="https://www.dol.gov/ui/data.pdf", api="https://oui.doleta.gov/unemploy/claims.asp", parse="first table row: initial claims seasonally adjusted", units="count", verified=False),
+ "eia_inventories": dict(clock="10:30 America/New_York Wednesday (delayed after holidays)", url="https://www.eia.gov/petroleum/supply/weekly/", api="https://api.eia.gov/v2/petroleum/stoc/wstk (key needed)", parse="Table 1 crude stocks change, million barrels", units="million barrels", verified=False,
+     note="eia.gov reachable from the container (200, 0.3 s on 26 Nov 04:50Z); NO open Polymarket EIA or jobless-claims events found in the next 15 days (see calendar)"),
+ "fed_decision": dict(clock="14:00 America/New_York decision day", url="https://www.federalreserve.gov/newsevents/pressreleases.htm (monetary press release)", api="same page RSS https://www.federalreserve.gov/feeds/press_monetary.xml",
+     parse="'target range for the federal funds rate at X to Y percent' compared with previous range -> change in bps (cut negative); dissent count from vote line", units="bps change", verified=False),
+ "ecb_boj_boe_bor": dict(clock="ECB 14:15 Europe/Berlin; BoE 12:00 Europe/London; BoC 09:45 America/Toronto", url="central-bank press release pages", parse="policy rate change in bps", units="bps change", verified=False),
+ "earnings_beat": dict(clock="company-specific (after close ~16:05-16:30 ET or pre-market); Gamma endDate is hour-level only", url="company IR release via BusinessWire/PRNewswire/GlobeNewswire and SEC EDGAR 8-K RSS https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=8-K",
+     parse="'GAAP/non-GAAP EPS of $X' and 'revenue of $Y' vs the consensus quoted in the market rules; the value fed to the lookup is (reported - consensus)", units="USD per share / USD", verified=False),
+ "mentions_will_say": dict(clock="the call's own clock; trigger is the word in the live transcript", url="live transcript or audio-to-text feed", parse="word present -> YES true; call end with word absent -> NO true", units="boolean", verified=False),
+ "box_office_opening": dict(clock="Sunday studio estimates ~09:00 ET (actuals Monday)", url="https://www.boxofficemojo.com/ and studio releases", parse="weekend gross in $M", units="USD millions", verified=False),
+ "netflix_top": dict(clock="Tuesday ~12:00 America/Los_Angeles (check)", url="https://www.netflix.com/tudum/top10", parse="rank list of the weekly Top 10 table", units="rank", verified=False),
+ "spotify_chart": dict(clock="weekly chart published Friday (check)", url="https://charts.spotify.com/charts/view/regional-us-weekly/latest", parse="rank list", units="rank", verified=False),
+}
