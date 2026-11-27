@@ -1,0 +1,263 @@
+{
+ "events": [
+  {
+   "slug": "aapl-above-on-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "aapl-week-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "amzn-above-on-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "amzn-week-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "googl-above-on-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "googl-week-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "meta-above-on-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "meta-week-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "msft-above-on-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "msft-week-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "mu-above-on-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "mu-week-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "nflx-above-on-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "nflx-week-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "nvda-above-on-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "nvda-week-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "open-above-on-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "open-week-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "pltr-above-on-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "pltr-week-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "spcx-above-on-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "spcx-week-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "tsla-above-on-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "tsla-week-november-27-2026",
+   "release": "2026-11-27T18:00:00Z",
+   "source": "source_ibkr:Source",
+   "guard": 0.003
+  },
+  {
+   "slug": "changhua-county-magistrate-election-winner-20260813135716600",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "chiayi-city-mayor-election-winner-202608131357161000",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "chiayi-county-magistrate-election-winner-20260813135716900",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "hsinchu-city-mayor-election-winner-20260813135716400",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "hsinchu-county-magistrate-election-winner-20260813135716300",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "hualien-county-magistrate-election-winner-202608131357161200",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "kaohsiung-mayor-election-winner-20260813125857600",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "keelung-mayor-election-winner-20260813135716100",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "kinmen-county-magistrate-election-winner-202608131357161500",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "lienchiang-county-magistrate-election-winner-202608131357161600",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "miaoli-county-magistrate-election-winner-20260813135716500",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "nantou-county-magistrate-election-winner-20260813135716700",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "new-taipei-mayor-election-winner-20260813125857200",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "penghu-county-magistrate-election-winner-202608131357161400",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "pingtung-county-magistrate-election-winner-202608131357161100",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "taichung-mayor-election-winner-20260813125857400",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "tainan-mayor-election-winner-20260813125857500",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "taipei-mayor-election-winner-20260813125857100",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "taitung-county-magistrate-election-winner-202608131357161300",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "taoyuan-mayor-election-winner-20260813125857300",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "yilan-county-magistrate-election-winner-20260813135716200",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "yunlin-county-magistrate-election-winner-20260813135716800",
+   "release": "2026-11-28T08:00:00Z",
+   "source": "source_cec:Source"
+  },
+  {
+   "slug": "switzerlands-november-referendum-what-will-pass-20260713145059520",
+   "release": "2026-11-29T11:00:00Z",
+   "source": "source_swiss:Source"
+  }
+ ]
+}
