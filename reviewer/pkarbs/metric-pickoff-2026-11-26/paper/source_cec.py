@@ -44,6 +44,7 @@ def fetch(url, timeout=5):
 
 
 class Source:
+    POLL_S = 1.0   # HTTP source: one request per event per second (rate limits); the publisher's own update cadence is the real floor
     def __init__(self, evs, logdir, fetcher=fetch):
         self.urls = json.load(open(os.path.join(logdir, 'cec_urls.json')))
         self.names = json.load(open(os.path.join(logdir, 'cec_names.json')))

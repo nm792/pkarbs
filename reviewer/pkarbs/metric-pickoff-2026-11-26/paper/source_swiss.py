@@ -27,6 +27,7 @@ def finished(doc):
 
 
 class Source:
+    POLL_S = 1.0   # HTTP source: one request per event per second (rate limits); the publisher's own update cadence is the real floor
     def __init__(self, evs, logdir, fetcher=fetch):
         p = os.path.join(logdir, 'swiss_url.txt')
         self.url = open(p).read().strip() if os.path.exists(p) else DEFAULT_URL

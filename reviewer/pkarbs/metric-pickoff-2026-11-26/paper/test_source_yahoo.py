@@ -5,9 +5,9 @@ def ck(c, m):
     if not c: bad.append(m)
 R = 1795802400
 doc = {'chart': {'result': [{'timestamp': [R - 120, R - 60], 'indicators': {'quote': [{'close': [126.0, 127.31]}]}}]}}
-s = Y.Source({'nvda-week-november-27-2026': []}, '/tmp', release_s=R, fetcher=lambda u: doc, now=lambda: R + 1)
-ck(s.poll() == [], 'nothing before R+5')
-s.now = lambda: R + 6
+s = Y.Source({'nvda-week-november-27-2026': []}, '/tmp', release_s=R, fetcher=lambda u: doc, now=lambda: R - 1)
+ck(s.poll() == [], 'nothing before R')
+s.now = lambda: R + 1
 o = s.poll(); ck(len(o) == 1 and o[0][2] == 127.31, 'final-minute close: %s' % o)
 s.fetch = lambda u: {'chart': {'result': [{'timestamp': [R - 120], 'indicators': {'quote': [{'close': [1.0]}]}}]}}
 ck(s.poll() == [], 'bar not published -> nothing')

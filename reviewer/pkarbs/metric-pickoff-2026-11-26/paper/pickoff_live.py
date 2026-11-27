@@ -116,7 +116,7 @@ class Jsonl:
 
 
 def source_loop(src, strategies, loop, log, stop):
-    """poll the source once a second; hand each NEW result to its event's strategy on the event loop. A result is (slug, name or None, value or None, info)."""
+    """poll the source every src.POLL_S seconds (default 0.05 s: as fast as the source allows; HTTP sources set 1.0 for their rate limits); hand each NEW result to its event's strategy on the event loop. A result is (slug, name or None, value or None, info)."""
     from pickoff_strategy import ReleaseNumber
     done = set()
     while not stop.is_set():
@@ -130,7 +130,7 @@ def source_loop(src, strategies, loop, log, stop):
                 done.add(slug); log.write(dict(t=now, ev='release', slug=slug, name=name, value=value, info=info))
         except Exception as e:
             log.write(dict(t=time.time_ns(), ev='source error', err=repr(e)[:300]))
-        stop.wait(1.0)
+        stop.wait(float(getattr(src, 'POLL_S', 0.05)))
 
 
 def main(argv):

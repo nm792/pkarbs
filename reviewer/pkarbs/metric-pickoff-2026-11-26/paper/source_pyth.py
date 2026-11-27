@@ -10,7 +10,7 @@ HERMES_FEEDS = 'https://hermes.pyth.network/v2/price_feeds?query={q}&asset_type=
 HERMES_AT = 'https://hermes.pyth.network/v2/updates/price/{ts}?ids[]={fid}&parsed=true'
 HERMES_LATEST = 'https://hermes.pyth.network/v2/updates/price/latest?ids[]={fid}&parsed=true'
 # P188 (26 Nov 15:55Z): benchmarks 404 and Hermes historical 401 on Prime; Hermes price_feeds 200. Method C 'latest' (pyth_method.txt = latest):
-# poll Hermes LATEST once a second from R-30 s, keep the newest price whose publish_time lies in the final minute [R-60, R], emit it at R+3 s.
+# poll Hermes LATEST once a second from R-30 s, keep the newest price whose publish_time lies in the final minute [R-60, R], emit it from R.
 # The latest price published inside the final minute is the close of that minute's candle (candle close = last price of the minute).
 # P185 (26 Nov 14:00Z): the TradingView shim returned 404 for 'Equity.US.NVDA/USD' unencoded. Method A now URL-encodes the symbol;
 # method B (fallback, PRICE_METHOD=hermes in pyth_method.txt) reads Hermes' price published at R-1 s for the feed id of that symbol
@@ -57,6 +57,7 @@ def candle_close(doc, t_start):
 
 
 class Source:
+    POLL_S = 1.0   # HTTP source: one request per event per second (rate limits); the publisher's own update cadence is the real floor
     def __init__(self, evs, logdir, release_s=None, fetcher=fetch, now=time.time):
         self.release = {s: release_s[s] for s in evs} if isinstance(release_s, dict) else {s: release_s for s in evs}
         over = {}
@@ -127,4 +128,4 @@ class Source:
                         self.best[slug] = (pt, v)
             except Exception:
                 pass
-        return self.best.get(slug) if now >= R + 3 else None
+        return self.best.get(slug) if now >= R else None

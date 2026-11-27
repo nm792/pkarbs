@@ -1,52 +1,76 @@
 """IBKR live source for stock weekly-close markets (Nick 27 Nov 03:03Z: "stock prices should be using IBKR. live"). READ-ONLY market data.
 Connects to a locally running IB Gateway (Nick's login) with readonly=True: no order can be sent through this connection.
-Value = close of the 1-minute TRADES bar that starts at R-60 s (the final minute of the session), i.e. the last trade price of the final minute.
-Settlement is Pyth's close of the same minute: they are not the same number (Pyth aggregates publishers; IBKR is consolidated last trade),
-so run with a per-event guard ("guard": 0.003 in the spec) and compare with Pyth after the event.
+Value = last trade price of the final minute = close of the newest 5-second real-time TRADES bar with volume that starts in [R-60, R-5].
+Read live (Nick 27 Nov 09:27Z: replicate live conditions): bars are streamed from R-120 s (reqRealTimeBars, 5 s is IBKR's only real-time bar size),
+and the value is released as soon as the bar that starts at R-5 (ends at R) has arrived, or any later bar has. No fixed wait; poll every 50 ms.
+Settlement is Pyth's close of the same minute: not the same number (Pyth aggregates publishers), so run with "guard": 0.003 in the spec.
 Config: env IB_HOST (127.0.0.1), IB_PORT (4001 = Gateway live), IB_CLIENT_ID (77). Needs `pip install ib_async`."""
-import os, time, datetime as dt
-from source_pyth import ticker_of
+import os, time, asyncio
 
 
-def ib_bars(ticker, R, _ib=[None]):
-    """[(start_epoch_s, close)] 1-min TRADES bars ending at R+60 (ib_async, read-only)."""
-    from ib_async import IB, Stock
-    if _ib[0] is None or not _ib[0].isConnected():
-        ib = IB()
-        ib.connect(os.environ.get('IB_HOST', '127.0.0.1'), int(os.environ.get('IB_PORT', '4001')), clientId=int(os.environ.get('IB_CLIENT_ID', '77')),
-                   readonly=True, timeout=10)
-        _ib[0] = ib
-    ib = _ib[0]
-    c = Stock(ticker, 'SMART', 'USD')
-    ib.qualifyContracts(c)
-    end = dt.datetime.fromtimestamp(int(R) + 60, dt.timezone.utc)
-    bars = ib.reqHistoricalData(c, endDateTime=end, durationStr='300 S', barSizeSetting='1 min', whatToShow='TRADES', useRTH=False, formatDate=2, timeout=10)
-    out = []
-    for b in bars or []:
-        d = b.date
-        t = int(d.timestamp()) if hasattr(d, 'timestamp') else int(d)
-        out.append((t, float(b.close)))
-    return out
+class IBStream:
+    """ib_async wrapper used from the source thread (own asyncio loop). bars(ticker) -> [(start_epoch_s, close, volume)]."""
+    def __init__(self):
+        self.ib, self.sub = None, {}
+
+    def _conn(self):
+        from ib_async import IB
+        if self.ib is None or not self.ib.isConnected():
+            try:
+                asyncio.get_event_loop()
+            except RuntimeError:
+                asyncio.set_event_loop(asyncio.new_event_loop())
+            self.ib = IB()
+            self.ib.connect(os.environ.get('IB_HOST', '127.0.0.1'), int(os.environ.get('IB_PORT', '4001')),
+                            clientId=int(os.environ.get('IB_CLIENT_ID', '77')), readonly=True, timeout=10)
+            self.sub = {}
+        return self.ib
+
+    def subscribe(self, ticker):
+        from ib_async import Stock
+        ib = self._conn()
+        if ticker not in self.sub:
+            c = Stock(ticker, 'SMART', 'USD'); ib.qualifyContracts(c)
+            self.sub[ticker] = ib.reqRealTimeBars(c, 5, 'TRADES', False)
+
+    def bars(self, ticker):
+        self._conn().sleep(0)          # let ib_async process incoming bars
+        return [(int(b.time.timestamp()), float(b.close), float(b.volume)) for b in self.sub.get(ticker, [])]
+
+
+def final_minute_close(bars, R):
+    """bars [(start, close, volume)] -> last-trade price of [R-60, R) once the bar ending at R (or any later bar) is in, else None."""
+    if not any(t >= R - 5 for t, _, _ in bars):
+        return None
+    inmin = [(t, c) for t, c, v in bars if R - 60 <= t <= R - 5 and v > 0]
+    return max(inmin)[1] if inmin else None
 
 
 class Source:
-    def __init__(self, evs, logdir, release_s=None, bars=ib_bars, now=time.time):
+    POLL_S = 0.05
+
+    def __init__(self, evs, logdir, release_s=None, stream=None, now=time.time):
         self.release = {s: release_s[s] for s in evs} if isinstance(release_s, dict) else {s: release_s for s in evs}
-        self.tk = {s: ticker_of(s) for s in evs if ticker_of(s)}
-        self.bars, self.now = bars, now
-        self.done = set()
+        self.tk = {s: s.split('-week-')[0].split('-above-on-')[0].upper() for s in evs if '-week-' in s or '-above-on-' in s}
+        self.st, self.now = stream or IBStream(), now
+        self.done, self.subbed = set(), set()
 
     def poll(self):
         out = []
         for slug, tk in self.tk.items():
             R = self.release.get(slug)
-            if slug in self.done or R is None or not (R + 2 <= self.now() <= R + 600):
+            if slug in self.done or R is None:
                 continue
+            n = self.now()
             try:
-                v = next((c for t, c in self.bars(tk, R) if t == int(R) - 60), None)
+                if tk not in self.subbed and R - 120 <= n <= R + 600:
+                    self.st.subscribe(tk); self.subbed.add(tk)
+                if n < R or tk not in self.subbed:
+                    continue
+                v = final_minute_close(self.st.bars(tk), int(R))
             except Exception:
                 continue
             if v is not None:
                 self.done.add(slug)
-                out.append((slug, None, v, dict(src='ibkr', ticker=tk, bar_start=int(R) - 60, note='IBKR last trade of final minute; settlement is Pyth')))
+                out.append((slug, None, v, dict(src='ibkr', ticker=tk, bars='5s realtime TRADES', note='IBKR last trade of final minute; settlement is Pyth')))
         return out
