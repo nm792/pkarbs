@@ -24,7 +24,10 @@ def ticker_of(slug):
 
 
 def fetch(url, timeout=5):
-    req = urllib.request.Request(url, headers={'Accept-Encoding': 'gzip', 'User-Agent': 'pickoff-paper'})
+    h = {'Accept-Encoding': 'gzip', 'User-Agent': 'pickoff-paper'}
+    if os.environ.get('PYTH_API_KEY'):          # Hermes requires a key since the Pyth Core upgrade (26 Aug 2026): Authorization: Bearer <key>
+        h['Authorization'] = 'Bearer ' + os.environ['PYTH_API_KEY']
+    req = urllib.request.Request(url, headers=h)
     raw = urllib.request.urlopen(req, timeout=timeout).read()
     try:
         raw = gzip.decompress(raw)
